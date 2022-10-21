@@ -1,0 +1,8 @@
+{
+  "mongoURI": "mongodb://localhost:27017/pinnac23_LRA",  
+  "jwtSecret": "jwtSecret",
+  "githubClientId": "",
+  "githubSecret": "",
+  "fileUploadPath":"herb\\files\\csv\\original\\"
+}
+
