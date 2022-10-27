@@ -29,7 +29,7 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
   console.log(process.env.REACT_APP_BASE_URL);
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/login`,
+      "http://65.0.103.98:5433/api/auth/login",
       body,
       config
     );
