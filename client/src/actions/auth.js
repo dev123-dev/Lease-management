@@ -26,7 +26,7 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ useremail, password, userOTP });
-
+  console.log(process.env.REACT_APP_BASE_URL);
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_BASE_URL}/api/auth/login`,
