@@ -26,10 +26,9 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ useremail, password, userOTP });
-  console.log(process.env.REACT_APP_BASE_URL);
   try {
     const res = await axios.post(
-      "http://65.0.103.98:5433/api/auth/login",
+      `${process.env.REACT_APP_BASE_URL}api/auth/login`,
       body,
       config
     );
@@ -38,10 +37,10 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    // const errors = err.response.data.errors;
+    const errors = err.response.data.errors;
     dispatch({
       type: LOGIN_FAIL,
-      // payload: errors[0].msg,
+      payload: errors[0].msg,
     });
   }
 };
@@ -147,7 +146,11 @@ export const getSearchUsersByFilter = (finalData) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post("/api/auth/filter-users", finalData, config);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/filter-users`,
+      finalData,
+      config
+    );
     dispatch({
       type: ALL_USERS,
       payload: res.data,
@@ -168,7 +171,11 @@ export const changePwd = (formData) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post("/api/auth/change-pwd", formData, config);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/change-pwd`,
+      formData,
+      config
+    );
     dispatch({
       type: LOGOUT,
     });

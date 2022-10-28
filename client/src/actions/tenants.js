@@ -39,7 +39,7 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "/api/tenants/add-tenant-details",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/add-tenant-details`,
       finalData,
       config
     );
@@ -47,7 +47,6 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
       type: NEW_TENENTDETAILS,
       payload: res.data,
     });
-
     dispatch(getAllDoorNos());
     dispatch(getMonthExpCountFilter(finalDataExpCount));
     dispatch(getPreviousYearsExpCount(finalDataPrevYear));
@@ -64,7 +63,11 @@ export const AddTenantSettingsform = (finalData) => async (dispatch) => {
       type: TENANT_ADD_INIT,
     });
 
-    await axios.post("/api/tenants/add-tenant-settings", finalData, config);
+    await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/add-tenant-settings`,
+      finalData,
+      config
+    );
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -78,7 +81,11 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
       type: TENANT_ADD_INIT,
     });
 
-    await axios.post("/api/tenants/add-tenant-settings", finalData, config);
+    await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/add-tenant-settings`,
+      finalData,
+      config
+    );
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -88,7 +95,11 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
   try {
-    await axios.post("/api/tenants/add-shop-details", finalData, config);
+    await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/add-shop-details`,
+      finalData,
+      config
+    );
     dispatch(getAllShops());
   } catch (err) {
     dispatch({
@@ -99,7 +110,11 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
 
 export const AddTenantAgreementform = (finalData) => async (dispatch) => {
   try {
-    await axios.post("/api/tenants/add-agreement-details", finalData, config);
+    await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/add-agreement-details`,
+      finalData,
+      config
+    );
     dispatch({
       type: AGREEMENT_ADD_INIT,
     });
@@ -113,7 +128,7 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
 export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      "/api/tenants/deactive-tenant",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/deactive-tenant`,
       finalData,
       config
     );
@@ -129,7 +144,7 @@ export const UpdateTenantsDetails =
     try {
       // console.log(finalData);
       const res = await axios.post(
-        "/api/tenants/update-tenant-details",
+        `${process.env.REACT_APP_BASE_URL}/api/tenants/update-tenant-details`,
         finalData,
         config
       );
@@ -147,7 +162,7 @@ export const UpdateTenantsDetails =
 export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      "/api/tenants/tenant-update-history",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/tenant-update-history`,
       historyData,
       config
     );
@@ -161,7 +176,7 @@ export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
   try {
     const res = await axios.post(
-      "/api/tenants/update-tenant",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/update-tenant`,
       finalData,
       config
     );
@@ -175,7 +190,9 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 // Get Exp Month Count
 export const getMonthExpCount = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-month-exp-count");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-month-exp-count`
+    );
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,
@@ -196,7 +213,7 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "/api/tenants/get-month-exp-count-filter",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-month-exp-count-filter`,
       finalData,
       config
     );
@@ -213,7 +230,9 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
 
 export const getAllShops = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-all-shops");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-all-shops`
+    );
     dispatch({
       type: GET_ALL_SHOPS,
       payload: res.data,
@@ -234,7 +253,7 @@ export const getPreviousYearsExpCount = (finalData) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "/api/tenants/get-previous-years-exp",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-previous-years-exp`,
       finalData,
       config
     );
@@ -263,7 +282,7 @@ export const getTenantReportYearMonth =
     });
     try {
       const res = await axios.post(
-        "/api/tenants/get-tenant-exp-report",
+        `${process.env.REACT_APP_BASE_URL}/api/tenants/get-tenant-exp-report`,
         finalDataReport,
         config
       );
@@ -279,7 +298,9 @@ export const getTenantReportYearMonth =
   };
 export const getAllTenants = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-all-tenants");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-all-tenants`
+    );
     dispatch({
       type: GET_ALL_TENANTS,
       payload: res.data,
@@ -293,7 +314,9 @@ export const getAllTenants = () => async (dispatch) => {
 
 export const getAllSettings = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-all-settings");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-all-settings`
+    );
     dispatch({
       type: GET_ALL_SETTINGS,
       payload: res.data,
@@ -307,7 +330,9 @@ export const getAllSettings = () => async (dispatch) => {
 
 export const getAllDoorNos = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-door-nos");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-door-nos`
+    );
     dispatch({
       type: GET_DOORNOS,
       payload: res.data,
@@ -321,7 +346,9 @@ export const getAllDoorNos = () => async (dispatch) => {
 
 export const getAllDoorNumbers = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/tenants/get-door-number");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/get-door-number`
+    );
     dispatch({
       type: GET_DOORNUMBER,
       payload: res.data,
@@ -341,7 +368,7 @@ export const getTenantReportOldExp =
     };
     try {
       const res = await axios.post(
-        "/api/tenants/get-tenant-old-exp-report",
+        `${process.env.REACT_APP_BASE_URL}/api/tenants/get-tenant-old-exp-report`,
         finalDataReportOld,
         config
       );
@@ -364,7 +391,7 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
   };
   try {
     const res = await axios.post(
-      "/api/tenants/filter-tenant-doorno-pref",
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/filter-tenant-doorno-pref`,
       finalData,
       config
     );
@@ -406,7 +433,11 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     tenantDate: finalData.tenantDate,
   };
   try {
-    await axios.post("/api/tenants/renew-tenant-details", finalData2, config);
+    await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/tenants/renew-tenant-details`,
+      finalData2,
+      config
+    );
     dispatch(getTenantReportYearMonth(finalDataReport));
     dispatch(getMonthExpCountFilter(finalDataExpCount));
     dispatch(getPreviousYearsExpCount(finalDataPrevYear));
