@@ -23,7 +23,7 @@ app.use("/api/tenants", require("./server/routes/api/tenants"));
 //   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 // });
 
-const PORT = process.env.PORT || 5433;
+const PORT = process.env.PORT || 5434;
 
 // step 3: Heroku
 
