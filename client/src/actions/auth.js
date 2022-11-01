@@ -37,10 +37,10 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
+    // const errors = err.response.data.errors;
     dispatch({
       type: LOGIN_FAIL,
-      payload: errors[0].msg,
+      // payload: errors[0].msg,
     });
   }
 };
