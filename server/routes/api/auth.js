@@ -39,7 +39,7 @@ const {
 // @desc     Authenticate user & get token
 // @access   Public
 router.post(
-  LOGIN,
+  "/login",
   [
     check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
     check(PASSWORD, PASSWORD_INVALID).exists(),
