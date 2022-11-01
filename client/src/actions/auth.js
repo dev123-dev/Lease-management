@@ -27,7 +27,11 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
 
   const body = JSON.stringify({ useremail, password, userOTP });
   try {
-    const res = await axios.post("/api/auth/login", body, config);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/login`,
+      body,
+      config
+    );
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -54,7 +58,11 @@ export const sendOTP = (useremail, password) => async (dispatch) => {
   const body = JSON.stringify({ useremail, password });
 
   try {
-    const res = await axios.post("/api/auth/send_email-otp", body, config);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/send_email-otp`,
+      body,
+      config
+    );
     dispatch({
       type: OTP_SENT,
       payload: res.data,
@@ -75,7 +83,9 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("/api/auth/load-user");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/load-user`
+    );
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -90,7 +100,9 @@ export const loadUser = () => async (dispatch) => {
 // Get All Users
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/auth/all-users");
+    const res = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/all-users`
+    );
     dispatch({
       type: GET_ALL_USER,
       payload: res.data,
@@ -109,7 +121,11 @@ export const AddUserDetailsform = (finalData) => async (dispatch) => {
     },
   };
   try {
-    await axios.post("/api/auth/add-user-details", finalData, config);
+    await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/add-user-details`,
+      finalData,
+      config
+    );
     dispatch({
       type: ADD_USER_INIT,
     });
@@ -130,7 +146,11 @@ export const getSearchUsersByFilter = (finalData) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post("/api/auth/filter-users", finalData, config);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/filter-users`,
+      finalData,
+      config
+    );
     dispatch({
       type: ALL_USERS,
       payload: res.data,
@@ -151,7 +171,11 @@ export const changePwd = (formData) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post("/api/auth/change-pwd", formData, config);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BASE_URL}/api/auth/change-pwd`,
+      formData,
+      config
+    );
     dispatch({
       type: LOGOUT,
     });
