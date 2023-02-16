@@ -1,79 +1,41 @@
 const mongoose = require("mongoose");
-ObjectId = mongoose.Schema.ObjectId;
 
-const TenantDetails = new mongoose.Schema({
-  tenantName: {
-    type: String,
-    required: true,
-  },
-  tenantPhone: {
-    type: Number,
-    //  required: false,
-  },
-  tenantFirmName: {
-    type: String,
-  },
-  tenantAddr: {
-    type: String,
-    required: true,
-  },
-  tenantAdharNo: {
-    type: String,
-    // required: true,
-  },
-  tenantPanNo: {
-    type: String,
-    // required: true,
-  },
-  tenantDepositAmt: {
-    type: Number,
-    required: true,
-  },
-  generatordepoAmt: {
-    type: Number,
-  },
-  tenantPaymentMode: {
-    type: String,
-    required: true,
-  },
-  tenantChequenoOrDdno: {
-    type: String,
-  },
-  tenantBankName: {
-    type: String,
-  },
-  tenantchequeDate: {
-    type: String,
-  },
-  tenantstatus: {
-    type: String,
-    required: true,
-    default: "Active", //Active,Deactive
-  },
+const PropertySchema = new mongoose.Schema({
   buildingName: {
     type: String,
     required: true,
   },
-  Location: [],
   shopDoorNo: {
     type: String,
     required: true,
   },
-  shopId: {
-    type: ObjectId,
-  },
-  tenantEnteredBy: {
-    type: ObjectId,
-  },
-  tenantDate: {
+  shopAddress: {
     type: String,
+    required: true,
   },
-  tenantDateTime: {
-    type: Date,
-    default: Date.now(),
+  hikePercentage: {
+    type: Number,
+    Required: true,
   },
-  tenantdeactivereason: {
+  stampDuty: {
+    type: SchemaTypes.Double,
+    required: true,
+  },
+  leaseTimePeriod: {
+    type: Number,
+    required: true,
+  },
+  OrganizationName: {
     type: String,
+    required: true,
+  },
+  shopStatus: {
+    type: String,
+    required: true,
+  },
+  Location: [],
+  tdId: {
+    type: ObjectId,
   },
   enter_by_id: {
     type: ObjectId,
@@ -129,4 +91,7 @@ const TenantDetails = new mongoose.Schema({
   },
 });
 
-module.exports = tenantDetails = mongoose.model("tenantDetails", TenantDetails);
+module.exports = PropertyDetails = mongoose.model(
+  "PropertyDetails",
+  PropertySchema
+);

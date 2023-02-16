@@ -17,6 +17,9 @@ import {
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
+// var linkPath = process.env.REACT_APP_BASE_URL;
+var linkPath = "";
+
 // Login User
 export const login = (useremail, password, userOTP) => async (dispatch) => {
   const config = {
@@ -29,11 +32,7 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
   console.log("useremail", useremail);
   console.log("useremail", useremail);
   try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}api/auth/login`,
-      body,
-      config
-    );
+    const res = await axios.post(`${linkPath}/api/auth/login`, body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -61,7 +60,7 @@ export const sendOTP = (useremail, password) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/send_email-otp`,
+      `${linkPath}/api/auth/send_email-otp`,
       body,
       config
     );
@@ -85,9 +84,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/load-user`
-    );
+    const res = await axios.get(`${linkPath}/api/auth/load-user`);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -102,9 +99,7 @@ export const loadUser = () => async (dispatch) => {
 // Get All Users
 export const getAllUsers = () => async (dispatch) => {
   try {
-    const res = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/all-users`
-    );
+    const res = await axios.get(`${linkPath}/api/auth/all-users`);
     dispatch({
       type: GET_ALL_USER,
       payload: res.data,
@@ -124,7 +119,7 @@ export const AddUserDetailsform = (finalData) => async (dispatch) => {
   };
   try {
     await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/add-user-details`,
+      `${linkPath}/api/auth/add-user-details`,
       finalData,
       config
     );
@@ -149,7 +144,7 @@ export const getSearchUsersByFilter = (finalData) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/filter-users`,
+      `${linkPath}/api/auth/filter-users`,
       finalData,
       config
     );
@@ -174,7 +169,7 @@ export const changePwd = (formData) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/change-pwd`,
+      `${linkPath}/api/auth/change-pwd`,
       formData,
       config
     );

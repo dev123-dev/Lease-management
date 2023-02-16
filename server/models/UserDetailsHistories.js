@@ -1,73 +1,38 @@
 const mongoose = require("mongoose");
-ObjectId = mongoose.Schema.ObjectId;
 
-const TenantHistory = new mongoose.Schema({
-  tdId: {
-    type: ObjectId,
-  },
-  thFileNo: {
+const UserHistory = new mongoose.Schema({
+  userfullName: {
     type: String,
   },
-  thDoorNo: {
+  password: {
     type: String,
   },
-  thName: {
+  cpassword: {
     type: String,
   },
-  thPhone: {
+  useremail: {
+    type: String,
+  },
+  usergroup: {
+    type: String,
+  },
+  useraddr: {
+    type: String,
+  },
+  userphone: {
     type: Number,
   },
-  thFirmName: {
+  userStatus: {
     type: String,
+
+    default: "Active",
   },
-  thAddr: {
-    type: String,
-  },
-  thAdharNo: {
-    type: String,
-  },
-  thPanNo: {
-    type: String,
-  },
-  thDepositAmt: {
-    type: Number,
-  },
-  thgeneratordepoAmt: {
-    type: Number,
-  },
-  thshopId: {
-    type: ObjectId,
-  },
-  thStatus: {
-    type: String,
-  },
-  thChequenoOrDdno: {
-    type: String,
-  },
-  thBankName: {
-    type: String,
-  },
-  thPaymentMode: {
-    type: String,
-  },
-  thEnteredBy: {
-    type: ObjectId,
-  },
-  thRentAmount: {
-    type: Number,
-  },
-  thLeaseStartDate: {
-    type: String,
-  },
-  thLeaseEndDate: {
-    type: String,
-  },
-  thDate: {
-    type: String,
-  },
-  thDateTime: {
+  userDate: {
     type: Date,
     default: Date.now(),
+  },
+  OrganizationName: {
+    type: String,
   },
   enter_by_id: {
     type: ObjectId,
@@ -113,7 +78,7 @@ const TenantHistory = new mongoose.Schema({
   },
 });
 
-module.exports = tenantHistories = mongoose.model(
-  "tenantHistories",
-  TenantHistory
+module.exports = UserHistory = mongoose.model(
+  "UserDetailHistories",
+  UserHistory
 );

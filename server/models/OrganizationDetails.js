@@ -1,47 +1,29 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema({
-  userfullName: {
-    type: String,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  cpassword: {
-    type: String,
-    required: true,
-  },
-  useremail: {
-    type: String,
-    required: true,
-  },
-  usergroup: {
-    type: String,
-    required: true,
-  },
-  useraddr: {
-    type: String,
-    required: true,
-  },
-  userphone: {
-    type: Number,
-    required: true,
-  },
-  userStatus: {
-    type: String,
-    required: true,
-    default: "Active",
-  },
-  userDate: {
-    type: Date,
-    default: Date.now(),
-  },
+const OrganizationSchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
     required: true,
   },
+  OrganizationEmail: {
+    type: String,
+    required: true,
+  },
+  OrganizationNumber: {
+    type: Number,
+    required: true,
+  },
+  OrganizationAddress: {
+    type: String,
+  },
+  NumberOfUser: {
+    type: number,
+  },
+  logo: {
+    data: Buffer,
+    contentType: String,
+  },
+  Location: [],
   enter_by_id: {
     type: ObjectId,
     required: true,
@@ -95,5 +77,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-module.exports = UserDetails = mongoose.model("userdetails", UserSchema);
+module.exports = OrganizationSchema = mongoose.model(
+  "OrganizationDetails",
+  OrganizationSchema
+);

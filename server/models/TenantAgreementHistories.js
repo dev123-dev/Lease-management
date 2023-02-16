@@ -1,73 +1,42 @@
 const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
-const TenantHistory = new mongoose.Schema({
+const TenantAgreementHistory = new mongoose.Schema({
   tdId: {
     type: ObjectId,
+    // required: true,
   },
-  thFileNo: {
-    type: String,
-  },
-  thDoorNo: {
-    type: String,
-  },
-  thName: {
-    type: String,
-  },
-  thPhone: {
+  tenantRentAmount: {
     type: Number,
+    required: true,
   },
-  thFirmName: {
+  tenantLeaseStartDate: {
     type: String,
+    required: true,
   },
-  thAddr: {
+  tenantLeaseEndDate: {
     type: String,
+    // required: true,
   },
-  thAdharNo: {
-    type: String,
-  },
-  thPanNo: {
-    type: String,
-  },
-  thDepositAmt: {
-    type: Number,
-  },
-  thgeneratordepoAmt: {
-    type: Number,
-  },
-  thshopId: {
+  tenantAgreementEntredBy: {
     type: ObjectId,
   },
-  thStatus: {
+  tenantAgreementDate: {
     type: String,
   },
-  thChequenoOrDdno: {
-    type: String,
-  },
-  thBankName: {
-    type: String,
-  },
-  thPaymentMode: {
-    type: String,
-  },
-  thEnteredBy: {
-    type: ObjectId,
-  },
-  thRentAmount: {
-    type: Number,
-  },
-  thLeaseStartDate: {
-    type: String,
-  },
-  thLeaseEndDate: {
-    type: String,
-  },
-  thDate: {
-    type: String,
-  },
-  thDateTime: {
+  tenantAgreementDateTime: {
     type: Date,
     default: Date.now(),
+  },
+  tenantFileNo: {
+    type: String,
+  },
+  tenantDoorNo: {
+    type: String,
+  },
+  AgreementStatus: {
+    type: String,
+    default: "Active", //Active,Expired, Renewed
   },
   enter_by_id: {
     type: ObjectId,
@@ -113,7 +82,7 @@ const TenantHistory = new mongoose.Schema({
   },
 });
 
-module.exports = tenantHistories = mongoose.model(
-  "tenantHistories",
-  TenantHistory
+module.exports = TenantAgreementHistory = mongoose.model(
+  "TenantAgreementHistories",
+  TenantAgreementHistory
 );

@@ -3,7 +3,8 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 //const path = require('path');
 const app = express();
-const cronjob = require("../Lease-management/cronjob/index");
+// const cronjob = require("../Lease-management/cronjob/index");
+const cronjob = require("./cronjob");
 //server
 app.use(cors());
 // Connect Database

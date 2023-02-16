@@ -1,5 +1,5 @@
 {
-  "mongoURI": "mongodb+srv://Lease_Management:bX6nt27kIh9ttfHR@clusterlease.cwojk.mongodb.net/pinnac23_lease?retryWrites=true&w=majority",  
+  "mongoURI": "mongodb://127.0.0.1:27017/pinnac23_LRA",  
   "jwtSecret": "jwtSecret",
   "githubClientId": "",
   "githubSecret": "",
