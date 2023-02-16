@@ -4,7 +4,7 @@ const connectDB = require("./config/db");
 //const path = require('path');
 const app = express();
 const cronjob = require("../Lease-management/cronjob/index");
-
+//server
 app.use(cors());
 // Connect Database
 connectDB();
