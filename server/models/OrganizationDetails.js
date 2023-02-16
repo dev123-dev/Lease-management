@@ -77,7 +77,5 @@ const OrganizationSchema = new mongoose.Schema({
     required: true,
   },
 });
-module.exports = OrganizationSchema = mongoose.model(
-  "OrganizationDetails",
-  OrganizationSchema
+module.exports = OrganizationSchema = mongoose.model("OrganizationDetails",OrganizationSchema
 );

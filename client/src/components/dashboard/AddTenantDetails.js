@@ -3,17 +3,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
+  
   getAllDoorNos,
   getAllSettings,
 } from "../../actions/tenants";
 import Select from "react-select";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 
 const AddTenantDetails = ({
   tenants: { allDoorNos, allTenantSetting },
   auth: { isAuthenticated, user, users, finalDataRep },
   getAllDoorNos,
   AddTenantDetailsform,
+  Addorgform ,
   getAllSettings,
 }) => {
   useEffect(() => {
@@ -51,6 +53,7 @@ const AddTenantDetails = ({
     isSubmitted: false,
   });
 
+//tenant data
   const {
     tenantFileNo,
     tenantDoorNo,
@@ -548,6 +551,37 @@ const AddTenantDetails = ({
         </Modal>
       </div>
     </Fragment>
+    // <Fragment>
+    //   <input 
+    //   type='text'
+    //    placeholder="OrganizationName"
+    //    name="OrganizationName" 
+    //    value={OrganizationName}
+    //    onChange={(e)=>onOrgchange(e)}
+    //     ></input>
+    //   <input 
+    //   type='text' 
+    //   placeholder=" OrganizationEmail"
+    //   name="OrganizationEmail" 
+    //   value={OrganizationEmail}
+    //   onChange={(e)=>onOrgchange(e)}
+    //   ></input>
+    //   <input 
+    //   type='text' 
+    //   placeholder=" OrganizationNumber"
+    //   name="OrganizationNumber" 
+    //   value={OrganizationNumber}
+    //   onChange={(e)=>onOrgchange(e)}
+    //   ></input>
+    //   <input 
+    //   type='text' 
+    //   placeholder=" OrganizationAddress"
+    //   name="OrganizationAddress" 
+    //   value={OrganizationAddress}
+    //   onChange={(e)=>onOrgchange(e)}
+    //   ></input>
+    //   <Button onClick={()=>onorgsubmit}>Submit</Button>
+    // </Fragment>
   );
 };
 
