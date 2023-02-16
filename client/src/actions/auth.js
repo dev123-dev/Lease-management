@@ -12,14 +12,10 @@ import {
   ALL_USERS,
   GET_ALL_USER,
   LOGOUT,
-
- } from "./types";
+} from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
-<<<<<<< HEAD
 // var linkPath = process.env.REACT_APP_BASE_URL;
-=======
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
 var linkPath = "";
 
 // Login User
@@ -30,19 +26,11 @@ export const login = (useremail, password) => async (dispatch) => {
     },
   };
 
-  const body = JSON.stringify({ useremail, password});
+  const body = JSON.stringify({ useremail, password });
   // console.log("useremail", useremail);
   // console.log("useremail", useremail);
   try {
-<<<<<<< HEAD
     const res = await axios.post(`${linkPath}/api/auth/login`, body, config);
-=======
-    const res = await axios.post(
-      `${linkPath}/api/auth/login`,
-      body,
-      config
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -66,28 +54,8 @@ export const login = (useremail, password) => async (dispatch) => {
 //     type: SET_LOADING_TRUE,
 //   });
 
-  //const body = JSON.stringify({ useremail, password });
+//const body = JSON.stringify({ useremail, password });
 
-<<<<<<< HEAD
-  try {
-    const res = await axios.post(
-      `${linkPath}/api/auth/send_email-otp`,
-      body,
-      config
-    );
-    dispatch({
-      type: OTP_SENT,
-      payload: res.data,
-    });
-  } catch (err) {
-    const errors = err.response.data.errors;
-    dispatch({
-      type: LOGIN_FAIL,
-      payload: errors[0].msg,
-    });
-  }
-};
-=======
 //   try {
 //     const res = await axios.post(
 //       `${linkPath}/api/auth/send_email-otp`,
@@ -106,7 +74,6 @@ export const login = (useremail, password) => async (dispatch) => {
 //     });
 //   }
 // };
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -115,13 +82,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/auth/load-user`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/auth/load-user`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -136,13 +97,7 @@ export const loadUser = () => async (dispatch) => {
 // Get All Users
 export const getAllUsers = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/auth/all-users`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/auth/all-users`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: GET_ALL_USER,
       payload: res.data,

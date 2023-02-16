@@ -195,13 +195,7 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 // Get Exp Month Count
 export const getMonthExpCount = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/tenants/get-month-exp-count`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/tenants/get-month-exp-count`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,
@@ -239,13 +233,7 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
 
 export const getAllShops = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/tenants/get-all-shops`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/tenants/get-all-shops`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: GET_ALL_SHOPS,
       payload: res.data,
@@ -311,13 +299,7 @@ export const getTenantReportYearMonth =
   };
 export const getAllTenants = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/tenants/get-all-tenants`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/tenants/get-all-tenants`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: GET_ALL_TENANTS,
       payload: res.data,
@@ -331,13 +313,7 @@ export const getAllTenants = () => async (dispatch) => {
 
 export const getAllSettings = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/tenants/get-all-settings`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/tenants/get-all-settings`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: GET_ALL_SETTINGS,
       payload: res.data,
@@ -351,13 +327,7 @@ export const getAllSettings = () => async (dispatch) => {
 
 export const getAllDoorNos = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/tenants/get-door-nos`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/tenants/get-door-nos`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: GET_DOORNOS,
       payload: res.data,
@@ -371,13 +341,7 @@ export const getAllDoorNos = () => async (dispatch) => {
 
 export const getAllDoorNumbers = () => async (dispatch) => {
   try {
-<<<<<<< HEAD
     const res = await axios.get(`${linkPath}/api/tenants/get-door-number`);
-=======
-    const res = await axios.get(
-      `${linkPath}/api/tenants/get-door-number`
-    );
->>>>>>> b64c2bb7f829b01ebac57cfc09ff334c618c8a47
     dispatch({
       type: GET_DOORNUMBER,
       payload: res.data,
