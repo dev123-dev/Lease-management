@@ -104,102 +104,113 @@ const TenantFilters = ({
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
-      <div className="container_align top_menu ">
-        <div className="row pb-5 responsiveDiv">
-          <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
-            {/* brdr-clr-styles */}
-            {/* <form> */}
-            <div className="">
-              <Link
-                to="/tenant-report"
-                className="btn btn_more"
-                onClick={() => oldExpCountFetch()}
-              >
-                {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
-                  ? yearExpCnt[0].count
-                  : 0}
-              </Link>
-              {/* className="btn-rou" */}
-            </div>
-            <div className="py-2">
-              <DatePicker
-                className="form-control yearpicker"
-                placeholder="yyyy"
-                //   maxDate={subMonths(new Date(), -1)}
-                onChange={(date) => monthYearChange(date)}
-                dateFormat="yyyy"
-                selected={startMonthDate}
-                style={{ textAlign: "center" }}
-                showYearPicker
-              />
-            </div>
+    <>
+      {user.usergroup == "Super Admin" ? (
+        <Fragment>
+          <div className="container_align top_menu ">
+            <div className="row pb-5 responsiveDiv">
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
+                {/* brdr-clr-styles */}
+                {/* <form> */}
+                <div className="">
+                  <Link
+                    to="/tenant-report"
+                    className="btn btn_more"
+                    onClick={() => oldExpCountFetch()}
+                  >
+                    {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
+                      ? yearExpCnt[0].count
+                      : 0}
+                  </Link>
+                  {/* className="btn-rou" */}
+                </div>
+                <div className="py-2">
+                  <DatePicker
+                    className="form-control yearpicker"
+                    placeholder="yyyy"
+                    //   maxDate={subMonths(new Date(), -1)}
+                    onChange={(date) => monthYearChange(date)}
+                    dateFormat="yyyy"
+                    selected={startMonthDate}
+                    style={{ textAlign: "center" }}
+                    showYearPicker
+                  />
+                </div>
 
-            {optName &&
-              optName.map((optFiltr, idx) => {
-                let countVal = 0;
-                monthExpCnt.map((monthExpCntVal) => {
-                  if (
-                    Number(monthExpCntVal._id.month) === Number(optFiltr.value)
-                  ) {
-                    countVal = monthExpCntVal.count;
-                  }
-                  return <></>;
-                });
-                return (
-                  <div className="py-1" key={idx}>
-                    <div style={{ color: "#fff" }}>
-                      {" "}
-                      <Link
-                        to="/tenant-report"
-                        name="alphaSearch"
-                        // className="btnLink"
-                        onClick={() => onSelectChange(optFiltr.value)}
-                        style={
-                          Number(monthSearch) === Number(optFiltr.value)
-                            ? {
-                                fontWeight: "bold",
-                                color: "black",
-                                fontSize: "120%",
-                              }
-                            : { fontWeight: "bold", fontSize: "120%" }
-                        }
-                      >
-                        {optFiltr.label}
-                      </Link>{" "}
-                      &nbsp;
-                      <label
-                        className="btn-roun"
-                        style={
-                          countVal !== 0
-                            ? {
-                                fontSize: "80%",
-                                color: "#000",
-                                background: "#fff",
-                              }
-                            : {
-                                fontSize: "80%",
-                                color: "#429f8c",
-                                background: "#fff",
-                              }
-                        }
-                      >
-                        {countVal}
-                      </label>
-                    </div>
-                    <div> </div>
-                  </div>
-                );
-              })}
-            {/* </form> */}
-          </div>
+                {optName &&
+                  optName.map((optFiltr, idx) => {
+                    let countVal = 0;
+                    monthExpCnt.map((monthExpCntVal) => {
+                      if (
+                        Number(monthExpCntVal._id.month) ===
+                        Number(optFiltr.value)
+                      ) {
+                        countVal = monthExpCntVal.count;
+                      }
+                      return <></>;
+                    });
+                    return (
+                      <div className="py-1" key={idx}>
+                        <div style={{ color: "#fff" }}>
+                          {" "}
+                          <Link
+                            to="/tenant-report"
+                            name="alphaSearch"
+                            // className="btnLink"
+                            onClick={() => onSelectChange(optFiltr.value)}
+                            style={
+                              Number(monthSearch) === Number(optFiltr.value)
+                                ? {
+                                    fontWeight: "bold",
+                                    color: "black",
+                                    fontSize: "120%",
+                                  }
+                                : { fontWeight: "bold", fontSize: "120%" }
+                            }
+                          >
+                            {optFiltr.label}
+                          </Link>{" "}
+                          &nbsp;
+                          <label
+                            className="btn-roun"
+                            style={
+                              countVal !== 0
+                                ? {
+                                    fontSize: "80%",
+                                    color: "#000",
+                                    background: "#fff",
+                                  }
+                                : {
+                                    fontSize: "80%",
+                                    color: "#429f8c",
+                                    background: "#fff",
+                                  }
+                            }
+                          >
+                            {countVal}
+                          </label>
+                        </div>
+                        <div> </div>
+                      </div>
+                    );
+                  })}
+                {/* </form> */}
+              </div>
 
-          {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
+              {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
             <TenantReport />
           </div> */}
-        </div>
-      </div>
-    </Fragment>
+            </div>
+          </div>
+        </Fragment>
+      ) : (
+        <>
+          <div className="container_align top_menu ">
+            <div className="row pb-5 responsiveDiv"></div>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 

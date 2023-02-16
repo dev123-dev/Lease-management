@@ -1,5 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Container, Navbar, Nav, NavItem, Modal, Button } from "react-bootstrap";
+import {
+  Container,
+  Navbar,
+  Nav,
+  NavItem,
+  Modal,
+  Button,
+} from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -75,13 +82,10 @@ const Header = ({
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            {!loading &&
-              isAuthenticated &&
-              user 
-               ?
-              (<>
- <Nav className="mr-auto navbar_Collapse_content">
-                {/* <NavItem>
+              {!loading && isAuthenticated && user ? (
+                <>
+                  <Nav className="mr-auto navbar_Collapse_content">
+                    {/* <NavItem>
                   {!loading && isAuthenticated && user ? (
                     <Link to="/tenant-add-details">Rent Details</Link>
                   ) : (
@@ -89,7 +93,7 @@ const Header = ({
                   )}
                 </NavItem> */}
 
-                {/* <NavItem>
+                    {/* <NavItem>
                   {!loading &&
                   !isAuthenticated &&
                   !user ? (
@@ -103,57 +107,80 @@ const Header = ({
                   )}
                 </NavItem> */}
 
-            {/* add property & user */}
-                 {!loading &&
-      isAuthenticated &&
-                  user &&
-                  user.usergroup === "Super Admin" ? (
-                    <>
-                    <Button>
-                    <NavLink
-                      to="/Super"
-                      activeStyle={{ color: "Black", textDecoration: "none" }}
-                    >
-                      Add Organisation Details
-                    </NavLink>
-                    </Button>
+                    {/* add property & user */}
+                    {!loading &&
+                    isAuthenticated &&
+                    user &&
+                    user.usergroup === "Super Admin" ? (
+                      <>
+                        <Button>
+                          <NavLink
+                            to="/Super"
+                            activeStyle={{
+                              color: "Black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Organisation Details
+                          </NavLink>
+                        </Button>
 
-                    <Button>
-                    <NavLink
-                      to="/SuperUser"
-                      activeStyle={{ color: "Black", textDecoration: "none" }}
-                    >
-                      Add super User Details
-                    </NavLink>
-                    </Button>
-                    </>
-                  ) : (
-                    <>
-                    <Button>
-                    <NavLink to="/PropertyDetail"activeStyle={{ color: "Black", textDecoration: "none" }}>
-                      Property
-                      </NavLink>
-                    </Button>
+                        <Button>
+                          <NavLink
+                            to="/SuperUser"
+                            activeStyle={{
+                              color: "Black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            User Details
+                          </NavLink>
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button>
+                          <NavLink
+                            to="/PropertyDetail"
+                            activeStyle={{
+                              color: "Black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Property
+                          </NavLink>
+                        </Button>
 
-                     <Button>
-                     <NavLink to="/add-tenant-details"activeStyle={{ color: "Black", textDecoration: "none" }}>
-                       Tenant
-                       </NavLink>
-                     </Button>
+                        <Button>
+                          <NavLink
+                            to="/add-tenant-details"
+                            activeStyle={{
+                              color: "Black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Tenant
+                          </NavLink>
+                        </Button>
 
-                     <Button>
-                     <NavLink to="/AdminUser"activeStyle={{ color: "Black", textDecoration: "none" }}>
-                       Admin User
-                       </NavLink>
-                     </Button>
-                     </>
-                  )}
-                
+                        <Button>
+                          <NavLink
+                            to="/AdminUser"
+                            activeStyle={{
+                              color: "Black",
+                              textDecoration: "none",
+                            }}
+                          >
+                            Admin User
+                          </NavLink>
+                        </Button>
+                      </>
+                    )}
 
-                {/*  copy paste the code for remaining headers for admin and super admin */}
-                {/* only tenant user */}
+                    {/*  copy paste the code for remaining headers for admin and super admin */}
+                    {/* only tenant user */}
 
-                {/* <NavItem>
+                    {/* <NavItem>
                   {!loading &&
                   isAuthenticated &&
                   user &&
@@ -166,8 +193,8 @@ const Header = ({
                   )}
                 </NavItem> */}
 
-                 {/* user */}
-                {/* <NavItem>
+                    {/* user */}
+                    {/* <NavItem>
                   {!loading &&
                   isAuthenticated &&
                   user &&
@@ -181,14 +208,11 @@ const Header = ({
                     </NavItem>
                   )}
                 </NavItem> */}
-
-              </Nav>
-
-              </>) :
-               (<>
-               
-               </>)}
-             
+                  </Nav>
+                </>
+              ) : (
+                <></>
+              )}
 
               {!loading &&
               isAuthenticated &&
@@ -198,16 +222,28 @@ const Header = ({
                   <Nav>
                     <NavItem>
                       <Link to="#" onClick={() => handleLogoutModalShow()}>
-                     LOGOUT
-                   </Link>
+                        LOGOUT
+                      </Link>
                     </NavItem>
-                      
-                    <Modal show={showLogin} backdrop="static"keyboard={false} aria-labelledby="contained-modal-title-vcenter" centered >
+
+                    <Modal
+                      show={showLogin}
+                      backdrop="static"
+                      keyboard={false}
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                    >
                       <Modal.Header></Modal.Header>
                       <Modal.Body>
-                      <button onClick={() => handleLogoutModalClose()} className="close">
-                      <img src={require("../../static/images/close.png")} alt="X"/>
-                     </button>
+                        <button
+                          onClick={() => handleLogoutModalClose()}
+                          className="close"
+                        >
+                          <img
+                            src={require("../../static/images/close.png")}
+                            alt="X"
+                          />
+                        </button>
                         <Login />
                       </Modal.Body>
                     </Modal>
