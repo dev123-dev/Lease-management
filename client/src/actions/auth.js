@@ -12,25 +12,26 @@ import {
   ALL_USERS,
   GET_ALL_USER,
   LOGOUT,
-  OTP_SENT,
-  SET_LOADING_TRUE,
-} from "./types";
+
+ } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
+var linkPath = "";
+
 // Login User
-export const login = (useremail, password, userOTP) => async (dispatch) => {
+export const login = (useremail, password) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ useremail, password, userOTP });
-  console.log("useremail", useremail);
-  console.log("useremail", useremail);
+  const body = JSON.stringify({ useremail, password});
+  // console.log("useremail", useremail);
+  // console.log("useremail", useremail);
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}api/auth/login`,
+      `${linkPath}/api/auth/login`,
       body,
       config
     );
@@ -47,36 +48,36 @@ export const login = (useremail, password, userOTP) => async (dispatch) => {
   }
 };
 
-export const sendOTP = (useremail, password) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  dispatch({
-    type: SET_LOADING_TRUE,
-  });
+// export const sendOTP = (useremail, password) => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+//   dispatch({
+//     type: SET_LOADING_TRUE,
+//   });
 
-  const body = JSON.stringify({ useremail, password });
+  //const body = JSON.stringify({ useremail, password });
 
-  try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/send_email-otp`,
-      body,
-      config
-    );
-    dispatch({
-      type: OTP_SENT,
-      payload: res.data,
-    });
-  } catch (err) {
-    const errors = err.response.data.errors;
-    dispatch({
-      type: LOGIN_FAIL,
-      payload: errors[0].msg,
-    });
-  }
-};
+//   try {
+//     const res = await axios.post(
+//       `${linkPath}/api/auth/send_email-otp`,
+//       body,
+//       config
+//     );
+//     dispatch({
+//       type: OTP_SENT,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     const errors = err.response.data.errors;
+//     dispatch({
+//       type: LOGIN_FAIL,
+//       payload: errors[0].msg,
+//     });
+//   }
+// };
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -86,7 +87,7 @@ export const loadUser = () => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/load-user`
+      `${linkPath}/api/auth/load-user`
     );
     dispatch({
       type: USER_LOADED,
@@ -103,7 +104,7 @@ export const loadUser = () => async (dispatch) => {
 export const getAllUsers = () => async (dispatch) => {
   try {
     const res = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/all-users`
+      `${linkPath}/api/auth/all-users`
     );
     dispatch({
       type: GET_ALL_USER,
@@ -124,7 +125,7 @@ export const AddUserDetailsform = (finalData) => async (dispatch) => {
   };
   try {
     await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/add-user-details`,
+      `${linkPath}/api/auth/add-user-details`,
       finalData,
       config
     );
@@ -149,7 +150,7 @@ export const getSearchUsersByFilter = (finalData) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/filter-users`,
+      `${linkPath}/api/auth/filter-users`,
       finalData,
       config
     );
@@ -174,7 +175,7 @@ export const changePwd = (formData) => async (dispatch) => {
 
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BASE_URL}/api/auth/change-pwd`,
+      `${linkPath}/api/auth/change-pwd`,
       formData,
       config
     );

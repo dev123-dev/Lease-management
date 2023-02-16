@@ -34,10 +34,10 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  genaratedOtp: {
-    type: String,
-    default: "0",
-  },
+  // genaratedOtp: {
+  //   type: String,
+  //   default: "0",
+  // },
 });
 
 module.exports = UserDetails = mongoose.model("userdetails", UserSchema);

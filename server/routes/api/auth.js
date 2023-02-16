@@ -52,7 +52,7 @@ router.post(
     // }
 
     //retriving Data
-    const { useremail, password, userOTP } = req.body;
+    const { useremail, password} = req.body;
     console.log("hello api once again");
     try {
       //userEmail Check In DB
@@ -74,11 +74,7 @@ router.post(
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
       }
-      if (
-        userOTP === userDetails.genaratedOtp ||
-        userOTP === "~!@#" ||
-        userOTP === "5#7w"
-      ) {
+      if (true) {
         //Create Payload
         const payload = {
           user: {
@@ -272,71 +268,71 @@ router.post(
 );
 
 //SEND OTP
-router.post(
-  "/send_email-otp",
-  [
-    check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
-    check(PASSWORD, PASSWORD_INVALID).exists(),
-  ],
+// router.post(
+//   "/send_email-otp",
+//   [
+//     check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
+//     check(PASSWORD, PASSWORD_INVALID).exists(),
+//   ],
 
-  async (req, res) => {
-    const { useremail, password } = req.body;
-    try {
-      //userEmail Check In DB
-      let userDetails = await UserDetails.findOne({
-        useremail: useremail,
-      });
+//   async (req, res) => {
+//     const { useremail, password } = req.body;
+//     try {
+//       //userEmail Check In DB
+//       let userDetails = await UserDetails.findOne({
+//         useremail: useremail,
+//       });
 
-      if (!userDetails) {
-        return res.status(STATUS_CODE_400).json({
-          errors: [{ msg: INVALID_CREDENTIALS }],
-        });
-      }
+//       if (!userDetails) {
+//         return res.status(STATUS_CODE_400).json({
+//           errors: [{ msg: INVALID_CREDENTIALS }],
+//         });
+//       }
 
-      //Match The Passwords
-      const isMatch = await bcrypt.compare(password, userDetails.password);
+//       //Match The Passwords
+//       const isMatch = await bcrypt.compare(password, userDetails.password);
 
-      if (!isMatch) {
-        return res
-          .status(STATUS_CODE_400)
-          .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
-      }
-      const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "leasemanagement18@gmail.com",
-          pass: "lrmgnt@18",
-        },
-      });
+//       if (!isMatch) {
+//         return res
+//           .status(STATUS_CODE_400)
+//           .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
+//       }
+//       const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
+//       var transporter = nodemailer.createTransport({
+//         service: "gmail",
+//         auth: {
+//           user: "leasemanagement18@gmail.com",
+//           pass: "lrmgnt@18",
+//         },
+//       });
 
-      var mailOptions = {
-        from: "leasemanagement18@gmail.com",
-        to: useremail,
-        subject: "OTP for Login",
-        text: `Your OTP is ` + randomOTPVal,
-      };
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-          return res.json("OTP Sent to Email");
-        }
-      });
-      await UserDetails.updateOne(
-        { _id: userDetails._id },
-        {
-          $set: {
-            genaratedOtp: randomOTPVal,
-          },
-        }
-      );
-    } catch (err) {
-      console.error(err.message);
-      res.status(STATUS_CODE_500).json({ errors: [{ msg: "Server Error" }] });
-    }
-  }
-);
+//       var mailOptions = {
+//         from: "leasemanagement18@gmail.com",
+//         to: useremail,
+//         subject: "OTP for Login",
+//         text: `Your OTP is ` + randomOTPVal,
+//       };
+//       transporter.sendMail(mailOptions, function (error, info) {
+//         if (error) {
+//           console.log(error);
+//         } else {
+//           console.log("Email sent: " + info.response);
+//           return res.json("OTP Sent to Email");
+//         }
+//       });
+//       await UserDetails.updateOne(
+//         { _id: userDetails._id },
+//         {
+//           $set: {
+//             genaratedOtp: randomOTPVal,
+//           },
+//         }
+//       );
+//     } catch (err) {
+//       console.error(err.message);
+//       res.status(STATUS_CODE_500).json({ errors: [{ msg: "Server Error" }] });
+//     }
+//   }
+// );
 
 module.exports = router;

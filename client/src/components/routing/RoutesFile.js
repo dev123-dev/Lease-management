@@ -17,6 +17,10 @@ import AllUserDetails from "../dashboard/AllUserDetails";
 import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
 import AddShopDetails from "../dashboard/AddShopDetails";
 import EditTenantDetails from "../dashboard/EditTenantDetails";
+import AddOrgDashBoard from "../dashboard/AddOrgDashBoard";
+import AddSuperUser from "../dashboard/AddSuperUser";
+import User from "../dashboard/User";
+import PropertyDetail from "../dashboard/PropertyDetail";
 
 const RoutesFile = () => {
   return (
@@ -28,6 +32,11 @@ const RoutesFile = () => {
           component={AddTenantDetails}
         />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
+        <PrivateRoute exact path="/AdminUser" component={User} />
+        <PrivateRoute exact path="/PropertyDetail" component={PropertyDetail} />
+
+        <PrivateRoute exact path="/Super" component={AddOrgDashBoard}/>
+        <PrivateRoute exact path="/SuperUser" component={AddSuperUser}/>
         <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
         <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
         <PrivateRoute exact path="/add-user" component={AllUserDetails} />

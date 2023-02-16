@@ -11,7 +11,7 @@ import {
   YEAR_EXP_CNT,
   EXP_REPORT,
   GET_ALL_USER,
-  OTP_SENT,
+ // OTP_SENT,
   SET_LOADING_TRUE,
   FINAL_DATA_REP,
 } from "../actions/types";
@@ -32,7 +32,7 @@ const initialState = {
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
-  otpMessage: "",
+  //otpMessage: "",
   finalDataRep: [],
 };
 
@@ -69,7 +69,7 @@ const auth = (state = initialState, action) => {
         loading: false,
         errorResponse: payload,
         successResponse: "",
-        otpMessage: "",
+       // otpMessage: "",
       };
 
     case ALL_USERS:
@@ -83,7 +83,7 @@ const auth = (state = initialState, action) => {
         ...state,
         errorResponse: "",
         successResponse: "",
-        otpMessage: "",
+        //otpMessage: "",
       };
 
     case CHANGE_PWD_FAIL:
@@ -135,19 +135,19 @@ const auth = (state = initialState, action) => {
         ...state,
         finalDataRep: payload,
       };
-    case OTP_SENT:
-      return {
-        ...state,
-        otpMessage: payload,
-        errorResponse: "",
-        loading: false,
-      };
-    case SET_LOADING_TRUE:
-      return {
-        ...state,
-        loading: true,
-        otpMessage: "",
-      };
+    // case OTP_SENT:
+    //   return {
+    //     ...state,
+    //     otpMessage: payload,
+    //     errorResponse: "",
+    //     loading: false,
+    //   };
+    // case SET_LOADING_TRUE:
+    //   return {
+    //     ...state,
+    //     loading: true,
+    //     otpMessage: "",
+    //   };
     default:
       return state;
   }

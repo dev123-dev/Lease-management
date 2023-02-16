@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Container, Navbar, Nav, NavItem, Modal } from "react-bootstrap";
+import { Container, Navbar, Nav, NavItem, Modal, Button } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -57,6 +57,7 @@ const Header = ({
 
   return (
     <Fragment>
+      {/* header starting */}
       <header>
         <Container id="header_navbar">
           <Navbar
@@ -74,7 +75,12 @@ const Header = ({
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto navbar_Collapse_content">
+            {!loading &&
+              isAuthenticated &&
+              user 
+               ?
+              (<>
+ <Nav className="mr-auto navbar_Collapse_content">
                 {/* <NavItem>
                   {!loading && isAuthenticated && user ? (
                     <Link to="/tenant-add-details">Rent Details</Link>
@@ -82,33 +88,133 @@ const Header = ({
                     <NavItem></NavItem>
                   )}
                 </NavItem> */}
-                <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <NavLink
-                      to="/add-tenant-details"
-                      activeStyle={{ color: "Black", textDecoration: "none" }}
-                    >
-                      Add Tenant Details
-                    </NavLink>
-                  ) : (
-                    <NavItem></NavItem>
-                  )}
-                </NavItem>
 
-                <NavItem>
-                  {!loading && isAuthenticated && user ? (
+                {/* <NavItem>
+                  {!loading &&
+                  !isAuthenticated &&
+                  !user ? (
+                    <NavItem>
+                     
+                    </NavItem>
+                  ) : (
+                    <NavItem>
+                   
+                    </NavItem>
+                  )}
+                </NavItem> */}
+
+            {/* add property & user */}
+                 {!loading &&
+      isAuthenticated &&
+                  user &&
+                  user.usergroup === "Super Admin" ? (
+                    <>
+                    <Button>
                     <NavLink
-                      to="/all-tenant-shop-Details"
+                      to="/Super"
                       activeStyle={{ color: "Black", textDecoration: "none" }}
                     >
-                      All Tenants Shop Details
+                      Add Organisation Details
+                    </NavLink>
+                    </Button>
+
+                    <Button>
+                    <NavLink
+                      to="/SuperUser"
+                      activeStyle={{ color: "Black", textDecoration: "none" }}
+                    >
+                      Add super User Details
+                    </NavLink>
+                    </Button>
+                    </>
+                  ) : (
+                    <>
+                    <Button>
+                    <NavLink to="/PropertyDetail"activeStyle={{ color: "Black", textDecoration: "none" }}>
+                      Property
+                      </NavLink>
+                    </Button>
+
+                     <Button>
+                     <NavLink to="/add-tenant-details"activeStyle={{ color: "Black", textDecoration: "none" }}>
+                       Tenant
+                       </NavLink>
+                     </Button>
+
+                     <Button>
+                     <NavLink to="/AdminUser"activeStyle={{ color: "Black", textDecoration: "none" }}>
+                       Admin User
+                       </NavLink>
+                     </Button>
+                     </>
+                  )}
+                
+
+                {/*  copy paste the code for remaining headers for admin and super admin */}
+                {/* only tenant user */}
+
+                {/* <NavItem>
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup == "Super Admin" ? (
+                    <NavLink to="/add-tenant-details" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                      User
                     </NavLink>
                   ) : (
                     <NavItem></NavItem>
                   )}
-                </NavItem>
+                </NavItem> */}
+
+                 {/* user */}
+                {/* <NavItem>
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Super Admin" ? (
+                    <NavItem></NavItem>
+                  ) : (
+                    <NavItem>
+                      <NavLink  to="/all-tenant-shop-Details" activeStyle={{ color: "Black", textDecoration: "none" }}>
+                        User
+                      </NavLink>
+                    </NavItem>
+                  )}
+                </NavItem> */}
+
               </Nav>
-              {!loading && isAuthenticated && user ? (
+
+              </>) :
+               (<>
+               
+               </>)}
+             
+
+              {!loading &&
+              isAuthenticated &&
+              user &&
+              user.usergroup == "Super Admin" ? (
+                <Fragment>
+                  <Nav>
+                    <NavItem>
+                      <Link to="#" onClick={() => handleLogoutModalShow()}>
+                     LOGOUT
+                   </Link>
+                    </NavItem>
+                      
+                    <Modal show={showLogin} backdrop="static"keyboard={false} aria-labelledby="contained-modal-title-vcenter" centered >
+                      <Modal.Header></Modal.Header>
+                      <Modal.Body>
+                      <button onClick={() => handleLogoutModalClose()} className="close">
+                      <img src={require("../../static/images/close.png")} alt="X"/>
+                     </button>
+                        <Login />
+                      </Modal.Body>
+                    </Modal>
+                  </Nav>
+                </Fragment>
+              ) : (
+                // starting
                 <Nav>
                   <ul className="top-level-menu text-right">
                     <li>
@@ -117,14 +223,14 @@ const Header = ({
                         onClick={() => openSecondLevelMenu2()}
                         className="navbar-right"
                       >
-                        {user.userfullName}&nbsp;
+                        {/* {user.userfullName}&nbsp; */}
                         <i className="fa fa-caret-down" />
                       </Link>
 
                       <ul className="dropdown-menu second-level-menu ">
-                        {/* <li>
+                        <li>
                           <Link to="/shop-Details">Shop Details</Link>
-                        </li> */}
+                        </li>
 
                         <li>
                           <Link
@@ -144,45 +250,15 @@ const Header = ({
                         </li>
                         <li>
                           <Link to="#" onClick={() => handleLogoutModalShow()}>
-                            Logout
+                            Logout{" "}
                           </Link>
                         </li>
                       </ul>
                     </li>
                   </ul>
                 </Nav>
-              ) : (
-                <Fragment>
-                  <Nav>
-                    <NavItem>
-                      {/* <Link to="#" onClick={() => handleLoginModalShow()}>
-                        LOGIN
-                      </Link> */}
-                    </NavItem>
 
-                    <Modal
-                      show={showLogin}
-                      backdrop="static"
-                      keyboard={false}
-                      aria-labelledby="contained-modal-title-vcenter"
-                      centered
-                    >
-                      <Modal.Header></Modal.Header>
-                      <Modal.Body>
-                        {/* <button
-                          onClick={() => handleLoginModalClose()}
-                          className="close"
-                        >
-                          <img
-                            src={require("../../static/images/close.png")}
-                            alt="X"
-                          />
-                        </button> */}
-                        <Login />
-                      </Modal.Body>
-                    </Modal>
-                  </Nav>
-                </Fragment>
+                //ending
               )}
             </Navbar.Collapse>
           </Navbar>
@@ -247,6 +323,7 @@ const Header = ({
           </Modal.Footer>
         </Modal>
       </header>
+      {/* header ending */}
     </Fragment>
   );
 };
