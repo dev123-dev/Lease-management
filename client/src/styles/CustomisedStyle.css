@@ -6,7 +6,7 @@
   color: #b90808;
 }
 .colorGreen {
-  color: #429f8c;
+  color: #095a4a;
 }
 
 .heading_color {
@@ -26,7 +26,7 @@
 
 .btnLink:hover {
   text-decoration: underline;
-  color: #429f8c;
+  color:  #095a4a;
   background-color: transparent;
   border: 0px solid white;
 }
@@ -213,19 +213,19 @@ h5:last-child {
 ::-moz-selection {
   /* Code for Firefox */
   color: #fff;
-  background: #429f8c;
+  background: #095a4a;
 }
 
 ::selection {
   color: #fff;
-  background: #429f8c;
+  background:  #095a4a;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 2px;
-  background: #429f8c;
+  background:  #095a4a;
 }
 
 .footer {
@@ -279,7 +279,7 @@ footer.footer .top_top {
 }
 
 .top_menu {
-  background-color: #429f8c;
+  background-color: #095a4a;
   /* #4b748f;#0086dc */
   /* #429f8c; */
 }
@@ -481,12 +481,12 @@ p {
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 2px;
-  background: #429f8c;
+  background: #095a4a;
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-  background: #429f8c;
+  background:  #095a4a;
 }
 
 #regDes {
@@ -674,7 +674,7 @@ hr {
 }
 
 .btn_green_bg {
-  background-color: #429f8c;
+  background-color:  #095a4a;
   color: #fff;
   padding: 5px 30px;
   border-radius: 5px;
@@ -696,7 +696,7 @@ hr {
 }
 
 .btn_round:hover {
-  background-color: #429f8c;
+  background-color: #095a4a;
   color: #fff;
 }
 
@@ -767,11 +767,11 @@ label {
 .table-bordered > tfoot > tr > th,
 .table-bordered > thead > tr > td,
 .table-bordered > thead > tr > th {
-  border: 1px solid #429f8c;
+  border: 1px solid  #095a4a;
 }
 
 #datatable2 th {
-  background: #429f8c;
+  background:  #095a4a;
   color: #fff;
   padding: 8px;
   text-align: center;
@@ -1338,7 +1338,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background: #429f8c !important;
+  background:  #095a4a !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 36px !important;
@@ -1354,7 +1354,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background: #429f8c !important;
+  background: #095a4a !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 46px !important;
@@ -1450,7 +1450,7 @@ input[type="radio"].error {
 }
 .pagination a.active {
   background: #fff;
-  color: #429f8c;
+  color: #095a4a;
   font-weight: 500;
   /*border-radius: 10px;*/
 }
@@ -1699,7 +1699,7 @@ button.swap-btn {
   display: inline-block;
   width: 4rem;
   margin: 2px;
-  background-color: #429f8c;
+  background-color: #095a4a;
 }
 
 .react-datepicker__current-month,
@@ -1708,7 +1708,7 @@ button.swap-btn {
   margin: 4px;
   font-weight: bold;
   font-size: 0.944rem;
-  background-color: #429f8c;
+  background-color:  #095a4a;
   color: #fff;
 }
 
@@ -1741,7 +1741,7 @@ span.grinding {
 }
 
 .alrt-close {
-  background: #429f8c;
+  background:  #095a4a;
   width: max-content;
   padding: 5px 15px;
   color: #fff;
