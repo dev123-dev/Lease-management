@@ -20,6 +20,7 @@ import {
   GET_DOORNUMBER,
   GET_ALL_USER,
   FINAL_DATA_REP,
+  GET_ALL_ORGANIZATION,
 } from "./types";
 
 var linkPath = "";
@@ -32,6 +33,50 @@ const config = {
 
 // var linkPath = process.env.REACT_APP_BASE_URL;
 var linkPath = "";
+
+export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
+ console.log(OrganizationData)
+ try {
+  await axios.post(
+    `${linkPath}/api/tenants/add-Organization`,
+    OrganizationData,
+    config
+  );
+} catch (err) {
+  dispatch({
+    type: AUTH_ERROR,
+  });
+}
+};
+
+//gettting organization details
+export const getAllOrganization = () => async (dispatch) => {
+  try {
+    console.log("inside the action methosd")
+    const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
+    dispatch({
+      type: GET_ALL_ORGANIZATION,
+      payload: res.data,
+
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+//adding user Modal
+export const Adduser = (userData)=> async(dispatch)=>{
+  console.log(userData)
+  try {
+    await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+  };
 
 
 

@@ -1,37 +1,31 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-  userfullName: {
+  username: {
     type: String,
-    required: true,
+    
   },
   password: {
     type: String,
-    required: true,
-  },
-  cpassword: {
-    type: String,
-    required: true,
   },
   useremail: {
     type: String,
-    required: true,
+    
   },
   usergroup: {
     type: String,
-    required: true,
+    
   },
   useraddr: {
     type: String,
-    required: true,
+    
   },
   userphone: {
     type: Number,
-    required: true,
+    
   },
   userStatus: {
     type: String,
-    required: true,
     default: "Active",
   },
   userDate: {
@@ -40,15 +34,15 @@ const UserSchema = new mongoose.Schema({
   },
   OrganizationName: {
     type: String,
-    required: true,
+   
   },
   enter_by_id: {
     type: ObjectId,
-    required: true,
+    
   },
   enter_by_name: {
     type: String,
-    required: true,
+    
   },
   enter_by_dateTime: {
     type: Date,
@@ -56,15 +50,15 @@ const UserSchema = new mongoose.Schema({
   },
   enter_by_date: {
     type: String,
-    required: true,
+    
   },
   edit_by_id: {
     type: ObjectId,
-    required: true,
+   
   },
   edit_by_name: {
     type: String,
-    required: true,
+   
   },
   edit_by_dateTime: {
     type: Date,
@@ -72,15 +66,15 @@ const UserSchema = new mongoose.Schema({
   },
   edit_by_date: {
     type: String,
-    required: true,
+   
   },
   deactive_by_id: {
     type: ObjectId,
-    required: true,
+   
   },
   deactive_by_name: {
     type: String,
-    required: true,
+   
   },
   deactive_by_dateTime: {
     type: Date,
@@ -88,12 +82,12 @@ const UserSchema = new mongoose.Schema({
   },
   deactive_by_date: {
     type: String,
-    required: true,
+   
   },
   deactive_reason: {
     type: String,
-    required: true,
+   
   },
 });
 
-module.exports = UserDetails = mongoose.model("userdetails", UserSchema);
+module.exports  = mongoose.model("userdetails", UserSchema);

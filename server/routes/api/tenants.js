@@ -5,6 +5,8 @@ const { check, validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 const TenantDetails = require("../../models/TenantDetails");
 const TenantSettings = require("../../models/TenantSettings");
+const OrganizationDetails = require("../../models/OrganizationDetails")
+const UserDetails = require("../../models/UserDetails");
 const ShopDetails = require("../../models/ShopDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
@@ -81,6 +83,62 @@ router.post("/add-tenant-details", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//add organization try
+router.post("/add-Organization", async (req, res) => {
+  let data = req.body;
+  try {
+    let orgData = new OrganizationDetails(data);
+    output = await orgData.save();
+    res.send(output);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+//get all organization
+router.get("/get-all-Organization", async (req, res) => {
+  try {
+    const orgdata = await OrganizationDetails.aggregate([
+     
+      { $unwind: "$output" },
+      {
+        $project: {
+          OrganizationName:"$OrganizationName",
+          OrganizationEmail : "$OrganizationEmail",
+          OrganizationNumber:"$OrganizationNumber",
+          OrganizationAddress : "$OrganizationAddress",
+          enter_by_dateTime : "$enter_by_dateTime",
+        },
+      },
+      {
+        $match: {
+          tenantstatus:
+           {
+            $eq: "Active",
+          },
+        },
+      },
+    ]);
+    res.json(orgdata);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+//Super user adding 
+router.post("/add-SuperUser",async(req,res)=>{
+  let userdata = req.body;
+  try{
+    let u_data = new UserDetails(userdata)
+    output = await u_data.save();
+    res.send(u_data);
+  }catch(err){
+    console.error("error in adding Super user data");
+  }
+})
 
 router.post("/add-tenant-settings", async (req, res) => {
   let data = req.body;
