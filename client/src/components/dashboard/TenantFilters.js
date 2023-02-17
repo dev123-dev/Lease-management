@@ -105,7 +105,7 @@ const TenantFilters = ({
     <Fragment></Fragment>
   ) : (
     <>
-      {user.usergroup == "Super Admin" ? (
+      {user.usergroup === "Super Admin" ? (
         <Fragment>
           <div className="container_align top_menu ">
             <div className="row pb-5 responsiveDiv">

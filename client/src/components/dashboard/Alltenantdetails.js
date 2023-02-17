@@ -1,27 +1,29 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import AddTentantDetails from "./AddTenantDetails";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAllUsers } from "../../actions/auth";
-import AddUser from "./AddUser";
+import { getAllShops } from "../../actions/tenants";
+// import { Link } from "react-router-dom";
 
-const AllUserDetails = ({
-  auth: { allUser, isAuthenticated, user, users },
-  getAllUsers,
+const ShopDetails = ({
+  auth: { isAuthenticated, user, users },
+  getAllShops,
+  tenants: { allShops },
 }) => {
   useEffect(() => {
-    getAllUsers();
-  }, [getAllUsers]);
+    getAllShops();
+  }, [getAllShops]);
 
-  const [showAddUserSettingModal, setShowEditModal] = useState(false);
-  const handleAddUserModalClose = () => setShowEditModal(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditModalClose = () => setShowEditModal(false);
   const onClickHandler = () => {
     setShowEditModal(true);
   };
 
-  const onAddUserModalChange = (e) => {
+  const onAddStaffModalChange = (e) => {
     if (e) {
-      handleAddUserModalClose();
+      handleEditModalClose();
     }
   };
 
@@ -33,16 +35,19 @@ const AllUserDetails = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">All User Details </h2>
+              <h2 className="heading_color">Tenant Details </h2>
             </div>
             <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-              <img
+              {/* <Link to="/shop-Details-add"> */}
+              {/* <img
                 className="img_icon_size log"
                 onClick={() => onClickHandler()}
                 src={require("../../static/images/add-icon.png")}
-                alt="Add User"
-                title="Add User"
-              />
+                alt="Add Shop"
+                title="Add Shop"
+              /> */}
+              <AddTentantDetails />
+              {/* </Link> */}
             </div>
           </div>
           <div className="row">
@@ -55,27 +60,28 @@ const AllUserDetails = ({
                   >
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Group</th>
+                        <th>TenantName</th>
+                        <th>DoorNo</th>
+                        <th>Location</th>
+                        <th>TenantAddress</th>
+                        <th>Phno</th>
+                        <th>BuildingName</th>
+                        <th>LeaseStartDate</th>
+                        <th>LeaseEndDate</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {allUser &&
-                        allUser.map((allusers, idx) => {
+                    {/* <tbody>
+                      {allShops &&
+                        allShops.map((allshops, idx) => {
                           return (
                             <tr key={idx}>
-                              <td>{allusers.userfullName}</td>
-                              <td>{allusers.useraddr}</td>
-                              <td>{allusers.useremail}</td>
-                              <td>{allusers.userphone}</td>
-                              <td>{allusers.usergroup}</td>
+                              <td>{allshops.shopFileNo}</td>
+                              <td>{allshops.shopDoorNo}</td>
+                              <td>{allshops.shopStatus}</td>
                             </tr>
                           );
                         })}
-                    </tbody>
+                    </tbody> */}
                   </table>
                 </div>
               </section>
@@ -83,19 +89,19 @@ const AllUserDetails = ({
           </div>
         </section>
         <Modal
-          show={showAddUserSettingModal}
+          show={showEditModal}
           backdrop="static"
           keyboard={false}
-          size="xl"
+          size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
           <Modal.Header>
             <div className="col-lg-10">
-              <h3 className="modal-title text-center">Add User</h3>
+              <h3 className="modal-title text-center">Add Shop Details</h3>
             </div>
             <div className="col-lg-2">
-              <button onClick={handleAddUserModalClose} className="close">
+              <button onClick={handleEditModalClose} className="close">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -105,7 +111,7 @@ const AllUserDetails = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <AddUser onAddUserModalChange={onAddUserModalChange} />
+            {/* <AddShopDetails onAddStaffModalChange={onAddStaffModalChange} /> */}
           </Modal.Body>
         </Modal>
       </div>
@@ -113,15 +119,15 @@ const AllUserDetails = ({
   );
 };
 
-AllUserDetails.propTypes = {
+ShopDetails.propTypes = {
   auth: PropTypes.object.isRequired,
-  getAllUsers: PropTypes.func.isRequired,
+  getAllShops: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  staff: state.staff,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
-  getAllUsers,
-})(AllUserDetails);
+  getAllShops,
+})(ShopDetails);

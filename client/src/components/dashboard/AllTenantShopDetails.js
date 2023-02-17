@@ -176,7 +176,9 @@ const AllTenantShopDetails = ({
                               <td>{tenants.tenantPhone}</td>
                               <td>{tenants.tenantDepositAmt}</td>
                               <td>{tenants.tenantRentAmount}</td>
-                              <td><center>{tenantLeaseStartDate}</center></td>
+                              <td>
+                                <center>{tenantLeaseStartDate}</center>
+                              </td>
                               <td
                                 style={
                                   tenants.AgreementStatus === "Expired"
@@ -187,31 +189,31 @@ const AllTenantShopDetails = ({
                                 <center>{tenantLeaseEndDate}</center>
                               </td>
 
-                              <td><center>
-                                {tenants.tenantstatus &&
-                                tenants.tenantstatus !== "Deactive" ? (
-                                  <Fragment>
-                                   
-                                    <img
-                                      className="img_icon_size log"
-                                      onClick={() => onUpdate(tenants, idx)}
-                                      src={require("../../static/images/delete.png")}
-                                      alt="Deactivate"
-                                      title="Deactivate"
-                                    />
-                                  </Fragment>
-                                ) : (
-                                  <Fragment></Fragment>
-                                )}
-                                &nbsp;
-
-                                <img
-                                  className="img_icon_size log"
-                                  onClick={() => onEdit(tenants, idx)}
-                                  src={require("../../static/images/edit_icon.png")}
-                                  alt="Edit"
-                                  title="Edit"
-                                /></center>
+                              <td>
+                                <center>
+                                  {tenants.tenantstatus &&
+                                  tenants.tenantstatus !== "Deactive" ? (
+                                    <Fragment>
+                                      <img
+                                        className="img_icon_size log"
+                                        onClick={() => onUpdate(tenants, idx)}
+                                        src={require("../../static/images/delete.png")}
+                                        alt="Deactivate"
+                                        title="Deactivate"
+                                      />
+                                    </Fragment>
+                                  ) : (
+                                    <Fragment></Fragment>
+                                  )}
+                                  &nbsp;
+                                  <img
+                                    className="img_icon_size log"
+                                    onClick={() => onEdit(tenants, idx)}
+                                    src={require("../../static/images/edit_icon.png")}
+                                    alt="Edit"
+                                    title="Edit"
+                                  />
+                                </center>
                               </td>
                             </tr>
                           );

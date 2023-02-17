@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
+import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
@@ -53,31 +54,118 @@ const AddShopDetails = ({
     <Fragment>
       <div className="container ">
         <div className="row col-lg-12 col-md-6 col-sm-12 col-12">
-          <div className="col-lg-2 col-md-6 col-sm-12 col-12">
-            <label> File No * :</label>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <label>
+              {" "}
+              BuildingName{" "}
+              <i className="text-danger ">
+                <b>*</b>
+              </i>
+              :
+            </label>
           </div>
-          <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
               type="text"
-              name="shopFileNo"
-              value={shopFileNo}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
+              name="buildingno"
+              // value={}
+              className="form-control input"
+              // onChange={(e) => onInputChange(e)}
               required
             />
+            <br></br>
           </div>
-          <div className="col-lg-2 col-md-6 col-sm-12 col-12">
-            <label>Door No * :</label>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
+            <label>
+              Door No{" "}
+              <i className="text-danger ">
+                <b>*</b>
+              </i>
+              :
+            </label>
           </div>
-          <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
               type="text"
               name="shopDoorNo"
-              value={shopDoorNo}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
+              // value={shopDoorNo}
+              className="form-control  input"
+              // onChange={(e) => onInputChange(e)}
               required
             />
+            <br></br>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <label>Location * :</label>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <input
+              type="text"
+              name="Location"
+              // value={shopDoorNo}
+              className="form-control  input"
+              // onChange={(e) => onInputChange(e)}
+              required
+            />
+            <br></br>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
+            <label>Address :</label>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <input
+              type="text"
+              name="address"
+              // value={shopDoorNo}
+              className="form-control  input"
+              // onChange={(e) => onInputChange(e)}
+              required
+            />
+            <br></br>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <label>
+              Hike<b>%</b> :
+            </label>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <input
+              type="text"
+              name="hike"
+              // value={shopDoorNo}
+              className="form-control  input"
+              // onChange={(e) => onInputChange(e)}
+              required
+            />
+            <br></br>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
+            <label>StampDuty :</label>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <input
+              type="text"
+              name="stampduty"
+              // value={shopDoorNo}
+              className="form-control  input"
+              // onChange={(e) => onInputChange(e)}
+              required
+            />
+            <br></br>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <label>LeaseTimePeriod :</label>
+          </div>
+          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
+            <input
+              type="text"
+              name="leasetimeperiod"
+              value={shopDoorNo}
+              className="form-control  input"
+              // onChange={(e) => onInputChange(e)}
+              required
+            />
+            <br></br>
           </div>
         </div>
 
@@ -103,7 +191,7 @@ const AddShopDetails = ({
         keyboard={false}
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        className="logout-modal"
+        className="logout-modal "
       >
         <Modal.Header className="confirmbox-heading">
           <h4 className="mt-0">Information</h4>

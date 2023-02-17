@@ -140,19 +140,11 @@ const Header = ({
                     ) : (
                       <>
                         <Button>
-                          <NavLink
-                            to="/PropertyDetail"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            Property
-                          </NavLink>
+                          <Link to="/shop-Details">Property</Link>
                         </Button>
 
                         <Button>
-                          <NavLink
+                          {/* <NavLink
                             to="/add-tenant-details"
                             activeStyle={{
                               color: "Black",
@@ -160,19 +152,12 @@ const Header = ({
                             }}
                           >
                             Tenant
-                          </NavLink>
+                          </NavLink> */}
+                          <Link to="/tenant-details">Tenants</Link>
                         </Button>
 
                         <Button>
-                          <NavLink
-                            to="/AdminUser"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            Admin User
-                          </NavLink>
+                          <Link to="/add-user">Add Users</Link>
                         </Button>
                       </>
                     )}
@@ -265,20 +250,12 @@ const Header = ({
 
                       <ul className="dropdown-menu second-level-menu ">
                         <li>
-                          <Link to="/shop-Details">Shop Details</Link>
-                        </li>
-
-                        <li>
                           <Link
                             to="#"
                             onClick={() => handleTenantSettingModalShow()}
                           >
                             Tenant Setting
                           </Link>
-                        </li>
-
-                        <li>
-                          <Link to="/add-user">Add Users</Link>
                         </li>
 
                         <li>
