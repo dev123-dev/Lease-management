@@ -20,6 +20,7 @@ import EditTenantDetails from "../dashboard/EditTenantDetails";
 import AddOrgDashBoard from "../dashboard/AddOrgDashBoard";
 import AddSuperUser from "../dashboard/AddSuperUser";
 import User from "../dashboard/User";
+import AddOrgModal from "../dashboard/AddOrgModal";
 import PropertyDetail from "../dashboard/PropertyDetail";
 import TenantDetails from "../dashboard/Alltenantdetails";
 
@@ -35,6 +36,7 @@ const RoutesFile = () => {
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute exact path="/AdminUser" component={User} />
         <PrivateRoute exact path="/PropertyDetail" component={PropertyDetail} />
+        <PrivateRoute exact path="/AddOrganization" component={AddOrgModal} />
 
         <PrivateRoute exact path="/Super" component={AddOrgDashBoard} />
         <PrivateRoute exact path="/SuperUser" component={AddSuperUser} />

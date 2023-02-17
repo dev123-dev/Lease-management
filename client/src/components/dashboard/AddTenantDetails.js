@@ -26,6 +26,8 @@ const AddTenantDetails = ({
     getAllSettings();
   }, [getAllSettings]);
 
+  console.log(allDoorNos)
+
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
@@ -628,6 +630,7 @@ AddTenantDetails.propTypes = {
   getAllSettings: PropTypes.func.isRequired,
 };
 
+//
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

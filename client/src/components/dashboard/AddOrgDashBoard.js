@@ -1,7 +1,14 @@
 import React from "react";
-
-export default function AddOrgDashBoard() {
+import { connect } from "react-redux";
+import AddOrgModal from "./AddOrgModal";
+const AddOrgDashBoard=({
+    auth: {  isAuthenticated, user, users },
+    allorg,
+    
+  }) => {
+  
   return (
+   
     <div>
       <div className="container container_align ">
         <section className="sub_reg">
@@ -9,15 +16,9 @@ export default function AddOrgDashBoard() {
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">OrganiZation Reports </h2>
             </div>
-            <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-              <img
-                className="img_icon_size log"
-                // onClick={() => onClickHandler()}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add User"
-                title="Add User"
-              />
-            </div>
+
+            <AddOrgModal/>
+
           </div>
           <div className="row">
             <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
@@ -38,37 +39,30 @@ export default function AddOrgDashBoard() {
                         <th>Operation</th>
                       </tr>
                     </thead>
-                    {/* <tbody>
-                      {expReport &&
-                        expReport[0] &&
-                        expReport.map((expReportVal, idx) => {
-                          var ED = expReportVal.tenantLeaseEndDate.split(/\D/g);
-                          var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-                            "-"
-                          );
+                      {/* <tbody>
+                      {allorg &&
+                        allorg[0] &&
+                        allorg.map((orgVal, idx) => {
                           return (
                             <tr key={idx}>
-                              <td>{expReportVal.tenantName}</td>
-                              <td>{expReportVal.tenantDoorNo}</td>
-                              <td>{expReportVal.tenantFileNo}</td>
-                              <td>{tenantLeaseEndDate}</td>
-                              <td>{expReportVal.tenantRentAmount}</td>
-                              <td>{expReportVal.chargesCal.toFixed(2)}</td>
-                              <td>{expReportVal.stampDuty.toFixed(2)}</td>
-                              <td>{expReportVal.AgreementStatus}</td>
-                              {expReportVal.AgreementStatus === "Expired" ? (
+                              <td>{orgVal}</td>
+                              <td>{orgVal}</td>
+                              <td>{orgVal}</td>
+                              <td>{orgVal}</td>
+                              <td>{orgVal}</td>
+                              {orgVal.AgreementStatus === "Expired" ? (
                                 <td>
-                                  <center>
-                                    <button
+                                  <center> */}
+                                    {/* <button
                                       variant="success"
                                       className="btn sub_form"
                                       onClick={() =>
-                                        onRenewal(expReportVal, idx)
+                                        onRenewal(orgVal, idx)
                                       }
                                     >
                                       Renewal
-                                    </button>
-                                  </center>
+                                    </button> */}
+                                  {/* </center>
                                 </td>
                               ) : (
                                 <td></td>
@@ -76,24 +70,26 @@ export default function AddOrgDashBoard() {
                             </tr>
                           );
                         })}
-                    </tbody> */}
-                    <td>abc</td>
-                    <td>abc@gmail.com</td>
-                    <td>985685896</td>
-                    <td>manipal</td>
-                    <td>6</td>
+                    </tbody>   */}
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                       <center>
                         <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
+                        //  onClick={() => clicking()}
                           src={require("../../static/images/edit_icon.png")}
-                          alt="Add User"
+                          alt="Edit"
                           title="Add User"
                         />
                         <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
+                         // onClick={()=>onondelet()}
                           src={require("../../static/images/delete.png")}
                           alt="Add User"
                           title="Add User"
@@ -110,3 +106,8 @@ export default function AddOrgDashBoard() {
     </div>
   );
 }
+
+const mapStateToProps = (state)=>({
+  auth : state.auth,
+})
+export default connect(mapStateToProps,{})(AddOrgDashBoard)

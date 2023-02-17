@@ -7,6 +7,7 @@ import {
   EXP_REPORT,
   GET_DOORNOS,
   GET_DOORNUMBER,
+  GET_ALL_ORGANIZATION,
 } from "../actions/types";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
+  allorg : [],
 };
 
 const tenants = (state = initialState, action) => {
@@ -63,6 +65,11 @@ const tenants = (state = initialState, action) => {
         ...state,
         allTenantSetting: payload,
       };
+      case GET_ALL_ORGANIZATION :
+        return{
+          ...state,
+          allorg : payload,
+        }
     default:
       return state;
   }
