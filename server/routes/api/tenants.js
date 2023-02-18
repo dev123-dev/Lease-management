@@ -101,8 +101,6 @@ router.post("/add-Organization", async (req, res) => {
 router.get("/get-all-Organization", async (req, res) => {
   try {
     const orgdata = await OrganizationDetails.aggregate([
-     
-      { $unwind: "$output" },
       {
         $project: {
           OrganizationName:"$OrganizationName",
@@ -110,14 +108,6 @@ router.get("/get-all-Organization", async (req, res) => {
           OrganizationNumber:"$OrganizationNumber",
           OrganizationAddress : "$OrganizationAddress",
           enter_by_dateTime : "$enter_by_dateTime",
-        },
-      },
-      {
-        $match: {
-          tenantstatus:
-           {
-            $eq: "Active",
-          },
         },
       },
     ]);

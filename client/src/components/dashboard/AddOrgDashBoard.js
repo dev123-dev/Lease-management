@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import AddOrgModal from "./AddOrgModal";
+import { getAllOrganization } from "../../actions/tenants";
 const AddOrgDashBoard=({
-    auth: {  isAuthenticated, user, users },
-    allorg,
-    
+    tenants : {allorg },
+    getAllOrganization, 
   }) => {
-  
-  return (
+    useEffect(()=>{
+      getAllOrganization("")
+    },[])
+    
+
+  const clicking = ()=>{
+    alert("Edit")
    
+  }
+  const onAdd = ()=>{
+    
+  }
+  const onondelet = ()=>{
+    alert("Delete")
+  }
+
+  return (
     <div>
       <div className="container container_align ">
         <section className="sub_reg">
@@ -35,42 +49,59 @@ const AddOrgDashBoard=({
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Number of Users</th>
-
                         <th>Operation</th>
                       </tr>
                     </thead>
-                      {/* <tbody>
+                      <tbody>
                       {allorg &&
                         allorg[0] &&
                         allorg.map((orgVal, idx) => {
                           return (
                             <tr key={idx}>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              {orgVal.AgreementStatus === "Expired" ? (
+                              <td>{orgVal.OrganizationName}</td>
+                              <td>{orgVal.OrganizationEmail}</td>
+                              <td>{orgVal.OrganizationNumber}</td>
+                              <td>{orgVal.OrganizationAddress}</td>
+                              <td>{orgVal.AgreementStatus}</td>
+                              <td><img
+                          className="img_icon_size log"
+                          // onClick={() => onClickHandler()}
+                          onClick={() => clicking()}
+                          src={require("../../static/images/edit_icon.png")}
+                          alt="Edit"
+                          title="Add User"
+                        />
+                          <img
+                          className="img_icon_size log"
+                          // onClick={() => onClickHandler()}
+                          onClick={()=>onondelet()}
+                          src={require("../../static/images/delete.png")}
+                          alt="Add User"
+                          title="Add User"
+                        /></td>
+                        
+                              {/* {orgVal.AgreementStatus === "Expired" ? (
                                 <td>
-                                  <center> */}
-                                    {/* <button
+                                  <center>
+                                     <button
                                       variant="success"
                                       className="btn sub_form"
-                                      onClick={() =>
-                                        onRenewal(orgVal, idx)
-                                      }
+                                      // onClick={() =>
+                                      //   onRenewal(orgVal, idx)
+                                      // }
                                     >
                                       Renewal
-                                    </button> */}
-                                  {/* </center>
+                                    </button> 
+                                  </center>
                                 </td>
+                              
                               ) : (
                                 <td></td>
-                              )}
+                              )} */}
                             </tr>
                           );
                         })}
-                    </tbody>   */}
+                    </tbody>  
                     <td></td>
                     <td></td>
                     <td></td>
@@ -78,22 +109,8 @@ const AddOrgDashBoard=({
                     <td></td>
                     <td>
                       <center>
-                        <img
-                          className="img_icon_size log"
-                          // onClick={() => onClickHandler()}
-                        //  onClick={() => clicking()}
-                          src={require("../../static/images/edit_icon.png")}
-                          alt="Edit"
-                          title="Add User"
-                        />
-                        <img
-                          className="img_icon_size log"
-                          // onClick={() => onClickHandler()}
-                         // onClick={()=>onondelet()}
-                          src={require("../../static/images/delete.png")}
-                          alt="Add User"
-                          title="Add User"
-                        />
+                        
+                      
                       </center>
                     </td>
                   </table>
@@ -108,6 +125,6 @@ const AddOrgDashBoard=({
 }
 
 const mapStateToProps = (state)=>({
-  auth : state.auth,
+  tenants : state.tenants,
 })
-export default connect(mapStateToProps,{})(AddOrgDashBoard)
+export default connect(mapStateToProps,{getAllOrganization})(AddOrgDashBoard)

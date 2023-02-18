@@ -21,6 +21,7 @@ import {
   GET_ALL_USER,
   FINAL_DATA_REP,
   GET_ALL_ORGANIZATION,
+  GET_ALL_SUPERUSER
 } from "./types";
 
 var linkPath = "";
@@ -42,6 +43,8 @@ export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
     OrganizationData,
     config
   );
+  dispatch(getAllOrganization());
+
 } catch (err) {
   dispatch({
     type: AUTH_ERROR,
@@ -52,7 +55,7 @@ export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
   try {
-    console.log("inside the action methosd")
+  
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
     dispatch({
       type: GET_ALL_ORGANIZATION,
@@ -65,6 +68,23 @@ export const getAllOrganization = () => async (dispatch) => {
     });
   }
 };
+
+//getting all the user (super)
+
+export const getalluser = ()=>async(dispatch)=>{
+  try{
+    const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
+    dispatch({
+      type : GET_ALL_SUPERUSER,
+      payload : res.data,
+    });
+  }catch(err){
+    dispatch({
+      type : Error,
+    })
+  }
+};
+
 
 //adding user Modal
 export const Adduser = (userData)=> async(dispatch)=>{

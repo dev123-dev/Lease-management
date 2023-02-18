@@ -35,4 +35,6 @@ export const OTP_SENT = "OTP_SENT";
 export const SET_LOADING_TRUE = "SET_LOADING_TRUE";
 export const FINAL_DATA_REP = "FINAL_DATA_REP";
 export const GET_ALL_ORGANIZATION = "GET_ALL_ORGANIZATION";
+export const GET_ALL_SUPERUSER = "GET_ALL_SUPERUSER";
+
 

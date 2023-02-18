@@ -12,7 +12,7 @@ const AddOrgModal = ({
   AddOrganization,
   })=>{
     const[show,setshow]= useState('');
-    const handleClose = () =>setshow('false')
+    const handleClose = () => setshow(false)
     const handleShow = ()=>setshow('true')
 
     const [inputdata, setinput] = useState('');
@@ -67,12 +67,9 @@ const AddOrgModal = ({
         OrganizationAddress: OrganizationAddress,
         Logo: "",
         Location: items,
+       
       };
-      console.log(
-        "this is in main" + finalORGdata.OrganizationAddress,
-        OrganizationNumber
-      );
-  
+      handleClose();
       AddOrganization(finalORGdata);
       setFormDataORG({
         ...formDataORG,

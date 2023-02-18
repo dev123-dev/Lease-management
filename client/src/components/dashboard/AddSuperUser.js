@@ -1,6 +1,13 @@
 import React from "react";
 import AddUserModal from "./AddUserModal";
-export default function AddSuperUser() {
+import { GET_ALL_SUPERUSER } from "../../actions/types";
+import tenants from "../../reducers/tenants";
+import { connect } from "mongoose";
+import { getAllUsers } from "../../actions/auth";
+const  AddSuperUser = ({
+  tenants : {allsuperuser},
+  getAlluser,
+}) => {
 
 const clicking = ()=>{
   alert("done")
@@ -108,3 +115,8 @@ const clicking = ()=>{
     </div>
   );
 }
+
+const mapStateToProps = (state)=>({
+  tenants : state.tenants
+})
+export default connect(mapStateToProps,{getalluser})(AddSuperUser);

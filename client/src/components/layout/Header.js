@@ -7,7 +7,7 @@ import {
   Modal,
   Button,
 } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
@@ -74,11 +74,12 @@ const Header = ({
             style={{ padding: "0px 1em" }}
           >
             <Navbar.Brand>
-              <img
+            <NavLink to="/MainSuper">
+               <img
                 className="log_size"
                 alt="Pinnacle Media"
                 src={require("../../static/images/lraLogo_wh.png")}
-              />
+              /> </NavLink>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -220,6 +221,8 @@ const Header = ({
               user.usergroup == "Super Admin" ? (
                 <Fragment>
                   <Nav>
+                  <h3>{user.usergroup}</h3>
+                    
                     <NavItem>
                       <Link to="#" onClick={() => handleLogoutModalShow()}>
                         LOGOUT
@@ -252,6 +255,7 @@ const Header = ({
               ) : (
                 // starting
                 <Nav>
+                    <h3>Admin</h3>
                   <ul className="top-level-menu text-right">
                     <li>
                       <Link
