@@ -48,6 +48,7 @@ const AllTenantShopDetails = ({
   const [userData, setUserData] = useState(null);
   const onUpdate = (tenants, idx) => {
     setShowDeactiveModal(true);
+    alert("haiii");
     setUserData(tenants);
   };
 
@@ -153,7 +154,7 @@ const AllTenantShopDetails = ({
                         <th>Rent</th>
                         <th>Lease Start</th>
                         <th>Lease End</th>
-                        <th>Op</th>
+                        <th>Operation</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -197,6 +198,7 @@ const AllTenantShopDetails = ({
                                       <img
                                         className="img_icon_size log"
                                         onClick={() => onUpdate(tenants, idx)}
+                                        // onClick={() => setShowDeactiveModal()}
                                         src={require("../../static/images/delete.png")}
                                         alt="Deactivate"
                                         title="Deactivate"
@@ -208,7 +210,8 @@ const AllTenantShopDetails = ({
                                   &nbsp;
                                   <img
                                     className="img_icon_size log"
-                                    onClick={() => onEdit(tenants, idx)}
+                                    // onClick={() => onEdit(tenants, idx)}
+
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
                                     title="Edit"

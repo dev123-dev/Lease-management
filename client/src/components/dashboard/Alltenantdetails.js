@@ -68,6 +68,7 @@ const ShopDetails = ({
                         <th>BuildingName</th>
                         <th>LeaseStartDate</th>
                         <th>LeaseEndDate</th>
+                        <th>Operation</th>
                       </tr>
                     </thead>
                     {/* <tbody>
@@ -82,6 +83,39 @@ const ShopDetails = ({
                           );
                         })}
                     </tbody> */}
+                    <tr>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+
+                      <td>
+                        <center>
+                          {/* {tenants.tenantstatus &&
+                        tenants.tenantstatus !== "Deactive" ? ( */}
+
+                          <img
+                            className="img_icon_size log"
+                            // onClick={() => onUpdate(tenants, idx)}
+                            src={require("../../static/images/delete.png")}
+                            alt="Deactivate"
+                            title="Deactivate"
+                          />
+
+                          <img
+                            className="img_icon_size log"
+                            //onClick={() => onEdit(tenants, idx)}
+                            src={require("../../static/images/edit_icon.png")}
+                            alt="Edit"
+                            title="Edit"
+                          />
+                        </center>
+                      </td>
+                    </tr>
                   </table>
                 </div>
               </section>

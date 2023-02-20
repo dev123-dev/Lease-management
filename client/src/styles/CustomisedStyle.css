@@ -1235,7 +1235,7 @@ input[type="radio"].error {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 120% !important;
+  width: 180% !important;
   align-items: center;
   pointer-events: auto;
   background-color: #fff;
@@ -1912,9 +1912,24 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #000000ab;
   width:600%;
 }
+.org_add{
+  display: grid;
+  grid-template-columns: auto auto;
+
+}
+.admin_header{
+  background-color:#141313;
+  border-style:hidden;
+}
+.blur-filter {
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
+}
 
 
-
-/* div{
+div{
   border:1px solid salmon;
-} */
+} 

@@ -1,14 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import AddOrgModal from "./AddOrgModal";
-const AddOrgDashBoard=({
-    auth: {  isAuthenticated, user, users },
-    allorg,
-    
-  }) => {
-  
+const AddOrgDashBoard = ({
+  auth: { isAuthenticated, user, users },
+  allorg,
+}) => {
   return (
-   
     <div>
       <div className="container container_align ">
         <section className="sub_reg">
@@ -17,8 +14,7 @@ const AddOrgDashBoard=({
               <h2 className="heading_color">OrganiZation Reports </h2>
             </div>
 
-            <AddOrgModal/>
-
+            <AddOrgModal />
           </div>
           <div className="row">
             <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
@@ -39,20 +35,20 @@ const AddOrgDashBoard=({
                         <th>Operation</th>
                       </tr>
                     </thead>
-                      {/* <tbody>
+                    <tbody>
                       {allorg &&
                         allorg[0] &&
                         allorg.map((orgVal, idx) => {
                           return (
                             <tr key={idx}>
-                              <td>{orgVal}</td>
+                              <td>{orgVal.OrganizationName}</td>
                               <td>{orgVal}</td>
                               <td>{orgVal}</td>
                               <td>{orgVal}</td>
                               <td>{orgVal}</td>
                               {orgVal.AgreementStatus === "Expired" ? (
                                 <td>
-                                  <center> */}
+                                  <center>
                                     {/* <button
                                       variant="success"
                                       className="btn sub_form"
@@ -62,7 +58,7 @@ const AddOrgDashBoard=({
                                     >
                                       Renewal
                                     </button> */}
-                                  {/* </center>
+                                  </center>
                                 </td>
                               ) : (
                                 <td></td>
@@ -70,7 +66,7 @@ const AddOrgDashBoard=({
                             </tr>
                           );
                         })}
-                    </tbody>   */}
+                    </tbody>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -81,7 +77,7 @@ const AddOrgDashBoard=({
                         <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
-                        //  onClick={() => clicking()}
+                          //  onClick={() => clicking()}
                           src={require("../../static/images/edit_icon.png")}
                           alt="Edit"
                           title="Add User"
@@ -89,7 +85,7 @@ const AddOrgDashBoard=({
                         <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
-                         // onClick={()=>onondelet()}
+                          // onClick={()=>onondelet()}
                           src={require("../../static/images/delete.png")}
                           alt="Add User"
                           title="Add User"
@@ -105,9 +101,9 @@ const AddOrgDashBoard=({
       </div>
     </div>
   );
-}
+};
 
-const mapStateToProps = (state)=>({
-  auth : state.auth,
-})
-export default connect(mapStateToProps,{})(AddOrgDashBoard)
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, {})(AddOrgDashBoard);

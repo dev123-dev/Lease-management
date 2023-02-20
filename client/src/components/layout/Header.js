@@ -139,7 +139,7 @@ const Header = ({
                       </>
                     ) : (
                       <>
-                        <Button>
+                        <Button className="admin_header">
                           <Link to="/shop-Details">Property</Link>
                         </Button>
 

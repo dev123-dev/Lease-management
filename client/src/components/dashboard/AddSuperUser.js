@@ -1,10 +1,9 @@
 import React from "react";
 import AddUserModal from "./AddUserModal";
 export default function AddSuperUser() {
-
-const clicking = ()=>{
-  alert("done")
-}
+  const clicking = () => {
+    alert("done");
+  };
 
   return (
     <div>
@@ -14,7 +13,7 @@ const clicking = ()=>{
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">User Report </h2>
             </div>
-           <AddUserModal/>
+            <AddUserModal />
           </div>
           <div className="row">
             <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
@@ -83,18 +82,18 @@ const clicking = ()=>{
                         <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
-                         
-                         src={require("../../static/images/edit_icon.png")}
-                          alt="Add User"
-                          title="Add User"
+
+                          src={require("../../static/images/edit_icon.png")}
+                          alt="edit User"
+                          title="editUser"
                         />
                         <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
                           onClick={() => clicking()}
                           src={require("../../static/images/delete.png")}
-                          alt="Add User"
-                          title="Add User"
+                          alt="Deactivate User"
+                          title="Deactivate User"
                         />
                       </center>
                     </td>
