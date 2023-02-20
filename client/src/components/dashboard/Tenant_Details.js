@@ -1,10 +1,9 @@
 
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import AddOrgModal from "./AddOrgModal";
 import { getAllOrganization } from "../../actions/tenants";
 
-export default function PropertyDetail() {
+export default function Tenant_Details() {
   console.log("property page")
   return (
     <div>
@@ -12,10 +11,10 @@ export default function PropertyDetail() {
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">Property Reports </h2>
+              <h2 className="heading_color">Tenant Reports </h2>
             </div>
 
-            <AddOrgModal/>
+           {/* here addd the modal code for adding the tenant */}
 
           </div>
           <div className="row">
@@ -28,13 +27,13 @@ export default function PropertyDetail() {
                   >
                     <thead>
                       <tr>
-                        <th>Building Name</th>
-                        <th>Door Number</th>
-                        <th>Location</th>
-                        <th>Address</th>
-                        <th>Hike %</th>
+                        <th>Tenant Name</th>
+                        <th>Tenant Number</th>
+                        <th>Tenant Location</th>
+                        <th>Tenant Address</th>
                         <th>Stamp Duty</th>
                         <th>Lease Time Period</th>
+                        <th>Lease something</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
@@ -73,14 +72,15 @@ export default function PropertyDetail() {
                           );
                         })}
                     </tbody>   */}
-                     <td></td>
-                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>7</td>
+
+                     <td>
                     <img className="img_icon_size log"
                          // onClick={() => clicking()}
                           src={require("../../static/images/edit_icon.png")}
@@ -94,7 +94,7 @@ export default function PropertyDetail() {
                           src={require("../../static/images/delete.png")}
                           alt="Add User"
                           title="Add User"
-                        /></td>
+                        /></td> 
                   </table>
                 </div>
               </section>

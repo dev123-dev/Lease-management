@@ -39,6 +39,7 @@ const AddOrgModal = ({
       OrganizationEmail: "",
       OrganizationNumber: "",
       OrganizationAddress: "",
+      OrganizationStatus : "",
       Logo: "",
       Location: [],
     });
@@ -47,6 +48,7 @@ const AddOrgModal = ({
       OrganizationEmail,
       OrganizationNumber,
       OrganizationAddress,
+      OrganizationStatus,
       Logo,
       Location,
     } = formDataORG
@@ -65,6 +67,7 @@ const AddOrgModal = ({
         OrganizationEmail: OrganizationEmail,
         OrganizationNumber: OrganizationNumber,
         OrganizationAddress: OrganizationAddress,
+        OrganizationStatus : OrganizationStatus,
         Logo: "",
         Location: items,
        
@@ -77,6 +80,7 @@ const AddOrgModal = ({
         OrganizationEmail: "",
         OrganizationNumber: "",
         OrganizationAddress: "",
+        OrganizationStatus : "",
         Logo: "",
         Location: [],
       });

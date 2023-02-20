@@ -67,6 +67,7 @@ const AddUser = ({
       usergroup: usergroup,
       useraddr: useraddr,
     };
+    
     AddUserDetailsform(finalData);
     onAddUserModalChange(true);
   };

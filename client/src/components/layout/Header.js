@@ -154,7 +154,7 @@ const Header = ({
 
                         <Button>
                           <NavLink
-                            to="/add-tenant-details"
+                            to="/tenant-detail"
                             activeStyle={{
                               color: "Black",
                               textDecoration: "none",
@@ -166,7 +166,7 @@ const Header = ({
 
                         <Button>
                           <NavLink
-                            to="/AdminUser"
+                            to="/SuperUser"
                             activeStyle={{
                               color: "Black",
                               textDecoration: "none",

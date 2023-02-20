@@ -43,6 +43,7 @@ export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
     OrganizationData,
     config
   );
+  //diapatching get function because it should relfex immidiatly after adding
   dispatch(getAllOrganization());
 
 } catch (err) {
@@ -68,16 +69,34 @@ export const getAllOrganization = () => async (dispatch) => {
     });
   }
 };
+//adding Super user
+export const Adduser = (userData)=> async(dispatch)=>{
+  console.log(userData)
+  try {
+    await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
+    dispatch(getalluser())
+   
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+  };
+
+
 
 //getting all the user (super)
 
 export const getalluser = ()=>async(dispatch)=>{
+  console.log("inside action")
   try{
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
     dispatch({
       type : GET_ALL_SUPERUSER,
       payload : res.data,
+      
     });
+    console.log("this is action data"+res.usernumber)
   }catch(err){
     dispatch({
       type : Error,
@@ -86,17 +105,21 @@ export const getalluser = ()=>async(dispatch)=>{
 };
 
 
-//adding user Modal
-export const Adduser = (userData)=> async(dispatch)=>{
-  console.log(userData)
+//deleting organization details
+export const deleteOrganization = (id) => async(dispatch)=>{
+  console.log('INSIDE ACTION')
+  console.log(id);
   try {
-    await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
+    const res = await axios.post(`${linkPath}/api/tenants/deactive-Organization`,id,config);
+    dispatch(getAllOrganization());
   } catch (err) {
+    console.log("error while sending from action");
     dispatch({
-      type: AUTH_ERROR,
+      type: TENANT_FEEDBACK_ERROR,
     });
   }
-  };
+
+};
 
 
 

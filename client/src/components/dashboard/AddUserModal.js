@@ -24,7 +24,7 @@ const  AddUserModal = ({
         username: "",
         useremail: "",
         useraddress: "",
-        usernumber : "",
+        userphone : "",
         usergroup: "",
         password : "", 
       });
@@ -48,19 +48,21 @@ const  AddUserModal = ({
             [e.target.name]: e.target.value });
         }
         const onsubmitUserData=()=>{
-            alert("done")
+            
             const finalUserData = {
                 username : username,
                 useremail : useremail,
-                usernumber : usernumber,
+                userphone : usernumber,
                 useraddress : useraddress,
                 usergroup : usergroup,
                 password : password,  
             };
+            handleClose();
             Adduser(finalUserData);
             setFormData({
                 ...formData,
                 username : "",
+                userphone : "",
                 useremail : "",
                 useraddress : "",
                 Usergroups : "",

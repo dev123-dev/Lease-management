@@ -16,6 +16,7 @@ const TenantReport = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
+ 
   const onRenewal = (tenants) => {
     setShowEditModal(true);
     setUserData(tenants);

@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AddUserModal from "./AddUserModal";
-import { GET_ALL_SUPERUSER } from "../../actions/types";
 import tenants from "../../reducers/tenants";
-import { connect } from "mongoose";
-import { getAllUsers } from "../../actions/auth";
+import { getAllSettings } from "../../actions/tenants";
+import { connect } from "react-redux";
+import { getalluser } from "../../actions/tenants";
+import PropTypes from "prop-types";
+
 const  AddSuperUser = ({
-  tenants : {allsuperuser},
-  getAlluser,
-}) => {
+  auth: { isAuthenticated, loading, user, allTenantSetting },
+  tenants : {allsuperuser}, //this is a reudcer 
+  getalluser,               //this is a action function to call
+}) => {                    //point to remember that this includes code for both Super user list and Admin user List it is based on condition
 
-const clicking = ()=>{
-  alert("done")
+  useEffect(()=>{
+    getalluser();
+  },[])
+
+ 
+const onondelet = ()=>{
+  alert("done")  
+ 
 }
-
   return (
+   
     <div>
+       {!loading &&
+      isAuthenticated &&
+      user &&
+      user.usergroup === "Super Admin" ? (
+        
       <div className="container container_align ">
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
@@ -36,75 +50,62 @@ const clicking = ()=>{
                         <th> Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Address</th>
+                        <th>Group</th>
                         <th>Organization</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
-                    {/* <tbody>
-                      {expReport &&
-                        expReport[0] &&
-                        expReport.map((expReportVal, idx) => {
-                          var ED = expReportVal.tenantLeaseEndDate.split(/\D/g);
-                          var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-                            "-"
-                          );
+                    <tbody>
+                      {allsuperuser &&
+                        allsuperuser[0] &&
+                        allsuperuser.map((allsuperuse, idx) => { 
                           return (
                             <tr key={idx}>
-                              <td>{expReportVal.tenantName}</td>
-                              <td>{expReportVal.tenantDoorNo}</td>
-                              <td>{expReportVal.tenantFileNo}</td>
-                              <td>{tenantLeaseEndDate}</td>
-                              <td>{expReportVal.tenantRentAmount}</td>
-                              <td>{expReportVal.chargesCal.toFixed(2)}</td>
-                              <td>{expReportVal.stampDuty.toFixed(2)}</td>
-                              <td>{expReportVal.AgreementStatus}</td>
-                              {expReportVal.AgreementStatus === "Expired" ? (
-                                <td>
-                                  <center>
-                                    <button
-                                      variant="success"
-                                      className="btn sub_form"
-                                      onClick={() =>
-                                        onRenewal(expReportVal, idx)
-                                      }
-                                    >
-                                      Renewal
-                                    </button>
-                                  </center>
-                                </td>
-                              ) : (
-                                <td></td>
-                              )}
-                            </tr>
-                          );
-                        })}
-                    </tbody> */}
-                    <td>abc</td>
-                    <td>abc@gmail.com</td>
-                    <td>985685896</td>
-                    <td>manipal</td>
-                    <td>abc</td>
-                    <td>
-                      <center>
-                        <img
+                              <td>{allsuperuse.username}</td>
+                              <td>{allsuperuse.useremail}</td>
+                              <td>{allsuperuse.userphone}</td>
+                              <td>{allsuperuse.usergroup}</td>
+                              <td>{allsuperuse.AgreementStatus}</td>
+                              <td><img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
-                         
-                         src={require("../../static/images/edit_icon.png")}
-                          alt="Add User"
+                          //onClick={() => clicking()}
+                          src={require("../../static/images/edit_icon.png")}
+                          alt="Edit"
                           title="Add User"
                         />
-                        <img
+                          <img
                           className="img_icon_size log"
                           // onClick={() => onClickHandler()}
-                          onClick={() => clicking()}
+                          onClick={()=>onondelet()}
                           src={require("../../static/images/delete.png")}
                           alt="Add User"
                           title="Add User"
-                        />
-                      </center>
-                    </td>
+                        /></td>
+                        
+                              {/* {orgVal.AgreementStatus === "Expired" ? (
+                                <td>
+                                  <center>
+                                     <button
+                                      variant="success"
+                                      className="btn sub_form"
+                                      // onClick={() =>
+                                      //   onRenewal(orgVal, idx)
+                                      // }
+                                    >
+                                      Renewal
+                                    </button> 
+                                  </center>
+                                </td>
+                              
+                              ) : (
+                                <td></td>
+                              )} */}
+                            </tr>
+                          );
+                        })}
+                    </tbody>  
+                  
                   </table>
                 </div>
               </section>
@@ -112,11 +113,18 @@ const clicking = ()=>{
           </div>
         </section>
       </div>
+      ) : (<>
+
+      {console.log("admin page working")}
+
+      </>)}
     </div>
   );
 }
 
 const mapStateToProps = (state)=>({
-  tenants : state.tenants
+  tenants : state.tenants,
+  auth: state.auth,
+
 })
-export default connect(mapStateToProps,{getalluser})(AddSuperUser);
+export default connect(mapStateToProps,{getalluser, getAllSettings})(AddSuperUser); // to connect to particular function which is getalluser
