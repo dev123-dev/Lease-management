@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Modal } from "react-bootstrap";
-import RenewTenentAgreement from "./RenewTenentAgreement";
-import RenewalReportPrint from "../printPdf/renewalReportPrint";
+
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
@@ -16,7 +15,6 @@ const TenantReport = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
- 
   const onRenewal = (tenants) => {
     setShowEditModal(true);
     setUserData(tenants);
@@ -30,74 +28,64 @@ const TenantReport = ({
     <Fragment></Fragment>
   ) : (
     <>
-      {user.usergroup !== "Super Admin" ? (
-        <>SuperAdmin</>
-      ) : (
-        <>
-          <div>
-            <div className="container container_align ">
-              <section className="sub_reg">
-                <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                  <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                    <h2 className="heading_color">DashBoard </h2>
-                  </div>
-                  <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-                    <img
-                      className="img_icon_size log"
-                      // onClick={() => onClickHandler()}
-                      src={require("../../static/images/print.png")}
-                      alt="Add User"
-                      title="Add User"
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                    <section className="body">
-                      <div className="body-inner no-padding  table-responsive fixTableHead">
-                        <table
-                          className="table table-bordered table-striped table-hover"
-                          id="datatable2"
-                        >
-                          <thead>
-                            <tr>
-                              <th>Org Name</th>
-                              <th>Email</th>
-                              <th>Phone</th>
-                              <th>StartDate</th>
-                              <th>Org-Status</th>
-
-                              <th>Operation</th>
-                            </tr>
-                          </thead>
-
-                          <td>abc</td>
-                          <td>abc@gmail.com</td>
-                          <td>985685896</td>
-                          <td>09/5/2020</td>
-                          <td> Active</td>
-                          <td>
-                            <center>
-                              <button
-                                variant="success"
-                                className="btn sub_form"
-                              >
-                                Renewal
-                              </button>
-                            </center>
-                          </td>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-              </section>
+      <div>
+        <div className="container container_align ">
+          <section className="sub_reg">
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+              <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+                <h2 className="heading_color">DashBoard </h2>
+              </div>
+              <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
+                <img
+                  className="img_icon_size log"
+                  // onClick={() => onClickHandler()}
+                  src={require("../../static/images/print.png")}
+                  alt="Add User"
+                  title="Add User"
+                />
+              </div>
             </div>
-          </div>
-        </>
-      )}
-    </>
+            <div className="row">
+              <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+                <section className="body">
+                  <div className="body-inner no-padding  table-responsive fixTableHead">
+                    <table
+                      className="table table-bordered table-striped table-hover"
+                      id="datatable2"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Org Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>StartDate</th>
+                          <th>Org-Status</th>
 
+                          <th>Operation</th>
+                        </tr>
+                      </thead>
+
+                      <td>abc</td>
+                      <td>abc@gmail.com</td>
+                      <td>985685896</td>
+                      <td>09/5/2020</td>
+                      <td> Active</td>
+                      <td>
+                        <center>
+                          <button variant="success" className="btn sub_form">
+                            Renewal
+                          </button>
+                        </center>
+                      </td>
+                    </table>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </>
     // <Fragment>
     //   <div className="container container_align ">
     //     <section className="sub_reg">

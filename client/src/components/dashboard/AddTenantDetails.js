@@ -26,7 +26,7 @@ const AddTenantDetails = ({
     getAllSettings();
   }, [getAllSettings]);
 
-  console.log(allDoorNos)
+  console.log(allDoorNos);
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },

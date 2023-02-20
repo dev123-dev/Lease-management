@@ -32,6 +32,10 @@ const OrganizationSchema = new mongoose.Schema({
     type: String,
     
   },
+  org_status : {
+    type : String,
+    default: "Active",
+  },
   enter_by_dateTime: {
     type: Date,
     default: Date.now(),

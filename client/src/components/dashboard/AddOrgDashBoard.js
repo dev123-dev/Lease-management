@@ -1,10 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import AddOrgModal from "./AddOrgModal";
+import { Props } from "react";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
+import { getAllOrganization } from "../../actions/tenants";
+import { deleteOrganization } from "../../actions/tenants";
+
 const AddOrgDashBoard = ({
-  auth: { isAuthenticated, user, users },
-  allorg,
+  //here to connect to action we need to import the function
+  //then again we need to mention inside the const function
+  tenants: { allorg },
+  deleteOrganization,
+  getAllOrganization,
 }) => {
+  useEffect(() => {
+    getAllOrganization("");
+  }, []);
+
+  const clicking = () => {
+    alert("Edit");
+  };
+
+  const [formData, setFormData] = useState({
+    Organization_DE_Reason: "",
+    isSubmitted: false,
+  });
+
+  const { Organization_DE_Reason } = formData;
+
+  const onInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [OrgId, setId] = useState("");
+
+  const onDelete = (id) => {
+    setId(id);
+    handleShow();
+  };
+
+  const onAdd = () => {
+    const reason = {
+      Org_id: OrgId,
+      org_status: "Deactive",
+      deactive_reason: Organization_DE_Reason,
+    };
+    deleteOrganization(reason);
+    console.log(OrgId);
+  };
+
   return (
     <div>
       <div className="container container_align ">
@@ -30,8 +80,8 @@ const AddOrgDashBoard = ({
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Address</th>
-                        <th>Number of Users</th>
-
+                        {/* <th>Number of Users</th> */}
+                        <th>Current Status</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
@@ -42,27 +92,47 @@ const AddOrgDashBoard = ({
                           return (
                             <tr key={idx}>
                               <td>{orgVal.OrganizationName}</td>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              <td>{orgVal}</td>
-                              {orgVal.AgreementStatus === "Expired" ? (
+                              <td>{orgVal.OrganizationEmail}</td>
+                              <td>{orgVal.OrganizationNumber}</td>
+                              <td>{orgVal.OrganizationAddress}</td>
+                              <td>{orgVal.org_status}</td>
+                              <td>
+                                <img
+                                  className="img_icon_size log"
+                                  // onClick={() => onClickHandler()}
+                                  onClick={() => clicking()}
+                                  src={require("../../static/images/edit_icon.png")}
+                                  alt="Edit"
+                                  title="Edit User"
+                                />
+                                <img
+                                  className="img_icon_size log"
+                                  // onClick={() => onClickHandler()}
+                                  onClick={() => onDelete(orgVal._id)}
+                                  src={require("../../static/images/delete.png")}
+                                  alt="delete User"
+                                  title="delete User"
+                                />
+                              </td>
+
+                              {/* {orgVal.AgreementStatus === "Expired" ? (
                                 <td>
                                   <center>
-                                    {/* <button
+                                     <button
                                       variant="success"
                                       className="btn sub_form"
-                                      onClick={() =>
-                                        onRenewal(orgVal, idx)
-                                      }
+                                      // onClick={() =>
+                                      //   onRenewal(orgVal, idx)
+                                      // }
                                     >
                                       Renewal
-                                    </button> */}
+                                    </button> 
                                   </center>
                                 </td>
+                              
                               ) : (
                                 <td></td>
-                              )}
+                              )} */}
                             </tr>
                           );
                         })}
@@ -73,24 +143,7 @@ const AddOrgDashBoard = ({
                     <td></td>
                     <td></td>
                     <td>
-                      <center>
-                        <img
-                          className="img_icon_size log"
-                          // onClick={() => onClickHandler()}
-                          //  onClick={() => clicking()}
-                          src={require("../../static/images/edit_icon.png")}
-                          alt="Edit"
-                          title="Add User"
-                        />
-                        <img
-                          className="img_icon_size log"
-                          // onClick={() => onClickHandler()}
-                          // onClick={()=>onondelet()}
-                          src={require("../../static/images/delete.png")}
-                          alt="Add User"
-                          title="Add User"
-                        />
-                      </center>
+                      <center></center>
                     </td>
                   </table>
                 </div>
@@ -99,11 +152,84 @@ const AddOrgDashBoard = ({
           </div>
         </section>
       </div>
+      {/* modal for deactivating start */}
+
+      {/* deactivating the Super User */}
+      <Modal
+        show={show}
+        // onHide={handleClose}
+        centered
+      >
+        <Modal.Title>Deactivate</Modal.Title>
+        <Modal.Header className="lg" closeButton>
+          x
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Reason For Deactivating</Form.Label>
+              <Form.Control
+                type="text"
+                name="Organization_DE_Reason"
+                onChange={(e) => onInputChange(e)}
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={onAdd}>
+            Save
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Deactivating the user  */}
+
+      {/* organization Edit starting */}
+      <Modal
+        show={show}
+        // onHide={handleClose}
+        centered
+      >
+        <Modal.Title>Deactivate</Modal.Title>
+        <Modal.Header className="lg" closeButton>
+          x
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Reason For Deactivating</Form.Label>
+              <Form.Control
+                type="text"
+                name="Organization_DE_Reason"
+                onChange={(e) => onInputChange(e)}
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={onAdd}>
+            Save
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Organization Ending */}
+
+      {/* modal closing */}
     </div>
   );
 };
-
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  tenants: state.tenants,
 });
-export default connect(mapStateToProps, {})(AddOrgDashBoard);
+export default connect(mapStateToProps, {
+  getAllOrganization,
+  deleteOrganization,
+})(AddOrgDashBoard);

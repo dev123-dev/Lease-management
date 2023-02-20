@@ -21,6 +21,7 @@ import {
   GET_ALL_USER,
   FINAL_DATA_REP,
   GET_ALL_ORGANIZATION,
+  GET_ALL_SUPERUSER
 } from "./types";
 
 var linkPath = "";
@@ -42,6 +43,9 @@ export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
     OrganizationData,
     config
   );
+  //diapatching get function because it should relfex immidiatly after adding
+  dispatch(getAllOrganization());
+
 } catch (err) {
   dispatch({
     type: AUTH_ERROR,
@@ -52,7 +56,7 @@ export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
   try {
-    console.log("inside the action methosd")
+  
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
     dispatch({
       type: GET_ALL_ORGANIZATION,
@@ -65,18 +69,57 @@ export const getAllOrganization = () => async (dispatch) => {
     });
   }
 };
-
-//adding user Modal
+//adding Super user
 export const Adduser = (userData)=> async(dispatch)=>{
   console.log(userData)
   try {
     await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
+    dispatch(getalluser())
+   
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
     });
   }
   };
+
+
+
+//getting all the user (super)
+
+export const getalluser = ()=>async(dispatch)=>{
+  console.log("inside action")
+  try{
+    const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
+    dispatch({
+      type : GET_ALL_SUPERUSER,
+      payload : res.data,
+      
+    });
+    console.log("this is action data"+res.usernumber)
+  }catch(err){
+    dispatch({
+      type : Error,
+    })
+  }
+};
+
+
+//deleting organization details
+export const deleteOrganization = (id) => async(dispatch)=>{
+  console.log('INSIDE ACTION')
+  console.log(id);
+  try {
+    const res = await axios.post(`${linkPath}/api/tenants/deactive-Organization`,id,config);
+    dispatch(getAllOrganization());
+  } catch (err) {
+    console.log("error while sending from action");
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+
+};
 
 
 

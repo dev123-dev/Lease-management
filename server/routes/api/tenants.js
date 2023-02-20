@@ -8,6 +8,7 @@ const TenantSettings = require("../../models/TenantSettings");
 const OrganizationDetails = require("../../models/OrganizationDetails")
 const UserDetails = require("../../models/UserDetails");
 const ShopDetails = require("../../models/ShopDetails");
+
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 const bcrypt = require("bcryptjs");
@@ -99,25 +100,17 @@ router.post("/add-Organization", async (req, res) => {
 
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
+  console.log("inside api")
   try {
     const orgdata = await OrganizationDetails.aggregate([
-     
-      { $unwind: "$output" },
       {
         $project: {
           OrganizationName:"$OrganizationName",
           OrganizationEmail : "$OrganizationEmail",
           OrganizationNumber:"$OrganizationNumber",
           OrganizationAddress : "$OrganizationAddress",
+          org_status : "$org_status",
           enter_by_dateTime : "$enter_by_dateTime",
-        },
-      },
-      {
-        $match: {
-          tenantstatus:
-           {
-            $eq: "Active",
-          },
         },
       },
     ]);
@@ -139,6 +132,28 @@ router.post("/add-SuperUser",async(req,res)=>{
     console.error("error in adding Super user data");
   }
 })
+
+//super user displaying
+router.get("/get-all-Superuser", async (req, res) => {
+  try {
+    const userdata = await UserDetails.aggregate([
+      {
+        $project: {
+          username:"$username",
+          useremail:"$useremail",
+          userphone:"$userphone",
+          usergroup:"$usergroup",
+          userStatus:"$userStatus",
+        },
+      },
+    ]);
+    res.json(userdata);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
 
 router.post("/add-tenant-settings", async (req, res) => {
   let data = req.body;
@@ -191,10 +206,32 @@ router.get("/get-tenant-report", async (req, res) => {
   }
 });
 
-router.post(
-  "/deactive-tenant",
+
+//ddeactivating the organization
+router.post("/deactive-Organization", async (req,res)=>{
+  let data = req.body;
+  console.log(data.OrgId)
+  try{
+    let data = req.body;
+    let dltOrg = await OrganizationDetails.updateOne(
+      {_id : data.Org_id},
+      {
+        $set : {
+          org_status :"Deactive",
+          deactive_reason : data.deactive_reason,
+        },
+      }
+    );
+    res.json(dltOrg);
+  }catch(err){
+    console.log("error in deleting the org data")
+  }
+});
+
+
+router.post("/deactive-tenant", async (req, res) => {
   // [check("tdId", "Invalid Request").not().isEmpty()],
-  async (req, res) => {
+ 
     try {
       let data = req.body;
       const updatedetails = await TenantDetails.updateOne(

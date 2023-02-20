@@ -75,6 +75,7 @@ const AddOrgModal = ({
       OrganizationEmail: "",
       OrganizationNumber: "",
       OrganizationAddress: "",
+      OrganizationStatus: "",
       Logo: "",
       Location: [],
     });
