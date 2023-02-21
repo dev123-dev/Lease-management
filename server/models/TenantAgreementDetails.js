@@ -8,11 +8,11 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   tenantRentAmount: {
     type: Number,
-    required: true,
+  
   },
   tenantLeaseStartDate: {
     type: String,
-    required: true,
+    
   },
   tenantLeaseEndDate: {
     type: String,
@@ -33,7 +33,7 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   tenantDoorNo: {
     type: String,
-    required: true,
+    
   },
   AgreementStatus: {
     type: String,
@@ -41,11 +41,11 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   enter_by_id: {
     type: ObjectId,
-    required: true,
+  
   },
   enter_by_name: {
     type: String,
-    required: true,
+  
   },
   enter_by_dateTime: {
     type: Date,
@@ -53,15 +53,15 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   enter_by_date: {
     type: String,
-    required: true,
+  
   },
   edit_by_id: {
     type: ObjectId,
-    required: true,
+  
   },
   edit_by_name: {
     type: String,
-    required: true,
+    
   },
   edit_by_dateTime: {
     type: Date,
@@ -69,15 +69,15 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   edit_by_date: {
     type: String,
-    required: true,
+    
   },
   deactive_by_id: {
     type: ObjectId,
-    required: true,
+    
   },
   deactive_by_name: {
     type: String,
-    required: true,
+    
   },
   deactive_by_dateTime: {
     type: Date,
@@ -85,15 +85,12 @@ const TenantAgreementDetails = new mongoose.Schema({
   },
   deactive_by_date: {
     type: String,
-    required: true,
+    
   },
   deactive_reason: {
     type: String,
-    required: true,
+    
   },
 });
 
-module.exports = tenantAgreementSettings = mongoose.model(
-  "tenantAgreementSettings",
-  TenantAgreementDetails
-);
+module.exports  = mongoose.model("tenantAgreementSettings",TenantAgreementDetails);

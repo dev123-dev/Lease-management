@@ -1,10 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import { connect } from "react-redux";
-import AddOrgModal from "./AddOrgModal";
-import { getAllOrganization } from "../../actions/tenants";
+import PropTypes from "prop-types";
+import AddShopDetails from "./AddShopDetails";
+import { Modal,Button } from "react-bootstrap";
+import { getAllShops } from "../../actions/tenants";
+import { Form } from "react-bootstrap";
+import { deactiveProperty } from "../../actions/tenants";
 
-export default function PropertyDetail() {
-  console.log("property page");
+const PropertyDetail = ({ tenants: { allShopDetails }, getAllShops,deactiveProperty }) => {
+  
+  useEffect(() => {
+    getAllShops();
+  }, [getAllShops]);
+
+  const [formData, setFormData] = useState({
+    deactive_reason: "",
+    isSubmitted: false,
+  });
+
+  const { deactive_reason } = formData;
+
+  const onInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [OrgId, setId] = useState("");
+
+  const onDelete = (id) => {
+    setId(id);
+    handleShow();
+  };
+
+  const onAdd = () => {
+    const reason = {
+      Org_id: OrgId,
+      shopStatus: "Deactive",
+      deactive_reason: deactive_reason,
+    };
+    deactiveProperty(reason);
+   // console.log(OrgId);
+  }
   return (
     <div>
       <div className="container container_align ">
@@ -14,94 +53,102 @@ export default function PropertyDetail() {
               <h2 className="heading_color">Property Reports </h2>
             </div>
 
-            <AddOrgModal />
-          </div>
-          <div className="row">
-            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-              <section className="body">
-                <div className="body-inner no-padding  table-responsive fixTableHead">
-                  <table
-                    className="table table-bordered table-striped table-hover"
-                    id="datatable2"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Building Name</th>
-                        <th>Door Number</th>
-                        <th>Location</th>
-                        <th>Address</th>
-                        <th>Hike %</th>
-                        <th>Stamp Duty</th>
-                        <th>Lease Time Period</th>
-                        <th>Operation</th>
+            <AddShopDetails />
+            <table
+              className="table table-bordered table-striped table-hover"
+              id="datatable2"
+            >
+              <thead>
+                <tr>
+                  <th>Building Name</th>
+                  <th>Door Number</th>
+                  <th>Location</th>
+                  <th>Hike %</th>
+                  <th>Stamp Duty</th>
+                  <th>Lease Time Period</th>
+                  <th>Status</th>
+                  <th>Operation</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allShopDetails &&
+                  allShopDetails.map((Val, idx) => {
+                    return (
+                      <tr key={idx}>
+                        <td>{Val.buildingName}</td>
+                        <td>{Val.shopDoorNo}</td>
+                        <td>{Val.Location}</td>
+                        <td>{Val.hikePercentage}</td>
+                        <td>{Val.stampDuty}</td>
+                        <td>{Val.leaseTimePeriod}</td>
+                        <td>{Val.shopStatus}</td>
+                        <td>
+                          <img
+                            className="img_icon_size log"
+                            // onClick={() => clicking()}
+                            src={require("../../static/images/edit_icon.png")}
+                            alt="Edit"
+                            title="Add User"
+                          />
+                          <img
+                            className="img_icon_size log"
+                            // onClick={() => onClickHandler()}
+                            onClick={()=>onDelete(Val._id)}
+                            src={require("../../static/images/delete.png")}
+                            alt="Add User"
+                            title="Add User"
+                          />
+                        </td>
                       </tr>
-                    </thead>
-                    {/* <tbody>
-                      {allorg &&
-                        allorg[0] &&
-                        allorg.map((orgVal, idx) => {
-                          return (
-                            <tr key={idx}>
-                              <td>{orgVal.OrganizationName}</td>
-                              <td>{orgVal.OrganizationEmail}</td>
-                              <td>{orgVal.OrganizationNumber}</td>
-                              <td>{orgVal.OrganizationAddress}</td>
-                              <td>{orgVal.AgreementStatus}</td>
-                              <td>
-                        
-                              {orgVal.AgreementStatus === "Expired" ? (
-                                <td>
-                                  <center>
-                                     <button
-                                      variant="success"
-                                      className="btn sub_form"
-                                      // onClick={() =>
-                                      //   onRenewal(orgVal, idx)
-                                      // }
-                                    >
-                                      Renewal
-                                    </button> 
-                                  </center>
-                                </td>
-                              
-                              ) : (
-                                <td></td>
-                              )}
-                            </tr>
-                          );
-                        })}
-                    </tbody>   */}
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <img
-                        className="img_icon_size log"
-                        // onClick={() => clicking()}
-                        src={require("../../static/images/edit_icon.png")}
-                        alt="Edit"
-                        title="Add User"
-                      />
-                      <img
-                        className="img_icon_size log"
-                        // onClick={() => onClickHandler()}
-                        //onClick={()=>onondelet()}
-                        src={require("../../static/images/delete.png")}
-                        alt="Add User"
-                        title="Add User"
-                      />
-                    </td>
-                  </table>
-                </div>
-              </section>
-            </div>
+                    );
+                  })}
+              </tbody>
+            </table>
           </div>
         </section>
       </div>
+      {/* modal for Deactivating the Property starting */}
+      <Modal
+        show={show}
+        // onHide={handleClose}
+        centered
+      >
+        <Modal.Title>Deactivate</Modal.Title>
+        <Modal.Header className="lg" closeButton>
+          x
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Reason For Deactivating</Form.Label>
+              <Form.Control
+                type="text"
+                name="deactive_reason"
+                onChange={(e) => onInputChange(e)}
+                autoFocus
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={onAdd}>
+            Save
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {/* Modal Ending */}
     </div>
   );
-}
+};
+
+PropertyDetail.propTypes = {
+  tenants: PropTypes.object.isRequired,
+  getAllShops: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  tenants: state.tenants,
+});
+export default connect(mapStateToProps, { getAllShops,deactiveProperty })(PropertyDetail);

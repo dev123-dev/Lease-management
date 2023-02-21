@@ -26,7 +26,7 @@ const AddTenantDetails = ({
     getAllSettings();
   }, [getAllSettings]);
 
-  console.log(allDoorNos);
+  //console.log(allDoorNos);
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -188,6 +188,7 @@ const AddTenantDetails = ({
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onSubmit = () => {
+    
     const finalData = {
       tenantFileNo: tenantFileNo,
       tenantDoorNo: tenantDoorNo,
@@ -212,6 +213,7 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
+    console.log(finalData);
     AddTenantDetailsform(finalData);
     setFormData({
       ...formData,
@@ -232,7 +234,9 @@ const AddTenantDetails = ({
       tenantChequenoOrDdno: "",
       generatordepoAmt: "",
     });
-    setShowInformation(true);
+   
+   //handleInformationModalOpen();
+    //setShowInformation(true);
     setEntryDate("");
     getDoorNoData("");
     setLeaseEndDate("");
@@ -543,19 +547,19 @@ const AddTenantDetails = ({
                 <button
                   variant="success"
                   className="btn sub_form btn_continue Save float-right"
-                  onClick={() => onSubmit()}
-                  style={
-                    tenantDoorNo !== "" &&
-                    tenantFileNo !== "" &&
-                    tenantName !== "" &&
-                    tenantPaymentMode !== "" &&
-                    tenantDepositAmt !== "" &&
-                    tenantRentAmount !== "" &&
-                    entryDate !== "" &&
-                    tenantAddr !== ""
-                      ? { opacity: "1" }
-                      : { opacity: "1", pointerEvents: "none" }
-                  }
+                  onClick={()=>onSubmit()}
+                  // style={
+                  //   tenantDoorNo !== "" &&
+                  //   tenantFileNo !== "" &&
+                  //   tenantName !== "" &&
+                  //   tenantPaymentMode !== "" &&
+                  //   tenantDepositAmt !== "" &&
+                  //   tenantRentAmount !== "" &&
+                  //   entryDate !== "" &&
+                  //   tenantAddr !== ""
+                  //     ? { opacity: "1" }
+                  //     : { opacity: "1", pointerEvents: "none" }
+                  // }
                 >
                   Save
                 </button>
@@ -584,6 +588,7 @@ const AddTenantDetails = ({
                 </button>
               </Modal.Footer>
             </Modal>
+
           </div>
         </Fragment>
       </Modal>

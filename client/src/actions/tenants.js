@@ -94,9 +94,7 @@ export const getalluser = ()=>async(dispatch)=>{
     dispatch({
       type : GET_ALL_SUPERUSER,
       payload : res.data,
-      
     });
-    console.log("this is action data"+res.usernumber)
   }catch(err){
     dispatch({
       type : Error,
@@ -126,6 +124,7 @@ export const deleteOrganization = (id) => async(dispatch)=>{
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
+  console.log(finalData.tenantName)
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
   };
@@ -134,11 +133,7 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     selectedVal: finalData.selectedVal,
   };
   try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/add-tenant-details`,
-      finalData,
-      config
-    );
+    const res = await axios.post( `${linkPath}/api/tenants/add-tenant-details`,finalData,config);
     dispatch({
       type: NEW_TENENTDETAILS,
       payload: res.data,
@@ -190,13 +185,11 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
+  console.log("action")
+  console.log(finalData)
   try {
-    await axios.post(
-      `${linkPath}/api/tenants/add-shop-details`,
-      finalData,
-      config
-    );
-    dispatch(getAllShops());
+    await axios.post(`${linkPath}/api/tenants/add-Property-details`,finalData,config);
+     dispatch(getAllShops());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -221,14 +214,25 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
   }
 };
 
-export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
+//deactivate property details
+export const deactiveProperty = (finalData) => async (dispatch) => {
+  console.log("inside action")
+  console.log(finalData)
   try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/deactive-tenant`,
-      finalData,
-      config
-    );
-    // dispatch(getAllTenants());
+    const res = await axios.post(`${linkPath}/api/tenants/deactive-property`,finalData,config);
+     dispatch(getAllShops());
+  } catch (err) {
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
+
+export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
+  console.log(finalData)
+  try {
+    const res = await axios.post(`${linkPath}/api/tenants/deactive-tenant`,finalData,config);
+     dispatch(getAllTenants());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -323,12 +327,15 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
 };
 
 export const getAllShops = () => async (dispatch) => {
+ 
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-shops`);
     dispatch({
       type: GET_ALL_SHOPS,
       payload: res.data,
     });
+    // console.log("res.data",res.data);
+    
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

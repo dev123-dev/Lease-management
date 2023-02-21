@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
-import { Modal } from "react-bootstrap";
+import { Modal,Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 
@@ -14,45 +14,101 @@ const AddShopDetails = ({
 }) => {
   //formData
   const [formData, setFormData] = useState({
-    shopFileNo: "",
-    shopDoorNo: "",
+    buildingName: "",
+    shopDoorNo: [],
+     hikePercentage: "",
+     stampDuty: "",
+     LeaseTime : "",
     isSubmitted: false,
   });
 
-  const { shopFileNo, shopDoorNo } = formData;
+  const [show, setshow] = useState("");
+  const handleClose = () => setshow("false");
+  const handleShow = () => setshow("true");
 
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [inputdata, setinput] = useState("");
+  const [items, setitem] = useState([]);
+
+  const {
+     buildingName,
+     shopDoorNo,
+      hikePercentage,
+      stampDuty,
+      leaseTimePeriod,
+      shopStatus,
+    } = formData;
+
+      const handleLocationclose = (index) => {
+           const delitem = items.filter((ele, ind) => {
+             return ind != index;
+           });
+           setitem(delitem);
+        };
+
+      const addItem = () => {
+     if (!inputdata) {
+     } else {
+       setitem([...items, inputdata]);
+       setinput("");
+     }
+   };
+
+      const onPropertychange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+          });
+        };
 
   const [showInformationModal, setShowInformation] = useState(false);
-
+  const handleInformationModalopen = () => setShowInformation(true);
   const handleInformationModalClose = () => setShowInformation(false);
   const LogoutModalClose = () => {
     handleInformationModalClose();
   };
   const onSubmit = () => {
     const finalData = {
-      shopFileNo: shopFileNo,
-      shopDoorNo: shopDoorNo,
-      shopStatus: "Available",
+      buildingName: buildingName,
+      shopDoorNo: items,
+      hikePercentage: hikePercentage,
+      stampDuty: stampDuty,
+      leaseTimePeriod : leaseTimePeriod,
+     isSubmitted: false,
+     shopStatus: "Acquired",
     };
-
+console.log(finalData)
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,
-      shopFileNo: "",
+      buildingName: "",
       shopDoorNo: "",
+      hikePercentage: "",
+      stampDuty: "",
+      leaseTimePeriod : "",
+      shopStatus : "",
       isSubmitted: true,
     });
-    onAddStaffModalChange(true);
+    handleInformationModalopen();
+    console.log(finalData);
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
+    <>
+    <Button onClick={handleShow}>+</Button>
+    <Modal
+    show={show}
+    backdrop="static"
+    keyboard={false}
+    aria-labelledby="contained-modal-title-vcenter"
+    centered
+    className="logout-modal">
+      <Modal.Header>Add Property</Modal.Header>
+      <Modal.Title onClick={handleClose}>X</Modal.Title>
+      <Modal.Body>
       <div className="container ">
+        {/* name */}
         <div className="row col-lg-12 col-md-6 col-sm-12 col-12">
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <label>
@@ -67,50 +123,50 @@ const AddShopDetails = ({
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
               type="text"
-              name="buildingno"
-              // value={}
+              name="buildingName"
+               value={buildingName}
               className="form-control input"
-              // onChange={(e) => onInputChange(e)}
+               onChange={(e) => onPropertychange(e)}
               required
             />
             <br></br>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
-            <label>
-              Door No{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :
-            </label>
-          </div>
+
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="shopDoorNo"
-              // value={shopDoorNo}
-              className="form-control  input"
-              // onChange={(e) => onInputChange(e)}
-              required
-            />
-            <br></br>
+            <label>Door Number * :</label>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <label>Location * :</label>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="Location"
-              // value={shopDoorNo}
-              className="form-control  input"
-              // onChange={(e) => onInputChange(e)}
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
-            <label>Address :</label>
+          <div className="col-lg-3 col-md-4 col-sm-4 col-12">
+                <input
+                  className=""
+                  type="text"
+                  name="shopDoorNo"
+                  value={inputdata}
+                  onChange={(e) => setinput(e.target.value)}
+                  placeholder="Door Number"
+                  id="Door Number"
+                ></input>
+                <Button className="loc_add_btn m-2" onClick={addItem}>
+                  +
+                </Button>
+                <div className="showItem ">
+                  {items.map((ele, index) => {
+                    return (
+                      <div className="eachItem" key={index}>
+                        <span>{ele}</span>{" "}
+                        <button
+                          onClick={() => handleLocationclose(index)}
+                          className="loc_close_btn m-2"
+                        >
+                          X
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* need to givr the dropdown for loactionm */}
+          {/* <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
+            <label>Location :</label>
           </div>
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
@@ -122,7 +178,7 @@ const AddShopDetails = ({
               required
             />
             <br></br>
-          </div>
+          </div> */}
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <label>
               Hike<b>%</b> :
@@ -131,10 +187,10 @@ const AddShopDetails = ({
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
               type="text"
-              name="hike"
-              // value={shopDoorNo}
+              name="hikePercentage"
+               value={hikePercentage}
               className="form-control  input"
-              // onChange={(e) => onInputChange(e)}
+              onChange={(e) => onPropertychange(e)}
               required
             />
             <br></br>
@@ -145,10 +201,10 @@ const AddShopDetails = ({
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
               type="text"
-              name="stampduty"
-              // value={shopDoorNo}
+              name="stampDuty"
+               value={stampDuty}
               className="form-control  input"
-              // onChange={(e) => onInputChange(e)}
+               onChange={(e) => onPropertychange(e)}
               required
             />
             <br></br>
@@ -159,31 +215,29 @@ const AddShopDetails = ({
           <div className="col-lg-3 col-md-6 col-sm-12 col-12">
             <input
               type="text"
-              name="leasetimeperiod"
-              value={shopDoorNo}
+              name="leaseTimePeriod"
+             value={leaseTimePeriod}
               className="form-control  input"
-              // onChange={(e) => onInputChange(e)}
+               onChange={(e) => onPropertychange(e)}
               required
             />
             <br></br>
           </div>
         </div>
 
+
         <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
           <button
             variant="success"
             className="btn sub_form btn_continue Save float-right"
             onClick={() => onSubmit()}
-            style={
-              shopFileNo !== "" && shopDoorNo !== ""
-                ? { opacity: "1" }
-                : { opacity: "1", pointerEvents: "none" }
-            }
+           
           >
             Save
           </button>
         </div>
       </div>
+      </Modal.Body>
 
       <Modal
         show={showInformationModal}
@@ -208,7 +262,8 @@ const AddShopDetails = ({
           </button>
         </Modal.Footer>
       </Modal>
-    </Fragment>
+    </Modal>
+    </>
   );
 };
 

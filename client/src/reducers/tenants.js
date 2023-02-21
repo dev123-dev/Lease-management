@@ -20,7 +20,7 @@ const initialState = {
   errorResponse: "",
   successResponse: "",
 
-  allShops: [""],
+  allShopDetails: [],
   alltenants: [""],
   allTenantSetting: [""],
   allDoorNos: [""],
@@ -54,7 +54,7 @@ const tenants = (state = initialState, action) => {
     case GET_ALL_SHOPS:
       return {
         ...state,
-        allShops: payload,
+        allShopDetails: payload,
       };
 
     case GET_ALL_TENANTS:

@@ -5,12 +5,12 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllShops } from "../../actions/tenants";
 // import { Link } from "react-router-dom";
-
 const ShopDetails = ({
   auth: { isAuthenticated, user, users },
   getAllShops,
   tenants: { allShops },
 }) => {
+  
   useEffect(() => {
     getAllShops();
   }, [getAllShops]);
@@ -20,7 +20,6 @@ const ShopDetails = ({
   const onClickHandler = () => {
     setShowEditModal(true);
   };
-
   const onAddStaffModalChange = (e) => {
     if (e) {
       handleEditModalClose();
@@ -127,7 +126,7 @@ const ShopDetails = ({
       >
         <Modal.Header>
           <div className="col-lg-10 ">
-            <h3 className="modal-title text-center ">Add Property Details</h3>
+            <h3 className="modal-title text-center ">Add Pro Details</h3>
           </div>
           <div className="col-lg-2">
             <button onClick={handleEditModalClose} className="close">

@@ -4,7 +4,7 @@ ObjectId = mongoose.Schema.ObjectId;
 const TenantDetails = new mongoose.Schema({
   tenantName: {
     type: String,
-    required: true,
+    
   },
   tenantPhone: {
     type: Number,
@@ -15,7 +15,7 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantAddr: {
     type: String,
-    required: true,
+    
   },
   tenantAdharNo: {
     type: String,
@@ -27,14 +27,14 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantDepositAmt: {
     type: Number,
-    required: true,
+    
   },
   generatordepoAmt: {
     type: Number,
   },
   tenantPaymentMode: {
     type: String,
-    required: true,
+  
   },
   tenantChequenoOrDdno: {
     type: String,
@@ -47,17 +47,17 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantstatus: {
     type: String,
-    required: true,
+    
     default: "Active", //Active,Deactive
   },
   buildingName: {
     type: String,
-    required: true,
+    
   },
   Location: [],
   shopDoorNo: {
     type: String,
-    required: true,
+    
   },
   shopId: {
     type: ObjectId,
@@ -77,11 +77,11 @@ const TenantDetails = new mongoose.Schema({
   },
   enter_by_id: {
     type: ObjectId,
-    required: true,
+    
   },
   enter_by_name: {
     type: String,
-    required: true,
+    
   },
   enter_by_dateTime: {
     type: Date,
@@ -89,15 +89,15 @@ const TenantDetails = new mongoose.Schema({
   },
   enter_by_date: {
     type: String,
-    required: true,
+    
   },
   edit_by_id: {
     type: ObjectId,
-    required: true,
+    
   },
   edit_by_name: {
     type: String,
-    required: true,
+    
   },
   edit_by_dateTime: {
     type: Date,
@@ -105,28 +105,27 @@ const TenantDetails = new mongoose.Schema({
   },
   edit_by_date: {
     type: String,
-    required: true,
+    
   },
   deactive_by_id: {
     type: ObjectId,
-    required: true,
+    
   },
   deactive_by_name: {
     type: String,
-    required: true,
-  },
+      },
   deactive_by_dateTime: {
     type: Date,
     default: Date.now(),
   },
   deactive_by_date: {
     type: String,
-    required: true,
+    
   },
   deactive_reason: {
     type: String,
-    required: true,
+    
   },
 });
 
-module.exports = tenantDetails = mongoose.model("tenantDetails", TenantDetails);
+module.exports = mongoose.model("tenantDetails", TenantDetails);

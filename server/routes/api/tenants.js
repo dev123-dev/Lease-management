@@ -8,6 +8,8 @@ const TenantSettings = require("../../models/TenantSettings");
 const OrganizationDetails = require("../../models/OrganizationDetails")
 const UserDetails = require("../../models/UserDetails");
 const ShopDetails = require("../../models/ShopDetails");
+const property = require("../../models/PropertyDetails");
+
 
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
@@ -15,26 +17,31 @@ const bcrypt = require("bcryptjs");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-  const finalData = {
-    tenantName: data.tenantName,
-    tenantPhone: data.tenantPhone,
-    tenantFirmName: data.tenantFirmName,
-    tenantAddr: data.tenantAddr,
-    tenantAdharNo: data.tenantAdharNo,
-    tenantPanNo: data.tenantPanNo,
-    tenantDepositAmt: data.tenantDepositAmt,
-    tenantPaymentMode: data.tenantPaymentMode,
-    tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-    tenantBankName: data.tenantBankName,
-    tenantchequeDate: data.tenantchequeDate,
-    shopId: data.shopId,
-    tenantEnteredBy: data.tenantEnteredBy,
-    tenantDate: data.tenantDate,
-    generatordepoAmt: data.generatordepoAmt,
-  };
+  console.log(data);
+  let tenantDetails = new TenantDetails(data);
+ // const finalData = {
+    // tenantName: data.tenantName,
+    // tenantPhone: data.tenantPhone,
+    // tenantFirmName: data.tenantFirmName,
+    // tenantAddr: data.tenantAddr,
+    // tenantAdharNo: data.tenantAdharNo,
+    // tenantPanNo: data.tenantPanNo,
+    // tenantDepositAmt: data.tenantDepositAmt,
+    // tenantPaymentMode: data.tenantPaymentMode,
+    // tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+    // tenantBankName: data.tenantBankName,
+    // tenantchequeDate: data.tenantchequeDate,
+    // shopId: data.shopId,
+    // tenantEnteredBy: data.tenantEnteredBy,
+    // tenantDate: data.tenantDate,
+    // generatordepoAmt: data.generatordepoAmt,
+  //};
   try {
-    let tenantDetails = new TenantDetails(finalData);
+    
+    //console.log(tenantDetails.tenantName);
     output = await tenantDetails.save();
+   // console.log(output);
+    
     const finalData2 = {
       tdId: output._id,
       thName: data.tenantName,
@@ -167,18 +174,62 @@ router.post("/add-tenant-settings", async (req, res) => {
   }
 });
 
-router.post("/add-shop-details", async (req, res) => {
+//add property details
+router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
-
+  //console.log(data);
   try {
-    let shopDetails = new ShopDetails(data);
-    output = await shopDetails.save();
+    let proper = new property(data);
+    output = await proper.save();
+    console.log(output)
     res.send(output);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//deactive property
+router.post("/deactive-property", async (req, res) => {
+  console.log("iinsde api")
+  
+  let data = req.body;
+  console.log(data);
+  try {
+    const propertydata = await property.updateOne(
+      {_id : data.Org_id},
+      {
+        $set : {
+          shopStatus :"Avaiable",
+          deactive_reason : data.deactive_reason,
+        },
+      }
+    );
+    console.log(propertydata)
+    res.json(propertydata);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+
+
+
+
+
+// router.post("/add-shop-details", async (req, res) => {
+//   let data = req.body;
+
+//   try {
+//     let shopDetails = new ShopDetails(data);
+//     output = await shopDetails.save();
+//     res.send(output);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Internal Server Error.");
+//   }
+// });
 
 // Get Exp Month Count
 router.get("/get-tenant-report", async (req, res) => {
@@ -234,19 +285,21 @@ router.post("/deactive-tenant", async (req, res) => {
  
     try {
       let data = req.body;
+    
       const updatedetails = await TenantDetails.updateOne(
-        { _id: data.recordId },
+        { _id: data.tid},
         {
           $set: {
-            tenantstatus: data.tenantstatus,
-            tenantdeactivereason: data.tenantdeactivereason,
+            tenantstatus : "Deactive",
+            tenantdeactivereason: data.Tenant_DE_Reason,
           },
         }
       );
-      const finalData2 = {
-        tdId: data.recordId,
-        thStatus: "Deactive",
-      };
+      res.json(updatedetails)
+       const finalData2 = {
+         tdId: data.tid,
+         thStatus: "Deactive",
+       };
 
       let tenantHistories = new TenentHistories(finalData2);
       output2 = await tenantHistories.save();
@@ -259,7 +312,7 @@ router.post("/deactive-tenant", async (req, res) => {
           },
         }
       );
-      // res.json(shopDoorNoUpdate);
+       res.json(shopDoorNoUpdate);
     } catch (error) {
       res.status(500).json({ errors: [{ msg: "Server Error" }] });
     }
@@ -392,7 +445,7 @@ router.post("/add-agreement-details", async (req, res) => {
 
 router.get("/get-all-shops", async (req, res) => {
   try {
-    const ShopsData = await ShopDetails.find({}).sort({ _id: -1 });
+    const ShopsData = await property.find({}).sort({ _id: -1 });
     res.json(ShopsData);
   } catch (err) {
     console.error(err.message);
@@ -757,9 +810,9 @@ router.get("/get-all-tenants", async (req, res) => {
       },
       {
         $match: {
-          tenantstatus: {
-            $eq: "Active",
-          },
+          // tenantstatus: {
+          //   $eq: "Active",
+          // },
           AgreementStatus: { $ne: "Renewed" },
         },
       },
