@@ -80,13 +80,14 @@ const AddUserModal = ({
           show={show}
           backdrop="static"
           keyboard={false}
+          size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
           className="logout-modal"
         >
           <Modal.Header>
-            <div className="col-lg-5 col-md-12 col-sm-12 col-12 ">
-              <h2 className="heading_color">Add User Details </h2>
+            <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
+              <h2 className="heading_color h3 text-center">Add User </h2>
             </div>
           </Modal.Header>
 
@@ -162,18 +163,8 @@ const AddUserModal = ({
                 <div className="col-lg-2 col-md-2 col-sm-4 col-12">
                   <label>Organization belongs to : </label>
                 </div>
-                <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-                  <input
-                    type="dropdown"
-                    // name="useraddr"
-                    // value={useraddress}
-                    className="form-control"
-                    //onChange={(e) => onuserchange(e)}
-                  />
-                </div>
-              </div>
 
-              {/* <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+                {/* <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-2 col-md-2 col-sm-4 col-12">
               <label> Organization Belongs To *:</label>
             </div>
@@ -206,24 +197,25 @@ const AddUserModal = ({
               />
             </div>
           </div> */}
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <Select
-                  name="usergroup"
-                  options={UserGroups}
-                  isSearchable={false}
-                  placeholder="Select"
-                  onChange={(e) => onuserChange(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
-                    colors: {
-                      ...theme.colors,
-                      primary: "black",
-                    },
-                  })}
-                />
+                <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                  <Select
+                    name="usergroup"
+                    options={UserGroups}
+                    isSearchable={false}
+                    placeholder="Select"
+                    onChange={(e) => onuserChange(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary: "black",
+                      },
+                    })}
+                  />
+                </div>
               </div>
             </div>
           </Modal.Body>

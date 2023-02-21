@@ -14,18 +14,18 @@ import {
 } from "../../actions/tenants";
 
 const optName = [
-  { value: "01", label: "Jan" },
-  { value: "02", label: "Feb" },
-  { value: "03", label: "Mar" },
-  { value: "04", label: "Apr" },
-  { value: "05", label: "May" },
-  { value: "06", label: "Jun" },
-  { value: "07", label: "Jul" },
-  { value: "08", label: "Aug" },
-  { value: "09", label: "Sep" },
-  { value: "10", label: "Oct" },
-  { value: "11", label: "Nov" },
-  { value: "12", label: "Dec" },
+  { value: "01", label: "     JAN" },
+  { value: "02", label: "     FEB" },
+  { value: "03", label: "MAR" },
+  { value: "04", label: "APR" },
+  { value: "05", label: "MAY" },
+  { value: "06", label: "JUN" },
+  { value: "07", label: "JUL" },
+  { value: "08", label: "AUG" },
+  { value: "09", label: "SEP" },
+  { value: "10", label: "OCT" },
+  { value: "11", label: "NOV" },
+  { value: "12", label: "DEC" },
 ];
 
 const TenantFilters = ({
@@ -108,11 +108,11 @@ const TenantFilters = ({
       {user.usergroup === "Super Admin" ? (
         <Fragment>
           <div className="container_align top_menu ">
-            <div className="row pb-5 responsiveDiv">
-              <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
+            <div className="row pb-5  ml-2 responsiveDiv">
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
                 {/* brdr-clr-styles */}
                 {/* <form> */}
-                <div className="">
+                <div className=" ">
                   <Link
                     to="/tenant-report"
                     className="btn btn_more"
@@ -122,6 +122,7 @@ const TenantFilters = ({
                       ? yearExpCnt[0].count
                       : 0}
                   </Link>
+
                   {/* className="btn-rou" */}
                 </div>
                 <div className="py-2">
@@ -150,8 +151,10 @@ const TenantFilters = ({
                       return <></>;
                     });
                     return (
-                      <div className="py-1" key={idx}>
-                        <div style={{ color: "#fff" }}>
+                      <div className="py-2" key={idx}>
+                        <div
+                          style={{ color: "#fff", padding: "0px 0px 0px 5px" }}
+                        >
                           {" "}
                           <Link
                             to="/tenant-report"
@@ -161,11 +164,11 @@ const TenantFilters = ({
                             style={
                               Number(monthSearch) === Number(optFiltr.value)
                                 ? {
-                                    fontWeight: "bold",
+                                    fontWeight: "200",
                                     color: "black",
-                                    fontSize: "120%",
+                                    fontSize: "115%",
                                   }
-                                : { fontWeight: "bold", fontSize: "120%" }
+                                : { fontWeight: "", fontSize: "115%" }
                             }
                           >
                             {optFiltr.label}
@@ -206,7 +209,7 @@ const TenantFilters = ({
       ) : (
         <>
           <div className="container_align top_menu ">
-            <div className="row pb-5 responsiveDiv"></div>
+            <div className="row pb-5 responsiveDiv years"></div>
           </div>
         </>
       )}

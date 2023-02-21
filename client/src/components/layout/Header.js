@@ -71,7 +71,7 @@ const Header = ({
             className="navbar_height top_menu"
             expand="lg"
             fixed="top"
-            style={{ padding: "0px 1em" }}
+            style={{ padding: "2px 1em" }}
           >
             <Navbar.Brand>
               <img
@@ -113,29 +113,27 @@ const Header = ({
                     user &&
                     user.usergroup === "Super Admin" ? (
                       <>
-                        <Button>
-                          <NavLink
-                            to="/Super"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            Organisation Details
-                          </NavLink>
-                        </Button>
+                        <NavLink
+                          className="supheading h5 text-white"
+                          to="/Super"
+                          activeStyle={{
+                            color: "black",
+                            textDecoration: "none",
+                          }}
+                        >
+                          Organisation Details
+                        </NavLink>
 
-                        <Button>
-                          <NavLink
-                            to="/SuperUser"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            User Details
-                          </NavLink>
-                        </Button>
+                        <NavLink
+                          className="ml-5 supheading h5 text-white"
+                          to="/SuperUser"
+                          activeStyle={{
+                            color: "black",
+                            textDecoration: "none",
+                          }}
+                        >
+                          User Details
+                        </NavLink>
                       </>
                     ) : (
                       <>
@@ -202,11 +200,15 @@ const Header = ({
               {!loading &&
               isAuthenticated &&
               user &&
-              user.usergroup == "Super Admin" ? (
+              user.usergroup === "Super Admin" ? (
                 <Fragment>
                   <Nav>
                     <NavItem>
-                      <Link to="#" onClick={() => handleLogoutModalShow()}>
+                      <Link
+                        to="#"
+                        onClick={() => handleLogoutModalShow()}
+                        className="text-white"
+                      >
                         LOGOUT
                       </Link>
                     </NavItem>
