@@ -56,6 +56,7 @@ const AddSuperUser = ({
                         {allsuperuser &&
                           allsuperuser[0] &&
                           allsuperuser.map((allsuperuse, idx) => {
+                            console.log(allsuperuse);
                             return (
                               <tr key={idx}>
                                 <td>{allsuperuse.username}</td>
