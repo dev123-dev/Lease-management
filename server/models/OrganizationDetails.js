@@ -23,7 +23,7 @@ const OrganizationSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
-  Location: [],
+  Location:[] ,
   enter_by_id: {
     type: ObjectId,
     

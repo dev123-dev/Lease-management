@@ -39,10 +39,10 @@ const TenantReport = ({
   };
 
   const [formData, setFormData] = useState({
-    Tenant_DE_Reason: "",
+    deactive_reason: "",
     isSubmitted: false,
   });
-  const { Tenant_DE_Reason } = formData;
+  const { deactive_reason } = formData;
 
 
   const onInputChange = (e) => {
@@ -61,7 +61,7 @@ const TenantReport = ({
   };
   const onAdd = () =>{
    const reason = {
-    Tenant_DE_Reason:Tenant_DE_Reason,
+    deactive_reason:deactive_reason,
     tid :tId ,
     isSubmitted : "true"
    }
@@ -296,7 +296,7 @@ const TenantReport = ({
               <Form.Label>Reason For Deactivating</Form.Label>
               <Form.Control
                 type="text"
-                name="Tenant_DE_Reason"
+                name="deactive_reason"
                 onChange={(e) => onInputChange(e)}
                 autoFocus
               />

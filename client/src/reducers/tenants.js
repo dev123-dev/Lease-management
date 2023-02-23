@@ -9,6 +9,7 @@ import {
   GET_DOORNUMBER,
   GET_ALL_ORGANIZATION,
   GET_ALL_SUPERUSER,
+  UPDATE_ORG,
 } from "../actions/types";
 
 const initialState = {
@@ -30,6 +31,7 @@ const initialState = {
   expReport: [],
   allorg : [""],
   allsuperuser : [""],
+  updatedorg : [""],
 };
 
 const tenants = (state = initialState, action) => {
@@ -77,6 +79,11 @@ const tenants = (state = initialState, action) => {
           ...state,
           allsuperuser  : payload,
         }
+        case UPDATE_ORG :
+          return {
+            ...state,
+            updatedorg : payload,
+          }
     default:
       return state;
   }

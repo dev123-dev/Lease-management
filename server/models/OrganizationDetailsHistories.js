@@ -14,7 +14,7 @@ const OrganizationHistory = new mongoose.Schema({
     type: String,
   },
   NumberOfUser: {
-    type: number,
+    type: Number,
   },
   logo: {
     data: Buffer,
@@ -64,7 +64,4 @@ const OrganizationHistory = new mongoose.Schema({
     type: String,
   },
 });
-module.exports = OrganizationHistory = mongoose.model(
-  "OrganizationDetailsHistories",
-  OrganizationHistory
-);
+module.exports =  mongoose.model("OrganizationDetailsHistories",OrganizationHistory);
