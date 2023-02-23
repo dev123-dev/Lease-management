@@ -25,6 +25,7 @@ import Tenant_Details from "../dashboard/Tenant_Details";
 import AddOrgModal from "../dashboard/AddOrgModal";
 import PropertyDetail from "../dashboard/PropertyDetail";
 import TenantDetails from "../dashboard/Alltenantdetails";
+import MainAdmin from "../dashboard/MainAdminPage";
 
 const RoutesFile = () => {
   return (
@@ -48,6 +49,7 @@ const RoutesFile = () => {
         <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
         <PrivateRoute exact path="/add-user" component={AllUserDetails} />
         <PrivateRoute exact path="/tenant-details" component={TenantDetails} />
+        <PrivateRoute exact path="/MainAdmin" component={MainAdmin} />
 
         <PrivateRoute
           exact

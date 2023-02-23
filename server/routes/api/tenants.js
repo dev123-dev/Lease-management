@@ -5,11 +5,10 @@ const { check, validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 const TenantDetails = require("../../models/TenantDetails");
 const TenantSettings = require("../../models/TenantSettings");
-const OrganizationDetails = require("../../models/OrganizationDetails")
+const OrganizationDetails = require("../../models/OrganizationDetails");
 const UserDetails = require("../../models/UserDetails");
 const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
-
 
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
@@ -19,29 +18,28 @@ router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
   console.log(data);
   let tenantDetails = new TenantDetails(data);
- // const finalData = {
-    // tenantName: data.tenantName,
-    // tenantPhone: data.tenantPhone,
-    // tenantFirmName: data.tenantFirmName,
-    // tenantAddr: data.tenantAddr,
-    // tenantAdharNo: data.tenantAdharNo,
-    // tenantPanNo: data.tenantPanNo,
-    // tenantDepositAmt: data.tenantDepositAmt,
-    // tenantPaymentMode: data.tenantPaymentMode,
-    // tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-    // tenantBankName: data.tenantBankName,
-    // tenantchequeDate: data.tenantchequeDate,
-    // shopId: data.shopId,
-    // tenantEnteredBy: data.tenantEnteredBy,
-    // tenantDate: data.tenantDate,
-    // generatordepoAmt: data.generatordepoAmt,
+  // const finalData = {
+  // tenantName: data.tenantName,
+  // tenantPhone: data.tenantPhone,
+  // tenantFirmName: data.tenantFirmName,
+  // tenantAddr: data.tenantAddr,
+  // tenantAdharNo: data.tenantAdharNo,
+  // tenantPanNo: data.tenantPanNo,
+  // tenantDepositAmt: data.tenantDepositAmt,
+  // tenantPaymentMode: data.tenantPaymentMode,
+  // tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+  // tenantBankName: data.tenantBankName,
+  // tenantchequeDate: data.tenantchequeDate,
+  // shopId: data.shopId,
+  // tenantEnteredBy: data.tenantEnteredBy,
+  // tenantDate: data.tenantDate,
+  // generatordepoAmt: data.generatordepoAmt,
   //};
   try {
-    
     //console.log(tenantDetails.tenantName);
     output = await tenantDetails.save();
-   // console.log(output);
-    
+    // console.log(output);
+
     const finalData2 = {
       tdId: output._id,
       thName: data.tenantName,
@@ -107,17 +105,17 @@ router.post("/add-Organization", async (req, res) => {
 
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
-  console.log("inside api")
+  console.log("inside api");
   try {
     const orgdata = await OrganizationDetails.aggregate([
       {
         $project: {
-          OrganizationName:"$OrganizationName",
-          OrganizationEmail : "$OrganizationEmail",
-          OrganizationNumber:"$OrganizationNumber",
-          OrganizationAddress : "$OrganizationAddress",
-          org_status : "$org_status",
-          enter_by_dateTime : "$enter_by_dateTime",
+          OrganizationName: "$OrganizationName",
+          OrganizationEmail: "$OrganizationEmail",
+          OrganizationNumber: "$OrganizationNumber",
+          OrganizationAddress: "$OrganizationAddress",
+          org_status: "$org_status",
+          enter_by_dateTime: "$enter_by_dateTime",
         },
       },
     ]);
@@ -128,17 +126,17 @@ router.get("/get-all-Organization", async (req, res) => {
   }
 });
 
-//Super user adding 
-router.post("/add-SuperUser",async(req,res)=>{
+//Super user adding
+router.post("/add-SuperUser", async (req, res) => {
   let userdata = req.body;
-  try{
-    let u_data = new UserDetails(userdata)
+  try {
+    let u_data = new UserDetails(userdata);
     output = await u_data.save();
     res.send(u_data);
-  }catch(err){
+  } catch (err) {
     console.error("error in adding Super user data");
   }
-})
+});
 
 //super user displaying
 router.get("/get-all-Superuser", async (req, res) => {
@@ -146,11 +144,11 @@ router.get("/get-all-Superuser", async (req, res) => {
     const userdata = await UserDetails.aggregate([
       {
         $project: {
-          username:"$username",
-          useremail:"$useremail",
-          userphone:"$userphone",
-          usergroup:"$usergroup",
-          userStatus:"$userStatus",
+          username: "$username",
+          useremail: "$useremail",
+          userphone: "$userphone",
+          usergroup: "$usergroup",
+          userStatus: "$userStatus",
         },
       },
     ]);
@@ -160,7 +158,6 @@ router.get("/get-all-Superuser", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
-
 
 router.post("/add-tenant-settings", async (req, res) => {
   let data = req.body;
@@ -181,7 +178,7 @@ router.post("/add-Property-details", async (req, res) => {
   try {
     let proper = new property(data);
     output = await proper.save();
-    console.log(output)
+    console.log(output);
     res.send(output);
   } catch (err) {
     console.error(err.message);
@@ -191,32 +188,27 @@ router.post("/add-Property-details", async (req, res) => {
 
 //deactive property
 router.post("/deactive-property", async (req, res) => {
-  console.log("iinsde api")
-  
+  console.log("iinsde api");
+
   let data = req.body;
   console.log(data);
   try {
     const propertydata = await property.updateOne(
-      {_id : data.Org_id},
+      { _id: data.Org_id },
       {
-        $set : {
-          shopStatus :"Avaiable",
-          deactive_reason : data.deactive_reason,
+        $set: {
+          shopStatus: "Avaiable",
+          deactive_reason: data.deactive_reason,
         },
       }
     );
-    console.log(propertydata)
+    console.log(propertydata);
     res.json(propertydata);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
-
-
-
-
-
 
 // router.post("/add-shop-details", async (req, res) => {
 //   let data = req.body;
@@ -257,67 +249,63 @@ router.get("/get-tenant-report", async (req, res) => {
   }
 });
 
-
 //ddeactivating the organization
-router.post("/deactive-Organization", async (req,res)=>{
+router.post("/deactive-Organization", async (req, res) => {
   let data = req.body;
-  console.log(data.OrgId)
-  try{
+  console.log(data.OrgId);
+  try {
     let data = req.body;
     let dltOrg = await OrganizationDetails.updateOne(
-      {_id : data.Org_id},
+      { _id: data.Org_id },
       {
-        $set : {
-          org_status :"Deactive",
-          deactive_reason : data.deactive_reason,
+        $set: {
+          org_status: "Deactive",
+          deactive_reason: data.deactive_reason,
         },
       }
     );
     res.json(dltOrg);
-  }catch(err){
-    console.log("error in deleting the org data")
+  } catch (err) {
+    console.log("error in deleting the org data");
   }
 });
 
-
 router.post("/deactive-tenant", async (req, res) => {
   // [check("tdId", "Invalid Request").not().isEmpty()],
- 
-    try {
-      let data = req.body;
-    
-      const updatedetails = await TenantDetails.updateOne(
-        { _id: data.tid},
-        {
-          $set: {
-            tenantstatus : "Deactive",
-            tenantdeactivereason: data.Tenant_DE_Reason,
-          },
-        }
-      );
-      res.json(updatedetails)
-       const finalData2 = {
-         tdId: data.tid,
-         thStatus: "Deactive",
-       };
+  let data = req.body;
+  console.log(data);
+  try {
+    const updatedetails = await TenantDetails.updateOne(
+      { _id: data.tid },
+      {
+        $set: {
+          tenantstatus: "Deactive",
+          deactive_reason: data.Tenant_DE_Reason,
+        },
+      }
+    );
+    res.json(updatedetails);
+    // const finalData2 = {
+    //   tdId: data.tid,
+    //   thStatus: "Deactive",
+    // };
 
-      let tenantHistories = new TenentHistories(finalData2);
-      output2 = await tenantHistories.save();
+    // let tenantHistories = new TenentHistories(finalData2);
+    // output2 = await tenantHistories.save();
 
-      const shopDoorNoUpdate = await ShopDetails.updateOne(
-        { tdId: data.recordId },
-        {
-          $set: {
-            shopStatus: "Available",
-          },
-        }
-      );
-       res.json(shopDoorNoUpdate);
-    } catch (error) {
-      res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    const shopDoorNoUpdate = await ShopDetails.updateOne(
+      { tdId: data.recordId },
+      {
+        $set: {
+          shopStatus: "Available",
+        },
+      }
+    );
+    res.json(shopDoorNoUpdate);
+  } catch (error) {
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
-);
+});
 
 router.post(
   "/update-tenant",

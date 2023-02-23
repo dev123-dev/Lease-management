@@ -9,9 +9,9 @@ const AddUserModal = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   Adduser,
 }) => {
-  const [show, setshow] = useState("");
-  const handleClose = () => setshow(false);
-  const handleShow = () => setshow("true");
+  // const [show, setshow] = useState("");
+  // const handleClose = () => setshow(false);
+  // const handleShow = () => setshow("true");
 
   const UserGroups = [
     { value: "Admin", label: "Admin" },
@@ -61,6 +61,9 @@ const AddUserModal = ({
       password: "",
     });
   };
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -89,13 +92,29 @@ const AddUserModal = ({
             <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
               <h2 className="heading_color h3 text-center">Add User </h2>
             </div>
+            <div className=" close-btn-wrapper col-lg-2 close">
+              <button className=" ml-5  close-btn" onClick={handleClose}>
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px", color: "black" }}
+                />
+              </button>
+            </div>
           </Modal.Header>
 
           <Modal.Body>
             <div className="container container_align">
               <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
                 <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                  <label> Name:</label>
+                  <label>
+                    {" "}
+                    Name
+                    <i className="text-danger ">
+                      <b>*</b>
+                    </i>
+                    :
+                  </label>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                   <input
@@ -108,7 +127,13 @@ const AddUserModal = ({
                 </div>
 
                 <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                  <label>Email *:</label>
+                  <label>
+                    Email{" "}
+                    <i className="text-danger ">
+                      <b>*</b>
+                    </i>
+                    :
+                  </label>
                 </div>
                 <div className="col-lg-4  col-md-4 col-sm-4 col-12">
                   <input
@@ -118,6 +143,7 @@ const AddUserModal = ({
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
+                  <br></br>
                 </div>
 
                 <div className="col-lg-2 col-md-2 col-sm-4 col-12">
@@ -144,10 +170,17 @@ const AddUserModal = ({
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
+                  <br></br>
                 </div>
 
                 <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                  <label>Password :</label>
+                  <label>
+                    Password{" "}
+                    <i className="text-danger ">
+                      <b>*</b>
+                    </i>
+                    :
+                  </label>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                   <input
@@ -161,7 +194,13 @@ const AddUserModal = ({
 
                 {/* organization belongs to this need to be connected to database pending */}
                 <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                  <label>Organization belongs to : </label>
+                  <label>
+                    Organization belongs to{" "}
+                    <i className="text-danger ">
+                      <b>*</b>
+                    </i>
+                    :{" "}
+                  </label>
                 </div>
 
                 {/* <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
@@ -221,24 +260,24 @@ const AddUserModal = ({
           </Modal.Body>
           <Modal.Footer>
             {/* save button */}
-            <div className="col-lg-12 Savebutton " size="lg">
+            <div className="col-lg-1 Savebutton ">
               <button
                 variant="success"
-                className="btn sub_form btn_continue Save float-right"
+                className="btn sub_form btn_continue Save "
                 onClick={() => onsubmitUserData()}
               >
                 Save
               </button>
             </div>
-            <div className="col-lg-12 Savebutton " size="lg">
+            {/* <div className="col-lg-2 Savebutton ">
               <button
                 variant="success"
-                className="btn sub_form btn_continue Save float-left"
+                className="btn sub_form btn_continue Save "
                 onClick={() => handleClose()}
               >
                 Close
               </button>
-            </div>
+            </div> */}
           </Modal.Footer>
         </Modal>
 

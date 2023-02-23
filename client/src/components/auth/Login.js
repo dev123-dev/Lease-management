@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { login, removeError} from "../../actions/auth";
+import { login, removeError } from "../../actions/auth";
 
 const Login = ({
   login,
@@ -23,7 +23,7 @@ const Login = ({
   });
 
   // W7'Um34BrCxzQNR?
-  const { useremail, password} = formData;
+  const { useremail, password } = formData;
 
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -67,11 +67,8 @@ const Login = ({
           setFormData({ ...formData, [e.target.name]: value });
         }
         break;
-      // case "userOTP":
-      //   setFormData({ ...formData, [e.target.name]: value });
-      //   break;
-      // default:
-      //   break;
+      default:
+        " "();
     }
   };
 
@@ -267,4 +264,4 @@ const mapStateToProps = (state) => ({
   //otpMessage: state.auth.otpMessage,
 });
 
-export default connect(mapStateToProps, { login, removeError})(Login);
+export default connect(mapStateToProps, { login, removeError })(Login);

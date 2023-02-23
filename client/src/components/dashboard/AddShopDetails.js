@@ -2,81 +2,81 @@ import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
-import { Modal,Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
   AddShopDetailsform,
-  onAddStaffModalChange,
+
   getAllShops,
 }) => {
   //formData
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
-     hikePercentage: "",
-     stampDuty: "",
-     LeaseTime : "",
+    hikePercentage: "",
+    stampDuty: "",
+    LeaseTime: "",
     isSubmitted: false,
   });
-
-  const [show, setshow] = useState("");
-  const handleClose = () => setshow("false");
-  const handleShow = () => setshow("true");
 
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState([]);
 
   const {
-     buildingName,
-     shopDoorNo,
-      hikePercentage,
-      stampDuty,
-      leaseTimePeriod,
-      shopStatus,
-    } = formData;
+    buildingName,
+    shopDoorNo,
+    hikePercentage,
+    stampDuty,
+    leaseTimePeriod,
+    shopStatus,
+  } = formData;
 
-      const handleLocationclose = (index) => {
-           const delitem = items.filter((ele, ind) => {
-             return ind != index;
-           });
-           setitem(delitem);
-        };
-
-      const addItem = () => {
-     if (!inputdata) {
-     } else {
-       setitem([...items, inputdata]);
-       setinput("");
-     }
-   };
-
-      const onPropertychange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-          });
-        };
-
-  const [showInformationModal, setShowInformation] = useState(false);
-  const handleInformationModalopen = () => setShowInformation(true);
-  const handleInformationModalClose = () => setShowInformation(false);
-  const LogoutModalClose = () => {
-    handleInformationModalClose();
+  const handleLocationclose = (index) => {
+    const delitem = items.filter((ele, ind) => {
+      return ind != index;
+    });
+    setitem(delitem);
   };
+
+  const addItem = () => {
+    if (!inputdata) {
+    } else {
+      setitem([...items, inputdata]);
+      setinput("");
+    }
+  };
+
+  const onPropertychange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  // const [showInformationModal, setShowInformation] = useState(false);
+  // const handleInformationModalopen = () => setShowInformation(true);
+  // const handleInformationModalClose = () => setShowInformation(false);
+  // const LogoutModalClose = () => {
+  //   handleInformationModalClose();
+  // };
   const onSubmit = () => {
     const finalData = {
       buildingName: buildingName,
       shopDoorNo: items,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
-      leaseTimePeriod : leaseTimePeriod,
-     isSubmitted: false,
-     shopStatus: "Acquired",
+      leaseTimePeriod: leaseTimePeriod,
+      isSubmitted: false,
+      shopStatus: "Acquired",
     };
-console.log(finalData)
+    console.log(finalData);
+
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,
@@ -84,11 +84,11 @@ console.log(finalData)
       shopDoorNo: "",
       hikePercentage: "",
       stampDuty: "",
-      leaseTimePeriod : "",
-      shopStatus : "",
+      leaseTimePeriod: "",
+      shopStatus: "",
       isSubmitted: true,
     });
-    handleInformationModalopen();
+
     console.log(finalData);
   };
 
@@ -96,48 +96,117 @@ console.log(finalData)
     <Fragment></Fragment>
   ) : (
     <>
-    <Button onClick={handleShow}>+</Button>
-    <Modal
-    show={show}
-    backdrop="static"
-    keyboard={false}
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-    className="logout-modal">
-      <Modal.Header>Add Property</Modal.Header>
-      <Modal.Title onClick={handleClose}>X</Modal.Title>
-      <Modal.Body>
-      <div className="container ">
-        {/* name */}
-        <div className="row col-lg-12 col-md-6 col-sm-12 col-12">
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <label>
-              {" "}
-              BuildingName{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :
-            </label>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="buildingName"
-               value={buildingName}
-              className="form-control input"
-               onChange={(e) => onPropertychange(e)}
-              required
-            />
-            <br></br>
-          </div>
+      <img
+        className="img_icon_size log"
+        onClick={handleShow}
+        src={require("../../static/images/add-icon.png")}
+        alt="Add User"
+        title="Add User"
+      />
 
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <label>Door Number * :</label>
+      <Modal
+        show={show}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className="logout-modal modblur"
+      >
+        <Modal.Header>
+          <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
+            <h2 className="text-center h1  ml-5">ADD PROPERTY </h2>
+            <div className=" tenant_img col-lg-2">
+              <button onClick={handleClose} className="close ml-5">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
           </div>
-          <div className="col-lg-3 col-md-4 col-sm-4 col-12">
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className="container ">
+            <div className="row ">
+              <div className=" row col-lg-2 col-md-6 col-sm-12 col-12">
+                <label className="">
+                  Building Name
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+              </div>
+              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
                 <input
-                  className=""
+                  type="text"
+                  placeholder="BuildingName"
+                  name="buildingName"
+                  value={buildingName}
+                  className="form-control input"
+                  onChange={(e) => onPropertychange(e)}
+                  required
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-2 col-md-6 col-sm-12 col-12">
+                <label>
+                  StampDuty{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+              </div>
+              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                <input
+                  type="text"
+                  placeholder="StampDuty"
+                  name="stampDuty"
+                  value={stampDuty}
+                  className="form-control  input"
+                  onChange={(e) => onPropertychange(e)}
+                  required
+                />
+                <br></br>
+              </div>
+
+              <div className=" row col-lg-2 col-md-6 col-sm-12 col-12">
+                <label>
+                  Hike<b>%</b>{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+              </div>
+              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                <input
+                  type="text"
+                  placeholder="HikePercent"
+                  name="hikePercentage"
+                  value={hikePercentage}
+                  className="form-control  input"
+                  onChange={(e) => onPropertychange(e)}
+                  required
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-2 col-md-6 col-sm-12 col-12">
+                <label>
+                  Door Number{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+              </div>
+              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+                <input
+                  className="form-control"
                   type="text"
                   name="shopDoorNo"
                   value={inputdata}
@@ -145,9 +214,9 @@ console.log(finalData)
                   placeholder="Door Number"
                   id="Door Number"
                 ></input>
-                <Button className="loc_add_btn m-2" onClick={addItem}>
+                <button className="loc_add_btn m-2" onClick={addItem}>
                   +
-                </Button>
+                </button>
                 <div className="showItem ">
                   {items.map((ele, index) => {
                     return (
@@ -164,105 +233,65 @@ console.log(finalData)
                   })}
                 </div>
               </div>
-              {/* need to givr the dropdown for loactionm */}
-          {/* <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
-            <label>Location :</label>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="address"
-              // value={shopDoorNo}
-              className="form-control  input"
-              // onChange={(e) => onInputChange(e)}
-              required
-            />
-            <br></br>
-          </div> */}
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <label>
-              Hike<b>%</b> :
-            </label>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="hikePercentage"
-               value={hikePercentage}
-              className="form-control  input"
-              onChange={(e) => onPropertychange(e)}
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12 text-center">
-            <label>StampDuty :</label>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="stampDuty"
-               value={stampDuty}
-              className="form-control  input"
-               onChange={(e) => onPropertychange(e)}
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <label>LeaseTimePeriod :</label>
-          </div>
-          <div className="col-lg-3 col-md-6 col-sm-12 col-12">
-            <input
-              type="text"
-              name="leaseTimePeriod"
-             value={leaseTimePeriod}
-              className="form-control  input"
-               onChange={(e) => onPropertychange(e)}
-              required
-            />
-            <br></br>
-          </div>
-        </div>
 
+              <div className=" row col-lg-2 col-md-6 col-sm-12 col-12">
+                <label>
+                  LeaseTime Period{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+              </div>
+              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+                <input
+                  type="date"
+                  name="leaseTimePeriod"
+                  value={leaseTimePeriod}
+                  className="form-control  input"
+                  onChange={(e) => onPropertychange(e)}
+                  required
+                />
+                <br></br>
+              </div>
+            </div>
 
-        <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
-          <button
-            variant="success"
-            className="btn sub_form btn_continue Save float-right"
-            onClick={() => onSubmit()}
-           
-          >
-            Save
-          </button>
-        </div>
-      </div>
-      </Modal.Body>
-
-      <Modal
-        show={showInformationModal}
-        backdrop="static"
-        keyboard={false}
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className="logout-modal "
-      >
-        <Modal.Header className="confirmbox-heading">
-          <h4 className="mt-0">Information</h4>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>Shop Details Added!!</h5>
+            <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
+              <button
+                variant="success"
+                className="btn sub_form btn_continue Save float-right"
+                onClick={() => onSubmit()}
+              >
+                Save
+              </button>
+            </div>
+          </div>
         </Modal.Body>
-        <Modal.Footer>
-          <button
-            className="btn btn_green_bg"
-            onClick={() => LogoutModalClose()}
-          >
-            OK
-          </button>
-        </Modal.Footer>
+
+        <Modal
+          show={show}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          className="logout-modal "
+        >
+          <Modal.Header className="confirmbox-heading">
+            <h4 className="mt-0">Information</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <h5>Shop Details Added!!</h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              className="btn btn_green_bg"
+              //  onClick={() => LogoutModalClose()}
+            >
+              OK
+            </button>
+          </Modal.Footer>
+        </Modal>
       </Modal>
-    </Modal>
     </>
   );
 };

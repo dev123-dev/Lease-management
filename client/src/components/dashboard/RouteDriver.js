@@ -10,15 +10,19 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
   }, [loadUser]);
 
   if (user) {
-    return <Redirect to="/tenant-report" />;
+    if (user.usergroup === "Admin") {
+      return <Redirect to="/MainAdmin" />;
+    } else {
+      return <Redirect to="/MainSuper" />;
+    }
   }
   return <Fragment>loading...</Fragment>;
 };
 
-RouteDriver.propTypes = {
-  auth: PropTypes.object.isRequired,
-  loadUser: PropTypes.func.isRequired,
-};
+// RouteDriver.propTypes = {
+//   auth: PropTypes.object.isRequired,
+//   loadUser: PropTypes.func.isRequired,
+// };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });

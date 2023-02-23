@@ -188,7 +188,6 @@ const AddTenantDetails = ({
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onSubmit = () => {
-    
     const finalData = {
       tenantFileNo: tenantFileNo,
       tenantDoorNo: tenantDoorNo,
@@ -213,7 +212,7 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log(finalData);
+
     AddTenantDetailsform(finalData);
     setFormData({
       ...formData,
@@ -234,8 +233,8 @@ const AddTenantDetails = ({
       tenantChequenoOrDdno: "",
       generatordepoAmt: "",
     });
-   
-   //handleInformationModalOpen();
+
+    //handleInformationModalOpen();
     //setShowInformation(true);
     setEntryDate("");
     getDoorNoData("");
@@ -269,6 +268,7 @@ const AddTenantDetails = ({
         show={showInformationModal}
         backdrop="static"
         keyboard={false}
+        size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         className="logout-modal"
@@ -277,10 +277,12 @@ const AddTenantDetails = ({
           <div className="container ">
             <section className="sub_reg ">
               <div className="row col-lg-10 col-md-6 col-sm-12 col-12 add_tenant">
-                <h2 className="heading_color">Add Tenant Details </h2>
+                <h1 className="heading_color text-center ">
+                  Add Tenant Details
+                </h1>
               </div>
               <img
-                className="tenant_img"
+                className="tenant_img close"
                 onClick={handleInformationModalClose}
                 src={require("../../static/images/close.png")}
                 alt="Add Tenant"
@@ -547,7 +549,7 @@ const AddTenantDetails = ({
                 <button
                   variant="success"
                   className="btn sub_form btn_continue Save float-right"
-                  onClick={()=>onSubmit()}
+                  onClick={() => onSubmit()}
                   // style={
                   //   tenantDoorNo !== "" &&
                   //   tenantFileNo !== "" &&
@@ -588,7 +590,6 @@ const AddTenantDetails = ({
                 </button>
               </Modal.Footer>
             </Modal>
-
           </div>
         </Fragment>
       </Modal>

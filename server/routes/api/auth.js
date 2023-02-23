@@ -52,7 +52,7 @@ router.post(
     // }
 
     //retriving Data
-    const { useremail, password} = req.body;
+    const { useremail, password } = req.body;
     // console.log("hello api once again");
     try {
       //userEmail Check In DB
@@ -149,6 +149,7 @@ router.get("/load-user", auth, async (req, res) => {
   try {
     const user = await UserDetails.findById(req.user.id).select("-password");
     res.json(user);
+    console.log(user);
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
   }

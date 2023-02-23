@@ -21,7 +21,7 @@ import {
   GET_ALL_USER,
   FINAL_DATA_REP,
   GET_ALL_ORGANIZATION,
-  GET_ALL_SUPERUSER
+  GET_ALL_SUPERUSER,
 } from "./types";
 
 var linkPath = "";
@@ -35,33 +35,30 @@ const config = {
 // var linkPath = process.env.REACT_APP_BASE_URL;
 var linkPath = "";
 
-export const AddOrganization = (OrganizationData)=> async(dispatch)=>{
- console.log(OrganizationData)
- try {
-  await axios.post(
-    `${linkPath}/api/tenants/add-Organization`,
-    OrganizationData,
-    config
-  );
-  //diapatching get function because it should relfex immidiatly after adding
-  dispatch(getAllOrganization());
-
-} catch (err) {
-  dispatch({
-    type: AUTH_ERROR,
-  });
-}
+export const AddOrganization = (OrganizationData) => async (dispatch) => {
+  console.log(OrganizationData);
+  try {
+    await axios.post(
+      `${linkPath}/api/tenants/add-Organization`,
+      OrganizationData,
+      config
+    );
+    //diapatching get function because it should relfex immidiatly after adding
+    dispatch(getAllOrganization());
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
 };
 
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
   try {
-  
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
     dispatch({
       type: GET_ALL_ORGANIZATION,
       payload: res.data,
-
     });
   } catch (err) {
     dispatch({
@@ -70,45 +67,45 @@ export const getAllOrganization = () => async (dispatch) => {
   }
 };
 //adding Super user
-export const Adduser = (userData)=> async(dispatch)=>{
-  console.log(userData)
+export const Adduser = (userData) => async (dispatch) => {
+  console.log(userData);
   try {
-    await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
-    dispatch(getalluser())
-   
+    await axios.post(`${linkPath}/api/tenants/add-SuperUser`, userData, config);
+    dispatch(getalluser());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
     });
   }
-  };
-
-
+};
 
 //getting all the user (super)
 
-export const getalluser = ()=>async(dispatch)=>{
-  console.log("inside action")
-  try{
+export const getalluser = () => async (dispatch) => {
+  console.log("inside action");
+  try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
     dispatch({
-      type : GET_ALL_SUPERUSER,
-      payload : res.data,
+      type: GET_ALL_SUPERUSER,
+      payload: res.data,
     });
-  }catch(err){
+  } catch (err) {
     dispatch({
-      type : Error,
-    })
+      type: Error,
+    });
   }
 };
 
-
 //deleting organization details
-export const deleteOrganization = (id) => async(dispatch)=>{
-  console.log('INSIDE ACTION')
+export const deleteOrganization = (id) => async (dispatch) => {
+  console.log("INSIDE ACTION");
   console.log(id);
   try {
-    const res = await axios.post(`${linkPath}/api/tenants/deactive-Organization`,id,config);
+    const res = await axios.post(
+      `${linkPath}/api/tenants/deactive-Organization`,
+      id,
+      config
+    );
     dispatch(getAllOrganization());
   } catch (err) {
     console.log("error while sending from action");
@@ -116,15 +113,11 @@ export const deleteOrganization = (id) => async(dispatch)=>{
       type: TENANT_FEEDBACK_ERROR,
     });
   }
-
 };
-
-
-
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log(finalData.tenantName)
+  console.log(finalData.tenantName);
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
   };
@@ -133,7 +126,11 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     selectedVal: finalData.selectedVal,
   };
   try {
-    const res = await axios.post( `${linkPath}/api/tenants/add-tenant-details`,finalData,config);
+    const res = await axios.post(
+      `${linkPath}/api/tenants/add-tenant-details`,
+      finalData,
+      config
+    );
     dispatch({
       type: NEW_TENENTDETAILS,
       payload: res.data,
@@ -185,11 +182,14 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
-  console.log("action")
-  console.log(finalData)
+  console.log(finalData);
   try {
-    await axios.post(`${linkPath}/api/tenants/add-Property-details`,finalData,config);
-     dispatch(getAllShops());
+    await axios.post(
+      `${linkPath}/api/tenants/add-Property-details`,
+      finalData,
+      config
+    );
+    dispatch(getAllShops());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -216,11 +216,15 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
 
 //deactivate property details
 export const deactiveProperty = (finalData) => async (dispatch) => {
-  console.log("inside action")
-  console.log(finalData)
+  console.log("inside action");
+  console.log(finalData);
   try {
-    const res = await axios.post(`${linkPath}/api/tenants/deactive-property`,finalData,config);
-     dispatch(getAllShops());
+    const res = await axios.post(
+      `${linkPath}/api/tenants/deactive-property`,
+      finalData,
+      config
+    );
+    dispatch(getAllShops());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -229,10 +233,14 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
 };
 
 export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
-  console.log(finalData)
+  console.log("inside action");
   try {
-    const res = await axios.post(`${linkPath}/api/tenants/deactive-tenant`,finalData,config);
-     dispatch(getAllTenants());
+    const res = await axios.post(
+      `${linkPath}/api/tenants/deactive-tenant`,
+      finalData,
+      config
+    );
+    // dispatch(getAllTenants());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -327,7 +335,6 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
 };
 
 export const getAllShops = () => async (dispatch) => {
- 
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-shops`);
     dispatch({
@@ -335,7 +342,6 @@ export const getAllShops = () => async (dispatch) => {
       payload: res.data,
     });
     // console.log("res.data",res.data);
-    
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

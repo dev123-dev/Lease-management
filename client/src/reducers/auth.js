@@ -11,7 +11,7 @@ import {
   YEAR_EXP_CNT,
   EXP_REPORT,
   GET_ALL_USER,
- // OTP_SENT,
+  // OTP_SENT,
   SET_LOADING_TRUE,
   FINAL_DATA_REP,
 } from "../actions/types";
@@ -41,11 +41,14 @@ const auth = (state = initialState, action) => {
 
   switch (type) {
     case USER_LOADED:
+      console.log("inside reducer");
+      console.log(payload);
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
         user: payload,
+        x: payload,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
@@ -69,7 +72,7 @@ const auth = (state = initialState, action) => {
         loading: false,
         errorResponse: payload,
         successResponse: "",
-       // otpMessage: "",
+        // otpMessage: "",
       };
 
     case ALL_USERS:

@@ -14,6 +14,7 @@ import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
+import "../dashboard/AddSuperUser";
 
 import { getAllSettings } from "../../actions/tenants";
 
@@ -74,12 +75,13 @@ const Header = ({
             style={{ padding: "2px 1em" }}
           >
             <Navbar.Brand>
-            <NavLink to="/MainSuper">
-               <img
-                className="log_size"
-                alt="Pinnacle Media"
-                src={require("../../static/images/lraLogo_wh.png")}
-              /> </NavLink>
+              <NavLink to="/MainSuper">
+                <img
+                  className="log_size"
+                  alt="Pinnacle Media"
+                  src={require("../../static/images/lraLogo_wh.png")}
+                />{" "}
+              </NavLink>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -115,7 +117,8 @@ const Header = ({
                     user.usergroup === "Super Admin" ? (
                       <>
                         <NavLink
-                          className="supheading h5 text-white"
+                          className=" h5 "
+                          id="hea"
                           to="/Super"
                           activeStyle={{
                             color: "black",
@@ -126,7 +129,8 @@ const Header = ({
                         </NavLink>
 
                         <NavLink
-                          className="ml-5 supheading h5 text-white"
+                          className="ml-5  h5 "
+                          id="hea"
                           to="/SuperUser"
                           activeStyle={{
                             color: "black",
@@ -138,41 +142,45 @@ const Header = ({
                       </>
                     ) : (
                       <>
-                        <Button>
-                          <NavLink
-                            to="/PropertyDetail"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            Property
-                          </NavLink>
-                        </Button>
+                        <Navbar.Brand>
+                          <NavLink to="/MainAdminPage"></NavLink>
+                        </Navbar.Brand>
+                        <NavLink
+                          className="ml-5 h5  "
+                          id="hea"
+                          // id="head"
+                          to="/PropertyDetail"
+                          activeStyle={{
+                            // color: "#cb9c9c",
+                            textDecoration: "none",
+                          }}
+                        >
+                          Property
+                        </NavLink>
 
-                        <Button>
-                          <NavLink
-                            to="/tenant-report"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            Tenant
-                          </NavLink>
-                        </Button>
+                        <NavLink
+                          className="ml-5  h5 "
+                          id="hea"
+                          to="/tenant-report"
+                          activeStyle={{
+                            color: "Black",
+                            textDecoration: "none",
+                          }}
+                        >
+                          Tenant
+                        </NavLink>
 
-                        <Button>
-                          <NavLink
-                            to="/SuperUser"
-                            activeStyle={{
-                              color: "Black",
-                              textDecoration: "none",
-                            }}
-                          >
-                            Admin User
-                          </NavLink>
-                        </Button>
+                        <NavLink
+                          className="ml-5  h5 "
+                          id="hea"
+                          to="/SuperUser"
+                          activeStyle={{
+                            color: "Black",
+                            textDecoration: "none",
+                          }}
+                        >
+                          User
+                        </NavLink>
                       </>
                     )}
 
@@ -219,8 +227,8 @@ const Header = ({
               user.usergroup === "Super Admin" ? (
                 <Fragment>
                   <Nav>
-                  <h3>{user.usergroup}</h3>
-                    
+                    <h3>{user.usergroup}</h3>
+
                     <NavItem>
                       <Link
                         to="#"
@@ -256,50 +264,53 @@ const Header = ({
                 </Fragment>
               ) : (
                 // starting
-                <Nav>
-                    <h3>Admin</h3>
-                  <ul className="top-level-menu text-right">
-                    <li>
-                      <Link
-                        to="#"
-                        onClick={() => openSecondLevelMenu2()}
-                        className="navbar-right"
-                      >
-                        {/* {user.userfullName}&nbsp; */}
-                        <i className="fa fa-caret-down" />
-                      </Link>
-
-                      <ul className="dropdown-menu second-level-menu ">
-                        <li>
-                          <Link to="/shop-Details">Shop Details</Link>
-                        </li>
-
+                <>
+                  {!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Admin" ? (
+                    <Nav>
+                      <h5 id="hea">{user.username}</h5>
+                      <ul className="top-level-menu text-right">
                         <li>
                           <Link
                             to="#"
-                            onClick={() => handleTenantSettingModalShow()}
+                            onClick={() => openSecondLevelMenu2()}
+                            className="navbar-right"
                           >
-                            Tenant Setting
+                            {/* {user.userfullName}&nbsp; */}
+                            <i className="fa fa-caret-down" />
                           </Link>
-                        </li>
 
-                        <li>
-                          <Link to="/add-user">Add Users</Link>
-                        </li>
+                          <ul className="dropdown-menu second-level-menu ">
+                            <li>
+                              <Link
+                                to="#"
+                                onClick={() => handleTenantSettingModalShow()}
+                              >
+                                Tenant Setting
+                              </Link>
+                            </li>
 
-                        <li>
-                          <Link to="/change-password">Change Password</Link>
-                        </li>
-                        <li>
-                          <Link to="#" onClick={() => handleLogoutModalShow()}>
-                            Logout{" "}
-                          </Link>
+                            <li>
+                              <Link to="/change-password">Change Password</Link>
+                            </li>
+                            <li>
+                              <Link
+                                to="#"
+                                onClick={() => handleLogoutModalShow()}
+                              >
+                                Logout{" "}
+                              </Link>
+                            </li>
+                          </ul>
                         </li>
                       </ul>
-                    </li>
-                  </ul>
-                </Nav>
-
+                    </Nav>
+                  ) : (
+                    <></>
+                  )}
+                </>
                 //ending
               )}
             </Navbar.Collapse>
@@ -344,7 +355,7 @@ const Header = ({
           className="logout-modal"
         >
           <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Confirmation</h4>
+            <h4 className="mt-0 mr-5 text-center">Confirmation</h4>
           </Modal.Header>
           <Modal.Body>
             <h5>Are you sure you want to logout?</h5>

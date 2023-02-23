@@ -1,14 +1,17 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import AddShopDetails from "./AddShopDetails";
-import { Modal,Button } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
 
-const PropertyDetail = ({ tenants: { allShopDetails }, getAllShops,deactiveProperty }) => {
-  
+const PropertyDetail = ({
+  tenants: { allShopDetails },
+  getAllShops,
+  deactiveProperty,
+}) => {
   useEffect(() => {
     getAllShops();
   }, [getAllShops]);
@@ -42,17 +45,17 @@ const PropertyDetail = ({ tenants: { allShopDetails }, getAllShops,deactivePrope
       deactive_reason: deactive_reason,
     };
     deactiveProperty(reason);
-   // console.log(OrgId);
-  }
+    // console.log(OrgId);
+  };
+
   return (
     <div>
       <div className="container container_align ">
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">Property Reports </h2>
+              <h2 className="heading_color">Property Details </h2>
             </div>
-
             <AddShopDetails />
             <table
               className="table table-bordered table-striped table-hover"
@@ -93,7 +96,7 @@ const PropertyDetail = ({ tenants: { allShopDetails }, getAllShops,deactivePrope
                           <img
                             className="img_icon_size log"
                             // onClick={() => onClickHandler()}
-                            onClick={()=>onDelete(Val._id)}
+                            onClick={() => onDelete(Val._id)}
                             src={require("../../static/images/delete.png")}
                             alt="Add User"
                             title="Add User"
@@ -114,16 +117,14 @@ const PropertyDetail = ({ tenants: { allShopDetails }, getAllShops,deactivePrope
         centered
       >
         <Modal.Title>Deactivate</Modal.Title>
-        <Modal.Header className="lg" closeButton>
-          x
-        </Modal.Header>
+
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Reason For Deactivating</Form.Label>
               <Form.Control
                 type="text"
-                name="deactive_reason"
+                name="Property_DE_Reason"
                 onChange={(e) => onInputChange(e)}
                 autoFocus
               />
@@ -131,10 +132,10 @@ const PropertyDetail = ({ tenants: { allShopDetails }, getAllShops,deactivePrope
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={onAdd}>
+          <Button onClick={onAdd} className="bg-dark">
             Save
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button className="bg-dark" onClick={handleClose}>
             close
           </Button>
         </Modal.Footer>
@@ -151,4 +152,6 @@ PropertyDetail.propTypes = {
 const mapStateToProps = (state) => ({
   tenants: state.tenants,
 });
-export default connect(mapStateToProps, { getAllShops,deactiveProperty })(PropertyDetail);
+export default connect(mapStateToProps, { getAllShops, deactiveProperty })(
+  PropertyDetail
+);
