@@ -6,7 +6,9 @@ const mongoose = require("mongoose");
 const TenantDetails = require("../../models/TenantDetails");
 const TenantSettings = require("../../models/TenantSettings");
 const OrganizationDetails = require("../../models/OrganizationDetails");
+const OrganizationDetailsHistories = require("../../models/OrganizationDetailsHistories");
 const UserDetails = require("../../models/UserDetails");
+//const UserHistory = require("../../models/UserDetailsHistories")
 const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
 
@@ -96,6 +98,17 @@ router.post("/add-Organization", async (req, res) => {
   try {
     let orgData = new OrganizationDetails(data);
     output = await orgData.save();
+    const finalData2 = {
+      OrganizationName: output.OrganizationName,
+      OrganizationEmail: output.OrganizationEmail,
+      OrganizationNumber: output.OrganizationNumber,
+      OrganizationAddress: output.OrganizationAddress,
+      Location: output.Location,
+      org_status: output.org_status,
+      enter_by_dateTime: output.enter_by_dateTime,
+    };
+    let output2 = new OrganizationDetailsHistories(finalData2);
+    let orghistory = output2.save();
     res.send(output);
   } catch (err) {
     console.error(err.message);
@@ -105,7 +118,6 @@ router.post("/add-Organization", async (req, res) => {
 
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
-  console.log("inside api");
   try {
     const orgdata = await OrganizationDetails.aggregate([
       {
@@ -114,6 +126,7 @@ router.get("/get-all-Organization", async (req, res) => {
           OrganizationEmail: "$OrganizationEmail",
           OrganizationNumber: "$OrganizationNumber",
           OrganizationAddress: "$OrganizationAddress",
+          Location: "$Location",
           org_status: "$org_status",
           enter_by_dateTime: "$enter_by_dateTime",
         },
@@ -123,6 +136,29 @@ router.get("/get-all-Organization", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
+  }
+});
+//update all organization
+router.post("/update-Organization", async (req, res) => {
+  let data = req.body;
+  try {
+    const updateorg = await OrganizationDetails.updateOne(
+      { _id: data.OrganizationId },
+      {
+        $set: {
+          OrganizationName: data.OrganizationName,
+          OrganizationEmail: data.OrganizationEmail,
+          OrganizationNumber: data.OrganizationNumber,
+          OrganizationAddress: data.OrganizationAddress,
+          Location: data.Location,
+        },
+      }
+    );
+
+    res.json(updateorg);
+  } catch (error) {
+    console.log("ERROR IN AP", error);
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
 
@@ -248,6 +284,26 @@ router.get("/get-tenant-report", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+//deactivating the  user
+router.post("/deactive-user", async (req, res) => {
+  let data = req.body;
+  console.log(data.OrgId);
+  try {
+    let data = req.body;
+    let dltuser = await UserDetails.updateOne(
+      { _id: data.Org_id },
+      {
+        $set: {
+          userStatus: "Deactive",
+          deactive_reason: data.deactive_reason,
+        },
+      }
+    );
+    res.json(dltuser);
+  } catch (err) {
+    console.log("error in deleting the org data");
+  }
+});
 
 //ddeactivating the organization
 router.post("/deactive-Organization", async (req, res) => {
@@ -272,36 +328,48 @@ router.post("/deactive-Organization", async (req, res) => {
 
 router.post("/deactive-tenant", async (req, res) => {
   // [check("tdId", "Invalid Request").not().isEmpty()],
-  let data = req.body;
-  console.log(data);
+  console.log("hit");
   try {
+    let data = req.body;
+
     const updatedetails = await TenantDetails.updateOne(
       { _id: data.tid },
       {
         $set: {
           tenantstatus: "Deactive",
-          deactive_reason: data.Tenant_DE_Reason,
+          tenantdeactivereason: data.deactive_reason,
         },
       }
     );
-    res.json(updatedetails);
-    // const finalData2 = {
-    //   tdId: data.tid,
-    //   thStatus: "Deactive",
-    // };
 
-    // let tenantHistories = new TenentHistories(finalData2);
-    // output2 = await tenantHistories.save();
+    const finalData2 = {
+      tdId: data.tid,
+      thStatus: "Deactive",
+    };
+    console.log(finalData2);
 
-    const shopDoorNoUpdate = await ShopDetails.updateOne(
-      { tdId: data.recordId },
+    let tenantHistories = new TenentHistories(finalData2);
+    output2 = await tenantHistories.save();
+
+    const detail = ShopDetails.updateOne(
+      { tdId: data.tid },
       {
         $set: {
           shopStatus: "Available",
         },
       }
     );
-    res.json(shopDoorNoUpdate);
+    console.log(detail);
+    // const shopDoorNoUpdate = await ShopDetails.updateOne(
+    //   { tdId: data.tid },
+    //   {
+    //     $set: {
+    //       shopStatus: "Available",
+    //     },
+    //   }
+    // );
+    //res.json(shopDoorNoUpdate);
+    res.json(updatedetails);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -798,16 +866,16 @@ router.get("/get-all-tenants", async (req, res) => {
       },
       {
         $match: {
-          // tenantstatus: {
-          //   $eq: "Active",
-          // },
+          tenantstatus: {
+            $eq: "Active",
+          },
           AgreementStatus: { $ne: "Renewed" },
         },
       },
     ]);
     res.json(tenanatData);
   } catch (err) {
-    console.error(err.message);
+    console.log(err);
     res.status(500).send("Internal Server Error.");
   }
 });

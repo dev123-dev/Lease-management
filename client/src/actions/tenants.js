@@ -22,6 +22,7 @@ import {
   FINAL_DATA_REP,
   GET_ALL_ORGANIZATION,
   GET_ALL_SUPERUSER,
+  UPDATE_ORG,
 } from "./types";
 
 var linkPath = "";
@@ -66,6 +67,20 @@ export const getAllOrganization = () => async (dispatch) => {
     });
   }
 };
+//update Organzation
+export const updateOrganization = (updatedata) => async (dispatch) => {
+  console.log("inside action");
+  console.log(updatedata);
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/update-Organization`,
+      updatedata,
+      config
+    );
+    dispatch(getAllOrganization());
+  } catch (err) {}
+};
+
 //adding Super user
 export const Adduser = (userData) => async (dispatch) => {
   console.log(userData);
@@ -92,6 +107,25 @@ export const getalluser = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: Error,
+    });
+  }
+};
+
+//deactivating the user in super admin page
+export const deactivateUser = (id) => async (dispatch) => {
+  console.log("INSIDE ACTION");
+  //console.log(id);
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/deactive-user`,
+      id,
+      config
+    );
+    dispatch(getalluser());
+  } catch (err) {
+    console.log("error while sending from action");
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
     });
   }
 };

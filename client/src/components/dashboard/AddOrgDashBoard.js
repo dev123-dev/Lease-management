@@ -8,21 +8,84 @@ import Modal from "react-bootstrap/Modal";
 import { getAllOrganization } from "../../actions/tenants";
 import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
+import EditOrganization from "./EditOrganization";
 // import "../../styles/CustomisedStyle.css";
 
 const AddOrgDashBoard = ({
   //here to connect to action we need to import the function
   //then again we need to mention inside the const function
-  tenants: { allorg },
+  tenants: { allorg, },
   deleteOrganization,
   getAllOrganization,
 }) => {
+
   useEffect(() => {
     getAllOrganization("");
   }, []);
 
-  const clicking = () => {
-    alert("Edit");
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const handleUpdateModalClose = () => setShowUpdateModal(false);
+
+  const onUpdateModalChange = (e) => {
+    if (e) {
+      handleUpdateModalClose();
+    }
+  };
+ 
+ 
+// adding multiple location start
+  const [inputdata, setinput] = useState("");
+  const [items, setitem] = useState([]); 
+
+  const handleLocationclose = (nameofLocation,indexx) => {
+   console.log( nameofLocation.Location)
+   const delitem =  nameofLocation.Location.filter((ele)=>{
+       return indexx != ele
+       
+    })
+    // const delitem = items.filter((ele, ind) => {
+    //   return ind != index;
+    // });
+    setitem(delitem);
+    console.log(delitem)
+    //nameofLocation.Location(items);
+   };
+
+  const addItem = () => {
+    if (!inputdata) {
+    } else {
+      setitem([...items, inputdata]);
+      setinput("");
+    }
+  };
+//multiple location end
+ 
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditModalClose = () => setShowEditModal(false);
+  const handleOpen = () => setShowEditModal(true);
+  const onAddStaffModalChange = (e) => {
+    if (e) {
+      handleEditModalClose();
+    }
+  };
+  const [OrgId, setId] = useState("");
+
+  const onDelete = (id) => {
+    setId(id);
+    handleShow();
+  };
+  const[orgdata,setorgdata]=useState(null);
+
+  const onedit = (user,id) => {
+    setShowUpdateModal(true);
+    setId(id);
+    setorgdata(user)
+    handleOpen();
   };
 
   const [formData, setFormData] = useState({
@@ -30,27 +93,11 @@ const AddOrgDashBoard = ({
     isSubmitted: false,
   });
 
-  const { Organization_DE_Reason } = formData;
-
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [OrgId, setId] = useState("");
-
-  const onDelete = (id) => {
-    setId(id);
-    handleShow();
-  };
-
-  const onedit = (id) => {
-    setId(id);
-    handleOpen();
-  };
+  const { Organization_DE_Reason } = formData;
 
   const onAdd = () => {
     const reason = {
@@ -78,14 +125,6 @@ const AddOrgDashBoard = ({
     Location,
   } = formDataORG;
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
 
   return (
     <div>
@@ -115,6 +154,7 @@ const AddOrgDashBoard = ({
                         <th>Address</th>
                         {/* <th>Number of Users</th> */}
                         <th>Current Status</th>
+                        <th>Location</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
@@ -129,13 +169,14 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.OrganizationNumber}</td>
                               <td>{orgVal.OrganizationAddress}</td>
                               <td>{orgVal.org_status}</td>
+                              <td>{orgVal.Location+","}</td>
                               <td>
                                 <img
                                   className="img_icon_size log"
                                   // onClick={() => onClickHandler()}
                                   // onClick={() => clicking()}
                                   // onClick={handleOpen}
-                                  onClick={() => onedit(orgVal._id)}
+                                  onClick={() => onedit(orgVal , idx)}
                                   src={require("../../static/images/edit_icon.png")}
                                   alt="Edit"
                                   title="Edit User"
@@ -188,8 +229,6 @@ const AddOrgDashBoard = ({
         </section>
         {/* OrganiZation Deatils End */}
       </div>
-      {/* modal for deactivating start */}
-
       {/* deactivating the Super User */}
       <Modal
         show={show}
@@ -226,20 +265,21 @@ const AddOrgDashBoard = ({
       </Modal>
       {/*  End Deactivating the user  */}
 
-      {/* Edit OrganiZation start */}
+      {/* edit org old code starting */}
       <Modal
-        show={showEditModal}
-        backdrop="static"
-        keyboard={false}
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className="logout-modal"
-      >
-        <Modal.Header>
-          <div className=" row col-lg-10 col-md-12 col-sm-12 col-12 ">
-            <h2 className="heading_color">Edit Organization Details </h2>
-            <div className=" tenant_img col-lg-2">
-              <button onClick={handleEditModalClose} className="close">
+          show={showUpdateModal}
+          backdrop="static"
+          keyboard={false}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h3 className="modal-title text-center">Edit Organization Details </h3>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleUpdateModalClose} className="close">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -247,144 +287,15 @@ const AddOrgDashBoard = ({
                 />
               </button>
             </div>
-          </div>
-        </Modal.Header>
-        <Modal.Body className="org_add">
-          {/* <div className="container container_align">
-              <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
-          <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-            <label> OrganizationName:</label>
+          </Modal.Header>
+          <Modal.Body>
 
-            {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
-            <input
-              type="text"
-              name="OrganizationName"
-              value={OrganizationName}
-              // onChange={(e) => onORGchange(e)}
-              className="form-control"
-              // onChange={(e) => onInputChange(e)}
-            />
-          </div>
-          <br></br>
-          {/* </div> */}
-          <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-            <label>Email *:</label>
-            {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
-            <input
-              type="email"
-              name="OrganizationEmail"
-              value={OrganizationEmail}
-              // onChange={(e) => onORGchange(e)}
-              className="form-control"
-              //onChange={(e) => onInputChange(e)}
-              required
-            />{" "}
-          </div>
-          <br></br>
-          {/* </div> */}
-          <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-            <label>Phone No:</label>
-
-            {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
-            <input
-              type="number"
-              name="OrganizationNumber"
-              value={OrganizationNumber}
-              // onChange={(e) => onORGchange(e)}
-              className="form-control"
-              //onChange={(e) => onInputChange(e)}
-            />
-          </div>
-          <br></br>
-          {/* </div> */}
-          <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-            <label>Number of User:</label>
-            {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
-            <input
-              type="number"
-              //  name="user"
-              //value={}
-              className="form-control"
-              //onChange={(e) => onInputChange(e)}
-            />{" "}
-          </div>
-          <br></br>
-          {/* </div> */}
-          {/* </div> */}
-
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-              <label> Address *:</label>
-              {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
-              <textarea
-                name="OrganizationAddress"
-                value={OrganizationAddress}
-                // onChange={(e) => onORGchange(e)}
-                // id="tenantAddr"
-                className="textarea form-control"
-                rows="5"
-                cols="20"
-                placeholder="Address"
-                // onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>{" "}
-            </div>
-            <br></br>
-            {/* </div> */}
-            <div className="addItem  col-lg-3 col-md-2 col-sm-4 col-12">
-              <label className="field_font">
-                Location
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>{" "}
-                :
-              </label>
-            </div>
-            <div className="col-lg-3 col-md-4 col-sm-4 col-12">
-              <input
-                className=""
-                type="text"
-                name="Location"
-                value={Location}
-                // onChange={(e) => setinput(e.target.value)}
-                placeholder="Location"
-                id="Location"
-              ></input>
-
-              {/* <div className="showItem ">
-                  {items.map((ele, index) => {
-                    return (
-                      <div className="eachItem" key={index}>
-                        <span>{ele}</span>{" "}
-                        <button
-                          onClick={() => handleLocationclose(index)}
-                          className="loc_close_btn m-2"
-                        >
-                          X
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div> */}
-            </div>
-            {/*------------- Multiple Location adding details Ending------------ */}
-          </div>
-          {/* </div> */}
-        </Modal.Body>
-        <Modal.Footer>
-          <div className="col-lg-12 Savebutton " size="lg">
-            <button
-              variant="success"
-              className="btn sub_form btn_continue Save float-right"
-              // onClick={() => onSubmitORGdata()}
-            >
-              Save
-            </button>
-          </div>
-        </Modal.Footer>
-      </Modal>
-      {/* End of Edit Organization */}
+            <EditOrganization  org={orgdata}/>
+               
+          </Modal.Body>
+        </Modal>
+     
+      {/* edit old code end */}
     </div>
   );
 };

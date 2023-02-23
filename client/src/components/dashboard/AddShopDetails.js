@@ -59,12 +59,12 @@ const AddShopDetails = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const [showInformationModal, setShowInformation] = useState(false);
-  // const handleInformationModalopen = () => setShowInformation(true);
-  // const handleInformationModalClose = () => setShowInformation(false);
-  // const LogoutModalClose = () => {
-  //   handleInformationModalClose();
-  // };
+  const [showInformationModal, setShowInformation] = useState(false);
+  const handleInformationModalopen = () => setShowInformation(true);
+  const handleInformationModalClose = () => setShowInformation(false);
+  const LogoutModalClose = () => {
+    handleInformationModalClose();
+  };
   const onSubmit = () => {
     const finalData = {
       buildingName: buildingName,
@@ -88,7 +88,7 @@ const AddShopDetails = ({
       shopStatus: "",
       isSubmitted: true,
     });
-
+    handleInformationModalopen();
     console.log(finalData);
   };
 
@@ -269,7 +269,7 @@ const AddShopDetails = ({
         </Modal.Body>
 
         <Modal
-          show={show}
+          show={showInformationModal}
           backdrop="static"
           keyboard={false}
           aria-labelledby="contained-modal-title-vcenter"
@@ -285,7 +285,7 @@ const AddShopDetails = ({
           <Modal.Footer>
             <button
               className="btn btn_green_bg"
-              //  onClick={() => LogoutModalClose()}
+              onClick={() => LogoutModalClose()}
             >
               OK
             </button>

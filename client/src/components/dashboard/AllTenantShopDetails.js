@@ -87,8 +87,7 @@ const AllTenantShopDetails = ({
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentDatas =
-    allTenants && allTenants.slice(indexOfFirstData, indexOfLastData);
+  const currentDatas = allTenants && allTenants.slice(indexOfFirstData, indexOfLastData);
   //change page
   const paginate = (nmbr) => {
     setCurrentData(nmbr);

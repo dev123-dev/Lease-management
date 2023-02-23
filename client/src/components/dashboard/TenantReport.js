@@ -309,6 +309,42 @@ const TenantReport = ({
           </Modal.Footer>
         </Modal>
 
+        {/* Deactivating the tenant start*/}
+        <Modal
+          show={show}
+          // onHide={handleClose}
+          centered
+        >
+          <Modal.Title>Deactivate</Modal.Title>
+          <Modal.Header className="lg" closeButton>
+            x
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Reason For Deactivating</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="deactive_reason"
+                  onChange={(e) => onInputChange(e)}
+                  autoFocus
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={onAdd}>
+              Save
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         {/* Deactivation End */}
       </Fragment>
     </>

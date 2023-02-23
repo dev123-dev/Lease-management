@@ -72,9 +72,6 @@ const TenantDetails = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  tenantdeactivereason: {
-    type: String,
-  },
   enter_by_id: {
     type: ObjectId,
     
