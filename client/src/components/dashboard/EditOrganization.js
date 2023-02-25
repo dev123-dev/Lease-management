@@ -73,7 +73,6 @@ const [formDataORG, setFormDataORG] = useState({
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
-    Logo,
     Location,
   } = formDataORG;
   const onInputChange = (e) => {
@@ -96,72 +95,60 @@ const [formDataORG, setFormDataORG] = useState({
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    
-    
-       <Fragment>
-       
-         
+       <Fragment>  
           <div className="col-lg-3 col-md-2 col-sm-4 col-12">
             <label> OrganizationName:</label>
 
-            {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
+            
             <input
               type="text"
               name="OrganizationName"
               value={OrganizationName}
-              // onChange={(e) => onORGchange(e)}
               className="form-control"
                onChange={(e) => onInputChange(e)}
             />
           </div>
           <br></br>
-          {/* </div> */}
-          <div className="col-lg-3 col-md-2 col-sm-4 col-12">
+           <div className="col-lg-3 col-md-2 col-sm-4 col-12">
             <label>Email *:</label>
-            {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
+          
             <input
               type="email"
               name="OrganizationEmail"
               value={OrganizationEmail}
-              // onChange={(e) => onORGchange(e)}
+          
               className="form-control"
               onChange={(e) => onInputChange(e)}
               required
             />{" "}
           </div>
           <br></br>
-          {/* </div> */}
+          
           <div className="col-lg-3 col-md-2 col-sm-4 col-12">
             <label>Phone No:</label>
 
-            {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
+          
             <input
               type="number"
               name="OrganizationNumber"
               value={OrganizationNumber}
-              // onChange={(e) => onORGchange(e)}
+          
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />
           </div>
           <br></br>
-          {/* </div> */}
+          
           <div className="col-lg-3 col-md-2 col-sm-4 col-12">
             <label>Number of User:</label>
-            {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
             <input
               type="number"
-              //  name="user"
-              //value={}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />{" "}
           </div>
           <br></br>
-          {/* </div> */}
-          {/* </div> */}
-
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
             <div className="col-lg-3 col-md-2 col-sm-4 col-12">
               <label> Address *:</label>
               {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
@@ -220,8 +207,7 @@ const [formDataORG, setFormDataORG] = useState({
               </div>
             {/*------------- Multiple Location adding details Ending------------ */}
           </div>
-          {/* </div> */}
-          <div className="col-lg-12 Savebutton " size="lg">
+         <div className="col-lg-12 Savebutton " size="lg">
           <button
             variant="success"
             className="btn sub_form btn_continue Save float-right"
