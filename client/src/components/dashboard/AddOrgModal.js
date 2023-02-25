@@ -9,6 +9,45 @@ const AddOrgModal = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   AddOrganization,
 }) => {
+
+ const [entryDate, setEntryDate] = useState("");
+  const [leaseEndDate, setLeaseEndDate] = useState("");
+  const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+
+
+  const onDateChangeEntry = (e) => {
+    setEntryDate(e.target.value);
+    var newDate = e.target.value;
+    var calDate = new Date(newDate);
+
+    var leaseMonth = 11 ;
+
+    //Calculating lease end date
+    var dateData = calDate.getDate();
+    calDate.setMonth(calDate.getMonth() + +leaseMonth);
+    if (calDate.getDate() != dateData) {
+      calDate.setDate(0);
+    }
+    var dd1 = calDate.getDate();
+    var mm2 = calDate.getMonth() + 1;
+    var yyyy1 = calDate.getFullYear();
+    if (dd1 < 10) {
+      dd1 = "0" + dd1;
+    }
+
+    if (mm2 < 10) {
+      mm2 = "0" + mm2;
+    }
+    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+    setLeaseEndDate(leaseEndDate);
+    var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
+    setNewLeaseEndDate(newLeaseEndDate);
+  };
+
+  
+
+
+
   const [show, setshow] = useState("");
   const handleClose = () => setshow("false");
   const handleShow = () => setshow("true");
@@ -35,6 +74,8 @@ const AddOrgModal = ({
     OrganizationEmail: "",
     OrganizationNumber: "",
     OrganizationAddress: "",
+    date : "",
+    enddate : "",
     Logo: "",
     Location: [],
   });
@@ -43,7 +84,9 @@ const AddOrgModal = ({
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
+    enddate ,
     Logo,
+    date,
     Location,
   } = formDataORG;
 
@@ -69,12 +112,11 @@ const AddOrgModal = ({
       OrganizationNumber: OrganizationNumber,
       OrganizationAddress: OrganizationAddress,
       Logo: "",
+      date : entryDate,
+      enddate : newLeaseEndDate,
       Location: items,
     };
-    console.log(
-      "this is in main" + finalORGdata.OrganizationAddress,
-      OrganizationNumber
-    );
+   console.log(finalORGdata);
 
     AddOrganization(finalORGdata);
     setFormDataORG({
@@ -84,6 +126,8 @@ const AddOrgModal = ({
       OrganizationNumber: "",
       OrganizationAddress: "",
       OrganizationStatus: "",
+      date : "",
+      enddate : "",
       Logo: "",
       Location: [],
     });
@@ -117,11 +161,11 @@ const AddOrgModal = ({
         >
           <Modal.Header>
             <div className=" row col-lg-10 col-md-12 col-sm-12 col-12 ">
-              <h2 className="heading_color h4 text-center">
-                Add Organization{" "}
+              <h2 className="heading_color h1 text-center">
+                <b>AddOrganization</b>
               </h2>
-              <div className=" tenant_img col-lg-2">
-                <button onClick={handleEditModalClose} className="m-5 close">
+              <div className="  col-lg-2">
+                <button onClick={handleEditModalClose} className="close">
                   <img
                     src={require("../../static/images/close.png")}
                     alt="X"
@@ -133,21 +177,17 @@ const AddOrgModal = ({
           </Modal.Header>
 
           <Modal.Body className="org_add">
-            {/* <div className="container container_align">
-              // <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="  col-lg-2 col-md-2 col-sm-4 col-12">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-lg-6">
                 <label>
                   {" "}
-                  OrgName
+                  OrganiZationName
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
+                  
                 </label>
-              </div>
-
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                 <input
                   type="text"
                   name="OrganizationName"
@@ -156,20 +196,15 @@ const AddOrgModal = ({
                   className="form-control"
                   // onChange={(e) => onInputChange(e)}
                 />
-                <br></br>
-              </div>
-
-              {/* </div> */}
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+                </div>
+                <div className="col-lg-6">
                 <label>
                   Email{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
+                  
                 </label>
-              </div>
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
                 <input
                   type="email"
                   name="OrganizationEmail"
@@ -179,15 +214,12 @@ const AddOrgModal = ({
                   //onChange={(e) => onInputChange(e)}
                   required
                 />{" "}
-              </div>
-              <br></br>
-              {/* </div> */}
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label>Phone No:</label>
-              </div>
 
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input
+                </div>
+
+                <div className="col-lg-6">
+                  PhoneNo
+                  <input
                   type="number"
                   name="OrganizationNumber"
                   value={OrganizationNumber}
@@ -195,13 +227,15 @@ const AddOrgModal = ({
                   className="form-control"
                   //onChange={(e) => onInputChange(e)}
                 />
-              </div>
-              <br></br>
-              {/* </div> */}
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label>Number of User:</label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+                </div>
+                <div className="col-lg-6">
+                <label>
+                  No Of User
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                 
+                </label>
                 <input
                   type="number"
                   //  name="user"
@@ -209,22 +243,65 @@ const AddOrgModal = ({
                   className="form-control"
                   //onChange={(e) => onInputChange(e)}
                 />
-              </div>
-              <br></br>
-              {/* </div> */}
-              {/* </div> */}
 
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+                </div>
+
+                <div className="col-lg-6">
+                <label>
+                  LeaseStartDate
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                 
+                </label>
+                <input
+              type="date"
+              placeholder="dd/mm/yyyy"
+              //   min={yesterdayDt}
+              //   max={today2}
+              className="form-control cpp-input datevalidation"
+              name="tenantLeaseStartDate"
+              // value={tenants.tenantLeaseEndDate}
+              onChange={(e) => onDateChangeEntry(e)}
+              style={{
+                width: "100%",
+              }}
+            />
+                </div>
+                <div className="col-lg-6">
+                <label>
+                  LeaseEndDate
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                 
+                </label><br></br>
+                <input
+              type="text"
+              placeholder="dd/mm/yyyy"
+              //   min={yesterdayDt}
+              //   max={today2}
+              value={leaseEndDate}
+              className="form-control cpp-input datevalidation"
+              name="tenantLeaseStartDate"
+              // value={tenants.tenantLeaseEndDate}
+            
+              style={{
+                width: "100%",
+              }}
+            />
+                {/* <label><b>{leaseEndDate}</b></label> */}
+                </div>
+
+                <div className="col-lg-6">
                 <label>
                   {" "}
                   Address
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
+                  
                 </label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-6 col-12">
                 <textarea
                   name="OrganizationAddress"
                   value={OrganizationAddress}
@@ -238,20 +315,16 @@ const AddOrgModal = ({
                   style={{ width: "100%" }}
                   required
                 ></textarea>{" "}
-              </div>
-              <br></br>
-              {/* </div> */}
-              <div className="addItem  col-lg-2 col-md-2 col-sm-4 col-12">
-                <label className="field_font">
+                </div>
+                <div className="col-lg-6">
+                <label>
+                  {" "}
                   Location
-                  <i className="text-danger  ">
+                  <i className="text-danger ">
                     <b>*</b>
-                  </i>{" "}
-                  :
-                </label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input
+                  </i>
+                  </label>
+                  <input
                   className="form-control"
                   type="text"
                   name="Location"
@@ -278,12 +351,11 @@ const AddOrgModal = ({
                     );
                   })}
                 </div>
-              </div>
-              {/*------------- Multiple Location adding details Ending------------ */}
-            </div>
-          </Modal.Body>
-          <Modal.Footer>
-            <div className="col-lg-12 Savebutton  " size="lg">
+                </div>
+
+                <div className="col-lg-12">
+                <Modal.Footer>
+            <div className=" Savebutton  " size="lg">
               <button
                 variant="success"
                 className="btn sub_form btn_continue Save float-right"
@@ -293,6 +365,13 @@ const AddOrgModal = ({
               </button>
             </div>
           </Modal.Footer>
+                </div>
+              </div>
+            </div>
+            
+            
+          </Modal.Body>
+          
         </Modal>
 
         {/* <Modal

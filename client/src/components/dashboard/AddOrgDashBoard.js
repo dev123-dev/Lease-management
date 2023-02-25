@@ -127,9 +127,9 @@ const AddOrgDashBoard = ({
         {/* OrganiZation Details  start*/}
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">OrganiZation Reports </h2>
-            </div>
+          <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+                <h2 className="heading_color">Organization Details </h2>
+              </div>
 
             <AddOrgModal />
           </div>
@@ -147,6 +147,7 @@ const AddOrgDashBoard = ({
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Address</th>
+                      
                         {/* <th>Number of Users</th> */}
                         <th>Current Status</th>
                         <th>Location</th>

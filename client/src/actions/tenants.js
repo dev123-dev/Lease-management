@@ -55,6 +55,7 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
+  console.log("comming inside aciton")
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
     dispatch({
@@ -69,8 +70,7 @@ export const getAllOrganization = () => async (dispatch) => {
 };
 //update Organzation
 export const updateOrganization = (updatedata) => async (dispatch) => {
-  console.log("inside action");
-  console.log(updatedata);
+  
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/update-Organization`,
@@ -94,11 +94,22 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
 //   } catch (err) {}
 // };
 
+//update Super User Form
+export const UpdateUser = (userdata) => async (dispatch) =>{
+  try{
+    const res = await axios.post(`${linkPath}/api/tenants/Update-User`,userdata,config);
+    dispatch(getalluser());
+  }catch(error){
+    console.error(error.message)
+  }
+}
+
 //adding Super user
 export const Adduser = (userData) => async (dispatch) => {
-  console.log(userData);
+  console.log("indside action")
+  console.log(userData)
   try {
-    await axios.post(`${linkPath}/api/tenants/add-SuperUser`, userData, config);
+    const res = await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
     dispatch(getalluser());
   } catch (err) {
     dispatch({

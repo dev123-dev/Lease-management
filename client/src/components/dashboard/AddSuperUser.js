@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { getalluser } from "../../actions/tenants";
 import PropTypes from "prop-types";
 import { deactivateUser } from "../../actions/tenants";
+import Edituser from "./Edituser";
 
 const AddSuperUser = ({
   auth: { isAuthenticated, loading, user, allTenantSetting },
@@ -14,7 +15,7 @@ const AddSuperUser = ({
   getalluser,
   deactivateUser, //this is a action function to call
 }) => {
-  //point to remember that this includes code for both Super user list and Admin user List it is based on condition
+                  //point to remember that this includes code for both Super user list and Admin user List it is based on condition
 
   useEffect(() => {
     getalluser();
@@ -31,10 +32,20 @@ const AddSuperUser = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const handleUpdateModalClose = () => setShowUpdateModal(false);
+
+  const onUpdateModalChange = (e) => {
+    if (e) {
+      handleUpdateModalClose();
+    }
+  };
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const[userdata,setuser]=useState('');
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
@@ -42,8 +53,12 @@ const AddSuperUser = ({
     handleShow();
   };
 
-  const onedit = (id) => {
+  const onEdit = (user, id) => {
+    setShowUpdateModal(true);
     setId(id);
+    setuser(user)
+  //  handleOpen();
+    setShowUpdateModal(true);
     //  handleOpen();
   };
 
@@ -86,6 +101,7 @@ const AddSuperUser = ({
                           <th>Phone</th>
                           <th>Group</th>
                           <th>Organization</th>
+                          <th>Address</th>
                           <th>Status</th>
                           <th>Operation</th>
                         </tr>
@@ -101,13 +117,14 @@ const AddSuperUser = ({
                                 <td>{allsuperuse.useremail}</td>
                                 <td>{allsuperuse.userphone}</td>
                                 <td>{allsuperuse.usergroup}</td>
-                                <td>{}</td>
+                                <td>{allsuperuse.OrganizationName}</td>
+                                <td>{allsuperuse.useraddress}</td>
                                 <td>{allsuperuse.userStatus}</td>
                                 <td>
                                   <img
                                     className="img_icon_size log"
                                     // onClick={() => onClickHandler()}
-                                    //onClick={() => clicking()}
+                                    onClick={() => onEdit(allsuperuse,idx)}
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
                                     title="Add User"
@@ -194,7 +211,35 @@ const AddSuperUser = ({
           {/* Modal Ending */}
 
           {/* Modal for Editing the Super user */}
-
+          <Modal
+          show={showUpdateModal}
+          backdrop="static"
+          keyboard={false}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h3 className="modal-title text-center">Edit User Details </h3>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleUpdateModalClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <Edituser
+               superuser={userdata}
+             // onUpdateModalChange={onUpdateModalChange}
+            />
+          </Modal.Body>
+        </Modal>
           {/* Modal Edit Ending */}
         </div>
       ) : (
@@ -236,7 +281,8 @@ const AddSuperUser = ({
                                   <td>{allsuperuse.useremail}</td>
                                   <td>{allsuperuse.userphone}</td>
                                   <td>{allsuperuse.usergroup}</td>
-                                  <td>{allsuperuse.AgreementStatus}</td>
+                                  <td>{allsuperuse.OrganizationName}</td>
+                                  <td>{allsuperuse.userStatus}</td>
                                   <td>
                                     <img
                                       className="img_icon_size log"

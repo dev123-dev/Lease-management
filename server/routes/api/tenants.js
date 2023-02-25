@@ -8,6 +8,7 @@ const TenantSettings = require("../../models/TenantSettings");
 const OrganizationDetails = require("../../models/OrganizationDetails");
 const OrganizationDetailsHistories = require("../../models/OrganizationDetailsHistories");
 const UserDetails = require("../../models/UserDetails");
+const userdetail = require("../../models/UserDetail")
 //const UserHistory = require("../../models/UserDetailsHistories")
 const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
@@ -118,21 +119,34 @@ router.post("/add-Organization", async (req, res) => {
 
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
+ 
   try {
-    const orgdata = await OrganizationDetails.aggregate([
-      {
-        $project: {
-          OrganizationName: "$OrganizationName",
-          OrganizationEmail: "$OrganizationEmail",
-          OrganizationNumber: "$OrganizationNumber",
-          OrganizationAddress: "$OrganizationAddress",
-          Location: "$Location",
-          org_status: "$org_status",
-          enter_by_dateTime: "$enter_by_dateTime",
-        },
-      },
-    ]);
+    const orgdata = await OrganizationDetails.find({})
+    // aggregate([
+    //   {
+    //     $project:
+    //      {
+    //       OrganizationName: "$OrganizationName",
+    //       OrganizationEmail: "$OrganizationEmail",
+    //       OrganizationNumber: "$OrganizationNumber",
+    //       OrganizationAddress: "$OrganizationAddress",
+    //       Location: "$Location",
+
+    //       enddate : "$enddate",
+    //       org_status: "$org_status",
+    //       enter_by_dateTime: "$enter_by_dateTime",
+    //     },
+      // },
+      // {
+      //   $match : {
+      //     org_status : {
+      //       $eq : "Acticve"
+      //     },
+
+      //   }
+      
     res.json(orgdata);
+    console.log("this is org data",orgdata)
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -186,13 +200,26 @@ router.post("/update-Organization", async (req, res) => {
 
 //Super user adding
 router.post("/add-SuperUser", async (req, res) => {
-  let userdata = req.body;
+let userdata = req.body;
+
+console.log("this is user data")
+console.log(userdata.usergroup.label)
   try {
-    let u_data = new UserDetails(userdata);
+    const adduser = {
+      username  : userdata.username,
+      useremail : userdata.useremail,
+      userphone : userdata.userphone,
+      useraddress : userdata.useraddress,
+      usergroup : userdata.usergroup.label,
+      password : userdata.password,
+      OrganizationName : userdata.OrganizationName.label,
+    }
+    let u_data = new UserDetails(adduser);
     output = await u_data.save();
     res.send(u_data);
+    console.log(output);
   } catch (err) {
-    console.error("error in adding Super user data");
+    console.error(err);
   }
 });
 
@@ -207,6 +234,8 @@ router.get("/get-all-Superuser", async (req, res) => {
           userphone: "$userphone",
           usergroup: "$usergroup",
           userStatus: "$userStatus",
+          useraddress : "$useraddress",
+          OrganizationName : "$OrganizationName",
         },
       },
     ]);
@@ -216,6 +245,32 @@ router.get("/get-all-Superuser", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+//edit the super user
+router.post("/Update-User",async(req,res)=>{
+  console.log("inside update api")
+  let data = req.body;
+  console.log(data);
+  try{
+  const updateuser = await UserDetails.updateOne(
+    {_id:data.userid},
+    {
+      $set : {
+        
+        username : data.username,
+        userphone : data.userphone,
+        useremail : data.useremail,
+        usergroup : data.usergroup.label,
+        useraddress : data.useraddress,
+        OrganizationName : data.OrganizationName.label,
+      },
+    }
+  )
+ 
+  console.log(updateuser)
+  }catch(err){
+    console.error(err.message);
+  }
+})
 
 router.post("/add-tenant-settings", async (req, res) => {
   let data = req.body;
@@ -850,6 +905,10 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//
+
+
 
 router.get("/get-all-tenants", async (req, res) => {
   try {

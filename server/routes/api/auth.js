@@ -40,11 +40,12 @@ const {
 // @access   Public
 router.post(
   "/login",
+
   [
     check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
     check(PASSWORD, PASSWORD_INVALID).exists(),
   ],
-
+ 
   async (req, res) => {
     // const errors = validationResult(req);
     // if (!errors.isEmpty()) {
@@ -65,15 +66,16 @@ router.post(
           errors: [{ msg: INVALID_CREDENTIALS }],
         });
       }
-
+     // console.log("hit",userDetails)
       //Match The Passwords
       const isMatch = await bcrypt.compare(password, userDetails.password);
-
+      console.log(isMatch)
       if (!isMatch) {
         return res
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
       }
+      
       if (true) {
         //Create Payload
         const payload = {
@@ -81,7 +83,7 @@ router.post(
             id: userDetails._id,
           },
         };
-
+        
         jwt.sign(
           payload,
           JWT_SECRET,
@@ -93,15 +95,18 @@ router.post(
             res.json({ token });
           }
         );
-        const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
-        await UserDetails.updateOne(
-          { _id: userDetails._id },
-          {
-            $set: {
-              genaratedOtp: randomOTPVal,
-            },
-          }
-        );
+       
+
+
+        // const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
+        // await UserDetails.updateOne(
+        //   { _id: userDetails._id },
+        //   {
+        //     $set: {
+        //       genaratedOtp: randomOTPVal,
+        //     },
+        //   }
+        // );
         let ipAddress = "";
         for (const name of Object.keys(nets)) {
           for (const net of nets[name]) {
@@ -134,7 +139,9 @@ router.post(
         return res
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: "Invalid OTP" }] });
-      }
+    
+        }
+
     } catch (err) {
       console.error(err.message);
       res.status(STATUS_CODE_500).json({ errors: [{ msg: "Server Error" }] });

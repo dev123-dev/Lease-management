@@ -15,18 +15,23 @@ import Login from "../auth/Login";
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
 import "../dashboard/AddSuperUser";
-
+import { getAllOrganization } from "../../actions/tenants";
 import { getAllSettings } from "../../actions/tenants";
 
 const Header = ({
   auth: { isAuthenticated, loading, user, allTenantSetting },
+  tenants : {allorg},
   logout,
-
   getAllSettings,
+  getAllOrganization,
 }) => {
   useEffect(() => {
     getAllSettings();
   }, [getAllSettings]);
+  useEffect(() => {
+    getAllOrganization("");
+  }, []);
+ 
 
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
@@ -388,6 +393,7 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants : state.tenants,
 });
 
-export default connect(mapStateToProps, { logout, getAllSettings })(Header);
+export default connect(mapStateToProps, { logout, getAllSettings,getAllOrganization})(Header);

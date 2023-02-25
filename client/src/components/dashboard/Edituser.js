@@ -5,16 +5,37 @@ import { Props } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { getAllOrganization } from "../../actions/tenants";
-import { deleteOrganization } from "../../actions/tenants";
+import Select from "react-select";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { updateOrganization } from "../../actions/tenants";
-const EditOrganization = ({
+import { UpdateUser } from "../../actions/tenants";
+import { getalluser } from "../../actions/tenants";
+
+const Edituser = ({
   auth: { isAuthenticated, user, users },
-  org,
-  updateOrganization,
+  tenants: { allorg },
+  superuser,
+  UpdateUser,
+  getalluser,
 }) => {
-  console.log(org);
+  const [orgname, setOrgname] = useState({});
+
+  const orglist = [];
+  allorg.map((org) => {
+    orglist.push({
+      label: org.OrganizationName,
+      value: org._id,
+    });
+  });
+
+  const onchangeOrg = (e) => {
+    setOrgname(e);
+    console.log(orgname);
+  };
+  const UserGroups = [
+    { value: "Admin", label: "Admin" },
+    { value: "Super Admin", label: "Super Admin" },
+  ];
+
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -27,9 +48,7 @@ const EditOrganization = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [OrgId, setId] = useState("");
-
-  console.log(org.Location);
+  const [userid, setId] = useState("");
 
   const onedit = (id) => {
     setId(id);
@@ -38,14 +57,7 @@ const EditOrganization = ({
 
   // adding multiple location start
   const [inputdata, setinput] = useState("");
-  const [items, setitem] = useState(org.Location);
-
-  const handleLocationclose = (ele1, index) => {
-    const delitem = items.filter((ele, ind) => {
-      return ele1 != ele;
-    });
-    setitem(delitem);
-  };
+  const [items, setitem] = useState();
 
   const addItem = () => {
     if (!inputdata) {
@@ -56,40 +68,47 @@ const EditOrganization = ({
   };
   //multiple location end
 
-  const [formDataORG, setFormDataORG] = useState({
-    OrganizationId: org._id,
-    OrganizationName: org.OrganizationName,
-    OrganizationEmail: org.OrganizationEmail,
-    OrganizationNumber: org.OrganizationNumber,
-    OrganizationAddress: org.OrganizationAddress,
-    Logo: "",
-    Location: items,
+  const [userData, setuserData] = useState({
+    //  userid : superuser[0]._id,
+    username: superuser.username,
+    useremail: superuser.useremail,
+    usergroup: superuser.usergroup,
+    useraddress: superuser.useraddress,
+    userphone: superuser.userphone,
+    OrganizationName: superuser.OrganizationName,
   });
   const {
+    username,
+    useremail,
+    usergroup,
+    useraddress,
+    userphone,
     OrganizationName,
-    OrganizationEmail,
-    OrganizationNumber,
-    OrganizationAddress,
-    Logo,
-    Location,
-  } = formDataORG;
+  } = userData;
   const onInputChange = (e) => {
-    setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
+    setuserData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const [us, setus] = useState("");
+
+  const onuser = (e) => {
+    setus(e);
   };
 
   const onUpdate = () => {
-    const update = {
-      OrganizationId: org._id,
-      OrganizationName: OrganizationName,
-      OrganizationEmail: OrganizationEmail,
-      OrganizationNumber: OrganizationNumber,
-      OrganizationAddress: OrganizationAddress,
-      Location: items,
+    const updateUSER = {
+      userid: superuser._id,
+      username: username,
+      userphone: userphone,
+      useraddress: useraddress,
+      useremail: useremail,
+      usergroup: us,
+      OrganizationName: orgname,
     };
-    console.log("main page" + update);
-    updateOrganization(update);
+    //console.log("updated data",update)
+    UpdateUser(updateUSER);
+    getalluser();
   };
-
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -97,13 +116,13 @@ const EditOrganization = ({
       {/* <div className="container container_align">
               <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
       <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label> OrganizationName:</label>
+        <label> User Name:</label>
 
         {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
         <input
           type="text"
-          name="OrganizationName"
-          value={OrganizationName}
+          name="username"
+          value={username}
           // onChange={(e) => onORGchange(e)}
           className="form-control"
           onChange={(e) => onInputChange(e)}
@@ -112,12 +131,12 @@ const EditOrganization = ({
       <br></br>
       {/* </div> */}
       <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Email *:</label>
+        <label> User Email *:</label>
         {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
         <input
           type="email"
-          name="OrganizationEmail"
-          value={OrganizationEmail}
+          name="useremail"
+          value={useremail}
           // onChange={(e) => onORGchange(e)}
           className="form-control"
           onChange={(e) => onInputChange(e)}
@@ -132,8 +151,8 @@ const EditOrganization = ({
         {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
         <input
           type="number"
-          name="OrganizationNumber"
-          value={OrganizationNumber}
+          name="userphone"
+          value={userphone}
           // onChange={(e) => onORGchange(e)}
           className="form-control"
           onChange={(e) => onInputChange(e)}
@@ -141,18 +160,6 @@ const EditOrganization = ({
       </div>
       <br></br>
       {/* </div> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Number of User:</label>
-        {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="number"
-          //  name="user"
-          //value={}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-        />{" "}
-      </div>
-      <br></br>
       {/* </div> */}
       {/* </div> */}
 
@@ -161,8 +168,8 @@ const EditOrganization = ({
           <label> Address *:</label>
           {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
           <textarea
-            name="OrganizationAddress"
-            value={OrganizationAddress}
+            name="useraddress"
+            value={useraddress}
             // onChange={(e) => onORGchange(e)}
             // id="tenantAddr"
             className="textarea form-control"
@@ -176,46 +183,70 @@ const EditOrganization = ({
         </div>
         <br></br>
         {/* </div> */}
-        <div className="addItem  col-lg-2 col-md-2 col-sm-4 col-12">
-          <label className="field_font">
-            Location
-            <i className="text-danger  ">
-              <b>*</b>
-            </i>{" "}
-            :
-          </label>
-        </div>
-        <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-          <input
-            className="form-control"
-            type="text"
-            name="Location"
-            value={inputdata}
-            onChange={(e) => setinput(e.target.value)}
-            placeholder="Location"
-            id="Location"
-          ></input>
-          <button className="loc-btn " onClick={addItem}>
-            +
-          </button>
-          <div className="showItem ">
-            {items.map((ele, index1) => {
-              return (
-                <div className="eachItem" key={index1}>
-                  <span>{ele}</span>{" "}
-                  <button
-                    onClick={() => handleLocationclose(ele, index1)}
-                    className="loc_close_btn m-5 text-end"
-                  >
-                    X
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        {/*------------- Multiple Location adding details Ending------------ */}
       </div>
+
+      {/* organization list start */}
+      <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+        <label>
+          Organization belongs to{" "}
+          <i className="text-danger ">
+            <b>*</b>
+          </i>
+          :{" "}
+        </label>
+      </div>
+
+      <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+        <Select
+          name="orgname"
+          options={orglist}
+          value={orgname}
+          onChange={(e) => onchangeOrg(e)}
+          theme={(theme) => ({
+            ...theme,
+            height: 26,
+            minHeight: 26,
+            borderRadius: 1,
+            colors: {
+              ...theme.colors,
+              primary: "black",
+            },
+          })}
+        >
+          select Organization
+        </Select>
+      </div>
+      {/* Orgainzation list end */}
+      {/* organization list start */}
+      <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+        <label>
+          User Group
+          <i className="text-danger ">
+            <b>*</b>
+          </i>
+          :{" "}
+        </label>
+      </div>
+      <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+        <Select
+          name="group"
+          options={UserGroups}
+          isSearchable={false}
+          placeholder="Select"
+          onChange={(e) => onuser(e)}
+          theme={(theme) => ({
+            ...theme,
+            height: 26,
+            minHeight: 26,
+            borderRadius: 1,
+            colors: {
+              ...theme.colors,
+              primary: "black",
+            },
+          })}
+        />
+      </div>
+
       {/* </div> */}
       <div className="col-lg-12 Savebutton " size="lg">
         <button
@@ -230,13 +261,13 @@ const EditOrganization = ({
   );
 };
 const mapStateToProps = (state) => ({
+  tenants: state.tenants,
   auth: state.auth,
-  tenants1: state.tenants,
 });
-
 export default connect(mapStateToProps, {
-  // UpdateTenantsDetails,
-  // getAllTenants,
-  // tenantsDetailsHistory,
-  updateOrganization,
-})(EditOrganization);
+  // getalluser,
+  //getAllSettings,
+  //  deactivateUser,
+  UpdateUser,
+  getalluser,
+})(Edituser); // to connect to particular function which is getalluser

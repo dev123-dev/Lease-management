@@ -31,7 +31,7 @@ const AddShopDetails = ({
     hikePercentage,
     stampDuty,
     leaseTimePeriod,
-    address
+    address,
     shopStatus,
   } = formData;
 
@@ -73,7 +73,7 @@ const AddShopDetails = ({
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
-      address:address,
+      address: address,
       isSubmitted: false,
       shopStatus: "Acquired",
     };
@@ -87,7 +87,7 @@ const AddShopDetails = ({
       hikePercentage: "",
       stampDuty: "",
       leaseTimePeriod: "",
-      address:"",
+      address: "",
       shopStatus: "",
       isSubmitted: true,
     });
