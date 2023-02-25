@@ -3,15 +3,15 @@ const mongoose = require("mongoose");
 const OrganizationSchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
-    
+  },
+  OrganizationId : {
+    type : String,
   },
   OrganizationEmail: {
     type: String,
-   
   },
   OrganizationNumber: {
     type: Number,
-   
   },
   OrganizationAddress: {
     type: String,
@@ -23,10 +23,9 @@ const OrganizationSchema = new mongoose.Schema({
     data: Buffer,
     contentType: String,
   },
-  Location:[] ,
+  Location: [],
   enter_by_id: {
     type: ObjectId,
-    
   },
   date:{
     type: Date,
@@ -41,10 +40,9 @@ const OrganizationSchema = new mongoose.Schema({
   },
   enter_by_name: {
     type: String,
-    
   },
-  org_status : {
-    type : String,
+  org_status: {
+    type: String,
     default: "Active",
   },
   enter_by_dateTime: {
@@ -53,11 +51,9 @@ const OrganizationSchema = new mongoose.Schema({
   },
   enter_by_date: {
     type: String,
-   
   },
   edit_by_id: {
     type: ObjectId,
-    
   },
   edit_by_name: {
     type: String,
@@ -68,15 +64,12 @@ const OrganizationSchema = new mongoose.Schema({
   },
   edit_by_date: {
     type: String,
-   
   },
   deactive_by_id: {
     type: ObjectId,
-   
   },
   deactive_by_name: {
     type: String,
-  
   },
   deactive_by_dateTime: {
     type: Date,
@@ -84,11 +77,9 @@ const OrganizationSchema = new mongoose.Schema({
   },
   deactive_by_date: {
     type: String,
-   
   },
   deactive_reason: {
     type: String,
-   
   },
 });
-module.exports  = mongoose.model("OrganizationDetails",OrganizationSchema);
+module.exports = mongoose.model("OrganizationDetails", OrganizationSchema);

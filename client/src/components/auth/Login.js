@@ -3,6 +3,7 @@ import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login, removeError } from "../../actions/auth";
+import "../../styles/CustomisedStyle.css";
 
 const Login = ({
   login,
@@ -16,6 +17,23 @@ const Login = ({
   }, [removeError]);
 
   let modalTitle = { marginTop: "-30px", marginBottom: "20px" };
+  let inputBox = {
+    display: "flex",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    width: "28vw",
+    padding: 5,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: "",
+    borderRadius: 5,
+    borderBottom: "solid red",
+    borderLeft: "none",
+    borderRight: "none",
+    borderTop: "none",
+    color: "green",
+  };
 
   const [formData, setFormData] = useState({
     useremail: "",
@@ -154,9 +172,11 @@ const Login = ({
   return (
     <Fragment>
       <div className="col-md-12 col-lg-12 col-sm-12 col-12 py-3">
-        <div className="modal-header pt-1">
+        <div className="modal-header ">
           {loading ? (
-            <></>
+            <h2 className="modal-title " id="myModalLabel" style={modalTitle}>
+              Please Wait
+            </h2>
           ) : (
             <h2 className="modal-title " id="myModalLabel" style={modalTitle}>
               SIGN IN
@@ -166,81 +186,54 @@ const Login = ({
         {errorResponse && <p style={{ color: "red" }}>{errorResponse}</p>}
         {/* <!-- form --> */}
         {/* <form> */}
-        <div className="form-group form_top">
-          <input
-            type="text"
-            name="useremail"
-            value={useremail}
-            style={userEmailInptErrStyle}
-            className="form-control form_contct"
-            onChange={(e) => onInputChange(e)}
-          />
+        <form onSubmit={(e) => onSubmit(e)}>
+          <div className="form-group form_top email">
+            <label className="pop_up">
+              <span className="label-content">Email</span>
+            </label>
+            <input
+              type="text"
+              name="useremail"
+              value={useremail}
+              style={inputBox}
+              //style={userEmailInptErrStyle}
+              className="form-control form_contct emailtextbox"
+              onChange={(e) => onInputChange(e)}
+            />{" "}
+          </div>
           {userEmailValChecker && (
             <span style={userEmailValStyle}>
               {userEmailValResult}
               <br />
             </span>
           )}
-          <label className="pop_up">
-            <span className="label-content">Email *</span>
-          </label>
-        </div>
 
-        <div className="form-group form_top">
-          <input
-            type="password"
-            name="password"
-            value={password}
-            style={passwordInptErrStyle}
-            className="form-control form_contct"
-            onChange={(e) => onInputChange(e)}
-            autoComplete="false"
-          />
-          {passwordValChecker && (
-            <span style={passwordValStyle}>
-              {passwordValResult}
-              <br />
-            </span>
-          )}
-          <label className="pop_up">Password *</label>
-        </div>
+          <div className="form-group form_top">
+            <label className="pop_up">Password </label>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              style={inputBox}
+              // style={passwordInptErrStyle}
+              className="form-control form_contct "
+              onChange={(e) => onInputChange(e)}
+              autoComplete="false"
+            />
+            {passwordValChecker && (
+              <span style={passwordValStyle}>
+                {passwordValResult}
+                <br />
+              </span>
+            )}
+          </div>
 
-        {/* <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-          {loading ? (
-            <button
-              className="btn contact_reg"
-              disabled
-              onClick={() => getOtp()}
-            >
-              Loading...
+          <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
+            <button className="btn contact_reg" onClick={(e) => onSubmit(e)}>
+              SIGN IN
             </button>
-          ) : (
-            <button className="btn contact_reg" onClick={() => getOtp()}>
-              Get OTP
-            </button>
-          )}
-        </div> */}
-
-        {/* <div className="form-group form_top">
-          <input
-            type="text"
-            name="userOTP"
-            maxLength={4}
-            value={userOTP}
-            // style={userEmailInptErrStyle}
-            className="form-control form_contct"
-            onChange={(e) => onInputChange(e)}
-          />
-          <label className="pop_up">
-            <span className="label-content">OTP</span>
-          </label>
-        </div> */}
-
-        <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-          <button className="btn contact_reg" onClick={(e) => onSubmit(e)}>
-            SIGN IN
-          </button>
-        </div>
+          </div>
+        </form>
         {/* </form> */}
       </div>
     </Fragment>

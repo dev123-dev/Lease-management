@@ -54,7 +54,8 @@ router.post(
 
     //retriving Data
     const { useremail, password } = req.body;
-    // console.log("hello api once again");
+     console.log("hello api once again",useremail,password);
+
     try {
       //userEmail Check In DB
       let userDetails = await UserDetails.findOne({
@@ -66,9 +67,10 @@ router.post(
           errors: [{ msg: INVALID_CREDENTIALS }],
         });
       }
-     // console.log("hit",userDetails)
+     console.log("hit",userDetails)
       //Match The Passwords
-      const isMatch = await bcrypt.compare(password, userDetails.password);
+      console.log(password,"match",userDetails.password)
+      const isMatch = await password == userDetails.password ? true : false;  //bcrypt.compare(password,userDetails.password);
       console.log(isMatch)
       if (!isMatch) {
         return res

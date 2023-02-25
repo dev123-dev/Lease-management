@@ -36,6 +36,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
    
   },
+  OrganizationId: {
+    type :String,
+  },
   enter_by_id: {
     type: ObjectId,
     

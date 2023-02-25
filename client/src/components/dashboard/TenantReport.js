@@ -208,7 +208,7 @@ const TenantReport = ({
                                 )}
                                 <td>
                                   <img
-                                    className="img_icon_size log"
+                                    className=" img_icon_size log"
                                     // onClick={() => onClickHandler()}
                                     // onClick={() => clicking()}
                                     src={require("../../static/images/edit_icon.png")}

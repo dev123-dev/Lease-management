@@ -10,6 +10,8 @@ import {
   GET_ALL_ORGANIZATION,
   GET_ALL_SUPERUSER,
   UPDATE_ORG,
+  PARTICULAR_ORG_PROPERTY,
+  PARTICULAR_ORG_LOCATION,
 } from "../actions/types";
 
 const initialState = {
@@ -32,6 +34,8 @@ const initialState = {
   allorg : [""],
   allsuperuser : [""],
   updatedorg : [""],
+  particular_org_data : [""],
+  particular_org_loc : [""],
 };
 
 const tenants = (state = initialState, action) => {
@@ -85,6 +89,15 @@ const tenants = (state = initialState, action) => {
           return {
             ...state,
             updatedorg : payload,
+          }
+          case PARTICULAR_ORG_PROPERTY : 
+          return { 
+            ...state,
+            particular_org_data : payload,
+          }
+          case PARTICULAR_ORG_LOCATION : 
+          return {...state,
+            particular_org_loc : payload,
           }
     default:
       return state;

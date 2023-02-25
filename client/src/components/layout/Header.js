@@ -27,12 +27,9 @@ const Header = ({
 }) => {
   useEffect(() => {
     getAllSettings();
+    getAllOrganization();
   }, [getAllSettings]);
-  useEffect(() => {
-    getAllOrganization("");
-  }, []);
  
-
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
 

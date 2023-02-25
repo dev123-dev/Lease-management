@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import AddOrgModal from "./AddOrgModal";
@@ -11,39 +10,37 @@ import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import { updateOrganization } from "../../actions/tenants";
 const EditOrganization = ({
-    auth: { isAuthenticated, user, users },
-    org,
-    updateOrganization
-})=>{
-   console.log(org);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const handleEditModalClose = () => setShowEditModal(false);
-    const handleOpen = () => setShowEditModal(true);
-    const onAddStaffModalChange = (e) => {
-      if (e) {
-        handleEditModalClose();
-      }
-    };
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+  auth: { isAuthenticated, user, users },
+  org,
+  updateOrganization,
+}) => {
+  console.log(org);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditModalClose = () => setShowEditModal(false);
+  const handleOpen = () => setShowEditModal(true);
+  const onAddStaffModalChange = (e) => {
+    if (e) {
+      handleEditModalClose();
+    }
+  };
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
- const [OrgId, setId] = useState("");
+  const [OrgId, setId] = useState("");
 
- console.log(org.Location)
+  console.log(org.Location);
 
   const onedit = (id) => {
     setId(id);
     handleOpen();
   };
 
-    // adding multiple location start
+  // adding multiple location start
   const [inputdata, setinput] = useState("");
-  const [items, setitem] = useState(org.Location); 
+  const [items, setitem] = useState(org.Location);
 
-
-  const handleLocationclose = (ele1,index) => {
-   
+  const handleLocationclose = (ele1, index) => {
     const delitem = items.filter((ele, ind) => {
       return ele1 != ele;
     });
@@ -57,16 +54,16 @@ const EditOrganization = ({
       setinput("");
     }
   };
-//multiple location end
+  //multiple location end
 
-const [formDataORG, setFormDataORG] = useState({
-    OrganizationId : org._id,
-    OrganizationName:org.OrganizationName ,
+  const [formDataORG, setFormDataORG] = useState({
+    OrganizationId: org._id,
+    OrganizationName: org.OrganizationName,
     OrganizationEmail: org.OrganizationEmail,
     OrganizationNumber: org.OrganizationNumber,
-    OrganizationAddress:org.OrganizationAddress ,
+    OrganizationAddress: org.OrganizationAddress,
     Logo: "",
-    Location:items,
+    Location: items,
   });
   const {
     OrganizationName,
@@ -79,18 +76,18 @@ const [formDataORG, setFormDataORG] = useState({
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
 
-  const onUpdate=()=>{
+  const onUpdate = () => {
     const update = {
-    OrganizationId : org._id, 
-    OrganizationName : OrganizationName,
-    OrganizationEmail : OrganizationEmail,
-    OrganizationNumber : OrganizationNumber,
-    OrganizationAddress : OrganizationAddress,
-    Location : items,
-    }
-    console.log("main page"+update)
-    updateOrganization(update)
- };
+      OrganizationId: org._id,
+      OrganizationName: OrganizationName,
+      OrganizationEmail: OrganizationEmail,
+      OrganizationNumber: OrganizationNumber,
+      OrganizationAddress: OrganizationAddress,
+      Location: items,
+    };
+    console.log("main page" + update);
+    updateOrganization(update);
+  };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -214,18 +211,45 @@ const [formDataORG, setFormDataORG] = useState({
             onClick={() => onUpdate()}>
             Update
           </button>
+          <div className="showItem ">
+            {items.map((ele, index1) => {
+              return (
+                <div className="eachItem" key={index1}>
+                  <span>{ele}</span>{" "}
+                  <button
+                    onClick={() => handleLocationclose(ele, index1)}
+                    className="loc_close_btn m-5 text-end"
+                  >
+                    X
+                  </button>
+                </div>
+              );
+            })}
           </div>
-          </Fragment>
-  )
-}
+        </div>
+        {/*------------- Multiple Location adding details Ending------------ */}
+      
+      {/* </div> */}
+      <div className="col-lg-12 Savebutton " size="lg">
+        <button
+          variant="success"
+          className="btn sub_form btn_continue Save float-right"
+          onClick={() => onUpdate()}
+        >
+          Update
+        </button>
+      </div>
+    </Fragment>
+  );
+};
 const mapStateToProps = (state) => ({
-    auth: state.auth,
-    tenants1: state.tenants,
-  });
-  
-  export default connect(mapStateToProps, {
-   // UpdateTenantsDetails,
-   // getAllTenants,
-   // tenantsDetailsHistory,
-   updateOrganization,
-  })(EditOrganization);
+  auth: state.auth,
+  tenants1: state.tenants,
+});
+
+export default connect(mapStateToProps, {
+  // UpdateTenantsDetails,
+  // getAllTenants,
+  // tenantsDetailsHistory,
+  updateOrganization,
+})(EditOrganization);

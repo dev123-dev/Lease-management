@@ -23,6 +23,8 @@ import {
   GET_ALL_ORGANIZATION,
   GET_ALL_SUPERUSER,
   UPDATE_ORG,
+  PARTICULAR_ORG_PROPERTY,
+  PARTICULAR_ORG_LOCATION,
 } from "./types";
 
 var linkPath = "";
@@ -37,7 +39,6 @@ const config = {
 var linkPath = "";
 
 export const AddOrganization = (OrganizationData) => async (dispatch) => {
-  console.log(OrganizationData);
   try {
     await axios.post(
       `${linkPath}/api/tenants/add-Organization`,
@@ -53,9 +54,33 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
   }
 };
 
+//getting seperate data for particular organization
+export const getParticularProperty = (data) =>async (dispatch)=>{
+  
+  try{
+    const res = await axios.post(`${linkPath}/api/tenants/get-Particular-Property`,data,config);
+    dispatch({
+      type : PARTICULAR_ORG_PROPERTY,
+      payload : res.data,
+    })
+   // dispatch(getalluser());
+  }catch(error){
+console.log(error.message);
+  }
+}
+
+export const getParticularOrg =(data)=>async(dispatch)=>{
+  try{
+    const res = await axios.post(`${linkPath}/api/tenants/get-particular-org`,data,config)
+    dispatch({
+      type : PARTICULAR_ORG_LOCATION,
+      payload : res.data,
+    })
+  }catch(error){}
+}
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
-  console.log("comming inside aciton")
+  console.log("run")
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
     dispatch({
@@ -80,6 +105,19 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
     dispatch(getAllOrganization());
   } catch (err) {}
 };
+// //update Property
+// export const updateProperty = (updatedata) => async (dispatch) => {
+//   console.log("inside action");
+//   console.log(updatedata);
+//   try {
+//     const res = await axios.post(
+//       `${linkPath}/api/tenants/update-Property`,
+//       updatedata,
+//       config
+//     );
+//     dispatch(getAllOrganization());
+//   } catch (err) {}
+// };
 
 //update Super User Form
 export const UpdateUser = (userdata) => async (dispatch) =>{
@@ -93,8 +131,6 @@ export const UpdateUser = (userdata) => async (dispatch) =>{
 
 //adding Super user
 export const Adduser = (userData) => async (dispatch) => {
-  console.log("indside action")
-  console.log(userData)
   try {
     const res = await axios.post(`${linkPath}/api/tenants/add-SuperUser`,userData,config);
     dispatch(getalluser());
@@ -108,7 +144,7 @@ export const Adduser = (userData) => async (dispatch) => {
 //getting all the user (super)
 
 export const getalluser = () => async (dispatch) => {
-  console.log("inside action");
+  
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
     dispatch({
@@ -124,7 +160,6 @@ export const getalluser = () => async (dispatch) => {
 
 //deactivating the user in super admin page
 export const deactivateUser = (id) => async (dispatch) => {
-  console.log("INSIDE ACTION");
   //console.log(id);
   try {
     const res = await axios.post(
@@ -143,7 +178,6 @@ export const deactivateUser = (id) => async (dispatch) => {
 
 //deleting organization details
 export const deleteOrganization = (id) => async (dispatch) => {
-  console.log("INSIDE ACTION");
   console.log(id);
   try {
     const res = await axios.post(
@@ -261,8 +295,7 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
 
 //deactivate property details
 export const deactiveProperty = (finalData) => async (dispatch) => {
-  console.log("inside action");
-  console.log(finalData);
+  
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/deactive-property`,
@@ -278,7 +311,7 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
 };
 
 export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
-  console.log("inside action");
+  
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/deactive-tenant`,

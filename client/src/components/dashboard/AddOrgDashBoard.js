@@ -14,11 +14,10 @@ import EditOrganization from "./EditOrganization";
 const AddOrgDashBoard = ({
   //here to connect to action we need to import the function
   //then again we need to mention inside the const function
-  tenants: { allorg, },
+  tenants: { allorg },
   deleteOrganization,
   getAllOrganization,
 }) => {
-
   useEffect(() => {
     getAllOrganization("");
   }, []);
@@ -31,25 +30,23 @@ const AddOrgDashBoard = ({
       handleUpdateModalClose();
     }
   };
- 
- 
-// adding multiple location start
-  const [inputdata, setinput] = useState("");
-  const [items, setitem] = useState([]); 
 
-  const handleLocationclose = (nameofLocation,indexx) => {
-   console.log( nameofLocation.Location)
-   const delitem =  nameofLocation.Location.filter((ele)=>{
-       return indexx != ele
-       
-    })
+  // adding multiple location start
+  const [inputdata, setinput] = useState("");
+  const [items, setitem] = useState([]);
+
+  const handleLocationclose = (nameofLocation, indexx) => {
+    console.log(nameofLocation.Location);
+    const delitem = nameofLocation.Location.filter((ele) => {
+      return indexx != ele;
+    });
     // const delitem = items.filter((ele, ind) => {
     //   return ind != index;
     // });
     setitem(delitem);
-    console.log(delitem)
+    console.log(delitem);
     //nameofLocation.Location(items);
-   };
+  };
 
   const addItem = () => {
     if (!inputdata) {
@@ -58,8 +55,7 @@ const AddOrgDashBoard = ({
       setinput("");
     }
   };
-//multiple location end
- 
+  //multiple location end
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -79,12 +75,12 @@ const AddOrgDashBoard = ({
     setId(id);
     handleShow();
   };
-  const[orgdata,setorgdata]=useState(null);
+  const [orgdata, setorgdata] = useState(null);
 
-  const onedit = (user,id) => {
+  const onedit = (user, id) => {
     setShowUpdateModal(true);
     setId(id);
-    setorgdata(user)
+    setorgdata(user);
     handleOpen();
   };
 
@@ -124,7 +120,6 @@ const AddOrgDashBoard = ({
     Logo,
     Location,
   } = formDataORG;
-
 
   return (
     <div>
@@ -170,14 +165,14 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.OrganizationNumber}</td>
                               <td>{orgVal.OrganizationAddress}</td>
                               <td>{orgVal.org_status}</td>
-                              <td>{orgVal.Location+","}</td>
+                              <td>{orgVal.Location + ","}</td>
                               <td>
                                 <img
                                   className="img_icon_size log"
                                   // onClick={() => onClickHandler()}
                                   // onClick={() => clicking()}
                                   // onClick={handleOpen}
-                                  onClick={() => onedit(orgVal , idx)}
+                                  onClick={() => onedit(orgVal, idx)}
                                   src={require("../../static/images/edit_icon.png")}
                                   alt="Edit"
                                   title="Edit User"
@@ -268,34 +263,34 @@ const AddOrgDashBoard = ({
 
       {/* edit org old code starting */}
       <Modal
-          show={showUpdateModal}
-          backdrop="static"
-          keyboard={false}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header>
-            <div className="col-lg-10">
-              <h3 className="modal-title text-center">Edit Organization Details </h3>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={handleUpdateModalClose} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
+        show={showUpdateModal}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header>
+          <div className="col-lg-10">
+            <h3 className="modal-title text-center">
+              Edit Organization Details{" "}
+            </h3>
+          </div>
+          <div className="col-lg-2">
+            <button onClick={handleUpdateModalClose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <EditOrganization org={orgdata} />
+        </Modal.Body>
+      </Modal>
 
-            <EditOrganization  org={orgdata}/>
-               
-          </Modal.Body>
-        </Modal>
-     
       {/* edit old code end */}
     </div>
   );
