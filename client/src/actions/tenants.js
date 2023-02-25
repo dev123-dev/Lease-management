@@ -56,9 +56,10 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) =>async (dispatch)=>{
-  
+  console.log("action try up hj",data)
   try{
     const res = await axios.post(`${linkPath}/api/tenants/get-Particular-Property`,data,config);
+    console.log("action hj",res)
     dispatch({
       type : PARTICULAR_ORG_PROPERTY,
       payload : res.data,
@@ -70,8 +71,11 @@ console.log(error.message);
 }
 
 export const getParticularOrg =(data)=>async(dispatch)=>{
+  console.log("this is action",data)
   try{
     const res = await axios.post(`${linkPath}/api/tenants/get-particular-org`,data,config)
+    console.log("this is action getorg")
+    console.log(res)
     dispatch({
       type : PARTICULAR_ORG_LOCATION,
       payload : res.data,

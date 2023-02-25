@@ -8,7 +8,7 @@ import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "./EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
-import { getAllOrganization } from "../../actions/tenants";
+
 
 const PropertyDetail = ({
   auth: { user },
@@ -19,18 +19,18 @@ const PropertyDetail = ({
   getParticularProperty,
 }) => {
 
-  console.log("this is user data",user)
   useEffect(() => {
-    getAllOrganization();
+   
+    //getParticularProperty();
   }, []);
   const uniqueOrg = {
     OrganizationName: user.OrganizationName,
-    //id: user._id,
+   // id: user.OrganizationId,
   };
-  console.log("this is org id",uniqueOrg)
-  // useEffect(() => {
-  //   getParticularProperty(uniqueOrg);
-  // }, []);
+
+   useEffect(() => {
+     getParticularProperty(uniqueOrg);
+   }, []);
   
   const [orgdetail, setorgdetail] = useState({
     OrganizationName: "",
@@ -217,6 +217,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAllShops,
   deactiveProperty,
-  getAllOrganization,
   getParticularProperty,
 })(PropertyDetail);

@@ -17,8 +17,9 @@ const AddShopDetails = ({
 }) => {
 console.log(user,"this is user")
  useEffect(()=>{
+
       //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
-       getParticularOrg({ OrganizationId: user.OrganizationId});
+       getParticularOrg({ OrganizationName: user.OrganizationName});
     console.log("this is loc data", particular_org_loc);
 
  },[])
@@ -27,6 +28,7 @@ console.log(user,"this is user")
   const [orgLoc, setLoc] = useState({});
 
   const locationList = [];
+  console.log(particular_org_loc.Location)
 
   particular_org_loc.map((org) => {
     locationList.push({
@@ -411,5 +413,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddShopDetailsform,
   getAllShops,
+  
   getParticularOrg,
 })(AddShopDetails);

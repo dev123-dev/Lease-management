@@ -148,7 +148,7 @@ router.get("/get-all-Organization", async (req, res) => {
       //   }
       
     res.json(orgdata);
-    console.log("this is org data",orgdata)
+   // console.log("this is org data",orgdata)
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -157,10 +157,17 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org",async(req,res)=>{
   let data = req.body;
+  console.log(data.OrganizationName,"this is name")
   try{
      const getorg = await OrganizationDetails.find(
-      {OrganizationId : data. OrganizationId});
-     res.json(getorg)
+    {OrganizationName:data.OrganizationName},
+    {
+      Location : 1
+    }
+      );
+     console.log(getorg,"this is loc")
+     res.json(getorg);
+    
   }catch(error){
     console.log(error.message)
   }
@@ -314,8 +321,9 @@ router.post("/add-Property-details", async (req, res) => {
 
 router.post("/get-Particular-Property",async(req,res)=>{
   let data = req.body;
+  console.log(data)
   try{
-    let propertydata =  await property.find({Organization_id:data.id})
+    let propertydata =  await property.find({OrganizationName:data.OrganizationName})
     res.json(propertydata);
    
   }catch(error){
