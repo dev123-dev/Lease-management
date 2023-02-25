@@ -83,8 +83,8 @@ export const loadUser = () => async (dispatch) => {
 
   try {
     const res = await axios.get(`${linkPath}/api/auth/load-user`);
-    console.log("inside action auth");
-    console.log(res.data);
+    // console.log("inside action auth");
+    // console.log(res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,

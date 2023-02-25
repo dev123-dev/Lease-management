@@ -35,6 +35,7 @@ const initialState = {
 };
 
 const tenants = (state = initialState, action) => {
+  
   const { type, payload } = action;
 
   switch (type) {
@@ -73,6 +74,7 @@ const tenants = (state = initialState, action) => {
         return{
           ...state,
           allorg : payload,
+          
         }
         case GET_ALL_SUPERUSER:
         return{

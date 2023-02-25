@@ -41,8 +41,8 @@ const auth = (state = initialState, action) => {
 
   switch (type) {
     case USER_LOADED:
-      console.log("inside reducer");
-      console.log(payload);
+      // console.log("inside reducer");
+      // console.log(payload);
       return {
         ...state,
         isAuthenticated: true,

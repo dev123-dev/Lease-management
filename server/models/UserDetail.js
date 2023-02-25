@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     
   },
-  password: {
+  userpassword: {
     type: String,
   },
   useremail: {
@@ -38,7 +38,6 @@ const UserSchema = new mongoose.Schema({
   },
   enter_by_id: {
     type: ObjectId,
-    
     
   },
   enter_by_name: {
@@ -91,4 +90,4 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-module.exports  = mongoose.model("UserDetails", UserSchema);
+module.exports  = mongoose.model("UserDetail", UserSchema);

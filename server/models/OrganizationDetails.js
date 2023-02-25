@@ -28,6 +28,17 @@ const OrganizationSchema = new mongoose.Schema({
     type: ObjectId,
     
   },
+  date:{
+    type: Date,
+    
+  },
+  AgreementStatus :{
+    type : String,
+    default : "Active",
+  },
+  enddate : {
+    type : String,
+  },
   enter_by_name: {
     type: String,
     

@@ -7,32 +7,52 @@ import { Adduser } from "../../actions/tenants";
 
 const AddUserModal = ({
   auth: { isAuthenticated, user, users, finalDataRep },
+  tenants : {allorg},
   Adduser,
 }) => {
-  // const [show, setshow] = useState("");
-  // const handleClose = () => setshow(false);
-  // const handleShow = () => setshow("true");
 
-  const UserGroups = [
-    { value: "Admin", label: "Admin" },
-    { value: "Super Admin", label: "Super Admin" },
-  ];
-  //declaring variable for form data
+
+  const orglist = [];
+
+  allorg.map((org)=>{
+    orglist.push({
+      label : org.OrganizationName,
+      value : org._id,
+    })
+  });
+
+  
+  const[orgname,setOrgname]=useState({})
+  
+const onchangeOrg=(e)=>{
+  setOrgname(e)
+  console.log(orgname)
+}  
+  
   const [formData, setFormData] = useState({
     username: "",
     useremail: "",
     useraddress: "",
     userphone: "",
     usergroup: "",
+    OrganizationName : "",
     password: "",
   });
-  const { username, useremail, useraddress, usernumber, usergroup, password } =
+  const {  name, email,address,phone,group, OrganizationName, password } =
     formData;
-  const onuserChange = (e) => {
-    if (e) {
-      setFormData({ ...formData, usergroup: e.value });
-    }
-  };
+
+
+    const[us,setus]=useState('')
+
+  const onuser = (e) => {
+    setus(e);
+  }
+
+ 
+ const UserGroups = [
+    { value: "Admin", label: "Admin" },
+    { value: "Super Admin", label: "Super Admin" },
+  ];
 
   const onuserchange = (e) => {
     setFormData({
@@ -42,22 +62,28 @@ const AddUserModal = ({
   };
   const onsubmitUserData = () => {
     const finalUserData = {
-      username: username,
-      useremail: useremail,
-      userphone: usernumber,
-      useraddress: useraddress,
-      usergroup: usergroup,
+      username:  name,
+      useremail: email,
+      userphone: phone,
+      useraddress: address,
+      usergroup:us,
       password: password,
+      OrganizationName : orgname,
     };
+   
+   
     handleClose();
+    console.log("sending data from user")
     Adduser(finalUserData);
+    console.log(finalUserData);
     setFormData({
       ...formData,
-      username: "",
-      userphone: "",
-      useremail: "",
-      useraddress: "",
-      Usergroups: "",
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      group: "",
+      OrganizationName : "",
       password: "",
     });
   };
@@ -119,8 +145,8 @@ const AddUserModal = ({
                 <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                   <input
                     type="text"
-                    name="username"
-                    value={username}
+                    name="name"
+                    value={name}
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
@@ -138,8 +164,8 @@ const AddUserModal = ({
                 <div className="col-lg-4  col-md-4 col-sm-4 col-12">
                   <input
                     type="email"
-                    name="useremail"
-                    value={useremail}
+                    name="email"
+                    value={email}
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
@@ -152,8 +178,8 @@ const AddUserModal = ({
                 <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                   <input
                     type="number"
-                    name="usernumber"
-                    value={usernumber}
+                    name="phone"
+                    value={phone}
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
@@ -165,8 +191,8 @@ const AddUserModal = ({
                 <div className="col-lg-4 col-md-4 col-sm-4 col-12">
                   <input
                     type="text"
-                    name="useraddress"
-                    value={useraddress}
+                    name="address"
+                    value={address}
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
@@ -203,46 +229,33 @@ const AddUserModal = ({
                   </label>
                 </div>
 
-                {/* <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label> Organization Belongs To *:</label>
-            </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-6 col-12">
-              <textarea
-                //   name="orgbelong"
-                //   value={orgbelongd}
-                //    id="tenantAddr"
-                className="textarea form-control"
-                rows="3"
-                placeholder="Organization Belongs To"
-               // onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>
-            </div>
-
-            <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-              <label>Password:</label>
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-              <input
-                type="text"
-                // name="tenantPhone"
-                // value={tenantPhone}
-                className="form-control"
-                //onChange={(e) => onInputChange(e)}
-              
-              />
-            </div>
-          </div> */}
+          
                 <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                  <Select 
+                  name ="orgname"
+                  options={orglist}
+                  value = {orgname}
+                  onChange={(e) => onchangeOrg(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                  >select Organization</Select>
+                </div>
+              </div>
+              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
                   <Select
-                    name="usergroup"
+                    name="group"
                     options={UserGroups}
                     isSearchable={false}
                     placeholder="Select"
-                    onChange={(e) => onuserChange(e)}
+                    onChange={(e) => onuser(e)}
                     theme={(theme) => ({
                       ...theme,
                       height: 26,
@@ -252,11 +265,11 @@ const AddUserModal = ({
                         ...theme.colors,
                         primary: "black",
                       },
-                    })}
-                  />
-                </div>
-              </div>
+                    })}/>
             </div>
+            </div>
+            
+
           </Modal.Body>
           <Modal.Footer>
             {/* save button */}
@@ -269,15 +282,7 @@ const AddUserModal = ({
                 Save
               </button>
             </div>
-            {/* <div className="col-lg-2 Savebutton ">
-              <button
-                variant="success"
-                className="btn sub_form btn_continue Save "
-                onClick={() => handleClose()}
-              >
-                Close
-              </button>
-            </div> */}
+          
           </Modal.Footer>
         </Modal>
 

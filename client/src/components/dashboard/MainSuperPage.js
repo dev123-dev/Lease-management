@@ -1,13 +1,23 @@
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Modal } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
-const TenantReport = ({
+import { getAllOrganization } from "../../actions/tenants";
+const MainSuperPage = ({
   auth: { expReport, isAuthenticated, user, users },
+  tenants : { allorg },
+  getAllOrganization,
+  
 }) => {
+useEffect(()=>{
+  getAllOrganization();
+},[])
+   console.log("this is all org data",allorg)
+  //console.log(allorg);
+ 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -55,27 +65,43 @@ const TenantReport = ({
                     >
                       <thead>
                         <tr>
-                          <th>Org Name</th>
+                          <th>Orgnization Name</th>
                           <th>Email</th>
                           <th>Phone</th>
-                          <th>StartDate</th>
+                          <th>Address</th>
                           <th>Org-Status</th>
-
-                          <th>Operation</th>
+                          <th>End Date</th>
+                          <th>Renewal</th>
                         </tr>
                       </thead>
-
-                      <td>abc</td>
-                      <td>abc@gmail.com</td>
-                      <td>985685896</td>
-                      <td>09/5/2020</td>
-                      <td> Active</td>
+                    <tbody>
+                      {allorg &&
+                      allorg[0]&&
+                      allorg.map((org,index)=>{
+                       
+                      return(
+                       <tr>
+                      <td>{org.OrganizationName}</td>
+                      <td>{org.OrganizationEmail}</td>
+                      <td>{org.OrganizationPhone}</td>
+                       <td>{org.OrganizationAddress}</td> 
+                      <td>{org.org_status}</td>
+                      <td>{org.AgreementStatus}</td>
+                      <td>{org.enddate}</td>
+                     {org.AgreementStatus === "Expired"?(
+                            <button>renewal</button>
+                     ):(<h4>done</h4>)}
+                       </tr>
+                      );
+                      })}
+                   
+                      </tbody>
                       <td>
-                        <center>
+                        {/* <center>
                           <button variant="success" className="btn sub_form">
                             Renewal
                           </button>
-                        </center>
+                        </center> */}
                       </td>
                     </table>
                   </div>
@@ -211,11 +237,12 @@ const TenantReport = ({
   );
 };
 
-TenantReport.propTypes = {
+MainSuperPage.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants : state.tenants,
 });
 
-export default connect(mapStateToProps, {})(TenantReport);
+export default connect(mapStateToProps, {getAllOrganization})(MainSuperPage);
