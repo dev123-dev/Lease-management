@@ -8,16 +8,15 @@ import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
 const MainSuperPage = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants : { allorg },
+  tenants: { allorg },
   getAllOrganization,
-  
 }) => {
-useEffect(()=>{
-  getAllOrganization();
-},[])
-   console.log("this is all org data",allorg)
+  useEffect(() => {
+    getAllOrganization();
+  }, []);
+  console.log("this is all org data", allorg);
   //console.log(allorg);
- 
+
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -74,27 +73,29 @@ useEffect(()=>{
                           <th>Renewal</th>
                         </tr>
                       </thead>
-                    <tbody>
-                      {allorg &&
-                      allorg[0]&&
-                      allorg.map((org,index)=>{
-                       
-                      return(
-                       <tr>
-                      <td>{org.OrganizationName}</td>
-                      <td>{org.OrganizationEmail}</td>
-                      <td>{org.OrganizationPhone}</td>
-                       <td>{org.OrganizationAddress}</td> 
-                      <td>{org.org_status}</td>
-                      <td>{org.AgreementStatus}</td>
-                      <td>{org.enddate}</td>
-                     {org.AgreementStatus === "Expired"?(
-                            <button>renewal</button>
-                     ):(<h4>done</h4>)}
-                       </tr>
-                      );
-                      })}
-                   
+                      <tbody>
+                        {allorg &&
+                          allorg[0] &&
+                          allorg.map((org, index) => {
+                            return (
+                              <tr>
+                                <td>{org.OrganizationName}</td>
+                                <td>{org.OrganizationEmail}</td>
+                                <td>{org.OrganizationPhone}</td>
+                                <td>{org.OrganizationAddress}</td>
+                                <td>{org.org_status}</td>
+
+                                <td>{org.enddate}</td>
+                                <td>
+                                  {org.AgreementStatus === "Expired" ? (
+                                    <button className="rewbtn">Renewal</button>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })}
                       </tbody>
                       <td>
                         {/* <center>
@@ -242,7 +243,7 @@ MainSuperPage.propTypes = {
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  tenants : state.tenants,
+  tenants: state.tenants,
 });
 
-export default connect(mapStateToProps, {getAllOrganization})(MainSuperPage);
+export default connect(mapStateToProps, { getAllOrganization })(MainSuperPage);

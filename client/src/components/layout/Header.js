@@ -11,7 +11,9 @@ import { Link, NavLink, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
+import Dropdown from "react-bootstrap/Dropdown";
 import Login from "../auth/Login";
+
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
 import "../dashboard/AddSuperUser";
@@ -20,7 +22,7 @@ import { getAllSettings } from "../../actions/tenants";
 
 const Header = ({
   auth: { isAuthenticated, loading, user, allTenantSetting },
-  tenants : {allorg},
+  tenants: { allorg },
   logout,
   getAllSettings,
   getAllOrganization,
@@ -31,7 +33,6 @@ const Header = ({
   useEffect(() => {
     getAllOrganization("");
   }, []);
- 
 
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
@@ -77,7 +78,7 @@ const Header = ({
             className="navbar_height top_menu"
             expand="lg"
             fixed="top"
-            style={{ padding: "2px 1em" }}
+            style={{ padding: "4px 1em" }}
           >
             <Navbar.Brand>
               <NavLink to="/MainSuper">
@@ -122,7 +123,7 @@ const Header = ({
                     user.usergroup === "Super Admin" ? (
                       <>
                         <NavLink
-                          className=" h5 "
+                          className=" h6 "
                           id="hea"
                           to="/Super"
                           activeStyle={{
@@ -130,11 +131,11 @@ const Header = ({
                             textDecoration: "none",
                           }}
                         >
-                          Organisation Details
+                          OrganisationDetails
                         </NavLink>
 
                         <NavLink
-                          className="ml-5  h5 "
+                          className="ml-5  h6 "
                           id="hea"
                           to="/SuperUser"
                           activeStyle={{
@@ -142,7 +143,7 @@ const Header = ({
                             textDecoration: "none",
                           }}
                         >
-                          User Details
+                          UserDetails
                         </NavLink>
                       </>
                     ) : (
@@ -231,19 +232,25 @@ const Header = ({
               user &&
               user.usergroup === "Super Admin" ? (
                 <Fragment>
+                  <Dropdown>
+                    <Dropdown.Toggle id="sidehea">
+                      {user.usergroup}
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1" className="logut">
+                        <Link
+                          to="#"
+                          onClick={() => handleLogoutModalShow()}
+                          className="text-dark"
+                        >
+                          LOGOUT
+                        </Link>
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+
                   <Nav>
-                    <h3>{user.usergroup}</h3>
-
-                    <NavItem>
-                      <Link
-                        to="#"
-                        onClick={() => handleLogoutModalShow()}
-                        className="text-white"
-                      >
-                        LOGOUT
-                      </Link>
-                    </NavItem>
-
                     <Modal
                       show={showLogin}
                       backdrop="static"
@@ -275,8 +282,8 @@ const Header = ({
                   user &&
                   user.usergroup === "Admin" ? (
                     <Nav>
-                      <h5 id="hea">{user.username}</h5>
-                      <ul className="top-level-menu text-right">
+                      {user.username}
+                      <ul className="top-level-menu text-right ">
                         <li>
                           <Link
                             to="#"
@@ -360,19 +367,24 @@ const Header = ({
           className="logout-modal"
         >
           <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0 mr-5 text-center">Confirmation</h4>
+            <h4 className="mt-0 mr-5 text-center">CONFIRMATION&nbsp;&nbsp;</h4>
           </Modal.Header>
           <Modal.Body>
-            <h5>Are you sure you want to logout?</h5>
+            <h5>
+              Are you sure you want to
+              logout?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </h5>
           </Modal.Body>
           <Modal.Footer>
             <button
-              className="btn btn_green_bg"
+              id="savebtn"
+              className="btn btn_green_bg "
               onClick={() => LogoutModalClose()}
             >
               YES
             </button>
             <button
+              id="savebtn"
               className="btn btn_green_bg"
               onClick={() => handleLogoutModalClose()}
             >
@@ -393,7 +405,11 @@ Header.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  tenants : state.tenants,
+  tenants: state.tenants,
 });
 
-export default connect(mapStateToProps, { logout, getAllSettings,getAllOrganization})(Header);
+export default connect(mapStateToProps, {
+  logout,
+  getAllSettings,
+  getAllOrganization,
+})(Header);

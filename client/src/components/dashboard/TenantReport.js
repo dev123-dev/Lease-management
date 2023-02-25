@@ -194,7 +194,7 @@ const TenantReport = ({
                                     <center>
                                       <button
                                         variant="success"
-                                        className="btn sub_form"
+                                        className="rewbtn"
                                         //  onClick={() =>
                                         //    onRenewal(Val, idx)
                                         // }

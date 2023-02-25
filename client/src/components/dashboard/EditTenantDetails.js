@@ -431,7 +431,8 @@ const EditTenantDetails = ({
             </div>
 
             <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Lease End Date:</label><br/>
+              <label>Lease End Date:</label>
+              <br />
               <label>
                 <b>{leaseEndDate}</b>
               </label>

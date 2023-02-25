@@ -121,12 +121,12 @@ const AddUserModal = ({
       >
         <Modal.Header>
           <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="heading_color h3 text-center">
-              Add for SUPER admin User{" "}
+            <h2 className="heading_color h1 text-center">
+              <b>Add User</b>{" "}
             </h2>
           </div>
-          <div className=" close-btn-wrapper col-lg-2 close">
-            <button className=" ml-5  close-btn" onClick={handleClose}>
+          <div className="  col-lg-2 ">
+            <button className=" cluser" onClick={handleClose}>
               <img
                 src={require("../../static/images/close.png")}
                 alt="X"
@@ -137,9 +137,9 @@ const AddUserModal = ({
         </Modal.Header>
 
         <Modal.Body>
-          <div className="container container_align">
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
                 <label>
                   {" "}
                   Name
@@ -147,98 +147,57 @@ const AddUserModal = ({
                     <b>*</b>
                   </i>
                   :
-                </label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+                </label>{" "}
                 <input
                   type="text"
                   name="name"
                   value={name}
                   className="form-control"
+                  placeholder="Name"
                   onChange={(e) => onuserchange(e)}
                 />
               </div>
-
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-6">
                 <label>
                   Email{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
                   :
-                </label>
-              </div>
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                </label>{" "}
                 <input
                   type="email"
                   name="email"
+                  placeholder="Email"
                   value={email}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                 />
-                <br></br>
               </div>
 
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label>Phone No:</label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              <div className="col-lg-6">
+                PhoneNo
                 <input
                   type="number"
                   name="phone"
+                  placeholder="PhoneNo"
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                 />
               </div>
-
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label>Address:</label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input
-                  type="text"
-                  name="address"
-                  value={address}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
-                <br></br>
-              </div>
-
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-                <label>
-                  Password{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>
-              </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-                <input
-                  type="text"
-                  name="password"
-                  value={password}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
-
-              {/* organization belongs to this need to be connected to database pending */}
-              <div className="col-lg-2 col-md-2 col-sm-4 col-12">
+              <div className="col-lg-6">
+                {" "}
                 <label>
                   Organization belongs to{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
                   :{" "}
-                </label>
-              </div>
-
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                </label>{" "}
                 <Select
                   name="orgname"
+                  placeholder="Select"
                   options={orglist}
                   value={orgname}
                   onChange={(e) => onchangeOrg(e)}
@@ -253,28 +212,89 @@ const AddUserModal = ({
                     },
                   })}
                 >
-                  select Organization
+                  Select Organization
                 </Select>
               </div>
-            </div>
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <Select
-                name="group"
-                options={UserGroups}
-                isSearchable={false}
-                placeholder="Select"
-                onChange={(e) => onuser(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
-              />
+
+              <div className="col-lg-6">
+                {" "}
+                <label>
+                  Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  placeholder="Password"
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                {" "}
+                <label>
+                  ConfirmPassword{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="ConfirmPassword"
+                  value={password}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                Address
+                <textarea
+                  name="OrganizationAddress"
+                  value={address}
+                  onChange={(e) => onuserchange(e)}
+                  // id="tenantAddr"
+                  className="textarea form-control"
+                  rows="5"
+                  cols="20"
+                  placeholder="Address"
+                  // onChange={(e) => onInputChange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>{" "}
+              </div>
+
+              <div className="col-lg-6">
+                <label>
+                  UserGroup{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :{" "}
+                </label>
+                <Select
+                  name="usergroup"
+                  options={UserGroups}
+                  isSearchable={false}
+                  placeholder="Select"
+                  onChange={(e) => onuser(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                />
+              </div>
             </div>
           </div>
         </Modal.Body>
@@ -283,6 +303,7 @@ const AddUserModal = ({
           <div className="col-lg-1 Savebutton ">
             <button
               variant="success"
+              id="savebtn"
               className="btn sub_form btn_continue Save "
               onClick={() => onsubmitUserData()}
             >

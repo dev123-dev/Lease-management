@@ -113,143 +113,126 @@ const Edituser = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      {/* <div className="container container_align">
-              <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label> User Name:</label>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-lg-6">
+            <label> Name:</label>
 
-        {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="text"
-          name="username"
-          value={username}
-          // onChange={(e) => onORGchange(e)}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-        />
-      </div>
-      <br></br>
-      {/* </div> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label> User Email *:</label>
-        {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="email"
-          name="useremail"
-          value={useremail}
-          // onChange={(e) => onORGchange(e)}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-          required
-        />{" "}
-      </div>
-      <br></br>
-      {/* </div> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Phone No:</label>
+            {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
+            <input
+              type="text"
+              name="username"
+              value={username}
+              // onChange={(e) => onORGchange(e)}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+            />
+          </div>
+          <div className="col-lg-6">
+            <label> Email </label>
+            {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
+            <input
+              type="email"
+              name="useremail"
+              value={useremail}
+              // onChange={(e) => onORGchange(e)}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              required
+            />{" "}
+          </div>
+          <div className="col-lg-6">
+            <label>Phone No:</label>
 
-        {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="number"
-          name="userphone"
-          value={userphone}
-          // onChange={(e) => onORGchange(e)}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-        />
-      </div>
-      <br></br>
-      {/* </div> */}
-      {/* </div> */}
-      {/* </div> */}
+            {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
+            <input
+              type="number"
+              name="userphone"
+              value={userphone}
+              // onChange={(e) => onORGchange(e)}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+            />
+          </div>
+          <div className="col-lg-6">
+            <label>
+              Organization belongs to{" "}
+              <i className="text-danger ">
+                <b>*</b>
+              </i>
+              :{" "}
+            </label>
 
-      <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-        <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-          <label> Address *:</label>
-          {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
-          <textarea
-            name="useraddress"
-            value={useraddress}
-            // onChange={(e) => onORGchange(e)}
-            // id="tenantAddr"
-            className="textarea form-control"
-            rows="5"
-            cols="20"
-            placeholder="Address"
-            onChange={(e) => onInputChange(e)}
-            style={{ width: "100%" }}
-            required
-          ></textarea>{" "}
+            <Select
+              name="orgname"
+              options={orglist}
+              value={orgname}
+              onChange={(e) => onchangeOrg(e)}
+              theme={(theme) => ({
+                ...theme,
+                height: 26,
+                minHeight: 26,
+                borderRadius: 1,
+                colors: {
+                  ...theme.colors,
+                  primary: "black",
+                },
+              })}
+            >
+              select Organization
+            </Select>
+          </div>
+          <div className="col-lg-6">
+            <label>
+              User Group
+              <i className="text-danger ">
+                <b>*</b>
+              </i>
+              :{" "}
+            </label>
+
+            <Select
+              name="group"
+              options={UserGroups}
+              isSearchable={false}
+              placeholder="Select"
+              onChange={(e) => onuser(e)}
+              theme={(theme) => ({
+                ...theme,
+                height: 26,
+                minHeight: 26,
+                borderRadius: 1,
+                colors: {
+                  ...theme.colors,
+                  primary: "black",
+                },
+              })}
+            />
+          </div>
+          <div className="col-lg-6">
+            <label> Address *:</label>
+            {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
+            <textarea
+              name="useraddress"
+              value={useraddress}
+              // onChange={(e) => onORGchange(e)}
+              // id="tenantAddr"
+              className="textarea form-control"
+              rows="5"
+              cols="20"
+              placeholder="Address"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              required
+            ></textarea>{" "}
+          </div>
         </div>
-        <br></br>
-        {/* </div> */}
-      </div>
-
-      {/* organization list start */}
-      <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-        <label>
-          Organization belongs to{" "}
-          <i className="text-danger ">
-            <b>*</b>
-          </i>
-          :{" "}
-        </label>
-      </div>
-
-      <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-        <Select
-          name="orgname"
-          options={orglist}
-          value={orgname}
-          onChange={(e) => onchangeOrg(e)}
-          theme={(theme) => ({
-            ...theme,
-            height: 26,
-            minHeight: 26,
-            borderRadius: 1,
-            colors: {
-              ...theme.colors,
-              primary: "black",
-            },
-          })}
-        >
-          select Organization
-        </Select>
-      </div>
-      {/* Orgainzation list end */}
-      {/* organization list start */}
-      <div className="col-lg-2 col-md-2 col-sm-4 col-12">
-        <label>
-          User Group
-          <i className="text-danger ">
-            <b>*</b>
-          </i>
-          :{" "}
-        </label>
-      </div>
-      <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-        <Select
-          name="group"
-          options={UserGroups}
-          isSearchable={false}
-          placeholder="Select"
-          onChange={(e) => onuser(e)}
-          theme={(theme) => ({
-            ...theme,
-            height: 26,
-            minHeight: 26,
-            borderRadius: 1,
-            colors: {
-              ...theme.colors,
-              primary: "black",
-            },
-          })}
-        />
       </div>
 
       {/* </div> */}
       <div className="col-lg-12 Savebutton " size="lg">
         <button
+          id="savebtn"
           variant="success"
           className="btn sub_form btn_continue Save float-right"
           onClick={() => onUpdate()}

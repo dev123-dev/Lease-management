@@ -104,22 +104,6 @@ const AddOrgDashBoard = ({
     deleteOrganization(reason);
     console.log(OrgId);
   };
-  const [formDataORG, setFormDataORG] = useState({
-    OrganizationName: "",
-    OrganizationEmail: "",
-    OrganizationNumber: "",
-    OrganizationAddress: "",
-    Logo: "",
-    Location: [],
-  });
-  const {
-    OrganizationName,
-    OrganizationEmail,
-    OrganizationNumber,
-    OrganizationAddress,
-    Logo,
-    Location,
-  } = formDataORG;
 
   return (
     <div>
@@ -127,9 +111,9 @@ const AddOrgDashBoard = ({
         {/* OrganiZation Details  start*/}
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-          <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                <h2 className="heading_color">Organization Details </h2>
-              </div>
+            <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+              <h2 className="heading_color">Organization Details </h2>
+            </div>
 
             <AddOrgModal />
           </div>
@@ -147,10 +131,13 @@ const AddOrgDashBoard = ({
                         <th>Email</th>
                         <th>Phone</th>
                         <th>Address</th>
-                      
+
                         {/* <th>Number of Users</th> */}
-                        <th>Current Status</th>
+
                         <th>Location</th>
+                        <th>StartDate</th>
+                        <th>EndDate</th>
+                        <th>Current Status</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
@@ -164,11 +151,15 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.OrganizationEmail}</td>
                               <td>{orgVal.OrganizationNumber}</td>
                               <td>{orgVal.OrganizationAddress}</td>
-                              <td>{orgVal.org_status}</td>
+
                               <td>{orgVal.Location + ","}</td>
+                              <td>{orgVal.date}</td>
+                              <td>{orgVal.enddate}</td>
+                              <td>{orgVal.org_status}</td>
+
                               <td>
                                 <img
-                                  className="img_icon_size log"
+                                  className=""
                                   // onClick={() => onClickHandler()}
                                   // onClick={() => clicking()}
                                   // onClick={handleOpen}
@@ -178,7 +169,7 @@ const AddOrgDashBoard = ({
                                   title="Edit User"
                                 />
                                 <img
-                                  className="img_icon_size log"
+                                  className=""
                                   // onClick={() => onClickHandler()}
                                   onClick={() => onDelete(orgVal._id)}
                                   src={require("../../static/images/delete.png")}
@@ -231,30 +222,38 @@ const AddOrgDashBoard = ({
         // onHide={handleClose}
         centered
       >
-        <Modal.Title>Deactivate</Modal.Title>
+        <Modal.Title>
+          <></>
+          <div className="text-center h4">
+            <b>Deactivate</b>
+          </div>
+        </Modal.Title>
         {/* <Modal.Header className="lg" ></Modal.Header> */}
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Reason For Deactivating</Form.Label>
-              <Form.Control
-                type="text"
+              <Form.Label className="h5">Reason For Deactivating</Form.Label>
+              <textarea
+                rows="2"
                 name="Organization_DE_Reason"
                 onChange={(e) => onInputChange(e)}
                 autoFocus
-              />
+                id="org_reason"
+                className="form-control "
+                required
+              ></textarea>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button
             // variant="primary"
-            className="bg-dark"
+            id="savebtn"
             onClick={onAdd}
           >
             Save
           </Button>
-          <Button variant="primary" onClick={handleClose} className="bg-dark">
+          <Button variant="primary" onClick={handleClose} id="savebtn">
             close
           </Button>
         </Modal.Footer>
@@ -272,8 +271,8 @@ const AddOrgDashBoard = ({
       >
         <Modal.Header>
           <div className="col-lg-10">
-            <h3 className="modal-title text-center">
-              Edit Organization Details{" "}
+            <h3 className="modal-title text-center h3">
+              <b>Edit Organization Details </b>
             </h3>
           </div>
           <div className="col-lg-2">

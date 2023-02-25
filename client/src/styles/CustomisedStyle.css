@@ -1934,13 +1934,24 @@ input[type="number"]::-webkit-outer-spin-button {
 #cl{
   margin-left: 20px;
 }
+.clorg{
+  background-color:transparent;
+  color: #095a4a;
+  margin-left:150px;
+}
+.cluser{
+  background-color:transparent;
+  color: #095a4a;
+  margin-left:140px;
+}
 .model_bck{
   background-color: #000000ab;
   width:600%;
 }
  #hea{
   /* background-color: #000; */
-  color:white
+  color:white;
+  height:20px;
  }
  #hea:hover{
   /* background-color: #000; */
@@ -1970,6 +1981,17 @@ input[type="number"]::-webkit-outer-spin-button {
   color: white;
   border-radius: 0%;
 }
+#signin{
+  background-color: #095a4a;
+  color: white;
+  border-radius: 0%;
+  width:30%;
+}
+#signin:hover{
+  background-color: #080808;
+  color: white;
+  
+}
 #savebtnt{
   background-color: #095a4a;
   color: white;
@@ -1992,31 +2014,32 @@ input[type="number"]::-webkit-outer-spin-button {
   position: absolute;
 
 }
+.locadds:hover{
+  background-color:#0b0b0bfc;
+  color:white;
+  
+}
+.locadds{
+  background-color:transparent;
+  margin-left:83%;
+  margin-top: -9.5%;
+  height: 20%;
+  width:9%;
+  border-radius: 0;
+  border:transparent;
+  position: absolute;
+
+}
 .locadd:hover{
   background-color:#0b0b0bfc;
   color:white;
   
 }
-/* .btndrp{
-  background-color:transparent;
-  margin-left: 290px;
-  margin-top: 2%;
-  position: absolute;
-}
-.btndrp:hover{
- background-color:#095a4a;
- 
-}
-.showItemcl{
+
+.tenantfil:hover{
   background-color:grey;
-  height:20px;
-  width:100%;
-  
+  transform: scale(1.05);
 }
-.showItemcl:hover{
-  background-color:lightgray;
-  color:black;
-} */
 button {
  
   border:1px solid rgb(222, 222, 225);
@@ -2034,17 +2057,34 @@ button {
   margin-top: -5%;
  
 }
-
-
-/* .emailtextbox{ */
-  /* border:none none dashed none 2px solid rgb(28, 17, 176); */
-  /* background-color:black; */
+.rewbtn{
+  background-color: #095a4a;
+  color: white;
+  width:90%;
+  height:40px;
+  border-radius: 0%;
+  border-color: transparent;
+}
+.rewbtn:hover{
+  background-color: black;
+  color: white;
   
-/* } */
-/* .email:first-child{
-background-color: #000;
-} */
+}
+.userhea{
+  background-color:red;
+  margin-left: -6%;
+}
+#sidehea{
+  background-color: #095a4a;
+  border-color: transparent;
+  
+}
+.logut:hover{
+  background-color: #878d8b;
+  
+}
 
-div{
+
+/* div{
   border:1px solid rgba(242, 10, 10, 0.541);
-}  
+}   */

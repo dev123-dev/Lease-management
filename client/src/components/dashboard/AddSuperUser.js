@@ -15,7 +15,7 @@ const AddSuperUser = ({
   getalluser,
   deactivateUser, //this is a action function to call
 }) => {
-                  //point to remember that this includes code for both Super user list and Admin user List it is based on condition
+  //point to remember that this includes code for both Super user list and Admin user List it is based on condition
 
   useEffect(() => {
     getalluser();
@@ -45,7 +45,7 @@ const AddSuperUser = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const[userdata,setuser]=useState('');
+  const [userdata, setuser] = useState("");
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
@@ -56,8 +56,8 @@ const AddSuperUser = ({
   const onEdit = (user, id) => {
     setShowUpdateModal(true);
     setId(id);
-    setuser(user)
-  //  handleOpen();
+    setuser(user);
+    //  handleOpen();
     setShowUpdateModal(true);
     //  handleOpen();
   };
@@ -122,15 +122,15 @@ const AddSuperUser = ({
                                 <td>{allsuperuse.userStatus}</td>
                                 <td>
                                   <img
-                                    className="img_icon_size log"
+                                    className=""
                                     // onClick={() => onClickHandler()}
-                                    onClick={() => onEdit(allsuperuse,idx)}
+                                    onClick={() => onEdit(allsuperuse, idx)}
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
                                     title="Add User"
                                   />
                                   <img
-                                    className="img_icon_size log"
+                                    className=""
                                     // onClick={() => onClickHandler()}
                                     onClick={() => onDelete(allsuperuse._id)}
                                     src={require("../../static/images/delete.png")}
@@ -173,7 +173,9 @@ const AddSuperUser = ({
             // onHide={handleClose}
             centered
           >
-            <Modal.Title>Deactivate</Modal.Title>
+            <Modal.Title className="text-center">
+              <b>Deactivate</b>
+            </Modal.Title>
             {/* <Modal.Header className="lg" ></Modal.Header> */}
             <Modal.Body>
               <Form>
@@ -182,28 +184,27 @@ const AddSuperUser = ({
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Label>Reason For Deactivating</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="deactive_reason"
+                  <textarea
+                    rows="2"
+                    name="Organization_DE_Reason"
                     onChange={(e) => onInputChange(e)}
                     autoFocus
-                  />
+                    id="org_reason"
+                    className="form-control "
+                    required
+                  ></textarea>
                 </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
               <Button
                 // variant="primary"
-                className="bg-dark"
+                id="savebtn"
                 onClick={onAdd}
               >
                 Save
               </Button>
-              <Button
-                variant="primary"
-                onClick={handleClose}
-                className="bg-dark"
-              >
+              <Button variant="primary" onClick={handleClose} id="savebtn">
                 close
               </Button>
             </Modal.Footer>
@@ -212,34 +213,36 @@ const AddSuperUser = ({
 
           {/* Modal for Editing the Super user */}
           <Modal
-          show={showUpdateModal}
-          backdrop="static"
-          keyboard={false}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header>
-            <div className="col-lg-10">
-              <h3 className="modal-title text-center">Edit User Details </h3>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={handleUpdateModalClose} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <Edituser
-               superuser={userdata}
-             // onUpdateModalChange={onUpdateModalChange}
-            />
-          </Modal.Body>
-        </Modal>
+            show={showUpdateModal}
+            backdrop="static"
+            keyboard={false}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header>
+              <div className="col-lg-10">
+                <h3 className="modal-title text-center h3">
+                  <b>Edit User Details </b>
+                </h3>
+              </div>
+              <div className="col-lg-2">
+                <button onClick={handleUpdateModalClose} className="close">
+                  <img
+                    src={require("../../static/images/close.png")}
+                    alt="X"
+                    style={{ height: "20px", width: "20px" }}
+                  />
+                </button>
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              <Edituser
+                superuser={userdata}
+                // onUpdateModalChange={onUpdateModalChange}
+              />
+            </Modal.Body>
+          </Modal>
           {/* Modal Edit Ending */}
         </div>
       ) : (

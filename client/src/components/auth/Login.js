@@ -28,7 +28,7 @@ const Login = ({
     borderWidth: 1,
     borderColor: "",
     borderRadius: 5,
-    borderBottom: "solid red",
+    borderBottom: "",
     borderLeft: "none",
     borderRight: "none",
     borderTop: "none",
@@ -229,7 +229,11 @@ const Login = ({
           </div>
 
           <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
-            <button className="btn contact_reg" onClick={(e) => onSubmit(e)}>
+            <button
+              className="btn contact_reg"
+              onClick={(e) => onSubmit(e)}
+              id="signin"
+            >
               SIGN IN
             </button>
           </div>
