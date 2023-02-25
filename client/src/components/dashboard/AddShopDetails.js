@@ -31,6 +31,7 @@ const AddShopDetails = ({
     hikePercentage,
     stampDuty,
     leaseTimePeriod,
+    address
     shopStatus,
   } = formData;
 
@@ -72,6 +73,7 @@ const AddShopDetails = ({
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
+      address:address,
       isSubmitted: false,
       shopStatus: "Acquired",
     };
@@ -85,6 +87,7 @@ const AddShopDetails = ({
       hikePercentage: "",
       stampDuty: "",
       leaseTimePeriod: "",
+      address:"",
       shopStatus: "",
       isSubmitted: true,
     });
@@ -97,11 +100,12 @@ const AddShopDetails = ({
   ) : (
     <>
       <img
-        className="img_icon_size log"
         onClick={handleShow}
         src={require("../../static/images/add-icon.png")}
-        alt="Add User"
-        title="Add User"
+        alt="Add Shop"
+        title="Add Shop"
+        id="addimg"
+        className="img_icon_size  "
       />
 
       <Modal
@@ -115,9 +119,11 @@ const AddShopDetails = ({
       >
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="text-center h1  ml-5">ADD PROPERTY </h2>
-            <div className=" tenant_img col-lg-2">
-              <button onClick={handleClose} className="close ml-5">
+            <h2 className="text-center h1  ml-5">
+              <b>ADD PROPERTY</b>{" "}
+            </h2>
+            <div className="  col-lg-2">
+              <button onClick={handleClose} className="close ml-5 cl" id="cl">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -129,18 +135,16 @@ const AddShopDetails = ({
         </Modal.Header>
 
         <Modal.Body>
-          <div className="container ">
-            <div className="row ">
-              <div className=" row col-lg-2 col-md-6 col-sm-12 col-12">
-                <label className="">
-                  Building Name
+          <div className="container-fluid propcont">
+            <div className="row">
+              <div className="col-lg-6">
+                <label>
+                  BuildingName
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
                 </label>
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
+
                 <input
                   type="text"
                   placeholder="BuildingName"
@@ -152,16 +156,32 @@ const AddShopDetails = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-2 col-md-6 col-sm-12 col-12">
+              <div className="col-lg-6">
+                <label>
+                  Location
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="BuildingName"
+                  name="buildingName"
+                  value={buildingName}
+                  className="form-control input"
+                  onChange={(e) => onPropertychange(e)}
+                  required
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-6">
                 <label>
                   StampDuty{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
                 </label>
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
                 <input
                   type="text"
                   placeholder="StampDuty"
@@ -171,19 +191,14 @@ const AddShopDetails = ({
                   onChange={(e) => onPropertychange(e)}
                   required
                 />
-                <br></br>
               </div>
-
-              <div className=" row col-lg-2 col-md-6 col-sm-12 col-12">
+              <div className="col-lg-6">
                 <label>
                   Hike<b>%</b>{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
                 </label>
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
                 <input
                   type="text"
                   placeholder="HikePercent"
@@ -193,18 +208,67 @@ const AddShopDetails = ({
                   onChange={(e) => onPropertychange(e)}
                   required
                 />
-                <br></br>
               </div>
-              <div className="col-lg-2 col-md-6 col-sm-12 col-12">
+              <div className="col-lg-6">
                 <label>
-                  Door Number{" "}
+                  LeaseTimePeriod{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
-                  :
                 </label>
+                <textarea
+                  name="tenantAddr"
+                  // value={}
+                  id=" addprop "
+                  value={leaseTimePeriod}
+                  className="textarea form-control"
+                  rows="4"
+                  onChange={(e) => onPropertychange(e)}
+                  placeholder="Time"
+                  // onChange={(e) => onInputChange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>
+                {/* <input
+                  type="text"
+                  name="leaseTimePeriod"
+                  value={leaseTimePeriod}
+                  className="form-control  input"
+                  onChange={(e) => onPropertychange(e)}
+                  required
+                /> */}
               </div>
-              <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+              {/* <div className="container-fluid"> */}
+              {/* <div className="row"> */}
+              <div className="col-lg-6">
+                <label>
+                  Address
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+
+                <textarea
+                  name="tenantAddr"
+                  // value={}
+                  id=" addprop "
+                  className="textarea form-control"
+                  rows="4"
+                  placeholder="Address"
+                  // onChange={(e) => onInputChange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>
+                <br></br>
+              </div>
+              <div className="  col-lg-6 ">
+                <label className="ml-2">
+                  DoorNo{" "}
+                  <i className="text-danger  ">
+                    <b>*</b>
+                  </i>
+                </label>
+
                 <input
                   className="form-control"
                   type="text"
@@ -214,56 +278,54 @@ const AddShopDetails = ({
                   placeholder="Door Number"
                   id="Door Number"
                 ></input>
-                <button className="loc_add_btn m-2" onClick={addItem}>
-                  +
-                </button>
-                <div className="showItem ">
-                  {items.map((ele, index) => {
-                    return (
-                      <div className="eachItem" key={index}>
-                        <span>{ele}</span>{" "}
-                        <button
-                          onClick={() => handleLocationclose(index)}
-                          className="loc_close_btn m-2"
-                        >
-                          X
-                        </button>
-                      </div>
-                    );
-                  })}
+
+                <div>
+                  <div className="locadd " onClick={addItem}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      fill="currentColor"
+                      class="bi bi-plus-lg"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                      />
+                    </svg>
+                  </div>
+                  <br></br>
+                  <div className="showItemcl ">
+                    {items.map((ele, index) => {
+                      return (
+                        <div className="eachItem" key={index}>
+                          <span>{ele}</span>
+                          <button
+                            onClick={() => handleLocationclose(index)}
+                            className="btndrp "
+                          >
+                            X
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
+              {/* </div> */}
 
-              <div className=" row col-lg-2 col-md-6 col-sm-12 col-12">
-                <label>
-                  LeaseTime Period{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>
-              </div>
-              <div className="col-lg-4 col-md-6 col-sm-12 col-12">
-                <input
-                  type="date"
-                  name="leaseTimePeriod"
-                  value={leaseTimePeriod}
-                  className="form-control  input"
-                  onChange={(e) => onPropertychange(e)}
-                  required
-                />
-                <br></br>
-              </div>
-            </div>
+              {/* </div> */}
 
-            <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
-              <button
-                variant="success"
-                className="btn sub_form btn_continue Save float-right"
-                onClick={() => onSubmit()}
-              >
-                Save
-              </button>
+              <div className="col-lg-12">
+                <button
+                  className="btn sub_form btn_continue Save float-right  text-end"
+                  id="savebtn"
+                  onClick={() => onSubmit()}
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
         </Modal.Body>

@@ -8,13 +8,14 @@ import Modal from "react-bootstrap/Modal";
 import { getAllOrganization } from "../../actions/tenants";
 import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { updateOrganization } from "../../actions/tenants";
-const EditOrganization = ({
+// import { updateProperty } from "../../actions/tenants";
+// import { updateProperty } from "../../actions/tenants";
+const EditProperty = ({
   auth: { isAuthenticated, user, users },
-  org,
-  updateOrganization,
+  Property,
+  updateProperty,
 }) => {
-  console.log(org._id);
+  console.log(Property);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -27,67 +28,69 @@ const EditOrganization = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [OrgId, setId] = useState("");
+  // const [OrgId, setId] = useState("");
 
-  console.log(org.Location);
+  // console.log(org.Location);
 
   const onedit = (id) => {
-    setId(id);
+    // setId(id);
     handleOpen();
   };
 
-  // adding multiple location start
-  const [inputdata, setinput] = useState("");
-  const [items, setitem] = useState(org.Location);
+  const [items, setitem] = useState([]);
 
-  const handleLocationclose = (ele1, index) => {
-    const delitem = items.filter((ele, ind) => {
-      return ele1 != ele;
-    });
-    setitem(delitem);
-  };
+  // // adding multiple location start
+  // const [inputdata, setinput] = useState("");
+  // const [items, setitem] = useState(org.Location);
 
-  const addItem = () => {
-    if (!inputdata) {
-    } else {
-      setitem([...items, inputdata]);
-      setinput("");
-    }
-  };
+  // const handleLocationclose = (ele1, index) => {
+  //   const delitem = items.filter((ele, ind) => {
+  //     return ele1 != ele;
+  //   });
+  //   setitem(delitem);
+  // };
+
+  // const addItem = () => {
+  //   if (!inputdata) {
+  //   } else {
+  //     setitem([...items, inputdata]);
+  //     setinput("");
+  //   }
+  // };
   //multiple location end
 
-  const [formDataORG, setFormDataORG] = useState({
-    OrganizationId: org._id,
-    OrganizationName: org.OrganizationName,
-    OrganizationEmail: org.OrganizationEmail,
-    OrganizationNumber: org.OrganizationNumber,
-    OrganizationAddress: org.OrganizationAddress,
-    Logo: "",
-    Location: items,
+  const [formData, setFormData] = useState({
+    buildingName: "",
+    shopDoorNo: [],
+    hikePercentage: "",
+    stampDuty: "",
+    LeaseTime: "",
+    isSubmitted: false,
   });
   const {
-    OrganizationName,
-    OrganizationEmail,
-    OrganizationNumber,
-    OrganizationAddress,
-    Logo,
-    Location,
-  } = formDataORG;
+    buildingName,
+    shopDoorNo,
+    hikePercentage,
+    stampDuty,
+    leaseTimePeriod,
+    shopStatus,
+  } = formData;
   const onInputChange = (e) => {
-    setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const onUpdate = () => {
     const update = {
-      OrganizationId: org._id,
-      OrganizationName: OrganizationName,
-      OrganizationEmail: OrganizationEmail,
-      OrganizationNumber: OrganizationNumber,
-      OrganizationAddress: OrganizationAddress,
-      Location: items,
+      buildingName: buildingName,
+      shopDoorNo: items,
+      hikePercentage: hikePercentage,
+      stampDuty: stampDuty,
+      leaseTimePeriod: leaseTimePeriod,
+      isSubmitted: false,
+      shopStatus: "Acquired",
     };
     console.log("main page" + update);
-    updateOrganization(update);
+    updateProperty(update);
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -97,13 +100,13 @@ const EditOrganization = ({
       {/* <div className="container container_align">
               <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
       <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label> OrganizationName:</label>
+        <label> BuildingName:</label>
 
         {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
         <input
           type="text"
           name="OrganizationName"
-          value={OrganizationName}
+          value={Property.buildingName}
           // onChange={(e) => onORGchange(e)}
           className="form-control"
           onChange={(e) => onInputChange(e)}
@@ -112,12 +115,12 @@ const EditOrganization = ({
       <br></br>
       {/* </div> */}
       <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Email *:</label>
+        <label>Location:</label>
         {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
         <input
           type="email"
           name="OrganizationEmail"
-          value={OrganizationEmail}
+          // value={OrganizationEmail}
           // onChange={(e) => onORGchange(e)}
           className="form-control"
           onChange={(e) => onInputChange(e)}
@@ -127,13 +130,13 @@ const EditOrganization = ({
       <br></br>
       {/* </div> */}
       <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Phone No:</label>
+        <label>Hike %</label>
 
         {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
         <input
           type="number"
           name="OrganizationNumber"
-          value={OrganizationNumber}
+          // value={OrganizationNumber}
           // onChange={(e) => onORGchange(e)}
           className="form-control"
           onChange={(e) => onInputChange(e)}
@@ -142,7 +145,7 @@ const EditOrganization = ({
       <br></br>
       {/* </div> */}
       <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Number of User:</label>
+        <label>Address</label>
         {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
         <input
           type="number"
@@ -157,28 +160,12 @@ const EditOrganization = ({
       {/* </div> */}
 
       <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-        <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-          <label> Address *:</label>
-          {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
-          <textarea
-            name="OrganizationAddress"
-            value={OrganizationAddress}
-            // onChange={(e) => onORGchange(e)}
-            // id="tenantAddr"
-            className="textarea form-control"
-            rows="5"
-            cols="20"
-            placeholder="Address"
-            onChange={(e) => onInputChange(e)}
-            style={{ width: "100%" }}
-            required
-          ></textarea>{" "}
-        </div>
+        {/*  */}
         <br></br>
         {/* </div> */}
         <div className="addItem  col-lg-2 col-md-2 col-sm-4 col-12">
           <label className="field_font">
-            Location
+            DoorNo
             <i className="text-danger  ">
               <b>*</b>
             </i>{" "}
@@ -189,22 +176,20 @@ const EditOrganization = ({
           <input
             className="form-control"
             type="text"
-            name="Location"
-            value={inputdata}
-            onChange={(e) => setinput(e.target.value)}
+            name="DoorNo"
+            // value={inputdata}
+            // onChange={(e) => setinput(e.target.value)}
             placeholder="Location"
             id="Location"
           ></input>
-          <button className="loc-btn " onClick={addItem}>
-            +
-          </button>
+          <button className="loc-btn ">+</button>
           <div className="showItem ">
             {items.map((ele, index1) => {
               return (
                 <div className="eachItem" key={index1}>
                   <span>{ele}</span>{" "}
                   <button
-                    onClick={() => handleLocationclose(ele, index1)}
+                    // onClick={() => handleLocationclose(ele, index1)}
                     className="loc_close_btn m-5 text-end"
                   >
                     X
@@ -238,5 +223,5 @@ export default connect(mapStateToProps, {
   // UpdateTenantsDetails,
   // getAllTenants,
   // tenantsDetailsHistory,
-  updateOrganization,
-})(EditOrganization);
+  // updateProperty,
+})(EditProperty);

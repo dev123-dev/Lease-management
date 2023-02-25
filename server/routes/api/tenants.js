@@ -161,6 +161,28 @@ router.post("/update-Organization", async (req, res) => {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
+// router.post("/update-Property", async (req, res) => {
+//   let data = req.body;
+//   try {
+//     const updateorg = await PropertyDetails.updateOne(
+//       { _id: data.OrganizationId },
+//       {
+//         $set: {
+//           OrganizationName: data.OrganizationName,
+//           OrganizationEmail: data.OrganizationEmail,
+//           OrganizationNumber: data.OrganizationNumber,
+//           OrganizationAddress: data.OrganizationAddress,
+//           Location: data.Location,
+//         },
+//       }
+//     );
+
+//     res.json(updateorg);
+//   } catch (error) {
+//     console.log("ERROR IN AP", error);
+//     res.status(500).json({ errors: [{ msg: "Server Error" }] });
+//   }
+// });
 
 //Super user adding
 router.post("/add-SuperUser", async (req, res) => {

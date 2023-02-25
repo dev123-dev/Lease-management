@@ -96,7 +96,7 @@ const AddOrgModal = ({
         <div className="container container_align">
           <div className="col-lg-12 col-md-11 col-sm-11 col-11 py-4">
             <img
-              className="img_icon_size log"
+              className="img_icon_size "
               // onClick={() => onClickHandler()}
               onClick={handleOpen}
               src={require("../../static/images/add-icon.png")}
