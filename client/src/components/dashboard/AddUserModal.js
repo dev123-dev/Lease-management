@@ -286,29 +286,7 @@ const onchangeOrg=(e)=>{
           </Modal.Footer>
         </Modal>
 
-        {/* <Modal
-          show={showInformationModal}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal"
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Information</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Details Added!!</h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <button
-              className="btn btn_green_bg"
-              onClick={() => LogoutModalClose()}
-            >
-              OK
-            </button>
-          </Modal.Footer>
-        </Modal> */}
+   
       </Fragment>
     </div>
   );

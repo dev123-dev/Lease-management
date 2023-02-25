@@ -100,8 +100,7 @@ const [formDataORG, setFormDataORG] = useState({
     
        <Fragment>
        
-          {/* <div className="container container_align">
-              <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
+         
           <div className="col-lg-3 col-md-2 col-sm-4 col-12">
             <label> OrganizationName:</label>
 
