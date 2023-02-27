@@ -15,7 +15,6 @@ const EditProperty = ({
   Property,
   updateProperty,
 }) => {
-  console.log(Property);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -81,6 +80,7 @@ const EditProperty = ({
 
   const onUpdate = () => {
     const update = {
+
       buildingName: buildingName,
       shopDoorNo: items,
       hikePercentage: hikePercentage,
@@ -89,129 +89,117 @@ const EditProperty = ({
       isSubmitted: false,
       shopStatus: "Acquired",
     };
-    console.log("main page" + update);
+  
     updateProperty(update);
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
-      {/* <div className="container container_align">
-              <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label> BuildingName:</label>
+    // <Fragment>
+    //   {/* <div className="container container_align">
+    //           <div className=" col-lg-12 col-md-9 col-sm-9 col-12 py-3"> */}
+    //   <div className="col-lg-3 col-md-2 col-sm-4 col-12">
+    //     <label> BuildingName:</label>
 
-        {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="text"
-          name="OrganizationName"
-          value={Property.buildingName}
-          // onChange={(e) => onORGchange(e)}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-        />
-      </div>
-      <br></br>
-      {/* </div> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Location:</label>
-        {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="email"
-          name="OrganizationEmail"
-          // value={OrganizationEmail}
-          // onChange={(e) => onORGchange(e)}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-          required
-        />{" "}
-      </div>
-      <br></br>
-      {/* </div> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Hike %</label>
+    //     {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
+    //     <input
+    //       type="text"
+    //       name="OrganizationName"
+    //       value={Property.buildingName}
+    //       // onChange={(e) => onORGchange(e)}
+    //       className="form-control"
+    //       onChange={(e) => onInputChange(e)}
+    //     />
+    //   </div>
+    //   <br></br>
+    //   <div className="col-lg-3 col-md-2 col-sm-4 col-12">
+    //     <label>Location:</label>
+      
+        
+    //   </div>
+    //   <br></br>
+      
+    //   <div className="col-lg-3 col-md-2 col-sm-4 col-12">
+    //     <label>Hike %</label>
 
-        {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="number"
-          name="OrganizationNumber"
-          // value={OrganizationNumber}
-          // onChange={(e) => onORGchange(e)}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-        />
-      </div>
-      <br></br>
-      {/* </div> */}
-      <div className="col-lg-3 col-md-2 col-sm-4 col-12">
-        <label>Address</label>
-        {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
-        <input
-          type="number"
-          //  name="user"
-          //value={}
-          className="form-control"
-          onChange={(e) => onInputChange(e)}
-        />{" "}
-      </div>
-      <br></br>
-      {/* </div> */}
-      {/* </div> */}
-
-      <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-        {/*  */}
-        <br></br>
-        {/* </div> */}
-        <div className="addItem  col-lg-2 col-md-2 col-sm-4 col-12">
-          <label className="field_font">
-            DoorNo
-            <i className="text-danger  ">
-              <b>*</b>
-            </i>{" "}
-            :
-          </label>
-        </div>
-        <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-          <input
-            className="form-control"
-            type="text"
-            name="DoorNo"
-            // value={inputdata}
-            // onChange={(e) => setinput(e.target.value)}
-            placeholder="Location"
-            id="Location"
-          ></input>
-          <button className="loc-btn ">+</button>
-          <div className="showItem ">
-            {items.map((ele, index1) => {
-              return (
-                <div className="eachItem" key={index1}>
-                  <span>{ele}</span>{" "}
-                  <button
-                    // onClick={() => handleLocationclose(ele, index1)}
-                    className="loc_close_btn m-5 text-end"
-                  >
-                    X
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        {/*------------- Multiple Location adding details Ending------------ */}
-      </div>
-      {/* </div> */}
-      <div className="col-lg-12 Savebutton " size="lg">
-        <button
-          variant="success"
-          className="btn sub_form btn_continue Save float-right"
-          onClick={() => onUpdate()}
-        >
-          Update
-        </button>
-      </div>
-    </Fragment>
+    //     <input
+    //       type="number"
+    //       name=""
+    //        value={}
+    //        onChange={(e) => onORGchange(e)}
+    //       className="form-control"
+    //       onChange={(e) => onInputChange(e)}
+    //     />
+    //   </div>
+    //   <br></br>
+    //   <div className="col-lg-3 col-md-2 col-sm-4 col-12">
+    //     <label>Address</label>
+      
+    //     <input
+    //       type="text"
+    //         name="user"
+    //         value={}
+    //       className="form-control"
+    //       onChange={(e) => onInputChange(e)}
+    //     />{" "}
+    //   </div>
+    //   <br></br>
+      
+    //    <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+      
+    //     <br></br>
+     
+    //     <div className="addItem  col-lg-2 col-md-2 col-sm-4 col-12">
+    //       <label className="field_font">
+    //         DoorNo
+    //         <i className="text-danger  ">
+    //           <b>*</b>
+    //         </i>{" "}
+    //         :
+    //       </label>
+    //     </div>
+    //     <div className="col-lg-4 col-md-4 col-sm-4 col-12">
+    //       <input
+    //         className="form-control"
+    //         type="text"
+    //         name="DoorNo"
+    //          value={inputdata}
+    //          onChange={(e) => setinput(e.target.value)}
+    //         placeholder="Location"
+    //         id="Location"
+    //       ></input>
+    //       <button className="loc-btn ">+</button>
+    //       <div className="showItem ">
+    //         {items.map((ele, index1) => {
+    //           return (
+    //             <div className="eachItem" key={index1}>
+    //               <span>{ele}</span>{" "}
+    //               <button
+    //                  onClick={() => handleLocationclose(ele, index1)}
+    //                 className="loc_close_btn m-5 text-end"
+    //               >
+    //                 X
+    //               </button>
+    //             </div>
+    //           );
+    //         })}
+    //       </div>
+    //     </div>
+    //     {/*------------- Multiple Location adding details Ending------------ */}
+    //   </div>
+     
+    //   <div className="col-lg-12 Savebutton " size="lg">
+    //     <button
+    //       variant="success"
+    //       className="btn sub_form btn_continue Save float-right"
+    //       onClick={() => onUpdate()}
+    //     >
+    //       Update
+    //     </button>
+    //   </div>
+    // </Fragment>
+    <></>
   );
 };
 const mapStateToProps = (state) => ({

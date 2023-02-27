@@ -22,6 +22,9 @@ const PropertySchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
   },
+  Organization_id: {
+    type: String,
+  },
   shopStatus: {
     type: String,
   },
@@ -68,7 +71,7 @@ const PropertySchema = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
-  Location: [],
+  Location: {},
   tdId: {
     type: ObjectId,
   },

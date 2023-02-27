@@ -93,6 +93,7 @@ router.post("/add-tenant-details", async (req, res) => {
   }
 });
 
+
 //add organization try
 router.post("/add-Organization", async (req, res) => {
   let data = req.body;
@@ -122,6 +123,7 @@ router.get("/get-all-Organization", async (req, res) => {
  
   try {
     const orgdata = await OrganizationDetails.find({})
+
     // aggregate([
     //   {
     //     $project:
@@ -146,12 +148,31 @@ router.get("/get-all-Organization", async (req, res) => {
       //   }
       
     res.json(orgdata);
-    console.log("this is org data",orgdata)
+   // console.log("this is org data",orgdata)
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
+//get particular organization for displaying location in Add property page
+router.post("/get-particular-org",async(req,res)=>{
+  let data = req.body;
+  console.log(data.OrganizationName,"this is name")
+  try{
+     const getorg = await OrganizationDetails.find(
+    {OrganizationName:data.OrganizationName},
+    {
+      Location : 1
+    }
+      );
+     console.log(getorg,"this is loc")
+     res.json(getorg);
+    
+  }catch(error){
+    console.log(error.message)
+  }
+})
+
 //update all organization
 router.post("/update-Organization", async (req, res) => {
   let data = req.body;
@@ -213,7 +234,9 @@ console.log(userdata.usergroup.label)
       usergroup : userdata.usergroup.label,
       password : userdata.password,
       OrganizationName : userdata.OrganizationName.label,
+      OrganizationId : userdata.OrganizationName.value,
     }
+    console.log(adduser);
     let u_data = new UserDetails(adduser);
     output = await u_data.save();
     res.send(u_data);
@@ -247,9 +270,7 @@ router.get("/get-all-Superuser", async (req, res) => {
 });
 //edit the super user
 router.post("/Update-User",async(req,res)=>{
-  console.log("inside update api")
   let data = req.body;
-  console.log(data);
   try{
   const updateuser = await UserDetails.updateOne(
     {_id:data.userid},
@@ -265,8 +286,6 @@ router.post("/Update-User",async(req,res)=>{
       },
     }
   )
- 
-  console.log(updateuser)
   }catch(err){
     console.error(err.message);
   }
@@ -287,17 +306,30 @@ router.post("/add-tenant-settings", async (req, res) => {
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
-  //console.log(data);
+  
   try {
     let proper = new property(data);
     output = await proper.save();
-    console.log(output);
     res.send(output);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//get particular property detaills based on organization details
+
+router.post("/get-Particular-Property",async(req,res)=>{
+  let data = req.body;
+  console.log(data)
+  try{
+    let propertydata =  await property.find({OrganizationName:data.OrganizationName})
+    res.json(propertydata);
+   
+  }catch(error){
+    console.log(error.message)
+  }
+})
 
 //deactive property
 router.post("/deactive-property", async (req, res) => {

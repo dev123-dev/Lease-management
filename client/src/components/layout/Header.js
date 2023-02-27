@@ -29,6 +29,7 @@ const Header = ({
 }) => {
   useEffect(() => {
     getAllSettings();
+    getAllOrganization();
   }, [getAllSettings]);
   useEffect(() => {
     getAllOrganization("");

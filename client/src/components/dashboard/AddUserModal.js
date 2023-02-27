@@ -64,10 +64,10 @@ const AddUserModal = ({
       usergroup: us,
       password: password,
       OrganizationName: orgname,
+      
     };
 
     handleClose();
-    console.log("sending data from user");
     Adduser(finalUserData);
     console.log(finalUserData);
     setFormData({

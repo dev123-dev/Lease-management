@@ -4,6 +4,9 @@ const OrganizationSchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
   },
+  OrganizationId : {
+    type : String,
+  },
   OrganizationEmail: {
     type: String,
   },

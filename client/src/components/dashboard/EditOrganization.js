@@ -70,7 +70,6 @@ const EditOrganization = ({
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
-    Logo,
     Location,
   } = formDataORG;
   const onInputChange = (e) => {
@@ -116,7 +115,6 @@ const EditOrganization = ({
               type="email"
               name="OrganizationEmail"
               value={OrganizationEmail}
-              // onChange={(e) => onORGchange(e)}
               className="form-control"
               onChange={(e) => onInputChange(e)}
               required
@@ -130,7 +128,6 @@ const EditOrganization = ({
               type="number"
               name="OrganizationNumber"
               value={OrganizationNumber}
-              // onChange={(e) => onORGchange(e)}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />

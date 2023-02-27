@@ -1,24 +1,54 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
+import Select from "react-select";
+import { getParticularOrg } from "../../actions/tenants";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
+  tenants: { particular_org_loc },
   AddShopDetailsform,
-
+  getParticularOrg,
   getAllShops,
 }) => {
+console.log(user,"this is user")
+ useEffect(()=>{
+
+      //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
+       getParticularOrg({ OrganizationName: user.OrganizationName});
+    console.log("this is loc data", particular_org_loc);
+
+ },[])
+
+ 
+  const [orgLoc, setLoc] = useState({});
+
+  const locationList = [];
+  console.log(particular_org_loc.Location)
+
+  particular_org_loc.map((org) => {
+    locationList.push({
+      label: org.Location,
+    });
+  });
+
+  const onchangeLoc = (e) => {
+    setLoc(e);
+  };
+
   //formData
+  
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
     hikePercentage: "",
     stampDuty: "",
     LeaseTime: "",
+    shopAddress: "",
     isSubmitted: false,
   });
 
@@ -31,7 +61,7 @@ const AddShopDetails = ({
     hikePercentage,
     stampDuty,
     leaseTimePeriod,
-    address,
+    shopAddress,
     shopStatus,
   } = formData;
 
@@ -68,12 +98,14 @@ const AddShopDetails = ({
   };
   const onSubmit = () => {
     const finalData = {
+      OrganizationName: user.OrganizationName,
+      Organization_id: user._id,
       buildingName: buildingName,
       shopDoorNo: items,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
-      address: address,
+      shopAddress: shopAddress,
       isSubmitted: false,
       shopStatus: "Acquired",
     };
@@ -92,7 +124,6 @@ const AddShopDetails = ({
       isSubmitted: true,
     });
     handleInformationModalopen();
-    console.log(finalData);
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -163,16 +194,26 @@ const AddShopDetails = ({
                     <b>*</b>
                   </i>
                 </label>
+                <Select
+                  name="orgLoc"
+                  options={locationList}
+                  value={orgLoc}
+                  onChange={(e) => onchangeLoc(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                >
+                  select Organization
+                </Select>
+                {/* need to add the property drop down here */}
 
-                <input
-                  type="text"
-                  placeholder="BuildingName"
-                  name="buildingName"
-                  value={buildingName}
-                  className="form-control input"
-                  onChange={(e) => onPropertychange(e)}
-                  required
-                />
                 <br></br>
               </div>
               <div className="col-lg-6">
@@ -249,13 +290,13 @@ const AddShopDetails = ({
                 </label>
 
                 <textarea
-                  name="tenantAddr"
-                  // value={}
+                  name="shopAddress"
+                  value={shopAddress}
                   id=" addprop "
                   className="textarea form-control"
                   rows="4"
                   placeholder="Address"
-                  // onChange={(e) => onInputChange(e)}
+                  onChange={(e) => onPropertychange(e)}
                   style={{ width: "100%" }}
                   required
                 ></textarea>
@@ -366,9 +407,12 @@ AddShopDetails.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
   AddShopDetailsform,
   getAllShops,
+  
+  getParticularOrg,
 })(AddShopDetails);

@@ -7,15 +7,36 @@ import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "./EditProperty";
+import { getParticularProperty } from "../../actions/tenants";
+
 
 const PropertyDetail = ({
-  tenants: { allShopDetails },
+  auth: { user },
+  tenants: { particular_org_data },
   getAllShops,
+  getAllOrganization,
   deactiveProperty,
+  getParticularProperty,
 }) => {
+
   useEffect(() => {
-    getAllShops();
-  }, [getAllShops]);
+   
+    //getParticularProperty();
+  }, []);
+  const uniqueOrg = {
+    OrganizationName: user.OrganizationName,
+   // id: user.OrganizationId,
+  };
+
+   useEffect(() => {
+     getParticularProperty(uniqueOrg);
+   }, []);
+  
+  const [orgdetail, setorgdetail] = useState({
+    OrganizationName: "",
+    id: "",
+  });
+  const { OrganizationName, id } = orgdetail;
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -62,7 +83,9 @@ const PropertyDetail = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">Property Details </h2>
+              <h2 className="heading_color">
+                {user.OrganizationName} Property Details{" "}
+              </h2>
             </div>
             <AddShopDetails />
             <table
@@ -83,8 +106,8 @@ const PropertyDetail = ({
                 </tr>
               </thead>
               <tbody>
-                {allShopDetails &&
-                  allShopDetails.map((Val, idx) => {
+                {particular_org_data &&
+                  particular_org_data.map((Val, idx) => {
                     return (
                       <tr key={idx}>
                         <td>{Val.buildingName}</td>
@@ -93,7 +116,7 @@ const PropertyDetail = ({
                         <td>{Val.hikePercentage}</td>
                         <td>{Val.stampDuty}</td>
                         <td>{Val.leaseTimePeriod}</td>
-                        <td>{Val.address}</td>
+                        <td>{Val.shopAddress}</td>
                         <td>{Val.shopStatus}</td>
                         <td>
                           <img
@@ -185,10 +208,14 @@ const PropertyDetail = ({
 PropertyDetail.propTypes = {
   tenants: PropTypes.object.isRequired,
   getAllShops: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   tenants: state.tenants,
+  auth: state.auth,
 });
-export default connect(mapStateToProps, { getAllShops, deactiveProperty })(
-  PropertyDetail
-);
+export default connect(mapStateToProps, {
+  getAllShops,
+  deactiveProperty,
+  getParticularProperty,
+})(PropertyDetail);
