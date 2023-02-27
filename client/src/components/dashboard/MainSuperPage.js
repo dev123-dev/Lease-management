@@ -6,6 +6,7 @@ import { Modal } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
+import RenewalorgAgreement from "./RenewalorgAgreement";
 const MainSuperPage = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allorg },
@@ -24,6 +25,12 @@ const MainSuperPage = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
+  const [orgdata, setOrg] = useState(null);
+
+  const handleOpen = (org) => {
+    setShowEditModal(true);
+    setOrg(org);
+  };
   const onRenewal = (tenants) => {
     setShowEditModal(true);
     setUserData(tenants);
@@ -88,7 +95,12 @@ const MainSuperPage = ({
                                 <td>{org.enddate}</td>
                                 <td>
                                   {org.AgreementStatus === "Expired" ? (
-                                    <button className="rewbtn">Renewal</button>
+                                    <button
+                                      className="rewbtn"
+                                      onClick={() => handleOpen(org)}
+                                    >
+                                      Renewal
+                                    </button>
                                   ) : (
                                     <></>
                                   )}
@@ -97,13 +109,7 @@ const MainSuperPage = ({
                             );
                           })}
                       </tbody>
-                      <td>
-                        {/* <center>
-                          <button variant="success" className="btn sub_form">
-                            Renewal
-                          </button>
-                        </center> */}
-                      </td>
+                      <td></td>
                     </table>
                   </div>
                 </section>
@@ -112,129 +118,33 @@ const MainSuperPage = ({
           </section>
         </div>
       </div>
+
+      {/* //renwl */}
+      <Modal show={showEditModal} centered>
+        <Modal.Title>
+          <></>
+          <div className="text-center h4">
+            <b>RenewalOrg</b>
+          </div>
+        </Modal.Title>
+        {/* <Modal.Header className="lg" ></Modal.Header> */}
+        <Modal.Body>
+          <RenewalorgAgreement OrgData={orgdata} />
+        </Modal.Body>
+        <Modal.Footer>
+          {/* <Button
+            // variant="primary"
+            id="savebtn"
+            onClick={onAdd}
+          >
+            Save
+          </Button> */}
+          {/* <Button variant="primary" onClick={handleClose} id="savebtn">
+            close
+          </Button> */}
+        </Modal.Footer>
+      </Modal>
     </>
-    // <Fragment>
-    //   <div className="container container_align ">
-    //     <section className="sub_reg">
-    //       <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-    //         <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-    //           <h2 className="heading_color">Tenant Reports </h2>
-    //         </div>
-    //         <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
-    //           <img
-    //             className="img_icon_size log"
-    //             onClick={() => handlePrint()}
-    //             src={require("../../static/images/print.png")}
-    //             alt="print"
-    //             title="Print"
-    //           />
-    //         </div>
-    //       </div>
-    //       <div className="row">
-    //         <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-    //           <section className="body">
-    //             <div className="body-inner no-padding  table-responsive fixTableHead">
-    //               <table
-    //                 className="table table-bordered table-striped table-hover"
-    //                 id="datatable2"
-    //               >
-    //                 <thead>
-    //                   <tr>
-    //                     <th>Name</th>
-    //                     <th>Door No</th>
-    //                     <th>File No</th>
-    //                     <th>Expiry Date</th>
-    //                     <th>Rent</th>
-    //                     <th>Revised Rent</th>
-    //                     <th>Stamp Duty</th>
-    //                     <th>Agreement Status</th>
-    //                     <th>Operation</th>
-    //                   </tr>
-    //                 </thead>
-    //                 <tbody>
-    //                   {expReport &&
-    //                     expReport[0] &&
-    //                     expReport.map((expReportVal, idx) => {
-    //                       var ED = expReportVal.tenantLeaseEndDate.split(/\D/g);
-    //                       var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-    //                         "-"
-    //                       );
-    //                       return (
-    //                         <tr key={idx}>
-    //                           <td>{expReportVal.tenantName}</td>
-    //                           <td>{expReportVal.tenantDoorNo}</td>
-    //                           <td>{expReportVal.tenantFileNo}</td>
-    //                           <td>{tenantLeaseEndDate}</td>
-    //                           <td>{expReportVal.tenantRentAmount}</td>
-    //                           <td>{expReportVal.chargesCal.toFixed(2)}</td>
-    //                           <td>{expReportVal.stampDuty.toFixed(2)}</td>
-    //                           <td>{expReportVal.AgreementStatus}</td>
-    //                           {expReportVal.AgreementStatus === "Expired" ? (
-    //                             <td>
-    //                               <center>
-    //                                 <button
-    //                                   variant="success"
-    //                                   className="btn sub_form"
-    //                                   onClick={() =>
-    //                                     onRenewal(expReportVal, idx)
-    //                                   }
-    //                                 >
-    //                                   Renewal
-    //                                 </button>
-    //                               </center>
-    //                             </td>
-    //                           ) : (
-    //                             <td></td>
-    //                           )}
-    //                         </tr>
-    //                       );
-    //                     })}
-    //                 </tbody>
-    //               </table>
-    //             </div>
-    //           </section>
-    //         </div>
-    //       </div>
-    //     </section>
-    //     <div style={{ display: "none" }}>
-    //       <RenewalReportPrint expReport={expReport} ref={componentRef} />
-    //     </div>
-    //     <Modal
-    //       show={showEditModal}
-    //       backdrop="static"
-    //       keyboard={false}
-    //       size="md"
-    //       aria-labelledby="contained-modal-title-vcenter"
-    //       centered
-    //     >
-    //       <Modal.Header>
-    //         <div className="col-lg-10">
-    //           <h4
-    //             className="modal-title text-center"
-    //             style={{ fontWeight: "bold" }}
-    //           >
-    //             Renewal Tenant Agreement
-    //           </h4>
-    //         </div>
-    //         <div className="col-lg-2">
-    //           <button onClick={handleEditModalClose} className="close">
-    //             <img
-    //               src={require("../../static/images/close.png")}
-    //               alt="X"
-    //               style={{ height: "20px", width: "20px" }}
-    //             />
-    //           </button>
-    //         </div>
-    //       </Modal.Header>
-    //       <Modal.Body>
-    //         <RenewTenentAgreement
-    //           tenantsData={userData}
-    //           onReportModalChange={onReportModalChange}
-    //         />
-    //       </Modal.Body>
-    //     </Modal>
-    //   </div>
-    // </Fragment>
   );
 };
 
