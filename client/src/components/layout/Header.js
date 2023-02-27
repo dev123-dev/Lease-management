@@ -82,13 +82,26 @@ const Header = ({
             style={{ padding: "4px 1em" }}
           >
             <Navbar.Brand>
-              <NavLink to="/MainSuper">
-                <img
-                  className="log_size"
-                  alt="Pinnacle Media"
-                  src={require("../../static/images/lraLogo_wh.png")}
-                />{" "}
-              </NavLink>
+              {!loading &&
+              isAuthenticated &&
+              user &&
+              user.usergroup === "Super Admin" ? (
+                <NavLink to="/MainSuper">
+                  <img
+                    className="log_size"
+                    alt="Pinnacle Media"
+                    src={require("../../static/images/lraLogo_wh.png")}
+                  />{" "}
+                </NavLink>
+              ) : (
+                <NavLink to="/MainAdmin">
+                  <img
+                    className="log_size"
+                    alt="Pinnacle Media"
+                    src={require("../../static/images/lraLogo_wh.png")}
+                  />{" "}
+                </NavLink>
+              )}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

@@ -222,23 +222,13 @@ const AddUserModal = ({
                   :
                 </label>
                 <input
-                  type={passwordType}
+                  type="password"
                   name="password"
                   value={password}
                   placeholder="Password"
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                 />
-                <button
-                  className="bg-danger text-white"
-                  // onClick={togglePassword}
-                >
-                  {passwordType === "password" ? (
-                    <i className="bg-success"></i>
-                  ) : (
-                    <i className="bg-dark"></i>
-                  )}
-                </button>
               </div>
               <div className="col-lg-6">
                 {" "}
