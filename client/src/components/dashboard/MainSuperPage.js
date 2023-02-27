@@ -2,7 +2,7 @@ import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Modal } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
@@ -38,6 +38,14 @@ const MainSuperPage = ({
   const onReportModalChange = (e) => {
     if (e) {
       handleEditModalClose();
+    }
+  };
+
+  const handleRenewalModalClose = () => setShowEditModal(false);
+
+  const onUpdateModalChange = (e) => {
+    if (e) {
+      handleRenewalModalClose();
     }
   };
   return !isAuthenticated || !user || !users ? (
@@ -121,27 +129,28 @@ const MainSuperPage = ({
 
       {/* //renwl */}
       <Modal show={showEditModal} centered>
-        <Modal.Title>
-          <></>
-          <div className="text-center h4">
-            <b>RenewalOrg</b>
+        <Modal.Header>
+          <div className="col-lg-10">
+            <h3 className="modal-title text-center h3">
+              <b>Renewal </b>
+            </h3>
           </div>
-        </Modal.Title>
+          <div className="col-lg-2">
+            <button className="close" onClick={handleRenewalModalClose}>
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
         {/* <Modal.Header className="lg" ></Modal.Header> */}
         <Modal.Body>
-          <RenewalorgAgreement OrgData={orgdata} />
+          <RenewalorgAgreement Org={orgdata} />
         </Modal.Body>
         <Modal.Footer>
-          {/* <Button
-            // variant="primary"
-            id="savebtn"
-            onClick={onAdd}
-          >
-            Save
-          </Button> */}
-          {/* <Button variant="primary" onClick={handleClose} id="savebtn">
-            close
-          </Button> */}
+          <Button id="savebtn">Renew</Button>
         </Modal.Footer>
       </Modal>
     </>

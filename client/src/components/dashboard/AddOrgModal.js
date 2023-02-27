@@ -187,7 +187,7 @@ const AddOrgModal = ({
                     onChange={(e) => onORGchange(e)}
                     className="form-control"
                     placeholder="OrganizationName"
-                    // onChange={(e) => onInputChange(e)}
+                    required
                   />
                 </div>
                 <div className="col-lg-6">
@@ -234,7 +234,7 @@ const AddOrgModal = ({
                     //value={}
                     className="form-control"
                     placeholder="Number Of User"
-                    //onChange={(e) => onInputChange(e)}
+                    required
                   />
                 </div>
 
@@ -257,6 +257,7 @@ const AddOrgModal = ({
                     style={{
                       width: "100%",
                     }}
+                    required
                   />
                 </div>
                 <div className="col-lg-6">
@@ -280,6 +281,7 @@ const AddOrgModal = ({
                     style={{
                       width: "100%",
                     }}
+                    required
                   />
                   {/* <label><b>{leaseEndDate}</b></label> */}
                 </div>

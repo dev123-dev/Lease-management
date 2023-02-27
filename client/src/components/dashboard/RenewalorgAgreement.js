@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const RenewTenentAgreement = ({
   auth: { isAuthenticated, user, users },
-  OrgData,
+  Org,
 }) => {
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -19,7 +19,7 @@ const RenewTenentAgreement = ({
             <label>Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{OrgData.OrganizationName}</label>
+            <label>{Org.OrganizationName}</label>
           </div>
         </div>
 
@@ -29,7 +29,34 @@ const RenewTenentAgreement = ({
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{OrgData.OrganizationEmail}</label>
+            <label>{Org.OrganizationEmail}</label>
+          </div>
+        </div>
+        <div className="row py-2">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label>PhoneNo</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            <label>{Org.OrganizationNumber}</label>
+          </div>
+        </div>
+        <div className="row py-2">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label>LeaseStartDate</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            {/* <label>{OrgData.OrganizationNumber}</label> */}
+          </div>
+        </div>
+        <div className="row py-2">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label>LeaseEndDate</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+            {/* <label>{OrgData.OrganizationNumber}</label> */}
           </div>
         </div>
       </section>

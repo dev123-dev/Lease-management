@@ -25,6 +25,8 @@ const AddUserModal = ({
     setOrgname(e);
     console.log(orgname);
   };
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordInput, setPasswordInput] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
@@ -64,7 +66,6 @@ const AddUserModal = ({
       usergroup: us,
       password: password,
       OrganizationName: orgname,
-      
     };
 
     handleClose();
@@ -90,11 +91,6 @@ const AddUserModal = ({
   const superhandleShow = () => setSuperShow(true);
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
   console.log("this is admin", user);
-  // if (x === " Super Admin") {
-  //   superhandleShow();
-  // } else {
-  //   handleShow();
-  // }
 
   return isAuthenticated &&
     users &&
@@ -226,13 +222,23 @@ const AddUserModal = ({
                   :
                 </label>
                 <input
-                  type="password"
+                  type={passwordType}
                   name="password"
                   value={password}
                   placeholder="Password"
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                 />
+                <button
+                  className="bg-danger text-white"
+                  // onClick={togglePassword}
+                >
+                  {passwordType === "password" ? (
+                    <i className="bg-success"></i>
+                  ) : (
+                    <i className="bg-dark"></i>
+                  )}
+                </button>
               </div>
               <div className="col-lg-6">
                 {" "}

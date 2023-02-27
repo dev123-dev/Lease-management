@@ -213,14 +213,14 @@ const EditOrganization = ({
                   />
                 </svg>
               </div>
-              <div className="showItem ">
+              <div className="showItemcl ">
                 {items.map((ele, index1) => {
                   return (
                     <div className="eachItem" key={index1}>
                       <span>{ele}</span>{" "}
                       <button
                         onClick={() => handleLocationclose(ele, index1)}
-                        className="loc_close_btn m-5 text-end"
+                        className="btndrp"
                       >
                         X
                       </button>
