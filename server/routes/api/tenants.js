@@ -157,20 +157,42 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org",async(req,res)=>{
   let data = req.body;
-  console.log(data.OrganizationName,"this is name")
+
   try{
-     const getorg = await OrganizationDetails.find(
+     let getorg =[];
+     if(data.OrganizationName){
+     getorg= await OrganizationDetails.findOne(
     {OrganizationName:data.OrganizationName},
     {
       Location : 1
     }
       );
-     console.log(getorg,"this is loc")
+  }
      res.json(getorg);
     
   }catch(error){
     console.log(error.message)
   }
+})
+
+//get particular user data for admin side
+router.post("/get-particular-user",async(req,res)=>{
+  let data = req.body;
+
+  try{
+    const getuser = await UserDetails.find({
+      OrganizationName:data.OrganizationName},
+      {
+        username : 1,
+        useremail : 1,
+        usergroup : 1,
+        userphone :1,
+        OrganizationName : 1,
+        Location : 1
+      });
+  
+      res.json(getuser);
+  }catch(error){console.log(error.message)}
 })
 
 //update all organization
@@ -222,9 +244,6 @@ router.post("/update-Organization", async (req, res) => {
 //Super user adding
 router.post("/add-SuperUser", async (req, res) => {
 let userdata = req.body;
-
-console.log("this is user data")
-console.log(userdata.usergroup.label)
   try {
     const adduser = {
       username  : userdata.username,
@@ -236,18 +255,40 @@ console.log(userdata.usergroup.label)
       OrganizationName : userdata.OrganizationName.label,
       OrganizationId : userdata.OrganizationName.value,
     }
-    console.log(adduser);
+    
     let u_data = new UserDetails(adduser);
     output = await u_data.save();
     res.send(u_data);
-    console.log(output);
-  } catch (err) {
+      } catch (err) {
     console.error(err);
   }
 });
 
+//Add admin user
+router.post("/add-AdminUser", async (req, res) => {
+  let userdata = req.body;
+    try {
+      const adduser = {
+        username  : userdata.username,
+        useremail : userdata.useremail,
+        userphone : userdata.userphone,
+        useraddress : userdata.useraddress,
+        usergroup : userdata.usergroup.label,
+        password : userdata.password,
+        OrganizationName : userdata.OrganizationName,
+      }
+           let u_data = new UserDetails(adduser);
+      output = await u_data.save();
+      res.send(u_data);
+      console.log(output);
+    } catch (err) {
+      console.error(err);
+    }
+  });
+
 //super user displaying
 router.get("/get-all-Superuser", async (req, res) => {
+
   try {
     const userdata = await UserDetails.aggregate([
       {
@@ -262,6 +303,7 @@ router.get("/get-all-Superuser", async (req, res) => {
         },
       },
     ]);
+    
     res.json(userdata);
   } catch (err) {
     console.error(err.message);
@@ -396,7 +438,6 @@ router.get("/get-tenant-report", async (req, res) => {
 //deactivating the  user
 router.post("/deactive-user", async (req, res) => {
   let data = req.body;
-  console.log(data.OrgId);
   try {
     let data = req.body;
     let dltuser = await UserDetails.updateOne(

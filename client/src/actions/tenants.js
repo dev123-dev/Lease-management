@@ -25,6 +25,8 @@ import {
   UPDATE_ORG,
   PARTICULAR_ORG_PROPERTY,
   PARTICULAR_ORG_LOCATION,
+  PARTICULAR_USER,
+  GET_ADMIN,
 } from "./types";
 
 var linkPath = "";
@@ -75,13 +77,30 @@ export const getParticularOrg =(data)=>async(dispatch)=>{
   try{
     const res = await axios.post(`${linkPath}/api/tenants/get-particular-org`,data,config)
     console.log("this is action getorg")
-    console.log(res)
+    console.log(res.data)
     dispatch({
       type : PARTICULAR_ORG_LOCATION,
       payload : res.data,
     })
   }catch(error){}
 }
+
+export const getParticularUser = (data)=>async(dispatch)=>{
+  let userdata = data; 
+  console.log("inside the action of particular user",data)
+  try{
+ const res = await axios.post(`${linkPath}/api/tenants/get-particular-user`,userdata,config);
+ console.log("back in action")
+ console.log(res);
+ dispatch({
+  type : PARTICULAR_USER,
+  payload : res.data,
+ })
+
+  }catch(error){console.log(error.message)}
+}
+
+
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
   console.log("run")
@@ -145,16 +164,34 @@ export const Adduser = (userData) => async (dispatch) => {
   }
 };
 
+//add admin user
+export const AddAdminuser = (userData) => async (dispatch) => {
+  try {
+    const res = await axios.post(`${linkPath}/api/tenants/add-AdminUser`,userData,config);
+    console.log("getting data",res.data);
+    dispatch({
+      type : GET_ADMIN,
+      payload : res.data,
+    })
+   // dispatch(getalluser());
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
 //getting all the user (super)
 
 export const getalluser = () => async (dispatch) => {
-  
+  console.log("from modal page to action getalluser")
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
     dispatch({
       type: GET_ALL_SUPERUSER,
       payload: res.data,
     });
+    
   } catch (err) {
     dispatch({
       type: Error,

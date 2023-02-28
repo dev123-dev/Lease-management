@@ -10,13 +10,15 @@ import "../../../../client/src/styles/CustomisedStyle.css";
 import { UpdateUser } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
-const Edituser = ({
+const EditAdminUser = ({
   auth: { isAuthenticated, user, users },
   tenants: { allorg },
-  superuser,
+  org,
   UpdateUser,
   getalluser,
 }) => {
+
+    console.log("this is sending data",org)
 
   const [orgname, setOrgname] = useState({});
 
@@ -30,7 +32,6 @@ const Edituser = ({
 
   const onchangeOrg = (e) => {
     setOrgname(e);
-    console.log(orgname);
   };
   const UserGroups = [
     { value: "Admin", label: "Admin" },
@@ -70,13 +71,13 @@ const Edituser = ({
   //multiple location end
 
   const [userData, setuserData] = useState({
-    //  userid : superuser[0]._id,
-    username: superuser.username,
-    useremail: superuser.useremail,
-    usergroup: superuser.usergroup,
-    useraddress: superuser.useraddress,
-    userphone: superuser.userphone,
-    OrganizationName: superuser.OrganizationName,
+    //  userid : org[0]._id,
+    username: org.username,
+    useremail: org.useremail,
+    usergroup: org.usergroup,
+    useraddress: org.useraddress,
+    userphone: org.userphone,
+    OrganizationName: org.OrganizationName,
   });
   const {
     username,
@@ -98,7 +99,7 @@ const Edituser = ({
 
   const onUpdate = () => {
     const updateUSER = {
-      userid: superuser._id,
+      userid: org._id,
       username: username,
       userphone: userphone,
       useraddress: useraddress,
@@ -254,4 +255,4 @@ export default connect(mapStateToProps, {
   //  deactivateUser,
   UpdateUser,
   getalluser,
-})(Edituser); // to connect to particular function which is getalluser
+})(EditAdminUser); // to connect to particular function which is getalluser
