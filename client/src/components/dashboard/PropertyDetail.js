@@ -10,41 +10,40 @@ import EditProperty from "./EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
-
 const PropertyDetail = ({
   auth: { user },
-  tenants: { particular_org_data, },
+  tenants: { particular_org_data },
   getAllShops,
   getalluser,
   deactiveProperty,
   getParticularProperty,
 }) => {
-  
-  console.log("this is particular",particular_org_data)
+  console.log("this is particular", particular_org_data);
 
   useEffect(() => {
-   getalluser();
+    getalluser();
     getParticularProperty();
   }, []);
- 
-  
 
   useEffect(() => {
-   getParticularProperty({ OrganizationName : user.OrganizationName});
+    getParticularProperty({ OrganizationName: user.OrganizationName });
   }, []);
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
   const [property, setProperty] = useState(null);
   const onEdit = (ele) => {
+    console.log("clicked on edit");
     setProperty(ele);
     console.log(ele);
     handleUpdateModalOpen();
   };
+
   const { deactive_reason } = formData;
 
   const onInputChange = (e) => {
@@ -69,7 +68,6 @@ const PropertyDetail = ({
       deactive_reason: deactive_reason,
     };
     deactiveProperty(reason);
-  
   };
 
   return (
@@ -79,7 +77,7 @@ const PropertyDetail = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">
-                {/* {user.OrganizationName} Property Details{" "} */}
+                {user.OrganizationName} Property Details{" "}
               </h2>
             </div>
             <AddShopDetails />

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { RenewOrgDetailsform, getAllSettings } from "../../actions/tenants";
 
 const RenewTenentAgreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
@@ -182,17 +181,12 @@ const RenewTenentAgreement = ({
 
 RenewTenentAgreement.propTypes = {
   auth: PropTypes.object.isRequired,
-  tenants: PropTypes.object.isRequired,
+
   RenewTenantDetailsform: PropTypes.func.isRequired,
-  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  tenants: state.tenants,
 });
 
-export default connect(mapStateToProps, {
-  RenewOrgDetailsform,
-  getAllSettings,
-})(RenewTenentAgreement);
+export default connect(mapStateToProps, {})(RenewTenentAgreement);

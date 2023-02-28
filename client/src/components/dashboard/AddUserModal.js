@@ -23,6 +23,8 @@ const AddUserModal = ({
     setOrgname(e);
     console.log(orgname);
   };
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordInput, setPasswordInput] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",

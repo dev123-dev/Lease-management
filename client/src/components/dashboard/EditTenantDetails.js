@@ -9,6 +9,7 @@ const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
   tenants1: { allTenantSetting },
   tenants,
+
   UpdateTenantsDetails,
   onUpdateModalChange,
   getAllTenants,
@@ -211,10 +212,9 @@ const EditTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className=" ">
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12"></div>
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+      <div className="conatiner-fluid ">
+        <div className="row">
+          <div className="col-lg-4">
             <label>Name:</label>
             <input
               type="text"
@@ -226,7 +226,7 @@ const EditTenantDetails = ({
             />
           </div>
 
-          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
+          <div className="col-lg-4 ">
             <label>Phone No:</label>
             <input
               type="number"
@@ -241,89 +241,167 @@ const EditTenantDetails = ({
             />
           </div>
         </div>
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="row col-lg-6 col-md-9 col-sm-9 col-12 no_padding ">
-            <div className="col-lg-12 col-md-4 col-sm-4 col-12">
-              <label>Firm Name :</label>
-              <input
-                type="text"
-                name="tenantFirmName"
-                value={tenantFirmName}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
 
-            <div className="col-lg-12 col-md-4 col-sm-4 col-12">
-              <label>Adhaar No:</label>
-              <input
-                type="number"
-                name="tenantAdharNo"
-                value={tenantAdharNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-          </div>
-          <div className="col-lg-6 col-md-4 col-sm-6 col-12">
-            <label>Tenant's Address *:</label>
-            <textarea
-              name="tenantAddr"
-              value={tenantAddr}
-              id="tenantAddr"
-              className="textarea form-control"
-              rows="4"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>
-          </div>
+        <div className="col-lg-4">
+          <label>Firm Name :</label>
+          <input
+            type="text"
+            name="tenantFirmName"
+            value={tenantFirmName}
+            className="form-control"
+            onChange={(e) => onInputChange(e)}
+            required
+          />
         </div>
 
+        <div className="col-lg-4 ">
+          <label>Adhaar No:</label>
+          <input
+            type="number"
+            name="tenantAdharNo"
+            value={tenantAdharNo}
+            className="form-control"
+            onChange={(e) => onInputChange(e)}
+            onKeyDown={(e) =>
+              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+            }
+            required
+          />
+        </div>
+
+        <div className="col-lg-4">
+          <label>Tenant's Address *:</label>
+          <textarea
+            name="tenantAddr"
+            value={tenantAddr}
+            id="tenantAddr"
+            className="textarea form-control"
+            rows="4"
+            placeholder="Address"
+            onChange={(e) => onInputChange(e)}
+            style={{ width: "100%" }}
+            required
+          ></textarea>
+        </div>
+
+        <div className="col-lg-4">
+          <label>BuildingName</label>
+          <input
+            type="text"
+            name="tenantPanNo"
+            value={tenantPanNo}
+            className="form-control"
+            onChange={(e) => onInputChange(e)}
+            onKeyDown={(e) =>
+              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+            }
+            required
+          />
+        </div>
+
+        <div className="col-lg-4">
+          <label>Generator Deposit Amount:</label>
+          <input
+            type="number"
+            name="generatordepoAmt"
+            value={generatordepoAmt}
+            className="form-control"
+            onChange={(e) => onInputChange(e)}
+            onKeyDown={(e) =>
+              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+            }
+            required
+          />
+        </div>
+
+        <div className="col-lg-4 ">
+          <label>Deposit Amount:</label>
+          <input
+            type="number"
+            name="tenantDepositAmt"
+            value={tenantDepositAmt}
+            className="form-control"
+            onChange={(e) => onInputChange(e)}
+            onKeyDown={(e) =>
+              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+            }
+            required
+          />
+        </div>
+
+        <div className="col-lg-4">
+          <label>Mode Of Payment *:</label>
+          <Select
+            name="tenantPaymentMode"
+            options={PaymentMethods}
+            isSearchable={false}
+            value={tenantPaymentMode}
+            placeholder="Select"
+            onChange={(e) => onPaymentModeChange(e)}
+            theme={(theme) => ({
+              ...theme,
+              height: 26,
+              minHeight: 26,
+              borderRadius: 1,
+              colors: {
+                ...theme.colors,
+                primary: "black",
+              },
+            })}
+          />
+        </div>
+      </div>
+
+      {showChequenoSection && (
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-            <label>Pan Card No:</label>
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>Cheque No/DD No :</label>
             <input
               type="text"
-              name="tenantPanNo"
-              value={tenantPanNo}
+              name="tenantChequenoOrDdno"
+              value={tenantChequenoOrDdno}
               className="form-control"
               onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
               required
             />
           </div>
 
-          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-            <label>Generator Deposit Amount:</label>
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>Bank Name :</label>
             <input
-              type="number"
-              name="generatordepoAmt"
-              value={generatordepoAmt}
+              type="text"
+              name="tenantBankName"
+              value={tenantBankName}
               className="form-control"
               onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
               required
             />
           </div>
+
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>ChequeDate:</label>
+            <input
+              type="date"
+              placeholder="dd/mm/yyyy"
+              className="form-control cpp-input datevalidation"
+              name="tenantchequeDate"
+              value={startSelectedDate}
+              onChange={(e) => onDateChange(e)}
+              style={{
+                width: "100%",
+              }}
+            />
+          </div>
         </div>
+      )}
+      {tenants.AgreementStatus && tenants.AgreementStatus === "Active" ? (
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-            <label>Deposit Amount:</label>
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>Rent Amount :</label>
             <input
               type="number"
-              name="tenantDepositAmt"
-              value={tenantDepositAmt}
+              name="tenantRentAmount"
+              value={tenantRentAmount}
               className="form-control"
               onChange={(e) => onInputChange(e)}
               onKeyDown={(e) =>
@@ -333,134 +411,51 @@ const EditTenantDetails = ({
             />
           </div>
 
-          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-            <label>Mode Of Payment *:</label>
-            <Select
-              name="tenantPaymentMode"
-              options={PaymentMethods}
-              isSearchable={false}
-              value={tenantPaymentMode}
-              placeholder="Select"
-              onChange={(e) => onPaymentModeChange(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>Lease Start Date :</label>
+            <input
+              type="date"
+              placeholder="dd/mm/yyyy"
+              className="form-control cpp-input datevalidation"
+              name="tenantLeaseStartDate"
+              value={entryDate}
+              onChange={(e) => onDateChangeEntry1(e)}
+              style={{
+                width: "100%",
+              }}
             />
           </div>
-        </div>
 
-        {showChequenoSection && (
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Cheque No/DD No :</label>
-              <input
-                type="text"
-                name="tenantChequenoOrDdno"
-                value={tenantChequenoOrDdno}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Bank Name :</label>
-              <input
-                type="text"
-                name="tenantBankName"
-                value={tenantBankName}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>ChequeDate:</label>
-              <input
-                type="date"
-                placeholder="dd/mm/yyyy"
-                className="form-control cpp-input datevalidation"
-                name="tenantchequeDate"
-                value={startSelectedDate}
-                onChange={(e) => onDateChange(e)}
-                style={{
-                  width: "100%",
-                }}
-              />
-            </div>
+          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+            <label>Lease End Date:</label>
+            <br />
+            <label>
+              <b>{leaseEndDate}</b>
+            </label>
           </div>
-        )}
-        {tenants.AgreementStatus && tenants.AgreementStatus === "Active" ? (
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Rent Amount :</label>
-              <input
-                type="number"
-                name="tenantRentAmount"
-                value={tenantRentAmount}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Lease Start Date :</label>
-              <input
-                type="date"
-                placeholder="dd/mm/yyyy"
-                className="form-control cpp-input datevalidation"
-                name="tenantLeaseStartDate"
-                value={entryDate}
-                onChange={(e) => onDateChangeEntry1(e)}
-                style={{
-                  width: "100%",
-                }}
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Lease End Date:</label>
-              <br />
-              <label>
-                <b>{leaseEndDate}</b>
-              </label>
-            </div>
-          </div>
-        ) : (
-          <Fragment></Fragment>
-        )}
-        <div className="col-lg-12 Savebutton " size="lg">
-          <button
-            variant="success"
-            className="btn sub_form btn_continue Save float-right"
-            onClick={() => onUpdate(tenants)}
-            style={
-              tenantDoorNo !== "" &&
-              tenantFileNo !== "" &&
-              tenantName !== "" &&
-              tenantPaymentMode !== "" &&
-              tenantDepositAmt !== "" &&
-              tenantRentAmount !== "" &&
-              tenantAddr !== ""
-                ? { opacity: "1" }
-                : { opacity: "1", pointerEvents: "none" }
-            }
-          >
-            Update
-          </button>
         </div>
+      ) : (
+        <Fragment></Fragment>
+      )}
+      <div className="col-lg-12 Savebutton " size="lg">
+        <button
+          variant="success"
+          className="btn sub_form btn_continue Save float-right"
+          onClick={() => /*onUpdate(tenants)*/ alert("updated")}
+          style={
+            tenantDoorNo !== "" &&
+            tenantFileNo !== "" &&
+            tenantName !== "" &&
+            tenantPaymentMode !== "" &&
+            tenantDepositAmt !== "" &&
+            tenantRentAmount !== "" &&
+            tenantAddr !== ""
+              ? { opacity: "1" }
+              : { opacity: "1", pointerEvents: "none" }
+          }
+        >
+          Update
+        </button>
       </div>
     </Fragment>
   );

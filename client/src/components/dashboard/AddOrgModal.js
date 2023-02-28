@@ -99,7 +99,8 @@ const AddOrgModal = ({
     }
   };
 
-  const onSubmitORGdata = () => {
+  const onSubmitORGdata = (e) => {
+    // e.preventDefault();
     const finalORGdata = {
       OrganizationName: OrganizationName,
       OrganizationEmail: OrganizationEmail,
@@ -158,7 +159,11 @@ const AddOrgModal = ({
                 <b>&nbsp;&nbsp;&nbsp;ADD Organization</b>{" "}
               </h2>
               <div className="  col-lg-2">
-                <button onClick={handleEditModalClose} className="  clorg">
+                <button
+                  onClick={handleEditModalClose}
+                  className="
+                  clorg"
+                >
                   <img
                     src={require("../../static/images/close.png")}
                     alt="X"
@@ -170,210 +175,214 @@ const AddOrgModal = ({
           </Modal.Header>
 
           <Modal.Body className="org_add">
-            <div className="container-fluid">
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>
-                    {" "}
-                    OrganiZationName
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
-                  <input
-                    type="text"
-                    name="OrganizationName"
-                    value={OrganizationName}
-                    onChange={(e) => onORGchange(e)}
-                    className="form-control"
-                    placeholder="OrganizationName"
-                    // onChange={(e) => onInputChange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  <label>
-                    Email{" "}
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
-                  <input
-                    type="email"
-                    name="OrganizationEmail"
-                    value={OrganizationEmail}
-                    onChange={(e) => onORGchange(e)}
-                    className="form-control"
-                    placeholder="Email"
-                    //onChange={(e) => onInputChange(e)}
-                    required
-                  />{" "}
-                </div>
+            <form>
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-lg-6">
+                    <label>
+                      {" "}
+                      OrganiZationName
+                      <i className="text-danger ">
+                        <b>*</b>
+                      </i>
+                    </label>
+                    <input
+                      type="text"
+                      name="OrganizationName"
+                      value={OrganizationName}
+                      onChange={(e) => onORGchange(e)}
+                      className="form-control "
+                      placeholder="OrganizationName"
+                      required
+                    />
+                  </div>
+                  <div className="col-lg-6">
+                    <label>
+                      Email{" "}
+                      <i className="text-danger ">
+                        <b>*</b>
+                      </i>
+                    </label>
+                    <input
+                      type="email"
+                      name="OrganizationEmail"
+                      value={OrganizationEmail}
+                      onChange={(e) => onORGchange(e)}
+                      className="form-control"
+                      placeholder="Email"
+                      //onChange={(e) => onInputChange(e)}
+                      required
+                    />{" "}
+                  </div>
 
-                <div className="col-lg-6">
-                  PhoneNo
-                  <input
-                    type="number"
-                    name="OrganizationNumber"
-                    value={OrganizationNumber}
-                    onChange={(e) => onORGchange(e)}
-                    className="form-control"
-                    placeholder="PhoneNumber"
-                    //onChange={(e) => onInputChange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  <label>
-                    No Of User
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
-                  <input
-                    type="number"
-                    //  name="user"
-                    //value={}
-                    className="form-control"
-                    placeholder="Number Of User"
-                    //onChange={(e) => onInputChange(e)}
-                  />
-                </div>
+                  <div className="col-lg-6">
+                    PhoneNo
+                    <input
+                      type="number"
+                      name="OrganizationNumber"
+                      value={OrganizationNumber}
+                      onChange={(e) => onORGchange(e)}
+                      className="form-control"
+                      placeholder="PhoneNumber"
+                      //onChange={(e) => onInputChange(e)}
+                    />
+                  </div>
+                  <div className="col-lg-6">
+                    <label>
+                      No Of User
+                      <i className="text-danger ">
+                        <b>*</b>
+                      </i>
+                    </label>
+                    <input
+                      type="number"
+                      //  name="user"
+                      //value={}
+                      className="form-control"
+                      placeholder="Number Of User"
+                      required
+                    />
+                  </div>
 
-                <div className="col-lg-6">
-                  <label>
-                    LeaseStartDate
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
-                  <input
-                    type="date"
-                    placeholder="dd/mm/yyyy"
-                    //   min={yesterdayDt}
-                    //   max={today2}
-                    className="form-control cpp-input datevalidation"
-                    name="tenantLeaseStartDate"
-                    value={entryDate}
-                    onChange={(e) => onDateChangeEntry(e)}
-                    style={{
-                      width: "100%",
-                    }}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  <label>
-                    LeaseEndDate
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
-                  <br></br>
-                  <input
-                    type="text"
-                    placeholder="dd/mm/yyyy"
-                    //   min={yesterdayDt}
-                    //   max={today2}
-                    value={leaseEndDate}
-                    className="form-control cpp-input datevalidation"
-                    name="tenantLeaseStartDate"
-                    // value={tenants.tenantLeaseEndDate}
-
-                    style={{
-                      width: "100%",
-                    }}
-                  />
-                  {/* <label><b>{leaseEndDate}</b></label> */}
-                </div>
-
-                <div className="col-lg-6">
-                  <label>
-                    {" "}
-                    Address
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
-                  <textarea
-                    name="OrganizationAddress"
-                    value={OrganizationAddress}
-                    onChange={(e) => onORGchange(e)}
-                    // id="tenantAddr"
-                    className="textarea form-control"
-                    rows="5"
-                    cols="20"
-                    placeholder="Address"
-                    // onChange={(e) => onInputChange(e)}
-                    style={{ width: "100%" }}
-                    required
-                  ></textarea>{" "}
-                </div>
-                <div className="  col-lg-6 ">
-                  <label className="ml-2">
-                    Location
-                    <i className="text-danger  ">
-                      <b>*</b>
-                    </i>
-                  </label>
-
-                  <input
-                    className="form-control"
-                    type="text"
-                    name="Location"
-                    value={inputdata}
-                    onChange={(e) => setinput(e.target.value)}
-                    placeholder="Location"
-                    id="Location"
-                  ></input>
-
-                  <div>
-                    <div className="locadds " onClick={addItem}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="30"
-                        height="30"
-                        fill="currentColor"
-                        class="bi bi-plus-lg"
-                        viewBox="0 0 16 16"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
-                        />
-                      </svg>
-                    </div>
+                  <div className="col-lg-6">
+                    <label>
+                      LeaseStartDate
+                      <i className="text-danger ">
+                        <b>*</b>
+                      </i>
+                    </label>
+                    <input
+                      type="date"
+                      placeholder="dd/mm/yyyy"
+                      //   min={yesterdayDt}
+                      //   max={today2}
+                      className="form-control cpp-input datevalidation"
+                      name="tenantLeaseStartDate"
+                      value={entryDate}
+                      onChange={(e) => onDateChangeEntry(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                      required
+                    />
+                  </div>
+                  <div className="col-lg-6">
+                    <label>
+                      LeaseEndDate
+                      <i className="text-danger ">
+                        <b>*</b>
+                      </i>
+                    </label>
                     <br></br>
-                    <div className="showItemcl ">
-                      {items.map((ele, index) => {
-                        return (
-                          <div className="eachItem" key={index}>
-                            <span>{ele}</span>
-                            <button
-                              onClick={() => handleLocationclose(index)}
-                              className="btndrp "
-                            >
-                              X
-                            </button>
-                          </div>
-                        );
-                      })}
+                    <input
+                      type="text"
+                      placeholder="dd/mm/yyyy"
+                      //   min={yesterdayDt}
+                      //   max={today2}
+                      value={leaseEndDate}
+                      className="form-control cpp-input datevalidation"
+                      name="tenantLeaseStartDate"
+                      // value={tenants.tenantLeaseEndDate}
+
+                      style={{
+                        width: "100%",
+                      }}
+                      required
+                    />
+                    {/* <label><b>{leaseEndDate}</b></label> */}
+                  </div>
+
+                  <div className="col-lg-6">
+                    <label>
+                      {" "}
+                      Address
+                      <i className="text-danger ">
+                        <b>*</b>
+                      </i>
+                    </label>
+                    <textarea
+                      name="OrganizationAddress"
+                      value={OrganizationAddress}
+                      onChange={(e) => onORGchange(e)}
+                      // id="tenantAddr"
+                      className="textarea form-control"
+                      rows="5"
+                      cols="20"
+                      placeholder="Address"
+                      // onChange={(e) => onInputChange(e)}
+                      style={{ width: "100%" }}
+                      required
+                    ></textarea>{" "}
+                  </div>
+                  <div className="  col-lg-6 ">
+                    <label className="ml-2">
+                      Location
+                      <i className="text-danger  ">
+                        <b>*</b>
+                      </i>
+                    </label>
+
+                    <input
+                      className="form-control"
+                      type="text"
+                      name="Location"
+                      value={inputdata}
+                      onChange={(e) => setinput(e.target.value)}
+                      placeholder="Location"
+                      id="Location"
+                    ></input>
+
+                    <div>
+                      <div className="locadds " onClick={addItem}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          fill="currentColor"
+                          class="bi bi-plus-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                          />
+                        </svg>
+                      </div>
+                      <br></br>
+                      <div className="showItemcl ">
+                        {items.map((ele, index) => {
+                          return (
+                            <div className="eachItem" key={index}>
+                              <span>{ele}</span>
+                              <button
+                                onClick={() => handleLocationclose(index)}
+                                className="btndrp "
+                              >
+                                X
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="col-lg-12">
-                  <Modal.Footer>
-                    <div className=" Savebutton  " size="lg">
-                      <button
-                        variant="success"
-                        id="savebtn"
-                        className="btn sub_form btn_continue Save float-right"
-                        onClick={() => onSubmitORGdata()}
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </Modal.Footer>
+                  <div className="col-lg-12">
+                    <Modal.Footer>
+                      <div className=" Savebutton  " size="lg">
+                        <button
+                          variant="success"
+                          id="savebtn"
+                          className="btn sub_form btn_continue Save float-right"
+                          onClick={(e) => onSubmitORGdata(e)}
+                        >
+                          Save
+                        </button>
+                      </div>
+                    </Modal.Footer>
+                  </div>
                 </div>
               </div>
-            </div>
+            </form>
           </Modal.Body>
         </Modal>
 

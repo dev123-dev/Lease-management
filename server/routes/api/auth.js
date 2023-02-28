@@ -70,7 +70,7 @@ router.post(
       console.log("hit", userDetails);
       //Match The Passwords
       console.log(password, "match", userDetails.password);
-      const isMatch = await password == userDetails.password ? true : false;   //bcrypt.compare(password, userDetails.password);
+      const isMatch = (await password) == userDetails.password ? true : false; //bcrypt.compare(password, userDetails.password);
       console.log(isMatch);
       if (!isMatch) {
         return res
@@ -92,10 +92,9 @@ router.post(
           { expiresIn: EXPIRES_IN },
           (err, token) => {
             if (err) {
-          
               throw err;
             }
-            
+
             res.json({ token });
           }
         );
@@ -145,10 +144,10 @@ router.post(
 // @access   Private
 router.get("/load-user", auth, async (req, res) => {
   try {
-    console.log("inside loaduser")
+    console.log("inside loaduser");
     const user = await UserDetails.findById(req.user.id).select("-password");
     res.json(user);
-    console.log("inside the load user",user);
+    console.log("inside the load user", user);
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
   }
@@ -266,7 +265,5 @@ router.post(
     }
   }
 );
-
-
 
 module.exports = router;

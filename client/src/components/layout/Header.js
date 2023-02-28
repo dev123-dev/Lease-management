@@ -30,16 +30,12 @@ const Header = ({
   getAllOrganization,
 }) => {
   useEffect(() => {
-
     getAllSettings();
     getAllOrganization();
-
   }, [getAllSettings]);
   useEffect(() => {
-
     getalluser();
     getAllOrganization();
-    
   }, []);
 
   const [showLogin, setShowLogin] = useState(false);
@@ -89,13 +85,26 @@ const Header = ({
             style={{ padding: "4px 1em" }}
           >
             <Navbar.Brand>
-              <NavLink to="/MainSuper">
-                <img
-                  className="log_size"
-                  alt="Pinnacle Media"
-                  src={require("../../static/images/lraLogo_wh.png")}
-                />{" "}
-              </NavLink>
+              {!loading &&
+              isAuthenticated &&
+              user &&
+              user.usergroup === "Super Admin" ? (
+                <NavLink to="/MainSuper">
+                  <img
+                    className="log_size"
+                    alt="Pinnacle Media"
+                    src={require("../../static/images/lraLogo_wh.png")}
+                  />{" "}
+                </NavLink>
+              ) : (
+                <NavLink to="/MainAdmin">
+                  <img
+                    className="log_size"
+                    alt="Pinnacle Media"
+                    src={require("../../static/images/lraLogo_wh.png")}
+                  />{" "}
+                </NavLink>
+              )}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
@@ -130,7 +139,7 @@ const Header = ({
                     user &&
                     user.usergroup === "Super Admin" ? (
                       <>
-                      {/* Organization details */}
+                        {/* Organization details */}
                         <NavLink
                           className=" h6 "
                           id="hea"
@@ -175,11 +184,11 @@ const Header = ({
                           Property
                         </NavLink>
 
-                         {/* tenant details */}
+                        {/* tenant details */}
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"
-                          to="/tenant-report"
+                          to="/tenant-detail"
                           activeStyle={{
                             color: "Black",
                             textDecoration: "none",
@@ -188,7 +197,7 @@ const Header = ({
                           Tenant
                         </NavLink>
 
-                       {/* adding admin side user page */}
+                        {/* adding admin side user page */}
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"

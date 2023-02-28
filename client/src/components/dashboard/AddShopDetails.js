@@ -15,32 +15,31 @@ const AddShopDetails = ({
   getParticularOrg,
   getAllShops,
 }) => {
-console.log("addshop details",user)
- useEffect(()=>{
-      //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
-       getParticularOrg({ OrganizationName: user && user.OrganizationName});
- },[])
+  console.log("addshop details", user);
+  useEffect(() => {
+    //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
+    getParticularOrg({ OrganizationName: user && user.OrganizationName });
+  }, []);
 
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
-console.log("this is loc",locationList)
-  particular_org_loc.Location && particular_org_loc.Location.map((org) => {
-    locationList.push({
-      value : org,
-      label: org,
+  console.log("this is loc", locationList);
+  particular_org_loc.Location &&
+    particular_org_loc.Location.map((org) => {
+      locationList.push({
+        value: org,
+        label: org,
+      });
     });
-  
-  });
 
-  console.log(particular_org_loc,"loc",locationList)
-
+  console.log(particular_org_loc, "loc", locationList);
 
   const onchangeLoc = (e) => {
     setLoc(e);
   };
 
   //formData
-  
+
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
@@ -149,11 +148,14 @@ console.log("this is loc",locationList)
       >
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="text-center h1  ml-5">
-              <b>ADD PROPERTY</b>{" "}
+            <h2>
+              <b className="text-center h1">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD
+                PROPERTY
+              </b>
             </h2>
             <div className="  col-lg-2">
-              <button onClick={handleClose} className="close ml-5 cl" id="cl">
+              <button onClick={handleClose} className="clprop">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -208,10 +210,7 @@ console.log("this is loc",locationList)
                       primary: "black",
                     },
                   })}
-                >
-                  select Organization
-                </Select>
-                {/* need to add the property drop down here */}
+                ></Select>
 
                 <br></br>
               </div>
@@ -256,52 +255,19 @@ console.log("this is loc",locationList)
                     <b>*</b>
                   </i>
                 </label>
-                <textarea
-                  name="tenantAddr"
-                  // value={}
-                  id=" addprop "
-                  value={leaseTimePeriod}
-                  className="textarea form-control"
-                  rows="4"
-                  onChange={(e) => onPropertychange(e)}
-                  placeholder="Time"
-                  // onChange={(e) => onInputChange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                {/* <input
-                  type="text"
-                  name="leaseTimePeriod"
-                  value={leaseTimePeriod}
-                  className="form-control  input"
-                  onChange={(e) => onPropertychange(e)}
-                  required
-                /> */}
-              </div>
-              {/* <div className="container-fluid"> */}
-              {/* <div className="row"> */}
-              <div className="col-lg-6">
-                <label>
-                  Address
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <div className="controls">
+                  <input
+                    name="OrganizationStartdate"
+                    id="cat_name"
+                    type="date"
+                    value={leaseTimePeriod}
+                    className="form-control"
+                    onChange={(e) => onPropertychange(e)}
+                    required
+                  />
+                  <span id="category_result" className="form-input-info"></span>
+                </div>
 
-                <textarea
-                  name="shopAddress"
-                  value={shopAddress}
-                  id=" addprop "
-                  className="textarea form-control"
-                  rows="4"
-                  placeholder="Address"
-                  onChange={(e) => onPropertychange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                <br></br>
-              </div>
-              <div className="  col-lg-6 ">
                 <label className="ml-2">
                   DoorNo{" "}
                   <i className="text-danger  ">
@@ -353,6 +319,29 @@ console.log("this is loc",locationList)
                   </div>
                 </div>
               </div>
+
+              <div className="col-lg-6">
+                <label>
+                  Address
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+
+                <textarea
+                  name="shopAddress"
+                  value={shopAddress}
+                  id=" addprop "
+                  className="textarea form-control"
+                  rows="3"
+                  placeholder="Address"
+                  onChange={(e) => onPropertychange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>
+                <br></br>
+              </div>
+
               {/* </div> */}
 
               {/* </div> */}
@@ -412,6 +401,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddShopDetailsform,
   getAllShops,
-  
+
   getParticularOrg,
 })(AddShopDetails);
