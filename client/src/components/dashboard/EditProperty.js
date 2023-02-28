@@ -32,11 +32,11 @@ const EditProperty = ({
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState(Property.Location);
 
-  const handleLocationclose = (ele1, index) => {
-    const delitem = items.filter((ele, ind) => {
-      return ele1 != ele;
-    });
-    setitem(delitem);
+  console.log("hai");
+
+  const onedit = (id) => {
+    // setId(id);
+    handleOpen();
   };
 
   const addItem = () => {
