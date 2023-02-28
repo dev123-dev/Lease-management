@@ -235,6 +235,13 @@ export const deleteOrganization = (id) => async (dispatch) => {
   }
 };
 
+//Renew Organization details
+export const RenewOrgDetailsform = (renewdata)=>async(dispatch)=>{
+  try{
+    const res = await axios.post(`${linkPath}/api/tenants/Renew-Organization`,renewdata,config)
+  }catch(error){console.log(error.message)}
+}
+
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
   console.log(finalData.tenantName);

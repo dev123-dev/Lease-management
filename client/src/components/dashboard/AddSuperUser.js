@@ -55,33 +55,41 @@ console.log(user,particular_user);
     }
   };
 
+  const [showSuperModal, setSuperModal] = useState('');
+  const SuperUpdateModalClose = () => setSuperModal(false);
+ const SuperUpdateModalOpen = () => setSuperModal(true)
+ 
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [Deactiveshow, setDeactiveShow] = useState(false);
+  const DeactivehandleClose = () => setDeactiveShow(false);
+  const DeactivehandleShow = () => setDeactiveShow(true);
 
   const [userdata, setuser] = useState("");
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
+    console.log(id)
     setId(id);
-    handleShow();
+    DeactivehandleShow();
   };
 
   const onEdit = (allsuperuse, id) => {
-  console.log("in edit",allsuperuse);
-    setShowUpdateModal(true);
     setId(id);
     setuser(allsuperuse);
-    setShowUpdateModal(true);
+    setSuperModal(true);
   };
 
   const[Admindata,setAdmin]=useState('');
   const[AdminId,Setid]=useState('');
+
   const onAdminEdit = (user,id)=>{
     setShowUpdateModal(true);
     Setid(id);
     setAdmin(user);
-    setShowUpdateModal(true);
   }
 
   const onAdd = () => {
@@ -201,12 +209,12 @@ console.log(user,particular_user);
           </section>
           {/* this id for Deactivating the Super user starting */}
           <Modal
-            show={show}
+            show={Deactiveshow}
             // onHide={handleClose}
             centered
           >
             <Modal.Title className="text-center">
-              <b>Deactivate</b>
+              <b> Super user Deactivate</b>
             </Modal.Title>
             {/* <Modal.Header className="lg" ></Modal.Header> */}
             <Modal.Body>
@@ -215,10 +223,10 @@ console.log(user,particular_user);
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Reason For Deactivating</Form.Label>
+                  <Form.Label>Reason For Deactivating Super </Form.Label>
                   <textarea
                     rows="2"
-                    name="Organization_DE_Reason"
+                    name="deactive_reason"
                     onChange={(e) => onInputChange(e)}
                     autoFocus
                     id="org_reason"
@@ -230,13 +238,12 @@ console.log(user,particular_user);
             </Modal.Body>
             <Modal.Footer>
               <Button
-                // variant="primary"
                 id="savebtn"
                 onClick={onAdd}
               >
                 Save
               </Button>
-              <Button variant="primary" onClick={handleClose} id="savebtn">
+              <Button variant="primary" onClick={DeactivehandleClose} id="savebtn">
                 close
               </Button>
             </Modal.Footer>
@@ -245,7 +252,7 @@ console.log(user,particular_user);
 
           {/* Modal for Editing the Super user */}
           <Modal
-            show={showUpdateModal}
+            show={showSuperModal}
             backdrop="static"
             keyboard={false}
             size="lg"
@@ -255,11 +262,11 @@ console.log(user,particular_user);
             <Modal.Header>
               <div className="col-lg-10">
                 <h3 className="modal-title text-center h3">
-                  <b>Edit User Details </b>
+                  <b>Edit super admin User Details </b>
                 </h3>
               </div>
               <div className="col-lg-2">
-                <button onClick={handleUpdateModalClose} className="close">
+                <button onClick={SuperUpdateModalClose} className="close">
                   <img
                     src={require("../../static/images/close.png")}
                     alt="X"
@@ -269,9 +276,8 @@ console.log(user,particular_user);
               </div>
             </Modal.Header>
             <Modal.Body>
-              <Edituser
-                superuser={userdata}
-                // onUpdateModalChange={onUpdateModalChange}
+              <Edituser superuser={userdata}
+                   //onUpdateModalChange={onUpdateModalChange}
               />
             </Modal.Body>
           </Modal>
@@ -407,6 +413,7 @@ console.log(user,particular_user);
         </Modal.Footer>
       </Modal>
       {/*  End Deactivating the user  */}
+
        {/* edit org old code starting */}
        <Modal
         show={showUpdateModal}

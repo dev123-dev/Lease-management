@@ -14,8 +14,8 @@ import {
 } from "../../actions/tenants";
 
 const optName = [
-  { value: "01", label: "     JAN" },
-  { value: "02", label: "     FEB" },
+  { value: "01", label: "JAN" },
+  { value: "02", label: "FEB" },
   { value: "03", label: "MAR" },
   { value: "04", label: "APR" },
   { value: "05", label: "MAY" },
@@ -39,12 +39,14 @@ const TenantFilters = ({
   useEffect(() => {
     getMonthExpCount();
   }, [getMonthExpCount]);
+
   useEffect(() => {
     const finalData = {
       selectedVal: new Date(),
     };
     getPreviousYearsExpCount(finalData);
   }, [getPreviousYearsExpCount]);
+
   useEffect(() => {
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
@@ -113,10 +115,12 @@ const TenantFilters = ({
                 {/* brdr-clr-styles */}
                 {/* <form> */}
                 <div className=" ">
+
+                  {/* this is for textbox below image for showing the total count of Renewal */}
                   <Link
                     to="/tenant-report"
                     className="btn btn_more"
-                    onClick={() => oldExpCountFetch()}
+                    onClick={() =>  oldExpCountFetch() }
                   >
                     {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
                       ? yearExpCnt[0].count
@@ -161,7 +165,7 @@ const TenantFilters = ({
                             to="/tenant-report"
                             name="alphaSearch"
                             // className="btnLink"
-                            onClick={() => onSelectChange(optFiltr.value)}
+                            onClick={() => onSelectChange(optFiltr.value)        /*alert("super admin data so show ORgainzation Details") */}
                             style={
                               Number(monthSearch) === Number(optFiltr.value)
                                 ? {

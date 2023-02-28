@@ -70,7 +70,6 @@ const RenewTenentAgreement = ({
       agreementId: tenantsData.agreementId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
-
       monthSearch: finalDataRep.monthSearch,
       yearSearch: finalDataRep.yearSearch,
       selectedY: finalDataRep.yearSearch,

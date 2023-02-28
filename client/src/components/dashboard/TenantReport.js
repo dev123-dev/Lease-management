@@ -8,14 +8,18 @@ import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
+import {getAllOrganization} from "../../actions/tenants"
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants: { allTenants },
+  tenants: { allTenants,allorg },
   getAllTenants,
   deactiveTenantsDetails,
+  getAllOrganization,
 }) => {
   getAllTenants();
+ // getAllOrganization();
+  //console.log("this is all org data in tenant Report", allorg);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -70,7 +74,7 @@ const TenantReport = ({
   ) : (
     <>
       {user.usergroup !== "Super Admin" ? (
-        <>SuperAdmin</>
+        <h1></h1>
       ) : (
         <>
           <div>
@@ -78,7 +82,7 @@ const TenantReport = ({
               <section className="sub_reg">
                 <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                   <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                    <h2 className="heading_color">DashBoard </h2>
+                    <h2 className="heading_color"> DashBoard </h2>
                   </div>
                   <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
                     <img
@@ -100,31 +104,38 @@ const TenantReport = ({
                         >
                           <thead>
                             <tr>
-                              <th>Org Name</th>
+                              <th>Main page Name</th>
                               <th>Email</th>
                               <th>Phone</th>
                               <th>StartDate</th>
                               <th>Org-Status</th>
-
                               <th>Operation</th>
                             </tr>
                           </thead>
-
-                          <td>abc</td>
-                          <td>abc@gmail.com</td>
-                          <td>985685896</td>
-                          <td>09/5/2020</td>
-                          <td> Active</td>
-                          <td>
-                            <center>
-                              <button
-                                variant="success"
-                                className="btn sub_form"
-                              >
-                                Renewal
-                              </button>
-                            </center>
-                          </td>
+                          <tbody>
+                        {allorg &&
+                          allorg[0] &&
+                          allorg.map((org, index) => {
+                            return (
+                              <tr>
+                                <td>{org.OrganizationName}</td>
+                                <td>{org.OrganizationEmail}</td>
+                                <td>{org.OrganizationNumber}</td>
+                                <td>{org.OrganizationAddress}</td>
+                               <td>{org.AgreementStatus}</td>
+                                <td>{org.enddate}</td>
+                                <td>
+                                  {org.AgreementStatus === "Expired" ? (
+                                    <button className="rewbtn">Renewal</button>
+                                  ) : (
+                                    <p>not working</p>
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                        
                         </table>
                       </div>
                     </section>
@@ -362,4 +373,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAllTenants,
   deactiveTenantsDetails,
+  //getAllOrganization,
 })(TenantReport);

@@ -31,6 +31,7 @@ const OrganizationSchema = new mongoose.Schema({
     type: Date,
     
   },
+
   AgreementStatus :{
     type : String,
     default : "Active",

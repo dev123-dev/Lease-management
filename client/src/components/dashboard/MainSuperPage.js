@@ -6,6 +6,7 @@ import { Modal } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
+import RenewalorgAgreement from "./RenewalorgAgreement";
 const MainSuperPage = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allorg },
@@ -24,9 +25,10 @@ const MainSuperPage = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
-  const onRenewal = (tenants) => {
+
+  const onRenewal = (organization) => {
     setShowEditModal(true);
-    setUserData(tenants);
+    setUserData(organization);
   };
   const onReportModalChange = (e) => {
     if (e) {
@@ -69,6 +71,7 @@ const MainSuperPage = ({
                           <th>Phone</th>
                           <th>Address</th>
                           <th>Org-Status</th>
+                          <th>Agreement Status</th>
                           <th>End Date</th>
                           <th>Renewal</th>
                         </tr>
@@ -81,29 +84,23 @@ const MainSuperPage = ({
                               <tr>
                                 <td>{org.OrganizationName}</td>
                                 <td>{org.OrganizationEmail}</td>
-                                <td>{org.OrganizationPhone}</td>
+                                <td>{org.OrganizationNumber}</td>
                                 <td>{org.OrganizationAddress}</td>
                                 <td>{org.org_status}</td>
-
+                               <td>{org.AgreementStatus}</td>
                                 <td>{org.enddate}</td>
                                 <td>
                                   {org.AgreementStatus === "Expired" ? (
-                                    <button className="rewbtn">Renewal</button>
+                                    <button className="rewbtn"
+                                    onClick={() =>onRenewal(org, index)}>Renewal</button>
                                   ) : (
-                                    <></>
+                                    <p>not working</p>
                                   )}
                                 </td>
                               </tr>
                             );
                           })}
                       </tbody>
-                      <td>
-                        {/* <center>
-                          <button variant="success" className="btn sub_form">
-                            Renewal
-                          </button>
-                        </center> */}
-                      </td>
                     </table>
                   </div>
                 </section>
@@ -112,6 +109,40 @@ const MainSuperPage = ({
           </section>
         </div>
       </div>
+      <Modal
+          show={showEditModal}
+          backdrop="static"
+          keyboard={false}
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h4
+                className="modal-title text-center"
+                style={{ fontWeight: "bold" }}
+              >
+                Renewal Organization Agreement
+              </h4>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleEditModalClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <RenewalorgAgreement
+              orgData={userData}
+              onReportModalChange={onReportModalChange}
+            />
+          </Modal.Body>
+        </Modal>
     </>
     // <Fragment>
     //   <div className="container container_align ">

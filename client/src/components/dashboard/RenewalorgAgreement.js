@@ -5,9 +5,9 @@ import { RenewOrgDetailsform, getAllSettings } from "../../actions/tenants";
 
 const RenewTenentAgreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
-  OrgData,
-  Org: { allOrgSetting },
-  RenewOrgDetailsform,
+  orgData,
+  //Org: { allOrgSetting },
+ RenewOrgDetailsform,
   getAllSettings,
   onReportModalChange,
 }) => {
@@ -22,12 +22,7 @@ const RenewTenentAgreement = ({
   const { nextBtnStyle } = error;
 
   //formData
-  const [formData, setFormData] = useState({
-    isSubmitted: false,
-    Orgname: OrgData.Orgname,
-    Orgemail: OrgData.Orgemail,
-    Orgphone: OrgData.Orgphone,
-  });
+  
 
   var today = new Date();
   var dd = today.getDate();
@@ -43,43 +38,13 @@ const RenewTenentAgreement = ({
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
-  const {
-    recordId,
-    tenantstatus,
-    tenantdeactivereason,
-    isSubmitted,
-    Orgname,
-    Orgemail,
-    Orgphone,
-  } = formData;
+ 
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [showEditModal, setShowEditModal] = useState(false);
 
-  // const onSubmit = () => {
-  //   const finalData = {
-  //     tenantRentAmount: tenantRentAmount,
-  //     tenantFileNo: tenantFileNo,
-  //     tenantDoorNo: tenantDoorNo,
-  //     tenantLeaseStartDate: entryDate,
-  //     tenantLeaseEndDate: newLeaseEndDate,
-  //     tdId: tenantsData.tdId,
-  //     AgreementStatus: "Active",
-  //     agreementId: tenantsData.agreementId,
-  //     tenantEnteredBy: user && user._id,
-  //     tenantDate: todayDateymd,
-
-  //     monthSearch: finalDataRep.monthSearch,
-  //     yearSearch: finalDataRep.yearSearch,
-  //     selectedY: finalDataRep.yearSearch,
-  //     selectedVal: dt,
-  //   };
-  //   RenewTenantDetailsform(finalData);
-  //   setFormData({ ...formData, isSubmitted: true });
-  //   onReportModalChange(true);
-  // };
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
@@ -88,11 +53,11 @@ const RenewTenentAgreement = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    // var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+     var leaseMonth = 12;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
-    // calDate.setMonth(calDate.getMonth() + +leaseMonth);
+     calDate.setMonth(calDate.getMonth() + +leaseMonth);
     if (calDate.getDate() != dateData) {
       calDate.setDate(0);
     }
@@ -112,6 +77,42 @@ const RenewTenentAgreement = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
+  const [formData, setFormData] = useState({
+    isSubmitted: false,
+    OrganizationId : orgData._id,
+    Orgname: orgData.OrganizationName,
+    Orgemail: orgData.OrganizationEmail,
+    Orgphone: orgData.OrganizationNumber,
+    Location : orgData.Location,
+    OrganizationAddress : orgData.OrganizationAddress,
+    date :entryDate ,
+    enddate : leaseEndDate ,
+
+  });
+  const {
+    OrganizationId,
+    OrganizationName,
+    OrganizationEmail,
+    OrganizationNumber,
+    OrganizationStartDate,
+    OrganizationEndDate,
+   } = formData;
+
+  const onSubmit = ()=>{
+   const finalData = {
+    isSubmitted: false,
+    OrganizationId : orgData._id,
+    Orgname: orgData.OrganizationName,
+    Orgemail: orgData.OrganizationEmail,
+    Orgphone: orgData.OrganizationNumber,
+    Location : orgData.Location,
+    OrganizationAddress : orgData.OrganizationAddress,
+    date :entryDate ,
+    enddate : leaseEndDate ,
+   }
+   RenewOrgDetailsform(finalData);
+  }
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -122,71 +123,13 @@ const RenewTenentAgreement = ({
             className="col-lg-4 col-md-2 col-sm-4 col-12"
             style={{ paddingRight: "0px" }}
           >
-            <label>Name:</label>
+            <label> Organization Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            {/* <label>{tenantsData.tenantName}</label> */}
+            <label>{orgData.OrganizationName}</label>
           </div>
         </div>
-
-        <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Email</label>
-          </div>
-
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantDoorNo"
-              className="form-control"
-              // value={tenantDoorNo}
-              onChange={(e) => onInputChange(e)}
-              required
-              style={{
-                width: "70%",
-              }}
-            />
-          </div>
-        </div>
-        <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label> PhoneNO</label>
-          </div>
-
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantFileNo"
-              className="form-control"
-              // value={tenantFileNo}
-              onChange={(e) => onInputChange(e)}
-              required
-              style={{
-                width: "70%",
-              }}
-            />
-          </div>
-        </div>
-        <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label> Rent Amount:</label>
-          </div>
-
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <input
-              type="text"
-              name="tenantRentAmount"
-              className="form-control"
-              // value={tenantRentAmount}
-              onChange={(e) => onInputChange(e)}
-              required
-              style={{
-                width: "70%",
-              }}
-            />
-          </div>
-        </div>
-        <div className="row py-2">
+          <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>Lease Start Date* :</label>
           </div>
@@ -195,11 +138,11 @@ const RenewTenentAgreement = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
-              //   min={yesterdayDt}
-              //   max={today2}
+                // min={yesterdayDt}
+                 //min={today}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
-              // value={tenants.tenantLeaseEndDate}
+              value={entryDate}
               onChange={(e) => onDateChangeEntry(e)}
               style={{
                 width: "70%",
@@ -221,7 +164,7 @@ const RenewTenentAgreement = ({
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
-              // onClick={() => onSubmit()}
+               onClick={() => onSubmit()}
               style={
                 leaseEndDate !== ""
                   ? { opacity: "1" }

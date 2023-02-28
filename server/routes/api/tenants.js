@@ -16,6 +16,7 @@ const property = require("../../models/PropertyDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 const bcrypt = require("bcryptjs");
+const { cat } = require("shelljs");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
@@ -1043,6 +1044,29 @@ router.get("/get-all-users", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//Renew the Organization details
+router.post("/Renew-Organization",async(req,res)=>{
+  let data = req.body;
+  try{
+    const finaldata = await OrganizationDetails.updateOne({
+      _id : data. OrganizationId},
+      {
+        $set :
+        {
+          OrganizationName : data.Orgname,
+          OrganizationEmail : data.Orgemail,
+          OrganizationNumber : data.Orgphone,
+          OrganizationAddress : data.OrganizationAddress,
+          date  : data.date,
+          enddate : data.enddate,
+         AgreementStatus : "Active"
+    },
+  }
+)
+console.log("updated details",finaldata)
+}catch(error){console.log(error.message)}
+})
 
 router.post("/renew-tenant-details", async (req, res) => {
   let data = req.body;
