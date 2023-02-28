@@ -144,7 +144,7 @@ const TenantReport = ({
                 <h2 className="heading_color">Tenant Reports </h2>
               </div>
               <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
-                <AddTenantDetails />
+                {/* <AddTenantDetails /> */}
               </div>
             </div>
             <div className="row">
@@ -167,7 +167,6 @@ const TenantReport = ({
                           <th>Rent Amount</th>
                           <th>Agreement Status</th>
                           <th>Expired</th>
-                          <th>Operation</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -206,24 +205,6 @@ const TenantReport = ({
                                 ) : (
                                   <td></td>
                                 )}
-                                <td>
-                                  <img
-                                    className=" img_icon_size log"
-                                    // onClick={() => onClickHandler()}
-                                    // onClick={() => clicking()}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit User"
-                                  />
-                                  <img
-                                    className="img_icon_size log"
-                                    // onClick={() => onClickHandler()}
-                                    onClick={() => onDelete(Val._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="delete User"
-                                    title="delete User"
-                                  />
-                                </td>
                               </tr>
                             );
                           })}

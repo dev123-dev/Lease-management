@@ -77,7 +77,7 @@ const PropertyDetail = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">
-                {/* {user.OrganizationName} Property Details{" "} */}
+                {user.OrganizationName} Property Details{" "}
               </h2>
             </div>
             <AddShopDetails />

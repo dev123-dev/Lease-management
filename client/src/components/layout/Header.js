@@ -30,16 +30,12 @@ const Header = ({
   getAllOrganization,
 }) => {
   useEffect(() => {
-
     getAllSettings();
     getAllOrganization();
-
   }, [getAllSettings]);
   useEffect(() => {
-
     getalluser();
     getAllOrganization();
-    
   }, []);
 
   const [showLogin, setShowLogin] = useState(false);
@@ -143,7 +139,7 @@ const Header = ({
                     user &&
                     user.usergroup === "Super Admin" ? (
                       <>
-                      {/* Organization details */}
+                        {/* Organization details */}
                         <NavLink
                           className=" h6 "
                           id="hea"
@@ -188,11 +184,11 @@ const Header = ({
                           Property
                         </NavLink>
 
-                         {/* tenant details */}
+                        {/* tenant details */}
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"
-                          to="/tenant-report"
+                          to="/tenant-detail"
                           activeStyle={{
                             color: "Black",
                             textDecoration: "none",
@@ -201,7 +197,7 @@ const Header = ({
                           Tenant
                         </NavLink>
 
-                       {/* adding admin side user page */}
+                        {/* adding admin side user page */}
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"

@@ -148,11 +148,14 @@ const AddShopDetails = ({
       >
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="text-center h1  ml-5">
-              <b>ADD PROPERTY</b>{" "}
+            <h2>
+              <b className="text-center h1">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD
+                PROPERTY
+              </b>
             </h2>
             <div className="  col-lg-2">
-              <button onClick={handleClose} className="close ml-5 cl" id="cl">
+              <button onClick={handleClose} className="clprop">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -207,10 +210,7 @@ const AddShopDetails = ({
                       primary: "black",
                     },
                   })}
-                >
-                  select Organization
-                </Select>
-                {/* need to add the property drop down here */}
+                ></Select>
 
                 <br></br>
               </div>
@@ -255,52 +255,19 @@ const AddShopDetails = ({
                     <b>*</b>
                   </i>
                 </label>
-                <textarea
-                  name="tenantAddr"
-                  // value={}
-                  id=" addprop "
-                  value={leaseTimePeriod}
-                  className="textarea form-control"
-                  rows="4"
-                  onChange={(e) => onPropertychange(e)}
-                  placeholder="Time"
-                  // onChange={(e) => onInputChange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                {/* <input
-                  type="text"
-                  name="leaseTimePeriod"
-                  value={leaseTimePeriod}
-                  className="form-control  input"
-                  onChange={(e) => onPropertychange(e)}
-                  required
-                /> */}
-              </div>
-              {/* <div className="container-fluid"> */}
-              {/* <div className="row"> */}
-              <div className="col-lg-6">
-                <label>
-                  Address
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <div className="controls">
+                  <input
+                    name="OrganizationStartdate"
+                    id="cat_name"
+                    type="date"
+                    value={leaseTimePeriod}
+                    className="form-control"
+                    onChange={(e) => onPropertychange(e)}
+                    required
+                  />
+                  <span id="category_result" className="form-input-info"></span>
+                </div>
 
-                <textarea
-                  name="shopAddress"
-                  value={shopAddress}
-                  id=" addprop "
-                  className="textarea form-control"
-                  rows="4"
-                  placeholder="Address"
-                  onChange={(e) => onPropertychange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                <br></br>
-              </div>
-              <div className="  col-lg-6 ">
                 <label className="ml-2">
                   DoorNo{" "}
                   <i className="text-danger  ">
@@ -352,6 +319,29 @@ const AddShopDetails = ({
                   </div>
                 </div>
               </div>
+
+              <div className="col-lg-6">
+                <label>
+                  Address
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+
+                <textarea
+                  name="shopAddress"
+                  value={shopAddress}
+                  id=" addprop "
+                  className="textarea form-control"
+                  rows="3"
+                  placeholder="Address"
+                  onChange={(e) => onPropertychange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>
+                <br></br>
+              </div>
+
               {/* </div> */}
 
               {/* </div> */}

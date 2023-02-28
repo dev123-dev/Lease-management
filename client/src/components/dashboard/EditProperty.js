@@ -67,6 +67,7 @@ const EditProperty = ({
     LeaseTime: "",
     isSubmitted: false,
   });
+
   const {
     buildingName,
     shopDoorNo,
@@ -75,6 +76,7 @@ const EditProperty = ({
     leaseTimePeriod,
     shopStatus,
   } = formData;
+
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -120,7 +122,7 @@ const EditProperty = ({
                 type="text"
                 placeholder="BuildingName"
                 name="buildingName"
-                value={buildingName}
+                value={Property.buildingName}
                 className="form-control input"
                 // onChange={(e) => onPropertychange(e)}
                 required
@@ -167,7 +169,7 @@ const EditProperty = ({
                 type="text"
                 placeholder="StampDuty"
                 name="stampDuty"
-                value={stampDuty}
+                value={Property.stampDuty}
                 className="form-control  input"
                 // onChange={(e) => onPropertychange(e)}
                 required
@@ -184,7 +186,7 @@ const EditProperty = ({
                 type="text"
                 placeholder="HikePercent"
                 name="hikePercentage"
-                value={hikePercentage}
+                value={Property.hikePercentage}
                 className="form-control  input"
                 // onChange={(e) => onPropertychange(e)}
                 required
@@ -201,7 +203,7 @@ const EditProperty = ({
                 name="tenantAddr"
                 // value={}
                 id=" addprop "
-                value={leaseTimePeriod}
+                value={Property.leaseTimePeriod}
                 className="textarea form-control"
                 rows="4"
                 // onChange={(e) => onPropertychange(e)}
