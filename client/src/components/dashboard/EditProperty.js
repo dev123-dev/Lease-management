@@ -16,7 +16,6 @@ const EditProperty = ({
   Property,
   updateProperty,
 }) => {
-  // console.log("this is main")
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -33,9 +32,11 @@ const EditProperty = ({
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState(Property.Location);
 
-  const onedit = (id) => {
-    // setId(id);
-    handleOpen();
+  const handleLocationclose = (ele1, index) => {
+    const delitem = items.filter((ele, ind) => {
+      return ele1 != ele;
+    });
+    setitem(delitem);
   };
 
   const addItem = () => {
@@ -96,191 +97,195 @@ const EditProperty = ({
       className="logout-modal modblur"
     >
       <Modal.Body>
-        <div className="row">
-          <div className="col-lg-6">
-            <label>
-              BuildingName
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
-
-            <input
-              type="text"
-              placeholder="BuildingName"
-              name="buildingName"
-              value={Property.buildingName}
-              className="form-control input"
-              // onChange={(e) => onPropertychange(e)}
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-6">
-            <label>
-              Location
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
-            <Select
-              name="orgLoc"
-              // options={locationList}
-              // value={orgLoc}
-              // onChange={(e) => onchangeLoc(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
-            >
-              select Organization
-            </Select>
-            {/* need to add the property drop down here */}
-
-            <br></br>
-          </div>
-          <div className="col-lg-6">
-            <label>
-              StampDuty{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
-            <input
-              type="text"
-              placeholder="StampDuty"
-              name="stampDuty"
-              value={Property.stampDuty}
-              className="form-control  input"
-              // onChange={(e) => onPropertychange(e)}
-              required
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>
-              Hike<b>%</b>{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
-            <input
-              type="text"
-              placeholder="HikePercent"
-              name="hikePercentage"
-              value={Property.hikePercentage}
-              className="form-control  input"
-              // onChange={(e) => onPropertychange(e)}
-              required
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>
-              LeaseTimePeriod{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
-            <textarea
-              name="tenantAddr"
-              // value={}
-              id=" addprop "
-              value={Property.leaseTimePeriod}
-              className="textarea form-control"
-              rows="4"
-              // onChange={(e) => onPropertychange(e)}
-              placeholder="Time"
-              // onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>
-          </div>
-          <div className="col-lg-6">
-            <label>
-              Address
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
-
-            <textarea
-              name="shopAddress"
-              // value={shopAddress}
-              id=" addprop "
-              className="textarea form-control"
-              rows="4"
-              placeholder="Address"
-              // onChange={(e) => onPropertychange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>
-            <br></br>
-          </div>
-          <div className="  col-lg-6 ">
-            <label className="ml-2">
-              DoorNo{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
-            {/* location start */}
+          <div className="row">
             <div className="col-lg-6">
-              <label className="ml-2">
-                Location
-                <i className="text-danger  ">
+              <label>
+                BuildingName
+                <i className="text-danger ">
                   <b>*</b>
-                </i>{" "}
-                :
+                </i>
               </label>
 
               <input
-                className="form-control"
                 type="text"
-                name="Location"
-                value={inputdata}
-                onChange={(e) => setinput(e.target.value)}
-                placeholder="Location"
-                id="Location"
-              ></input>
-              <div>
-                <div className="locadds " onClick={addItem}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    fill="currentColor"
-                    class="bi bi-plus-lg"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
-                    />
-                  </svg>
-                </div>
-                <div className="showItemcl ">
-                  {items.map((ele, index1) => {
-                    return (
-                      <div className="eachItem" key={index1}>
-                        <span>{ele}</span>{" "}
-                        <button
-                          onClick={() => handleLocationclose(ele, index1)}
-                          className="btndrp"
-                        >
-                          X
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
+                placeholder="BuildingName"
+                name="buildingName"
+                value={Property.buildingName}
+                className="form-control input"
+                // onChange={(e) => onPropertychange(e)}
+                required
+              />
+              <br></br>
+            </div>
+            <div className="col-lg-6">
+              <label>
+                Location
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+              </label>
+              <Select
+                name="orgLoc"
+                // options={locationList}
+                // value={orgLoc}
+                // onChange={(e) => onchangeLoc(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              >
+                select Organization
+              </Select>
+              {/* need to add the property drop down here */}
+
+              <br></br>
+            </div>
+            <div className="col-lg-6">
+              <label>
+                StampDuty{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+              </label>
+              <input
+                type="text"
+                placeholder="StampDuty"
+                name="stampDuty"
+                value={Property.stampDuty}
+                className="form-control  input"
+                // onChange={(e) => onPropertychange(e)}
+                required
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>
+                Hike<b>%</b>{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+              </label>
+              <input
+                type="text"
+                placeholder="HikePercent"
+                name="hikePercentage"
+                value={Property.hikePercentage}
+                className="form-control  input"
+                // onChange={(e) => onPropertychange(e)}
+                required
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>
+                LeaseTimePeriod{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+              </label>
+              <textarea
+                name="tenantAddr"
+                // value={}
+                id=" addprop "
+                value={Property.leaseTimePeriod}
+                className="textarea form-control"
+                rows="4"
+                // onChange={(e) => onPropertychange(e)}
+                placeholder="Time"
+                // onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>
+             
+            </div>
+            <div className="col-lg-6">
+              <label>
+                Address
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+              </label>
+
+              <textarea
+                name="shopAddress"
+                // value={shopAddress}
+                id=" addprop "
+                className="textarea form-control"
+                rows="4"
+                placeholder="Address"
+                // onChange={(e) => onPropertychange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>
+              <br></br>
+            </div>
+            <div className="  col-lg-6 ">
+              <label className="ml-2">
+                DoorNo{" "}
+                <i className="text-danger  ">
+                  <b>*</b>
+                </i>
+              </label>
+{/* location start */}
+<div className="col-lg-6">
+            <label className="ml-2">
+              Location
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>{" "}
+              :
+            </label>
+
+            <input
+              className="form-control"
+              type="text"
+              name="Location"
+              value={inputdata}
+              onChange={(e) => setinput(e.target.value)}
+              placeholder="Location"
+              id="Location"
+            ></input>
+            <div>
+              <div className="locadds " onClick={addItem}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  class="bi bi-plus-lg"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                  />
+                </svg>
+              </div>
+              <div className="showItemcl ">
+                {items.map((ele, index1) => {
+                  return (
+                    <div className="eachItem" key={index1}>
+                      <span>{ele}</span>{" "}
+                      <button
+                        onClick={() => handleLocationclose(ele, index1)}
+                        className="btndrp"
+                      >
+                        X
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-            {/* location end */}
+          </div>
+{/* location end */}
+            
+                
+          
 
             <div className="col-lg-12">
               <button
