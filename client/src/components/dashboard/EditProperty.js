@@ -16,8 +16,7 @@ const EditProperty = ({
   Property,
   updateProperty,
 }) => {
-
-  console.log("this is main")
+  // console.log("this is main")
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
