@@ -53,12 +53,12 @@ async function updateExpiryStatus() {
     console.log("Status updated as Expired");
   } catch (error) {
     console.error("Error Here",error);
-    res.status(500).send("Internal Server Error.");
+    //res.status(500).send("Internal Server Error.");
   }
 }
 
 function expairyNotif() {
-  cron.schedule("* * * * *", function () {
+  cron.schedule("19 05 * * *", function () {
     updateExpiryStatus();
   });
 }

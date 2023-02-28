@@ -8,35 +8,30 @@ import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "./EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
+import { getalluser } from "../../actions/tenants";
 
 
 const PropertyDetail = ({
   auth: { user },
-  tenants: { particular_org_data },
+  tenants: { particular_org_data, },
   getAllShops,
-  getAllOrganization,
+  getalluser,
   deactiveProperty,
   getParticularProperty,
 }) => {
+  
+  console.log("this is particular",particular_org_data)
 
   useEffect(() => {
-   
-    //getParticularProperty();
+   getalluser();
+    getParticularProperty();
   }, []);
-  const uniqueOrg = {
-    OrganizationName: user.OrganizationName,
-   // id: user.OrganizationId,
-  };
-
-   useEffect(() => {
-     getParticularProperty(uniqueOrg);
-   }, []);
+ 
   
-  const [orgdetail, setorgdetail] = useState({
-    OrganizationName: "",
-    id: "",
-  });
-  const { OrganizationName, id } = orgdetail;
+
+  useEffect(() => {
+   getParticularProperty({ OrganizationName : user.OrganizationName});
+  }, []);
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -74,7 +69,7 @@ const PropertyDetail = ({
       deactive_reason: deactive_reason,
     };
     deactiveProperty(reason);
-    // console.log(OrgId);
+  
   };
 
   return (
@@ -84,7 +79,7 @@ const PropertyDetail = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">
-                {user.OrganizationName} Property Details{" "}
+                {/* {user.OrganizationName} Property Details{" "} */}
               </h2>
             </div>
             <AddShopDetails />
@@ -216,6 +211,7 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getAllShops,
+  getalluser,
   deactiveProperty,
   getParticularProperty,
 })(PropertyDetail);

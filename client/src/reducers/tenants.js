@@ -12,6 +12,8 @@ import {
   UPDATE_ORG,
   PARTICULAR_ORG_PROPERTY,
   PARTICULAR_ORG_LOCATION,
+  PARTICULAR_USER,
+  GET_ADMIN,
 } from "../actions/types";
 
 const initialState = {
@@ -36,6 +38,8 @@ const initialState = {
   updatedorg : [""],
   particular_org_data : [""],
   particular_org_loc : [""],
+  particular_user : [""],
+  get_admin : [""],
 };
 
 const tenants = (state = initialState, action) => {
@@ -98,6 +102,17 @@ const tenants = (state = initialState, action) => {
           case PARTICULAR_ORG_LOCATION : 
           return {...state,
             particular_org_loc : payload,
+          }
+          case PARTICULAR_USER : 
+          return {
+            ...state,
+            particular_user : payload,
+
+          }
+          case GET_ADMIN : 
+          return {
+            ...state,
+            get_admin : payload,
           }
     default:
       return state;

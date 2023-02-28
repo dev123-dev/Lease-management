@@ -19,20 +19,27 @@ import TenantSettings from "../dashboard/TenantSettings";
 import "../dashboard/AddSuperUser";
 import { getAllOrganization } from "../../actions/tenants";
 import { getAllSettings } from "../../actions/tenants";
+import { getalluser } from "../../actions/tenants";
 
 const Header = ({
   auth: { isAuthenticated, loading, user, allTenantSetting },
   tenants: { allorg },
   logout,
   getAllSettings,
+  getalluser,
   getAllOrganization,
 }) => {
   useEffect(() => {
+
     getAllSettings();
     getAllOrganization();
+
   }, [getAllSettings]);
   useEffect(() => {
-    getAllOrganization("");
+
+    getalluser();
+    getAllOrganization();
+    
   }, []);
 
   const [showLogin, setShowLogin] = useState(false);
@@ -123,6 +130,7 @@ const Header = ({
                     user &&
                     user.usergroup === "Super Admin" ? (
                       <>
+                      {/* Organization details */}
                         <NavLink
                           className=" h6 "
                           id="hea"
@@ -135,6 +143,7 @@ const Header = ({
                           OrganisationDetails
                         </NavLink>
 
+                        {/* user details */}
                         <NavLink
                           className="ml-5  h6 "
                           id="hea"
@@ -152,6 +161,7 @@ const Header = ({
                         <Navbar.Brand>
                           <NavLink to="/MainAdminPage"></NavLink>
                         </Navbar.Brand>
+                        {/* PROPERTY DEtails */}
                         <NavLink
                           className="ml-5 h5  "
                           id="hea"
@@ -165,6 +175,7 @@ const Header = ({
                           Property
                         </NavLink>
 
+                         {/* tenant details */}
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"
@@ -177,6 +188,7 @@ const Header = ({
                           Tenant
                         </NavLink>
 
+                       {/* adding admin side user page */}
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"
@@ -412,5 +424,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   logout,
   getAllSettings,
+  getalluser,
   getAllOrganization,
 })(Header);
