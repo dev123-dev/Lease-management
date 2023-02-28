@@ -6,7 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
-import EditProperty from "./EditProperty";
+import EditProperty from "../dashboard/EditProperty"
 import { getParticularProperty } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
@@ -190,7 +190,8 @@ console.log("loc",particular_org_data)
           </div>
         </Modal.Header>
         <Modal.Body>
-          <EditProperty Property={property} />
+          xyz
+           <EditProperty Property={property} /> 
         </Modal.Body>
       </Modal>
     </div>
