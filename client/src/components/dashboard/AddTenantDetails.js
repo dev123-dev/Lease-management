@@ -275,8 +275,8 @@ const AddTenantDetails = ({
       >
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="text-center h1">
-              <b>ADD TENANT DETAILS</b>
+            <h2>
+              <b className="text-center h1">ADD TENANT DETAILS</b>
             </h2>
 
             <div className=" col-lg-2">
@@ -595,18 +595,6 @@ const AddTenantDetails = ({
                   className="btn sub_form btn_continue Save float-right"
                   id="savebtnt"
                   onClick={() => onSubmit()}
-                  // style={
-                  //   tenantDoorNo !== "" &&
-                  //   tenantFileNo !== "" &&
-                  //   tenantName !== "" &&
-                  //   tenantPaymentMode !== "" &&
-                  //   tenantDepositAmt !== "" &&
-                  //   tenantRentAmount !== "" &&
-                  //   entryDate !== "" &&
-                  //   tenantAddr !== ""
-                  //     ? { opacity: "1" }
-                  //     : { opacity: "1", pointerEvents: "none" }
-                  // }
                 >
                   Save
                 </button>
@@ -615,7 +603,7 @@ const AddTenantDetails = ({
           </div>
         </Modal.Body>
 
-        <Modal
+        {/* <Modal
           show={showInformationModal}
           backdrop="static"
           keyboard={false}
@@ -637,40 +625,9 @@ const AddTenantDetails = ({
               OK
             </button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
       </Modal>
     </>
-    // <Fragment>
-    //   <input
-    //   type='text'
-    //    placeholder="OrganizationName"
-    //    name="OrganizationName"
-    //    value={OrganizationName}
-    //    onChange={(e)=>onOrgchange(e)}
-    //     ></input>
-    //   <input
-    //   type='text'
-    //   placeholder=" OrganizationEmail"
-    //   name="OrganizationEmail"
-    //   value={OrganizationEmail}
-    //   onChange={(e)=>onOrgchange(e)}
-    //   ></input>
-    //   <input
-    //   type='text'
-    //   placeholder=" OrganizationNumber"
-    //   name="OrganizationNumber"
-    //   value={OrganizationNumber}
-    //   onChange={(e)=>onOrgchange(e)}
-    //   ></input>
-    //   <input
-    //   type='text'
-    //   placeholder=" OrganizationAddress"
-    //   name="OrganizationAddress"
-    //   value={OrganizationAddress}
-    //   onChange={(e)=>onOrgchange(e)}
-    //   ></input>
-    //   <Button onClick={()=>onorgsubmit}>Submit</Button>
-    // </Fragment>
   );
 };
 

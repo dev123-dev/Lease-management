@@ -16,7 +16,7 @@ import Login from "../auth/Login";
 
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
-import "../dashboard/AddSuperUser";
+import "../dashboard/SuperUserDashboard";
 import { getAllOrganization } from "../../actions/tenants";
 import { getAllSettings } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
@@ -111,28 +111,6 @@ const Header = ({
               {!loading && isAuthenticated && user ? (
                 <>
                   <Nav className="mr-auto navbar_Collapse_content">
-                    {/* <NavItem>
-                  {!loading && isAuthenticated && user ? (
-                    <Link to="/tenant-add-details">Rent Details</Link>
-                  ) : (
-                    <NavItem></NavItem>
-                  )}
-                </NavItem> */}
-
-                    {/* <NavItem>
-                  {!loading &&
-                  !isAuthenticated &&
-                  !user ? (
-                    <NavItem>
-                     
-                    </NavItem>
-                  ) : (
-                    <NavItem>
-                   
-                    </NavItem>
-                  )}
-                </NavItem> */}
-
                     {/* add property & user */}
                     {!loading &&
                     isAuthenticated &&
@@ -201,7 +179,7 @@ const Header = ({
                         <NavLink
                           className="ml-5  h5 "
                           id="hea"
-                          to="/SuperUser"
+                          to="/AdminUser"
                           activeStyle={{
                             color: "Black",
                             textDecoration: "none",
@@ -254,23 +232,31 @@ const Header = ({
               user &&
               user.usergroup === "Super Admin" ? (
                 <Fragment>
-                  <Dropdown>
-                    <Dropdown.Toggle id="sidehea">
-                      {user.usergroup}
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1" className="logut">
+                  <Nav>
+                    <ul className="top-level-menu text-left">
+                      <li>
                         <Link
                           to="#"
                           onClick={() => handleLogoutModalShow()}
-                          className="text-dark"
+                          className="navbar-right "
                         >
-                          LOGOUT
+                          {user.usergroup}
                         </Link>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+
+                        <ul className="dropdown-menu second-level-menu ">
+                          <li className="hwhite">
+                            <Link
+                              to="#"
+                              className=""
+                              onClick={() => handleLogoutModalShow()}
+                            >
+                              Logout
+                            </Link>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </Nav>
 
                   <Nav>
                     <Modal

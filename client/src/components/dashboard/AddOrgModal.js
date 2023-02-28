@@ -155,8 +155,10 @@ const AddOrgModal = ({
         >
           <Modal.Header>
             <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-              <h2 className="text-center h2  ml-5">
-                <b>&nbsp;&nbsp;&nbsp;ADD Organization</b>{" "}
+              <h2>
+                <b className="text-center h2 ml-5">
+                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;ADD Organization
+                </b>{" "}
               </h2>
               <div className="  col-lg-2">
                 <button
@@ -254,8 +256,6 @@ const AddOrgModal = ({
                     <input
                       type="date"
                       placeholder="dd/mm/yyyy"
-                      //   min={yesterdayDt}
-                      //   max={today2}
                       className="form-control cpp-input datevalidation"
                       name="tenantLeaseStartDate"
                       value={entryDate}

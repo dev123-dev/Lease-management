@@ -3,33 +3,28 @@ import { Modal, Button } from "react-bootstrap";
 import { useState, Fragment } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
-import { AddAdminuser } from "../../actions/tenants";
-import { getalluser } from "../../actions/tenants";
+import { Adduser } from "../../actions/tenants";
 
-const AddAdminModal = ({
+const AddSuperUserModel = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allorg },
-  AddAdminuser,
-  getalluser,
-
+  Adduser,
 }) => {
-  getalluser();
-  console.log(user);
+  const orglist = [];
+  allorg.map((org) => {
+    orglist.push({
+      label: org.OrganizationName,
+      value: org._id,
+    });
+  });
 
-  // const orglist = [];
-  // console.log(allorg)
-  // allorg.map((org) => {
-  //   orglist.push({
-  //     label: org.OrganizationName,
-  //     value: org._id,
-  //   });
-  // });
-
-  // const [orgname, setOrgname] = useState({});
-  // const onchangeOrg = (e) => {
-  //   setOrgname(e);
-  //   console.log(orgname);
-  // };
+  const [orgname, setOrgname] = useState({});
+  const onchangeOrg = (e) => {
+    setOrgname(e);
+    console.log(orgname);
+  };
+  const [passwordType, setPasswordType] = useState("password");
+  const [passwordInput, setPasswordInput] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
@@ -69,13 +64,12 @@ const AddAdminModal = ({
       useraddress: address,
       usergroup: us,
       password: password,
-      OrganizationName: user.OrganizationName,
+      OrganizationName: orgname,
     };
 
-   
-    AddAdminuser(finalUserData);
-    console.log("this is final data",finalUserData);
     handleClose();
+    Adduser(finalUserData);
+    console.log(finalUserData);
     setFormData({
       ...formData,
       name: "",
@@ -100,7 +94,7 @@ const AddAdminModal = ({
   return isAuthenticated &&
     users &&
     user &&
-    user.usergroup === "Admin" ? (
+    user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
       <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
@@ -123,8 +117,8 @@ const AddAdminModal = ({
       >
         <Modal.Header>
           <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="heading_color h1 text-center">
-              <b>Add Admin's User</b>{" "}
+            <h2>
+              <b className="heading_color h1 text-center">Add User</b>{" "}
             </h2>
           </div>
           <div className="  col-lg-2 ">
@@ -197,13 +191,25 @@ const AddAdminModal = ({
                   </i>
                   :{" "}
                 </label>{" "}
-                <input
-                  type="text"
-                  placeholder="{user.OrganizationName}"
-                  value={user.OrganizationName}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
+                <Select
+                  name="orgname"
+                  placeholder="Select"
+                  options={orglist}
+                  value={orgname}
+                  onChange={(e) => onchangeOrg(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                >
+                  Select Organization
+                </Select>
               </div>
 
               <div className="col-lg-6">
@@ -313,4 +319,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,
 });
-export default connect(mapStateToProps, { AddAdminuser,getalluser})(AddAdminModal);
+export default connect(mapStateToProps, { Adduser })(AddSuperUserModel);

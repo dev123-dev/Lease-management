@@ -12,21 +12,19 @@ import changePassword from "../auth/ChangePwd";
 import AddTenantDetails from "../dashboard/AddTenantDetails";
 import TenantSettings from "../dashboard/TenantSettings";
 import TenantReport from "../dashboard/TenantReport";
-import ShopDetails from "../dashboard/ShopDetails";
-import AllUserDetails from "../dashboard/AllUserDetails";
-import AllTenantShopDetails from "../dashboard/AllTenantShopDetails";
+
 import AddShopDetails from "../dashboard/AddShopDetails";
 import EditTenantDetails from "../dashboard/EditTenantDetails";
 import AddOrgDashBoard from "../dashboard/AddOrgDashBoard";
-import AddSuperUser from "../dashboard/AddSuperUser";
-import User from "../dashboard/User";
+import SuperDashboard from "../dashboard/SuperUserDashboard";
+
 import MainSuperPage from "../dashboard/MainSuperPage";
 import Tenant_Details from "../dashboard/Tenant_Details";
 import AddOrgModal from "../dashboard/AddOrgModal";
 import PropertyDetail from "../dashboard/PropertyDetail";
-
+import UserDetails from "../dashboard/UserDetails";
 import MainAdmin from "../dashboard/MainAdminPage";
-import AddAdminModal from "../dashboard/AddAdminModal";
+import AddAdminModal from "../dashboard/AddAdminUserModal";
 
 const RoutesFile = () => {
   return (
@@ -38,25 +36,18 @@ const RoutesFile = () => {
           component={AddTenantDetails}
         />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
-        <PrivateRoute exact path="/AdminUser" component={User} />
+
         <PrivateRoute exact path="/PropertyDetail" component={PropertyDetail} />
         <PrivateRoute exact path="/AddOrganization" component={AddOrgModal} />
         <PrivateRoute exact path="/tenant-detail" component={Tenant_Details} />
         <PrivateRoute exact path="/AddAdmin" component={AddAdminModal} />
         <PrivateRoute exact path="/MainSuper" component={MainSuperPage} />
         <PrivateRoute exact path="/Super" component={AddOrgDashBoard} />
-        <PrivateRoute exact path="/SuperUser" component={AddSuperUser} />
+        <PrivateRoute exact path="/SuperUser" component={SuperDashboard} />
+        <PrivateRoute exact path="/AdminUser" component={UserDetails} />
         <PrivateRoute exact path="/tenant-setting" component={TenantSettings} />
-        <PrivateRoute exact path="/shop-Details" component={ShopDetails} />
-        <PrivateRoute exact path="/add-user" component={AllUserDetails} />
 
         <PrivateRoute exact path="/MainAdmin" component={MainAdmin} />
-
-        <PrivateRoute
-          exact
-          path="/all-tenant-shop-Details"
-          component={AllTenantShopDetails}
-        />
 
         <PrivateRoute
           exact

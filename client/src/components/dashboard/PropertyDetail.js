@@ -158,10 +158,10 @@ console.log("loc",particular_org_data)
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onAdd} className="bg-dark">
+          <Button onClick={onAdd} id="savebtn">
             Save
           </Button>
-          <Button className="bg-dark" onClick={handleClose}>
+          <Button id="savebtn" onClick={handleClose}>
             close
           </Button>
         </Modal.Footer>

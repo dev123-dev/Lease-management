@@ -2081,10 +2081,21 @@ button {
   
 }
 .logut:hover{
-  background-color: #878d8b;
+  background-color: #949796;
   
 }
-
+#Renewalbtn{
+  margin-left: 465px;
+  height: 50px;
+  width:110px;
+  background-color: #095a4a;
+  color: white;
+}
+#Renewalbtn:hover{
+ 
+  background-color:#000000;
+ 
+}
 
 div{
   border:1px solid rgba(242, 10, 10, 0.541);

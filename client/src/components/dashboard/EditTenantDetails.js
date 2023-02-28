@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { UpdateTenantsDetails } from "../../actions/tenants";
 import { getAllTenants, tenantsDetailsHistory } from "../../actions/tenants";
 import Select from "react-select";
+import { Modal, Button } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
@@ -212,6 +213,17 @@ const EditTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
+      <Modal
+        // show={show}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        className="logout-modal modblur"
+      >
+        <Modal.Body></Modal.Body>
+      </Modal>
       <div className="conatiner-fluid ">
         <div className="row">
           <div className="col-lg-4">
@@ -240,18 +252,17 @@ const EditTenantDetails = ({
               required
             />
           </div>
-        </div>
-
-        <div className="col-lg-4">
-          <label>Firm Name :</label>
-          <input
-            type="text"
-            name="tenantFirmName"
-            value={tenantFirmName}
-            className="form-control"
-            onChange={(e) => onInputChange(e)}
-            required
-          />
+          <div className="col-lg-4">
+            <label>Firm Name :</label>
+            <input
+              type="text"
+              name="tenantFirmName"
+              value={tenantFirmName}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              required
+            />
+          </div>
         </div>
 
         <div className="col-lg-4 ">
