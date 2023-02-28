@@ -95,14 +95,18 @@ const MainSuperPage = ({
                                 <td>{org.OrganizationNumber}</td>
                                 <td>{org.OrganizationAddress}</td>
                                 <td>{org.org_status}</td>
-                               <td>{org.AgreementStatus}</td>
+                                <td>{org.AgreementStatus}</td>
                                 <td>{org.enddate}</td>
                                 <td>
                                   {org.AgreementStatus === "Expired" ? (
-                                    <button className="rewbtn"
-                                    onClick={() =>onRenewal(org, index)}>Renewal</button>
+                                    <button
+                                      className="rewbtn"
+                                      onClick={() => onRenewal(org, index)}
+                                    >
+                                      Renewal
+                                    </button>
                                   ) : (
-                                    <p>not working</p>
+                                    <p></p>
                                   )}
                                 </td>
                               </tr>
@@ -118,39 +122,34 @@ const MainSuperPage = ({
         </div>
       </div>
       <Modal
-          show={showEditModal}
-          backdrop="static"
-          keyboard={false}
-          size="md"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header>
-            <div className="col-lg-10">
-              <h4
-                className="modal-title text-center"
-                style={{ fontWeight: "bold" }}
-              >
-                Renewal Organization Agreement
-              </h4>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={handleEditModalClose} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <RenewalorgAgreement
-              orgData={userData}
-              onReportModalChange={onReportModalChange}
-            />
-          </Modal.Body>
-        </Modal>
+        show={showEditModal}
+        backdrop="static"
+        keyboard={false}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header>
+          <div className="col-lg-10">
+            <h4 className=" text-center">Renewal Agreement</h4>
+          </div>
+          <div className="col-lg-2">
+            <button onClick={handleEditModalClose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <RenewalorgAgreement
+            orgData={userData}
+            onReportModalChange={onReportModalChange}
+          />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

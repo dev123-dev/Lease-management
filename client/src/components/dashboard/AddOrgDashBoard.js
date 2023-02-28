@@ -271,8 +271,10 @@ const AddOrgDashBoard = ({
       >
         <Modal.Header>
           <div className="col-lg-10">
-            <h3 className="modal-title text-center h3">
-              <b>Edit Organization Details </b>
+            <h3>
+              <b className="modal-title text-center h3">
+                Edit Organization Details{" "}
+              </b>
             </h3>
           </div>
           <div className="col-lg-2">
