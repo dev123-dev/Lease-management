@@ -213,17 +213,6 @@ const EditTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <Modal
-        // show={show}
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className="logout-modal modblur"
-      >
-        <Modal.Body></Modal.Body>
-      </Modal>
       <div className="conatiner-fluid ">
         <div className="row">
           <div className="col-lg-4">
@@ -263,147 +252,151 @@ const EditTenantDetails = ({
               required
             />
           </div>
-        </div>
 
-        <div className="col-lg-4 ">
-          <label>Adhaar No:</label>
-          <input
-            type="number"
-            name="tenantAdharNo"
-            value={tenantAdharNo}
-            className="form-control"
-            onChange={(e) => onInputChange(e)}
-            onKeyDown={(e) =>
-              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-            }
-            required
-          />
-        </div>
+          <div className="col-lg-4 ">
+            <label>Adhaar No:</label>
+            <input
+              type="number"
+              name="tenantAdharNo"
+              value={tenantAdharNo}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              onKeyDown={(e) =>
+                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+              }
+              required
+            />
+          </div>
 
-        <div className="col-lg-4">
-          <label>Tenant's Address *:</label>
-          <textarea
-            name="tenantAddr"
-            value={tenantAddr}
-            id="tenantAddr"
-            className="textarea form-control"
-            rows="4"
-            placeholder="Address"
-            onChange={(e) => onInputChange(e)}
-            style={{ width: "100%" }}
-            required
-          ></textarea>
-        </div>
+          <div className="col-lg-4">
+            <label>Tenant's Address *:</label>
+            <textarea
+              name="tenantAddr"
+              value={tenantAddr}
+              id="tenantAddr"
+              className="textarea form-control"
+              rows="4"
+              placeholder="Address"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              required
+            ></textarea>
+          </div>
 
-        <div className="col-lg-4">
-          <label>BuildingName</label>
-          <input
-            type="text"
-            name="tenantPanNo"
-            value={tenantPanNo}
-            className="form-control"
-            onChange={(e) => onInputChange(e)}
-            onKeyDown={(e) =>
-              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-            }
-            required
-          />
-        </div>
+          <div className="col-lg-4">
+            <label>BuildingName</label>
+            <input
+              type="text"
+              name="tenantPanNo"
+              value={tenantPanNo}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              onKeyDown={(e) =>
+                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+              }
+              required
+            />
+          </div>
 
-        <div className="col-lg-4">
-          <label>Generator Deposit Amount:</label>
-          <input
-            type="number"
-            name="generatordepoAmt"
-            value={generatordepoAmt}
-            className="form-control"
-            onChange={(e) => onInputChange(e)}
-            onKeyDown={(e) =>
-              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-            }
-            required
-          />
-        </div>
+          <div className="col-lg-4">
+            <label>Generator Deposit Amount:</label>
+            <input
+              type="number"
+              name="generatordepoAmt"
+              value={generatordepoAmt}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              onKeyDown={(e) =>
+                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+              }
+              required
+            />
+          </div>
 
-        <div className="col-lg-4 ">
-          <label>Deposit Amount:</label>
-          <input
-            type="number"
-            name="tenantDepositAmt"
-            value={tenantDepositAmt}
-            className="form-control"
-            onChange={(e) => onInputChange(e)}
-            onKeyDown={(e) =>
-              (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-            }
-            required
-          />
-        </div>
+          <div className="col-lg-4 ">
+            <label>Deposit Amount:</label>
+            <input
+              type="number"
+              name="tenantDepositAmt"
+              value={tenantDepositAmt}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              onKeyDown={(e) =>
+                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+              }
+              required
+            />
+          </div>
 
-        <div className="col-lg-4">
-          <label>Mode Of Payment *:</label>
-          <Select
-            name="tenantPaymentMode"
-            options={PaymentMethods}
-            isSearchable={false}
-            value={tenantPaymentMode}
-            placeholder="Select"
-            onChange={(e) => onPaymentModeChange(e)}
-            theme={(theme) => ({
-              ...theme,
-              height: 26,
-              minHeight: 26,
-              borderRadius: 1,
-              colors: {
-                ...theme.colors,
-                primary: "black",
-              },
-            })}
-          />
+          <div className="col-lg-4">
+            <label>Mode Of Payment *:</label>
+            <Select
+              name="tenantPaymentMode"
+              options={PaymentMethods}
+              isSearchable={false}
+              value={tenantPaymentMode}
+              placeholder="Select"
+              onChange={(e) => onPaymentModeChange(e)}
+              theme={(theme) => ({
+                ...theme,
+                height: 26,
+                minHeight: 26,
+                borderRadius: 1,
+                colors: {
+                  ...theme.colors,
+                  primary: "black",
+                },
+              })}
+            />
+          </div>
         </div>
       </div>
 
-      {showChequenoSection && (
-        <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>Cheque No/DD No :</label>
-            <input
-              type="text"
-              name="tenantChequenoOrDdno"
-              value={tenantChequenoOrDdno}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
+      {showChequenoSection ? (
+        <>
+          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <label>Cheque No/DD No :</label>
+              <input
+                type="text"
+                name="tenantChequenoOrDdno"
+                value={tenantChequenoOrDdno}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
 
-          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>Bank Name :</label>
-            <input
-              type="text"
-              name="tenantBankName"
-              value={tenantBankName}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <label>Bank Name :</label>
+              <input
+                type="text"
+                name="tenantBankName"
+                value={tenantBankName}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
 
-          <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-            <label>ChequeDate:</label>
-            <input
-              type="date"
-              placeholder="dd/mm/yyyy"
-              className="form-control cpp-input datevalidation"
-              name="tenantchequeDate"
-              value={startSelectedDate}
-              onChange={(e) => onDateChange(e)}
-              style={{
-                width: "100%",
-              }}
-            />
+            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+              <label>ChequeDate:</label>
+              <input
+                type="date"
+                placeholder="dd/mm/yyyy"
+                className="form-control cpp-input datevalidation"
+                name="tenantchequeDate"
+                value={startSelectedDate}
+                onChange={(e) => onDateChange(e)}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </div>
           </div>
-        </div>
+        </>
+      ) : (
+        <></>
       )}
       {tenants.AgreementStatus && tenants.AgreementStatus === "Active" ? (
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
