@@ -39,9 +39,8 @@ const PropertyDetail = ({
   const [property, setProperty] = useState(null);
 
   const onEdit = (ele) => {
-    alert("hii")
-    // setProperty(ele);
-    // handleUpdateModalOpen();
+     setProperty(ele);
+     handleUpdateModalOpen();
   };
 
   const { deactive_reason } = formData;

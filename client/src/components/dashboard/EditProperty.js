@@ -16,6 +16,7 @@ const EditProperty = ({
   Property,
   updateProperty,
 }) => {
+  console.log(Property,"this is property details")
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -37,6 +38,17 @@ const EditProperty = ({
       return ele1 != ele;
     });
     setitem(delitem);
+  };
+
+
+  const [doornum, setdoornum] = useState("");
+  const [dno, setdno] = useState(Property.shopDoorNo);
+
+  const handleDoorNumclose = (ele1, index) => {
+    const delitem = dno.filter((ele, ind) => {
+      return ele1 != ele;
+    });
+    setdno(delitem);
   };
 
   const addItem = () => {
@@ -84,20 +96,11 @@ const EditProperty = ({
     updateProperty(update);
   };
 
-  return !isAuthenticated || !user || !users ? (
-    <Fragment></Fragment>
-  ) : (
-    <Fragment
-      show={show}
-      backdrop="static"
-      keyboard={false}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      className="logout-modal modblur"
-    >
-      <Modal.Body>
-          <div className="row">
+  return (
+    
+  
+    <Fragment >
+  
             <div className="col-lg-6">
               <label>
                 BuildingName
@@ -112,38 +115,9 @@ const EditProperty = ({
                 name="buildingName"
                 value={Property.buildingName}
                 className="form-control input"
-                // onChange={(e) => onPropertychange(e)}
+                 onChange={(e) => onInputChange(e)}
                 required
               />
-              <br></br>
-            </div>
-            <div className="col-lg-6">
-              <label>
-                Location
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
-              <Select
-                name="orgLoc"
-                // options={locationList}
-                // value={orgLoc}
-                // onChange={(e) => onchangeLoc(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
-              >
-                select Organization
-              </Select>
-              {/* need to add the property drop down here */}
-
               <br></br>
             </div>
             <div className="col-lg-6">
@@ -176,7 +150,7 @@ const EditProperty = ({
                 name="hikePercentage"
                 value={Property.hikePercentage}
                 className="form-control  input"
-                // onChange={(e) => onPropertychange(e)}
+                 onChange={(e) => onInputChange(e)}
                 required
               />
             </div>
@@ -189,14 +163,13 @@ const EditProperty = ({
               </label>
               <textarea
                 name="tenantAddr"
-                // value={}
+               
                 id=" addprop "
                 value={Property.leaseTimePeriod}
                 className="textarea form-control"
                 rows="4"
-                // onChange={(e) => onPropertychange(e)}
                 placeholder="Time"
-                // onChange={(e) => onInputChange(e)}
+                 onChange={(e) => onInputChange(e)}
                 style={{ width: "100%" }}
                 required
               ></textarea>
@@ -212,17 +185,19 @@ const EditProperty = ({
 
               <textarea
                 name="shopAddress"
-                // value={shopAddress}
+                value={Property.shopAddress}
                 id=" addprop "
                 className="textarea form-control"
                 rows="4"
                 placeholder="Address"
-                // onChange={(e) => onPropertychange(e)}
+                 onChange={(e) => onInputChange(e)}
                 style={{ width: "100%" }}
                 required
               ></textarea>
               <br></br>
             </div>
+
+
             <div className="  col-lg-6 ">
               <label className="ml-2">
                 DoorNo{" "}
@@ -230,8 +205,23 @@ const EditProperty = ({
                   <b>*</b>
                 </i>
               </label>
-{/* location start */}
-<div className="col-lg-6">
+              <div className="showItemcl ">
+                 {dno.map((ele, index1) => {
+                  return (
+                    <div className="eachItem" key={index1}>
+                      <span>{ele}</span>{" "}
+                      <button
+                        onClick={() => handleDoorNumclose(ele, index1)}
+                        className="btndrp"
+                      >
+                        X
+                      </button>
+                    </div>
+                  );
+                })} 
+              </div>
+
+            <div className="col-lg-6">
             <label className="ml-2">
               Location
               <i className="text-danger  ">
@@ -239,54 +229,16 @@ const EditProperty = ({
               </i>{" "}
               :
             </label>
-
             <input
-              className="form-control"
-              type="text"
-              name="Location"
-              value={inputdata}
-              onChange={(e) => setinput(e.target.value)}
-              placeholder="Location"
-              id="Location"
-            ></input>
-            <div>
-              <div className="locadds " onClick={addItem}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  fill="currentColor"
-                  class="bi bi-plus-lg"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
-                  />
-                </svg>
-              </div>
-              <div className="showItemcl ">
-                {items.map((ele, index1) => {
-                  return (
-                    <div className="eachItem" key={index1}>
-                      <span>{ele}</span>{" "}
-                      <button
-                        onClick={() => handleLocationclose(ele, index1)}
-                        className="btndrp"
-                      >
-                        X
-                      </button>
-                    </div>
-                  );
-                })}
-              </div>
+                type="text"
+                placeholder="Location"
+                name="Location"
+                value={Property.Location}
+                className="form-control  input"
+                 onChange={(e) => onInputChange(e)}
+                required
+              />
             </div>
-          </div>
-{/* location end */}
-            
-                
-          
-
             <div className="col-lg-12">
               <button
                 className="btn sub_form btn_continue Save float-right  text-end"
@@ -296,9 +248,8 @@ const EditProperty = ({
                 Save
               </button>
             </div>
-          </div>
         </div>
-      </Modal.Body>
+ 
 
       <Modal
         // show={showInformationModal}
@@ -324,8 +275,9 @@ const EditProperty = ({
         </Modal.Footer>
       </Modal>
     </Fragment>
-  );
+  )
 };
+
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants1: state.tenants,
