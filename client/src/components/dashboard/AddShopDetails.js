@@ -15,20 +15,17 @@ const AddShopDetails = ({
   getParticularOrg,
   getAllShops,
 }) => {
-console.log(user,"this is user")
- useEffect(()=>{
-
-      //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
-       getParticularOrg({ OrganizationName: user.OrganizationName});
+  console.log(user, "this is user");
+  useEffect(() => {
+    //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
+    getParticularOrg({ OrganizationName: user.OrganizationName });
     console.log("this is loc data", particular_org_loc);
+  }, []);
 
- },[])
-
- 
   const [orgLoc, setLoc] = useState({});
 
   const locationList = [];
-  console.log(particular_org_loc.Location)
+  console.log(particular_org_loc.Location);
 
   particular_org_loc.map((org) => {
     locationList.push({
@@ -41,7 +38,7 @@ console.log(user,"this is user")
   };
 
   //formData
-  
+
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
@@ -413,6 +410,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddShopDetailsform,
   getAllShops,
-  
+
   getParticularOrg,
 })(AddShopDetails);

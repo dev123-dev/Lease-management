@@ -9,7 +9,6 @@ import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "./EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
 
-
 const PropertyDetail = ({
   auth: { user },
   tenants: { particular_org_data },
@@ -18,20 +17,18 @@ const PropertyDetail = ({
   deactiveProperty,
   getParticularProperty,
 }) => {
-
   useEffect(() => {
-   
     //getParticularProperty();
   }, []);
   const uniqueOrg = {
     OrganizationName: user.OrganizationName,
-   // id: user.OrganizationId,
+    // id: user.OrganizationId,
   };
 
-   useEffect(() => {
-     getParticularProperty(uniqueOrg);
-   }, []);
-  
+  useEffect(() => {
+    getParticularProperty(uniqueOrg);
+  }, []);
+
   const [orgdetail, setorgdetail] = useState({
     OrganizationName: "",
     id: "",
@@ -42,14 +39,17 @@ const PropertyDetail = ({
     deactive_reason: "",
     isSubmitted: false,
   });
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
   const [property, setProperty] = useState(null);
   const onEdit = (ele) => {
+    console.log("clicked on edit");
     setProperty(ele);
     console.log(ele);
     handleUpdateModalOpen();
   };
+
   const { deactive_reason } = formData;
 
   const onInputChange = (e) => {
