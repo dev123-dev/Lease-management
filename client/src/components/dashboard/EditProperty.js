@@ -30,7 +30,7 @@ const EditProperty = ({
 
   // const [OrgId, setId] = useState("");
 
-  // console.log(org.Location);
+  console.log("hai");
 
   const onedit = (id) => {
     // setId(id);
