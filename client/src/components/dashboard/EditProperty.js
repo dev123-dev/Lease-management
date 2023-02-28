@@ -28,35 +28,24 @@ const EditProperty = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const [OrgId, setId] = useState("");
+  //adding multiple location start
+  const [inputdata, setinput] = useState("");
+  const [items, setitem] = useState(Property.Location);
 
-  // console.log(org.Location);
-
-  const onedit = (id) => {
-    // setId(id);
-    handleOpen();
+  const handleLocationclose = (ele1, index) => {
+    const delitem = items.filter((ele, ind) => {
+      return ele1 != ele;
+    });
+    setitem(delitem);
   };
 
-  const [items, setitem] = useState([]);
-
-  // // adding multiple location start
-  // const [inputdata, setinput] = useState("");
-  // const [items, setitem] = useState(org.Location);
-
-  // const handleLocationclose = (ele1, index) => {
-  //   const delitem = items.filter((ele, ind) => {
-  //     return ele1 != ele;
-  //   });
-  //   setitem(delitem);
-  // };
-
-  // const addItem = () => {
-  //   if (!inputdata) {
-  //   } else {
-  //     setitem([...items, inputdata]);
-  //     setinput("");
-  //   }
-  // };
+  const addItem = () => {
+    if (!inputdata) {
+    } else {
+      setitem([...items, inputdata]);
+      setinput("");
+    }
+  };
   //multiple location end
 
   const [formData, setFormData] = useState({
@@ -108,7 +97,6 @@ const EditProperty = ({
       className="logout-modal modblur"
     >
       <Modal.Body>
-        <div className="container-fluid propcont">
           <div className="row">
             <div className="col-lg-6">
               <label>
@@ -212,17 +200,8 @@ const EditProperty = ({
                 style={{ width: "100%" }}
                 required
               ></textarea>
-              {/* <input
-              type="text"
-              name="leaseTimePeriod"
-              value={leaseTimePeriod}
-              className="form-control  input"
-              onChange={(e) => onPropertychange(e)}
-              required
-            /> */}
+             
             </div>
-            {/* <div className="container-fluid"> */}
-            {/* <div className="row"> */}
             <div className="col-lg-6">
               <label>
                 Address
@@ -251,54 +230,62 @@ const EditProperty = ({
                   <b>*</b>
                 </i>
               </label>
+{/* location start */}
+<div className="col-lg-6">
+            <label className="ml-2">
+              Location
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>{" "}
+              :
+            </label>
 
-              <input
-                className="form-control"
-                type="text"
-                name="shopDoorNo"
-                // value={inputdata}
-                // onChange={(e) => setinput(e.target.value)}
-                placeholder="Door Number"
-                id="Door Number"
-              ></input>
-
-              <div>
-                <div className="locadd ">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    fill="currentColor"
-                    class="bi bi-plus-lg"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
-                    />
-                  </svg>
-                </div>
-                <br></br>
-                <div className="showItemcl ">
-                  {items.map((ele, index) => {
-                    return (
-                      <div className="eachItem" key={index}>
-                        <span>{ele}</span>
-                        <button
-                          // onClick={() => handleLocationclose(index)}
-                          className="btndrp "
-                        >
-                          X
-                        </button>
-                      </div>
-                    );
-                  })}
-                </div>
+            <input
+              className="form-control"
+              type="text"
+              name="Location"
+              value={inputdata}
+              onChange={(e) => setinput(e.target.value)}
+              placeholder="Location"
+              id="Location"
+            ></input>
+            <div>
+              <div className="locadds " onClick={addItem}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="30"
+                  fill="currentColor"
+                  class="bi bi-plus-lg"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                  />
+                </svg>
+              </div>
+              <div className="showItemcl ">
+                {items.map((ele, index1) => {
+                  return (
+                    <div className="eachItem" key={index1}>
+                      <span>{ele}</span>{" "}
+                      <button
+                        onClick={() => handleLocationclose(ele, index1)}
+                        className="btndrp"
+                      >
+                        X
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
-            {/* </div> */}
-
-            {/* </div> */}
+          </div>
+{/* location end */}
+            
+                
+          
 
             <div className="col-lg-12">
               <button

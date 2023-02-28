@@ -58,10 +58,10 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) =>async (dispatch)=>{
-  console.log("action try up hj",data)
+
   try{
     const res = await axios.post(`${linkPath}/api/tenants/get-Particular-Property`,data,config);
-    console.log("action hj",res)
+console.log("my data,",res.data)
     dispatch({
       type : PARTICULAR_ORG_PROPERTY,
       payload : res.data,
@@ -309,13 +309,9 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
-  console.log(finalData);
+  
   try {
-    await axios.post(
-      `${linkPath}/api/tenants/add-Property-details`,
-      finalData,
-      config
-    );
+    await axios.post( `${linkPath}/api/tenants/add-Property-details`,finalData,config);
     dispatch(getAllShops());
   } catch (err) {
     dispatch({

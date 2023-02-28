@@ -37,11 +37,11 @@ const PropertyDetail = ({
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
   const [property, setProperty] = useState(null);
+
   const onEdit = (ele) => {
-    console.log("clicked on edit");
-    setProperty(ele);
-    console.log(ele);
-    handleUpdateModalOpen();
+    alert("hii")
+    // setProperty(ele);
+    // handleUpdateModalOpen();
   };
 
   const { deactive_reason } = formData;
@@ -69,7 +69,7 @@ const PropertyDetail = ({
     };
     deactiveProperty(reason);
   };
-
+console.log("loc",particular_org_data)
   return (
     <div>
       <div className="container container_align ">
@@ -89,7 +89,7 @@ const PropertyDetail = ({
                 <tr>
                   <th>Building Name</th>
                   <th>Door Number</th>
-                  <th>Location</th>
+                  <th>Location</th> 
                   <th>Hike %</th>
                   <th>Stamp Duty</th>
                   <th>Lease Time Period</th>

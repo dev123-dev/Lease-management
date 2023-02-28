@@ -350,24 +350,45 @@ router.post("/add-tenant-settings", async (req, res) => {
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
   
-  try {
-    let proper = new property(data);
-    output = await proper.save();
-    res.send(output);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
-  }
+  
+  // try {
+    
+  //   const finaldata = {
+  //     OrganizationName: data.OrganizationName,
+  //     Organization_id : data.Organization_id,
+  //     buildingName: data.buildingName,
+  //     shopDoorNo: data.shopDoorNo ,
+  //     shopAddress: data.shopAddress,
+  //     hikePercentage: data.hikePercentage ,
+  //     leaseTimePeriod : data.leaseTimePeriod,
+  //     stampDuty: data.stampDuty ,     
+  //     shopStatus: data.shopStatus,
+  //     Location : data.Location,
+  //   }
+     let proper = new property(data);
+     let output = proper.save();
+
+  //   res.send(proper);
+  // } catch (err) {
+  //   console.error(err.message);
+  //   res.status(500).send("Internal Server Error.");
+  // }
 });
 
 //get particular property detaills based on organization details
 
 router.post("/get-Particular-Property",async(req,res)=>{
   let data = req.body;
-  console.log(data)
   try{
-    let propertydata =  await property.find({OrganizationName:data.OrganizationName})
+    let propertydata =  await property.find(
+      {OrganizationName:data.OrganizationName},
+      // {
+      //   Location : 1
+      // }
+      )
+
     res.json(propertydata);
+    console.log("particular data",propertydata.Location);
    
   }catch(error){
     console.log(error.message)
@@ -653,6 +674,7 @@ router.post("/add-agreement-details", async (req, res) => {
 router.get("/get-all-shops", async (req, res) => {
   try {
     const ShopsData = await property.find({}).sort({ _id: -1 });
+    console.log(ShopsData)
     res.json(ShopsData);
   } catch (err) {
     console.error(err.message);

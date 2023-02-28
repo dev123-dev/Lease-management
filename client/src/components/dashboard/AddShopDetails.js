@@ -23,7 +23,7 @@ const AddShopDetails = ({
 
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
-  console.log("this is loc", locationList);
+
   particular_org_loc.Location &&
     particular_org_loc.Location.map((org) => {
       locationList.push({
@@ -32,9 +32,10 @@ const AddShopDetails = ({
       });
     });
 
-  console.log(particular_org_loc, "loc", locationList);
+  console.log(particular_org_loc, "loc");
 
   const onchangeLoc = (e) => {
+    
     setLoc(e);
   };
 
@@ -102,13 +103,14 @@ const AddShopDetails = ({
       shopDoorNo: items,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
-      leaseTimePeriod: leaseTimePeriod,
+      leaseTimePeriod: 12,
       shopAddress: shopAddress,
       isSubmitted: false,
+      Location : orgLoc.value,
       shopStatus: "Acquired",
     };
-    console.log(finalData);
-
+    
+console.log("fnial data",finalData)
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,
@@ -258,12 +260,12 @@ const AddShopDetails = ({
                 <div className="controls">
                   <input
                     name="OrganizationStartdate"
-                    id="cat_name"
-                    type="date"
+                    placeholder="12"
                     value={leaseTimePeriod}
                     className="form-control"
                     onChange={(e) => onPropertychange(e)}
                     required
+                    readOnly
                   />
                   <span id="category_result" className="form-input-info"></span>
                 </div>

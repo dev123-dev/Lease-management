@@ -71,7 +71,9 @@ const PropertySchema = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
-  Location: {},
+  Location: {
+    type : String
+  },
   tdId: {
     type: ObjectId,
   },

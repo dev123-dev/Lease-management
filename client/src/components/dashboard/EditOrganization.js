@@ -29,8 +29,6 @@ const EditOrganization = ({
 
   const [OrgId, setId] = useState("");
 
-  console.log(org.Location);
-
   const onedit = (id) => {
     setId(id);
     handleOpen();
@@ -85,7 +83,6 @@ const EditOrganization = ({
       OrganizationAddress: OrganizationAddress,
       Location: items,
     };
-    console.log("main page" + update);
     updateOrganization(update);
   };
 
