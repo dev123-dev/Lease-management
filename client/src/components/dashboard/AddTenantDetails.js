@@ -12,7 +12,7 @@ import { Model } from "mongoose";
 import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddTenantDetails = ({
-  tenants: { allDoorNos, allTenantSetting },
+  tenants: { allDoorNos, allTenantSetting, particular_org_data  },
   auth: { isAuthenticated, user, users, finalDataRep },
   getAllDoorNos,
   AddTenantDetailsform,
@@ -24,9 +24,24 @@ const AddTenantDetails = ({
   }, [getAllDoorNos]);
   useEffect(() => {
     getAllSettings();
+    console.log(" particular_org_data ", particular_org_data )
+
   }, [getAllSettings]);
 
-  //console.log(allDoorNos);
+const [doorno, setdno] = useState([]);
+const DnoList = [];
+particular_org_data.shopDoorNo
+&&
+particular_org_data.shopDoorNo.map((dorno) => {
+  DnoList.push({
+    value: dorno,
+    label: dorno,
+  });
+});
+const onchangeDoor=(e)=>{
+  setdno(e);
+}
+
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -178,13 +193,16 @@ const AddTenantDetails = ({
       });
     }
   };
-  const shopdoorNo = [];
-  allDoorNos.map((doorno) =>
-    shopdoorNo.push({
-      label: doorno.shopDoorNo,
-      value: doorno.shopDoorNo,
-    })
-  );
+  // const shopdoorNo = [];
+  // allDoorNos.map((doorno) =>
+  //   shopdoorNo.push({
+  //     label: doorno.shopDoorNo,
+  //     value: doorno.shopDoorNo,
+  //   })
+  // );
+
+ 
+  
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onSubmit = () => {
@@ -303,25 +321,24 @@ const AddTenantDetails = ({
                     <b>*</b>
                   </i>
                 </label>
-                <select
-                  onChange={(e) => onInputChange(e)}
-                  className="form-control"
-                >
-                  <option>{tenantDoorNo}</option>
-
-                  <option>{tenantDoorNo}</option>
-
-                  <option>{tenantDoorNo}</option>
-                </select>
+                <Select
+                  name="doorno"
+                  options={DnoList}
+                  value={doorno}
+                  onChange={(e) => onchangeDoor(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                ></Select>
                 <br></br>
-                {/* <input
-                  type="text"
-                  name="tenantDoorNo"
-                  value={tenantDoorNo}
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                /> */}
+                
               </div>
               <div className="col-lg-4">
                 <label className="ml-2">
