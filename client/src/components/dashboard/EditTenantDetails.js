@@ -147,7 +147,6 @@ const EditTenantDetails = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-  
   //For setting mindate as todays date
 
   const onUpdate = (tenants, idx) => {
@@ -201,7 +200,7 @@ const EditTenantDetails = ({
     //   thEnteredBy: user && user._id,
     //   thDate: todayDateymd,
     // };
-     console.log(finalData);
+    console.log(finalData);
     // console.log(historyData);
 
     // tenantsDetailsHistory(historyData);
@@ -442,10 +441,7 @@ const EditTenantDetails = ({
       ) : (
         <Fragment></Fragment>
       )}
-      <button
-        className="tenantEditSave"
-        onClick={()=>onUpdate(tenants)}
-      >
+      <button className="tenantEditSave" onClick={() => onUpdate(tenants)}>
         Update
       </button>
     </Fragment>
