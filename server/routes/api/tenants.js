@@ -386,11 +386,7 @@ router.post("/get-Particular-Property",async(req,res)=>{
   let data = req.body;
   try{
     let propertydata =  await property.find(
-      {OrganizationName:data.OrganizationName},
-      // {
-      //   Location : 1
-      // }
-      )
+      {OrganizationName:data.OrganizationName})
 
     res.json(propertydata);
     console.log("particular data",propertydata.Location);
