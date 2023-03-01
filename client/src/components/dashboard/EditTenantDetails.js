@@ -147,10 +147,7 @@ const EditTenantDetails = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-  const update = (e) => {
-    alert("hai");
-  };
-
+  
   //For setting mindate as todays date
 
   const onUpdate = (tenants, idx) => {
@@ -177,41 +174,41 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    const historyData = {
-      tdId: tenants ? tenants._id : "",
-      // tenantDoorNo: tenants.tenantDoorNo,
-      // tenantFileNo: tenants.tenantFileNo,
-      thRentAmount: tenants.tenantRentAmount,
-      thName: tenants.tenantName,
-      thPhone: tenants.tenantPhone,
-      thFirmName: tenants.tenantFirmName,
-      thAddr: tenants.tenantAddr,
-      thAdharNo: tenants.tenantAdharNo,
-      thPanNo: tenants.tenantPanNo,
-      thDepositAmt: tenants.tenantDepositAmt,
-      thPaymentMode: tenants.tenantPaymentMode,
-      thBankName: tenants.tenantBankName,
-      thChequenoOrDdno: tenants.tenantChequenoOrDdno,
-      thgeneratordepoAmt: tenants.generatordepoAmt,
-      thStatus: "Edit",
-      // tenantBankName: tenants.tenantBankName,
-      // tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
-      // tenantPaymentMode: tenants.tenantPaymentMode.value,
-      // tenantchequeDate: tenants.startSelectedDate,
-      thLeaseStartDate: tenants.tenantLeaseStartDate,
-      thLeaseEndDate: tenants.tenantLeaseEndDate,
-      // AgreementStatus: tenants.AgreementStatus,
-      thEnteredBy: user && user._id,
-      thDate: todayDateymd,
-    };
-    // console.log(finalData);
+    // const historyData = {
+    //   tdId: tenants ? tenants._id : "",
+    //   // tenantDoorNo: tenants.tenantDoorNo,
+    //   // tenantFileNo: tenants.tenantFileNo,
+    //   thRentAmount: tenants.tenantRentAmount,
+    //   thName: tenants.tenantName,
+    //   thPhone: tenants.tenantPhone,
+    //   thFirmName: tenants.tenantFirmName,
+    //   thAddr: tenants.tenantAddr,
+    //   thAdharNo: tenants.tenantAdharNo,
+    //   thPanNo: tenants.tenantPanNo,
+    //   thDepositAmt: tenants.tenantDepositAmt,
+    //   thPaymentMode: tenants.tenantPaymentMode,
+    //   thBankName: tenants.tenantBankName,
+    //   thChequenoOrDdno: tenants.tenantChequenoOrDdno,
+    //   thgeneratordepoAmt: tenants.generatordepoAmt,
+    //   thStatus: "Edit",
+    //   // tenantBankName: tenants.tenantBankName,
+    //   // tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
+    //   // tenantPaymentMode: tenants.tenantPaymentMode.value,
+    //   // tenantchequeDate: tenants.startSelectedDate,
+    //   thLeaseStartDate: tenants.tenantLeaseStartDate,
+    //   thLeaseEndDate: tenants.tenantLeaseEndDate,
+    //   // AgreementStatus: tenants.AgreementStatus,
+    //   thEnteredBy: user && user._id,
+    //   thDate: todayDateymd,
+    // };
+     console.log(finalData);
     // console.log(historyData);
 
-    tenantsDetailsHistory(historyData);
-    UpdateTenantsDetails(finalData);
+    // tenantsDetailsHistory(historyData);
+    // UpdateTenantsDetails(finalData);
 
     onUpdateModalChange(true);
-    getAllTenants();
+    // getAllTenants();
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -445,21 +442,9 @@ const EditTenantDetails = ({
       ) : (
         <Fragment></Fragment>
       )}
-
       <button
         className="tenantEditSave"
-        onClick={update} /*onUpdate(tenants)*/
-        style={
-          tenantDoorNo !== "" &&
-          tenantFileNo !== "" &&
-          tenantName !== "" &&
-          tenantPaymentMode !== "" &&
-          tenantDepositAmt !== "" &&
-          tenantRentAmount !== "" &&
-          tenantAddr !== ""
-            ? { opacity: "1" }
-            : { opacity: "1", pointerEvents: "none" }
-        }
+        onClick={()=>onUpdate(tenants)}
       >
         Update
       </button>
