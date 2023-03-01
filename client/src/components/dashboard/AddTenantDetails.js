@@ -7,13 +7,12 @@ import {
   getAllSettings,
 } from "../../actions/tenants";
 import Select from "react-select";
-import { Button, Modal } from "react-bootstrap";
-import { Model } from "mongoose";
+import { Modal, Button } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddTenantDetails = ({
-  tenants: { allDoorNos, allTenantSetting, particular_org_data  },
   auth: { isAuthenticated, user, users, finalDataRep },
+  tenants: { allDoorNos, allTenantSetting, particular_org_data },
   getAllDoorNos,
   AddTenantDetailsform,
   Addorgform,
@@ -24,31 +23,17 @@ const AddTenantDetails = ({
   }, [getAllDoorNos]);
   useEffect(() => {
     getAllSettings();
-    console.log(" particular_org_data ", particular_org_data )
-
   }, [getAllSettings]);
+  const [doorno, setdno] = useState([]);
 
-const [doorno, setdno] = useState([]);
-const DnoList = [];
-particular_org_data.shopDoorNo
-&&
-particular_org_data.shopDoorNo.map((dorno) => {
-  DnoList.push({
-    value: dorno,
-    label: dorno,
-  });
-});
-const onchangeDoor=(e)=>{
-  setdno(e);
-}
-
+  const onchangeDoor = (e) => {
+    setdno(e);
+  };
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
   ];
-
-  //formData
   const [formData, setFormData] = useState({
     tenantFileNo: "",
     tenantDoorNo: "",
@@ -70,8 +55,6 @@ const onchangeDoor=(e)=>{
     generatordepoAmt: "",
     isSubmitted: false,
   });
-
-  //tenant data
   const {
     tenantFileNo,
     tenantDoorNo,
@@ -116,6 +99,44 @@ const onchangeDoor=(e)=>{
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState();
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+
+  const [buildingData, getbuildingData] = useState();
+  const [buildingId, setBuildingID] = useState();
+  const [buildingName, setBuildingName] = useState();
+
+  const allBuildingNames = [];
+  particular_org_data.map((buildingData) =>
+    allBuildingNames.push({
+      buildingId: buildingData._id,
+      label: buildingData.buildingName,
+      value: buildingData.buildingName,
+    })
+  );
+
+  //console.log(particular_org_data)
+  const [DnoList, setDnoList] = useState([]);
+
+  const onBuildingChange = (e) => {
+    let temp = DnoList;
+    particular_org_data &&
+      particular_org_data.map((ele) => {
+        if (e.buildingId == ele._id) {
+          ele.shopDoorNo.map((doornumber) => {
+            temp.push({
+              label: doornumber,
+              value: doornumber,
+            });
+          });
+        }
+      });
+    setDnoList(temp);
+    console.log("DnoList inside", DnoList);
+    getbuildingData(e);
+    setBuildingID(e.buildingId ? e.buildingId : null);
+    setBuildingName(e.value ? e.value : "");
+  };
+
+  console.log("DnoList new", DnoList);
 
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
@@ -193,16 +214,7 @@ const onchangeDoor=(e)=>{
       });
     }
   };
-  // const shopdoorNo = [];
-  // allDoorNos.map((doorno) =>
-  //   shopdoorNo.push({
-  //     label: doorno.shopDoorNo,
-  //     value: doorno.shopDoorNo,
-  //   })
-  // );
 
- 
-  
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onSubmit = () => {
@@ -274,7 +286,7 @@ const onchangeDoor=(e)=>{
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <>
+    <Fragment>
       <img
         onClick={handleInformationModalOpen}
         src={require("../../static/images/add-icon.png")}
@@ -316,6 +328,21 @@ const onchangeDoor=(e)=>{
             <div className="row">
               <div className="col-lg-4">
                 <label className="ml-2">
+                  Property Name{" "}
+                  <i className="text-danger  ">
+                    <b>*</b>
+                  </i>
+                </label>
+                <Select
+                  name="doorno"
+                  options={allBuildingNames}
+                  value={buildingData}
+                  onChange={(e) => onBuildingChange(e)}
+                ></Select>
+                <br></br>
+              </div>
+              <div className="col-lg-4">
+                <label className="ml-2">
                   DoorNo{" "}
                   <i className="text-danger  ">
                     <b>*</b>
@@ -326,19 +353,8 @@ const onchangeDoor=(e)=>{
                   options={DnoList}
                   value={doorno}
                   onChange={(e) => onchangeDoor(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
-                    colors: {
-                      ...theme.colors,
-                      primary: "black",
-                    },
-                  })}
                 ></Select>
                 <br></br>
-                
               </div>
               <div className="col-lg-4">
                 <label className="ml-2">
@@ -644,7 +660,7 @@ const onchangeDoor=(e)=>{
           </Modal.Footer>
         </Modal> */}
       </Modal>
-    </>
+    </Fragment>
   );
 };
 
@@ -656,7 +672,6 @@ AddTenantDetails.propTypes = {
   getAllSettings: PropTypes.func.isRequired,
 };
 
-//
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

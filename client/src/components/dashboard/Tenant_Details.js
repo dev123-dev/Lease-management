@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllTenants } from "../../actions/tenants";
@@ -14,7 +14,9 @@ const Tenant_Details = ({
   getAllTenants,
   deactiveTenantsDetails,
 }) => {
-  getAllTenants();
+  useEffect(() => {
+    getAllTenants();
+  }, []);
 
   const [userData, setUserData] = useState(null);
 
