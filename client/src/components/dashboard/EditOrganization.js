@@ -75,6 +75,7 @@ const EditOrganization = ({
   };
 
   const onUpdate = () => {
+    handleClose();
     const update = {
       OrganizationId: org._id,
       OrganizationName: OrganizationName,

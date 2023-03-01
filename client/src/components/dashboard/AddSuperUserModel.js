@@ -84,7 +84,6 @@ const AddSuperUserModel = ({
       //alert("fill al,l fields");
       setfill(true);
     } else {
-      console.log(name, email, address);
       handleClose();
 
       const finalUserData = {
@@ -129,6 +128,13 @@ const AddSuperUserModel = ({
     //for super admin
     <Fragment>
       <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
+        <img
+          className=" orgaddicon"
+          onClick={handleShow}
+          src={require("../../static/images/refresh-icon.png")}
+          alt="Add User"
+          title="Add User"
+        />
         <img
           className=" orgaddicon"
           onClick={handleShow}
@@ -183,7 +189,6 @@ const AddSuperUserModel = ({
                     className="form-control"
                     placeholder="Name"
                     onChange={(e) => onuserchange(e)}
-                    required
                   />
                 </div>
                 <div className="col-lg-6">
@@ -201,7 +206,6 @@ const AddSuperUserModel = ({
                     value={email}
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
-                    required
                   />
                 </div>
                 <div className="col-lg-6">

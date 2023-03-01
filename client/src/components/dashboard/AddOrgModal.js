@@ -98,34 +98,49 @@ const AddOrgModal = ({
       handleEditModalClose();
     }
   };
+  //fill all the field state
+  const [fill, setfill] = useState(false);
 
   const onSubmitORGdata = (e) => {
-    // e.preventDefault();
-    const finalORGdata = {
-      OrganizationName: OrganizationName,
-      OrganizationEmail: OrganizationEmail,
-      OrganizationNumber: OrganizationNumber,
-      OrganizationAddress: OrganizationAddress,
+    if (
+      OrganizationName === "" ||
+      OrganizationEmail === "" ||
+      OrganizationNumber === "" ||
+      OrganizationAddress === "" ||
+      entryDate === "" ||
+      newLeaseEndDate === "" ||
+      items === ""
+    ) {
+      setfill(true);
+    } else {
+      handleClose();
 
-      date: entryDate,
-      enddate: newLeaseEndDate,
-      Location: items,
-    };
-    console.log(finalORGdata);
+      const finalORGdata = {
+        OrganizationName: OrganizationName,
+        OrganizationEmail: OrganizationEmail,
+        OrganizationNumber: OrganizationNumber,
+        OrganizationAddress: OrganizationAddress,
 
-    AddOrganization(finalORGdata);
-    setFormDataORG({
-      ...formDataORG,
-      OrganizationName: "" /*name*/,
-      OrganizationEmail: "",
-      OrganizationNumber: "",
-      OrganizationAddress: "",
-      OrganizationStatus: "",
-      date: "",
-      enddate: "",
+        date: entryDate,
+        enddate: newLeaseEndDate,
+        Location: items,
+      };
+      console.log(finalORGdata);
 
-      Location: [],
-    });
+      AddOrganization(finalORGdata);
+      setFormDataORG({
+        ...formDataORG,
+        OrganizationName: "" /*name*/,
+        OrganizationEmail: "",
+        OrganizationNumber: "",
+        OrganizationAddress: "",
+        OrganizationStatus: "",
+        date: "",
+        enddate: "",
+
+        Location: [],
+      });
+    }
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -195,7 +210,6 @@ const AddOrgModal = ({
                       onChange={(e) => onORGchange(e)}
                       className="form-control "
                       placeholder="OrganizationName"
-                      required
                     />
                   </div>
                   <div className="col-lg-6">
@@ -213,7 +227,6 @@ const AddOrgModal = ({
                       className="form-control"
                       placeholder="Email"
                       //onChange={(e) => onInputChange(e)}
-                      required
                     />{" "}
                   </div>
 
@@ -242,7 +255,6 @@ const AddOrgModal = ({
                       //value={}
                       className="form-control"
                       placeholder="Number Of User"
-                      required
                     />
                   </div>
 
@@ -263,7 +275,6 @@ const AddOrgModal = ({
                       style={{
                         width: "100%",
                       }}
-                      required
                     />
                   </div>
                   <div className="col-lg-6">
@@ -287,7 +298,6 @@ const AddOrgModal = ({
                       style={{
                         width: "100%",
                       }}
-                      required
                     />
                     {/* <label><b>{leaseEndDate}</b></label> */}
                   </div>
@@ -311,7 +321,6 @@ const AddOrgModal = ({
                       placeholder="Address"
                       // onChange={(e) => onInputChange(e)}
                       style={{ width: "100%" }}
-                      required
                     ></textarea>{" "}
                   </div>
                   <div className="  col-lg-6 ">
@@ -365,6 +374,13 @@ const AddOrgModal = ({
                         })}
                       </div>
                     </div>
+                    <h5 className="Uservalidation">
+                      {fill ? (
+                        <>Please fill all Mandatory(*) fields..!!</>
+                      ) : (
+                        <> </>
+                      )}
+                    </h5>
                   </div>
                   <div className="col-lg-12">
                     <Modal.Footer>
@@ -374,7 +390,6 @@ const AddOrgModal = ({
                           id="savebtn"
                           className="btn sub_form btn_continue Save float-right"
                           onClick={(e) => onSubmitORGdata(e)}
-                          onSubmit={handleClose}
                         >
                           Save
                         </button>

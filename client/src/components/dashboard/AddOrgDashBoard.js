@@ -111,8 +111,18 @@ const AddOrgDashBoard = ({
         {/* OrganiZation Details  start*/}
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+            <div className=" col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">Organization Details </h2>
+
+              <div className="col-lg-12 col-md-11 col-sm-11 col-11 py-4">
+                <img
+                  className="orgaddicon "
+                  onClick={() => getAllOrganization()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="Add User"
+                  title="Add User"
+                />
+              </div>
             </div>
 
             <AddOrgModal />
