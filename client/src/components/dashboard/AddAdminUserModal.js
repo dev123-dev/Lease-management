@@ -13,7 +13,6 @@ const AddAdminUserModal = ({
   getalluser,
 }) => {
   getalluser();
-  console.log(user);
 
   // const orglist = [];
   // console.log(allorg)
@@ -72,7 +71,6 @@ const AddAdminUserModal = ({
     };
 
     AddAdminuser(finalUserData);
-    console.log("this is final data", finalUserData);
     handleClose();
     setFormData({
       ...formData,
@@ -93,7 +91,6 @@ const AddAdminUserModal = ({
   const superhandleClose = () => setSuperShow(false);
   const superhandleShow = () => setSuperShow(true);
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
-  console.log("this is admin", user);
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
     //for super admin

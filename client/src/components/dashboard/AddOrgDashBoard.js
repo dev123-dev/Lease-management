@@ -36,7 +36,6 @@ const AddOrgDashBoard = ({
   const [items, setitem] = useState([]);
 
   const handleLocationclose = (nameofLocation, indexx) => {
-    console.log(nameofLocation.Location);
     const delitem = nameofLocation.Location.filter((ele) => {
       return indexx != ele;
     });
@@ -44,7 +43,6 @@ const AddOrgDashBoard = ({
     //   return ind != index;
     // });
     setitem(delitem);
-    console.log(delitem);
     //nameofLocation.Location(items);
   };
 
@@ -102,7 +100,6 @@ const AddOrgDashBoard = ({
       deactive_reason: Organization_DE_Reason,
     };
     deleteOrganization(reason);
-    console.log(OrgId);
   };
 
   return (
@@ -111,23 +108,20 @@ const AddOrgDashBoard = ({
         {/* OrganiZation Details  start*/}
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className=" col-lg-10 col-md-11 col-sm-11 col-11 ">
+            <div className="  col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">Organization Details </h2>
-
-              <div className="col-lg-12 col-md-11 col-sm-11 col-11 py-4">
-                <img
-                  className="orgaddicon "
-                  onClick={() => getAllOrganization()}
-                  src={require("../../static/images/refresh-icon.png")}
-                  alt="Add User"
-                  title="Add User"
-                />
-              </div>
+              <img
+                className="refresh "
+                onClick={() => getAllOrganization()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="refresh"
+              />
             </div>
 
             <AddOrgModal />
           </div>
-          <div className="row">
+          <div className="row orgtable">
             <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
               <section className="body">
                 <div className="body-inner no-padding  table-responsive fixTableHead">

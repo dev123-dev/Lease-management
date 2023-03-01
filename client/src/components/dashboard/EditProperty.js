@@ -15,7 +15,6 @@ const EditProperty = ({
   Property,
   updateProperty,
 }) => {
-  console.log("this is property details", Property, user);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -99,7 +98,6 @@ const EditProperty = ({
       isSubmitted: true,
       shopStatus: "Acquired",
     };
-    console.log("updated data in main page", update);
     updateProperty(update);
   };
 

@@ -8,18 +8,17 @@ import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
-import {getAllOrganization} from "../../actions/tenants"
+import { getAllOrganization } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants: { allTenants,allorg },
+  tenants: { allTenants, allorg },
   getAllTenants,
   deactiveTenantsDetails,
   getAllOrganization,
 }) => {
   getAllTenants();
- // getAllOrganization();
-  //console.log("this is all org data in tenant Report", allorg);
+  // getAllOrganization();
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -113,29 +112,30 @@ const TenantReport = ({
                             </tr>
                           </thead>
                           <tbody>
-                        {allorg &&
-                          allorg[0] &&
-                          allorg.map((org, index) => {
-                            return (
-                              <tr>
-                                <td>{org.OrganizationName}</td>
-                                <td>{org.OrganizationEmail}</td>
-                                <td>{org.OrganizationNumber}</td>
-                                <td>{org.OrganizationAddress}</td>
-                               <td>{org.AgreementStatus}</td>
-                                <td>{org.enddate}</td>
-                                <td>
-                                  {org.AgreementStatus === "Expired" ? (
-                                    <button className="rewbtn">Renewal</button>
-                                  ) : (
-                                    <p>not working</p>
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                      </tbody>
-                        
+                            {allorg &&
+                              allorg[0] &&
+                              allorg.map((org, index) => {
+                                return (
+                                  <tr>
+                                    <td>{org.OrganizationName}</td>
+                                    <td>{org.OrganizationEmail}</td>
+                                    <td>{org.OrganizationNumber}</td>
+                                    <td>{org.OrganizationAddress}</td>
+                                    <td>{org.AgreementStatus}</td>
+                                    <td>{org.enddate}</td>
+                                    <td>
+                                      {org.AgreementStatus === "Expired" ? (
+                                        <button className="rewbtn">
+                                          Renewal
+                                        </button>
+                                      ) : (
+                                        <p>not working</p>
+                                      )}
+                                    </td>
+                                  </tr>
+                                );
+                              })}
+                          </tbody>
                         </table>
                       </div>
                     </section>

@@ -18,8 +18,6 @@ const PropertyDetail = ({
   deactiveProperty,
   getParticularProperty,
 }) => {
-  console.log("this is particular", particular_org_data);
-
   useEffect(() => {
     getalluser();
     getParticularProperty();
@@ -68,7 +66,6 @@ const PropertyDetail = ({
     };
     deactiveProperty(reason);
   };
-  console.log("loc", particular_org_data);
   return (
     <div>
       <div className="container container_align ">

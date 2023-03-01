@@ -20,7 +20,6 @@ const EditTenantDetails = ({
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
   ];
-  console.log(user);
   const [showHide, setShowHide] = useState({
     showChequenoSection:
       tenants && tenants.tenantPaymentMode === "Cheque" ? true : false,
@@ -133,7 +132,6 @@ const EditTenantDetails = ({
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
   };
-  console.log(leaseEndDate);
   //For setting mindate as todays date
   var today = new Date();
   var dd = today.getDate();
@@ -200,8 +198,6 @@ const EditTenantDetails = ({
     //   thEnteredBy: user && user._id,
     //   thDate: todayDateymd,
     // };
-    console.log(finalData);
-    // console.log(historyData);
 
     // tenantsDetailsHistory(historyData);
     // UpdateTenantsDetails(finalData);

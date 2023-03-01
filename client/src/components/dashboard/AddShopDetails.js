@@ -15,7 +15,6 @@ const AddShopDetails = ({
   getParticularOrg,
   getAllShops,
 }) => {
-  console.log("addshop details", user);
   useEffect(() => {
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationName: user && user.OrganizationName });
@@ -32,10 +31,7 @@ const AddShopDetails = ({
       });
     });
 
-  console.log(particular_org_loc, "loc");
-
   const onchangeLoc = (e) => {
-    
     setLoc(e);
   };
 
@@ -106,11 +102,9 @@ const AddShopDetails = ({
       leaseTimePeriod: 12,
       shopAddress: shopAddress,
       isSubmitted: false,
-      Location : orgLoc.value,
+      Location: orgLoc.value,
       shopStatus: "Acquired",
     };
-    
-console.log("fnial data",finalData)
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,

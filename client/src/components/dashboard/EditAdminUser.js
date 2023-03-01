@@ -17,9 +17,6 @@ const EditAdminUser = ({
   UpdateUser,
   getalluser,
 }) => {
-
-    console.log("this is sending data",org)
-
   const [orgname, setOrgname] = useState({});
 
   const orglist = [];
@@ -107,7 +104,6 @@ const EditAdminUser = ({
       usergroup: us,
       OrganizationName: orgname,
     };
-    //console.log("updated data",update)
     UpdateUser(updateUSER);
     getalluser();
   };
