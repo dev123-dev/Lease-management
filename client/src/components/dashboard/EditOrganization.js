@@ -14,7 +14,6 @@ const EditOrganization = ({
   org,
   updateOrganization,
 }) => {
-  console.log(org);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);

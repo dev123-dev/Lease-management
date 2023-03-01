@@ -2111,10 +2111,15 @@ button {
 }
 .Uservalidation{
   color:red;
-  
 
 }
-
+.refresh{
+  margin-left:1150px;
+  margin-top:-90px;
+}
+.orgtable{
+  margin-top: -20px;
+}
 div{
   border:1px solid rgba(242, 10, 10, 0.541);
 }   

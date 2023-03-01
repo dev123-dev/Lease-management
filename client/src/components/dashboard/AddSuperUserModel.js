@@ -21,7 +21,6 @@ const AddSuperUserModel = ({
   const [orgname, setOrgname] = useState({});
   const onchangeOrg = (e) => {
     setOrgname(e);
-    console.log(orgname);
   };
   const [passwordType, setPasswordType] = useState("password");
   const [passwordInput, setPasswordInput] = useState("");
@@ -98,7 +97,6 @@ const AddSuperUserModel = ({
 
       // handleClose();
       Adduser(finalUserData);
-      console.log(finalUserData);
       setFormData({
         ...formData,
         name: "",
@@ -119,7 +117,6 @@ const AddSuperUserModel = ({
   const superhandleClose = () => setSuperShow(false);
   const superhandleShow = () => setSuperShow(true);
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
-  console.log("this is admin", user);
 
   return isAuthenticated &&
     users &&
@@ -128,13 +125,6 @@ const AddSuperUserModel = ({
     //for super admin
     <Fragment>
       <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-        <img
-          className=" orgaddicon"
-          onClick={handleShow}
-          src={require("../../static/images/refresh-icon.png")}
-          alt="Add User"
-          title="Add User"
-        />
         <img
           className=" orgaddicon"
           onClick={handleShow}

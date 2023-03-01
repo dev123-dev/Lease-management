@@ -28,15 +28,15 @@ const SuperUserDashboard = ({
   //   });
   // });
 
-  console.log(user, particular_user);
-
   useEffect(() => {
     getParticularUser({
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
     });
-    getalluser();
     deactivateUser();
+  }, []);
+  useEffect(() => {
+    getalluser("");
   }, []);
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -74,7 +74,6 @@ const SuperUserDashboard = ({
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
-    console.log(id);
     setId(id);
     DeactivehandleShow();
   };
@@ -94,13 +93,16 @@ const SuperUserDashboard = ({
     setAdmin(user);
   };
 
+  const onClickReset = () => {
+    getalluser("");
+  };
+
   const onAdd = () => {
     const reason = {
       Org_id: OrgId,
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log("deactive reason", reason);
     deactivateUser(reason);
   };
 
@@ -110,7 +112,6 @@ const SuperUserDashboard = ({
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log("deactive reason", reason);
     deactivateUser(reason);
   };
   return (
@@ -125,10 +126,28 @@ const SuperUserDashboard = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">User Details </h2>
+                <img
+                  className="refresh"
+                  // onClick={() => onClickReset()}
+                  onClick={() => getalluser()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="refresh"
+                  title="Refresh"
+                />
+
+                {/* <img
+                  className=" refresh bg-danger"
+                  src={require("../../static/images/refresh-icon.png")}
+                  onClick={() => {
+                    getalluser();
+                  }}
+                  alt="Refresh"
+                  title="Refresh"
+                /> */}
               </div>
               <AddSuperUserModal />
             </div>
-            <div className="row">
+            <div className="row orgtable">
               <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                 <section className="body">
                   <div className="body-inner no-padding  table-responsive fixTableHead">
@@ -152,7 +171,6 @@ const SuperUserDashboard = ({
                         {allsuperuser &&
                           allsuperuser[0] &&
                           allsuperuser.map((allsuperuse, idx) => {
-                            console.log(allsuperuse);
                             return (
                               <tr key={idx}>
                                 <td>{allsuperuse.username}</td>

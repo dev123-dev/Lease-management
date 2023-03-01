@@ -20,7 +20,6 @@ const EditTenantDetails = ({
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
   ];
-  console.log(user);
   const [showHide, setShowHide] = useState({
     showChequenoSection:
       tenants && tenants.tenantPaymentMode === "Cheque" ? true : false,
@@ -133,7 +132,6 @@ const EditTenantDetails = ({
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
   };
-  console.log(leaseEndDate);
   //For setting mindate as todays date
   var today = new Date();
   var dd = today.getDate();
@@ -147,7 +145,6 @@ const EditTenantDetails = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-  
   //For setting mindate as todays date
 
   const onUpdate = (tenants, idx) => {
@@ -201,8 +198,6 @@ const EditTenantDetails = ({
     //   thEnteredBy: user && user._id,
     //   thDate: todayDateymd,
     // };
-     console.log(finalData);
-    // console.log(historyData);
 
     // tenantsDetailsHistory(historyData);
     // UpdateTenantsDetails(finalData);
@@ -442,10 +437,7 @@ const EditTenantDetails = ({
       ) : (
         <Fragment></Fragment>
       )}
-      <button
-        className="tenantEditSave"
-        onClick={()=>onUpdate(tenants)}
-      >
+      <button className="tenantEditSave" onClick={() => onUpdate(tenants)}>
         Update
       </button>
     </Fragment>

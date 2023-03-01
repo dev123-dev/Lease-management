@@ -28,8 +28,6 @@ const UserDetails = ({
   //   });
   // });
 
-  console.log(user, particular_user);
-
   useEffect(() => {
     getParticularUser({
       OrganizationName: user.OrganizationName,
@@ -74,7 +72,6 @@ const UserDetails = ({
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
-    console.log(id);
     setId(id);
     DeactivehandleShow();
   };
@@ -100,7 +97,6 @@ const UserDetails = ({
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log("deactive reason", reason);
     deactivateUser(reason);
   };
 
@@ -110,7 +106,6 @@ const UserDetails = ({
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log("deactive reason", reason);
     deactivateUser(reason);
   };
   return (
@@ -150,7 +145,6 @@ const UserDetails = ({
                           {allsuperuser &&
                             allsuperuser[0] &&
                             allsuperuser.map((allsuperuse, idx) => {
-                              console.log(allsuperuse);
                               return (
                                 <tr key={idx}>
                                   <td>{allsuperuse.username}</td>

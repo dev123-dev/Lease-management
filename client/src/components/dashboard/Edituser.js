@@ -29,7 +29,6 @@ const Edituser = ({
 
   const onchangeOrg = (e) => {
     setOrgname(e);
-    console.log(orgname);
   };
   const UserGroups = [
     { value: "Admin", label: "Admin" },
@@ -106,7 +105,6 @@ const Edituser = ({
       usergroup: us,
       OrganizationName: orgname,
     };
-    //console.log("updated data",update)
     UpdateUser(updateUSER);
     getalluser();
   };

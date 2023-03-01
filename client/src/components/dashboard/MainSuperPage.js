@@ -15,8 +15,6 @@ const MainSuperPage = ({
   useEffect(() => {
     getAllOrganization();
   }, []);
-  console.log("this is all org data", allorg);
-  //console.log(allorg);
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
