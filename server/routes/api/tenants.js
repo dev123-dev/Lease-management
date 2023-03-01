@@ -219,28 +219,33 @@ router.post("/update-Organization", async (req, res) => {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
-// router.post("/update-Property", async (req, res) => {
-//   let data = req.body;
-//   try {
-//     const updateorg = await PropertyDetails.updateOne(
-//       { _id: data.OrganizationId },
-//       {
-//         $set: {
-//           OrganizationName: data.OrganizationName,
-//           OrganizationEmail: data.OrganizationEmail,
-//           OrganizationNumber: data.OrganizationNumber,
-//           OrganizationAddress: data.OrganizationAddress,
-//           Location: data.Location,
-//         },
-//       }
-//     );
+router.post("/update-Property", async (req, res) => {
+  let data = req.body;
+  console.log(data)
+  try {
+    const updateorg = await property.updateOne(
+      { _id: data.Property_id  },
+      {
+        $set: {
+          buildingName : data.buildingName ,
+          shopDoorNo : data. shopDoorNo,
+          shopAddress : data.shopAddress,
+          hikePercentage : data.hikePercentage,
+          stampDuty : data.stampDuty,
+          leaseTimePeriod :data.leaseTimePeriod ,
+          OrganizationName  : data.OrganizationName,
+          Organization_id  : data.OrganizationId,
+          shopStatus : "Acquired",
+      },
+    }
+    );
 
-//     res.json(updateorg);
-//   } catch (error) {
-//     console.log("ERROR IN AP", error);
-//     res.status(500).json({ errors: [{ msg: "Server Error" }] });
-//   }
-// });
+    res.json(updateorg);
+  } catch (error) {
+    console.log("ERROR IN AP", error);
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
+  }
+});
 
 //Super user adding
 router.post("/add-SuperUser", async (req, res) => {
