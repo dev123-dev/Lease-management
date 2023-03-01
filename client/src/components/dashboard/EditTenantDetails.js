@@ -147,6 +147,10 @@ const EditTenantDetails = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
+  const update = (e) => {
+    alert("hai");
+  };
+
   //For setting mindate as todays date
 
   const onUpdate = (tenants, idx) => {
@@ -441,26 +445,24 @@ const EditTenantDetails = ({
       ) : (
         <Fragment></Fragment>
       )}
-      <div className="col-lg-12 Savebutton " size="lg">
-        <button
-          variant="success"
-          className="btn sub_form btn_continue Save float-right"
-          onClick={() => /*onUpdate(tenants)*/ alert("updated")}
-          style={
-            tenantDoorNo !== "" &&
-            tenantFileNo !== "" &&
-            tenantName !== "" &&
-            tenantPaymentMode !== "" &&
-            tenantDepositAmt !== "" &&
-            tenantRentAmount !== "" &&
-            tenantAddr !== ""
-              ? { opacity: "1" }
-              : { opacity: "1", pointerEvents: "none" }
-          }
-        >
-          Update
-        </button>
-      </div>
+
+      <button
+        className="tenantEditSave"
+        onClick={update} /*onUpdate(tenants)*/
+        style={
+          tenantDoorNo !== "" &&
+          tenantFileNo !== "" &&
+          tenantName !== "" &&
+          tenantPaymentMode !== "" &&
+          tenantDepositAmt !== "" &&
+          tenantRentAmount !== "" &&
+          tenantAddr !== ""
+            ? { opacity: "1" }
+            : { opacity: "1", pointerEvents: "none" }
+        }
+      >
+        Update
+      </button>
     </Fragment>
   );
 };

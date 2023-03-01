@@ -37,6 +37,14 @@ const Tenant_Details = ({
     setShowEditModal(true);
     setEditTenant(val);
   };
+  // const [showEditModal, setShowEditModal] = useState(false);
+  const handleEditModalClose = () => setShowEditModal(false);
+  const handleOpen = () => setShowEditModal(true);
+  const onAddStaffModalChange = (e) => {
+    if (e) {
+      handleEditModalClose();
+    }
+  };
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -126,7 +134,7 @@ const Tenant_Details = ({
                                   <img
                                     className="img_icon_size log"
                                     // onClick={() => onClickHandler()}
-                                    // onClick={() => onDelete(Val._id)}
+                                    onClick={() => onDelete(Val._id)}
                                     src={require("../../static/images/delete.png")}
                                     alt="Add User"
                                     title="Add User"
@@ -151,9 +159,7 @@ const Tenant_Details = ({
           centered
         >
           <Modal.Title>Deactivate</Modal.Title>
-          <Modal.Header className="lg" closeButton>
-            x
-          </Modal.Header>
+
           <Modal.Body>
             <Form>
               <Form.Group
@@ -163,7 +169,7 @@ const Tenant_Details = ({
                 <Form.Label>Reason For Deactivating</Form.Label>
                 <Form.Control
                   type="text"
-                  name="deactive_reason"
+                  name="Tenant_deactive_reason"
                   onChange={(e) => onInputChange(e)}
                   autoFocus
                 />
@@ -171,10 +177,10 @@ const Tenant_Details = ({
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={onAdd}>
+            <Button variant="primary" onClick={onAdd} id="savebtn">
               Save
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" onClick={handleClose} id="savebtn">
               close
             </Button>
           </Modal.Footer>
@@ -184,19 +190,23 @@ const Tenant_Details = ({
 
         {/* Edit start */}
         <Modal show={showEditModal} centered>
-          <Modal.Title>Edit Tenant Details</Modal.Title>
-
+          <Modal.Header>
+            <div className="col-lg-10">
+              <h3 className="h3">Edit Tenant Details </h3>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleEditModalClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
           <Modal.Body>
             <EditTenantDetails tenants={EditTenant} />
           </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" onClick={onAdd}>
-              Save
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              close
-            </Button>
-          </Modal.Footer>
         </Modal>
       </Fragment>
     </>
