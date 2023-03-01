@@ -2106,6 +2106,14 @@ button {
 .tenantEditSave:hover{
   background-color: black;
 }
+.orgaddicon{
+  margin-left: 50px;
+}
+.Uservalidation{
+  color:red;
+  
+
+}
 
 div{
   border:1px solid rgba(242, 10, 10, 0.541);

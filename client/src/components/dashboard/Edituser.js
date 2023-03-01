@@ -17,7 +17,6 @@ const Edituser = ({
   UpdateUser,
   getalluser,
 }) => {
-
   const [orgname, setOrgname] = useState({});
 
   const orglist = [];
@@ -97,6 +96,7 @@ const Edituser = ({
   };
 
   const onUpdate = () => {
+    handleClose();
     const updateUSER = {
       userid: superuser._id,
       username: username,
@@ -219,7 +219,7 @@ const Edituser = ({
               // onChange={(e) => onORGchange(e)}
               // id="tenantAddr"
               className="textarea form-control"
-              rows="5"
+              rows="4"
               cols="20"
               placeholder="Address"
               onChange={(e) => onInputChange(e)}

@@ -122,7 +122,7 @@ const AddOrgDashBoard = ({
               <section className="body">
                 <div className="body-inner no-padding  table-responsive fixTableHead">
                   <table
-                    className="table table-bordered table-striped table-hover"
+                    className="table table-bordered table-striped table-hover table-active"
                     id="datatable2"
                   >
                     <thead>

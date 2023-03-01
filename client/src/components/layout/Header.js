@@ -189,38 +189,6 @@ const Header = ({
                         </NavLink>
                       </>
                     )}
-
-                    {/*  copy paste the code for remaining headers for admin and super admin */}
-                    {/* only tenant user */}
-
-                    {/* <NavItem>
-                  {!loading &&
-                  isAuthenticated &&
-                  user &&
-                  user.usergroup == "Super Admin" ? (
-                    <NavLink to="/add-tenant-details" activeStyle={{ color: "Black", textDecoration: "none" }}>
-                      User
-                    </NavLink>
-                  ) : (
-                    <NavItem></NavItem>
-                  )}
-                </NavItem> */}
-
-                    {/* user */}
-                    {/* <NavItem>
-                  {!loading &&
-                  isAuthenticated &&
-                  user &&
-                  user.usergroup === "Super Admin" ? (
-                    <NavItem></NavItem>
-                  ) : (
-                    <NavItem>
-                      <NavLink  to="/all-tenant-shop-Details" activeStyle={{ color: "Black", textDecoration: "none" }}>
-                        User
-                      </NavLink>
-                    </NavItem>
-                  )}
-                </NavItem> */}
                   </Nav>
                 </>
               ) : (

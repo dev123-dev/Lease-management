@@ -134,7 +134,7 @@ const AddOrgModal = ({
       <Fragment>
         <div className="col-lg-12 col-md-11 col-sm-11 col-11 py-4">
           <img
-            className="Orgaddicon "
+            className="orgaddicon "
             // onClick={() => onClickHandler()}
             onClick={handleOpen}
             src={require("../../static/images/add-icon.png")}
@@ -374,6 +374,7 @@ const AddOrgModal = ({
                           id="savebtn"
                           className="btn sub_form btn_continue Save float-right"
                           onClick={(e) => onSubmitORGdata(e)}
+                          onSubmit={handleClose}
                         >
                           Save
                         </button>
