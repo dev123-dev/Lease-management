@@ -128,7 +128,7 @@ const AddTenantDetails = ({
     console.log("my val", e);
     setBuildingID(e.value);
     setBuildingName(e.label);
-    let temp = [];
+    let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     particular_org_data &&
       particular_org_data.map((ele) => {
         if (e.buildingId == ele._id) {
