@@ -9,14 +9,13 @@ import Select from "react-select";
 import { getAllOrganization } from "../../actions/tenants";
 import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
-// import { updateProperty } from "../../actions/tenants";
-// import { updateProperty } from "../../actions/tenants";
+import { updateProperty } from "../../actions/tenants";
 const EditProperty = ({
   auth: { isAuthenticated, user, users },
   Property,
   updateProperty,
 }) => {
-  console.log(Property,"this is property details")
+  console.log("this is property details",Property,user)
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
@@ -61,20 +60,24 @@ const EditProperty = ({
   //multiple location end
 
   const [formData, setFormData] = useState({
-    buildingName: "",
+    buildingName: Property.buildingName,
     shopDoorNo: [],
-    hikePercentage: "",
-    stampDuty: "",
-    LeaseTime: "",
+    Location : Property.Location,
+    shopAddress : Property.shopAddress,
+    hikePercentage: Property.hikePercentage,
+    stampDuty: Property.stampDuty,
+    LeaseTime: Property.leaseTimePeriod,
     isSubmitted: false,
   });
 
   const {
     buildingName,
     shopDoorNo,
+    shopAddress,
     hikePercentage,
     stampDuty,
-    leaseTimePeriod,
+    LeaseTime,
+    Location,
     shopStatus,
   } = formData;
 
@@ -84,23 +87,25 @@ const EditProperty = ({
 
   const onUpdate = () => {
     const update = {
+      OrganizationName : user.OrganizationName,
+      Orgainzation_id : user.OrganizationId,
+      Property_id : Property._id,
       buildingName: buildingName,
-      shopDoorNo: items,
+      shopDoorNo: dno,
+      shopAddress : shopAddress,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
-      leaseTimePeriod: leaseTimePeriod,
-      isSubmitted: false,
+      leaseTimePeriod: LeaseTime,
+      Location : Location,
+      isSubmitted: true,
       shopStatus: "Acquired",
     };
-
-    updateProperty(update);
+console.log("updated data in main page",update)
+updateProperty(update);
   };
 
   return (
-    
-  
     <Fragment >
-  
             <div className="col-lg-6">
               <label>
                 BuildingName
@@ -113,7 +118,7 @@ const EditProperty = ({
                 type="text"
                 placeholder="BuildingName"
                 name="buildingName"
-                value={Property.buildingName}
+                value={buildingName}
                 className="form-control input"
                  onChange={(e) => onInputChange(e)}
                 required
@@ -131,10 +136,10 @@ const EditProperty = ({
                 type="text"
                 placeholder="StampDuty"
                 name="stampDuty"
-                value={Property.stampDuty}
+                value={stampDuty}
                 className="form-control  input"
-                // onChange={(e) => onPropertychange(e)}
-                required
+                onChange={(e) => onInputChange(e)}               
+                 required
               />
             </div>
             <div className="col-lg-6">
@@ -148,7 +153,7 @@ const EditProperty = ({
                 type="text"
                 placeholder="HikePercent"
                 name="hikePercentage"
-                value={Property.hikePercentage}
+                value={hikePercentage}
                 className="form-control  input"
                  onChange={(e) => onInputChange(e)}
                 required
@@ -162,10 +167,9 @@ const EditProperty = ({
                 </i>
               </label>
               <textarea
-                name="tenantAddr"
-               
+                name="LeaseTime"
                 id=" addprop "
-                value={Property.leaseTimePeriod}
+                value={LeaseTime}
                 className="textarea form-control"
                 rows="4"
                 placeholder="Time"
@@ -185,7 +189,7 @@ const EditProperty = ({
 
               <textarea
                 name="shopAddress"
-                value={Property.shopAddress}
+                value={shopAddress}
                 id=" addprop "
                 className="textarea form-control"
                 rows="4"
@@ -231,9 +235,8 @@ const EditProperty = ({
             </label>
             <input
                 type="text"
-                placeholder="Location"
                 name="Location"
-                value={Property.Location}
+                value={Location}
                 className="form-control  input"
                  onChange={(e) => onInputChange(e)}
                 required
@@ -243,7 +246,7 @@ const EditProperty = ({
               <button
                 className="btn sub_form btn_continue Save float-right  text-end"
                 id="savebtn"
-                // onClick={() => onSubmit()}
+                 onClick={() => onUpdate()}
               >
                 Save
               </button>
@@ -281,11 +284,12 @@ const EditProperty = ({
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants1: state.tenants,
+  tenants : state.tenants,
 });
 
 export default connect(mapStateToProps, {
   // UpdateTenantsDetails,
   // getAllTenants,
   // tenantsDetailsHistory,
-  // updateProperty,
+   updateProperty,
 })(EditProperty);
