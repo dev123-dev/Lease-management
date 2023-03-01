@@ -128,19 +128,15 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
     dispatch(getAllOrganization());
   } catch (err) {}
 };
-// //update Property
-// export const updateProperty = (updatedata) => async (dispatch) => {
-//   console.log("inside action");
-//   console.log(updatedata);
-//   try {
-//     const res = await axios.post(
-//       `${linkPath}/api/tenants/update-Property`,
-//       updatedata,
-//       config
-//     );
-//     dispatch(getAllOrganization());
-//   } catch (err) {}
-// };
+
+//update Property
+export const updateProperty = (updatedata) => async (dispatch) => {
+  
+  try {
+    const res = await axios.post(`${linkPath}/api/tenants/update-Property`,updatedata,config);
+    dispatch(getAllOrganization());
+  } catch (err) {}
+};
 
 //update Super User Form
 export const UpdateUser = (userdata) => async (dispatch) =>{
