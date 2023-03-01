@@ -402,10 +402,7 @@ router.post("/get-Particular-Property",async(req,res)=>{
 
 //deactive property
 router.post("/deactive-property", async (req, res) => {
-  console.log("iinsde api");
-
   let data = req.body;
-  console.log(data);
   try {
     const propertydata = await property.updateOne(
       { _id: data.Org_id },
