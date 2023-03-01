@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
+  getParticularProperty,
   getAllDoorNos,
   getAllSettings,
 } from "../../actions/tenants";
@@ -14,11 +15,16 @@ const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, allTenantSetting, particular_org_data },
   getAllDoorNos,
+  getParticularProperty,
   AddTenantDetailsform,
   Addorgform,
   getAllSettings,
 }) => {
-  console.log("=", particular_org_data);
+  useEffect(() => {
+    getParticularProperty();
+  }, []);
+
+  console.log("uuuuuuu", user);
 
   useEffect(() => {
     getAllDoorNos();
@@ -111,26 +117,18 @@ const AddTenantDetails = ({
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.buildingName,
-      value: buildingData.buildingName,
+      value: buildingData._id,
     })
   );
 
-  const allOrganizationNames = [];
-  particular_org_data.map((buildingData) =>
-    allOrganizationNames.push({
-      buildingId: buildingData._id,
-      label: buildingData.OrganizationName,
-      value: buildingData.Organization_id,
-    })
-  );
-  console.log("allOrganizationNames", allOrganizationNames);
-
-  //console.log(particular_org_data)
+  console.log(particular_org_data);
   const [DnoList, setDnoList] = useState([]);
 
   const onBuildingChange = (e) => {
-    setBuildingName(e);
-    let temp = DnoList;
+    console.log("my val", e);
+    setBuildingID(e.value);
+    setBuildingName(e.label);
+    let temp = [];
     particular_org_data &&
       particular_org_data.map((ele) => {
         if (e.buildingId == ele._id) {
@@ -146,7 +144,7 @@ const AddTenantDetails = ({
 
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
-    setBuildingName(e.value ? e.value : "");
+    setBuildingName(e.label ? e.label : "");
   };
 
   const onDateChangeEntry = (e) => {
@@ -230,9 +228,10 @@ const AddTenantDetails = ({
 
   const onSubmit = () => {
     const finalData = {
-      OrganizationName: particular_org_data.OrganizationName,
-      OrganizationId: particular_org_data.OrganizationId,
+      OrganizationName: user.OrganizationName,
+      OrganizationId: user.OrganizationId,
       BuildingName: buildingName,
+      BuildingId: buildingId,
       tenantFileNo: tenantFileNo,
       tenantDoorNo: doorno,
       tenantName: tenantName,
@@ -695,4 +694,5 @@ export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
   getAllSettings,
+  getParticularProperty,
 })(AddTenantDetails);
