@@ -290,8 +290,8 @@ const Header = ({
                   user &&
                   user.usergroup === "Admin" ? (
                     <Nav>
-                      {user.username}
-                      <ul className="top-level-menu text-right ">
+                      <h5 className="text-light">{user.username}</h5>
+                      <ul className="top-level-menu text-left ">
                         <li>
                           <Link
                             to="#"
@@ -303,7 +303,7 @@ const Header = ({
                           </Link>
 
                           <ul className="dropdown-menu second-level-menu ">
-                            <li>
+                            <li className="hwhite">
                               <Link
                                 to="#"
                                 onClick={() => handleTenantSettingModalShow()}

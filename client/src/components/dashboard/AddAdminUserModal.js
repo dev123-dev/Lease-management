@@ -118,8 +118,8 @@ const AddAdminUserModal = ({
       >
         <Modal.Header>
           <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2 className="heading_color h1 text-center">
-              <b>Add Admin's User</b>{" "}
+            <h2>
+              <b className="heading_color h1 text-center">Add User</b>{" "}
             </h2>
           </div>
           <div className="  col-lg-2 ">
