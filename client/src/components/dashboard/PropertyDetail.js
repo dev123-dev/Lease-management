@@ -6,7 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
-import EditProperty from "../dashboard/EditProperty"
+import EditProperty from "../dashboard/EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
@@ -39,8 +39,8 @@ const PropertyDetail = ({
   const [property, setProperty] = useState(null);
 
   const onEdit = (ele) => {
-     setProperty(ele);
-     handleUpdateModalOpen();
+    setProperty(ele);
+    handleUpdateModalOpen();
   };
 
   const { deactive_reason } = formData;
@@ -68,7 +68,7 @@ const PropertyDetail = ({
     };
     deactiveProperty(reason);
   };
-console.log("loc",particular_org_data)
+  console.log("loc", particular_org_data);
   return (
     <div>
       <div className="container container_align ">
@@ -88,7 +88,7 @@ console.log("loc",particular_org_data)
                 <tr>
                   <th>Building Name</th>
                   <th>Door Number</th>
-                  <th>Location</th> 
+                  <th>Location</th>
                   <th>Hike %</th>
                   <th>Stamp Duty</th>
                   <th>Lease Time Period</th>
@@ -177,7 +177,7 @@ console.log("loc",particular_org_data)
       >
         <Modal.Header>
           <div className="col-lg-10">
-            <h3 className="modal-title text-center">Edit Property Details </h3>
+            <h3 className="h3">Edit Property Details </h3>
           </div>
           <div className="col-lg-2">
             <button onClick={handleUpdateModalOpen} className="close">
@@ -190,8 +190,7 @@ console.log("loc",particular_org_data)
           </div>
         </Modal.Header>
         <Modal.Body>
-          xyz
-           <EditProperty Property={property} /> 
+          <EditProperty Property={property} />
         </Modal.Body>
       </Modal>
     </div>
