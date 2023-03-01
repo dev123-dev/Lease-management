@@ -18,6 +18,8 @@ const AddTenantDetails = ({
   Addorgform,
   getAllSettings,
 }) => {
+  console.log("=", particular_org_data);
+
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
@@ -113,10 +115,21 @@ const AddTenantDetails = ({
     })
   );
 
+  const allOrganizationNames = [];
+  particular_org_data.map((buildingData) =>
+    allOrganizationNames.push({
+      buildingId: buildingData._id,
+      label: buildingData.OrganizationName,
+      value: buildingData.Organization_id,
+    })
+  );
+  console.log("allOrganizationNames", allOrganizationNames);
+
   //console.log(particular_org_data)
   const [DnoList, setDnoList] = useState([]);
 
   const onBuildingChange = (e) => {
+    setBuildingName(e);
     let temp = DnoList;
     particular_org_data &&
       particular_org_data.map((ele) => {
@@ -128,15 +141,13 @@ const AddTenantDetails = ({
             });
           });
         }
+        setDnoList(temp);
       });
-    setDnoList(temp);
-    console.log("DnoList inside", DnoList);
+
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.value ? e.value : "");
   };
-
-  console.log("DnoList new", DnoList);
 
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
@@ -219,8 +230,11 @@ const AddTenantDetails = ({
 
   const onSubmit = () => {
     const finalData = {
+      OrganizationName: particular_org_data.OrganizationName,
+      OrganizationId: particular_org_data.OrganizationId,
+      BuildingName: buildingName,
       tenantFileNo: tenantFileNo,
-      tenantDoorNo: tenantDoorNo,
+      tenantDoorNo: doorno,
       tenantName: tenantName,
       tenantPhone: tenantPhone,
       tenantFirmName: tenantFirmName,
@@ -242,8 +256,8 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-
-    AddTenantDetailsform(finalData);
+    console.log("added data", finalData);
+    // AddTenantDetailsform(finalData);
     setFormData({
       ...formData,
       tenantFileNo: "",
