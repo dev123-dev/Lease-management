@@ -74,7 +74,9 @@ const EditOrganization = ({
   };
 
   const onUpdate = () => {
-    handleClose();
+    // // setShowEditModal(false);
+    // handleEditModalClose(false);
+    // handleClose();
     const update = {
       OrganizationId: org._id,
       OrganizationName: OrganizationName,

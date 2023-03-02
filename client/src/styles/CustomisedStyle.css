@@ -1398,8 +1398,8 @@ input[type="radio"].error {
   border-radius: 3px;
 }
 .img_icon_size {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   margin-top: 3%;
   margin-left:10%;
   
@@ -1929,7 +1929,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-color: transparent;
   border: transparent;
   color: #095a4a;
-  margin-left: 30px;
+  margin-left: 400px;
 }
 .clprop{
   margin-left: 160px;
@@ -2108,6 +2108,8 @@ button {
 }
 .orgaddicon{
   margin-left: 20px;
+  border-color: white;
+  background-color: transparent;
 }
 .Uservalidation{
   color:red;

@@ -89,6 +89,7 @@ const AddOrgDashBoard = ({
   const { Organization_DE_Reason } = formData;
 
   const onAdd = () => {
+    setShowDeactivate(false);
     const reason = {
       Org_id: OrgId,
       org_status: "Deactive",

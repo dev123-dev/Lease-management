@@ -94,6 +94,7 @@ const SuperUserDashboard = ({
   };
 
   const onAdd = () => {
+    setDeactiveShow(false);
     const reason = {
       Org_id: OrgId,
       userStatus: "Deactive",

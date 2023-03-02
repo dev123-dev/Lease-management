@@ -22,8 +22,9 @@ const AddSuperUserModel = ({
   const onchangeOrg = (e) => {
     setOrgname(e);
   };
-  const [passwordType, setPasswordType] = useState("password");
-  const [passwordInput, setPasswordInput] = useState("");
+
+  // const [passwordType, setPasswordType] = useState("password");
+  // const [passwordInput, setPasswordInput] = useState("");
 
   const [formData, setFormData] = useState({
     username: "",
@@ -33,10 +34,19 @@ const AddSuperUserModel = ({
     usergroup: "",
     OrganizationName: "",
     password: "",
+    cpassword: "",
   });
 
-  const { name, email, address, phone, group, OrganizationName, password } =
-    formData;
+  const {
+    name,
+    email,
+    address,
+    phone,
+    group,
+    OrganizationName,
+    password,
+    cpassword,
+  } = formData;
 
   const [us, setus] = useState("");
 
@@ -93,6 +103,7 @@ const AddSuperUserModel = ({
         group: "",
         OrganizationName: "",
         password: "",
+        password: "",
       });
     }
   };
@@ -111,8 +122,8 @@ const AddSuperUserModel = ({
     <Fragment>
       <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
         <img
-          className=" orgaddicon"
           onClick={() => setShowAdd(true)}
+          className="img_icon_size log"
           src={require("../../static/images/add-icon.png")}
           alt="Add User"
           title="Add User"
@@ -129,17 +140,20 @@ const AddSuperUserModel = ({
           className="logout-modal"
         >
           <Modal.Header>
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
-              <h2>
-                <b className="heading_color h1 text-center">Add User</b>{" "}
-              </h2>
-            </div>
+            <Modal.Title className="container">
+              <h1 className="font-weight-bold ">Add user</h1>
+            </Modal.Title>
             <div className="  col-lg-2 ">
-              <button className=" cluser" onClick={() => setShowAdd(false)}>
+              <button className="close ml-5" onClick={() => setShowAdd(false)}>
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
-                  style={{ height: "20px", width: "20px", color: "black" }}
+                  style={{
+                    height: "20px",
+                    width: "20px",
+                    color: "black",
+                    marginLeft: "4.5rem",
+                  }}
                 />
               </button>
             </div>
@@ -225,6 +239,52 @@ const AddSuperUserModel = ({
                   ></Select>
                 </div>
                 <div className="col-lg-6">
+                  <label className="control-label">
+                    Password <span>*</span>
+                  </label>
+                  <div className="controls">
+                    <input
+                      name="UserPassword"
+                      id="user_password"
+                      type="password"
+                      autoComplete="off"
+                      className="form-control"
+                      a
+                      onChange={(e) => onuserchange(e)}
+                      required
+                    />
+                    {err ? (
+                      <span id="Passerr" className="form-input-info">
+                        password doesnt match
+                      </span>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  <label className="control-label">
+                    Confirm Password <span>*</span>
+                  </label>
+                  <div className="controls">
+                    <input
+                      name="UserConfpassword"
+                      id="user_confpass"
+                      type="password"
+                      autoComplete="off"
+                      className="form-control"
+                      onChange={(e) => onuserchange(e)}
+                      required
+                    />
+                    <span
+                      id="category_result"
+                      className="form-input-info"
+                    ></span>
+                  </div>
+                </div>
+
+                {/* <div className="col-lg-6">
                   {" "}
                   <label>
                     Password{" "}
@@ -254,13 +314,13 @@ const AddSuperUserModel = ({
                   </label>
                   <input
                     type="password"
-                    name="password"
+                    name="cnfrmpassword"
                     placeholder="ConfirmPassword"
-                    // value={password}
+                    value={cpassword}
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
-                </div>
+                </div> */}
                 <div className="col-lg-6">
                   Address
                   <textarea
