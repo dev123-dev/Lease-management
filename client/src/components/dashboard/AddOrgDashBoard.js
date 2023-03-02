@@ -212,11 +212,13 @@ const AddOrgDashBoard = ({
             </Button>
           </div>
         </Modal.Title>
-        {/* <Modal.Header className="lg" ></Modal.Header> */}
+
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label className="h5">Reason For Deactivating</Form.Label>
+              <Form.Label className="h5 despace">
+                Reason For Deactivating
+              </Form.Label>
               <textarea
                 rows="2"
                 name="Organization_DE_Reason"

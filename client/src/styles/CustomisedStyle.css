@@ -2111,6 +2111,7 @@ button {
 }
 .Uservalidation{
   color:red;
+  margin-left: 450px;
 
 }
 .refresh{
@@ -2123,6 +2124,7 @@ button {
 #Deactiveclose{
   background-color: transparent;
   margin-left: 410px;
+  margin-top:-10px;
   border-color: white;
 }
 #Deactiveclose:hover{
@@ -2134,11 +2136,16 @@ button {
   width:25%;
   border-radius: 0%;
   background-color: #095a4a;
+  margin-top: -30px;
 }
 #deactivebtn:hover{
   
   background-color:black;
 }
-div{
+.despace{
+  margin-top: -20px;
+}
+
+/* div{
   border:1px solid rgba(242, 10, 10, 0.541);
-}   
+}    */

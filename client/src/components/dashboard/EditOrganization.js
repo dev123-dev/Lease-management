@@ -93,7 +93,7 @@ const EditOrganization = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label> OrganizationName:</label>
+            <label> OrganizationName</label>
 
             {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
             <input
@@ -106,7 +106,7 @@ const EditOrganization = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>Email *:</label>
+            <label>Email </label>
             {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
             <input
               type="email"
@@ -118,7 +118,7 @@ const EditOrganization = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>Phone No:</label>
+            <label>Phone No</label>
 
             {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
             <input
@@ -130,17 +130,15 @@ const EditOrganization = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>Number of User:</label>
+            <label>Number of User</label>
             <input
               type="number"
-              //  name="user"
-              //value={}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>LeaseStartDate:</label>
+            <label>LeaseStartDate</label>
             <input
               type="date"
               //  name="user"
@@ -160,7 +158,7 @@ const EditOrganization = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label> Address *:</label>
+            <label> Address </label>
             {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
             <textarea
               name="OrganizationAddress"
@@ -168,7 +166,7 @@ const EditOrganization = ({
               // onChange={(e) => onORGchange(e)}
               // id="tenantAddr"
               className="textarea form-control"
-              rows="5"
+              rows="3"
               cols="20"
               placeholder="Address"
               onChange={(e) => onInputChange(e)}

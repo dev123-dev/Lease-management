@@ -57,16 +57,6 @@ const AddSuperUserModel = ({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    if (e.target.name == "password" && e.target.value) {
-      setpas(e.target.value);
-    }
-    if (e.target.name == "Cpassword" && e.target.value) {
-      if (e.target.value != pas) {
-        seterr(true);
-      } else if (e.target.value == pas) {
-        seterr(false);
-      }
-    }
   };
 
   //fill all field state
@@ -215,6 +205,7 @@ const AddSuperUserModel = ({
                   </label>{" "}
                   <Select
                     name="orgname"
+                    className=""
                     placeholder="---Select---"
                     isSearchable={false}
                     options={orglist}
@@ -251,13 +242,6 @@ const AddSuperUserModel = ({
                     className="form-control"
                     onChange={(e) => onuserchange(e)}
                   />
-                  {err ? (
-                    <span id="passerr" className="form-input-info">
-                      Password dosent match
-                    </span>
-                  ) : (
-                    <></>
-                  )}
                 </div>
                 <div className="col-lg-6">
                   {" "}
@@ -303,15 +287,17 @@ const AddSuperUserModel = ({
                   </label>
                   <Select
                     name="usergroup"
+                    className=""
                     options={UserGroups}
                     isSearchable={false}
-                    placeholder="---Select---"
+                    placeholder="------------------Select--------------------"
                     onChange={(e) => onuser(e)}
                     theme={(theme) => ({
                       ...theme,
                       height: 26,
                       minHeight: 26,
                       borderRadius: 1,
+
                       colors: {
                         ...theme.colors,
                         primary: "black",
@@ -323,23 +309,20 @@ const AddSuperUserModel = ({
                 <h5 className="Uservalidation">
                   {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
                 </h5>
+                <div className="col-lg-1 Savebutton ">
+                  <button
+                    type="submit"
+                    variant="success"
+                    id="savebtn"
+                    className="btn sub_form btn_continue Save "
+                    onClick={() => onsubmitUserData()}
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
             </div>
           </Modal.Body>
-          <Modal.Footer>
-            {/* save button */}
-            <div className="col-lg-1 Savebutton ">
-              <button
-                type="submit"
-                variant="success"
-                id="savebtn"
-                className="btn sub_form btn_continue Save "
-                onClick={() => onsubmitUserData()}
-              >
-                Save
-              </button>
-            </div>
-          </Modal.Footer>
         </Modal>
       </form>
     </Fragment>

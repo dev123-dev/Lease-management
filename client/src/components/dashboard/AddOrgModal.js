@@ -201,6 +201,7 @@ const AddOrgModal = ({
                     placeholder="OrganizationName"
                   />
                 </div>
+                <br></br>
                 <div className="col-lg-6">
                   <label>
                     Email{" "}
@@ -217,8 +218,8 @@ const AddOrgModal = ({
                     placeholder="Email"
                     //onChange={(e) => onInputChange(e)}
                   />{" "}
-                </div>
-
+                </div>{" "}
+                <br></br>
                 <div className="col-lg-6">
                   PhoneNo
                   <input
@@ -246,7 +247,6 @@ const AddOrgModal = ({
                     placeholder="Number Of User"
                   />
                 </div>
-
                 <div className="col-lg-6">
                   <label>
                     LeaseStartDate
@@ -290,7 +290,6 @@ const AddOrgModal = ({
                   />
                   {/* <label><b>{leaseEndDate}</b></label> */}
                 </div>
-
                 <div className="col-lg-6">
                   <label>
                     {" "}
@@ -305,7 +304,7 @@ const AddOrgModal = ({
                     onChange={(e) => onORGchange(e)}
                     // id="tenantAddr"
                     className="textarea form-control"
-                    rows="5"
+                    rows="3"
                     cols="20"
                     placeholder="Address"
                     // onChange={(e) => onInputChange(e)}
@@ -363,15 +362,10 @@ const AddOrgModal = ({
                       })}
                     </div>
                   </div>
-                  <h5 className="Uservalidation"></h5>
-                  <h5 className="Uservalidation">
-                    {fill ? (
-                      <>Please fill all Mandatory(*) fields..!!</>
-                    ) : (
-                      <> </>
-                    )}
-                  </h5>
                 </div>
+                <h5 className="Uservalidation">
+                  {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
+                </h5>
                 <div className="col-lg-12">
                   <Modal.Footer>
                     <div className=" Savebutton  " size="lg">
