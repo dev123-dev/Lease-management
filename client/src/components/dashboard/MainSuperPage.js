@@ -20,12 +20,12 @@ const MainSuperPage = ({
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
   });
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
+  const [showRenewalModal, setShowRenewalModal] = useState(false);
+  const handleEditModalClose = () => setShowRenewalModal(false);
   const [userData, setUserData] = useState(null);
 
   const onRenewal = (organization) => {
-    setShowEditModal(true);
+    setShowRenewalModal(true);
     setUserData(organization);
   };
   const onReportModalChange = (e) => {
@@ -34,7 +34,7 @@ const MainSuperPage = ({
     }
   };
 
-  const handleRenewalModalClose = () => setShowEditModal(false);
+  const handleRenewalModalClose = () => setShowRenewalModal(false);
 
   const onUpdateModalChange = (e) => {
     if (e) {
@@ -120,7 +120,7 @@ const MainSuperPage = ({
         </div>
       </div>
       <Modal
-        show={showEditModal}
+        show={showRenewalModal}
         backdrop="static"
         keyboard={false}
         size="md"

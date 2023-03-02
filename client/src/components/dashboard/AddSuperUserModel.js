@@ -80,11 +80,8 @@ const AddSuperUserModel = ({
       password === "" ||
       orgname === ""
     ) {
-      //alert("fill al,l fields");
       setfill(true);
     } else {
-      handleClose();
-
       const finalUserData = {
         username: name,
         useremail: email,
@@ -95,7 +92,7 @@ const AddSuperUserModel = ({
         OrganizationName: orgname,
       };
 
-      // handleClose();
+      setShowAdd(false);
       Adduser(finalUserData);
       setFormData({
         ...formData,
@@ -109,9 +106,7 @@ const AddSuperUserModel = ({
       });
     }
   };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [showAdd, setShowAdd] = useState(false);
 
   const [supershow, setSuperShow] = useState(false);
   const superhandleClose = () => setSuperShow(false);
@@ -127,7 +122,7 @@ const AddSuperUserModel = ({
       <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
         <img
           className=" orgaddicon"
-          onClick={handleShow}
+          onClick={() => setShowAdd(true)}
           src={require("../../static/images/add-icon.png")}
           alt="Add User"
           title="Add User"
@@ -135,7 +130,7 @@ const AddSuperUserModel = ({
       </div>
       <form>
         <Modal
-          show={show}
+          show={showAdd}
           backdrop="static"
           keyboard={false}
           size="lg"
@@ -150,7 +145,7 @@ const AddSuperUserModel = ({
               </h2>
             </div>
             <div className="  col-lg-2 ">
-              <button className=" cluser" onClick={handleClose}>
+              <button className=" cluser" onClick={() => setShowAdd(false)}>
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"

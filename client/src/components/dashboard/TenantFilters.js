@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-// import TenantReport from "./TenantReport";
+// import TenantReport from "../dashboard/TenantReport";
 
 import DatePicker from "react-datepicker";
 import {
@@ -320,8 +320,8 @@ const TenantFilters = ({
                     </div>
 
                     {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
-            <TenantReport />
-          </div> */}
+                      <TenantReport />
+                    </div> */}
                   </div>
                 </div>
               </div>

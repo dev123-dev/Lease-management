@@ -54,7 +54,6 @@ router.post(
 
     //retriving Data
     const { useremail, password } = req.body;
-    console.log("hello api once again", useremail, password);
 
     try {
       //userEmail Check In DB
@@ -67,11 +66,10 @@ router.post(
           errors: [{ msg: INVALID_CREDENTIALS }],
         });
       }
-      console.log("hit", userDetails);
+
       //Match The Passwords
-      console.log(password, "match", userDetails.password);
       const isMatch = (await password) == userDetails.password ? true : false; //bcrypt.compare(password, userDetails.password);
-      console.log(isMatch);
+
       if (!isMatch) {
         return res
           .status(STATUS_CODE_400)
@@ -144,10 +142,8 @@ router.post(
 // @access   Private
 router.get("/load-user", auth, async (req, res) => {
   try {
-    console.log("inside loaduser");
     const user = await UserDetails.findById(req.user.id).select("-password");
     res.json(user);
-    console.log("inside the load user", user);
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
   }
@@ -171,7 +167,7 @@ router.get(GET_ALL_USERS, auth, async (req, res) => {
 // @access   Private
 router.post(FILTER_USERS, auth, async (req, res) => {
   const { alphaSearch } = req.body;
-  console;
+
   try {
     let query = {};
     if (alphaSearch !== "") {

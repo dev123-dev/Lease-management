@@ -138,7 +138,9 @@ const PropertyDetail = ({
         // onHide={handleClose}
         centered
       >
-        <Modal.Title>Deactivate</Modal.Title>
+        <Modal.Title className="text-center">
+          <b>Deactivate</b>
+        </Modal.Title>
 
         <Modal.Body>
           <Form>
@@ -155,7 +157,7 @@ const PropertyDetail = ({
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={onAdd} id="savebtn">
-            Save
+            DeActivate
           </Button>
           <Button id="savebtn" onClick={handleClose}>
             close

@@ -90,19 +90,13 @@ const AddOrgModal = ({
       [e.target.name]: e.target.value,
     });
   };
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
+
+  const [showAdd, setShowAdd] = useState(false);
+
   //fill all the field state
   const [fill, setfill] = useState(false);
 
   const onSubmitORGdata = () => {
-    alert("comming");
     if (
       OrganizationName === "" ||
       OrganizationEmail === "" ||
@@ -114,7 +108,7 @@ const AddOrgModal = ({
     ) {
       setfill(true);
     } else {
-      handleClose();
+      setShowAdd(false);
       const finalORGdata = {
         OrganizationName: OrganizationName,
         OrganizationEmail: OrganizationEmail,
@@ -147,7 +141,7 @@ const AddOrgModal = ({
           <img
             className="orgaddicon "
             // onClick={() => onClickHandler()}
-            onClick={handleOpen}
+            onClick={() => setShowAdd(true)}
             src={require("../../static/images/add-icon.png")}
             alt="Add User"
             title="Add User"
@@ -156,7 +150,7 @@ const AddOrgModal = ({
 
         {/* Adding Organization */}
         <Modal
-          show={showEditModal}
+          show={showAdd}
           backdrop="static"
           keyboard={false}
           size="lg"
@@ -173,7 +167,7 @@ const AddOrgModal = ({
               </h2>
               <div className="  col-lg-2">
                 <button
-                  onClick={handleEditModalClose}
+                  onClick={() => setShowAdd(false)}
                   className="
                   clorg"
                 >

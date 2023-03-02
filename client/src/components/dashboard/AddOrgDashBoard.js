@@ -55,31 +55,26 @@ const AddOrgDashBoard = ({
   };
   //multiple location end
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  //deactivate
+  const [showDeactivate, setShowDeactivate] = useState(false);
+  //Edit
   const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
+  const editclose = () => {
+    setShowEditModal(false);
   };
+
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
     setId(id);
-    handleShow();
+    setShowDeactivate(true);
   };
   const [orgdata, setorgdata] = useState(null);
 
   const onedit = (user, id) => {
-    setShowUpdateModal(true);
+    setShowEditModal(true);
     setId(id);
     setorgdata(user);
-    handleOpen();
   };
 
   const [formData, setFormData] = useState({
@@ -164,9 +159,6 @@ const AddOrgDashBoard = ({
                               <td>
                                 <img
                                   className=""
-                                  // onClick={() => onClickHandler()}
-                                  // onClick={() => clicking()}
-                                  // onClick={handleOpen}
                                   onClick={() => onedit(orgVal, idx)}
                                   src={require("../../static/images/edit_icon.png")}
                                   alt="Edit"
@@ -174,32 +166,12 @@ const AddOrgDashBoard = ({
                                 />
                                 <img
                                   className=""
-                                  // onClick={() => onClickHandler()}
                                   onClick={() => onDelete(orgVal._id)}
                                   src={require("../../static/images/delete.png")}
                                   alt="delete User"
                                   title="delete User"
                                 />
                               </td>
-
-                              {/* {orgVal.AgreementStatus === "Expired" ? (
-                                <td>
-                                  <center>
-                                     <button
-                                      variant="success"
-                                      className="btn sub_form"
-                                      // onClick={() =>
-                                      //   onRenewal(orgVal, idx)
-                                      // }
-                                    >
-                                      Renewal
-                                    </button> 
-                                  </center>
-                                </td>
-                              
-                              ) : (
-                                <td></td>
-                              )} */}
                             </tr>
                           );
                         })}
@@ -222,14 +194,22 @@ const AddOrgDashBoard = ({
       </div>
       {/* deactivating the Super User */}
       <Modal
-        show={show}
+        show={showDeactivate}
         // onHide={handleClose}
         centered
       >
         <Modal.Title>
           <></>
           <div className="text-center h4">
-            <b>Deactivate</b>
+            <b className="ml-2">Deactivate</b>
+
+            <Button onClick={() => setShowDeactivate(false)} id="Deactiveclose">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </Button>
           </div>
         </Modal.Title>
         {/* <Modal.Header className="lg" ></Modal.Header> */}
@@ -252,13 +232,10 @@ const AddOrgDashBoard = ({
         <Modal.Footer>
           <Button
             // variant="primary"
-            id="savebtn"
+            id="deactivebtn"
             onClick={onAdd}
           >
-            Save
-          </Button>
-          <Button variant="primary" onClick={handleClose} id="savebtn">
-            close
+            DeActive
           </Button>
         </Modal.Footer>
       </Modal>
@@ -266,7 +243,7 @@ const AddOrgDashBoard = ({
 
       {/* edit org old code starting */}
       <Modal
-        show={showUpdateModal}
+        show={showEditModal}
         backdrop="static"
         keyboard={false}
         size="lg"
@@ -282,7 +259,7 @@ const AddOrgDashBoard = ({
             </h3>
           </div>
           <div className="col-lg-2">
-            <button onClick={handleUpdateModalClose} className="close">
+            <button onClick={editclose} className="close">
               <img
                 src={require("../../static/images/close.png")}
                 alt="X"

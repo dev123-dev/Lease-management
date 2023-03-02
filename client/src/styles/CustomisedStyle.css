@@ -2120,6 +2120,25 @@ button {
 .orgtable{
   margin-top: -20px;
 }
+#Deactiveclose{
+  background-color: transparent;
+  margin-left: 410px;
+  border-color: white;
+}
+#Deactiveclose:hover{
+  
+  background-color:lightgray;
+  color: #0b0b0b;
+}
+#deactivebtn{
+  width:25%;
+  border-radius: 0%;
+  background-color: #095a4a;
+}
+#deactivebtn:hover{
+  
+  background-color:black;
+}
 div{
   border:1px solid rgba(242, 10, 10, 0.541);
 }   

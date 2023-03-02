@@ -58,30 +58,26 @@ const SuperUserDashboard = ({
     }
   };
 
-  const [showSuperModal, setSuperModal] = useState("");
-  const SuperUpdateModalClose = () => setSuperModal(false);
-  const SuperUpdateModalOpen = () => setSuperModal(true);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [Deactiveshow, setDeactiveShow] = useState(false);
-  const DeactivehandleClose = () => setDeactiveShow(false);
-  const DeactivehandleShow = () => setDeactiveShow(true);
 
   const [userdata, setuser] = useState("");
   const [OrgId, setId] = useState("");
 
   const onDelete = (id) => {
     setId(id);
-    DeactivehandleShow();
+    setDeactiveShow(true);
   };
 
   const onEdit = (allsuperuse, id) => {
     setId(id);
     setuser(allsuperuse);
-    setSuperModal(true);
+    setShowEditModal(true);
   };
 
   const [Admindata, setAdmin] = useState("");
@@ -128,8 +124,8 @@ const SuperUserDashboard = ({
                 <h2 className="heading_color">User Details </h2>
                 <img
                   className="refresh"
-                  // onClick={() => onClickReset()}
-                  onClick={() => getalluser()}
+                  onClick={() => onClickReset()}
+                  // onClick={() => getalluser()}
                   src={require("../../static/images/refresh-icon.png")}
                   alt="refresh"
                   title="Refresh"
@@ -187,15 +183,15 @@ const SuperUserDashboard = ({
                                     onClick={() => onEdit(allsuperuse, idx)}
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
-                                    title="Add User"
+                                    title="Edit"
                                   />
                                   <img
                                     className=""
                                     // onClick={() => onClickHandler()}
                                     onClick={() => onDelete(allsuperuse._id)}
                                     src={require("../../static/images/delete.png")}
-                                    alt="Add User"
-                                    title="Add User"
+                                    alt="delete"
+                                    title="delete"
                                   />
                                 </td>
                               </tr>
@@ -216,6 +212,17 @@ const SuperUserDashboard = ({
           >
             <Modal.Title className="text-center">
               <b> Deactivate</b>
+              <Button
+                variant="primary"
+                onClick={() => setDeactiveShow(false)}
+                id="Deactiveclose"
+              >
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </Button>
             </Modal.Title>
             {/* <Modal.Header className="lg" ></Modal.Header> */}
             <Modal.Body>
@@ -238,15 +245,8 @@ const SuperUserDashboard = ({
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button id="savebtn" onClick={onAdd}>
-                Save
-              </Button>
-              <Button
-                variant="primary"
-                onClick={DeactivehandleClose}
-                id="savebtn"
-              >
-                close
+              <Button id="deactivebtn" onClick={onAdd}>
+                DeActivate
               </Button>
             </Modal.Footer>
           </Modal>
@@ -254,7 +254,7 @@ const SuperUserDashboard = ({
 
           {/* Modal for Editing the Super user */}
           <Modal
-            show={showSuperModal}
+            show={showEditModal}
             backdrop="static"
             keyboard={false}
             size="lg"
@@ -270,7 +270,10 @@ const SuperUserDashboard = ({
                 </h3>
               </div>
               <div className="col-lg-2">
-                <button onClick={SuperUpdateModalClose} className="close">
+                <button
+                  onClick={() => setShowEditModal(false)}
+                  className="close"
+                >
                   <img
                     src={require("../../static/images/close.png")}
                     alt="X"

@@ -198,7 +198,9 @@ const UserDetails = ({
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
                   >
-                    <Form.Label>Reason For Deactivating </Form.Label>
+                    <Form.Label className="text-center">
+                      Reason For Deactivating{" "}
+                    </Form.Label>
                     <textarea
                       rows="2"
                       name="deactive_reason"
@@ -213,7 +215,7 @@ const UserDetails = ({
               </Modal.Body>
               <Modal.Footer>
                 <Button id="savebtn" onClick={onAdd}>
-                  Save
+                  DeActivate
                 </Button>
                 <Button
                   variant="primary"
