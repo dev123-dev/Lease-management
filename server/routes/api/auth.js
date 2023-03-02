@@ -59,6 +59,7 @@ router.post(
       //userEmail Check In DB
       let userDetails = await UserDetails.findOne({
         useremail: useremail,
+        userStatus: "Active",
       });
 
       if (!userDetails) {

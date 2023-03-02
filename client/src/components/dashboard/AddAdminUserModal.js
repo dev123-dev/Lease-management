@@ -5,6 +5,7 @@ import Select from "react-select";
 import { connect } from "react-redux";
 import { AddAdminuser } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
+import { Form } from "react-bootstrap";
 
 const AddAdminUserModal = ({
   auth: { isAuthenticated, user, users, finalDataRep },
@@ -12,22 +13,27 @@ const AddAdminUserModal = ({
   AddAdminuser,
   getalluser,
 }) => {
-  getalluser();
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [Deactiveshow, setDeactiveShow] = useState(false);
 
-  // const orglist = [];
-  // console.log(allorg)
-  // allorg.map((org) => {
-  //   orglist.push({
-  //     label: org.OrganizationName,
-  //     value: org._id,
-  //   });
-  // });
+  const onClickReset = () => {
+    alert("refersh working");
+  };
 
-  // const [orgname, setOrgname] = useState({});
-  // const onchangeOrg = (e) => {
-  //   setOrgname(e);
-  //   console.log(orgname);
-  // };
+  const orglist = [];
+  console.log(allorg);
+  allorg.map((org) => {
+    orglist.push({
+      label: org.OrganizationName,
+      value: org._id,
+    });
+  });
+
+  const [orgname, setOrgname] = useState({});
+  const onchangeOrg = (e) => {
+    setOrgname(e);
+    console.log(orgname);
+  };
 
   const [formData, setFormData] = useState({
     username: "",
@@ -42,32 +48,30 @@ const AddAdminUserModal = ({
   const { name, email, address, phone, group, OrganizationName, password } =
     formData;
 
-  const [us, setus] = useState("");
-
-  const onuser = (e) => {
-    setus(e);
-  };
-
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "Super Admin", label: "Super Admin" },
+    { value: "Clerk", label: "Clerk" },
   ];
 
-  const onuserchange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+  const [User, setUser] = useState("");
+  const onuser = (e) => {
+    setUser(e);
   };
+
+  const onuserchange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const onsubmitUserData = () => {
     const finalUserData = {
       username: name,
       useremail: email,
       userphone: phone,
       useraddress: address,
-      usergroup: us,
+      usergroup: User,
       password: password,
       OrganizationName: user.OrganizationName,
+      OrganizationId: user.OrganizationId,
     };
 
     AddAdminuser(finalUserData);
@@ -90,11 +94,9 @@ const AddAdminUserModal = ({
   const [supershow, setSuperShow] = useState(false);
   const superhandleClose = () => setSuperShow(false);
   const superhandleShow = () => setSuperShow(true);
-  //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
-    //for super admin
-    <Fragment>
+    <>
       <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
         <img
           className=" log"
@@ -116,7 +118,7 @@ const AddAdminUserModal = ({
         <Modal.Header>
           <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h2>
-              <b className="heading_color h1 text-center">Add User</b>{" "}
+              <b className="heading_color h1 text-center">Add Admin's User</b>{" "}
             </h2>
           </div>
           <div className="  col-lg-2 ">
@@ -237,15 +239,13 @@ const AddAdminUserModal = ({
               <div className="col-lg-6">
                 Address
                 <textarea
-                  name="OrganizationAddress"
+                  name="address"
                   value={address}
                   onChange={(e) => onuserchange(e)}
-                  // id="tenantAddr"
                   className="textarea form-control"
                   rows="5"
                   cols="20"
                   placeholder="Address"
-                  // onChange={(e) => onInputChange(e)}
                   style={{ width: "100%" }}
                   required
                 ></textarea>{" "}
@@ -280,8 +280,9 @@ const AddAdminUserModal = ({
             </div>
           </div>
         </Modal.Body>
+
         <Modal.Footer>
-          {/* save button */}
+          {/* save button  */}
           <div className="col-lg-1 Savebutton ">
             <button
               variant="success"
@@ -294,7 +295,7 @@ const AddAdminUserModal = ({
           </div>
         </Modal.Footer>
       </Modal>
-    </Fragment>
+    </>
   ) : (
     //for admin side
 

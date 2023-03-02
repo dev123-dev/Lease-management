@@ -6,34 +6,22 @@ import { getAllSettings } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { getalluser } from "../../actions/tenants";
 import PropTypes from "prop-types";
-import { deactivateUser } from "../../actions/tenants";
-import Edituser from "./Edituser";
+import { deactivateUser, get_particular_org_user } from "../../actions/tenants";
+import Edituser from "../dashboard/Edituser";
 
 import { getParticularUser } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
 
 const UserDetails = ({
   auth: { isAuthenticated, loading, user },
-  tenants: { allsuperuser, particular_user }, //this is a reudcer
+  tenants: { get_particularOrg_user }, //this is a reudcer
   getalluser,
-  getParticularUser,
+  get_particular_org_user,
   deactivateUser, //this is a action function to call
 }) => {
-  //point to remember that this includes code for both Super user list and Admin user List it is based on condition
-  //const userlist = [];
-  // user.map((us) => {
-  //   userlist.push({
-  //     label: us.OrganizationName,
-  //     value: us._id,
-  //   });
-  // });
-
   useEffect(() => {
-    getParticularUser({
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
-    });
-    getalluser();
+    get_particular_org_user({ orgid: user.OrganizationId });
+    console.log("this is particular data", get_particularOrg_user);
     deactivateUser();
   }, []);
   const [formData, setFormData] = useState({
@@ -68,36 +56,19 @@ const UserDetails = ({
   const DeactivehandleClose = () => setDeactiveShow(false);
   const DeactivehandleShow = () => setDeactiveShow(true);
 
-  const [userdata, setuser] = useState("");
-  const [OrgId, setId] = useState("");
+  const [Admindata, setAdmin] = useState("");
 
-  const onDelete = (id) => {
-    setId(id);
-    DeactivehandleShow();
-  };
+  const [AdminId, Setid] = useState("");
 
-  const onEdit = (allsuperuse, id) => {
-    setId(id);
-    setuser(allsuperuse);
+  const onEdit = (alluser, id) => {
+    Setid(id);
+    setAdmin(alluser);
     setSuperModal(true);
   };
 
-  const [Admindata, setAdmin] = useState("");
-  const [AdminId, Setid] = useState("");
-
-  const onAdminEdit = (user, id) => {
-    setShowUpdateModal(true);
+  const onDelete = (id) => {
     Setid(id);
-    setAdmin(user);
-  };
-
-  const onAdd = () => {
-    const reason = {
-      Org_id: OrgId,
-      userStatus: "Deactive",
-      deactive_reason: deactive_reason,
-    };
-    deactivateUser(reason);
+    DeactivehandleShow();
   };
 
   const onAdminAdd = () => {
@@ -112,12 +83,13 @@ const UserDetails = ({
     <>
       <div>
         {!loading && isAuthenticated && user && user.usergroup === "Admin" ? (
-          // this is for super admin page
           <div className="container container_align ">
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color">User Details </h2>
+                  <h2 className="heading_color">
+                    {user.OrganizationName},User Details{" "}
+                  </h2>
                 </div>
                 <AddAdminUserModal />
               </div>
@@ -142,35 +114,39 @@ const UserDetails = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {allsuperuser &&
-                            allsuperuser[0] &&
-                            allsuperuser.map((allsuperuse, idx) => {
+                          {get_particularOrg_user &&
+                            get_particularOrg_user[0] &&
+                            get_particularOrg_user.map((alluser, idx) => {
                               return (
                                 <tr key={idx}>
-                                  <td>{allsuperuse.username}</td>
-                                  <td>{allsuperuse.useremail}</td>
-                                  <td>{allsuperuse.userphone}</td>
-                                  <td>{allsuperuse.usergroup}</td>
-                                  <td>{allsuperuse.OrganizationName}</td>
-                                  <td>{allsuperuse.useraddress}</td>
-                                  <td>{allsuperuse.userStatus}</td>
+                                  <td>{alluser.username}</td>
+                                  <td>{alluser.useremail}</td>
+                                  <td>{alluser.userphone}</td>
+                                  <td>{alluser.usergroup}</td>
+                                  <td>{alluser.OrganizationName}</td>
+                                  <td>{alluser.useraddress}</td>
+                                  <td>{alluser.userStatus}</td>
                                   <td>
-                                    <img
-                                      className=""
-                                      // onClick={() => onClickHandler()}
-                                      onClick={() => onEdit(allsuperuse, idx)}
-                                      src={require("../../static/images/edit_icon.png")}
-                                      alt="Edit"
-                                      title="Add User"
-                                    />
-                                    <img
-                                      className=""
-                                      // onClick={() => onClickHandler()}
-                                      onClick={() => onDelete(allsuperuse._id)}
-                                      src={require("../../static/images/delete.png")}
-                                      alt="Add User"
-                                      title="Add User"
-                                    />
+                                    {alluser.userStatus == "Deactive" ? (
+                                      <></>
+                                    ) : (
+                                      <>
+                                        <img
+                                          className=""
+                                          onClick={() => onEdit(alluser, idx)}
+                                          src={require("../../static/images/edit_icon.png")}
+                                          alt="Edit"
+                                          title="Add User"
+                                        />
+                                        <img
+                                          className=""
+                                          onClick={() => onDelete(alluser._id)}
+                                          src={require("../../static/images/delete.png")}
+                                          alt="Add User"
+                                          title="Add User"
+                                        />
+                                      </>
+                                    )}
                                   </td>
                                 </tr>
                               );
@@ -183,15 +159,10 @@ const UserDetails = ({
               </div>
             </section>
             {/* this id for Deactivating the Super user starting */}
-            <Modal
-              show={Deactiveshow}
-              // onHide={handleClose}
-              centered
-            >
+            <Modal show={Deactiveshow} centered>
               <Modal.Title className="text-center">
                 <b> Deactivate</b>
               </Modal.Title>
-              {/* <Modal.Header className="lg" ></Modal.Header> */}
               <Modal.Body>
                 <Form>
                   <Form.Group
@@ -214,7 +185,7 @@ const UserDetails = ({
                 </Form>
               </Modal.Body>
               <Modal.Footer>
-                <Button id="savebtn" onClick={onAdd}>
+                <Button id="savebtn" onClick={onAdminAdd}>
                   DeActivate
                 </Button>
                 <Button
@@ -257,7 +228,7 @@ const UserDetails = ({
               </Modal.Header>
               <Modal.Body>
                 <Edituser
-                  superuser={userdata}
+                  superuser={Admindata}
                   //onUpdateModalChange={onUpdateModalChange}
                 />
               </Modal.Body>
@@ -319,4 +290,5 @@ export default connect(mapStateToProps, {
   getAllSettings,
   deactivateUser,
   getParticularUser,
+  get_particular_org_user,
 })(UserDetails); // to connect to particular function which is getalluser
