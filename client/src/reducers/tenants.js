@@ -14,6 +14,7 @@ import {
   PARTICULAR_ORG_LOCATION,
   PARTICULAR_USER,
   GET_ADMIN,
+  PARTICULAR_ORG_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -33,17 +34,17 @@ const initialState = {
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
-  allorg : [""],
-  allsuperuser : [""],
-  updatedorg : [""],
-  particular_org_data : [""],
-  particular_org_loc : [""],
-  particular_user : [""],
-  get_admin : [""],
+  allorg: [""],
+  allsuperuser: [""],
+  updatedorg: [""],
+  particular_org_data: [""],
+  particular_org_loc: [""],
+  particular_user: [""],
+  get_admin: [""],
+  get_particular_org_user: [""],
 };
 
 const tenants = (state = initialState, action) => {
-  
   const { type, payload } = action;
 
   switch (type) {
@@ -78,42 +79,43 @@ const tenants = (state = initialState, action) => {
         ...state,
         allTenantSetting: payload,
       };
-      case GET_ALL_ORGANIZATION:
-        return{
-          ...state,
-          allorg : payload,
-          
-        }
-        case GET_ALL_SUPERUSER:
-        return{
-          ...state,
-          allsuperuser  : payload,
-        }
-        case UPDATE_ORG :
-          return {
-            ...state,
-            updatedorg : payload,
-          }
-          case PARTICULAR_ORG_PROPERTY : 
-          return { 
-            ...state,
-            particular_org_data : payload,
-          }
-          case PARTICULAR_ORG_LOCATION : 
-          return {...state,
-            particular_org_loc : payload,
-          }
-          case PARTICULAR_USER : 
-          return {
-            ...state,
-            particular_user : payload,
-
-          }
-          case GET_ADMIN : 
-          return {
-            ...state,
-            get_admin : payload,
-          }
+    case GET_ALL_ORGANIZATION:
+      return {
+        ...state,
+        allorg: payload,
+      };
+    case GET_ALL_SUPERUSER:
+      return {
+        ...state,
+        allsuperuser: payload,
+      };
+    case UPDATE_ORG:
+      return {
+        ...state,
+        updatedorg: payload,
+      };
+    case PARTICULAR_ORG_PROPERTY:
+      return {
+        ...state,
+        particular_org_data: payload,
+      };
+    case PARTICULAR_ORG_LOCATION:
+      return { ...state, particular_org_loc: payload };
+    case PARTICULAR_USER:
+      return {
+        ...state,
+        particular_user: payload,
+      };
+    case GET_ADMIN:
+      return {
+        ...state,
+        get_admin: payload,
+      };
+    case PARTICULAR_ORG_USER:
+      return {
+        ...state,
+        get_particularOrg_user: payload,
+      };
     default:
       return state;
   }

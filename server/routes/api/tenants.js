@@ -296,6 +296,7 @@ router.post("/add-AdminUser", async (req, res) => {
       usergroup: userdata.usergroup.label,
       password: userdata.password,
       OrganizationName: userdata.OrganizationName,
+      OrganizationId: userdata.OrganizationId,
     };
     let u_data = new UserDetails(adduser);
     output = await u_data.save();
@@ -329,6 +330,22 @@ router.get("/get-all-Superuser", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//get particular organization user
+router.post("/get-particular-org-user", async (req, res) => {
+  let data = req.body;
+
+  try {
+    const ParticularOrg = await UserDetails.find({
+      OrganizationId: data.orgid,
+    });
+    console.log("org data", ParticularOrg);
+    res.json(ParticularOrg);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 //edit the super user
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
@@ -342,7 +359,7 @@ router.post("/Update-User", async (req, res) => {
           useremail: data.useremail,
           usergroup: data.usergroup.label,
           useraddress: data.useraddress,
-          OrganizationName: data.OrganizationName.label,
+          OrganizationName: data.OrganizationName,
         },
       }
     );
@@ -401,7 +418,6 @@ router.post("/get-Particular-Property", async (req, res) => {
     });
 
     res.json(propertydata);
-    console.log("particular data", propertydata.Location);
   } catch (error) {
     console.log(error.message);
   }
@@ -420,7 +436,7 @@ router.post("/deactive-property", async (req, res) => {
         },
       }
     );
-    console.log(propertydata);
+
     res.json(propertydata);
   } catch (err) {
     console.error(err.message);

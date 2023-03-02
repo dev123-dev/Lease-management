@@ -27,6 +27,7 @@ import {
   PARTICULAR_ORG_LOCATION,
   PARTICULAR_USER,
   GET_ADMIN,
+  PARTICULAR_ORG_USER,
 } from "./types";
 
 var linkPath = "";
@@ -76,15 +77,13 @@ export const getParticularProperty = (data) => async (dispatch) => {
 };
 
 export const getParticularOrg = (data) => async (dispatch) => {
-  console.log("this is action", data);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-org`,
       data,
       config
     );
-    console.log("this is action getorg");
-    console.log(res.data);
+
     dispatch({
       type: PARTICULAR_ORG_LOCATION,
       payload: res.data,
@@ -94,15 +93,13 @@ export const getParticularOrg = (data) => async (dispatch) => {
 
 export const getParticularUser = (data) => async (dispatch) => {
   let userdata = data;
-  console.log("inside the action of particular user", data);
+
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-user`,
       userdata,
       config
     );
-    console.log("back in action");
-    console.log(res);
     dispatch({
       type: PARTICULAR_USER,
       payload: res.data,
@@ -114,7 +111,6 @@ export const getParticularUser = (data) => async (dispatch) => {
 
 //gettting organization details
 export const getAllOrganization = () => async (dispatch) => {
-  console.log("run");
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Organization`);
     dispatch({
@@ -194,7 +190,7 @@ export const AddAdminuser = (userData) => async (dispatch) => {
       type: GET_ADMIN,
       payload: res.data,
     });
-    // dispatch(getalluser());
+    dispatch(get_particular_org_user());
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -219,9 +215,25 @@ export const getalluser = () => async (dispatch) => {
   }
 };
 
+//get Particular Organization user
+export const get_particular_org_user = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-particular-org-user`,
+      data
+    );
+    console.log(res.data);
+    dispatch({
+      type: PARTICULAR_ORG_USER,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 //deactivating the user in super admin page
 export const deactivateUser = (id) => async (dispatch) => {
-  //console.log(id);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/deactive-user`,
@@ -230,7 +242,6 @@ export const deactivateUser = (id) => async (dispatch) => {
     );
     dispatch(getalluser());
   } catch (err) {
-    console.log("error while sending from action");
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
     });
@@ -389,7 +400,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    // dispatch(getAllTenants());
+    dispatch(getAllTenants());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,

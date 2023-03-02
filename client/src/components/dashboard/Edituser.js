@@ -17,6 +17,10 @@ const Edituser = ({
   UpdateUser,
   getalluser,
 }) => {
+  useEffect(() => {
+    getalluser();
+  }, []);
+
   const [orgname, setOrgname] = useState({});
 
   const orglist = [];
@@ -75,6 +79,7 @@ const Edituser = ({
     useraddress: superuser.useraddress,
     userphone: superuser.userphone,
     OrganizationName: superuser.OrganizationName,
+    OrganizationId: superuser.OrganizationId,
   });
   const {
     username,
@@ -95,7 +100,6 @@ const Edituser = ({
   };
 
   const onUpdate = () => {
-    handleClose();
     const updateUSER = {
       userid: superuser._id,
       username: username,
@@ -103,10 +107,11 @@ const Edituser = ({
       useraddress: useraddress,
       useremail: useremail,
       usergroup: us,
-      OrganizationName: orgname,
+      OrganizationName: superuser.OrganizationName,
+      OrganizationId: superuser.OrganizationId,
     };
     UpdateUser(updateUSER);
-    getalluser();
+    handleClose(true);
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -161,8 +166,9 @@ const Edituser = ({
               </i>
               :{" "}
             </label>
+            <input type="text" placeholder={user.OrganizationName}></input>
 
-            <Select
+            {/* <Select
               name="orgname"
               options={orglist}
               value={orgname}
@@ -179,7 +185,7 @@ const Edituser = ({
               })}
             >
               select Organization
-            </Select>
+            </Select> */}
           </div>
           <div className="col-lg-6">
             <label>
