@@ -4,7 +4,12 @@ ObjectId = mongoose.Schema.ObjectId;
 const TenantDetails = new mongoose.Schema({
   tenantName: {
     type: String,
-    
+  },
+  OrganizationName: {
+    type: String,
+  },
+  OrganizationId: {
+    type: String,
   },
   tenantPhone: {
     type: Number,
@@ -15,7 +20,6 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantAddr: {
     type: String,
-    
   },
   tenantAdharNo: {
     type: String,
@@ -27,14 +31,12 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantDepositAmt: {
     type: Number,
-    
   },
   generatordepoAmt: {
     type: Number,
   },
   tenantPaymentMode: {
     type: String,
-  
   },
   tenantChequenoOrDdno: {
     type: String,
@@ -47,17 +49,20 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantstatus: {
     type: String,
-    
+
     default: "Active", //Active,Deactive
   },
-  buildingName: {
+  BuildingName: {
     type: String,
-    
   },
-  Location: [],
+  BuildingId: {
+    type: String,
+  },
+  Location: {
+    type: String,
+  },
   shopDoorNo: {
     type: String,
-    
   },
   shopId: {
     type: ObjectId,
@@ -74,11 +79,9 @@ const TenantDetails = new mongoose.Schema({
   },
   enter_by_id: {
     type: ObjectId,
-    
   },
   enter_by_name: {
     type: String,
-    
   },
   enter_by_dateTime: {
     type: Date,
@@ -86,15 +89,12 @@ const TenantDetails = new mongoose.Schema({
   },
   enter_by_date: {
     type: String,
-    
   },
   edit_by_id: {
     type: ObjectId,
-    
   },
   edit_by_name: {
     type: String,
-    
   },
   edit_by_dateTime: {
     type: Date,
@@ -102,26 +102,22 @@ const TenantDetails = new mongoose.Schema({
   },
   edit_by_date: {
     type: String,
-    
   },
   deactive_by_id: {
     type: ObjectId,
-    
   },
   deactive_by_name: {
     type: String,
-      },
+  },
   deactive_by_dateTime: {
     type: Date,
     default: Date.now(),
   },
   deactive_by_date: {
     type: String,
-    
   },
   deactive_reason: {
     type: String,
-    
   },
 });
 
