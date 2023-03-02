@@ -21,10 +21,9 @@ const AddTenantDetails = ({
   getAllSettings,
 }) => {
   useEffect(() => {
-    getParticularProperty();
+    // getParticularProperty();
+    getParticularProperty({ OrganizationName: user.OrganizationName });
   }, []);
-
-  console.log("uuuuuuu", user);
 
   useEffect(() => {
     getAllDoorNos();
@@ -121,17 +120,24 @@ const AddTenantDetails = ({
     })
   );
 
-  console.log(particular_org_data);
   const [DnoList, setDnoList] = useState([]);
+  const [LocList, SetLocList] = useState([]);
 
+  const LocName = [];
+  particular_org_data.map((loc) => {
+    LocName.push({
+      label: loc.Location,
+      value: loc._id,
+    });
+  });
   const onBuildingChange = (e) => {
-    console.log("my val", e);
     setBuildingID(e.value);
     setBuildingName(e.label);
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     particular_org_data &&
       particular_org_data.map((ele) => {
         if (e.buildingId == ele._id) {
+          SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
               label: doornumber,
@@ -152,7 +158,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+    var leaseMonth = 12;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -232,6 +238,7 @@ const AddTenantDetails = ({
       OrganizationId: user.OrganizationId,
       BuildingName: buildingName,
       BuildingId: buildingId,
+      Location: LocList,
       tenantFileNo: tenantFileNo,
       tenantDoorNo: doorno,
       tenantName: tenantName,
@@ -255,8 +262,8 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log("added data", finalData);
-    // AddTenantDetailsform(finalData);
+
+    AddTenantDetailsform(finalData);
     setFormData({
       ...formData,
       tenantFileNo: "",
@@ -371,6 +378,16 @@ const AddTenantDetails = ({
               </div>
               <div className="col-lg-4">
                 <label className="ml-2">
+                  Location{" "}
+                  <i className="text-danger  ">
+                    <b>*</b>
+                  </i>
+                </label>
+                <input type="text" placeholder={LocList}></input>
+                <br></br>
+              </div>
+              <div className="col-lg-4">
+                <label className="ml-2">
                   FileNo{" "}
                   <i className="text-danger  ">
                     <b>*</b>
@@ -447,7 +464,7 @@ const AddTenantDetails = ({
 
               <div className="col-lg-4">
                 <label className="ml-2">
-                  BuildingName{" "}
+                  Tenant Pan Number{" "}
                   <i className="text-danger  ">
                     <b>*</b>
                   </i>
@@ -628,7 +645,7 @@ const AddTenantDetails = ({
                   required
                 ></textarea>{" "}
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-3 ">
                 <label>Lease End Date:</label>
                 <br />
                 <label>

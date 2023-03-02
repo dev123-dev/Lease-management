@@ -17,7 +17,7 @@ const Tenant_Details = ({
   useEffect(() => {
     getAllTenants();
   }, []);
-
+  console.log("aLL TENANT DETAILS", allTenants);
   const [userData, setUserData] = useState(null);
 
   // Modal for Deactivation
@@ -117,10 +117,10 @@ const Tenant_Details = ({
                             return (
                               <tr key={idx}>
                                 <td>{Val.tenantName}</td>
-                                <td>{}</td>
+                                <td>{Val.BuildingName}</td>
                                 <td>{Val.tenantDoorNo}</td>
                                 <td>{Val.tenantFileNo}</td>
-                                <td>{}</td>
+                                <td>{Val.Location}</td>
                                 <td>{Val.tenantPhone}</td>
                                 <td>{Val.tenantLeaseEndDate}</td>
                                 <td>{Val.tenantRentAmount}</td>

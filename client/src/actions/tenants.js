@@ -270,7 +270,7 @@ export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log(finalData.tenantName);
+  console.log("inside action of add tenant details", finalData.tenantName);
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
   };
@@ -396,25 +396,22 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
     });
   }
 };
-export const UpdateTenantsDetails =
-  (finalData, finalData2) => async (dispatch) => {
-    try {
-      // console.log(finalData);
-      const res = await axios.post(
-        `${linkPath}/api/tenants/update-tenant-details`,
-        finalData,
-        config
-      );
-      // dispatch({
-      //   type: GET_ALL_TENANTS,
-      // });
-      dispatch(getAllTenants());
-    } catch (err) {
-      dispatch({
-        type: TENANT_FEEDBACK_ERROR,
-      });
-    }
-  };
+export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
+  console.log("hit");
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/update-tenant-details`,
+      finalData,
+      config
+    );
+    dispatch(getAllTenants());
+  } catch (err) {
+    console.log(err.message);
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
 
 export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
   try {
