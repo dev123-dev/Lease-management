@@ -23,10 +23,6 @@ const PropertyDetail = ({
     getParticularProperty();
   }, []);
 
-  useEffect(() => {
-    getParticularProperty({ OrganizationName: user.OrganizationName });
-  }, []);
-
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
