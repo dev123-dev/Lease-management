@@ -20,32 +20,44 @@ const { cat } = require("shelljs");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
+  console.log("inside add tenant details");
+  console.log(data);
 
-  let tenantDetails = new TenantDetails(data);
-  // const finalData = {
-  // tenantName: data.tenantName,
-  // tenantPhone: data.tenantPhone,
-  // tenantFirmName: data.tenantFirmName,
-  // tenantAddr: data.tenantAddr,
-  // tenantAdharNo: data.tenantAdharNo,
-  // tenantPanNo: data.tenantPanNo,
-  // tenantDepositAmt: data.tenantDepositAmt,
-  // tenantPaymentMode: data.tenantPaymentMode,
-  // tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-  // tenantBankName: data.tenantBankName,
-  // tenantchequeDate: data.tenantchequeDate,
-  // shopId: data.shopId,
-  // tenantEnteredBy: data.tenantEnteredBy,
-  // tenantDate: data.tenantDate,
-  // generatordepoAmt: data.generatordepoAmt,
-  //};
   try {
-    //console.log(tenantDetails.tenantName);
-    output = await tenantDetails.save();
-    // console.log(output);
+    let tenantDetails = {
+      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
+      BuildingName: data.BuildingName,
+      BuildingId: data.BuildingId,
+      Location: data.Location,
+      tenantFileNo: data.tenantFileNo,
+      tenantDoorNo: data.tenantDoorNo.label,
+      tenantName: data.tenantName,
+      tenantPhone: data.tenantPhone,
+      tenantFirmName: data.tenantFirmName,
+      tenantAddr: data.tenantAddr,
+      tenantAdharNo: data.tenantAdharNo,
+      tenantPanNo: data.tenantPanNo,
+      tenantDepositAmt: data.tenantDepositAmt,
+      tenantPaymentMode: data.tenantPaymentMode,
+      tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+      tenantBankName: data.tenantBankName,
+      tenantchequeDate: data.startSelectedDate,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.entryDate,
+      tenantLeaseEndDate: data.newLeaseEndDate,
+      shopId: data.shopId,
+      generatordepoAmt: data.generatordepoAmt,
+      tenantEnteredBy: data.tenantEnteredBy,
+      tenantDate: data.todayDateymd,
+      selectedY: data.selectedY,
+      selectedVal: data.selectedVal,
+    };
+    let tenantdata = await new TenantDetails(tenantDetails);
+    let finalData = tenantdata.save();
 
     const finalData2 = {
-      tdId: output._id,
+      tdId: tenantdata._id,
       thName: data.tenantName,
       thPhone: data.tenantPhone,
       thFirmName: data.tenantFirmName,
@@ -63,21 +75,21 @@ router.post("/add-tenant-details", async (req, res) => {
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
 
-    const updateStatus = await ShopDetails.updateOne(
-      { _id: output.shopId },
+    const updateStatus = await property.updateOne(
+      { _id: tenantdata.shopId },
       {
         $set: {
           shopStatus: "Used",
-          tdId: output._id,
+          tdId: tenantdata._id,
         },
       }
     );
     res.json(updateStatus);
 
     const finalData1 = {
-      tdId: output._id,
+      tdId: tenantdata._id,
       tenantFileNo: data.tenantFileNo,
-      tenantDoorNo: data.tenantDoorNo,
+      tenantDoorNo: data.tenantDoorNo.label,
       tenantRentAmount: data.tenantRentAmount,
       tenantLeaseStartDate: data.tenantLeaseStartDate,
       tenantLeaseEndDate: data.tenantLeaseEndDate,
@@ -223,7 +235,7 @@ router.post("/update-Organization", async (req, res) => {
 });
 router.post("/update-Property", async (req, res) => {
   let data = req.body;
-
+  console.log(data);
   try {
     const updateorg = await property.updateOne(
       { _id: data.Property_id },
@@ -288,6 +300,7 @@ router.post("/add-AdminUser", async (req, res) => {
     let u_data = new UserDetails(adduser);
     output = await u_data.save();
     res.send(u_data);
+    console.log(output);
   } catch (err) {
     console.error(err);
   }
@@ -388,6 +401,7 @@ router.post("/get-Particular-Property", async (req, res) => {
     });
 
     res.json(propertydata);
+    console.log("particular data", propertydata.Location);
   } catch (error) {
     console.log(error.message);
   }
@@ -664,7 +678,6 @@ router.post("/add-agreement-details", async (req, res) => {
 router.get("/get-all-shops", async (req, res) => {
   try {
     const ShopsData = await property.find({}).sort({ _id: -1 });
-
     res.json(ShopsData);
   } catch (err) {
     console.error(err.message);
@@ -1009,6 +1022,8 @@ router.get("/get-all-tenants", async (req, res) => {
       {
         $project: {
           tenantName: "$tenantName",
+          BuildingName: "$BuildingName",
+          Location: "$Location",
           tenantPhone: "$tenantPhone",
           tenantFirmName: "$tenantFirmName",
           tenantAdharNo: "$tenantAdharNo",
@@ -1137,52 +1152,51 @@ router.post(
   }
 );
 
-router.post(
-  "/update-tenant-details",
+router.post("/update-tenant-details", async (req, res) => {
+  console.log("data");
 
-  async (req, res) => {
-    try {
-      let data = req.body;
-      const updatetenantdetails = await TenantDetails.updateOne(
-        { _id: data.recordId },
-        {
-          $set: {
-            tenantName: data.tenantName,
-            tenantPhone: data.tenantPhone,
-            tenantFirmName: data.tenantFirmName,
-            tenantAddr: data.tenantAddr,
-            tenantAdharNo: data.tenantAdharNo,
-            tenantPanNo: data.tenantPanNo,
-            tenantDepositAmt: data.tenantDepositAmt,
-            tenantPaymentMode: data.tenantPaymentMode,
-            tenantBankName: data.tenantBankName,
-            tenantchequeDate: data.tenantchequeDate,
-            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-            generatordepoAmt: data.generatordepoAmt,
-          },
-        }
-      );
+  try {
+    let data = req.body;
 
-      //  res.json(updatetenantdetails);
+    const updatetenantdetails = await TenantDetails.updateOne(
+      { _id: data.recordId },
+      {
+        $set: {
+          tenantName: data.tenantName,
+          tenantPhone: data.tenantPhone,
+          tenantFirmName: data.tenantFirmName,
+          tenantAddr: data.tenantAddr,
+          tenantAdharNo: data.tenantAdharNo,
+          tenantPanNo: data.tenantPanNo,
+          tenantDepositAmt: data.tenantDepositAmt,
+          tenantPaymentMode: data.tenantPaymentMode,
+          tenantBankName: data.tenantBankName,
+          tenantchequeDate: data.tenantchequeDate,
+          tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+          generatordepoAmt: data.generatordepoAmt,
+        },
+      }
+    );
 
-      const AgreementUpdate = await TenentAgreement.updateOne(
-        { tdId: data.recordId, AgreementStatus: data.AgreementStatus },
+    res.json(updatetenantdetails);
 
-        {
-          $set: {
-            tenantRentAmount: data.tenantRentAmount,
-            tenantLeaseStartDate: data.tenantLeaseStartDate,
-            tenantLeaseEndDate: data.tenantLeaseEndDate,
-          },
-        }
-      );
+    // const AgreementUpdate = await TenentAgreement.updateOne(
+    //   { tdId: data.recordId, AgreementStatus: data.AgreementStatus },
 
-      // res.json(AgreementUpdate);
-    } catch (error) {
-      res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    //   {
+    //     $set: {
+    //       tenantRentAmount: data.tenantRentAmount,
+    //       tenantLeaseStartDate: data.tenantLeaseStartDate,
+    //       tenantLeaseEndDate: data.tenantLeaseEndDate,
+    //     },
+    //   }
+    // );
+
+    // res.json(AgreementUpdate);
+  } catch (error) {
+    res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
   }
-);
+});
 
 router.post("/tenant-update-history", async (req, res) => {
   let data = req.body;

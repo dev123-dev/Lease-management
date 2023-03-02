@@ -20,11 +20,8 @@ const PropertyDetail = ({
 }) => {
   useEffect(() => {
     getalluser();
-    getParticularProperty();
-  }, []);
-
-  useEffect(() => {
     getParticularProperty({ OrganizationName: user.OrganizationName });
+    // getParticularProperty();
   }, []);
 
   const [formData, setFormData] = useState({

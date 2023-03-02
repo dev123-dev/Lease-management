@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { UpdateTenantsDetails } from "../../actions/tenants";
@@ -16,6 +16,9 @@ const EditTenantDetails = ({
   getAllTenants,
   tenantsDetailsHistory,
 }) => {
+  useEffect(() => {
+    getAllTenants();
+  }, []);
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
@@ -63,7 +66,9 @@ const EditTenantDetails = ({
     tenantPanNo: tenants.tenantPanNo,
     tenantDepositAmt: tenants.tenantDepositAmt,
     tenantBankName: tenants.tenantBankName,
-    tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
+    tenantChequenoOrDdno: tenants.tenantChequenoOrDdno
+      ? tenants.tenantChequenoOrDdno
+      : "null",
     startSelectedDate: tenants.tenantchequeDate,
     tenantLeaseStartDate: tenants.tenantLeaseStartDate,
     tenantLeaseEndDate: tenants.tenantLeaseEndDate,
@@ -75,7 +80,7 @@ const EditTenantDetails = ({
             value: tenants.tenantPaymentMode,
             label: tenants.tenantPaymentMode,
           }
-        : "",
+        : "null",
   });
   const {
     tenantFileNo,
@@ -103,13 +108,14 @@ const EditTenantDetails = ({
 
   const [entryDate, setEntryDate] = useState(tenants.tenantLeaseStartDate);
   const [leaseEndDate, setLeaseEndDate] = useState(tenants.tenantLeaseEndDate);
-  const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+  const [newLeaseEndDate, setNewLeaseEndDate] = useState("null");
+
   const onDateChangeEntry1 = (e) => {
     setEntryDate(e.target.value);
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+    var leaseMonth = 12;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -148,6 +154,7 @@ const EditTenantDetails = ({
   //For setting mindate as todays date
 
   const onUpdate = (tenants, idx) => {
+    //  onDateChangeEntry1();
     const finalData = {
       recordId: tenants ? tenants._id : "",
       tenantDoorNo: tenantDoorNo,
@@ -171,6 +178,11 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
+
+    // console.log(finalData);
+
+    UpdateTenantsDetails(finalData);
+
     // const historyData = {
     //   tdId: tenants ? tenants._id : "",
     //   // tenantDoorNo: tenants.tenantDoorNo,
@@ -188,22 +200,22 @@ const EditTenantDetails = ({
     //   thChequenoOrDdno: tenants.tenantChequenoOrDdno,
     //   thgeneratordepoAmt: tenants.generatordepoAmt,
     //   thStatus: "Edit",
-    //   // tenantBankName: tenants.tenantBankName,
-    //   // tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
-    //   // tenantPaymentMode: tenants.tenantPaymentMode.value,
-    //   // tenantchequeDate: tenants.startSelectedDate,
+    //   tenantBankName: tenants.tenantBankName,
+    //   //tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
+    //   tenantPaymentMode: "",
+    //   tenantchequeDate: tenants.startSelectedDate
+    //     ? tenants.startSelectedDate
+    //     : "",
     //   thLeaseStartDate: tenants.tenantLeaseStartDate,
     //   thLeaseEndDate: tenants.tenantLeaseEndDate,
-    //   // AgreementStatus: tenants.AgreementStatus,
+    //   AgreementStatus: tenants.AgreementStatus,
     //   thEnteredBy: user && user._id,
     //   thDate: todayDateymd,
     // };
 
     // tenantsDetailsHistory(historyData);
-    // UpdateTenantsDetails(finalData);
 
     onUpdateModalChange(true);
-    // getAllTenants();
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>

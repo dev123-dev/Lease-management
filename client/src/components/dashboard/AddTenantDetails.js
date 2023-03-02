@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
+  getParticularProperty,
   getAllDoorNos,
   getAllSettings,
 } from "../../actions/tenants";
@@ -14,11 +15,15 @@ const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, allTenantSetting, particular_org_data },
   getAllDoorNos,
+  getParticularProperty,
   AddTenantDetailsform,
   Addorgform,
   getAllSettings,
 }) => {
-  console.log("=", particular_org_data);
+  useEffect(() => {
+    // getParticularProperty();
+    getParticularProperty({ OrganizationName: user.OrganizationName });
+  }, []);
 
   useEffect(() => {
     getAllDoorNos();
@@ -111,29 +116,28 @@ const AddTenantDetails = ({
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.buildingName,
-      value: buildingData.buildingName,
+      value: buildingData._id,
     })
   );
 
-  const allOrganizationNames = [];
-  particular_org_data.map((buildingData) =>
-    allOrganizationNames.push({
-      buildingId: buildingData._id,
-      label: buildingData.OrganizationName,
-      value: buildingData.Organization_id,
-    })
-  );
-  console.log("allOrganizationNames", allOrganizationNames);
-
-  //console.log(particular_org_data)
   const [DnoList, setDnoList] = useState([]);
+  const [LocList, SetLocList] = useState([]);
 
+  const LocName = [];
+  particular_org_data.map((loc) => {
+    LocName.push({
+      label: loc.Location,
+      value: loc._id,
+    });
+  });
   const onBuildingChange = (e) => {
-    setBuildingName(e);
-    let temp = DnoList;
+    setBuildingID(e.value);
+    setBuildingName(e.label);
+    let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     particular_org_data &&
       particular_org_data.map((ele) => {
         if (e.buildingId == ele._id) {
+          SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
               label: doornumber,
@@ -146,7 +150,7 @@ const AddTenantDetails = ({
 
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
-    setBuildingName(e.value ? e.value : "");
+    setBuildingName(e.label ? e.label : "");
   };
 
   const onDateChangeEntry = (e) => {
@@ -154,7 +158,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+    var leaseMonth = 12;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -230,9 +234,11 @@ const AddTenantDetails = ({
 
   const onSubmit = () => {
     const finalData = {
-      OrganizationName: particular_org_data.OrganizationName,
-      OrganizationId: particular_org_data.OrganizationId,
+      OrganizationName: user.OrganizationName,
+      OrganizationId: user.OrganizationId,
       BuildingName: buildingName,
+      BuildingId: buildingId,
+      Location: LocList,
       tenantFileNo: tenantFileNo,
       tenantDoorNo: doorno,
       tenantName: tenantName,
@@ -256,8 +262,8 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log("added data", finalData);
-    // AddTenantDetailsform(finalData);
+
+    AddTenantDetailsform(finalData);
     setFormData({
       ...formData,
       tenantFileNo: "",
@@ -372,6 +378,16 @@ const AddTenantDetails = ({
               </div>
               <div className="col-lg-4">
                 <label className="ml-2">
+                  Location{" "}
+                  <i className="text-danger  ">
+                    <b>*</b>
+                  </i>
+                </label>
+                <input type="text" placeholder={LocList}></input>
+                <br></br>
+              </div>
+              <div className="col-lg-4">
+                <label className="ml-2">
                   FileNo{" "}
                   <i className="text-danger  ">
                     <b>*</b>
@@ -448,7 +464,7 @@ const AddTenantDetails = ({
 
               <div className="col-lg-4">
                 <label className="ml-2">
-                  BuildingName{" "}
+                  Tenant Pan Number{" "}
                   <i className="text-danger  ">
                     <b>*</b>
                   </i>
@@ -629,7 +645,7 @@ const AddTenantDetails = ({
                   required
                 ></textarea>{" "}
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-3 ">
                 <label>Lease End Date:</label>
                 <br />
                 <label>
@@ -695,4 +711,5 @@ export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
   getAllSettings,
+  getParticularProperty,
 })(AddTenantDetails);
