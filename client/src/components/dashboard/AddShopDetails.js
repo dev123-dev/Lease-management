@@ -6,20 +6,22 @@ import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import Select from "react-select";
-import { getParticularOrg } from "../../actions/tenants";
+import { getParticularOrg,getParticularTenantSetting } from "../../actions/tenants";
+
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
-  tenants: { particular_org_loc },
+  tenants: { particular_org_loc,get_Particular_org_Tenantsetting },
   AddShopDetailsform,
   getParticularOrg,
+  getParticularTenantSetting,
   getAllShops,
 }) => {
   useEffect(() => {
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationName: user && user.OrganizationName });
+    getParticularTenantSetting({Organization_id : user && user.OrganizationId})
   }, []);
-
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
 
@@ -40,9 +42,9 @@ const AddShopDetails = ({
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
-    hikePercentage: "",
-    stampDuty: "",
-    LeaseTime: "",
+    hikePercentage: get_Particular_org_Tenantsetting[0].hikePercentage,
+    stampDuty: get_Particular_org_Tenantsetting[0].stampDuty,
+    LeaseTime:  get_Particular_org_Tenantsetting[0].leaseTimePeriod,
     shopAddress: "",
     isSubmitted: false,
   });
@@ -55,7 +57,7 @@ const AddShopDetails = ({
     shopDoorNo,
     hikePercentage,
     stampDuty,
-    leaseTimePeriod,
+    LeaseTime,
     shopAddress,
     shopStatus,
   } = formData;
@@ -99,12 +101,13 @@ const AddShopDetails = ({
       shopDoorNo: items,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
-      leaseTimePeriod: 12,
+      leaseTimePeriod: LeaseTime,
       shopAddress: shopAddress,
       isSubmitted: false,
       Location: orgLoc.value,
       shopStatus: "Acquired",
     };
+    console.log("DATA",finalData)
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,
@@ -219,12 +222,11 @@ const AddShopDetails = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="StampDuty"
+                  placeholder={stampDuty}
                   name="stampDuty"
                   value={stampDuty}
                   className="form-control  input"
-                  onChange={(e) => onPropertychange(e)}
-                  required
+                  readOnly
                 />
               </div>
               <div className="col-lg-6">
@@ -236,13 +238,11 @@ const AddShopDetails = ({
                 </label>
                 <input
                   type="text"
-                  placeholder="HikePercent"
+                  placeholder={hikePercentage}
                   name="hikePercentage"
-                  value={hikePercentage}
                   className="form-control  input"
-                  onChange={(e) => onPropertychange(e)}
-                  required
-                />
+                  readOnly                
+                  />
               </div>
               <div className="col-lg-6">
                 <label>
@@ -253,12 +253,8 @@ const AddShopDetails = ({
                 </label>
                 <div className="controls">
                   <input
-                    name="OrganizationStartdate"
-                    placeholder="12"
-                    value={leaseTimePeriod}
+                    placeholder={LeaseTime}
                     className="form-control"
-                    onChange={(e) => onPropertychange(e)}
-                    required
                     readOnly
                   />
                   <span id="category_result" className="form-input-info"></span>
@@ -397,6 +393,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddShopDetailsform,
   getAllShops,
-
+  getParticularTenantSetting,
   getParticularOrg,
 })(AddShopDetails);

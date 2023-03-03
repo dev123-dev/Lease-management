@@ -8,6 +8,12 @@ const TenantSettings = new mongoose.Schema({
     type: Number,
     Required: true,
   },
+  OrganizationId : {
+    type : String,
+  },
+  OrganizationName : {
+    type : String,
+  },
   stampDuty: {
     type: SchemaTypes.Double,
     required: true,
@@ -18,7 +24,4 @@ const TenantSettings = new mongoose.Schema({
   },
 });
 
-module.exports = tenantSettings = mongoose.model(
-  "tenantSettings",
-  TenantSettings
-);
+module.exports = mongoose.model("tenantSettings",TenantSettings);

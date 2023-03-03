@@ -296,6 +296,7 @@ router.post("/add-AdminUser", async (req, res) => {
       usergroup: userdata.usergroup.label,
       password: userdata.password,
       OrganizationName: userdata.OrganizationName,
+      OrganizationId: userdata.OrganizationId,
     };
     let u_data = new UserDetails(adduser);
     output = await u_data.save();
@@ -318,6 +319,7 @@ router.get("/get-all-Superuser", async (req, res) => {
           usergroup: "$usergroup",
           userStatus: "$userStatus",
           useraddress: "$useraddress",
+          password : "$password",
           OrganizationName: "$OrganizationName",
         },
       },
@@ -329,6 +331,22 @@ router.get("/get-all-Superuser", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+//get particular organization user
+router.post("/get-particular-org-user", async (req, res) => {
+  let data = req.body;
+
+  try {
+    const ParticularOrg = await UserDetails.find({
+      OrganizationId: data.orgid,
+    });
+    console.log("org data", ParticularOrg);
+    res.json(ParticularOrg);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 //edit the super user
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
@@ -342,7 +360,7 @@ router.post("/Update-User", async (req, res) => {
           useremail: data.useremail,
           usergroup: data.usergroup.label,
           useraddress: data.useraddress,
-          OrganizationName: data.OrganizationName.label,
+          OrganizationName: data.OrganizationName,
         },
       }
     );
@@ -401,7 +419,6 @@ router.post("/get-Particular-Property", async (req, res) => {
     });
 
     res.json(propertydata);
-    console.log("particular data", propertydata.Location);
   } catch (error) {
     console.log(error.message);
   }
@@ -420,7 +437,7 @@ router.post("/deactive-property", async (req, res) => {
         },
       }
     );
-    console.log(propertydata);
+
     res.json(propertydata);
   } catch (err) {
     console.error(err.message);
@@ -830,6 +847,15 @@ router.get("/get-all-settings", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+
+router.post("/get-Particular-org-Tenantsetting",async(req,res)=>{
+  const data = req.body;
+  
+  try{
+    const Tenant_SETTING = await TenantSettings.find({OrganizationId :data.Organization_id})
+    res.json(Tenant_SETTING)
+  }catch(error){console.log(error.message)}
+})
 
 router.get("/get-door-nos", async (req, res) => {
   try {

@@ -15,6 +15,7 @@ const TenantSettings = ({
 }) => {
   useEffect(() => {
     getAllSettings();
+    console.log("user details",user)
   }, [getAllSettings]);
 
   //formData
@@ -37,14 +38,18 @@ const TenantSettings = ({
   };
 
   const onSubmit = () => {
+    
     const finalData = {
+      OrganizationId : user.OrganizationId,
+      OrganizationName : user.OrganizationName,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
     };
+    console.log("this is submittd tenant setting",finalData)
     AddTenantSettingform(finalData);
-    setFormData({ ...formData, isSubmitted: true });
-    getAllSettings();
+    // setFormData({ ...formData, isSubmitted: true });
+    // getAllSettings();
   };
 
   const onUpdate = (allTenantSetting) => {
@@ -119,13 +124,7 @@ const TenantSettings = ({
               variant="success"
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
-              style={
-                leaseTimePeriod !== "" &&
-                stampDuty !== "" &&
-                hikePercentage !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
+              
             >
               Save
             </button>
@@ -134,13 +133,7 @@ const TenantSettings = ({
               variant="success"
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onUpdate(allTenantSetting)}
-              style={
-                leaseTimePeriod !== "" &&
-                stampDuty !== "" &&
-                hikePercentage !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
+           
             >
               Update
             </button>

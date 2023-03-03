@@ -5,6 +5,7 @@ import {
   AddTenantDetailsform,
   getParticularProperty,
   getAllDoorNos,
+  getParticularTenantSetting,
   getAllSettings,
 } from "../../actions/tenants";
 import Select from "react-select";
@@ -13,15 +14,16 @@ import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
-  tenants: { allDoorNos, allTenantSetting, particular_org_data },
+  tenants: { allDoorNos, allTenantSetting, particular_org_data,get_Particular_org_Tenantsetting },
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
+  getParticularTenantSetting,
   Addorgform,
   getAllSettings,
 }) => {
   useEffect(() => {
-    // getParticularProperty();
+    getParticularTenantSetting({Organization_id : user && user.OrganizationId})
     getParticularProperty({ OrganizationName: user.OrganizationName });
   }, []);
 
@@ -158,7 +160,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = 12;
+    var leaseMonth = get_Particular_org_Tenantsetting[0].leaseTimePeriod ;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -711,5 +713,6 @@ export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
   getAllSettings,
+  getParticularTenantSetting,
   getParticularProperty,
 })(AddTenantDetails);

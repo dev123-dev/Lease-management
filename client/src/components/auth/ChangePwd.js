@@ -18,7 +18,6 @@ const ChangePwd = ({
     zIndex: "999",
     width: "300px",
   };
-
   const [formData, setFormData] = useState({
     password: "",
     rePassword: "",
