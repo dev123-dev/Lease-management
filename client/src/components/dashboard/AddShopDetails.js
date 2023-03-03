@@ -132,7 +132,6 @@ const AddShopDetails = ({
         src={require("../../static/images/add-icon.png")}
         alt="Add Shop"
         title="Add Shop"
-        id="addimg"
         className="img_icon_size  "
       />
 
