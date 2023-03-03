@@ -22,7 +22,7 @@ const PropertySchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
   },
-  Organization_id: {
+  OrganizationId: {
     type: String,
   },
   shopStatus: {
