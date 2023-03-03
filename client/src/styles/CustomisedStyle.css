@@ -1959,15 +1959,13 @@ input[type="number"]::-webkit-outer-spin-button {
  }
 .card{
   
-    width: 300px;
+    width: 600px;
     height:250px;
     padding: 10px;
     border: 5px solid gray;
-    margin: 20px;
-    
-    
-  
+    background-color: #000;
 }
+
 #shadow-bck{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -2146,6 +2144,21 @@ button {
 }
 .despace{
   margin-top: -20px;
+}
+.mainpageimg{
+  margin-left: 230px;
+  margin-top: -10px;
+  color: #095a4a;
+  
+}
+.mainpage{
+  width: fit-content;
+  display:grid;
+  grid-template-columns: auto auto;
+  row-gap: 1rem;
+column-gap: 3rem;
+  
+
 }
 
 /* div{

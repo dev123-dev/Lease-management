@@ -88,7 +88,7 @@ const UserDetails = ({
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                   <h2 className="heading_color">
-                    {user.OrganizationName},User Details{" "}
+                    {user.OrganizationName}User Details{" "}
                   </h2>
                 </div>
                 <AddAdminUserModal />
