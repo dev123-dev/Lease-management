@@ -6,12 +6,14 @@ import { Modal, Button } from "react-bootstrap";
 import { getAllShops } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import Select from "react-select";
-import { getParticularOrg,getParticularTenantSetting } from "../../actions/tenants";
-
+import {
+  getParticularOrg,
+  getParticularTenantSetting,
+} from "../../actions/tenants";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
-  tenants: { particular_org_loc,get_Particular_org_Tenantsetting },
+  tenants: { particular_org_loc, get_Particular_org_Tenantsetting },
   AddShopDetailsform,
   getParticularOrg,
   getParticularTenantSetting,
@@ -20,7 +22,9 @@ const AddShopDetails = ({
   useEffect(() => {
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationName: user && user.OrganizationName });
-    getParticularTenantSetting({Organization_id : user && user.OrganizationId})
+    getParticularTenantSetting({
+      Organization_id: user && user.OrganizationId,
+    });
   }, []);
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
@@ -44,7 +48,7 @@ const AddShopDetails = ({
     shopDoorNo: [],
     hikePercentage: get_Particular_org_Tenantsetting[0].hikePercentage,
     stampDuty: get_Particular_org_Tenantsetting[0].stampDuty,
-    LeaseTime:  get_Particular_org_Tenantsetting[0].leaseTimePeriod,
+    LeaseTime: get_Particular_org_Tenantsetting[0].leaseTimePeriod,
     shopAddress: "",
     isSubmitted: false,
   });
@@ -107,7 +111,7 @@ const AddShopDetails = ({
       Location: orgLoc.value,
       shopStatus: "Acquired",
     };
-    console.log("DATA",finalData)
+    console.log("DATA", finalData);
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,
@@ -127,6 +131,13 @@ const AddShopDetails = ({
     <Fragment></Fragment>
   ) : (
     <>
+      <img
+        onClick={handleShow}
+        src={require("../../static/images/refresh-icon.png")}
+        alt="refresh"
+        title="refresh"
+        className="refresh"
+      />
       <img
         onClick={handleShow}
         src={require("../../static/images/add-icon.png")}
@@ -240,8 +251,8 @@ const AddShopDetails = ({
                   placeholder={hikePercentage}
                   name="hikePercentage"
                   className="form-control  input"
-                  readOnly                
-                  />
+                  readOnly
+                />
               </div>
               <div className="col-lg-6">
                 <label>

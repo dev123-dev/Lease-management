@@ -80,6 +80,7 @@ const Tenant_Details = ({
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">TenantDetails </h2>
               </div>
+              <hr></hr>
               <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
                 <AddTenantDetails />
               </div>

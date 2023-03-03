@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { changePwd } from "../../actions/auth";
+import "../../styles/CustomisedStyle.css";
 
 const ChangePwd = ({
   auth: { isAuthenticated, user },
@@ -177,12 +178,19 @@ const ChangePwd = ({
         <section className="sub_reg">
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-              <h2 className=" heading_color">Reset Password</h2>
+              <h2 className=" heading_color h2">Reset Password</h2>
             </div>
 
-            <div className="row">
+            <hr size="10"></hr>
+
+            <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label className="label-control">Password *</label>
+                <label className="label-control ">
+                  Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
                 <input
                   type="password"
                   name="password"
@@ -222,9 +230,14 @@ const ChangePwd = ({
               </div>
             </div>
 
-            <div className="row">
+            <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label className="label-control">Confirm Password *</label>
+                <label className="label-control">
+                  Confirm Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
                 <input
                   type="password"
                   name="rePassword"
@@ -246,20 +259,22 @@ const ChangePwd = ({
                 )}
               </div>
             </div>
-
-            <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
+            <br></br>
+            <div className=" ml-4">
               <input
                 type="submit"
                 name="Submit"
                 value="UPDATE"
-                className="btn sub_form reg_continue blackbrd"
-                id="updatePswd"
+                id="buttonchanges"
               />
-              <Link
-                className="btn sub_form reg_continue blackbrd"
-                to="/tenant-report"
-              >
-                CANCEL
+              &nbsp;
+              <Link to="/tenant-report">
+                <input
+                  type="submit"
+                  name="Submit"
+                  value="CANCEL"
+                  id="buttonchanges"
+                />
               </Link>
             </div>
           </form>

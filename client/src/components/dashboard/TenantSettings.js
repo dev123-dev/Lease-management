@@ -15,7 +15,7 @@ const TenantSettings = ({
 }) => {
   useEffect(() => {
     getAllSettings();
-    console.log("user details",user)
+    console.log("user details", user);
   }, [getAllSettings]);
 
   //formData
@@ -38,15 +38,14 @@ const TenantSettings = ({
   };
 
   const onSubmit = () => {
-    
     const finalData = {
-      OrganizationId : user.OrganizationId,
-      OrganizationName : user.OrganizationName,
+      OrganizationId: user.OrganizationId,
+      OrganizationName: user.OrganizationName,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
     };
-    console.log("this is submittd tenant setting",finalData)
+    console.log("this is submittd tenant setting", finalData);
     AddTenantSettingform(finalData);
     // setFormData({ ...formData, isSubmitted: true });
     // getAllSettings();
@@ -72,7 +71,14 @@ const TenantSettings = ({
       <div className="row">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-1 col-12">
-            <label> Hike Percentage * :</label>
+            <label>
+              {" "}
+              Hike Percentage{" "}
+              <i className="text-danger ">
+                <b>*</b>
+              </i>{" "}
+              :
+            </label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -88,7 +94,13 @@ const TenantSettings = ({
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Stamp Duty * :</label>
+            <label>
+              Stamp Duty{" "}
+              <i className="text-danger ">
+                <b>*</b>
+              </i>
+              :
+            </label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -104,7 +116,13 @@ const TenantSettings = ({
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Lease Time Period * :</label>
+            <label>
+              Lease Time Period{" "}
+              <i className="text-danger ">
+                <b>*</b>
+              </i>{" "}
+              :
+            </label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -124,16 +142,14 @@ const TenantSettings = ({
               variant="success"
               className="btn sub_form btn_continue Save float-right"
               onClick={() => onSubmit()}
-              
             >
               Save
             </button>
           ) : (
             <button
               variant="success"
-              className="btn sub_form btn_continue Save float-right"
+              id="TenantSettingBtn"
               onClick={() => onUpdate(allTenantSetting)}
-           
             >
               Update
             </button>

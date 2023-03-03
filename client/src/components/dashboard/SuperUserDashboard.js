@@ -122,15 +122,16 @@ const SuperUserDashboard = ({
           <section className="sub_reg">
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                <h2 className="heading_color"> Super User Details </h2>
-                <img
+                <h3 className="heading_color"> User Details </h3>
+                <hr></hr>
+                {/* <img
                   className="refresh"
                   onClick={() => onClickReset()}
                   // onClick={() => getalluser()}
                   src={require("../../static/images/refresh-icon.png")}
                   alt="refresh"
                   title="Refresh"
-                />
+                /> */}
 
                 {/* <img
                   className=" refresh bg-danger"
@@ -149,7 +150,7 @@ const SuperUserDashboard = ({
                 <section className="body">
                   <div className="body-inner no-padding  table-responsive fixTableHead">
                     <table
-                      className="table table-bordered table-striped table-hover table-active"
+                      className="table table-bordered table-striped table-hover table-active mt-5"
                       id="datatable2"
                     >
                       <thead>
@@ -186,6 +187,7 @@ const SuperUserDashboard = ({
                                     alt="Edit"
                                     title="Edit"
                                   />
+                                  &nbsp;
                                   <img
                                     className=""
                                     // onClick={() => onClickHandler()}
@@ -242,12 +244,15 @@ const SuperUserDashboard = ({
                     className="form-control "
                     required
                   ></textarea>
+                  <Form.Label>
+                    Are you sure You Want To DeActivate..?
+                  </Form.Label>
                 </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
               <Button id="deactivebtn" onClick={onAdd}>
-                DeActivate
+                <b>DeActivate</b>
               </Button>
             </Modal.Footer>
           </Modal>

@@ -788,6 +788,7 @@ label {
   text-align: center;
   position: sticky;
   top: 0;
+  
 }
 
 .fixTableHead {
@@ -1398,10 +1399,10 @@ input[type="radio"].error {
   border-radius: 3px;
 }
 .img_icon_size {
-  width: 30px;
-  height: 30px;
-  margin-top: 3%;
-  margin-left:10%;
+  width: 20px;
+  height: 20px;
+  margin-top: 7%;
+  margin-left:0.5%;
   
 
 }
@@ -1970,14 +1971,15 @@ input[type="number"]::-webkit-outer-spin-button {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 #savebtn{
-  background-color: #095a4a;
-  color: white;
+  background-color:transparent;
+  color:black;
   border-radius: 0%;
+  border-color: #000;
 }
 #savebtn:hover{
-  background-color: #0b0b0b;
+  background-color:#095a4a;
   color: white;
-  border-radius: 0%;
+  
 }
 #signin{
   background-color: #095a4a;
@@ -2115,8 +2117,10 @@ button {
 
 }
 .refresh{
-  margin-left:1150px;
-  margin-top:-90px;
+  width: 20px;
+  height: 20px;
+  margin-left:140px;
+  margin-top: 7%;
 }
 .orgtable{
   margin-top: -20px;
@@ -2135,12 +2139,15 @@ button {
 #deactivebtn{
   width:25%;
   border-radius: 0%;
-  background-color: #095a4a;
+  background-color:transparent;
   margin-top: -30px;
+  border-color: #000;
+  color:black;
 }
 #deactivebtn:hover{
   
-  background-color:black;
+  background-color:#095a4a;
+  color: white;
 }
 .despace{
   margin-top: -20px;
@@ -2160,7 +2167,53 @@ column-gap: 3rem;
   
 
 }
+#buttonchanges{
+  border-color:black;
+  border-radius: 0%;
+  width:10%;
+  height:50px;
+  background-color:transparent;
+}
+#buttonchanges:hover{
+  
+  background-color:#095a4a;
+  color: white;
+  
+}
+#TenantSettingBtn{
+  background-color:transparent;
+  margin-left: 450px;
+  width:110px;
+  height:40px;
+  border-color: #000;
+}
+#TenantSettingBtn:hover{
+  background-color:#095a4a;
+ color:white;
+  
+}
+#logoutbtn{
+  background-color:#095a4a;
+  width:75px;
+  height:40px;
+  border-radius:5px;
+  color: white;
+}
+.orgaddicon {
+  width: 20px;
+  height: 20px;
+  margin-top:250%;
+  margin-left:250%;
+
+}
+.usraddicon {
+  width: 20px;
+  height: 20px;
+  margin-top:500%;
+  margin-left:300%;
+
+}
 
 /* div{
   border:1px solid rgba(242, 10, 10, 0.541);
-}    */
+}     */

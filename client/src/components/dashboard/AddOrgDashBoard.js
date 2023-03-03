@@ -105,14 +105,15 @@ const AddOrgDashBoard = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="  col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">Organization Details </h2>
-              <img
+              <h3 className="heading_color">Organization Details </h3>
+              <hr></hr>
+              {/* <img
                 className="refresh "
                 onClick={() => getAllOrganization()}
                 src={require("../../static/images/refresh-icon.png")}
                 alt="refresh"
                 title="refresh"
-              />
+              /> */}
             </div>
 
             <AddOrgModal />
@@ -122,7 +123,7 @@ const AddOrgDashBoard = ({
               <section className="body">
                 <div className="body-inner no-padding  table-responsive fixTableHead">
                   <table
-                    className="table table-bordered table-striped table-hover table-active"
+                    className="table table-bordered table-striped table-hover table-active mt-5"
                     id="datatable2"
                   >
                     <thead>
@@ -165,6 +166,7 @@ const AddOrgDashBoard = ({
                                   alt="Edit"
                                   title="Edit User"
                                 />
+                                &nbsp;
                                 <img
                                   className=""
                                   onClick={() => onDelete(orgVal._id)}
@@ -229,6 +231,7 @@ const AddOrgDashBoard = ({
                 className="form-control "
                 required
               ></textarea>
+              <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -238,7 +241,7 @@ const AddOrgDashBoard = ({
             id="deactivebtn"
             onClick={onAdd}
           >
-            DeActive
+            <b> DeActive</b>
           </Button>
         </Modal.Footer>
       </Modal>

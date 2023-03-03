@@ -352,18 +352,10 @@ const Header = ({
             </h5>
           </Modal.Body>
           <Modal.Footer>
-            <button
-              id="savebtn"
-              className="btn btn_green_bg "
-              onClick={() => LogoutModalClose()}
-            >
+            <button id="logoutbtn" onClick={() => LogoutModalClose()}>
               YES
             </button>
-            <button
-              id="savebtn"
-              className="btn btn_green_bg"
-              onClick={() => handleLogoutModalClose()}
-            >
+            <button id="logoutbtn" onClick={() => handleLogoutModalClose()}>
               NO
             </button>
           </Modal.Footer>

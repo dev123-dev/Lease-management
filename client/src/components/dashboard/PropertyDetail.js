@@ -70,12 +70,13 @@ const PropertyDetail = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color">
-                {user.OrganizationName} Property Details{" "}
+                {user.OrganizationName} Property Details
               </h2>
+              <hr></hr>
             </div>
             <AddShopDetails />
             <table
-              className="table table-bordered table-striped table-hover"
+              className="table table-bordered table-striped table-hover mt-3"
               id="datatable2"
             >
               <thead>
@@ -104,21 +105,22 @@ const PropertyDetail = ({
                         <td>{Val.leaseTimePeriod}</td>
                         <td>{Val.shopAddress}</td>
                         <td>{Val.shopStatus}</td>
-                        <td>
+                        <td className="text-center">
                           <img
-                            className="img_icon_size log"
+                            className=" log"
                             onClick={() => onEdit(Val)}
                             src={require("../../static/images/edit_icon.png")}
-                            alt="Edit"
-                            title="Add User"
+                            alt="Edit Property"
+                            title="Edit Property"
                           />
+                          &nbsp;
                           <img
-                            className="img_icon_size log"
+                            className=" log"
                             // onClick={() => onClickHandler()}
                             onClick={() => onDelete(Val._id)}
                             src={require("../../static/images/delete.png")}
-                            alt="Add User"
-                            title="Add User"
+                            alt="Delete Property "
+                            title="Delete Property"
                           />
                         </td>
                       </tr>
@@ -135,29 +137,37 @@ const PropertyDetail = ({
         // onHide={handleClose}
         centered
       >
-        <Modal.Title className="text-center">
-          <b>Deactivate</b>
+        <Modal.Title className="text-center h4">
+          <b className="ml-2">Deactivate</b>
+          <Button id="Deactiveclose" onClick={() => setShow(false)}>
+            <img
+              src={require("../../static/images/close.png")}
+              alt="X"
+              style={{ height: "20px", width: "20px" }}
+            />
+          </Button>
         </Modal.Title>
 
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Reason For Deactivating</Form.Label>
-              <Form.Control
-                type="text"
+              <textarea
+                rows="2"
                 name="Property_DE_Reason"
                 onChange={(e) => onInputChange(e)}
                 autoFocus
-              />
+                id="org_reason"
+                className="form-control "
+                required
+              ></textarea>
+              <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onAdd} id="savebtn">
-            DeActivate
-          </Button>
-          <Button id="savebtn" onClick={handleClose}>
-            close
+          <Button onClick={onAdd} id="deactivebtn">
+            <b>DeActivate</b>
           </Button>
         </Modal.Footer>
       </Modal>

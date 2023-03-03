@@ -137,7 +137,7 @@ const AddOrgModal = ({
   ) : (
     <div>
       <Fragment>
-        <div className="col-lg-12 col-md-11 col-sm-11 col-11 py-4">
+        <div className="orgaddicon ">
           <img
             className="orgaddicon "
             // onClick={() => onClickHandler()}

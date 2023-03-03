@@ -120,10 +120,10 @@ const AddSuperUserModel = ({
     user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
-      <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
+      <div className="">
         <img
           onClick={() => setShowAdd(true)}
-          className="img_icon_size log"
+          className="usraddicon "
           src={require("../../static/images/add-icon.png")}
           alt="Add User"
           title="Add User"

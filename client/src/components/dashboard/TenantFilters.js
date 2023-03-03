@@ -110,7 +110,7 @@ const TenantFilters = ({
       {user.usergroup === "Super Admin" ? (
         <Fragment>
           <div className="container_align top_menu ">
-            <div className="row pb-5  ml-2 responsiveDiv">
+            <div className="row pb-2  ml-2 responsiveDiv">
               <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
                 {/* brdr-clr-styles */}
                 {/* <form> */}
@@ -128,7 +128,7 @@ const TenantFilters = ({
 
                   {/* className="btn-rou" */}
                 </div>
-                <div className="py-2">
+                <div className="py-2 ">
                   <DatePicker
                     className="form-control yearpicker"
                     placeholder="yyyy"
@@ -154,7 +154,7 @@ const TenantFilters = ({
                       return <></>;
                     });
                     return (
-                      <div className="py-2" key={idx}>
+                      <div className="py-2 " key={idx}>
                         <div
                           className="tenantfil"
                           style={{ color: "#fff", padding: "0px 0px 0px 5px" }}
