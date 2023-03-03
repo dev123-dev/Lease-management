@@ -188,11 +188,11 @@ router.post("/get-particular-org", async (req, res) => {
 //get particular user data for admin side
 router.post("/get-particular-user", async (req, res) => {
   let data = req.body;
-
+  console.log("insdie api of get-parti",data)
   try {
     const getuser = await UserDetails.find(
       {
-        OrganizationName: data.OrganizationName,
+        OrganizationId: data.orgid,
       },
       {
         username: 1,
@@ -335,12 +335,11 @@ router.get("/get-all-Superuser", async (req, res) => {
 //get particular organization user
 router.post("/get-particular-org-user", async (req, res) => {
   let data = req.body;
-
+console.log(data)
   try {
     const ParticularOrg = await UserDetails.find({
       OrganizationId: data.orgid,
     });
-    console.log("org data", ParticularOrg);
     res.json(ParticularOrg);
   } catch (error) {
     console.log(error.message);
@@ -384,29 +383,14 @@ router.post("/add-tenant-settings", async (req, res) => {
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
-
-  // try {
-
-  //   const finaldata = {
-  //     OrganizationName: data.OrganizationName,
-  //     Organization_id : data.Organization_id,
-  //     buildingName: data.buildingName,
-  //     shopDoorNo: data.shopDoorNo ,
-  //     shopAddress: data.shopAddress,
-  //     hikePercentage: data.hikePercentage ,
-  //     leaseTimePeriod : data.leaseTimePeriod,
-  //     stampDuty: data.stampDuty ,
-  //     shopStatus: data.shopStatus,
-  //     Location : data.Location,
-  //   }
-  let proper = new property(data);
-  let output = proper.save();
-
-  //   res.send(proper);
-  // } catch (err) {
-  //   console.error(err.message);
-  //   res.status(500).send("Internal Server Error.");
-  // }
+  try{
+  let proper = new  property(data);
+  let output = await proper.save();
+  res.send(output);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
 });
 
 //get particular property detaills based on organization details
@@ -415,7 +399,7 @@ router.post("/get-Particular-Property", async (req, res) => {
   let data = req.body;
   try {
     let propertydata = await property.find({
-      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
     });
 
     res.json(propertydata);
@@ -485,11 +469,10 @@ router.get("/get-tenant-report", async (req, res) => {
 });
 //deactivating the  user
 router.post("/deactive-user", async (req, res) => {
-  let data = req.body;
   try {
     let data = req.body;
     let dltuser = await UserDetails.updateOne(
-      { _id: data.Org_id },
+      { _id: data.userId },
       {
         $set: {
           userStatus: "Deactive",
@@ -497,6 +480,7 @@ router.post("/deactive-user", async (req, res) => {
         },
       }
     );
+
     res.json(dltuser);
   } catch (err) {}
 });
@@ -692,9 +676,13 @@ router.post("/add-agreement-details", async (req, res) => {
   }
 });
 
-router.get("/get-all-shops", async (req, res) => {
+router.post("/get-all-shops", async (req, res) => {
+  let data = req.body;
+console.log("this i s data",data)
   try {
-    const ShopsData = await property.find({}).sort({ _id: -1 });
+    const ShopsData = await property.find({
+      Organization_id: data.OrganizationId})/*.sort({ _id: -1 });*/
+      console.log("only shopp data",ShopsData)
     res.json(ShopsData);
   } catch (err) {
     console.error(err.message);

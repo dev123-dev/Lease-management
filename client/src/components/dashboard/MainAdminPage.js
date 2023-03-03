@@ -4,10 +4,29 @@ import prop from "../../static/images/property.png";
 import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
+import { getParticularProperty } from "../../actions/tenants";
+import { connect } from "react-redux";
+import { useEffect,useState } from "react";
 
-export default function MainAdminPage() {
+const MainAdminPage=  ({
+  tenants : {allShopDetails},
+  getAllShops,
+})=>{
+  useEffect(()=>{
+   // getAllShops();
+    fun();
+    console.log("shop details",allShopDetails)
+  },[])
+  let count = 1;
+  const[PropertyCount,setPropertyCount]=useState(0)
+  const fun=()=>{
+    allShopDetails.map((ind)=>
+         setPropertyCount(count++)
+   )
+  }
+
+ 
   return (
-    <>
       <div>
         <div className="container container_align ">
           <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
@@ -26,6 +45,7 @@ export default function MainAdminPage() {
                   className="mainpageimg"
                 ></img>
                 Total Property Count
+                {PropertyCount}
               </div>
             </div>
             <div className="2">
@@ -70,6 +90,9 @@ export default function MainAdminPage() {
           </section>
         </div>
       </div>
-    </>
   );
 }
+const mapStateToProps =(state)=>({
+tenants : state.tenants,
+});
+export default connect(mapStateToProps,{})(MainAdminPage);

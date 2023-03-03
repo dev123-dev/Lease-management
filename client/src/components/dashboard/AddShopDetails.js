@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal, Button } from "react-bootstrap";
-import { getAllShops } from "../../actions/tenants";
+import { getParticularProperty } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import Select from "react-select";
 import {
@@ -17,15 +17,17 @@ const AddShopDetails = ({
   AddShopDetailsform,
   getParticularOrg,
   getParticularTenantSetting,
-  getAllShops,
+  getParticularProperty,
 }) => {
   useEffect(() => {
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationName: user && user.OrganizationName });
+    getParticularProperty({ OrganizationId: user.OrganizationId });
     getParticularTenantSetting({
       Organization_id: user && user.OrganizationId,
     });
   }, []);
+  console.log("user", user);
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
 
@@ -100,7 +102,7 @@ const AddShopDetails = ({
   const onSubmit = () => {
     const finalData = {
       OrganizationName: user.OrganizationName,
-      Organization_id: user._id,
+      OrganizationId: user.OrganizationId,
       buildingName: buildingName,
       shopDoorNo: items,
       hikePercentage: hikePercentage,
@@ -111,8 +113,9 @@ const AddShopDetails = ({
       Location: orgLoc.value,
       shopStatus: "Acquired",
     };
-    console.log("DATA", finalData);
+
     AddShopDetailsform(finalData);
+
     setFormData({
       ...formData,
       buildingName: "",
@@ -402,7 +405,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   AddShopDetailsform,
-  getAllShops,
+  getParticularProperty,
   getParticularTenantSetting,
   getParticularOrg,
 })(AddShopDetails);

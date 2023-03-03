@@ -32,7 +32,7 @@ const AddAdminUserModal = ({
   const [orgname, setOrgname] = useState({});
   const onchangeOrg = (e) => {
     setOrgname(e);
-    console.log(orgname);
+
   };
 
   const [formData, setFormData] = useState({

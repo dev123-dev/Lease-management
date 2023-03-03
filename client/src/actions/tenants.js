@@ -60,18 +60,18 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) => async (dispatch) => {
+  console.log("getParticularProperty",data)
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-Particular-Property`,
       data,
       config
     );
-    console.log("my data,", res.data);
+    
     dispatch({
       type: PARTICULAR_ORG_PROPERTY,
       payload: res.data,
     });
-    // dispatch(getalluser());
   } catch (error) {
     console.log(error.message);
   }
@@ -180,18 +180,19 @@ export const Adduser = (userData) => async (dispatch) => {
 
 //add admin user
 export const AddAdminuser = (userData) => async (dispatch) => {
+  let data = userData.OrganizationId;
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/add-AdminUser`,
       userData,
       config
     );
-    console.log("getting data", res.data);
+  
     dispatch({
       type: GET_ADMIN,
       payload: res.data,
     });
-    dispatch(get_particular_org_user());
+    dispatch(get_particular_org_user(data));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -202,7 +203,6 @@ export const AddAdminuser = (userData) => async (dispatch) => {
 //getting all the user (super)
 
 export const getalluser = () => async (dispatch) => {
-  console.log("from modal page to action getalluser");
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-Superuser`);
     dispatch({
@@ -223,11 +223,12 @@ export const get_particular_org_user = (data) => async (dispatch) => {
       `${linkPath}/api/tenants/get-particular-org-user`,
       data
     );
-    console.log(res.data);
+    console.log("perticular data user ",data);
     dispatch({
       type: PARTICULAR_ORG_USER,
       payload: res.data,
     });
+    
   } catch (error) {
     console.log(error.message);
   }
@@ -241,12 +242,16 @@ export const deactivateUser = (id) => async (dispatch) => {
       id,
       config
     );
-    dispatch(getalluser());
+    console.log("action1",id)
+     dispatch(get_particular_org_user({ orgid: id.orgId }));
+
   } catch (err) {
-    dispatch({
-      type: TENANT_FEEDBACK_ERROR,
-    });
-  }
+   dispatch({
+ type: TENANT_FEEDBACK_ERROR,
+   });
+   }
+
+
 };
 
 //deleting organization details
@@ -347,13 +352,14 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
+console.log("finaldata",finalData)
   try {
     await axios.post(
       `${linkPath}/api/tenants/add-Property-details`,
       finalData,
       config
     );
-    dispatch(getAllShops());
+    dispatch(getParticularProperty({OrganizationId : finalData.OrganizationId}));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -492,14 +498,14 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
   }
 };
 
-export const getAllShops = () => async (dispatch) => {
+export const getAllShops = (data) => async (dispatch) => {
+
   try {
-    const res = await axios.get(`${linkPath}/api/tenants/get-all-shops`);
+    const res = await axios.post(`${linkPath}/api/tenants/get-all-shops`,data);
     dispatch({
       type: GET_ALL_SHOPS,
       payload: res.data,
     });
-    // console.log("res.data",res.data);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

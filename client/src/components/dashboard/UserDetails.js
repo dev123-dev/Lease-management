@@ -15,14 +15,11 @@ import EditAdminUser from "./EditAdminUser";
 const UserDetails = ({
   auth: { isAuthenticated, loading, user },
   tenants: { get_particularOrg_user }, //this is a reudcer
-  getalluser,
   get_particular_org_user,
   deactivateUser, //this is a action function to call
 }) => {
   useEffect(() => {
     get_particular_org_user({ orgid: user.OrganizationId });
-    console.log("this is particular data", get_particularOrg_user);
-    deactivateUser();
   }, []);
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -38,11 +35,6 @@ const UserDetails = ({
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalClose = () => setShowUpdateModal(false);
 
-  const onUpdateModalChange = (e) => {
-    if (e) {
-      handleUpdateModalClose();
-    }
-  };
 
   const [showSuperModal, setSuperModal] = useState("");
   const SuperUpdateModalClose = () => setSuperModal(false);
@@ -72,13 +64,19 @@ const UserDetails = ({
   };
 
   const onAdminAdd = () => {
+
     const reason = {
-      Org_id: AdminId,
+      userId: AdminId,
+      orgId:user.OrganizationId,
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
+    console.log(reason)
     deactivateUser(reason);
+    // get_particular_org_user({ orgid: user.OrganizationId });
+   
   };
+
   return (
     <>
       <div>
