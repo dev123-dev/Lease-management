@@ -133,12 +133,10 @@ const EditProperty = ({
             </label>
             <input
               type="text"
-              placeholder="StampDuty"
               name="stampDuty"
               value={stampDuty}
               className="form-control  input"
-              onChange={(e) => onInputChange(e)}
-              required
+              readOnly
             />
           </div>
           <div className="col-lg-6">
@@ -150,12 +148,10 @@ const EditProperty = ({
             </label>
             <input
               type="text"
-              placeholder="HikePercent"
               name="hikePercentage"
               value={hikePercentage}
               className="form-control  input"
-              onChange={(e) => onInputChange(e)}
-              required
+              readOnly
             />
           </div>
           <div className="col-lg-6">
@@ -167,12 +163,10 @@ const EditProperty = ({
             </label>
             <input
               type="text"
-              placeholder="TimePeriod"
               name="hikePercentage"
               value={LeaseTime}
               className="form-control  input"
-              onChange={(e) => onInputChange(e)}
-              required
+              readOnly
             />
           </div>
           <div className="col-lg-6">
@@ -311,8 +305,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  // UpdateTenantsDetails,
-  // getAllTenants,
-  // tenantsDetailsHistory,
   updateProperty,
 })(EditProperty);

@@ -21,7 +21,6 @@ const AddAdminUserModal = ({
   };
 
   const orglist = [];
-  console.log(allorg);
   allorg.map((org) => {
     orglist.push({
       label: org.OrganizationName,
@@ -32,7 +31,6 @@ const AddAdminUserModal = ({
   const [orgname, setOrgname] = useState({});
   const onchangeOrg = (e) => {
     setOrgname(e);
-
   };
 
   const [formData, setFormData] = useState({

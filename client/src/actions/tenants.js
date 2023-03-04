@@ -143,7 +143,9 @@ export const updateProperty = (updatedata) => async (dispatch) => {
       updatedata,
       config
     );
-    dispatch(getAllOrganization());
+    dispatch(
+      getParticularProperty({ OrganizationId: updatedata.Orgainzation_id })
+    );
   } catch (err) {}
 };
 
@@ -298,6 +300,7 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
       type: NEW_TENENTDETAILS,
       payload: res.data,
     });
+    dispatch(getAllTenants());
     dispatch(getAllDoorNos());
     dispatch(getMonthExpCountFilter(finalDataExpCount));
     dispatch(getPreviousYearsExpCount(finalDataPrevYear));
@@ -386,7 +389,7 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    console.log("PropertyId", finalData.PropertyId);
+
     dispatch(
       getParticularProperty({ OrganizationId: finalData.OrganizationId })
     );

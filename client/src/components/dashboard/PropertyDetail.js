@@ -49,7 +49,6 @@ const PropertyDetail = ({
   const [PropertyId, setId] = useState("");
 
   const onDelete = (id) => {
-    console.log("id of dfata", id);
     setId(id);
     handleShow();
   };
@@ -61,7 +60,6 @@ const PropertyDetail = ({
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log("reason", reason);
     deactiveProperty(reason);
   };
   return (

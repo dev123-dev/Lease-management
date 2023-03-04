@@ -27,7 +27,7 @@ const AddShopDetails = ({
       Organization_id: user && user.OrganizationId,
     });
   }, []);
-  console.log("user", user);
+
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
 
@@ -115,11 +115,10 @@ const AddShopDetails = ({
     };
 
     AddShopDetailsform(finalData);
-
     setFormData({
       ...formData,
       buildingName: "",
-      shopDoorNo: "",
+      inputdata: "",
       hikePercentage: "",
       stampDuty: "",
       leaseTimePeriod: "",
@@ -237,7 +236,6 @@ const AddShopDetails = ({
                   type="text"
                   placeholder={stampDuty}
                   name="stampDuty"
-                  value={stampDuty}
                   className="form-control  input"
                   readOnly
                 />

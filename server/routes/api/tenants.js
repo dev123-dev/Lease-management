@@ -235,7 +235,7 @@ router.post("/update-Property", async (req, res) => {
 
   try {
     const updateorg = await property.updateOne(
-      { _id: data.Property_id },
+      { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
       {
         $set: {
           buildingName: data.buildingName,
@@ -406,13 +406,6 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-  console.log(
-    "data.OrganizationId = ",
-    data.OrganizationId,
-    "&",
-    "Property id",
-    data.PropertyId
-  );
   try {
     const propertydata = await property.updateOne(
       { OrganizationId: data.OrganizationId, _id: data.PropertyId },
@@ -423,7 +416,6 @@ router.post("/deactive-property", async (req, res) => {
         },
       }
     );
-    console.log("sending data", propertydata);
     res.json(propertydata);
   } catch (err) {
     console.error(err.message);
