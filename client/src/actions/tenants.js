@@ -29,6 +29,7 @@ import {
   GET_ADMIN,
   PARTICULAR_ORG_USER,
   GET_PARTICULAR_ORG_TENANTSETTING,
+  PARTICULAR_ORG_TENANT,
 } from "./types";
 
 var linkPath = "";
@@ -184,6 +185,22 @@ export const Adduser = (userData) => async (dispatch) => {
     dispatch({
       type: AUTH_ERROR,
     });
+  }
+};
+
+//get particular tenant details based on organization
+export const ParticularTenant = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-particular-Tenant`,
+      data
+    );
+    dispatch({
+      type: PARTICULAR_ORG_TENANT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 

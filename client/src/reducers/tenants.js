@@ -16,6 +16,7 @@ import {
   GET_ADMIN,
   PARTICULAR_ORG_USER,
   GET_PARTICULAR_ORG_TENANTSETTING,
+  PARTICULAR_ORG_TENANT,
 } from "../actions/types";
 
 const initialState = {
@@ -43,7 +44,8 @@ const initialState = {
   particular_user: [""],
   get_admin: [""],
   get_particular_org_user: [""],
-  get_Particular_org_Tenantsetting : [""],
+  get_Particular_org_Tenantsetting: [""],
+  get_particular_org_tenant: [""],
 };
 
 const tenants = (state = initialState, action) => {
@@ -118,13 +120,17 @@ const tenants = (state = initialState, action) => {
         ...state,
         get_particularOrg_user: payload,
       };
-      case  GET_PARTICULAR_ORG_TENANTSETTING : {
-        return {
-          ...state,
-          get_Particular_org_Tenantsetting : payload,
-        }
-      }
- 
+    case GET_PARTICULAR_ORG_TENANTSETTING:
+      return {
+        ...state,
+        get_Particular_org_Tenantsetting: payload,
+      };
+    case PARTICULAR_ORG_TENANT:
+      return {
+        ...state,
+        get_particular_org_tenant: payload,
+      };
+
     default:
       return state;
   }

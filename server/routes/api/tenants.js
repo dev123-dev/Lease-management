@@ -423,18 +423,18 @@ router.post("/deactive-property", async (req, res) => {
   }
 });
 
-// router.post("/add-shop-details", async (req, res) => {
-//   let data = req.body;
-
-//   try {
-//     let shopDetails = new ShopDetails(data);
-//     output = await shopDetails.save();
-//     res.send(output);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Internal Server Error.");
-//   }
-// });
+//getting particular Tenant details based on Orgaination
+router.post("/get-particular-Tenant", async (req, res) => {
+  let data = req.body;
+  try {
+    const tenantdata = await TenantDetails.find({
+      OrganizationId: data.OrganizationId,
+    });
+    res.json(tenantdata);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 // Get Exp Month Count
 router.get("/get-tenant-report", async (req, res) => {

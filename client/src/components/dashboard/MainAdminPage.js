@@ -19,9 +19,24 @@ const MainAdminPage = ({
   }, []);
 
   let count = 0;
+  let AvaiableShopCount = 0;
   const [PropertyCount, setPropertyCount] = useState();
+  const [status, setStatus] = useState("");
+  let ShopStatus = [];
+  particular_org_data.map((ele) =>
+    ShopStatus.push({
+      label: ele.shopStatus,
+    })
+  );
+
   const fun = () => {
     particular_org_data.map((ind) => setPropertyCount(count++));
+    ShopStatus.map((ele) => {
+      if (ele.label === "Avaiable") {
+        AvaiableShopCount = AvaiableShopCount + 1;
+      }
+    });
+    setStatus(AvaiableShopCount);
   };
 
   return (
@@ -57,6 +72,7 @@ const MainAdminPage = ({
                 className="mainpageimg"
               ></img>
               UnOccupied Property
+              <div>{status}</div>
             </div>
           </div>
           <div className="3">
