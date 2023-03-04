@@ -161,7 +161,6 @@ const SuperUserDashboard = ({
                           <th>Group</th>
                           <th>Organization</th>
                           <th>Address</th>
-                          <th>Status</th>
                           <th>Operation</th>
                         </tr>
                       </thead>
@@ -177,25 +176,30 @@ const SuperUserDashboard = ({
                                 <td>{allsuperuse.usergroup}</td>
                                 <td>{allsuperuse.OrganizationName}</td>
                                 <td>{allsuperuse.useraddress}</td>
-                                <td>{allsuperuse.userStatus}</td>
                                 <td>
-                                  <img
-                                    className=""
-                                    // onClick={() => onClickHandler()}
-                                    onClick={() => onEdit(allsuperuse, idx)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit"
-                                  />
-                                  &nbsp;
-                                  <img
-                                    className=""
-                                    // onClick={() => onClickHandler()}
-                                    onClick={() => onDelete(allsuperuse._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="delete"
-                                    title="delete"
-                                  />
+                                  {allsuperuse.userStatus === "Active" ? (
+                                    <td>
+                                      <img
+                                        className=""
+                                        onClick={() => onEdit(allsuperuse, idx)}
+                                        src={require("../../static/images/edit_icon.png")}
+                                        alt="Edit"
+                                        title="Edit"
+                                      />
+                                      &nbsp;
+                                      <img
+                                        className=""
+                                        onClick={() =>
+                                          onDelete(allsuperuse._id)
+                                        }
+                                        src={require("../../static/images/delete.png")}
+                                        alt="delete"
+                                        title="delete"
+                                      />
+                                    </td>
+                                  ) : (
+                                    <div className="blank"></div>
+                                  )}
                                 </td>
                               </tr>
                             );

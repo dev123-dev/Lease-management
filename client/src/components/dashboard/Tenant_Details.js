@@ -1,7 +1,7 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getAllTenants } from "../../actions/tenants";
+import { ParticularTenant } from "../../actions/tenants";
 import { deactiveTenantsDetails } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
@@ -10,12 +10,12 @@ import EditTenantDetails from "./EditTenantDetails";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
-  tenants: { allTenants },
-  getAllTenants,
+  tenants: { get_particular_org_tenant },
+  ParticularTenant,
   deactiveTenantsDetails,
 }) => {
   useEffect(() => {
-    getAllTenants();
+    ParticularTenant({ OrganizationId: user && user.OrganizationId });
   }, []);
 
   const [userData, setUserData] = useState(null);
@@ -104,14 +104,13 @@ const Tenant_Details = ({
                           <th>Phone Number</th>
                           <th>Expiry Date</th>
                           <th>Rent Amount</th>
-                          <th>Agreement Status</th>
                           <th>Operation</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {allTenants &&
-                          allTenants[0] &&
-                          allTenants.map((Val, idx) => {
+                        {get_particular_org_tenant &&
+                          get_particular_org_tenant[0] &&
+                          get_particular_org_tenant.map((Val, idx) => {
                             // var ED = Val.tenantLeaseEndDate.split(/\D/g);
                             // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
                             //   "-"
@@ -126,24 +125,29 @@ const Tenant_Details = ({
                                 <td>{Val.tenantPhone}</td>
                                 <td>{Val.tenantLeaseEndDate}</td>
                                 <td>{Val.tenantRentAmount}</td>
-                                <td>{Val.tenantstatus}</td>
-                                <td>
-                                  <img
-                                    className="log"
-                                    onClick={() => onEdit(Val)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit Tenant"
-                                  />
-                                  &nbsp;
-                                  <img
-                                    className="log"
-                                    onClick={() => onDelete(Val._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="delete User"
-                                    title="delete Tenant"
-                                  />
-                                </td>
+
+                                {Val.tenantstatus === " Active" ? (
+                                  <td>
+                                    <img
+                                      className=" log"
+                                      onClick={() => onEdit(Val)}
+                                      src={require("../../static/images/edit_icon.png")}
+                                      alt="Edit"
+                                      title="Add User"
+                                    />
+                                    <img
+                                      className=" log"
+                                      onClick={() => onDelete(Val._id)}
+                                      src={require("../../static/images/delete.png")}
+                                      alt="Add User"
+                                      title="Add User"
+                                    />
+                                  </td>
+                                ) : (
+                                  <td>
+                                    <div className="blank"></div>
+                                  </td>
+                                )}
                               </tr>
                             );
                           })}
@@ -226,6 +230,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getAllTenants,
+  ParticularTenant,
   deactiveTenantsDetails,
 })(Tenant_Details);

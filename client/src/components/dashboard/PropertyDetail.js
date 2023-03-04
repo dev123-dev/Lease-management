@@ -87,7 +87,6 @@ const PropertyDetail = ({
                   <th>Stamp Duty</th>
                   <th>Lease Time Period</th>
                   <th>Address</th>
-                  <th>Status</th>
                   <th>Operation</th>
                 </tr>
               </thead>
@@ -103,24 +102,28 @@ const PropertyDetail = ({
                         <td>{Val.stampDuty}</td>
                         <td>{Val.leaseTimePeriod}</td>
                         <td>{Val.shopAddress}</td>
-                        <td>{Val.shopStatus}</td>
-                        <td className="text-center">
-                          <img
-                            className=" log"
-                            onClick={() => onEdit(Val)}
-                            src={require("../../static/images/edit_icon.png")}
-                            alt="Edit Property"
-                            title="Edit Property"
-                          />
-                          &nbsp;
-                          <img
-                            className=" log"
-                            // onClick={() => onClickHandler()}
-                            onClick={() => onDelete(Val._id)}
-                            src={require("../../static/images/delete.png")}
-                            alt="Delete Property "
-                            title="Delete Property"
-                          />
+                        <td>
+                          {Val.shopStatus === "Acquired" ? (
+                            <td className="text-center">
+                              <img
+                                className=" log"
+                                onClick={() => onEdit(Val)}
+                                src={require("../../static/images/edit_icon.png")}
+                                alt="Edit Property"
+                                title="Edit Property"
+                              />
+                              &nbsp;
+                              <img
+                                className=" log"
+                                onClick={() => onDelete(Val._id)}
+                                src={require("../../static/images/delete.png")}
+                                alt="Delete Property "
+                                title="Delete Property"
+                              />
+                            </td>
+                          ) : (
+                            <div className="blank"></div>
+                          )}
                         </td>
                       </tr>
                     );

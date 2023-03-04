@@ -2198,3 +2198,11 @@ button {
 /* div{
   border:1px solid rgba(242, 10, 10, 0.541);
 }     */
+.deactive {
+  position: absolute;
+  background-color: rgb(221, 95, 95);
+  width: 12%;
+  height: 6%;
+  margin-top: -10px;
+  margin-left: -11px;
+}

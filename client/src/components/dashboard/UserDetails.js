@@ -8,6 +8,7 @@ import { getalluser } from "../../actions/tenants";
 import PropTypes from "prop-types";
 import { deactivateUser, get_particular_org_user } from "../../actions/tenants";
 import Edituser from "../dashboard/Edituser";
+import "../../../src/styles/CustomisedStyle.css";
 
 import { getParticularUser } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
@@ -104,7 +105,6 @@ const UserDetails = ({
                             <th>Group</th>
                             <th>Organization</th>
                             <th>Address</th>
-                            <th>Status</th>
                             <th>Operation</th>
                           </tr>
                         </thead>
@@ -120,10 +120,9 @@ const UserDetails = ({
                                   <td>{alluser.usergroup}</td>
                                   <td>{alluser.OrganizationName}</td>
                                   <td>{alluser.useraddress}</td>
-                                  <td>{alluser.userStatus}</td>
                                   <td>
                                     {alluser.userStatus == "Deactive" ? (
-                                      <></>
+                                      <div className="deactive"></div>
                                     ) : (
                                       <>
                                         <img

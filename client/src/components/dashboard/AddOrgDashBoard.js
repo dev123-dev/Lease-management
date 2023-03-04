@@ -138,7 +138,6 @@ const AddOrgDashBoard = ({
                         <th>Location</th>
                         <th>StartDate</th>
                         <th>EndDate</th>
-                        <th>Current Status</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
@@ -156,24 +155,28 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.Location + ","}</td>
                               <td>{orgVal.date}</td>
                               <td>{orgVal.enddate}</td>
-                              <td>{orgVal.org_status}</td>
-
                               <td>
-                                <img
-                                  className=""
-                                  onClick={() => onedit(orgVal, idx)}
-                                  src={require("../../static/images/edit_icon.png")}
-                                  alt="Edit"
-                                  title="Edit User"
-                                />
-                                &nbsp;
-                                <img
-                                  className=""
-                                  onClick={() => onDelete(orgVal._id)}
-                                  src={require("../../static/images/delete.png")}
-                                  alt="delete User"
-                                  title="delete User"
-                                />
+                                {orgVal.org_status === "Active" ? (
+                                  <td>
+                                    <img
+                                      className=""
+                                      onClick={() => onedit(orgVal, idx)}
+                                      src={require("../../static/images/edit_icon.png")}
+                                      alt="Edit"
+                                      title="Edit User"
+                                    />
+                                    &nbsp;
+                                    <img
+                                      className=""
+                                      onClick={() => onDelete(orgVal._id)}
+                                      src={require("../../static/images/delete.png")}
+                                      alt="delete User"
+                                      title="delete User"
+                                    />
+                                  </td>
+                                ) : (
+                                  <div className="blank"></div>
+                                )}
                               </td>
                             </tr>
                           );
