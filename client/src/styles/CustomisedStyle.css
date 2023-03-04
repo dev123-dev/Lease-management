@@ -2175,8 +2175,12 @@ button {
 .usraddicon {
   width: 20px;
   height: 20px;
-  margin-top: 500%;
-  margin-left: 300%;
+}
+.buttonClass {
+  /* position: absolute;
+  height: 40px;
+  margin-top: 85px;
+  margin-left: 87%; */
 }
 
 /* div{
