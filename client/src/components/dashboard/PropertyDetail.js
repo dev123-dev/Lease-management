@@ -22,7 +22,6 @@ const PropertyDetail = ({
     getalluser();
     getParticularProperty({ OrganizationId: user.OrganizationId });
   }, []);
-
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
@@ -47,19 +46,22 @@ const PropertyDetail = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [OrgId, setId] = useState("");
+  const [PropertyId, setId] = useState("");
 
   const onDelete = (id) => {
+    console.log("id of dfata", id);
     setId(id);
     handleShow();
   };
 
-  const onAdd = () => {
+  const onDeactive = () => {
     const reason = {
-      Org_id: OrgId,
+      PropertyId: PropertyId,
+      OrganizationId: user.OrganizationId,
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
+    console.log("reason", reason);
     deactiveProperty(reason);
   };
   return (
@@ -153,7 +155,8 @@ const PropertyDetail = ({
               <Form.Label>Reason For Deactivating</Form.Label>
               <textarea
                 rows="2"
-                name="Property_DE_Reason"
+                name="deactive_reason"
+                value={deactive_reason}
                 onChange={(e) => onInputChange(e)}
                 autoFocus
                 id="org_reason"
@@ -165,7 +168,7 @@ const PropertyDetail = ({
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onAdd} id="deactivebtn">
+          <Button onClick={onDeactive} id="deactivebtn">
             <b>DeActivate</b>
           </Button>
         </Modal.Footer>

@@ -60,14 +60,13 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) => async (dispatch) => {
-  console.log("getParticularProperty",data)
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-Particular-Property`,
       data,
       config
     );
-    
+
     dispatch({
       type: PARTICULAR_ORG_PROPERTY,
       payload: res.data,
@@ -187,7 +186,7 @@ export const AddAdminuser = (userData) => async (dispatch) => {
       userData,
       config
     );
-  
+
     dispatch({
       type: GET_ADMIN,
       payload: res.data,
@@ -223,12 +222,11 @@ export const get_particular_org_user = (data) => async (dispatch) => {
       `${linkPath}/api/tenants/get-particular-org-user`,
       data
     );
-    console.log("perticular data user ",data);
+
     dispatch({
       type: PARTICULAR_ORG_USER,
       payload: res.data,
     });
-    
   } catch (error) {
     console.log(error.message);
   }
@@ -242,21 +240,17 @@ export const deactivateUser = (id) => async (dispatch) => {
       id,
       config
     );
-    console.log("action1",id)
-     dispatch(get_particular_org_user({ orgid: id.orgId }));
 
+    dispatch(get_particular_org_user({ orgid: id.orgId }));
   } catch (err) {
-   dispatch({
- type: TENANT_FEEDBACK_ERROR,
-   });
-   }
-
-
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
 };
 
 //deleting organization details
 export const deleteOrganization = (id) => async (dispatch) => {
-  console.log(id);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/deactive-Organization`,
@@ -287,7 +281,6 @@ export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log("inside action of add tenant details", finalData.tenantName);
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
   };
@@ -352,14 +345,15 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
-console.log("finaldata",finalData)
   try {
     await axios.post(
       `${linkPath}/api/tenants/add-Property-details`,
       finalData,
       config
     );
-    dispatch(getParticularProperty({OrganizationId : finalData.OrganizationId}));
+    dispatch(
+      getParticularProperty({ OrganizationId: finalData.OrganizationId })
+    );
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -392,7 +386,10 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    dispatch(getAllShops());
+    console.log("PropertyId", finalData.PropertyId);
+    dispatch(
+      getParticularProperty({ OrganizationId: finalData.OrganizationId })
+    );
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -415,7 +412,6 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
   }
 };
 export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
-  console.log("hit");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/update-tenant-details`,
@@ -499,9 +495,8 @@ export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
 };
 
 export const getAllShops = (data) => async (dispatch) => {
-
   try {
-    const res = await axios.post(`${linkPath}/api/tenants/get-all-shops`,data);
+    const res = await axios.post(`${linkPath}/api/tenants/get-all-shops`, data);
     dispatch({
       type: GET_ALL_SHOPS,
       payload: res.data,
@@ -594,16 +589,20 @@ export const getAllSettings = () => async (dispatch) => {
 };
 
 //get particular Organization tenant Setting
-export const getParticularTenantSetting = (data) => async(dispatch)=>{
-  console.log("getParticularTenantSetting in action",data)
-  try{
-    const res = await axios.post(`${linkPath}/api/tenants/get-Particular-org-Tenantsetting`,data)
+export const getParticularTenantSetting = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-Particular-org-Tenantsetting`,
+      data
+    );
     dispatch({
-      type : GET_PARTICULAR_ORG_TENANTSETTING,
-      payload : res.data,
-    })
-  }catch(error){console.log(error.message)}
-}
+      type: GET_PARTICULAR_ORG_TENANTSETTING,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 export const getAllDoorNos = () => async (dispatch) => {
   try {

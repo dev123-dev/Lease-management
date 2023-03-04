@@ -20,8 +20,6 @@ const { cat } = require("shelljs");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-  console.log("inside add tenant details");
-  console.log(data);
 
   try {
     let tenantDetails = {
@@ -159,7 +157,6 @@ router.get("/get-all-Organization", async (req, res) => {
     //   }
 
     res.json(orgdata);
-    // console.log("this is org data",orgdata)
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -188,7 +185,7 @@ router.post("/get-particular-org", async (req, res) => {
 //get particular user data for admin side
 router.post("/get-particular-user", async (req, res) => {
   let data = req.body;
-  console.log("insdie api of get-parti",data)
+
   try {
     const getuser = await UserDetails.find(
       {
@@ -235,7 +232,7 @@ router.post("/update-Organization", async (req, res) => {
 });
 router.post("/update-Property", async (req, res) => {
   let data = req.body;
-  console.log(data);
+
   try {
     const updateorg = await property.updateOne(
       { _id: data.Property_id },
@@ -301,7 +298,6 @@ router.post("/add-AdminUser", async (req, res) => {
     let u_data = new UserDetails(adduser);
     output = await u_data.save();
     res.send(u_data);
-    console.log(output);
   } catch (err) {
     console.error(err);
   }
@@ -319,7 +315,7 @@ router.get("/get-all-Superuser", async (req, res) => {
           usergroup: "$usergroup",
           userStatus: "$userStatus",
           useraddress: "$useraddress",
-          password : "$password",
+          password: "$password",
           OrganizationName: "$OrganizationName",
         },
       },
@@ -335,7 +331,7 @@ router.get("/get-all-Superuser", async (req, res) => {
 //get particular organization user
 router.post("/get-particular-org-user", async (req, res) => {
   let data = req.body;
-console.log(data)
+
   try {
     const ParticularOrg = await UserDetails.find({
       OrganizationId: data.orgid,
@@ -383,10 +379,10 @@ router.post("/add-tenant-settings", async (req, res) => {
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
-  try{
-  let proper = new  property(data);
-  let output = await proper.save();
-  res.send(output);
+  try {
+    let proper = new property(data);
+    let output = await proper.save();
+    res.send(output);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -401,7 +397,6 @@ router.post("/get-Particular-Property", async (req, res) => {
     let propertydata = await property.find({
       OrganizationId: data.OrganizationId,
     });
-
     res.json(propertydata);
   } catch (error) {
     console.log(error.message);
@@ -411,9 +406,16 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
+  console.log(
+    "data.OrganizationId = ",
+    data.OrganizationId,
+    "&",
+    "Property id",
+    data.PropertyId
+  );
   try {
     const propertydata = await property.updateOne(
-      { _id: data.Org_id },
+      { OrganizationId: data.OrganizationId, _id: data.PropertyId },
       {
         $set: {
           shopStatus: "Avaiable",
@@ -421,7 +423,7 @@ router.post("/deactive-property", async (req, res) => {
         },
       }
     );
-
+    console.log("sending data", propertydata);
     res.json(propertydata);
   } catch (err) {
     console.error(err.message);
@@ -678,11 +680,12 @@ router.post("/add-agreement-details", async (req, res) => {
 
 router.post("/get-all-shops", async (req, res) => {
   let data = req.body;
-console.log("this i s data",data)
+
   try {
     const ShopsData = await property.find({
-      Organization_id: data.OrganizationId})/*.sort({ _id: -1 });*/
-      console.log("only shopp data",ShopsData)
+      Organization_id: data.OrganizationId,
+    }); /*.sort({ _id: -1 });*/
+
     res.json(ShopsData);
   } catch (err) {
     console.error(err.message);
@@ -836,14 +839,18 @@ router.get("/get-all-settings", async (req, res) => {
   }
 });
 
-router.post("/get-Particular-org-Tenantsetting",async(req,res)=>{
+router.post("/get-Particular-org-Tenantsetting", async (req, res) => {
   const data = req.body;
-  
-  try{
-    const Tenant_SETTING = await TenantSettings.find({OrganizationId :data.Organization_id})
-    res.json(Tenant_SETTING)
-  }catch(error){console.log(error.message)}
-})
+
+  try {
+    const Tenant_SETTING = await TenantSettings.find({
+      OrganizationId: data.Organization_id,
+    });
+    res.json(Tenant_SETTING);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 router.get("/get-door-nos", async (req, res) => {
   try {
@@ -1167,8 +1174,6 @@ router.post(
 );
 
 router.post("/update-tenant-details", async (req, res) => {
-  console.log("data");
-
   try {
     let data = req.body;
 
@@ -1218,7 +1223,6 @@ router.post("/tenant-update-history", async (req, res) => {
     let tenantHistories = new TenentHistories(data);
     output = await tenantHistories.save();
     res.send(output);
-    console.log(output);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
