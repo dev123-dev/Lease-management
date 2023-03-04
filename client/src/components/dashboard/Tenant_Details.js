@@ -91,7 +91,7 @@ const Tenant_Details = ({
                 <section className="body">
                   <div className="body-inner no-padding  table-responsive fixTableHead">
                     <table
-                      className="table table-bordered table-striped table-hover"
+                      className="table table-bordered table-striped table-hover mt-2"
                       id="datatable2"
                     >
                       <thead>
@@ -129,19 +129,19 @@ const Tenant_Details = ({
                                 <td>{Val.tenantstatus}</td>
                                 <td>
                                   <img
-                                    className="img_icon_size log"
+                                    className="log"
                                     onClick={() => onEdit(Val)}
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
-                                    title="Edit User"
+                                    title="Edit Tenant"
                                   />
                                   &nbsp;
                                   <img
-                                    className="img_icon_size log"
+                                    className="log"
                                     onClick={() => onDelete(Val._id)}
                                     src={require("../../static/images/delete.png")}
                                     alt="delete User"
-                                    title="delete User"
+                                    title="delete Tenant"
                                   />
                                 </td>
                               </tr>

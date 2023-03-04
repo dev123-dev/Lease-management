@@ -1398,6 +1398,7 @@ input[type="radio"].error {
   height: 20px;
   margin-top: 7%;
   margin-left: 0.5%;
+  cursor: pointer;
 }
 
 .img_icon_size2 {
@@ -1924,12 +1925,14 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-left: 400px;
 }
 .clprop {
-  margin-left: 160px;
+  margin-left: 100px;
+  cursor: pointer;
 }
 .clorg {
   background-color: transparent;
   color: #095a4a;
-  margin-left: 150px;
+  margin-left: 60px;
+  cursor: pointer;
 }
 .cluser {
   background-color: transparent;
@@ -2001,13 +2004,18 @@ input[type="number"]::-webkit-outer-spin-button {
   border: transparent;
   position: absolute;
 }
+.refrsh{
+  height:20px;
+  margin-top: 7px;
+  cursor: pointer;
+}
 
 .locadd:hover {
-  background-color: #0b0b0bfc;
+  background-color:#095a4a;
   color: white;
 }
 .locadds:hover {
-  background-color: #0b0b0bfc;
+  background-color:#095a4a;
   color: white;
 }
 .locadds {
@@ -2096,6 +2104,7 @@ button {
   height: 20px;
   margin-left: 140px;
   margin-top: 7%;
+  cursor: pointer;
 }
 .orgtable {
   margin-top: -20px;
@@ -2129,6 +2138,9 @@ button {
   margin-left: 230px;
   margin-top: -10px;
   color: #095a4a;
+}
+.head{
+  margin-left: 190px;
 }
 .mainpage {
   width: fit-content;

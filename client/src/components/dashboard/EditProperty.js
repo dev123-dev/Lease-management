@@ -13,6 +13,7 @@ import { updateProperty } from "../../actions/tenants";
 const EditProperty = ({
   auth: { isAuthenticated, user, users },
   Property,
+  setShowUpdateModal,
   updateProperty,
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -84,6 +85,7 @@ const EditProperty = ({
   };
 
   const onUpdate = () => {
+    setShowUpdateModal(false);
     const update = {
       OrganizationName: user.OrganizationName,
       Orgainzation_id: user.OrganizationId,
@@ -182,7 +184,7 @@ const EditProperty = ({
               value={shopAddress}
               id=" addprop "
               className="textarea form-control"
-              rows="4"
+              rows="3"
               placeholder="Address"
               onChange={(e) => onInputChange(e)}
               style={{ width: "100%" }}
@@ -270,30 +272,6 @@ const EditProperty = ({
           </div>
         </div>
       </div>
-
-      <Modal
-        // show={showInformationModal}
-        backdrop="static"
-        keyboard={false}
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className="logout-modal "
-      >
-        <Modal.Header className="confirmbox-heading">
-          <h4 className="mt-0">Information</h4>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>Shop Details Added!!</h5>
-        </Modal.Body>
-        <Modal.Footer>
-          <button
-            className="btn btn_green_bg"
-            // onClick={() => LogoutModalClose()}
-          >
-            OK
-          </button>
-        </Modal.Footer>
-      </Modal>
     </Fragment>
   );
 };

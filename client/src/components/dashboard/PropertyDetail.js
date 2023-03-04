@@ -55,6 +55,7 @@ const PropertyDetail = ({
   };
 
   const onDeactive = () => {
+    setShow(false);
     const reason = {
       PropertyId: PropertyId,
       OrganizationId: user && user.OrganizationId,
@@ -69,7 +70,7 @@ const PropertyDetail = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">{name} Property Details</h2>
+              <h2 className="heading_color ">{name} Property Details</h2>
               <hr></hr>
             </div>
             <AddShopDetails />
@@ -195,7 +196,10 @@ const PropertyDetail = ({
           </div>
         </Modal.Header>
         <Modal.Body>
-          <EditProperty Property={property} />
+          <EditProperty
+            Property={property}
+            setShowUpdateModal={setShowUpdateModal}
+          />
         </Modal.Body>
       </Modal>
     </div>

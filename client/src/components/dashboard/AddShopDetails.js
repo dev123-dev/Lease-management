@@ -110,6 +110,7 @@ const AddShopDetails = ({
     handleInformationModalClose();
   };
   const onSubmit = () => {
+    setShow(false);
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
@@ -153,8 +154,8 @@ const AddShopDetails = ({
       <img
         onClick={handleShow}
         src={require("../../static/images/add-icon.png")}
-        alt="Add Shop"
-        title="Add Shop"
+        alt="Add Prop"
+        title="Add Prop"
         className="img_icon_size  "
       />
 
@@ -170,20 +171,17 @@ const AddShopDetails = ({
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h2>
-              <b className="text-center h1">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD
-                PROPERTY
-              </b>
+              <b className="text-center h2  head">ADD PROPERTY</b>
             </h2>
-            <div className="  col-lg-2">
-              <button onClick={handleClose} className="clprop">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
+          </div>
+          <div className="  col-lg-2">
+            <button onClick={handleClose} className="clprop">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
           </div>
         </Modal.Header>
 
@@ -371,30 +369,6 @@ const AddShopDetails = ({
             </div>
           </div>
         </Modal.Body>
-
-        <Modal
-          show={showInformationModal}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal "
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Information</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Shop Details Added!!</h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <button
-              className="btn btn_green_bg"
-              onClick={() => LogoutModalClose()}
-            >
-              OK
-            </button>
-          </Modal.Footer>
-        </Modal>
       </Modal>
     </>
   );

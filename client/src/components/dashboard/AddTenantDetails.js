@@ -319,13 +319,22 @@ const AddTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <img
-        onClick={handleInformationModalOpen}
-        src={require("../../static/images/add-icon.png")}
-        alt="Add Shop"
-        title="Add Shop"
-        className="img_icon_size mt-5 ml-5"
-      />
+      <div className="mt-5 ml-5 ">
+        <img
+          // onClick={handleShow}
+          src={require("../../static/images/refresh-icon.png")}
+          alt="refresh"
+          title="refresh"
+          className="refrsh"
+        />
+        <img
+          onClick={handleInformationModalOpen}
+          src={require("../../static/images/add-icon.png")}
+          alt="Add Tenant"
+          title="Add Tenant"
+          className="img_icon_size  "
+        />
+      </div>
 
       <Modal
         show={showInformationModal}
@@ -339,21 +348,17 @@ const AddTenantDetails = ({
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h2>
-              <b className="text-center h2">ADD TENANT DETAILS</b>
+              <b className="text-center h2  head">ADD TENANT DETAILS</b>
             </h2>
-
-            <div className=" col-lg-2">
-              <button
-                onClick={handleInformationModalClose}
-                className="close ml-5 cl"
-              >
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
+          </div>
+          <div className=" col-lg-2">
+            <button onClick={handleInformationModalClose} className="clorg ">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
           </div>
         </Modal.Header>
         <Modal.Body>
@@ -396,7 +401,11 @@ const AddTenantDetails = ({
                     <b>*</b>
                   </i>
                 </label>
-                <input type="text" placeholder={LocList}></input>
+                <input
+                  type="text"
+                  placeholder={LocList}
+                  className="form-control"
+                ></input>
                 <br></br>
               </div>
               <div className="col-lg-4">
@@ -679,7 +688,7 @@ const AddTenantDetails = ({
                 <button
                   variant="success"
                   className="btn sub_form btn_continue Save float-right"
-                  id="savebtnt"
+                  id="savebtn"
                   onClick={() => onSubmit()}
                 >
                   Save
