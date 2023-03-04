@@ -14,7 +14,12 @@ import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
-  tenants: { allDoorNos, allTenantSetting, particular_org_data,get_Particular_org_Tenantsetting },
+  tenants: {
+    allDoorNos,
+    allTenantSetting,
+    particular_org_data,
+    get_Particular_org_Tenantsetting,
+  },
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
@@ -23,7 +28,9 @@ const AddTenantDetails = ({
   getAllSettings,
 }) => {
   useEffect(() => {
-    getParticularTenantSetting({Organization_id : user && user.OrganizationId})
+    getParticularTenantSetting({
+      Organization_id: user && user.OrganizationId,
+    });
     getParticularProperty({ OrganizationName: user.OrganizationName });
   }, []);
 
@@ -160,7 +167,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = get_Particular_org_Tenantsetting[0].leaseTimePeriod ;
+    var leaseMonth = get_Particular_org_Tenantsetting[0].leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -314,6 +321,7 @@ const AddTenantDetails = ({
         src={require("../../static/images/add-icon.png")}
         alt="Add Shop"
         title="Add Shop"
+        className="img_icon_size mt-5 ml-5"
       />
 
       <Modal
@@ -328,7 +336,7 @@ const AddTenantDetails = ({
         <Modal.Header>
           <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h2>
-              <b className="text-center h1">ADD TENANT DETAILS</b>
+              <b className="text-center h2">ADD TENANT DETAILS</b>
             </h2>
 
             <div className=" col-lg-2">
@@ -398,6 +406,7 @@ const AddTenantDetails = ({
                 <input
                   type="text"
                   name="tenantFileNo"
+                  placeholder="FileNo"
                   value={tenantFileNo}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -414,6 +423,7 @@ const AddTenantDetails = ({
                 <input
                   type="text"
                   name="tenantName"
+                  placeholder="Name"
                   value={tenantName}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -426,6 +436,7 @@ const AddTenantDetails = ({
                 <input
                   type="number"
                   name="tenantPhone"
+                  placeholder="PhoneNo"
                   value={tenantPhone}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -442,6 +453,7 @@ const AddTenantDetails = ({
                 <input
                   type="text"
                   name="tenantFirmName"
+                  placeholder="FirmName"
                   value={tenantFirmName}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -453,6 +465,7 @@ const AddTenantDetails = ({
                 <input
                   type="number"
                   name="tenantAdharNo"
+                  placeholder="AdharNo"
                   value={tenantAdharNo}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -474,6 +487,7 @@ const AddTenantDetails = ({
                 <input
                   type="text"
                   name="tenantPanNo"
+                  placeholder="PanNo"
                   value={tenantPanNo}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -495,6 +509,7 @@ const AddTenantDetails = ({
                 <input
                   type="number"
                   name="tenantRentAmount"
+                  placeholder="RentAmount"
                   value={tenantRentAmount}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -516,6 +531,7 @@ const AddTenantDetails = ({
                   type="number"
                   name="tenantDepositAmt"
                   value={tenantDepositAmt}
+                  placeholder="DepositAmount"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) =>
@@ -535,6 +551,7 @@ const AddTenantDetails = ({
                 <input
                   type="number"
                   name="generatordepoAmt"
+                  placeholder="GeneratorDepositAmount"
                   value={generatordepoAmt}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -553,7 +570,7 @@ const AddTenantDetails = ({
                   options={PaymentMethods}
                   isSearchable={false}
                   value={tenantPaymentMode}
-                  placeholder="Select"
+                  placeholder="Select..."
                   onChange={(e) => onPaymentModeChange(e)}
                   theme={(theme) => ({
                     ...theme,
@@ -578,9 +595,16 @@ const AddTenantDetails = ({
                   value={entryDate}
                   onChange={(e) => onDateChangeEntry(e)}
                   style={{
-                    width: "55%",
+                    width: "100%",
                   }}
                 />
+              </div>
+              <div className="col-lg-4 ">
+                <label>Lease End Date:</label>
+                <br />
+                <label>
+                  <b>{leaseEndDate}</b>
+                </label>
               </div>
               <div className="col-lg-12">
                 {showChequenoSection ? (
@@ -647,13 +671,7 @@ const AddTenantDetails = ({
                   required
                 ></textarea>{" "}
               </div>
-              <div className="col-lg-3 ">
-                <label>Lease End Date:</label>
-                <br />
-                <label>
-                  <b>{leaseEndDate}</b>
-                </label>
-              </div>
+
               <div className="col-lg-12">
                 <button
                   variant="success"

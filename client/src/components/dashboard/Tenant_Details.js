@@ -79,8 +79,9 @@ const Tenant_Details = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">TenantDetails </h2>
+                <hr></hr>
               </div>
-              <hr></hr>
+
               <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
                 <AddTenantDetails />
               </div>
@@ -132,15 +133,16 @@ const Tenant_Details = ({
                                     onClick={() => onEdit(Val)}
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
-                                    title="Add User"
+                                    title="Edit User"
                                   />
+                                  &nbsp;
                                   <img
                                     className="img_icon_size log"
                                     // onClick={() => onClickHandler()}
                                     onClick={() => onDelete(Val._id)}
                                     src={require("../../static/images/delete.png")}
-                                    alt="Add User"
-                                    title="Add User"
+                                    alt="delete User"
+                                    title="delete User"
                                   />
                                 </td>
                               </tr>
