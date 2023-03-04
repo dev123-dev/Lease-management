@@ -122,7 +122,6 @@ const AddSuperUserModel = ({
     <Fragment>
       <div className="">
         <img
-          onClick={() => setShowAdd(true)}
           className="usraddicon "
           src={require("../../static/images/add-icon.png")}
           alt="Add User"
