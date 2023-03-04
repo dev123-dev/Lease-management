@@ -17,7 +17,7 @@ const Tenant_Details = ({
   useEffect(() => {
     getAllTenants();
   }, []);
-  console.log("aLL TENANT DETAILS", allTenants);
+
   const [userData, setUserData] = useState(null);
 
   // Modal for Deactivation
@@ -138,7 +138,6 @@ const Tenant_Details = ({
                                   &nbsp;
                                   <img
                                     className="img_icon_size log"
-                                    // onClick={() => onClickHandler()}
                                     onClick={() => onDelete(Val._id)}
                                     src={require("../../static/images/delete.png")}
                                     alt="delete User"

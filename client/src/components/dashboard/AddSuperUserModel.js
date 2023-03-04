@@ -109,29 +109,31 @@ const AddSuperUserModel = ({
   };
   const [showAdd, setShowAdd] = useState(false);
 
-  const [supershow, setSuperShow] = useState(false);
+  const [supershow, setSuperShow] = useState();
   const superhandleClose = () => setSuperShow(false);
   const superhandleShow = () => setSuperShow(true);
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
-
+  const con = () => {
+    alert("hii");
+  };
   return isAuthenticated &&
     users &&
     user &&
     user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
-      <div className="">
+      <Button className="buttonClass">
         <img
-          onClick={() => setShowAdd(true)}
           className="usraddicon "
           src={require("../../static/images/add-icon.png")}
+          onClick={() => superhandleShow()}
           alt="Add User"
           title="Add User"
         />
-      </div>
+      </Button>
       <form>
         <Modal
-          show={showAdd}
+          show={supershow}
           backdrop="static"
           keyboard={false}
           size="lg"
@@ -144,7 +146,7 @@ const AddSuperUserModel = ({
               <h1 className="font-weight-bold ">Add user</h1>
             </Modal.Title>
             <div className="  col-lg-2 ">
-              <button className="close ml-5" onClick={() => setShowAdd(false)}>
+              <button className="close ml-5" onClick={() => superhandleClose()}>
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"

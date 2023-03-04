@@ -6,93 +6,94 @@ import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
 import { getParticularProperty } from "../../actions/tenants";
 import { connect } from "react-redux";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
-const MainAdminPage=  ({
-  tenants : {allShopDetails},
-  getAllShops,
-})=>{
-  useEffect(()=>{
-   // getAllShops();
+const MainAdminPage = ({
+  auth: { isAuthenticated, user, users },
+  tenants: { particular_org_data },
+  getParticularProperty,
+}) => {
+  useEffect(() => {
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
-    console.log("shop details",allShopDetails)
-  },[])
-  let count = 1;
-  const[PropertyCount,setPropertyCount]=useState(0)
-  const fun=()=>{
-    allShopDetails.map((ind)=>
-         setPropertyCount(count++)
-   )
-  }
+  }, []);
 
- 
+  let count = 0;
+  const [PropertyCount, setPropertyCount] = useState();
+  const fun = () => {
+    particular_org_data.map((ind) => setPropertyCount(count++));
+  };
+
   return (
-      <div>
-        <div className="container container_align ">
-          <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-            <h2 className="heading_color">DashBoard </h2>
-            <hr></hr>
-          </div>
-          <section className="sub_reg mainpage ">
-            <div className="1">
-              {" "}
-              <div className=" card h3 text-center pt-5" id="shadow-bck">
-                <img
-                  src={prop}
-                  alt="x"
-                  height="40%"
-                  width="20%"
-                  className="mainpageimg"
-                ></img>
-                Total Property Count
-                {PropertyCount}
-              </div>
-            </div>
-            <div className="2">
-              {" "}
-              <div className=" card  h3 text-center pt-5" id="shadow-bck">
-                <img
-                  src={unprop}
-                  alt="x"
-                  height="35%"
-                  width="15%"
-                  className="mainpageimg"
-                ></img>
-                UnOccupied Property
-              </div>
-            </div>
-            <div className="3">
-              {" "}
-              <div className="card h3 text-center pt-5" id="shadow-bck">
-                <img
-                  src={people}
-                  alt="x"
-                  height="35%"
-                  width="15%"
-                  className="mainpageimg"
-                ></img>
-                No Of Tenants Count
-              </div>
-            </div>
-            <div className="4">
-              {" "}
-              <div className="card h3 text-center pt-5 " id="shadow-bck">
-                <img
-                  src={money}
-                  alt="x"
-                  height="35%"
-                  width="15%"
-                  className="mainpageimg"
-                ></img>
-                Total Renewal
-              </div>
-            </div>
-          </section>
+    <div>
+      <div className="container container_align ">
+        <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+          <h2 className="heading_color">DashBoard </h2>
+          <hr></hr>
         </div>
+        <section className="sub_reg mainpage ">
+          <div className="1">
+            {" "}
+            <div className=" card h3 text-center pt-5" id="shadow-bck">
+              <img
+                src={prop}
+                alt="x"
+                height="40%"
+                width="20%"
+                className="mainpageimg"
+              ></img>
+              Total Property Count
+              {/* <div>{PropertyCount}</div> */}
+            </div>
+          </div>
+          <div className="2">
+            {" "}
+            <div className=" card  h3 text-center pt-5" id="shadow-bck">
+              <img
+                src={unprop}
+                alt="x"
+                height="35%"
+                width="15%"
+                className="mainpageimg"
+              ></img>
+              UnOccupied Property
+            </div>
+          </div>
+          <div className="3">
+            {" "}
+            <div className="card h3 text-center pt-5" id="shadow-bck">
+              <img
+                src={people}
+                alt="x"
+                height="35%"
+                width="15%"
+                className="mainpageimg"
+              ></img>
+              No Of Tenants Count
+            </div>
+          </div>
+          <div className="4">
+            {" "}
+            <div className="card h3 text-center pt-5 " id="shadow-bck">
+              <img
+                src={money}
+                alt="x"
+                height="35%"
+                width="15%"
+                className="mainpageimg"
+              ></img>
+              Total Renewal
+            </div>
+          </div>
+        </section>
       </div>
+    </div>
   );
-}
-const mapStateToProps =(state)=>({
-tenants : state.tenants,
+};
+const mapStateToProps = (state) => ({
+  tenants: state.tenants,
+  auth: state.auth,
 });
-export default connect(mapStateToProps,{})(MainAdminPage);
+export default connect(mapStateToProps, { getParticularProperty })(
+  MainAdminPage
+);

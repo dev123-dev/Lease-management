@@ -17,7 +17,7 @@ const PropertySchema = new mongoose.Schema({
     type: Number,
   },
   leaseTimePeriod: {
-    type: Date,
+    type: String,
   },
   OrganizationName: {
     type: String,
@@ -72,7 +72,7 @@ const PropertySchema = new mongoose.Schema({
     type: String,
   },
   Location: {
-    type : String
+    type: String,
   },
   tdId: {
     type: ObjectId,

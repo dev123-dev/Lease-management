@@ -20,14 +20,14 @@ const PropertyDetail = ({
 }) => {
   useEffect(() => {
     getalluser();
-    getParticularProperty({ OrganizationId: user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
   }, []);
-
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
-
+  console.log(user);
+  const name = user && user.OrganizationName;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
   const [property, setProperty] = useState(null);
@@ -47,16 +47,17 @@ const PropertyDetail = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [OrgId, setId] = useState("");
+  const [PropertyId, setId] = useState("");
 
   const onDelete = (id) => {
     setId(id);
     handleShow();
   };
 
-  const onAdd = () => {
+  const onDeactive = () => {
     const reason = {
-      Org_id: OrgId,
+      PropertyId: PropertyId,
+      OrganizationId: user && user.OrganizationId,
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
@@ -68,9 +69,7 @@ const PropertyDetail = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">
-                {user.OrganizationName} Property Details
-              </h2>
+              <h2 className="heading_color">{name} Property Details</h2>
               <hr></hr>
             </div>
             <AddShopDetails />
@@ -153,7 +152,8 @@ const PropertyDetail = ({
               <Form.Label>Reason For Deactivating</Form.Label>
               <textarea
                 rows="2"
-                name="Property_DE_Reason"
+                name="deactive_reason"
+                value={deactive_reason}
                 onChange={(e) => onInputChange(e)}
                 autoFocus
                 id="org_reason"
@@ -165,7 +165,7 @@ const PropertyDetail = ({
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={onAdd} id="deactivebtn">
+          <Button onClick={onDeactive} id="deactivebtn">
             <b>DeActivate</b>
           </Button>
         </Modal.Footer>
@@ -204,7 +204,7 @@ const PropertyDetail = ({
 
 PropertyDetail.propTypes = {
   tenants: PropTypes.object.isRequired,
-  getAllShops: PropTypes.func.isRequired,
+  //getAllShops: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({

@@ -30,8 +30,8 @@ const SuperUserDashboard = ({
 
   useEffect(() => {
     getParticularUser({
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
+      OrganizationName: user && user.OrganizationName,
+      OrganizationId: user && user.OrganizationId,
     });
     deactivateUser();
   }, []);

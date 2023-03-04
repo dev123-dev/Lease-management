@@ -5,6 +5,7 @@ import {
   AddTenantDetailsform,
   getParticularProperty,
   getAllDoorNos,
+  getAllTenants,
   getParticularTenantSetting,
   getAllSettings,
 } from "../../actions/tenants";
@@ -25,6 +26,7 @@ const AddTenantDetails = ({
   AddTenantDetailsform,
   getParticularTenantSetting,
   Addorgform,
+  getAllTenants,
   getAllSettings,
 }) => {
   useEffect(() => {
@@ -32,6 +34,7 @@ const AddTenantDetails = ({
       Organization_id: user && user.OrganizationId,
     });
     getParticularProperty({ OrganizationName: user.OrganizationName });
+    getAllTenants();
   }, []);
 
   useEffect(() => {
@@ -731,6 +734,7 @@ export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
   getAllSettings,
+  getAllTenants,
   getParticularTenantSetting,
   getParticularProperty,
 })(AddTenantDetails);

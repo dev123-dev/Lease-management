@@ -42,10 +42,6 @@ const AddOrgModal = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  const [show, setshow] = useState("");
-  const handleClose = () => setshow("false");
-  const handleShow = () => setshow("true");
-
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState([]);
 
@@ -79,7 +75,6 @@ const AddOrgModal = ({
     OrganizationNumber,
     OrganizationAddress,
     enddate,
-    Logo,
     date,
     Location,
   } = formDataORG;
@@ -90,8 +85,13 @@ const AddOrgModal = ({
       [e.target.name]: e.target.value,
     });
   };
+  const [showAddModal, setModal] = useState();
+  const show = () => setModal(true);
+  const hidden = () => setModal(false);
 
-  const [showAdd, setShowAdd] = useState(false);
+  const [showAdd, setShowAdd] = useState();
+  const onshow = () => setShowAdd(true);
+  const onremove = () => setShowAdd(false);
 
   //fill all the field state
   const [fill, setfill] = useState(false);
@@ -119,6 +119,8 @@ const AddOrgModal = ({
         Location: items,
       };
       AddOrganization(finalORGdata);
+      hidden();
+      onshow();
       setFormDataORG({
         ...formDataORG,
         OrganizationName: "",
@@ -137,20 +139,19 @@ const AddOrgModal = ({
   ) : (
     <div>
       <Fragment>
-        <div className="orgaddicon ">
+        <button className="orgaddicon ">
           <img
             className="orgaddicon "
-            // onClick={() => onClickHandler()}
-            onClick={() => setShowAdd(true)}
+            onClick={() => show()}
             src={require("../../static/images/add-icon.png")}
             alt="Add User"
             title="Add User"
           />
-        </div>
+        </button>
 
         {/* Adding Organization */}
         <Modal
-          show={showAdd}
+          show={showAddModal}
           backdrop="static"
           keyboard={false}
           size="lg"
@@ -167,7 +168,7 @@ const AddOrgModal = ({
               </h2>
               <div className="  col-lg-2">
                 <button
-                  onClick={() => setShowAdd(false)}
+                  onClick={() => hidden()}
                   className="
                   clorg"
                 >
@@ -216,7 +217,6 @@ const AddOrgModal = ({
                     onChange={(e) => onORGchange(e)}
                     className="form-control"
                     placeholder="Email"
-                    //onChange={(e) => onInputChange(e)}
                   />{" "}
                 </div>{" "}
                 <br></br>
@@ -229,7 +229,6 @@ const AddOrgModal = ({
                     onChange={(e) => onORGchange(e)}
                     className="form-control"
                     placeholder="PhoneNumber"
-                    //onChange={(e) => onInputChange(e)}
                   />
                 </div>
                 <div className="col-lg-6">
@@ -241,8 +240,6 @@ const AddOrgModal = ({
                   </label>
                   <input
                     type="number"
-                    //  name="user"
-                    //value={}
                     className="form-control"
                     placeholder="Number Of User"
                   />
@@ -277,18 +274,13 @@ const AddOrgModal = ({
                   <input
                     type="text"
                     placeholder="dd/mm/yyyy"
-                    //   min={yesterdayDt}
-                    //   max={today2}
                     value={leaseEndDate}
                     className="form-control cpp-input datevalidation"
                     name="tenantLeaseStartDate"
-                    // value={tenants.tenantLeaseEndDate}
-
                     style={{
                       width: "100%",
                     }}
                   />
-                  {/* <label><b>{leaseEndDate}</b></label> */}
                 </div>
                 <div className="col-lg-6">
                   <label>
@@ -302,12 +294,10 @@ const AddOrgModal = ({
                     name="OrganizationAddress"
                     value={OrganizationAddress}
                     onChange={(e) => onORGchange(e)}
-                    // id="tenantAddr"
                     className="textarea form-control"
                     rows="3"
                     cols="20"
                     placeholder="Address"
-                    // onChange={(e) => onInputChange(e)}
                     style={{ width: "100%" }}
                   ></textarea>{" "}
                 </div>
@@ -385,8 +375,8 @@ const AddOrgModal = ({
           </Modal.Body>
         </Modal>
 
-        {/* <Modal
-          show={showInformationModal}
+        <Modal
+          show={showAdd}
           backdrop="static"
           keyboard={false}
           aria-labelledby="contained-modal-title-vcenter"
@@ -400,14 +390,11 @@ const AddOrgModal = ({
             <h5>Details Added!!</h5>
           </Modal.Body>
           <Modal.Footer>
-            <button
-              className="btn btn_green_bg"
-              onClick={() => LogoutModalClose()}
-            >
+            <button className="btn btn_green_bg" onClick={() => onremove()}>
               OK
             </button>
           </Modal.Footer>
-        </Modal> */}
+        </Modal>
       </Fragment>
     </div>
   );
