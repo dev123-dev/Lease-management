@@ -7,6 +7,7 @@ import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import EditTenantDetails from "./EditTenantDetails";
+import Select from "react-select";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
@@ -79,8 +80,17 @@ const Tenant_Details = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">TenantDetails </h2>
-                <hr></hr>
+                <div className="w-25">
+                  <Select
+                    className="bg-danger"
+                    name="doorno"
+                    // options={DnoList}
+                    // value={doorno}
+                    // onChange={(e) => onchangeDoor(e)}
+                  ></Select>
+                </div>
               </div>
+              <hr></hr>
 
               <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
                 <AddTenantDetails />
