@@ -43,7 +43,7 @@ const MainAdminPage = ({
                 className="mainpageimg"
               ></img>
               Total Property Count
-              {/* <div>{PropertyCount}</div> */}
+              <div>{PropertyCount}</div>
             </div>
           </div>
           <div className="2">

@@ -103,7 +103,6 @@ const Tenant_Details = ({
                           <th>Phone Number</th>
                           <th>Expiry Date</th>
                           <th>Rent Amount</th>
-                          <th>Agreement Status</th>
                           <th>Operation</th>
                         </tr>
                       </thead>
@@ -125,23 +124,29 @@ const Tenant_Details = ({
                                 <td>{Val.tenantPhone}</td>
                                 <td>{Val.tenantLeaseEndDate}</td>
                                 <td>{Val.tenantRentAmount}</td>
-                                <td>{Val.tenantstatus}</td>
-                                <td>
-                                  <img
-                                    className="img_icon_size log"
-                                    onClick={() => onEdit(Val)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Add User"
-                                  />
-                                  <img
-                                    className="img_icon_size log"
-                                    onClick={() => onDelete(Val._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="Add User"
-                                    title="Add User"
-                                  />
-                                </td>
+
+                                {Val.tenantstatus === " Active" ? (
+                                  <td>
+                                    <img
+                                      className="img_icon_size log"
+                                      onClick={() => onEdit(Val)}
+                                      src={require("../../static/images/edit_icon.png")}
+                                      alt="Edit"
+                                      title="Add User"
+                                    />
+                                    <img
+                                      className="img_icon_size log"
+                                      onClick={() => onDelete(Val._id)}
+                                      src={require("../../static/images/delete.png")}
+                                      alt="Add User"
+                                      title="Add User"
+                                    />
+                                  </td>
+                                ) : (
+                                  <td>
+                                    <div className="deactive"></div>
+                                  </td>
+                                )}
                               </tr>
                             );
                           })}
