@@ -16,9 +16,7 @@
 .container_align {
   margin-top: 55px;
   margin-bottom: 55px;
-  
 }
-
 
 .btnLink,
 .btnLink:active {
@@ -28,7 +26,7 @@
 
 .btnLink:hover {
   text-decoration: underline;
-  color:  #095a4a;
+  color: #095a4a;
   background-color: transparent;
   border: 0px solid white;
 }
@@ -70,7 +68,6 @@
 .btn-round:focus {
   border: 3px solid #2a3855;
   background: #5c87a3;
-  
 }
 
 .btn_submit {
@@ -96,14 +93,13 @@
   border-radius: 50% !important;
   font-size: 10px;
   font-weight: 500;
-  
 
   background: transparent;
   border: transparent;
 }
 
-.btn-roun{
-  transform: scale(1.0);
+.btn-roun {
+  transform: scale(1);
 }
 .btn-rou {
   height: 200px;
@@ -229,14 +225,14 @@ h5:last-child {
 
 ::selection {
   color: #fff;
-  background:  #095a4a;
+  background: #095a4a;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 10px;
   border-radius: 2px;
-  background:  #095a4a;
+  background: #095a4a;
 }
 
 .footer {
@@ -427,7 +423,7 @@ p {
   padding-bottom: 40px;
 }
 .contact_reg {
-  background:#095a4a;
+  background: #095a4a;
   color: #fff;
   padding: 10px 30px;
   margin-top: 20px;
@@ -497,7 +493,7 @@ p {
 }
 
 ::-webkit-scrollbar-thumb:window-inactive {
-  background:  #095a4a;
+  background: #095a4a;
 }
 
 #regDes {
@@ -685,7 +681,7 @@ hr {
 }
 
 .btn_green_bg {
-  background-color:  #095a4a;
+  background-color: #095a4a;
   color: #fff;
   padding: 5px 30px;
   border-radius: 5px;
@@ -778,17 +774,16 @@ label {
 .table-bordered > tfoot > tr > th,
 .table-bordered > thead > tr > td,
 .table-bordered > thead > tr > th {
-  border: 1px solid  #095a4a;
+  border: 1px solid #095a4a;
 }
 
 #datatable2 th {
-  background:  #095a4a;
+  background: #095a4a;
   color: #fff;
   padding: 8px;
   text-align: center;
   position: sticky;
   top: 0;
-  
 }
 
 .fixTableHead {
@@ -1350,7 +1345,7 @@ input[type="radio"].error {
   font-family: Verdana, Arial, sans-serif;
   font-size: 1.1em;
   width: 100%;
-  background:  #095a4a !important;
+  background: #095a4a !important;
   padding: 0.3em 1em;
   color: #fff !important;
   height: 36px !important;
@@ -1402,9 +1397,7 @@ input[type="radio"].error {
   width: 20px;
   height: 20px;
   margin-top: 7%;
-  margin-left:0.5%;
-  
-
+  margin-left: 0.5%;
 }
 
 .img_icon_size2 {
@@ -1724,7 +1717,7 @@ button.swap-btn {
   margin: 4px;
   font-weight: bold;
   font-size: 0.944rem;
-  background-color:  #095a4a;
+  background-color: #095a4a;
   color: #fff;
 }
 
@@ -1757,7 +1750,7 @@ span.grinding {
 }
 
 .alrt-close {
-  background:  #095a4a;
+  background: #095a4a;
   width: max-content;
   padding: 5px 15px;
   color: #fff;
@@ -1906,312 +1899,284 @@ input[type="number"]::-webkit-outer-spin-button {
     padding-top: 10%;
   }
 }
-.input{
+.input {
   width: 120%;
 }
-.add_tenant{
-  
+.add_tenant {
   margin-left: 5%;
 }
 
-.close-btn-wrapper{
-  position:relative;
-  width:700px;
-  left:100%;
- 
+.close-btn-wrapper {
+  position: relative;
+  width: 700px;
+  left: 100%;
 }
 
-.close-btn{
-  position:absolute;
-  top:0;
-  right:0;
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
-.close{
+.close {
   border-color: transparent;
   border: transparent;
   color: #095a4a;
   margin-left: 400px;
 }
-.clprop{
+.clprop {
   margin-left: 160px;
 }
-.clorg{
-  background-color:transparent;
+.clorg {
+  background-color: transparent;
   color: #095a4a;
-  margin-left:150px;
+  margin-left: 150px;
 }
-.cluser{
-  background-color:transparent;
+.cluser {
+  background-color: transparent;
   color: #095a4a;
-  margin-left:140px;
+  margin-left: 140px;
 }
-.model_bck{
+.model_bck {
   background-color: #000000ab;
-  width:600%;
+  width: 600%;
 }
- #hea{
+#hea {
   /* background-color: #000; */
-  color:white;
-  height:20px;
- }
- #hea:hover{
+  color: white;
+  height: 20px;
+}
+#hea:hover {
   /* background-color: #000; */
-  color:rgb(162, 154, 154)
- }
-.card{
-  
-    width: 600px;
-    height:250px;
-    padding: 10px;
-    border: 5px solid gray;
-    background-color: #000;
+  color: rgb(162, 154, 154);
+}
+.card {
+  width: 600px;
+  height: 250px;
+  padding: 10px;
+  border: 5px solid gray;
+  background-color: #000;
 }
 
-#shadow-bck{
+#shadow-bck {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-#savebtn{
-  background-color:transparent;
-  color:black;
+#savebtn {
+  background-color: transparent;
+  color: black;
   border-radius: 0%;
   border-color: #000;
 }
-#savebtn:hover{
-  background-color:#095a4a;
+#savebtn:hover {
+  background-color: #095a4a;
   color: white;
-  
 }
-#signin{
+#signin {
   background-color: #095a4a;
   color: white;
   border-radius: 0%;
-  width:30%;
+  width: 30%;
 }
-#signin:hover{
+#signin:hover {
   background-color: #080808;
   color: white;
-  
 }
-#savebtnt{
+#savebtnt {
   background-color: #095a4a;
   color: white;
   border-radius: 0%;
-  margin-left:30%;
+  margin-left: 30%;
 }
-#savebtnt:hover{
+#savebtnt:hover {
   background-color: #0b0b0b;
   color: white;
   border-radius: 0%;
 }
-.locadd{
-  background-color:transparent;
-  margin-left:83%;
+.locadd {
+  background-color: transparent;
+  margin-left: 83%;
   margin-top: -9%;
   height: 20%;
-  width:9%;
+  width: 9%;
   border-radius: 0;
-  border:transparent;
+  border: transparent;
   position: absolute;
-
 }
 
-.locadd:hover{
-  background-color:#0b0b0bfc;
-  color:white;
-  
+.locadd:hover {
+  background-color: #0b0b0bfc;
+  color: white;
 }
-.locadds:hover{
-  background-color:#0b0b0bfc;
-  color:white;
-  
+.locadds:hover {
+  background-color: #0b0b0bfc;
+  color: white;
 }
-.locadds{
-  background-color:transparent;
-  margin-left:83%;
+.locadds {
+  background-color: transparent;
+  margin-left: 83%;
   margin-top: -9.5%;
   height: 20%;
-  width:9%;
+  width: 9%;
   border-radius: 0;
-  border:transparent;
+  border: transparent;
   position: absolute;
-
 }
 
-.tenantfil:hover{
-  background-color:grey;
+.tenantfil:hover {
+  background-color: grey;
   transform: scale(1.05);
 }
 button {
- 
-  border:1px solid rgb(222, 222, 225);
-  background:transparent;
-  color:black;
-  
+  border: 1px solid rgb(222, 222, 225);
+  background: transparent;
+  color: black;
 }
-.lopage{
+.lopage {
   background-color: #020101;
 }
-.showItemcl .eachItem .btndrp{
+.showItemcl .eachItem .btndrp {
   background-color: #bbacac;
   display: flex;
   margin-left: 90%;
   margin-top: -5%;
- 
 }
-.rewbtn{
+.rewbtn {
   background-color: #095a4a;
   color: white;
-  width:90%;
-  height:40px;
+  width: 90%;
+  height: 40px;
   border-radius: 0%;
   border-color: transparent;
 }
-.rewbtn:hover{
+.rewbtn:hover {
   background-color: black;
   color: white;
-  
 }
-.userhea{
-  background-color:red;
+.userhea {
+  background-color: red;
   margin-left: -6%;
 }
-#sidehea{
+#sidehea {
   background-color: #095a4a;
   border-color: transparent;
-  
 }
-.logut:hover{
+.logut:hover {
   background-color: #949796;
-  
 }
-#Renewalbtn{
+#Renewalbtn {
   margin-left: 465px;
   height: 50px;
-  width:110px;
+  width: 110px;
   background-color: #095a4a;
   color: white;
 }
-#Renewalbtn:hover{
- 
-  background-color:#000000;
- 
+#Renewalbtn:hover {
+  background-color: #000000;
 }
-.tenantEditSave{
+.tenantEditSave {
   background-color: #095a4a;
   margin-left: 400px;
   width: 150px;
   height: 50px;
-  color:white;
+  color: white;
 }
-.tenantEditSave:hover{
+.tenantEditSave:hover {
   background-color: black;
 }
-.orgaddicon{
+.orgaddicon {
   margin-left: 20px;
   border-color: white;
   background-color: transparent;
 }
-.Uservalidation{
-  color:red;
+.Uservalidation {
+  color: red;
   margin-left: 450px;
-
 }
-.refresh{
+.refresh {
   width: 20px;
   height: 20px;
-  margin-left:140px;
+  margin-left: 140px;
   margin-top: 7%;
 }
-.orgtable{
+.orgtable {
   margin-top: -20px;
 }
-#Deactiveclose{
+#Deactiveclose {
   background-color: transparent;
   margin-left: 410px;
-  margin-top:-10px;
+  margin-top: -10px;
   border-color: white;
 }
-#Deactiveclose:hover{
-  
-  background-color:lightgray;
+#Deactiveclose:hover {
+  background-color: lightgray;
   color: #0b0b0b;
 }
-#deactivebtn{
-  width:25%;
+#deactivebtn {
+  width: 25%;
   border-radius: 0%;
-  background-color:transparent;
+  background-color: transparent;
   margin-top: -30px;
   border-color: #000;
-  color:black;
+  color: black;
 }
-#deactivebtn:hover{
-  
-  background-color:#095a4a;
+#deactivebtn:hover {
+  background-color: #095a4a;
   color: white;
 }
-.despace{
+.despace {
   margin-top: -20px;
 }
-.mainpageimg{
+.mainpageimg {
   margin-left: 230px;
   margin-top: -10px;
   color: #095a4a;
-  
 }
-.mainpage{
+.mainpage {
   width: fit-content;
-  display:grid;
+  display: grid;
   grid-template-columns: auto auto;
   row-gap: 1rem;
-column-gap: 3rem;
-  
-
+  column-gap: 3rem;
 }
-#buttonchanges{
-  border-color:black;
+#buttonchanges {
+  border-color: black;
   border-radius: 0%;
-  width:10%;
-  height:50px;
-  background-color:transparent;
+  width: 10%;
+  height: 50px;
+  background-color: transparent;
 }
-#buttonchanges:hover{
-  
-  background-color:#095a4a;
+#buttonchanges:hover {
+  background-color: #095a4a;
   color: white;
-  
 }
-#TenantSettingBtn{
-  background-color:transparent;
+#TenantSettingBtn {
+  background-color: transparent;
   margin-left: 450px;
-  width:110px;
-  height:40px;
+  width: 110px;
+  height: 40px;
   border-color: #000;
 }
-#TenantSettingBtn:hover{
-  background-color:#095a4a;
- color:white;
-  
+#TenantSettingBtn:hover {
+  background-color: #095a4a;
+  color: white;
 }
-#logoutbtn{
-  background-color:#095a4a;
-  width:75px;
-  height:40px;
-  border-radius:5px;
+#logoutbtn {
+  background-color: #095a4a;
+  width: 75px;
+  height: 40px;
+  border-radius: 5px;
   color: white;
 }
 .orgaddicon {
   width: 20px;
   height: 20px;
-  margin-top:250%;
-  margin-left:250%;
-
+  margin-top: 250%;
+  margin-left: 250%;
 }
 .usraddicon {
   width: 20px;
   height: 20px;
-  margin-top:500%;
-  margin-left:300%;
-
+  margin-top: 500%;
+  margin-left: 300%;
 }
 
 /* div{

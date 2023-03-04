@@ -22,11 +22,12 @@ const AddShopDetails = ({
   useEffect(() => {
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationName: user && user.OrganizationName });
-    getParticularProperty({ OrganizationId: user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
     getParticularTenantSetting({
       Organization_id: user && user.OrganizationId,
     });
   }, []);
+  console.log(user);
 
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
@@ -48,9 +49,18 @@ const AddShopDetails = ({
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
-    hikePercentage: get_Particular_org_Tenantsetting[0].hikePercentage,
-    stampDuty: get_Particular_org_Tenantsetting[0].stampDuty,
-    LeaseTime: get_Particular_org_Tenantsetting[0].leaseTimePeriod,
+    hikePercentage:
+      get_Particular_org_Tenantsetting &&
+      get_Particular_org_Tenantsetting[0] &&
+      get_Particular_org_Tenantsetting[0].hikePercentage,
+    stampDuty:
+      get_Particular_org_Tenantsetting &&
+      get_Particular_org_Tenantsetting[0] &&
+      get_Particular_org_Tenantsetting[0].stampDuty,
+    LeaseTime:
+      get_Particular_org_Tenantsetting &&
+      get_Particular_org_Tenantsetting[0] &&
+      get_Particular_org_Tenantsetting[0].leaseTimePeriod,
     shopAddress: "",
     isSubmitted: false,
   });
@@ -393,7 +403,7 @@ const AddShopDetails = ({
 AddShopDetails.propTypes = {
   auth: PropTypes.object.isRequired,
   AddShopDetailsform: PropTypes.func.isRequired,
-  getAllShops: PropTypes.func.isRequired,
+  // getAllShops: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

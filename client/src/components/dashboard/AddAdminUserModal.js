@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useState, Fragment } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
 import { AddAdminuser } from "../../actions/tenants";
-import { getalluser } from "../../actions/tenants";
+import { get_particular_org_user } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 
 const AddAdminUserModal = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allorg },
   AddAdminuser,
-  getalluser,
+  get_particular_org_user,
 }) => {
+  useEffect(() => {
+    get_particular_org_user({
+      orgid: user && user.OrganizationId,
+    });
+  });
   const [showEditModal, setShowEditModal] = useState(false);
   const [Deactiveshow, setDeactiveShow] = useState(false);
 
@@ -304,6 +309,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,
 });
-export default connect(mapStateToProps, { AddAdminuser, getalluser })(
-  AddAdminUserModal
-);
+export default connect(mapStateToProps, {
+  AddAdminuser,
+  get_particular_org_user,
+})(AddAdminUserModal);

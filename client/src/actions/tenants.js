@@ -57,6 +57,14 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
     });
   }
 };
+//get count of unOccupied Property
+// export const getUnoccupiedProperty = () => async (dispatch) => {
+//   console.log("insde the getUnoccupiedProperty");
+//   try {
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) => async (dispatch) => {
@@ -193,7 +201,7 @@ export const AddAdminuser = (userData) => async (dispatch) => {
       type: GET_ADMIN,
       payload: res.data,
     });
-    dispatch(get_particular_org_user(data));
+    dispatch(get_particular_org_user({ orgId: userData.OrganizationId }));
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

@@ -19,7 +19,9 @@ const UserDetails = ({
   deactivateUser, //this is a action function to call
 }) => {
   useEffect(() => {
-    get_particular_org_user({ orgid: user.OrganizationId });
+    get_particular_org_user({
+      orgid: user && user.OrganizationId,
+    });
   }, []);
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -34,7 +36,6 @@ const UserDetails = ({
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalClose = () => setShowUpdateModal(false);
-
 
   const [showSuperModal, setSuperModal] = useState("");
   const SuperUpdateModalClose = () => setSuperModal(false);
@@ -64,17 +65,15 @@ const UserDetails = ({
   };
 
   const onAdminAdd = () => {
-
     const reason = {
       userId: AdminId,
-      orgId:user.OrganizationId,
+      orgId: user && user.OrganizationId,
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log(reason)
+    console.log(reason);
     deactivateUser(reason);
     // get_particular_org_user({ orgid: user.OrganizationId });
-   
   };
 
   return (
@@ -85,9 +84,7 @@ const UserDetails = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color">
-                    {user.OrganizationName}User Details{" "}
-                  </h2>
+                  <h2 className="heading_color">User Details </h2>
                 </div>
                 <AddAdminUserModal />
               </div>

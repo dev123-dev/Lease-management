@@ -20,13 +20,14 @@ const PropertyDetail = ({
 }) => {
   useEffect(() => {
     getalluser();
-    getParticularProperty({ OrganizationId: user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
   }, []);
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
-
+  console.log(user);
+  const name = user && user.OrganizationName;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
   const [property, setProperty] = useState(null);
@@ -56,7 +57,7 @@ const PropertyDetail = ({
   const onDeactive = () => {
     const reason = {
       PropertyId: PropertyId,
-      OrganizationId: user.OrganizationId,
+      OrganizationId: user && user.OrganizationId,
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
@@ -68,9 +69,7 @@ const PropertyDetail = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">
-                {user.OrganizationName} Property Details
-              </h2>
+              <h2 className="heading_color">{name} Property Details</h2>
               <hr></hr>
             </div>
             <AddShopDetails />
@@ -205,7 +204,7 @@ const PropertyDetail = ({
 
 PropertyDetail.propTypes = {
   tenants: PropTypes.object.isRequired,
-  getAllShops: PropTypes.func.isRequired,
+  //getAllShops: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
