@@ -425,11 +425,16 @@ router.post("/deactive-property", async (req, res) => {
 
 //getting particular Tenant details based on Orgaination
 router.post("/get-particular-Tenant", async (req, res) => {
-  let data = req.body;
+  let { OrganizationId, LocationName } = req.body;
+  let query = { OrganizationId: OrganizationId };
+  if (LocationName) {
+    query = {
+      ...query,
+      Location: LocationName,
+    };
+  }
   try {
-    const tenantdata = await TenantDetails.find({
-      OrganizationId: data.OrganizationId,
-    });
+    const tenantdata = await TenantDetails.find(query);
     res.json(tenantdata);
   } catch (error) {
     console.log(error.message);

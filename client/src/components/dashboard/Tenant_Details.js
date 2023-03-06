@@ -1,8 +1,11 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { ParticularTenant } from "../../actions/tenants";
-import { deactiveTenantsDetails } from "../../actions/tenants";
+import { ParticularTenant, getParticularOrg } from "../../actions/tenants";
+import {
+  deactiveTenantsDetails,
+  getParticularProperty,
+} from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
@@ -11,16 +14,33 @@ import Select from "react-select";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
-  tenants: { get_particular_org_tenant },
+  tenants: { get_particular_org_tenant, particular_org_loc },
   ParticularTenant,
+  getParticularOrg,
+  getParticularProperty,
   deactiveTenantsDetails,
 }) => {
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    fun();
   }, []);
+  const [sellocation, setselLoction] = useState(null);
+  const [location, setlocation] = useState([]);
+  const Loc = [];
 
-  const [userData, setUserData] = useState(null);
+  const fun = () => {
+    particular_org_loc &&
+      particular_org_loc.Location.map((ele) => {
+        Loc.push({
+          label: ele,
+          value: ele,
+        });
+        setlocation(Loc);
+      });
+  };
 
+  console.log("loc", location);
   // Modal for Deactivation
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -60,6 +80,14 @@ const Tenant_Details = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const onchangeLocation = (loc) => {
+    setselLoction(loc);
+    ParticularTenant({
+      OrganizationId: user && user.OrganizationId,
+      LocationName: loc.value,
+    });
+  };
+
   const onAdd = () => {
     const reason = {
       deactive_reason: deactive_reason,
@@ -83,11 +111,11 @@ const Tenant_Details = ({
                 <h2 className="heading_color">TenantDetails </h2>
                 <div className="w-25">
                   <Select
-                    className="bg-danger"
-                    name="doorno"
-                    // options={DnoList}
-                    // value={doorno}
-                    // onChange={(e) => onchangeDoor(e)}
+                    placeholder="Search-Location"
+                    name="location"
+                    options={location}
+                    value={sellocation}
+                    onChange={(e) => onchangeLocation(e)}
                   ></Select>
                 </div>
               </div>
@@ -242,5 +270,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   ParticularTenant,
+  getParticularOrg,
   deactiveTenantsDetails,
 })(Tenant_Details);
