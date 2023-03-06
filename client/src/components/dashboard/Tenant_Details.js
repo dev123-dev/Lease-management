@@ -1,10 +1,11 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { ParticularTenant, getParticularOrg } from "../../actions/tenants";
 import {
-  deactiveTenantsDetails,
+  ParticularTenant,
+  getParticularOrg,
   getParticularProperty,
+  deactiveTenantsDetails,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
@@ -23,6 +24,7 @@ const Tenant_Details = ({
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
   }, []);
   const [sellocation, setselLoction] = useState(null);
@@ -30,17 +32,18 @@ const Tenant_Details = ({
   const Loc = [];
 
   const fun = () => {
-    particular_org_loc &&
-      particular_org_loc.Location.map((ele) => {
-        Loc.push({
-          label: ele,
-          value: ele,
-        });
-        setlocation(Loc);
-      });
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    // particular_org_loc;
+    // particular_org_loc.Location[0] &&
+    // console.log("LOC DATA", particular_org_loc);
+    // particular_org_loc.Location.map((ele) => {
+    //   Loc.push({
+    //     label: ele,
+    //     value: ele,
+    //   });
+    //   setlocation(Loc);
+    // });
   };
-
-  console.log("loc", location);
   // Modal for Deactivation
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -271,5 +274,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   ParticularTenant,
   getParticularOrg,
+  getParticularProperty,
   deactiveTenantsDetails,
 })(Tenant_Details);

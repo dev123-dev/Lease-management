@@ -33,7 +33,7 @@ const AddTenantDetails = ({
     getParticularTenantSetting({
       Organization_id: user && user.OrganizationId,
     });
-    getParticularProperty({ OrganizationName: user.OrganizationName });
+    getParticularProperty({ OrganizationId: user.OrganizationId });
     getAllTenants();
   }, []);
 

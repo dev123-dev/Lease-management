@@ -7,27 +7,51 @@ import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "../dashboard/EditProperty";
-import { getParticularProperty } from "../../actions/tenants";
-import { getalluser } from "../../actions/tenants";
+import { getParticularProperty, getParticularOrg } from "../../actions/tenants";
 import Select from "react-select";
 
 const PropertyDetail = ({
   auth: { user },
-  tenants: { particular_org_data },
-  getAllShops,
-  getalluser,
+  tenants: { particular_org_data, particular_org_loc },
   deactiveProperty,
+  getParticularOrg,
   getParticularProperty,
 }) => {
   useEffect(() => {
-    getalluser();
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    fun();
+    const meetingBatchInfo = {
+      OrganizationId: user && user.OrganizationId,
+    };
+
+    getParticularOrg(meetingBatchInfo);
+    getParticularProperty(meetingBatchInfo);
   }, []);
+  console.log("meetingBatchInfo", user);
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
-  console.log(user);
+  const [Sellocation, SetselLoction] = useState(null);
+  const [Location, Setlocation] = useState([]);
+
+  // console.log("loc data 3 types", particular_org_loc);
+
+  const fun = () => {
+    const Loc = [];
+
+    particular_org_loc &&
+      particular_org_loc.Location &&
+      particular_org_loc.Location.map((ele) => {
+        Loc.push({
+          label: ele,
+          value: ele,
+        });
+        Setlocation(Loc);
+      });
+  };
+
+  //console.log("loc", Location);
+
   const name = user && user.OrganizationName;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
@@ -78,7 +102,7 @@ const PropertyDetail = ({
               <Select
                 placeholder="Search-Location"
                 name="location"
-                // options={location}
+                // options={Location}
                 // value={sellocation}
                 // onChange={(e) => onchangeLocation(e)}
               ></Select>
@@ -230,7 +254,7 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getAllShops,
-  getalluser,
   deactiveProperty,
+  getParticularOrg,
   getParticularProperty,
 })(PropertyDetail);
