@@ -16,6 +16,7 @@ const Edituser = ({
   superuser,
   UpdateUser,
   getalluser,
+  EditModal,
 }) => {
   useEffect(() => {
     getalluser();
@@ -100,6 +101,7 @@ const Edituser = ({
   };
 
   const onUpdate = () => {
+    EditModal(false);
     const updateUSER = {
       userid: superuser._id,
       username: username,
@@ -166,9 +168,9 @@ const Edituser = ({
               </i>
               :{" "}
             </label>
-            <input type="text" placeholder={user.OrganizationName}></input>
+            {/* <input type="text" placeholder={user.OrganizationName}></input> */}
 
-            {/* <Select
+            <Select
               name="orgname"
               options={orglist}
               value={orgname}
@@ -185,7 +187,24 @@ const Edituser = ({
               })}
             >
               select Organization
-            </Select> */}
+            </Select>
+          </div>
+          <div className="col-lg-6">
+            <label> Address *:</label>
+            {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
+            <textarea
+              name="useraddress"
+              value={useraddress}
+              // onChange={(e) => onORGchange(e)}
+              // id="tenantAddr"
+              className="textarea form-control"
+              rows="4"
+              cols="20"
+              placeholder="Address"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              required
+            ></textarea>{" "}
           </div>
           <div className="col-lg-6">
             <label>
@@ -213,23 +232,6 @@ const Edituser = ({
                 },
               })}
             />
-          </div>
-          <div className="col-lg-6">
-            <label> Address *:</label>
-            {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
-            <textarea
-              name="useraddress"
-              value={useraddress}
-              // onChange={(e) => onORGchange(e)}
-              // id="tenantAddr"
-              className="textarea form-control"
-              rows="4"
-              cols="20"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>{" "}
           </div>
         </div>
       </div>

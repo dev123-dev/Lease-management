@@ -40,6 +40,7 @@ const Tenant_Details = ({
     setShowEditModal(true);
     setEditTenant(val);
   };
+
   // const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);

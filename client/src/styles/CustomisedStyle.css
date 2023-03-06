@@ -1912,6 +1912,9 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 700px;
   left: 100%;
 }
+.Cursor{
+  cursor: pointer;
+}
 
 .close-btn {
   position: absolute;
@@ -1923,6 +1926,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border: transparent;
   color: #095a4a;
   margin-left: 400px;
+  cursor: pointer;
 }
 .clprop {
   margin-left: 100px;
@@ -1931,8 +1935,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .clorg {
   background-color: transparent;
   color: #095a4a;
-  margin-left: 60px;
+  margin-left: 110px;
   cursor: pointer;
+}
+.orghea{
+  margin-left: 140px;
 }
 .cluser {
   background-color: transparent;
@@ -2022,7 +2029,7 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: transparent;
   margin-left: 83%;
   margin-top: -9.5%;
-  height: 20%;
+  height: 30%;
   width: 9%;
   border-radius: 0;
   border: transparent;
@@ -2091,9 +2098,13 @@ button {
   background-color: black;
 }
 .orgaddicon {
-  margin-left: 20px;
   border-color: white;
   background-color: transparent;
+  width: 20px;
+  height: 20px;
+  margin-top: 15px;
+  margin-left: 250%;
+  cursor: pointer;
 }
 .Uservalidation {
   color: red;
@@ -2178,22 +2189,7 @@ button {
   border-radius: 5px;
   color: white;
 }
-.orgaddicon {
-  width: 20px;
-  height: 20px;
-  margin-top: 250%;
-  margin-left: 250%;
-}
-.usraddicon {
-  width: 20px;
-  height: 20px;
-}
-.buttonClass {
-  /* position: absolute;
-  height: 40px;
-  margin-top: 85px;
-  margin-left: 87%; */
-}
+
 
 /* div{
   border:1px solid rgba(242, 10, 10, 0.541);

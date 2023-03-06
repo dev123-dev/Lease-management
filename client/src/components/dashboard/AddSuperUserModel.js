@@ -122,15 +122,15 @@ const AddSuperUserModel = ({
     user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
-      <Button className="buttonClass">
+      <button>
         <img
-          className="usraddicon "
+          className="orgaddicon"
           src={require("../../static/images/add-icon.png")}
           onClick={() => superhandleShow()}
           alt="Add User"
           title="Add User"
         />
-      </Button>
+      </button>
       <form>
         <Modal
           show={supershow}

@@ -9,6 +9,8 @@ import { getAllOrganization } from "../../actions/tenants";
 import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import EditOrganization from "./EditOrganization";
+
+import Pagination from "../layout/Pagination";
 // import "../../styles/CustomisedStyle.css";
 
 const AddOrgDashBoard = ({
@@ -123,7 +125,7 @@ const AddOrgDashBoard = ({
               <section className="body">
                 <div className="body-inner no-padding  table-responsive fixTableHead">
                   <table
-                    className="table table-bordered table-striped table-hover table-active mt-5"
+                    className="table table-bordered table-striped table-hover table-active "
                     id="datatable2"
                   >
                     <thead>
@@ -159,7 +161,7 @@ const AddOrgDashBoard = ({
                                 {orgVal.org_status === "Active" ? (
                                   <td>
                                     <img
-                                      className=""
+                                      className="Cursor"
                                       onClick={() => onedit(orgVal, idx)}
                                       src={require("../../static/images/edit_icon.png")}
                                       alt="Edit"
@@ -167,7 +169,7 @@ const AddOrgDashBoard = ({
                                     />
                                     &nbsp;
                                     <img
-                                      className=""
+                                      className="Cursor"
                                       onClick={() => onDelete(orgVal._id)}
                                       src={require("../../static/images/delete.png")}
                                       alt="delete User"
@@ -175,7 +177,7 @@ const AddOrgDashBoard = ({
                                     />
                                   </td>
                                 ) : (
-                                  <div className="blank"></div>
+                                  <div className="blank">DeActivated</div>
                                 )}
                               </td>
                             </tr>
@@ -278,7 +280,7 @@ const AddOrgDashBoard = ({
           </div>
         </Modal.Header>
         <Modal.Body>
-          <EditOrganization org={orgdata} />
+          <EditOrganization org={orgdata} EditModal={setShowEditModal} />
         </Modal.Body>
       </Modal>
 

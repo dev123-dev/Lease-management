@@ -150,7 +150,7 @@ const SuperUserDashboard = ({
                 <section className="body">
                   <div className="body-inner no-padding  table-responsive fixTableHead">
                     <table
-                      className="table table-bordered table-striped table-hover table-active mt-5"
+                      className="table table-bordered table-striped table-hover table-active"
                       id="datatable2"
                     >
                       <thead>
@@ -180,7 +180,7 @@ const SuperUserDashboard = ({
                                   {allsuperuse.userStatus === "Active" ? (
                                     <td>
                                       <img
-                                        className=""
+                                        className="Cursor"
                                         onClick={() => onEdit(allsuperuse, idx)}
                                         src={require("../../static/images/edit_icon.png")}
                                         alt="Edit"
@@ -188,7 +188,7 @@ const SuperUserDashboard = ({
                                       />
                                       &nbsp;
                                       <img
-                                        className=""
+                                        className="Cursor"
                                         onClick={() =>
                                           onDelete(allsuperuse._id)
                                         }
@@ -295,6 +295,7 @@ const SuperUserDashboard = ({
             <Modal.Body>
               <Edituser
                 superuser={userdata}
+                EditModal={setShowEditModal}
                 //onUpdateModalChange={onUpdateModalChange}
               />
             </Modal.Body>

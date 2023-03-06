@@ -12,6 +12,7 @@ import { updateOrganization } from "../../actions/tenants";
 const EditOrganization = ({
   auth: { isAuthenticated, user, users },
   org,
+  EditModal,
   updateOrganization,
 }) => {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -74,9 +75,8 @@ const EditOrganization = ({
   };
 
   const onUpdate = () => {
-    // // setShowEditModal(false);
-    // handleEditModalClose(false);
-    // handleClose();
+    EditModal(false);
+
     const update = {
       OrganizationId: org._id,
       OrganizationName: OrganizationName,

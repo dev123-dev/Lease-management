@@ -162,10 +162,8 @@ const AddOrgModal = ({
           <Modal.Header>
             <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
               <h2>
-                <b className="text-center h2 ml-5">
-                  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;ADD Organization
-                </b>{" "}
-              </h2>
+                <b className="text-center h2 orghea">ADD Organization</b>{" "}
+              </h2>{" "}
               <div className="  col-lg-2">
                 <button
                   onClick={() => hidden()}
