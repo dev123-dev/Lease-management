@@ -9,6 +9,7 @@ import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "../dashboard/EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
+import Select from "react-select";
 
 const PropertyDetail = ({
   auth: { user },
@@ -72,6 +73,15 @@ const PropertyDetail = ({
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h2 className="heading_color ">{name} Property Details</h2>
               <hr></hr>
+            </div>
+            <div className="w-25">
+              <Select
+                placeholder="Search-Location"
+                name="location"
+                // options={location}
+                // value={sellocation}
+                // onChange={(e) => onchangeLocation(e)}
+              ></Select>
             </div>
             <AddShopDetails />
             <table
