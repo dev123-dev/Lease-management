@@ -11,6 +11,7 @@ import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import EditTenantDetails from "./EditTenantDetails";
 import Select from "react-select";
+import Pagination from "../layout/Pagination";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
@@ -97,6 +98,18 @@ const Tenant_Details = ({
     deactiveTenantsDetails(reason);
     handleClose();
   };
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    get_particular_org_tenant &&
+    get_particular_org_tenant.slice(indexOfFirstData, indexOfLastData);
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -109,6 +122,7 @@ const Tenant_Details = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">TenantDetails </h2>
+                <hr></hr>
                 <div className="w-25">
                   <Select
                     placeholder="Search-Location"
@@ -128,7 +142,7 @@ const Tenant_Details = ({
             <div className="row">
               <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                 <section className="body">
-                  <div className="body-inner no-padding  table-responsive fixTableHead">
+                  <div className="body-inner no-padding  ">
                     <table
                       className="table table-bordered table-striped table-hover mt-2"
                       id="datatable2"
@@ -147,9 +161,9 @@ const Tenant_Details = ({
                         </tr>
                       </thead>
                       <tbody>
-                        {get_particular_org_tenant &&
-                          get_particular_org_tenant[0] &&
-                          get_particular_org_tenant.map((Val, idx) => {
+                        {currentDatas &&
+                          currentDatas[0] &&
+                          currentDatas.map((Val, idx) => {
                             // var ED = Val.tenantLeaseEndDate.split(/\D/g);
                             // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
                             //   "-"
@@ -194,6 +208,24 @@ const Tenant_Details = ({
                     </table>
                   </div>
                 </section>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+                {get_particular_org_tenant &&
+                get_particular_org_tenant.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={get_particular_org_tenant.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <Fragment />
+                )}
+              </div>
+              <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+                <label>No of Tenants: {get_particular_org_tenant.length}</label>
               </div>
             </div>
           </section>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import AddOrgModal from "./AddOrgModal";
 import { Props } from "react";
@@ -11,7 +11,6 @@ import "../../../../client/src/styles/CustomisedStyle.css";
 import EditOrganization from "./EditOrganization";
 
 import Pagination from "../layout/Pagination";
-// import "../../styles/CustomisedStyle.css";
 
 const AddOrgDashBoard = ({
   //here to connect to action we need to import the function
@@ -100,6 +99,18 @@ const AddOrgDashBoard = ({
     deleteOrganization(reason);
   };
 
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    allorg && allorg.slice(indexOfFirstData, indexOfLastData);
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
+
   return (
     <div>
       <div className="container container_align ">
@@ -109,13 +120,6 @@ const AddOrgDashBoard = ({
             <div className="  col-lg-10 col-md-11 col-sm-11 col-11 ">
               <h3 className="heading_color">Organization Details </h3>
               <hr></hr>
-              {/* <img
-                className="refresh "
-                onClick={() => getAllOrganization()}
-                src={require("../../static/images/refresh-icon.png")}
-                alt="refresh"
-                title="refresh"
-              /> */}
             </div>
 
             <AddOrgModal />
@@ -123,7 +127,7 @@ const AddOrgDashBoard = ({
           <div className="row orgtable">
             <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
               <section className="body">
-                <div className="body-inner no-padding  table-responsive fixTableHead">
+                <div className="body-inner no-padding ">
                   <table
                     className="table table-bordered table-striped table-hover table-active "
                     id="datatable2"
@@ -144,9 +148,9 @@ const AddOrgDashBoard = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {allorg &&
-                        allorg[0] &&
-                        allorg.map((orgVal, idx) => {
+                      {currentDatas &&
+                        currentDatas[0] &&
+                        currentDatas.map((orgVal, idx) => {
                           return (
                             <tr key={idx}>
                               <td>{orgVal.OrganizationName}</td>
@@ -184,22 +188,32 @@ const AddOrgDashBoard = ({
                           );
                         })}
                     </tbody>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <center></center>
-                    </td>
                   </table>
                 </div>
               </section>
             </div>
           </div>
+          <div className="row">
+            <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+              {allorg && allorg.length !== 0 ? (
+                <Pagination
+                  dataPerPage={dataPerPage}
+                  totalData={allorg.length}
+                  paginate={paginate}
+                  currentPage={currentData}
+                />
+              ) : (
+                <Fragment />
+              )}
+            </div>
+            <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+              <label>No of OrganiZations : {allorg.length}</label>
+            </div>
+          </div>
         </section>
         {/* OrganiZation Deatils End */}
       </div>
+
       {/* deactivating the Super User */}
       <Modal
         show={showDeactivate}

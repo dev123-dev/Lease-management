@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import { deactivateUser, get_particular_org_user } from "../../actions/tenants";
 import Edituser from "../dashboard/Edituser";
 import "../../../src/styles/CustomisedStyle.css";
-
+import Pagination from "../layout/Pagination";
 import { getParticularUser } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
 
@@ -76,6 +76,18 @@ const UserDetails = ({
     deactivateUser(reason);
     // get_particular_org_user({ orgid: user.OrganizationId });
   };
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    get_particularOrg_user &&
+    get_particularOrg_user.slice(indexOfFirstData, indexOfLastData);
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
 
   return (
     <>
@@ -92,7 +104,7 @@ const UserDetails = ({
               <div className="row">
                 <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                   <section className="body">
-                    <div className="body-inner no-padding  table-responsive fixTableHead">
+                    <div className="body-inner no-padding  ">
                       <table
                         className="table table-bordered table-striped table-hover"
                         id="datatable2"
@@ -109,9 +121,9 @@ const UserDetails = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {get_particularOrg_user &&
-                            get_particularOrg_user[0] &&
-                            get_particularOrg_user.map((alluser, idx) => {
+                          {currentDatas &&
+                            currentDatas[0] &&
+                            currentDatas.map((alluser, idx) => {
                               return (
                                 <tr key={idx}>
                                   <td>{alluser.username}</td>
@@ -122,7 +134,7 @@ const UserDetails = ({
                                   <td>{alluser.useraddress}</td>
                                   <td>
                                     {alluser.userStatus == "Deactive" ? (
-                                      <div className="deactive"></div>
+                                      <div className="blank">DeActivated</div>
                                     ) : (
                                       <>
                                         <img
@@ -151,6 +163,26 @@ const UserDetails = ({
                   </section>
                 </div>
               </div>
+              {/* <div className="row">
+                <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+                  {get_particularOrg_user &&
+                  get_particularOrg_user.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={get_particularOrg_user.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+                <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+                  <label>
+                    No of OrganiZations : {get_particularOrg_user.length}
+                  </label>
+                </div>
+              </div> */}
             </section>
             {/* this id for Deactivating the Super user starting */}
             <Modal show={Deactiveshow} centered>

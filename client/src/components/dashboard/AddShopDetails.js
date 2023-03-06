@@ -125,7 +125,8 @@ const AddShopDetails = ({
       shopStatus: "Acquired",
     };
 
-    AddShopDetailsform(finalData);
+    // AddShopDetailsform(finalData);
+    console.log("hai", finalData);
     setFormData({
       ...formData,
       buildingName: "",
@@ -144,20 +145,20 @@ const AddShopDetails = ({
     <Fragment></Fragment>
   ) : (
     <>
-      <img
-        onClick={handleShow}
-        src={require("../../static/images/refresh-icon.png")}
-        alt="refresh"
-        title="refresh"
-        className="refresh"
-      />
-      <img
-        onClick={handleShow}
-        src={require("../../static/images/add-icon.png")}
-        alt="Add Prop"
-        title="Add Prop"
-        className="img_icon_size  "
-      />
+      <div className="property log">
+        <img
+          onClick={handleShow}
+          src={require("../../static/images/refresh-icon.png")}
+          alt="refresh"
+          title="refresh"
+        />
+        <img
+          onClick={handleShow}
+          src={require("../../static/images/add-icon.png")}
+          alt="Add Prop"
+          title="Add Prop"
+        />
+      </div>
 
       <Modal
         show={show}

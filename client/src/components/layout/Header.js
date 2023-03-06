@@ -150,7 +150,7 @@ const Header = ({
                         </Navbar.Brand>
                         {/* PROPERTY DEtails */}
                         <NavLink
-                          className="ml-5   mt-3 "
+                          className="ml-5   mt-3 h5 "
                           id="hea"
                           // id="head"
                           to="/PropertyDetail"
@@ -164,7 +164,7 @@ const Header = ({
 
                         {/* tenant details */}
                         <NavLink
-                          className="ml-5   mt-3 "
+                          className="ml-5   mt-3 h5 "
                           id="hea"
                           to="/tenant-detail"
                           activeStyle={{
@@ -177,7 +177,7 @@ const Header = ({
 
                         {/* adding admin side user page */}
                         <NavLink
-                          className="ml-5  mt-3 "
+                          className="ml-5  mt-3 h5 "
                           id="hea"
                           to="/AdminUser"
                           activeStyle={{
@@ -226,29 +226,27 @@ const Header = ({
                     </ul>
                   </Nav>
 
-                  <Nav>
-                    <Modal
-                      show={showLogin}
-                      backdrop="static"
-                      keyboard={false}
-                      aria-labelledby="contained-modal-title-vcenter"
-                      centered
-                    >
-                      <Modal.Header></Modal.Header>
-                      <Modal.Body>
-                        <button
-                          onClick={() => handleLogoutModalClose()}
-                          className="close"
-                        >
-                          <img
-                            src={require("../../static/images/close.png")}
-                            alt="X"
-                          />
-                        </button>
-                        <Login />
-                      </Modal.Body>
-                    </Modal>
-                  </Nav>
+                  <Modal
+                    show={showLogin}
+                    backdrop="static"
+                    keyboard={false}
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                  >
+                    <Modal.Header></Modal.Header>
+                    <Modal.Body>
+                      <button
+                        onClick={() => handleLogoutModalClose()}
+                        className="close"
+                      >
+                        <img
+                          src={require("../../static/images/close.png")}
+                          alt="X"
+                        />
+                      </button>
+                      <Login />
+                    </Modal.Body>
+                  </Modal>
                 </Fragment>
               ) : (
                 // starting
@@ -258,7 +256,6 @@ const Header = ({
                   user &&
                   user.usergroup === "Admin" ? (
                     <Nav>
-                      <h6 className="text-light mt-3">{user.username}</h6>
                       <ul className="top-level-menu text-left ">
                         <li>
                           <Link
@@ -266,10 +263,12 @@ const Header = ({
                             onClick={() => openSecondLevelMenu2()}
                             className="navbar-right"
                           >
-                            {/* {user.userfullName}&nbsp; */}
-                            <i className="fa fa-caret-down" />
+                            <div className="text-light mt-3">
+                              {user.username}
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
                           </Link>
-
                           <ul className="dropdown-menu second-level-menu ">
                             <li className="hwhite">
                               <Link

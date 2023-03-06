@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import AddSuperUserModal from "./AddSuperUserModel";
 import { Modal, Button, Form } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
@@ -11,7 +11,7 @@ import Edituser from "./Edituser";
 import AddAdminModal from "./AddAdminUserModal";
 import { getParticularUser } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
-
+import Pagination from "../layout/Pagination";
 const SuperUserDashboard = ({
   auth: { isAuthenticated, loading, user },
   tenants: { allsuperuser, particular_user }, //this is a reudcer
@@ -19,15 +19,6 @@ const SuperUserDashboard = ({
   getParticularUser,
   deactivateUser, //this is a action function to call
 }) => {
-  //point to remember that this includes code for both Super user list and Admin user List it is based on condition
-  //const userlist = [];
-  // user.map((us) => {
-  //   userlist.push({
-  //     label: us.OrganizationName,
-  //     value: us._id,
-  //   });
-  // });
-
   useEffect(() => {
     getParticularUser({
       OrganizationName: user && user.OrganizationName,
@@ -111,6 +102,19 @@ const SuperUserDashboard = ({
     };
     deactivateUser(reason);
   };
+
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    allsuperuser && allsuperuser.slice(indexOfFirstData, indexOfLastData);
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
+
   return (
     <div>
       {!loading &&
@@ -124,31 +128,13 @@ const SuperUserDashboard = ({
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h3 className="heading_color"> User Details </h3>
                 <hr></hr>
-                {/* <img
-                  className="refresh"
-                  onClick={() => onClickReset()}
-                  // onClick={() => getalluser()}
-                  src={require("../../static/images/refresh-icon.png")}
-                  alt="refresh"
-                  title="Refresh"
-                /> */}
-
-                {/* <img
-                  className=" refresh bg-danger"
-                  src={require("../../static/images/refresh-icon.png")}
-                  onClick={() => {
-                    getalluser();
-                  }}
-                  alt="Refresh"
-                  title="Refresh"
-                /> */}
               </div>
               <AddSuperUserModal />
             </div>
             <div className="row orgtable">
               <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                 <section className="body">
-                  <div className="body-inner no-padding  table-responsive fixTableHead">
+                  <div className="body-inner no-padding  ">
                     <table
                       className="table table-bordered table-striped table-hover table-active"
                       id="datatable2"
@@ -165,9 +151,9 @@ const SuperUserDashboard = ({
                         </tr>
                       </thead>
                       <tbody>
-                        {allsuperuser &&
-                          allsuperuser[0] &&
-                          allsuperuser.map((allsuperuse, idx) => {
+                        {currentDatas &&
+                          currentDatas[0] &&
+                          currentDatas.map((allsuperuse, idx) => {
                             return (
                               <tr key={idx}>
                                 <td>{allsuperuse.username}</td>
@@ -198,7 +184,7 @@ const SuperUserDashboard = ({
                                       />
                                     </td>
                                   ) : (
-                                    <div className="blank"></div>
+                                    <div className="blank">DeActivated</div>
                                   )}
                                 </td>
                               </tr>
@@ -210,7 +196,25 @@ const SuperUserDashboard = ({
                 </section>
               </div>
             </div>
+            <div className="row">
+              <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+                {allsuperuser && allsuperuser.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={allsuperuser.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <Fragment />
+                )}
+              </div>
+              <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+                <label>No of User : {allsuperuser.length}</label>
+              </div>
+            </div>
           </section>
+
           {/* this id for Deactivating the Super user starting */}
           <Modal
             show={Deactiveshow}

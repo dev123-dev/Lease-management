@@ -325,14 +325,14 @@ const AddTenantDetails = ({
           src={require("../../static/images/refresh-icon.png")}
           alt="refresh"
           title="refresh"
-          className="refrsh"
+          className=""
         />
         <img
           onClick={handleInformationModalOpen}
           src={require("../../static/images/add-icon.png")}
           alt="Add Tenant"
           title="Add Tenant"
-          className="img_icon_size  "
+          className="  "
         />
       </div>
 

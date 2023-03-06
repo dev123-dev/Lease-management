@@ -1395,10 +1395,16 @@ input[type="radio"].error {
 }
 .img_icon_size {
   width: 20px;
-  height: 20px;
-  margin-top: 7%;
-  margin-left: 0.5%;
+  height: 20px; 
   cursor: pointer;
+}
+.property{
+  margin-left: 1000px;
+  /* width: 20px;
+  height: 20px; */
+  
+  cursor: pointer;
+
 }
 
 .img_icon_size2 {
@@ -1469,17 +1475,23 @@ input[type="radio"].error {
   color: #0e0e0e;
   /*border-radius: 10px;*/
 }
+.top-level-menu li:hover .second-level-menu  {
+  display: inline-block;
+}
+
 
 /*multi level dropdown navbar*/
-@media (min-width: 992px) {
+/* @media (min-width: 1000px) {
   .top-level-menu li:hover .second-level-menu {
-    display: block;
-  }
+     display: block;
+    
+     background-color: #000; 
+  } */
 
   .second-level-menu2 {
     display: none;
   }
-}
+/* } */
 @media (max-width: 992px) {
   .second-level-menu {
     display: none;
@@ -1488,23 +1500,24 @@ input[type="radio"].error {
     display: none;
   }
 }
-.top-level-menu {
+ .top-level-menu {
   list-style: none;
   padding: 0;
   margin-top: 10px;
+  
 }
 .top-level-menu > li {
-  position: relative;
-  height: 30px;
+  position: relative; 
+   height: 30px;
 }
 
-.top-level-menu a {
+ .top-level-menu a {
   color: #fff;
   text-decoration: none;
-  padding: 0 0 0 10px;
+  padding: 0 0 0 0px;
   display: block;
-  line-height: 30px;
-}
+  
+}  
 
 .second-level-menu2 a,
 .second-level-menu2 p {
@@ -1564,11 +1577,11 @@ input[type="radio"].error {
 }
 
 .second-level-menu > li:hover {
-  background: #cccccc;
+  /* background: #cccccc; */
 }
 
 .second-level-menu > li:hover .third-level-menu {
-  display: block;
+  /* display: block; */
 }
 
 .second-level-menu2 > li:active .second-level-menu2 {
@@ -1590,10 +1603,10 @@ input[type="radio"].error {
   background: #fff;
 }
 .third-level-menu > li:hover {
-  background: #cccccc;
+  /* background: #cccccc; */
 }
 .third-level-menu > li:hover .fourth-level-menu {
-  display: block;
+  /* display: block; */
 }
 
 .fourth-level-menu {
@@ -2113,8 +2126,8 @@ button {
 .refresh {
   width: 20px;
   height: 20px;
-  margin-left: 140px;
-  margin-top: 7%;
+  /* margin-left: 140px;
+  margin-top: 7%; */
   cursor: pointer;
 }
 .orgtable {

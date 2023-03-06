@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import AddShopDetails from "./AddShopDetails";
@@ -10,7 +10,7 @@ import EditProperty from "../dashboard/EditProperty";
 import { getParticularProperty } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 import Select from "react-select";
-
+import Pagination from "../layout/Pagination";
 const PropertyDetail = ({
   auth: { user },
   tenants: { particular_org_data },
@@ -65,6 +65,19 @@ const PropertyDetail = ({
     };
     deactiveProperty(reason);
   };
+
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    particular_org_data &&
+    particular_org_data.slice(indexOfFirstData, indexOfLastData);
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
   return (
     <div>
       <div className="container container_align ">
@@ -85,7 +98,7 @@ const PropertyDetail = ({
             </div>
             <AddShopDetails />
             <table
-              className="table table-bordered table-striped table-hover mt-3"
+              className="table table-bordered table-striped table-hover mt-3 "
               id="datatable2"
             >
               <thead>
@@ -101,8 +114,8 @@ const PropertyDetail = ({
                 </tr>
               </thead>
               <tbody>
-                {particular_org_data &&
-                  particular_org_data.map((Val, idx) => {
+                {currentDatas &&
+                  currentDatas.map((Val, idx) => {
                     return (
                       <tr key={idx}>
                         <td>{Val.buildingName}</td>
@@ -132,7 +145,7 @@ const PropertyDetail = ({
                               />
                             </td>
                           ) : (
-                            <div className="blank"></div>
+                            <div className="blank">DeActivated</div>
                           )}
                         </td>
                       </tr>
@@ -140,6 +153,23 @@ const PropertyDetail = ({
                   })}
               </tbody>
             </table>
+          </div>
+          <div className="row">
+            <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+              {particular_org_data && particular_org_data.length !== 0 ? (
+                <Pagination
+                  dataPerPage={dataPerPage}
+                  totalData={particular_org_data.length}
+                  paginate={paginate}
+                  currentPage={currentData}
+                />
+              ) : (
+                <Fragment />
+              )}
+            </div>
+            <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+              <label>No of Property : {particular_org_data.length}</label>
+            </div>
           </div>
         </section>
       </div>
