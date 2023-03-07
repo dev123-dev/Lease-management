@@ -113,7 +113,10 @@ const Tenant_Details = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-  console.log("data fo tenant", currentDatas);
+  const refresh = () => {
+    window.location.reload(true);
+  };
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -126,7 +129,7 @@ const Tenant_Details = ({
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">TenantDetails </h2>
                 <hr></hr>
-                <div className="w-25">
+                <div className="w-25 ">
                   <Select
                     placeholder="Search-Location"
                     name="location"
@@ -134,9 +137,16 @@ const Tenant_Details = ({
                     value={sellocation}
                     onChange={(e) => onchangeLocation(e)}
                   ></Select>
+                  <img
+                    className="refreshbtn"
+                    height="25px"
+                    onClick={() => refresh()}
+                    src={require("../../static/images/refresh-icon.png")}
+                    alt="refresh"
+                    title="refresh"
+                  />
                 </div>
               </div>
-              <hr></hr>
 
               <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
                 <AddTenantDetails />
@@ -147,7 +157,7 @@ const Tenant_Details = ({
                 <section className="body">
                   <div className="body-inner no-padding  ">
                     <table
-                      className="table table-bordered table-striped table-hover mt-2"
+                      className="table table-bordered table-striped table-hover ml-2 "
                       id="datatable2"
                     >
                       <thead>

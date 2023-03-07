@@ -93,7 +93,7 @@ const PropertyDetail = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(7);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -103,16 +103,19 @@ const PropertyDetail = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+  const refresh = () => {
+    window.location.reload(true);
+  };
   return (
     <div>
       <div className="container container_align ">
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color ">{name} Property Details</h2>
+              <h2 className="heading_color "> PropertyDetails</h2>
               <hr></hr>
             </div>
-            <div className="w-25">
+            <div className="w-25 ml-2">
               <Select
                 placeholder="Search-Location"
                 name="location"
@@ -121,9 +124,19 @@ const PropertyDetail = ({
                 onChange={(e) => onchangeLocation(e)}
               ></Select>
             </div>
+            <div>
+              <img
+                className="refreshbtnad"
+                height="25px"
+                onClick={() => refresh()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="refresh"
+              />
+            </div>
             <AddShopDetails />
             <table
-              className="table table-bordered table-striped table-hover mt-3 "
+              className="table table-bordered table-striped table-hover mt-3 ml-2 "
               id="datatable2"
             >
               <thead>

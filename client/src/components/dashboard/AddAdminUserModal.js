@@ -100,9 +100,9 @@ const AddAdminUserModal = ({
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
     <>
-      <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
+      <div className="useraddicon">
         <img
-          className=" log"
+          height="25px"
           onClick={handleShow}
           src={require("../../static/images/add-icon.png")}
           alt="Add User"

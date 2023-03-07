@@ -43,7 +43,7 @@ const MainAdminPage = ({
     <div>
       <div className="container container_align ">
         <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-          <h2 className="heading_color">DashBoard </h2>
+          <h2 className="heading_color  pt-5 ">DashBoard </h2>
           <hr></hr>
         </div>
         <section className="sub_reg mainpage ">
