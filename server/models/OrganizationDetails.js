@@ -4,8 +4,8 @@ const OrganizationSchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
   },
-  OrganizationId : {
-    type : String,
+  OrganizationId: {
+    type: String,
   },
   OrganizationEmail: {
     type: String,
@@ -27,17 +27,16 @@ const OrganizationSchema = new mongoose.Schema({
   enter_by_id: {
     type: ObjectId,
   },
-  date:{
-    type: Date,
-    
+  date: {
+    type: String,
   },
 
-  AgreementStatus :{
-    type : String,
-    default : "Active",
+  AgreementStatus: {
+    type: String,
+    default: "Active",
   },
-  enddate : {
-    type : String,
+  enddate: {
+    type: String,
   },
   enter_by_name: {
     type: String,

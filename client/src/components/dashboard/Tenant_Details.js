@@ -113,7 +113,7 @@ const Tenant_Details = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-
+  console.log("data fo tenant", currentDatas);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -175,7 +175,7 @@ const Tenant_Details = ({
                               <tr key={idx}>
                                 <td>{Val.tenantName}</td>
                                 <td>{Val.BuildingName}</td>
-                                <td>{Val.tenantDoorNo}</td>
+                                <td>{Val.shopDoorNo}</td>
                                 <td>{Val.tenantFileNo}</td>
                                 <td>{Val.Location}</td>
                                 <td>{Val.tenantPhone}</td>
