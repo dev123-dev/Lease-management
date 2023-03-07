@@ -9,6 +9,7 @@ import { getAllOrganization } from "../../actions/tenants";
 import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import EditOrganization from "./EditOrganization";
+import Table from "react-bootstrap/Table";
 
 import Pagination from "../layout/Pagination";
 
@@ -101,7 +102,7 @@ const AddOrgDashBoard = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(7);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -118,13 +119,24 @@ const AddOrgDashBoard = ({
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <div className="  col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color">Organization Details </h2>
+              <h2 className="heading_color ">Organization Details </h2>
               <hr></hr>
+
+              <div>
+                <img
+                  className="refreshbtn"
+                  height="25px"
+                  // onClick={() => show()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="Add User"
+                  title="Add User"
+                />
+              </div>
             </div>
 
             <AddOrgModal />
           </div>
-          <div className="row orgtable">
+          <div className="row ">
             <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
               <section className="body">
                 <div className="body-inner no-padding ">
@@ -157,13 +169,12 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.OrganizationEmail}</td>
                               <td>{orgVal.OrganizationNumber}</td>
                               <td>{orgVal.OrganizationAddress}</td>
-
                               <td>{orgVal.Location + ","}</td>
                               <td>{orgVal.date}</td>
                               <td>{orgVal.enddate}</td>
                               <td>
                                 {orgVal.org_status === "Active" ? (
-                                  <td>
+                                  <>
                                     <img
                                       className="Cursor"
                                       onClick={() => onedit(orgVal, idx)}
@@ -179,7 +190,7 @@ const AddOrgDashBoard = ({
                                       alt="delete User"
                                       title="delete User"
                                     />
-                                  </td>
+                                  </>
                                 ) : (
                                   <div className="blank">DeActivated</div>
                                 )}

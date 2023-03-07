@@ -105,7 +105,7 @@ const SuperUserDashboard = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(7);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -126,12 +126,23 @@ const SuperUserDashboard = ({
           <section className="sub_reg">
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                <h2 className="heading_color"> User Details </h2>
+                <h2 className="heading_color mb-3"> User Details </h2>
                 <hr></hr>
+                <div>
+                  <img
+                    className="refreshbtn"
+                    height="25px"
+                    // onClick={() => show()}
+                    src={require("../../static/images/refresh-icon.png")}
+                    alt="Add User"
+                    title="Add User"
+                  />
+                </div>
               </div>
+
               <AddSuperUserModal />
             </div>
-            <div className="row orgtable">
+            <div className="row orgtable mt-2">
               <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                 <section className="body">
                   <div className="body-inner no-padding  ">
@@ -164,7 +175,7 @@ const SuperUserDashboard = ({
                                 <td>{allsuperuse.useraddress}</td>
                                 <td>
                                   {allsuperuse.userStatus === "Active" ? (
-                                    <td>
+                                    <>
                                       <img
                                         className="Cursor"
                                         onClick={() => onEdit(allsuperuse, idx)}
@@ -182,7 +193,7 @@ const SuperUserDashboard = ({
                                         alt="delete"
                                         title="delete"
                                       />
-                                    </td>
+                                    </>
                                   ) : (
                                     <div className="blank">DeActivated</div>
                                   )}

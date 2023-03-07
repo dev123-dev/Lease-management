@@ -216,7 +216,7 @@ const Header = ({
                         </Link>
 
                         <ul className="dropdown-menu second-level-menu ">
-                          <li className="hwhite">
+                          <li className="hwhite  drophover ">
                             <Link
                               to="#"
                               className=""
@@ -273,8 +273,8 @@ const Header = ({
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                           </Link>
-                          <ul className="dropdown-menu second-level-menu ">
-                            <li className="hwhite">
+                          <ul className="dropdown-menu second-level-menu">
+                            <li className="hwhite  drophover ">
                               <Link
                                 to="#"
                                 onClick={() => handleTenantSettingModalShow()}
@@ -283,10 +283,10 @@ const Header = ({
                               </Link>
                             </li>
 
-                            <li>
+                            <li className=" drophover ">
                               <Link to="/change-password">Change Password</Link>
                             </li>
-                            <li>
+                            <li className=" drophover ">
                               <Link
                                 to="#"
                                 onClick={() => handleLogoutModalShow()}

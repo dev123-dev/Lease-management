@@ -205,6 +205,7 @@ h5:last-child {
   display: block;
 }
 
+
 .navbar-inverse .navbar-brand,
 .navbar-inverse {
   color: #fff;
@@ -1407,10 +1408,6 @@ input[type="radio"].error {
 
 }
 
-.img_icon_size2 {
-  width: 25px;
-  height: 25px;
-}
 
 .align_right {
   padding-right: 0px;
@@ -1477,8 +1474,17 @@ input[type="radio"].error {
 }
 .top-level-menu li:hover .second-level-menu  {
   display: inline-block;
-}
 
+}
+.drophover:hover {
+  background-color: lightgrey;
+
+}
+.refreshbtn{
+
+  margin-left: 107%;
+  margin-top: -7%;
+}
 
 /*multi level dropdown navbar*/
 /* @media (min-width: 1000px) {
@@ -2110,13 +2116,13 @@ button {
 .tenantEditSave:hover {
   background-color: black;
 }
-.orgaddicon {
+.addicon {
   border-color: white;
   background-color: transparent;
-  width: 20px;
-  height: 20px;
-  margin-top: 15px;
-  margin-left: 250%;
+  width: 30px;
+  height: 20%;
+  margin-top: 60px;
+ 
   cursor: pointer;
 }
 .Uservalidation {

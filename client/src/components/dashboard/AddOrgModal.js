@@ -139,15 +139,16 @@ const AddOrgModal = ({
   ) : (
     <div>
       <Fragment>
-        <button className="orgaddicon ">
+        <div className="addicon ml-5  ">
           <img
-            className="orgaddicon "
+            height="25px"
+            className="ml-5"
             onClick={() => show()}
             src={require("../../static/images/add-icon.png")}
             alt="Add User"
             title="Add User"
           />
-        </button>
+        </div>
 
         {/* Adding Organization */}
         <Modal

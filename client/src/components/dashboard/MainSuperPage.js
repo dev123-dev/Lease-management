@@ -51,12 +51,13 @@ const MainSuperPage = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">DashBoard </h2>
+                <hr></hr>
               </div>
             </div>
-            <div className="row">
+            <div className="row mt-2">
               <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                 <section className="body">
-                  <div className="body-inner no-padding  table-responsive fixTableHead">
+                  <div className="body-inner no-padding ">
                     <table
                       className="table table-bordered table-striped table-hover"
                       id="datatable2"
