@@ -60,32 +60,70 @@ const EditOrganization = ({
     OrganizationEmail: org.OrganizationEmail,
     OrganizationNumber: org.OrganizationNumber,
     OrganizationAddress: org.OrganizationAddress,
+    startdate: org.date,
     Logo: "",
     Location: items,
   });
+
   const {
     OrganizationName,
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
+    startdate,
     Location,
   } = formDataORG;
+
+  //Leasestartdate
+  const [showStartdate, setShowStartdate] = useState(org.date);
+  const [showEnddate, setShowEnddate] = useState(null);
+
   const onInputChange = (e) => {
+    if (e.target.name === "startdate") {
+      setShowStartdate(e.target.value);
+      var newDate = e.target.value;
+      var calDate = new Date(newDate);
+
+      var leaseMonth = 12;
+
+      //Calculating lease end date
+      var dateData = calDate.getDate();
+      calDate.setMonth(calDate.getMonth() + +leaseMonth);
+      if (calDate.getDate() != dateData) {
+        calDate.setDate(0);
+      }
+      var dd1 = calDate.getDate();
+      var mm2 = calDate.getMonth() + 1;
+      var yyyy1 = calDate.getFullYear();
+      if (dd1 < 10) {
+        dd1 = "0" + dd1;
+      }
+
+      if (mm2 < 10) {
+        mm2 = "0" + mm2;
+      }
+      var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+      setShowEnddate(leaseEndDate);
+    }
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
 
   const onUpdate = () => {
     EditModal(false);
 
-    const update = {
+    const updateData = {
       OrganizationId: org._id,
       OrganizationName: OrganizationName,
       OrganizationEmail: OrganizationEmail,
       OrganizationNumber: OrganizationNumber,
       OrganizationAddress: OrganizationAddress,
+      startdate: showStartdate,
+      enddate: showEnddate,
+
       Location: items,
     };
-    updateOrganization(update);
+    //console.log("update data", updateData);
+    //updateOrganization(update);
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -143,9 +181,10 @@ const EditOrganization = ({
           <div className="col-lg-6">
             <label>LeaseStartDate</label>
             <input
+              name="startdate"
               type="date"
               //  name="user"
-
+              value={startdate}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />{" "}
@@ -154,8 +193,8 @@ const EditOrganization = ({
             <label>LeaseEndDate</label>
             <input
               type="text"
-              //  name="user"
-              //value={}
+              readOnly={true}
+              value={showEnddate}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />{" "}
@@ -255,8 +294,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  // UpdateTenantsDetails,
-  // getAllTenants,
-  // tenantsDetailsHistory,
   updateOrganization,
 })(EditOrganization);
