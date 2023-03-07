@@ -72,7 +72,7 @@ const UserDetails = ({
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    console.log(reason);
+    // console.log(reason);
     deactivateUser(reason);
     // get_particular_org_user({ orgid: user.OrganizationId });
   };

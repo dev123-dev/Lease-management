@@ -19,39 +19,32 @@ const PropertyDetail = ({
 }) => {
   useEffect(() => {
     fun();
-    const meetingBatchInfo = {
+    const OrganizationId = {
       OrganizationId: user && user.OrganizationId,
     };
-
-    getParticularOrg(meetingBatchInfo);
-    getParticularProperty(meetingBatchInfo);
+    getParticularOrg(OrganizationId);
   }, []);
-  console.log("meetingBatchInfo", user);
+
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
-  const [Sellocation, SetselLoction] = useState(null);
-  const [Location, Setlocation] = useState([]);
+  const [LOCATION, SetLocation] = useState(null);
+  const [Sellocation, SetselLoction] = useState([]);
+  const Loc = [];
 
-  // console.log("loc data 3 types", particular_org_loc);
-
+  const { _id, Location } = particular_org_loc[0];
   const fun = () => {
-    const Loc = [];
-
-    particular_org_loc &&
-      particular_org_loc.Location &&
-      particular_org_loc.Location.map((ele) => {
+    particular_org_loc[0] &&
+      Location.map((ele) => {
         Loc.push({
           label: ele,
           value: ele,
         });
-        Setlocation(Loc);
+        SetselLoction(Loc);
+        console.log(Sellocation);
       });
   };
-
-  //console.log("loc", Location);
-
   const name = user && user.OrganizationName;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
@@ -78,6 +71,14 @@ const PropertyDetail = ({
     setId(id);
     handleShow();
   };
+  const onchangeLocation = (e) => {
+    SetLocation(e);
+    const OrgainationId_Loc_name = {
+      OrganizationId: user && user.OrganizationId,
+      LocationName: e.value,
+    };
+    getParticularProperty(OrgainationId_Loc_name);
+  };
 
   const onDeactive = () => {
     setShow(false);
@@ -102,9 +103,9 @@ const PropertyDetail = ({
               <Select
                 placeholder="Search-Location"
                 name="location"
-                // options={Location}
-                // value={sellocation}
-                // onChange={(e) => onchangeLocation(e)}
+                options={Sellocation}
+                value={LOCATION}
+                onChange={(e) => onchangeLocation(e)}
               ></Select>
             </div>
             <AddShopDetails />

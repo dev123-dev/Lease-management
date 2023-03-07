@@ -104,7 +104,10 @@ const tenants = (state = initialState, action) => {
         particular_org_data: payload,
       };
     case PARTICULAR_ORG_LOCATION:
-      return { ...state, particular_org_loc: payload };
+      return {
+        ...state,
+        particular_org_loc: payload,
+      };
     case PARTICULAR_USER:
       return {
         ...state,

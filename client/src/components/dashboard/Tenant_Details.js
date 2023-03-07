@@ -30,20 +30,20 @@ const Tenant_Details = ({
   const [sellocation, setselLoction] = useState(null);
   const [location, setlocation] = useState([]);
   const Loc = [];
+  const { _id, Location } = particular_org_loc[0];
 
   const fun = () => {
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    // particular_org_loc;
-    // particular_org_loc.Location[0] &&
-    // console.log("LOC DATA", particular_org_loc);
-    // particular_org_loc.Location.map((ele) => {
-    //   Loc.push({
-    //     label: ele,
-    //     value: ele,
-    //   });
-    //   setlocation(Loc);
-    // });
+    particular_org_loc[0] &&
+      Location.map((ele) => {
+        Loc.push({
+          label: ele,
+          value: ele,
+        });
+        setlocation(Loc);
+      });
   };
+
   // Modal for Deactivation
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

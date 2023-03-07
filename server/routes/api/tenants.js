@@ -142,7 +142,6 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org", async (req, res) => {
   let data = req.body;
-
   try {
     if (data.OrganizationId) {
       OrganizationDetails.find(
@@ -151,8 +150,6 @@ router.post("/get-particular-org", async (req, res) => {
           Location: 1,
         }
       ).then((result) => {
-        console.log("p org data", result);
-        console.log("p org id", data.OrganizationId);
         res.json(result);
       });
     }
@@ -371,17 +368,16 @@ router.post("/add-Property-details", async (req, res) => {
 //get particular property detaills based on organization details
 
 router.post("/get-Particular-Property", async (req, res) => {
-  console.log("inside api location ", req.body);
   let { OrganizationId, LocationName } = req.body;
   let query = { OrganizationId: OrganizationId };
-  console.log(query);
+
   if (LocationName) {
     query = {
       ...query,
       Location: LocationName,
     };
   }
-  console.log("jkk", query);
+
   try {
     let propertydata = await property.find(query).sort({ shopStatus: 1 });
     // console.log("after loc", propertydata);
