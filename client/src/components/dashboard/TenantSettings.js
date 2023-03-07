@@ -15,7 +15,7 @@ const TenantSettings = ({
 }) => {
   useEffect(() => {
     getAllSettings();
-    console.log("user details", user);
+    // console.log("user details", user);
   }, [getAllSettings]);
 
   //formData
@@ -45,7 +45,7 @@ const TenantSettings = ({
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
     };
-    console.log("this is submittd tenant setting", finalData);
+    // console.log("this is submittd tenant setting", finalData);
     AddTenantSettingform(finalData);
     // setFormData({ ...formData, isSubmitted: true });
     // getAllSettings();

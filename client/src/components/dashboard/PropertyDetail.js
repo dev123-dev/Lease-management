@@ -7,27 +7,44 @@ import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
 import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "../dashboard/EditProperty";
-import { getParticularProperty } from "../../actions/tenants";
-import { getalluser } from "../../actions/tenants";
+import { getParticularProperty, getParticularOrg } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
 const PropertyDetail = ({
   auth: { user },
-  tenants: { particular_org_data },
-  getAllShops,
-  getalluser,
+  tenants: { particular_org_data, particular_org_loc },
   deactiveProperty,
+  getParticularOrg,
   getParticularProperty,
 }) => {
   useEffect(() => {
-    getalluser();
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    fun();
+    const OrganizationId = {
+      OrganizationId: user && user.OrganizationId,
+    };
+    getParticularOrg(OrganizationId);
   }, []);
+
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
-  console.log(user);
+  const [LOCATION, SetLocation] = useState(null);
+  const [Sellocation, SetselLoction] = useState([]);
+  const Loc = [];
+
+  const { _id, Location } = particular_org_loc[0];
+  const fun = () => {
+    particular_org_loc[0] &&
+      Location.map((ele) => {
+        Loc.push({
+          label: ele,
+          value: ele,
+        });
+        SetselLoction(Loc);
+        console.log(Sellocation);
+      });
+  };
   const name = user && user.OrganizationName;
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
@@ -53,6 +70,14 @@ const PropertyDetail = ({
   const onDelete = (id) => {
     setId(id);
     handleShow();
+  };
+  const onchangeLocation = (e) => {
+    SetLocation(e);
+    const OrgainationId_Loc_name = {
+      OrganizationId: user && user.OrganizationId,
+      LocationName: e.value,
+    };
+    getParticularProperty(OrgainationId_Loc_name);
   };
 
   const onDeactive = () => {
@@ -91,9 +116,9 @@ const PropertyDetail = ({
               <Select
                 placeholder="Search-Location"
                 name="location"
-                // options={location}
-                // value={sellocation}
-                // onChange={(e) => onchangeLocation(e)}
+                options={Sellocation}
+                value={LOCATION}
+                onChange={(e) => onchangeLocation(e)}
               ></Select>
             </div>
             <AddShopDetails />
@@ -260,7 +285,7 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getAllShops,
-  getalluser,
   deactiveProperty,
+  getParticularOrg,
   getParticularProperty,
 })(PropertyDetail);

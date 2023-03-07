@@ -21,18 +21,19 @@ const AddShopDetails = ({
 }) => {
   useEffect(() => {
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
-    getParticularOrg({ OrganizationName: user && user.OrganizationName });
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     getParticularTenantSetting({
       Organization_id: user && user.OrganizationId,
     });
   }, []);
-  console.log(user);
+  // console.log(user);
 
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
 
-  particular_org_loc.Location &&
+  particular_org_loc &&
+    particular_org_loc.Location &&
     particular_org_loc.Location.map((org) => {
       locationList.push({
         value: org,

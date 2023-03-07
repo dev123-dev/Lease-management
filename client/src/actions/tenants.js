@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+
 // import { getAllUsers } from "./auth";
 
 import {
@@ -92,6 +92,7 @@ export const getParticularOrg = (data) => async (dispatch) => {
       data,
       config
     );
+    dispatch(getParticularProperty({ OrganizationId: data.OrganizationId }));
 
     dispatch({
       type: PARTICULAR_ORG_LOCATION,
@@ -194,6 +195,10 @@ export const ParticularTenant = (data) => async (dispatch) => {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-Tenant`,
       data
+    );
+    dispatch(
+      getParticularOrg({ OrganizationId: data.OrganizationId }),
+      getParticularProperty({ OrganizationId: data.OrganizationId })
     );
     dispatch({
       type: PARTICULAR_ORG_TENANT,

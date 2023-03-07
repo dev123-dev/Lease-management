@@ -131,30 +131,7 @@ router.post("/add-Organization", async (req, res) => {
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
   try {
-    const orgdata = await OrganizationDetails.find({});
-
-    // aggregate([
-    //   {
-    //     $project:
-    //      {
-    //       OrganizationName: "$OrganizationName",
-    //       OrganizationEmail: "$OrganizationEmail",
-    //       OrganizationNumber: "$OrganizationNumber",
-    //       OrganizationAddress: "$OrganizationAddress",
-    //       Location: "$Location",
-
-    //       enddate : "$enddate",
-    //       org_status: "$org_status",
-    //       enter_by_dateTime: "$enter_by_dateTime",
-    //     },
-    // },
-    // {
-    //   $match : {
-    //     org_status : {
-    //       $eq : "Acticve"
-    //     },
-
-    //   }
+    const orgdata = await OrganizationDetails.find({}).sort({ org_status: 1 });
 
     res.json(orgdata);
   } catch (err) {
@@ -165,18 +142,17 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org", async (req, res) => {
   let data = req.body;
-
   try {
-    let getorg = [];
-    if (data.OrganizationName) {
-      getorg = await OrganizationDetails.findOne(
-        { OrganizationName: data.OrganizationName },
+    if (data.OrganizationId) {
+      OrganizationDetails.find(
+        { _id: data.OrganizationId },
         {
           Location: 1,
         }
-      );
+      ).then((result) => {
+        res.json(result);
+      });
     }
-    res.json(getorg);
   } catch (error) {
     console.log(error.message);
   }
@@ -199,7 +175,7 @@ router.post("/get-particular-user", async (req, res) => {
         OrganizationName: 1,
         Location: 1,
       }
-    );
+    ).sort({ userStatus: 1 });
 
     res.json(getuser);
   } catch (error) {
@@ -319,7 +295,7 @@ router.get("/get-all-Superuser", async (req, res) => {
           OrganizationName: "$OrganizationName",
         },
       },
-    ]);
+    ]).sort({ userStatus: 1 });
 
     res.json(userdata);
   } catch (err) {
@@ -335,7 +311,7 @@ router.post("/get-particular-org-user", async (req, res) => {
   try {
     const ParticularOrg = await UserDetails.find({
       OrganizationId: data.orgid,
-    });
+    }).sort({ userStatus: 1 });
     res.json(ParticularOrg);
   } catch (error) {
     console.log(error.message);
@@ -392,11 +368,19 @@ router.post("/add-Property-details", async (req, res) => {
 //get particular property detaills based on organization details
 
 router.post("/get-Particular-Property", async (req, res) => {
-  let data = req.body;
+  let { OrganizationId, LocationName } = req.body;
+  let query = { OrganizationId: OrganizationId };
+
+  if (LocationName) {
+    query = {
+      ...query,
+      Location: LocationName,
+    };
+  }
+
   try {
-    let propertydata = await property.find({
-      OrganizationId: data.OrganizationId,
-    });
+    let propertydata = await property.find(query).sort({ shopStatus: 1 });
+    // console.log("after loc", propertydata);
     res.json(propertydata);
   } catch (error) {
     console.log(error.message);
@@ -434,7 +418,9 @@ router.post("/get-particular-Tenant", async (req, res) => {
     };
   }
   try {
-    const tenantdata = await TenantDetails.find(query);
+    const tenantdata = await TenantDetails.find(query).sort({
+      tenantstatus: 1,
+    });
     res.json(tenantdata);
   } catch (error) {
     console.log(error.message);
@@ -679,9 +665,11 @@ router.post("/get-all-shops", async (req, res) => {
   let data = req.body;
 
   try {
-    const ShopsData = await property.find({
-      Organization_id: data.OrganizationId,
-    }); /*.sort({ _id: -1 });*/
+    const ShopsData = await property
+      .find({
+        Organization_id: data.OrganizationId,
+      })
+      .sort({ shopStatus: -1 });
 
     res.json(ShopsData);
   } catch (err) {
@@ -1070,7 +1058,7 @@ router.get("/get-all-tenants", async (req, res) => {
           AgreementStatus: { $ne: "Renewed" },
         },
       },
-    ]);
+    ]).sort({ tenantstatus: 1 });
     res.json(tenanatData);
   } catch (err) {
     console.log(err);
@@ -1080,7 +1068,7 @@ router.get("/get-all-tenants", async (req, res) => {
 
 router.get("/get-all-users", async (req, res) => {
   try {
-    const userDetails = await UserDetails.find({});
+    const userDetails = await UserDetails.find({}).sort({ userStatus: 1 });
     res.json(userDetails);
   } catch (err) {
     console.error(err.message);
