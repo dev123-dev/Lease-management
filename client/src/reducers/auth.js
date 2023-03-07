@@ -70,7 +70,7 @@ const auth = (state = initialState, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
-        errorResponse: payload,
+        errorResponse: "Invalid UserName or Password",
         successResponse: "",
         // otpMessage: "",
       };

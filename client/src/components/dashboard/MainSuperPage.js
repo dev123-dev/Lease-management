@@ -51,16 +51,6 @@ const MainSuperPage = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">DashBoard </h2>
-                <hr></hr>
-              </div>
-              <div className=" py-4 mt-5 ">
-                <img
-                  className="img_icon_size ml-5"
-                  // onClick={() => onClickHandler()}
-                  src={require("../../static/images/print.png")}
-                  alt="Add User"
-                  title="Add User"
-                />
               </div>
             </div>
             <div className="row">

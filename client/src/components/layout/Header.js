@@ -208,7 +208,11 @@ const Header = ({
                           onClick={() => handleLogoutModalShow()}
                           className="navbar-right "
                         >
-                          {user.usergroup}
+                          <div className="text-light mt-3">
+                            {user.usergroup}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          </div>
                         </Link>
 
                         <ul className="dropdown-menu second-level-menu ">

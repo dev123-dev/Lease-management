@@ -32,7 +32,7 @@ const Login = ({
     borderLeft: "none",
     borderRight: "none",
     borderTop: "none",
-    color: "green",
+    color: "black",
   };
 
   const [formData, setFormData] = useState({

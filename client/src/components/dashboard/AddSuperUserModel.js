@@ -143,7 +143,7 @@ const AddSuperUserModel = ({
         >
           <Modal.Header>
             <Modal.Title className="container">
-              <h1 className="font-weight-bold ">Add user</h1>
+              <h1 className="text-center h2 orghea ">Add user</h1>
             </Modal.Title>
             <div className="  col-lg-2 ">
               <button className="close ml-5" onClick={() => superhandleClose()}>

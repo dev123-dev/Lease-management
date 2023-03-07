@@ -135,6 +135,7 @@ const EditOrganization = ({
             <label>Number of User</label>
             <input
               type="number"
+              readOnly={true}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />{" "}
@@ -144,7 +145,7 @@ const EditOrganization = ({
             <input
               type="date"
               //  name="user"
-              //value={}
+
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />{" "}

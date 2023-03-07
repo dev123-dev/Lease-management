@@ -230,16 +230,12 @@ const AddOrgModal = ({
                   />
                 </div>
                 <div className="col-lg-6">
-                  <label>
-                    No Of User
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                  </label>
+                  <label>No Of User</label>
                   <input
                     type="number"
                     className="form-control"
                     placeholder="Number Of User"
+                    readOnly={true}
                   />
                 </div>
                 <div className="col-lg-6">
