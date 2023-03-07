@@ -91,7 +91,6 @@ const TenantFilters = ({
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
-      // console.log("finalDataReport", finalDataReport);
       getTenantReportYearMonth(finalDataReport);
       // <Redirect to="/tenant-report" />;
     }
@@ -101,6 +100,14 @@ const TenantFilters = ({
       yearSearch: new Date(startMonthDate).getFullYear(),
     };
     getTenantReportOldExp(finalDataReportOld);
+    // <Redirect to="/tenant-report" />;
+  };
+  const oldExpCountOrganization = () => {
+    alert("hii");
+    // const finalDataReportOld = {
+    //   yearSearch: new Date(startMonthDate).getFullYear(),
+    //};
+    // getTenantReportOldExp(finalDataReportOld);
     // <Redirect to="/tenant-report" />;
   };
 
@@ -118,15 +125,15 @@ const TenantFilters = ({
                 <div className=" ">
                   {/* this is for textbox below image for showing the total count of Renewal */}
                   <Link
-                    to="/tenant-report"
+                    to="/Organization-report"
                     className="btn btn_more"
-                    onClick={() => oldExpCountFetch()}
+                    onClick={() => oldExpCountOrganization()}
                   >
-                    {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
+                    {/* {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
                       ? yearExpCnt[0].count
-                      : 0}
+                      : 0} */}
                   </Link>
-
+                  {console.log("this is super admin page")}
                   {/* className="btn-rou" */}
                 </div>
                 <div className="py-2 ">
@@ -200,7 +207,8 @@ const TenantFilters = ({
                                   }
                             }
                           >
-                            {countVal}
+                            {/* {countVal} */}
+                            {console.log("here comes the count")}
                           </label>
                         </div>
                         <div> </div>
