@@ -318,20 +318,13 @@ const AddTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="mt-5 ml-5 ">
+      <div className="tenantaddicon ">
         <img
-          // onClick={handleShow}
-          src={require("../../static/images/refresh-icon.png")}
-          alt="refresh"
-          title="refresh"
-          className=""
-        />
-        <img
+          height="25px"
           onClick={handleInformationModalOpen}
           src={require("../../static/images/add-icon.png")}
           alt="Add Tenant"
           title="Add Tenant"
-          className="  "
         />
       </div>
 

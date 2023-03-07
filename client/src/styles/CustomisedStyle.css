@@ -1481,9 +1481,11 @@ input[type="radio"].error {
 
 }
 .refreshbtn{
-
-  margin-left: 107%;
-  margin-top: -7%;
+ 
+ margin-left:420%;
+ margin-top: -25%;
+ 
+  cursor: pointer; 
 }
 
 /*multi level dropdown navbar*/
@@ -1922,9 +1924,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .input {
   width: 120%;
 }
-.add_tenant {
-  margin-left: 5%;
-}
+
 
 .close-btn-wrapper {
   position: relative;
@@ -1950,6 +1950,9 @@ input[type="number"]::-webkit-outer-spin-button {
 .clprop {
   margin-left: 100px;
   cursor: pointer;
+}
+.clprop:hover {
+  background-color: lightgrey;
 }
 .clorg {
   background-color: transparent;
@@ -2030,9 +2033,14 @@ input[type="number"]::-webkit-outer-spin-button {
   border: transparent;
   position: absolute;
 }
-.refrsh{
-  height:20px;
-  margin-top: 7px;
+.tenantaddicon{
+  margin-top: 75px;
+  margin-left: 75px;
+  cursor: pointer;
+}
+.useraddicon{
+  margin-top: 65px;
+  margin-left: 8px;
   cursor: pointer;
 }
 
@@ -2207,6 +2215,12 @@ button {
   height: 40px;
   border-radius: 5px;
   color: white;
+}
+.refreshbtnad{
+ 
+  margin-left: 4000%; 
+  cursor: pointer;
+  /* margin-top: -9%; */
 }
 
 

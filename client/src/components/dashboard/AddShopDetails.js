@@ -148,12 +148,7 @@ const AddShopDetails = ({
     <>
       <div className="property log">
         <img
-          onClick={handleShow}
-          src={require("../../static/images/refresh-icon.png")}
-          alt="refresh"
-          title="refresh"
-        />
-        <img
+          height="25px"
           onClick={handleShow}
           src={require("../../static/images/add-icon.png")}
           alt="Add Prop"

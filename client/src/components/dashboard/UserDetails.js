@@ -88,6 +88,9 @@ const UserDetails = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+  const refresh = () => {
+    window.location.reload(true);
+  };
 
   return (
     <>
@@ -97,7 +100,18 @@ const UserDetails = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color">User Details </h2>
+                  <h2 className="heading_color">UserDetails </h2>
+                  <hr></hr>
+                </div>
+                <div className="mt-5 ml-2">
+                  <img
+                    className="mt-3 ml-5 Cursor"
+                    height="25px"
+                    onClick={() => refresh()}
+                    src={require("../../static/images/refresh-icon.png")}
+                    alt="refresh"
+                    title="refresh"
+                  />
                 </div>
                 <AddAdminUserModal />
               </div>
