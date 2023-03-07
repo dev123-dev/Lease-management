@@ -91,6 +91,7 @@ const TenantFilters = ({
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
+      // console.log("finalDataReport", finalDataReport);
       getTenantReportYearMonth(finalDataReport);
       // <Redirect to="/tenant-report" />;
     }

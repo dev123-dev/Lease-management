@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const MainAdminPage = ({
   auth: { isAuthenticated, user, users },
-  tenants: { particular_org_data },
+  tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
 }) => {
   useEffect(() => {
@@ -86,6 +86,7 @@ const MainAdminPage = ({
                 className="mainpageimg"
               ></img>
               No Of Tenants Count
+              <div>{get_particular_org_tenant.length}</div>
             </div>
           </div>
           <div className="4">

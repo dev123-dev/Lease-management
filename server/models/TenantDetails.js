@@ -11,6 +11,12 @@ const TenantDetails = new mongoose.Schema({
   OrganizationId: {
     type: String,
   },
+  tenantLeaseEndDate: {
+    type: String,
+  },
+  tenantLeaseStartDate: {
+    type: String,
+  },
   tenantPhone: {
     type: Number,
     //  required: false,
@@ -28,6 +34,9 @@ const TenantDetails = new mongoose.Schema({
   tenantPanNo: {
     type: String,
     // required: true,
+  },
+  tenantRentAmount: {
+    type: Number,
   },
   tenantDepositAmt: {
     type: Number,

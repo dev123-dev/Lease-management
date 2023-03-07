@@ -267,7 +267,6 @@ const AddTenantDetails = ({
       tenantRentAmount: tenantRentAmount,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
-      shopId: shopId,
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,

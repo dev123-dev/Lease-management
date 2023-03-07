@@ -29,7 +29,7 @@ router.post("/add-tenant-details", async (req, res) => {
       BuildingId: data.BuildingId,
       Location: data.Location,
       tenantFileNo: data.tenantFileNo,
-      tenantDoorNo: data.tenantDoorNo.label,
+      shopDoorNo: data.tenantDoorNo.label,
       tenantName: data.tenantName,
       tenantPhone: data.tenantPhone,
       tenantFirmName: data.tenantFirmName,
@@ -42,16 +42,17 @@ router.post("/add-tenant-details", async (req, res) => {
       tenantBankName: data.tenantBankName,
       tenantchequeDate: data.startSelectedDate,
       tenantRentAmount: data.tenantRentAmount,
-      tenantLeaseStartDate: data.entryDate,
-      tenantLeaseEndDate: data.newLeaseEndDate,
-      shopId: data.shopId,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
       generatordepoAmt: data.generatordepoAmt,
       tenantEnteredBy: data.tenantEnteredBy,
       tenantDate: data.todayDateymd,
       selectedY: data.selectedY,
       selectedVal: data.selectedVal,
     };
+
     let tenantdata = await new TenantDetails(tenantDetails);
+
     let finalData = tenantdata.save();
 
     const finalData2 = {
@@ -86,6 +87,10 @@ router.post("/add-tenant-details", async (req, res) => {
 
     const finalData1 = {
       tdId: tenantdata._id,
+      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
+      BuildingName: data.BuildingName,
+      BuildingId: data.BuildingId,
       tenantFileNo: data.tenantFileNo,
       tenantDoorNo: data.tenantDoorNo.label,
       tenantRentAmount: data.tenantRentAmount,
@@ -726,6 +731,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
     var monthVal = "0" + monthSearch;
   }
   var yearMonth = yearSearch + "-" + monthVal;
+  console.log(yearMonth);
 
   try {
     const tenantSettingsData = await TenantSettings.find({});
@@ -799,14 +805,15 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           },
         },
       },
-      {
-        $match: {
-          tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
-          AgreementStatus: { $ne: "Renewed" },
-          tenantstatus: { $eq: "Active" },
-        },
-      },
+      // {
+      //   $match: {
+      //     tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
+      //     AgreementStatus: { $ne: "Renewed" },
+      //     tenantstatus: { $eq: "Active" },
+      //   },
+      // },
     ]);
+    console.log("tenantExpReport", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);

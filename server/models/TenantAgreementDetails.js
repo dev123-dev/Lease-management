@@ -2,6 +2,21 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantAgreementDetails = new mongoose.Schema({
+  OrganizationId: {
+    type: String,
+  },
+  OrganizationName: {
+    type: String,
+  },
+  BuildingId: {
+    type: String,
+  },
+  BuildingName: {
+    type: String,
+  },
+  PropertyId: {
+    type: String,
+  },
   tdId: {
     type: ObjectId,
     // required: true,
