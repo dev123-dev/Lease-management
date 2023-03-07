@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { useState, Fragment } from "react";
 import Select from "react-select";
@@ -23,9 +23,6 @@ const AddSuperUserModel = ({
     setOrgname(e);
   };
 
-  // const [passwordType, setPasswordType] = useState("password");
-  // const [passwordInput, setPasswordInput] = useState("");
-
   const [formData, setFormData] = useState({
     username: "",
     useremail: "",
@@ -45,7 +42,7 @@ const AddSuperUserModel = ({
     group,
     OrganizationName,
     password,
-    cpassword,
+    rePassword,
   } = formData;
 
   const [us, setus] = useState("");
@@ -54,13 +51,147 @@ const AddSuperUserModel = ({
     setus(e);
   };
 
+  const [PASSWORD, SETPASSWORD] = useState("");
+  const [finalPass, Setpass] = useState("");
+  // password validation starting
+  const [error, setError] = useState({
+    passwordValChecker: false,
+    passwordValResult: "",
+    passwordValStyle: {},
+    passwordInptErrStyle: {},
+
+    repwdValChecker: false,
+    repwdValResult: "",
+    repwdValStyle: {},
+    repwdInptErrStyle: {},
+  });
+  const onPasswordChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "password":
+        if (value === "") {
+          setError({
+            ...error,
+            passwordValChecker: true,
+            passwordValResult: "REQUIRED",
+            passwordValStyle: { color: "#FF0000", marginTop: "30px" },
+            passwordInptErrStyle: { border: "1px solid #FF0000" },
+          });
+          setFormData({ ...formData, [e.target.name]: "" });
+        } else {
+          const pwdFilter =
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+          if (pwdFilter.test(value)) {
+            setError({
+              ...error,
+              passwordValChecker: true,
+              passwordValResult: "STRONG",
+              passwordValStyle: { color: "#43b90f", marginTop: "30px" },
+              passwordInptErrStyle: { border: "1px solid #43b90f" },
+            });
+          } else {
+            setError({
+              ...error,
+              passwordValChecker: true,
+              passwordValResult: "WEAK",
+              passwordValStyle: { color: "#FF0000", marginTop: "30px" },
+              passwordInptErrStyle: { border: "1px solid #FF0000" },
+            });
+          }
+          setFormData({ ...formData, [e.target.name]: value });
+        }
+        break;
+
+      case "rePassword":
+        if (value === "") {
+          setError({
+            ...error,
+            repwdValChecker: true,
+            repwdValResult: "REQUIRED",
+            repwdValStyle: { color: "#FF0000", marginTop: "30px" },
+            repwdInptErrStyle: { border: "1px solid #FF0000" },
+          });
+          setFormData({ ...formData, [e.target.name]: "" });
+        } else {
+          if (value === formData.password) {
+            setError({
+              ...error,
+              repwdValChecker: true,
+              repwdValResult: "MATCHED",
+              repwdValStyle: { color: "#43b90f", marginTop: "30px" },
+              repwdInptErrStyle: { border: "1px solid #43b90f" },
+            });
+          } else {
+            setError({
+              ...error,
+              repwdValChecker: true,
+              repwdValResult: "DOES NOT MATCH",
+              repwdValStyle: { color: "#FF0000", marginTop: "30px" },
+              repwdInptErrStyle: { border: "1px solid #FF0000" },
+            });
+          }
+          setFormData({ ...formData, [e.target.name]: value });
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+  const {
+    passwordValChecker,
+    passwordValResult,
+    passwordValStyle,
+    passwordInptErrStyle,
+
+    repwdValChecker,
+    repwdValResult,
+    repwdValStyle,
+    repwdInptErrStyle,
+  } = error;
+
+  const checkErrors = (formData) => {
+    if (formData && formData.password === "") {
+      setError({
+        ...error,
+        passwordValChecker: true,
+        passwordValResult: "REQUIRED",
+        passwordValStyle: { color: "#FF0000", marginTop: "-20px" },
+        passwordInptErrStyle: { border: "1px solid #FF0000" },
+      });
+      return false;
+    }
+    if (formData && formData.rePassword !== formData.password) {
+      setError({
+        ...error,
+        repwdValChecker: true,
+        repwdValResult: "DOES NOT MATCH",
+        //repwdValResult: 'REQUIRED',
+        repwdValStyle: { color: "#FF0000", marginTop: "10px" },
+        repwdInptErrStyle: { border: "1px solid #FF0000" },
+      });
+      return false;
+    }
+
+    if (formData && formData.rePassword === "") {
+      setError({
+        ...error,
+        repwdValChecker: true,
+        repwdValResult: "REQUIRED",
+        repwdValStyle: { color: "#FF0000", marginTop: "10px" },
+        repwdInptErrStyle: { border: "1px solid #FF0000" },
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  // password validation is ending
   const UserGroups = [
     { value: "Admin", label: "Admin" },
     { value: "Super Admin", label: "Super Admin" },
   ];
-
-  const [pas, setpas] = useState("");
-  const [err, seterr] = useState("");
 
   const onuserchange = (e) => {
     setFormData({
@@ -88,7 +219,7 @@ const AddSuperUserModel = ({
         userphone: phone,
         useraddress: address,
         usergroup: us,
-        password: password,
+        password: rePassword,
         OrganizationName: orgname,
       };
 
@@ -248,21 +379,23 @@ const AddSuperUserModel = ({
                   </label>
                   <div className="controls">
                     <input
-                      name="UserPassword"
+                      name="password"
                       id="user_password"
                       type="password"
                       autoComplete="off"
+                      value={password}
                       className="form-control"
-                      a
-                      onChange={(e) => onuserchange(e)}
+                      style={passwordInptErrStyle}
+                      onChange={(e) => onPasswordChange(e)}
                       required
                     />
-                    {err ? (
-                      <span id="Passerr" className="form-input-info">
-                        password doesnt match
+                    {passwordValChecker && (
+                      <span
+                        className="form-input-info"
+                        style={passwordValStyle}
+                      >
+                        {passwordValResult}
                       </span>
-                    ) : (
-                      <></>
                     )}
                   </div>
                 </div>
@@ -273,14 +406,23 @@ const AddSuperUserModel = ({
                   </label>
                   <div className="controls">
                     <input
-                      name="UserConfpassword"
+                      name="rePassword"
                       id="user_confpass"
                       type="password"
+                      value={rePassword}
                       autoComplete="off"
                       className="form-control"
-                      onChange={(e) => onuserchange(e)}
+                      style={repwdInptErrStyle}
+                      onChange={(e) => onPasswordChange(e)}
                       required
                     />
+                    {repwdValChecker && (
+                      <Fragment>
+                        <span className="form-input-info" style={repwdValStyle}>
+                          {repwdValResult}
+                        </span>
+                      </Fragment>
+                    )}
                     <span
                       id="category_result"
                       className="form-input-info"

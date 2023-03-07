@@ -99,6 +99,9 @@ const AddOrgDashBoard = ({
     };
     deleteOrganization(reason);
   };
+  const refreshbtn = () => {
+    window.location.reload(true);
+  };
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
@@ -126,10 +129,10 @@ const AddOrgDashBoard = ({
                 <img
                   className="refreshbtn"
                   height="25px"
-                  // onClick={() => show()}
+                  onClick={() => refreshbtn()}
                   src={require("../../static/images/refresh-icon.png")}
                   alt="Add User"
-                  title="Add User"
+                  title="Refresh User"
                 />
               </div>
             </div>

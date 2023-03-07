@@ -48,9 +48,154 @@ const AddAdminUserModal = ({
     password: "",
   });
 
-  const { name, email, address, phone, group, OrganizationName, password } =
-    formData;
+  // validation for Password starting
 
+  // validation
+
+  const {
+    name,
+    email,
+    address,
+    phone,
+    group,
+    OrganizationName,
+    password,
+    rePassword,
+  } = formData;
+  // validation for password starting
+  const [error, setError] = useState({
+    passwordValChecker: false,
+    passwordValResult: "",
+    passwordValStyle: {},
+    passwordInptErrStyle: {},
+
+    repwdValChecker: false,
+    repwdValResult: "",
+    repwdValStyle: {},
+    repwdInptErrStyle: {},
+  });
+  const onPasswordChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "password":
+        if (value === "") {
+          setError({
+            ...error,
+            passwordValChecker: true,
+            passwordValResult: "REQUIRED",
+            passwordValStyle: { color: "#FF0000", marginTop: "30px" },
+            passwordInptErrStyle: { border: "1px solid #FF0000" },
+          });
+          setFormData({ ...formData, [e.target.name]: "" });
+        } else {
+          const pwdFilter =
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,20}$/;
+          if (pwdFilter.test(value)) {
+            setError({
+              ...error,
+              passwordValChecker: true,
+              passwordValResult: "STRONG",
+              passwordValStyle: { color: "#43b90f", marginTop: "30px" },
+              passwordInptErrStyle: { border: "1px solid #43b90f" },
+            });
+          } else {
+            setError({
+              ...error,
+              passwordValChecker: true,
+              passwordValResult: "WEAK",
+              passwordValStyle: { color: "#FF0000", marginTop: "30px" },
+              passwordInptErrStyle: { border: "1px solid #FF0000" },
+            });
+          }
+          setFormData({ ...formData, [e.target.name]: value });
+        }
+        break;
+
+      case "rePassword":
+        if (value === "") {
+          setError({
+            ...error,
+            repwdValChecker: true,
+            repwdValResult: "REQUIRED",
+            repwdValStyle: { color: "#FF0000", marginTop: "30px" },
+            repwdInptErrStyle: { border: "1px solid #FF0000" },
+          });
+          setFormData({ ...formData, [e.target.name]: "" });
+        } else {
+          if (value === formData.password) {
+            setError({
+              ...error,
+              repwdValChecker: true,
+              repwdValResult: "MATCHED",
+              repwdValStyle: { color: "#43b90f", marginTop: "30px" },
+              repwdInptErrStyle: { border: "1px solid #43b90f" },
+            });
+          } else {
+            setError({
+              ...error,
+              repwdValChecker: true,
+              repwdValResult: "DOES NOT MATCH",
+              repwdValStyle: { color: "#FF0000", marginTop: "30px" },
+              repwdInptErrStyle: { border: "1px solid #FF0000" },
+            });
+          }
+          setFormData({ ...formData, [e.target.name]: value });
+        }
+        break;
+
+      default:
+        break;
+    }
+  };
+  const {
+    passwordValChecker,
+    passwordValResult,
+    passwordValStyle,
+    passwordInptErrStyle,
+
+    repwdValChecker,
+    repwdValResult,
+    repwdValStyle,
+    repwdInptErrStyle,
+  } = error;
+
+  const checkErrors = (formData) => {
+    if (formData && formData.password === "") {
+      setError({
+        ...error,
+        passwordValChecker: true,
+        passwordValResult: "REQUIRED",
+        passwordValStyle: { color: "#FF0000", marginTop: "-20px" },
+        passwordInptErrStyle: { border: "1px solid #FF0000" },
+      });
+      return false;
+    }
+    if (formData && formData.rePassword !== formData.password) {
+      setError({
+        ...error,
+        repwdValChecker: true,
+        repwdValResult: "DOES NOT MATCH",
+        //repwdValResult: 'REQUIRED',
+        repwdValStyle: { color: "#FF0000", marginTop: "10px" },
+        repwdInptErrStyle: { border: "1px solid #FF0000" },
+      });
+      return false;
+    }
+
+    if (formData && formData.rePassword === "") {
+      setError({
+        ...error,
+        repwdValChecker: true,
+        repwdValResult: "REQUIRED",
+        repwdValStyle: { color: "#FF0000", marginTop: "10px" },
+        repwdInptErrStyle: { border: "1px solid #FF0000" },
+      });
+      return false;
+    }
+
+    return true;
+  };
+  // validation for password ending
   const UserGroups = [
     { value: "Admin", label: "Admin" },
     { value: "Clerk", label: "Clerk" },
@@ -72,7 +217,7 @@ const AddAdminUserModal = ({
       userphone: phone,
       useraddress: address,
       usergroup: User,
-      password: password,
+      password: rePassword,
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
     };
@@ -215,11 +360,17 @@ const AddAdminUserModal = ({
                 <input
                   type="password"
                   name="password"
-                  value={password}
                   placeholder="Password"
+                  value={password}
                   className="form-control"
-                  onChange={(e) => onuserchange(e)}
+                  style={passwordInptErrStyle}
+                  onChange={(e) => onPasswordChange(e)}
                 />
+                {passwordValChecker && (
+                  <span className="form-input-info" style={passwordValStyle}>
+                    {passwordValResult}
+                  </span>
+                )}
               </div>
               <div className="col-lg-6">
                 {" "}
@@ -232,12 +383,20 @@ const AddAdminUserModal = ({
                 </label>
                 <input
                   type="password"
-                  name="password"
-                  placeholder="ConfirmPassword"
-                  value={password}
+                  name="rePassword"
+                  value={rePassword}
+                  autoComplete="off"
                   className="form-control"
-                  onChange={(e) => onuserchange(e)}
+                  style={repwdInptErrStyle}
+                  onChange={(e) => onPasswordChange(e)}
                 />
+                {repwdValChecker && (
+                  <Fragment>
+                    <span className="form-input-info" style={repwdValStyle}>
+                      {repwdValResult}
+                    </span>
+                  </Fragment>
+                )}
               </div>
               <div className="col-lg-6">
                 Address

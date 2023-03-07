@@ -116,6 +116,7 @@ const TenantFilters = ({
   ) : (
     <>
       {user.usergroup === "Super Admin" ? (
+        //super admin filter
         <Fragment>
           <div className="container_align top_menu ">
             <div className="row pb-2  ml-2 responsiveDiv">
@@ -226,6 +227,7 @@ const TenantFilters = ({
         </Fragment>
       ) : (
         <>
+          {/* TENANT FILTER */}
           <Fragment>
             <div className="container_align top_menu ">
               <div className="row pb-5 responsiveDiv years">
