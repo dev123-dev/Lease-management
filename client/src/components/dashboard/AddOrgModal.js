@@ -15,10 +15,11 @@ const AddOrgModal = ({
 
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
+
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = 11;
+    var leaseMonth = 12;
 
     //Calculating lease end date
     var dateData = calDate.getDate();

@@ -52,6 +52,14 @@ const MainSuperPage = ({
               <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                 <h2 className="heading_color">DashBoard </h2>
                 <hr></hr>
+
+                <img
+                  className="img_icon_size log refreshbtn"
+                  // onClick={() => onClickHandler()}
+                  src={require("../../static/images/print.png")}
+                  alt="Print"
+                  title="Print"
+                />
               </div>
             </div>
             <div className="row mt-2">

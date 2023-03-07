@@ -200,6 +200,8 @@ router.post("/update-Organization", async (req, res) => {
           OrganizationEmail: data.OrganizationEmail,
           OrganizationNumber: data.OrganizationNumber,
           OrganizationAddress: data.OrganizationAddress,
+          enddate: data.enddate,
+          date: data.startdate,
           Location: data.Location,
         },
       }
