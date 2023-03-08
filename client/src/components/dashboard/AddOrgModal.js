@@ -145,6 +145,7 @@ const AddOrgModal = ({
           <img
             height="25px"
             className="ml-5"
+            id="plusicon"
             onClick={() => show()}
             src={require("../../static/images/add-icon.png")}
             alt="Add User"

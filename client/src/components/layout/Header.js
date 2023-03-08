@@ -110,7 +110,10 @@ const Header = ({
             <Navbar.Collapse id="basic-navbar-nav">
               {!loading && isAuthenticated && user ? (
                 <>
-                  <Nav className="mr-auto navbar_Collapse_content">
+                  <Nav
+                    className="mr-auto navbar_Collapse_content"
+                    id="org_detail"
+                  >
                     {/* add property & user */}
                     {!loading &&
                     isAuthenticated &&
@@ -118,28 +121,12 @@ const Header = ({
                     user.usergroup === "Super Admin" ? (
                       <>
                         {/* Organization details */}
-                        <NavLink
-                          className=" h6 "
-                          id="hea"
-                          to="/Super"
-                          activeStyle={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
+                        <NavLink className="p-3" id="hea" to="/Super">
                           OrganisationDetails
                         </NavLink>
 
                         {/* user details */}
-                        <NavLink
-                          className="ml-5  h6 "
-                          id="hea"
-                          to="/SuperUser"
-                          activeStyle={{
-                            color: "black",
-                            textDecoration: "none",
-                          }}
-                        >
+                        <NavLink className="p-3" id="hea" to="/SuperUser">
                           UserDetails
                         </NavLink>
                       </>
@@ -150,41 +137,21 @@ const Header = ({
                         </Navbar.Brand>
                         {/* PROPERTY DEtails */}
                         <NavLink
-                          className="ml-5   mt-3 h5 "
+                          className="p-3"
                           id="hea"
                           // id="head"
                           to="/PropertyDetail"
-                          activeStyle={{
-                            // color: "#cb9c9c",
-                            textDecoration: "none",
-                          }}
                         >
                           Property
                         </NavLink>
 
                         {/* tenant details */}
-                        <NavLink
-                          className="ml-5   mt-3 h5 "
-                          id="hea"
-                          to="/tenant-detail"
-                          activeStyle={{
-                            color: "Black",
-                            textDecoration: "none",
-                          }}
-                        >
+                        <NavLink className="p-3" id="hea" to="/tenant-detail">
                           Tenant
                         </NavLink>
 
                         {/* adding admin side user page */}
-                        <NavLink
-                          className="ml-5  mt-3 h5 "
-                          id="hea"
-                          to="/AdminUser"
-                          activeStyle={{
-                            color: "Black",
-                            textDecoration: "none",
-                          }}
-                        >
+                        <NavLink className="p-3" id="hea" to="/AdminUser">
                           User
                         </NavLink>
                       </>
@@ -208,9 +175,8 @@ const Header = ({
                           onClick={() => handleLogoutModalShow()}
                           className="navbar-right "
                         >
-                          <div className="text-light mt-3">
+                          <div className="p-3">
                             {user.usergroup}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           </div>
                         </Link>
@@ -267,7 +233,7 @@ const Header = ({
                             onClick={() => openSecondLevelMenu2()}
                             className="navbar-right"
                           >
-                            <div className="text-light mt-3">
+                            <div className="text-light mt-3 ml-2">
                               {user.username}
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

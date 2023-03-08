@@ -117,7 +117,7 @@ const AddOrgDashBoard = ({
 
   return (
     <div>
-      <div className="container container_align ">
+      <div className="container container_align">
         {/* OrganiZation Details  start*/}
         <section className="sub_reg">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
@@ -136,11 +136,12 @@ const AddOrgDashBoard = ({
                 />
               </div>
             </div>
-
-            <AddOrgModal />
+            <div className="link_to_org">
+              <AddOrgModal />
+            </div>
           </div>
           <div className="row ">
-            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center">
               <section className="body">
                 <div className="body-inner no-padding ">
                   <table

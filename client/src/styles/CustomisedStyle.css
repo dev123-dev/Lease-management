@@ -13,6 +13,7 @@
   color: #4d4d4d;
 }
 
+
 .container_align {
   margin-top: 55px;
   margin-bottom: 55px;
@@ -287,7 +288,7 @@ footer.footer .top_top {
 }
 
 .top_menu {
-  background-color: #095a4a;
+  background-color: #166151;
   /* #4b748f;#0086dc */
   /* #429f8c; */
 }
@@ -534,6 +535,35 @@ p {
     margin-top: 0px !important;
   }
 }
+@media screen and (max-width : 420px) {
+  .tenant_filter{
+   width: 200%;
+     height: fit-content;
+  }
+  .log_size{
+    margin-left: 100%;
+  }
+  .heading_color{
+    position: relative;
+    margin-top: 50%;
+  }
+  #datatable2{
+    position: relative;
+    margin-top: -10% ;
+
+  }
+  .link_to_org{
+    margin-top:-35% ;
+    margin-left: 90%;
+    background-color: red;
+  }
+  #plusicon{
+    margin-top: -100%;
+    position: relative;
+    background-color: #000;
+  }
+}
+
 
 .positioning {
   position: absolute;
