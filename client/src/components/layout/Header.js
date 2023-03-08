@@ -106,7 +106,7 @@ const Header = ({
                 </NavLink>
               )}
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle aria-controls="basic-navbar-nav" className="nvbar" />
             <Navbar.Collapse id="basic-navbar-nav">
               {!loading && isAuthenticated && user ? (
                 <>
@@ -121,12 +121,20 @@ const Header = ({
                     user.usergroup === "Super Admin" ? (
                       <>
                         {/* Organization details */}
-                        <NavLink className="p-3" id="hea" to="/Super">
+                        <NavLink
+                          className="p-3 headinghover"
+                          id="hea"
+                          to="/Super"
+                        >
                           OrganisationDetails
                         </NavLink>
 
                         {/* user details */}
-                        <NavLink className="p-3" id="hea" to="/SuperUser">
+                        <NavLink
+                          className="p-3 headinghover"
+                          id="hea"
+                          to="/SuperUser"
+                        >
                           UserDetails
                         </NavLink>
                       </>

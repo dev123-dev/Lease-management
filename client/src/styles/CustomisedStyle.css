@@ -535,6 +535,7 @@ p {
     margin-top: 0px !important;
   }
 }
+
 @media screen and (max-width : 420px) {
   .tenant_filter{
    width: 200%;
@@ -555,13 +556,47 @@ p {
   .link_to_org{
     margin-top:-35% ;
     margin-left: 90%;
-    background-color: red;
+   
   }
   #plusicon{
-    margin-top: -100%;
+    top:-40px;
+    right:85px;
+    height: 20px;
     position: relative;
-    background-color: #000;
+    background-color:transparent;
   }
+  .heading_color {
+    font-size:large;
+    font-weight: 500;
+    margin-top: -10%;
+
+  }
+  .refreshbtn{
+
+   position: relative;
+   top: -30px;
+   height:20px;
+   right:10px;
+ 
+  }
+  .count{
+    right:50px;
+  }
+  .headinghover:hover{
+     color:lightgray;
+  }
+  .orghea{
+    
+    font-size:0px;
+    right:25px;
+    position: absolute;
+    margin-left: -25px;
+    margin-top:-4%;
+    
+   
+  }
+ 
+  
 }
 
 
@@ -1986,13 +2021,19 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: lightgrey;
 }
 .clorg {
-  background-color: transparent;
+  border-color: transparent;
+  border: transparent;
   color: #095a4a;
-  margin-left: 110px;
+  margin-left: 250px;
   cursor: pointer;
 }
+.clorg:hover {
+  background-color:lightgrey;
+  
+}
 .orghea{
-  margin-left: 140px;
+  margin-left: 220px;
+  font-size: large;
 }
 .cluser {
   background-color: transparent;

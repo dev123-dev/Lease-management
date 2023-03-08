@@ -195,7 +195,7 @@ const Login = ({
               type="text"
               name="useremail"
               value={useremail}
-              style={inputBox}
+              // style={inputBox}
               //style={userEmailInptErrStyle}
               className="form-control form_contct emailtextbox"
               onChange={(e) => onInputChange(e)}
@@ -214,7 +214,7 @@ const Login = ({
               type="password"
               name="password"
               value={password}
-              style={inputBox}
+              // style={inputBox}
               // style={passwordInptErrStyle}
               className="form-control form_contct "
               onChange={(e) => onInputChange(e)}

@@ -161,18 +161,18 @@ const AddOrgModal = ({
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
-          className="logout-modal "
+          className="logout-modal m-2 "
         >
           <Modal.Header>
             <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-              <h2>
-                <b className="text-center h2 orghea">ADD Organization</b>{" "}
-              </h2>{" "}
+              <h1>
+                <b className="text-center orghea">ADDOrganization</b>{" "}
+              </h1>{" "}
               <div className="  col-lg-2">
                 <button
                   onClick={() => hidden()}
                   className="
-                  clorg"
+                  clorg "
                 >
                   <img
                     src={require("../../static/images/close.png")}
@@ -184,10 +184,10 @@ const AddOrgModal = ({
             </div>
           </Modal.Header>
 
-          <Modal.Body className="org_add">
-            <div className="container-fluid">
+          <Modal.Body className="org_add ">
+            <div className="container-fluid ">
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-6 col-sm-12 col-md-12 col-12">
                   <label>
                     {" "}
                     OrganiZationName
@@ -200,7 +200,7 @@ const AddOrgModal = ({
                     name="OrganizationName"
                     value={OrganizationName}
                     onChange={(e) => onORGchange(e)}
-                    className="form-control "
+                    className="form-control   "
                     placeholder="OrganizationName"
                   />
                 </div>

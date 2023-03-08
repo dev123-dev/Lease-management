@@ -145,7 +145,7 @@ const AddOrgDashBoard = ({
               <section className="body">
                 <div className="body-inner no-padding ">
                   <table
-                    className="table table-bordered table-striped table-hover table-active "
+                    className="table table-bordered table-striped table-hover table-active  table-responsive fixTableHeadjoin"
                     id="datatable2"
                   >
                     <thead>
@@ -221,7 +221,7 @@ const AddOrgDashBoard = ({
                 <Fragment />
               )}
             </div>
-            <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+            <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right count">
               <label>No of OrganiZations : {allorg.length}</label>
             </div>
           </div>
