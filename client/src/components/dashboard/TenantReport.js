@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllTenants } from "../../actions/tenants";
@@ -8,16 +8,19 @@ import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
-import { getAllOrganization } from "../../actions/tenants";
+import { getAllOrganization, ParticularTenant } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants: { allTenants, allorg },
+  tenants: { get_particular_org_tenant, allorg },
   getAllTenants,
   deactiveTenantsDetails,
+  ParticularTenant,
   getAllOrganization,
 }) => {
-  getAllTenants();
+  useEffect(() => {
+    // ParticularTenant({ OrganizationId: user && user.OrganizationId });
+  });
   // getAllOrganization();
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -177,9 +180,9 @@ const TenantReport = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {allTenants &&
-                            allTenants[0] &&
-                            allTenants.map((Val, idx) => {
+                          {expReport &&
+                            expReport[0] &&
+                            expReport.map((Val, idx) => {
                               // var ED = Val.tenantLeaseEndDate.split(/\D/g);
                               // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
                               //   "-"
@@ -223,7 +226,7 @@ const TenantReport = ({
 
             {/*link to renewal page */}
             <div style={{ display: "none" }}>
-              <RenewalReportPrint expReport={expReport} ref={componentRef} />
+              {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
             </div>
             <Modal
               show={showEditModal}
@@ -349,5 +352,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAllTenants,
   deactiveTenantsDetails,
+  ParticularTenant,
   //getAllOrganization,
 })(TenantReport);

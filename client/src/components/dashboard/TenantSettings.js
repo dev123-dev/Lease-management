@@ -2,7 +2,10 @@ import React, { useState, Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddTenantSettingform } from "../../actions/tenants";
-import { UpdateTenantSettingform } from "../../actions/tenants";
+import {
+  UpdateTenantSettingform,
+  getParticularTenantSetting,
+} from "../../actions/tenants";
 
 import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
@@ -11,11 +14,14 @@ const TenantSettings = ({
   tenants: { allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
+  getParticularTenantSetting,
   onAddSettingModalChange,
 }) => {
   useEffect(() => {
     getAllSettings();
-    // console.log("user details", user);
+    getParticularTenantSetting({
+      OrganizationId: user && user.OrganizationId,
+    });
   }, [getAllSettings]);
 
   //formData
@@ -45,10 +51,7 @@ const TenantSettings = ({
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
     };
-    // console.log("this is submittd tenant setting", finalData);
     AddTenantSettingform(finalData);
-    // setFormData({ ...formData, isSubmitted: true });
-    // getAllSettings();
   };
 
   const onUpdate = (allTenantSetting) => {
@@ -175,5 +178,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAllSettings,
   AddTenantSettingform,
+  getParticularTenantSetting,
   UpdateTenantSettingform,
 })(TenantSettings);

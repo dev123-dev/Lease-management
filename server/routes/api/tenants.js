@@ -317,11 +317,10 @@ router.get("/get-all-Superuser", async (req, res) => {
 //get particular organization user
 router.post("/get-particular-org-user", async (req, res) => {
   let data = req.body;
-
   try {
     const ParticularOrg = await UserDetails.find({
-      OrganizationId: data.orgid,
-    }).sort({ userStatus: 1 });
+      OrganizationId: data.OrganizationId,
+    }); /*.sort({ userStatus: 1 })*/
     res.json(ParticularOrg);
   } catch (error) {
     console.log(error.message);
@@ -390,7 +389,6 @@ router.post("/get-Particular-Property", async (req, res) => {
 
   try {
     let propertydata = await property.find(query).sort({ shopStatus: 1 });
-    // console.log("after loc", propertydata);
     res.json(propertydata);
   } catch (error) {
     console.log(error.message);
@@ -736,7 +734,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
 });
 
 router.post("/get-tenant-exp-report", async (req, res) => {
-  const { monthSearch, yearSearch } = req.body;
+  const { monthSearch, yearSearch, OrganizationId } = req.body;
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;
@@ -816,15 +814,15 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           },
         },
       },
-      // {
-      //   $match: {
-      //     tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
-      //     AgreementStatus: { $ne: "Renewed" },
-      //     tenantstatus: { $eq: "Active" },
-      //   },
-      // },
+      {
+        $match: {
+          OrganizationId: { $eq: OrganizationId },
+          tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
+          AgreementStatus: { $ne: "Renewed" },
+          tenantstatus: { $eq: "Active" },
+        },
+      },
     ]);
-    // console.log("tenantExpReport", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -847,7 +845,7 @@ router.post("/get-Particular-org-Tenantsetting", async (req, res) => {
 
   try {
     const Tenant_SETTING = await TenantSettings.find({
-      OrganizationId: data.Organization_id,
+      OrganizationId: data.OrganizationId,
     });
     res.json(Tenant_SETTING);
   } catch (error) {
@@ -875,6 +873,7 @@ router.get("/get-door-nos", async (req, res) => {
 //get organization expiry data to Tenant filter
 router.post("/get-organization-expiry-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
+  var count = 0;
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;
@@ -886,7 +885,6 @@ router.post("/get-organization-expiry-report", async (req, res) => {
       AgreementStatus: { $eq: "Expired" },
       org_status: "Active",
     });
-    console.log(data);
     res.json(data);
   } catch (error) {
     console.log(error.message);

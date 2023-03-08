@@ -273,7 +273,7 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-
+    console.log(finalData);
     AddTenantDetailsform(finalData);
     setFormData({
       ...formData,
@@ -689,30 +689,6 @@ const AddTenantDetails = ({
             </div>
           </div>
         </Modal.Body>
-
-        {/* <Modal
-          show={showInformationModal}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal model_bck"
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Information</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Shop Details Added!!</h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <button
-              className="btn btn_green_bg"
-              onClick={() => LogoutModalClose()}
-            >
-              OK
-            </button>
-          </Modal.Footer>
-        </Modal> */}
       </Modal>
     </Fragment>
   );
