@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-// import TenantReport from "../dashboard/TenantReport";
+import TenantReport from "../dashboard/TenantReport";
 
 import DatePicker from "react-datepicker";
 import {
@@ -29,7 +29,15 @@ const optName = [
 ];
 
 const TenantFilters = ({
-  auth: { isAuthenticated, user, users, monthExpCnt, yearExpCnt, expReport },
+  auth: {
+    isAuthenticated,
+    user,
+    users,
+    monthExpCnt,
+    yearExpCnt,
+    exp_org_detail,
+    expReport,
+  },
   getMonthExpCount,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
@@ -51,6 +59,7 @@ const TenantFilters = ({
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
       yearSearch: new Date().getFullYear(),
+      OrganizationId: user && user.OrganizationId,
     };
     getTenantReportYearMonth(finalDataReport);
   }, [getTenantReportYearMonth]);
@@ -92,7 +101,8 @@ const TenantFilters = ({
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
       getTenantReportYearMonth(finalDataReport);
-      getOrganizationExpiryReport(finalDataReport);
+      // getOrganizationExpiryReport(finalDataReport);
+      console.log("hello search");
       // <Redirect to="/tenant-report" />;
     }
   };
@@ -225,8 +235,8 @@ const TenantFilters = ({
               </div>
 
               {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
-            <TenantReport />
-          </div> */}
+                <TenantReport />
+              </div> */}
             </div>
           </div>
         </Fragment>

@@ -224,7 +224,9 @@ export const AddAdminuser = (userData) => async (dispatch) => {
       type: GET_ADMIN,
       payload: res.data,
     });
-    dispatch(get_particular_org_user({ orgId: userData.OrganizationId }));
+    dispatch(
+      get_particular_org_user({ OrganizationId: userData.OrganizationId })
+    );
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -273,8 +275,8 @@ export const deactivateUser = (id) => async (dispatch) => {
       id,
       config
     );
-
-    dispatch(get_particular_org_user({ orgid: id.orgId }));
+    dispatch(getalluser());
+    //dispatch(get_particular_org_user({ OrganizationId: id.orgId }));
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -333,6 +335,9 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     });
     dispatch(getAllTenants());
     dispatch(getAllDoorNos());
+    dispatch(
+      getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
+    );
     dispatch(getMonthExpCount(finalDataExpCount)); //change
     dispatch(getPreviousYearsExpCount(finalDataPrevYear));
   } catch (err) {
@@ -386,7 +391,8 @@ export const AddShopDetailsform = (finalData) => async (dispatch) => {
       config
     );
     dispatch(
-      getParticularProperty({ OrganizationId: finalData.OrganizationId })
+      getParticularProperty({ OrganizationId: finalData.OrganizationId }),
+      getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
     );
   } catch (err) {
     dispatch({
@@ -587,6 +593,7 @@ export const getTenantReportYearMonth =
         finalDataReport,
         config
       );
+
       dispatch({
         type: EXP_REPORT,
         payload: res.data,
@@ -676,7 +683,6 @@ export const getOrganizationExpiryReport =
         "Content-Type": "application/json",
       },
     };
-    console.log("inside action of org expiry report", finalOrgData); //here comes year value
     try {
       const res = await axios.post(
         `${linkPath}/api/tenants/get-organization-expiry-report`,

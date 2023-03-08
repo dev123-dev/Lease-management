@@ -13,11 +13,7 @@ const AddAdminUserModal = ({
   AddAdminuser,
   get_particular_org_user,
 }) => {
-  useEffect(() => {
-    get_particular_org_user({
-      orgid: user && user.OrganizationId,
-    });
-  });
+  useEffect(() => {});
   const [showEditModal, setShowEditModal] = useState(false);
   const [Deactiveshow, setDeactiveShow] = useState(false);
 

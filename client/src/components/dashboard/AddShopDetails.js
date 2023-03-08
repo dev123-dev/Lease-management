@@ -20,6 +20,7 @@ const AddShopDetails = ({
   getParticularProperty,
 }) => {
   useEffect(() => {
+    fun();
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
@@ -32,15 +33,21 @@ const AddShopDetails = ({
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
 
-  particular_org_loc &&
-    particular_org_loc.Location &&
-    particular_org_loc.Location.map((org) => {
-      locationList.push({
-        value: org,
-        label: org,
-      });
-    });
+  const [LOCATION, SetLocation] = useState(null);
+  const [Sellocation, SetselLoction] = useState([]);
+  const Loc = [];
 
+  const { _id, Location } = particular_org_loc[0];
+  const fun = () => {
+    particular_org_loc[0] &&
+      Location.map((ele) => {
+        Loc.push({
+          label: ele,
+          value: ele,
+        });
+        SetselLoction(Loc);
+      });
+  };
   const onchangeLoc = (e) => {
     setLoc(e);
   };
@@ -126,8 +133,7 @@ const AddShopDetails = ({
       shopStatus: "Acquired",
     };
 
-    // AddShopDetailsform(finalData);
-    console.log("hai", finalData);
+    AddShopDetailsform(finalData);
     setFormData({
       ...formData,
       buildingName: "",
@@ -213,7 +219,7 @@ const AddShopDetails = ({
                 </label>
                 <Select
                   name="orgLoc"
-                  options={locationList}
+                  options={Sellocation}
                   value={orgLoc}
                   onChange={(e) => onchangeLoc(e)}
                   theme={(theme) => ({

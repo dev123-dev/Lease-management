@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef } from "react";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import RenewalorgAgreement from "./RenewalorgAgreement";
@@ -16,6 +16,7 @@ const TenantReport = ({
   getAllOrganization,
   getOrganizationExpiryReport,
 }) => {
+  useEffect(() => {}, []);
   getAllOrganization();
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -58,15 +59,7 @@ const TenantReport = ({
       handleEditModalClose();
     }
   };
-  const onAdd = () => {
-    const reason = {
-      deactive_reason: deactive_reason,
-      tid: tId,
-      isSubmitted: "true",
-    };
-    // deactiveTenantsDetails(reason);
-    handleClose();
-  };
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (

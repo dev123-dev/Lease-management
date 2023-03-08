@@ -21,9 +21,11 @@ const UserDetails = ({
 }) => {
   useEffect(() => {
     get_particular_org_user({
-      orgid: user && user.OrganizationId,
+      OrganizationId: user && user.OrganizationId,
     });
+    console.log("this is user", get_particularOrg_user);
   }, []);
+
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
@@ -135,9 +137,9 @@ const UserDetails = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {currentDatas &&
-                            currentDatas[0] &&
-                            currentDatas.map((alluser, idx) => {
+                          {get_particularOrg_user &&
+                            get_particularOrg_user[0] &&
+                            get_particularOrg_user.map((alluser, idx) => {
                               return (
                                 <tr key={idx}>
                                   <td>{alluser.username}</td>
