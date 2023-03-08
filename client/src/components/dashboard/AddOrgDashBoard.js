@@ -127,7 +127,7 @@ const AddOrgDashBoard = ({
 
               <div>
                 <img
-                  className="refreshbtn"
+                  className="refreshbtn "
                   height="25px"
                   onClick={() => refreshbtn()}
                   src={require("../../static/images/refresh-icon.png")}

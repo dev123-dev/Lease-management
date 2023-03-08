@@ -1511,10 +1511,11 @@ input[type="radio"].error {
 
 }
 .refreshbtn{
+
  
- margin-left:420%;
- margin-top: -25%;
- 
+  margin-left: 107%;
+ margin-top: -7%;
+  
   cursor: pointer; 
 }
 
