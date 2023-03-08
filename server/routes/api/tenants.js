@@ -120,10 +120,13 @@ router.post("/add-Organization", async (req, res) => {
       OrganizationEmail: output.OrganizationEmail,
       OrganizationNumber: output.OrganizationNumber,
       OrganizationAddress: output.OrganizationAddress,
+      date: output.date,
+      enddate: output.enddate,
       Location: output.Location,
       org_status: output.org_status,
       enter_by_dateTime: output.enter_by_dateTime,
     };
+    console.log(finalData2);
     let output2 = new OrganizationDetailsHistories(finalData2);
     let orghistory = output2.save();
     res.send(output);
@@ -571,7 +574,13 @@ router.post(
 
 // Get Exp Month Count
 router.get("/get-month-exp-count", async (req, res) => {
+  const { selectedY } = req.body; //change
+
   var yearVal = new Date().getFullYear();
+  if (selectedY) {
+    //change
+    yearVal = selectedY;
+  }
   try {
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
@@ -613,47 +622,47 @@ router.get("/get-month-exp-count", async (req, res) => {
 });
 
 //Filter Exp Month Count filter
-router.post("/get-month-exp-count-filter", async (req, res) => {
-  const { selectedY } = req.body;
-  try {
-    const MonthExpCntData = await TenentAgreement.aggregate([
-      {
-        $lookup: {
-          from: "tenantdetails",
-          localField: "tdId",
-          foreignField: "_id",
-          as: "output",
-        },
-      },
-      {
-        $match: {
-          tenantLeaseEndDate: { $regex: new RegExp("^" + selectedY, "i") },
-          AgreementStatus: { $ne: "Renewed" },
-          output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
-        },
-      },
-      {
-        $group: {
-          _id: {
-            year: {
-              $year: { $dateFromString: { dateString: "$tenantLeaseEndDate" } },
-            },
-            month: {
-              $month: {
-                $dateFromString: { dateString: "$tenantLeaseEndDate" },
-              },
-            },
-          },
-          count: { $sum: 1 },
-        },
-      },
-    ]);
-    res.json(MonthExpCntData);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
-  }
-});
+// router.post("/get-month-exp-count-filter", async (req, res) => {
+//   const { selectedY } = req.body;
+//   try {
+//     const MonthExpCntData = await TenentAgreement.aggregate([
+//       {
+//         $lookup: {
+//           from: "tenantdetails",
+//           localField: "tdId",
+//           foreignField: "_id",
+//           as: "output",
+//         },
+//       },
+//       {
+//         $match: {
+//           tenantLeaseEndDate: { $regex: new RegExp("^" + selectedY, "i") },
+//           AgreementStatus: { $ne: "Renewed" },
+//           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: {
+//             year: {
+//               $year: { $dateFromString: { dateString: "$tenantLeaseEndDate" } },
+//             },
+//             month: {
+//               $month: {
+//                 $dateFromString: { dateString: "$tenantLeaseEndDate" },
+//               },
+//             },
+//           },
+//           count: { $sum: 1 },
+//         },
+//       },
+//     ]);
+//     res.json(MonthExpCntData);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Internal Server Error.");
+//   }
+// });
 
 router.post("/add-agreement-details", async (req, res) => {
   let data = req.body;
@@ -815,7 +824,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
       //   },
       // },
     ]);
-    console.log("tenantExpReport", tenantExpReport);
+    // console.log("tenantExpReport", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -861,6 +870,26 @@ router.get("/get-door-nos", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
+  }
+});
+//get organization expiry data to Tenant filter
+router.post("/get-organization-expiry-report", async (req, res) => {
+  const { monthSearch, yearSearch } = req.body;
+  var monthVal = monthSearch;
+  if (monthSearch < 10 && monthSearch.toString().length === 1) {
+    var monthVal = "0" + monthSearch;
+  }
+  var yearMonth = yearSearch + "-" + monthVal;
+  try {
+    const data = await OrganizationDetails.find({
+      enddate: { $regex: new RegExp("^" + yearMonth, "i") },
+      AgreementStatus: { $eq: "Expired" },
+      org_status: "Active",
+    });
+    console.log(data);
+    res.json(data);
+  } catch (error) {
+    console.log(error.message);
   }
 });
 
@@ -1101,7 +1130,8 @@ router.post("/Renew-Organization", async (req, res) => {
           OrganizationAddress: data.OrganizationAddress,
           date: data.date,
           enddate: data.enddate,
-          AgreementStatus: "Active",
+          AgreementStatus: "Renewed",
+          org_status: "Active",
         },
       }
     );

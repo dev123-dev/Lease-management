@@ -6,7 +6,7 @@ import { Modal, Button } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
-import RenewalorgAgreement from "./RenewalorgAgreement";
+import RenewalOrg_mainPage from "./RenewalOrg_mainPage";
 const MainSuperPage = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allorg },
@@ -104,7 +104,7 @@ const MainSuperPage = ({
                                       Renewal
                                     </button>
                                   ) : (
-                                    <p></p>
+                                    <p>x</p>
                                   )}
                                 </td>
                               </tr>
@@ -142,7 +142,7 @@ const MainSuperPage = ({
           </div>
         </Modal.Header>
         <Modal.Body>
-          <RenewalorgAgreement
+          <RenewalOrg_mainPage
             orgData={userData}
             onReportModalChange={onReportModalChange}
           />

@@ -2,17 +2,14 @@ import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
-import { useLocation } from "react-router-dom";
 
-const ReneworgAggreement = ({
+const RenewalOrg_mainPage = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   //Org: { allOrgSetting },
   RenewOrgDetailsform,
+  orgData,
   onReportModalChange,
 }) => {
-  const Location = new useLocation();
-  const orgData = Location.state;
-  console.log(orgData);
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -98,7 +95,7 @@ const ReneworgAggreement = ({
 
   const onSubmit = () => {
     const finalData = {
-      isSubmitted: true,
+      isSubmitted: false,
       OrganizationId: orgData._id,
       Orgname: orgData.OrganizationName,
       Orgemail: orgData.OrganizationEmail,
@@ -115,7 +112,7 @@ const ReneworgAggreement = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <section className="sub_reg mt-5 p-5">
+      <section className="sub_reg">
         <div className="row">
           <div
             className="col-lg-4 col-md-2 col-sm-4 col-12"
@@ -163,6 +160,11 @@ const ReneworgAggreement = ({
               variant="success"
               id="Renewalbtn"
               onClick={() => onSubmit()}
+              style={
+                leaseEndDate !== ""
+                  ? { opacity: "1" }
+                  : { opacity: "1", pointerEvents: "none" }
+              }
             >
               Renew
             </button>
@@ -173,7 +175,7 @@ const ReneworgAggreement = ({
   );
 };
 
-ReneworgAggreement.propTypes = {
+RenewalOrg_mainPage.propTypes = {
   auth: PropTypes.object.isRequired,
 
   // RenewTenantDetailsform: PropTypes.func.isRequired,
@@ -185,5 +187,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { RenewOrgDetailsform })(
-  ReneworgAggreement
+  RenewalOrg_mainPage
 );

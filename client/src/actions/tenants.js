@@ -30,6 +30,7 @@ import {
   PARTICULAR_ORG_USER,
   GET_PARTICULAR_ORG_TENANTSETTING,
   PARTICULAR_ORG_TENANT,
+  EXP_ORG_DETAIL,
 } from "./types";
 
 var linkPath = "";
@@ -332,7 +333,7 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     });
     dispatch(getAllTenants());
     dispatch(getAllDoorNos());
-    dispatch(getMonthExpCountFilter(finalDataExpCount));
+    dispatch(getMonthExpCount(finalDataExpCount)); //change
     dispatch(getPreviousYearsExpCount(finalDataPrevYear));
   } catch (err) {
     dispatch({
@@ -489,9 +490,12 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 // Get Exp Month Count
-export const getMonthExpCount = () => async (dispatch) => {
+export const getMonthExpCount = (finalData) => async (dispatch) => {
   try {
-    const res = await axios.get(`${linkPath}/api/tenants/get-month-exp-count`);
+    const res = await axios.get(
+      `${linkPath}/api/tenants/get-month-exp-count`,
+      finalData
+    );
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,
@@ -504,28 +508,28 @@ export const getMonthExpCount = () => async (dispatch) => {
 };
 
 // Get Exp Month Count filter
-export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/get-month-exp-count-filter`,
-      finalData,
-      config
-    );
-    dispatch({
-      type: MONTH_EXP_CNT,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
-};
+// export const getMonthExpCountFilter = (finalData) => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+//   try {
+//     const res = await axios.post(
+//       `${linkPath}/api/tenants/get-month-exp-count-filter`,
+//       finalData,
+//       config
+//     );
+//     dispatch({
+//       type: MONTH_EXP_CNT,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     dispatch({
+//       type: AUTH_ERROR,
+//     });
+//   }
+// };
 
 export const getAllShops = (data) => async (dispatch) => {
   try {
@@ -664,6 +668,29 @@ export const getAllDoorNumbers = () => async (dispatch) => {
     });
   }
 };
+
+export const getOrganizationExpiryReport =
+  (finalOrgData) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    console.log("inside action of org expiry report", finalOrgData); //here comes year value
+    try {
+      const res = await axios.post(
+        `${linkPath}/api/tenants/get-organization-expiry-report`,
+        finalOrgData
+      );
+      dispatch({
+        type: EXP_ORG_DETAIL,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 export const getTenantReportOldExp =
   (finalDataReportOld) => async (dispatch) => {
     const config = {
@@ -744,7 +771,7 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
       config
     );
     dispatch(getTenantReportYearMonth(finalDataReport));
-    dispatch(getMonthExpCountFilter(finalDataExpCount));
+    dispatch(getMonthExpCount(finalDataExpCount)); //change
     dispatch(getPreviousYearsExpCount(finalDataPrevYear));
   } catch (err) {
     dispatch({

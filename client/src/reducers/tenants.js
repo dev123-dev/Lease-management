@@ -17,6 +17,7 @@ import {
   PARTICULAR_ORG_USER,
   GET_PARTICULAR_ORG_TENANTSETTING,
   PARTICULAR_ORG_TENANT,
+  EXP_ORG_DETAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -38,6 +39,7 @@ const initialState = {
   expReport: [],
   allorg: [""],
   allsuperuser: [""],
+  exp_org_detail: [""],
   updatedorg: [""],
   particular_org_data: [""],
   particular_org_loc: [""],
@@ -133,7 +135,11 @@ const tenants = (state = initialState, action) => {
         ...state,
         get_particular_org_tenant: payload,
       };
-
+    case EXP_ORG_DETAIL:
+      return {
+        ...state,
+        exp_org_detail: payload,
+      };
     default:
       return state;
   }
