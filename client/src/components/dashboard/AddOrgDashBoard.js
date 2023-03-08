@@ -177,7 +177,8 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.date}</td>
                               <td>{orgVal.enddate}</td>
                               <td>
-                                {orgVal.org_status === "Active" ? (
+                                {orgVal.org_status === "Active" ||
+                                orgVal.org_status === "Renewed" ? (
                                   <>
                                     <img
                                       className="Cursor"

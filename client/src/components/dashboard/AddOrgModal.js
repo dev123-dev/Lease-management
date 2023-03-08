@@ -119,8 +119,8 @@ const AddOrgModal = ({
         enddate: newLeaseEndDate,
         Location: items,
       };
-      console.log(finalORGdata);
-      // AddOrganization(finalORGdata);
+      //console.log(finalORGdata);
+      AddOrganization(finalORGdata);
       hidden();
       onshow();
       setFormDataORG({

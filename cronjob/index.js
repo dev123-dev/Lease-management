@@ -8,7 +8,7 @@ const fs = require("fs");
 const { Console } = require("console");
 
 const TenentAgreement = require("../server/models/TenantAgreementDetails");
-const OrganizationDetails = require("../server/models/OrganizationDetails")
+const OrganizationDetails = require("../server/models/OrganizationDetails");
 
 // const MONGODB_URI =
 //   process.env.MONGODB_URI || "mongodb://localhost:27017/pinnac23_LRA";
@@ -33,7 +33,7 @@ async function updateExpiryStatus() {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
-    console.log("test")
+    console.log("test");
     const updateStatus = await TenentAgreement.updateMany(
       { tenantLeaseEndDate: { $lte: todayDateymd }, AgreementStatus: "Active" },
       {
@@ -44,21 +44,23 @@ async function updateExpiryStatus() {
     );
     const updateOrgStatus = await OrganizationDetails.updateMany(
       {
-        enddate : { $lte : todayDateymd}, AgreementStatus : "Active"},
-        {
-           $set :{AgreementStatus : "Expired",},
-        },
+        enddate: { $lte: todayDateymd },
+        AgreementStatus: "Active",
+      },
+      {
+        $set: { AgreementStatus: "Expired" },
+      }
     );
 
     console.log("Status updated as Expired");
   } catch (error) {
-    console.error("Error Here",error);
+    console.error("Error Here", error);
     //res.status(500).send("Internal Server Error.");
   }
 }
 
 function expairyNotif() {
-  cron.schedule("19 * * * *", function () {
+  cron.schedule("* * * * *", function () {
     updateExpiryStatus();
   });
 }

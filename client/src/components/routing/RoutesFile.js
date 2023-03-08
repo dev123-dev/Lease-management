@@ -8,7 +8,7 @@ import RouteDriver from "../dashboard/RouteDriver";
 
 //DashBoard
 import changePassword from "../auth/ChangePwd";
-
+import RenewalorgAgreement from "../dashboard/RenewalorgAgreement";
 import AddTenantDetails from "../dashboard/AddTenantDetails";
 import TenantSettings from "../dashboard/TenantSettings";
 import TenantReport from "../dashboard/TenantReport";
@@ -17,7 +17,7 @@ import AddShopDetails from "../dashboard/AddShopDetails";
 import EditTenantDetails from "../dashboard/EditTenantDetails";
 import AddOrgDashBoard from "../dashboard/AddOrgDashBoard";
 import SuperDashboard from "../dashboard/SuperUserDashboard";
-
+import RenewalOrg_mainPage from "../dashboard/RenewalOrg_mainPage";
 import MainSuperPage from "../dashboard/MainSuperPage";
 import Tenant_Details from "../dashboard/Tenant_Details";
 import AddOrgModal from "../dashboard/AddOrgModal";
@@ -48,10 +48,23 @@ const RoutesFile = () => {
           component={OrganizationFilter}
         />
         <PrivateRoute exact path="/PropertyDetail" component={PropertyDetail} />
+        <PrivateRoute
+          exact
+          path="/Renewal-Org"
+          component={RenewalorgAgreement}
+        />
+
         <PrivateRoute exact path="/AddOrganization" component={AddOrgModal} />
         <PrivateRoute exact path="/tenant-detail" component={Tenant_Details} />
+
         <PrivateRoute exact path="/AddAdmin" component={AddAdminModal} />
         <PrivateRoute exact path="/MainSuper" component={MainSuperPage} />
+        <PrivateRoute
+          exact
+          path="/Renewal_2nd"
+          component={RenewalOrg_mainPage}
+        />
+
         <PrivateRoute exact path="/Super" component={AddOrgDashBoard} />
         <PrivateRoute exact path="/SuperUser" component={SuperDashboard} />
         <PrivateRoute exact path="/AdminUser" component={UserDetails} />

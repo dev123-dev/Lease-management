@@ -1,15 +1,20 @@
 import React, { useState, Fragment, useRef } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
+import RenewalorgAgreement from "./RenewalorgAgreement";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
-import { getAllOrganization } from "../../actions/tenants";
+import { useHistory } from "react-router-dom";
+import {
+  getAllOrganization,
+  getOrganizationExpiryReport,
+} from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants: { allorg },
+  tenants: { allorg, exp_org_detail },
   getAllOrganization,
+  getOrganizationExpiryReport,
 }) => {
   getAllOrganization();
   const componentRef = useRef();
@@ -18,7 +23,7 @@ const TenantReport = ({
   });
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
-  const [userData, setUserData] = useState(null);
+  const [orgData, setOrgData] = useState(null);
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -41,10 +46,12 @@ const TenantReport = ({
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const history = useHistory();
 
-  const onRenewal = (tenants) => {
+  const renewal = (org) => {
     setShowEditModal(true);
-    setUserData(tenants);
+    setOrgData(org);
+    history.push("/Renewal-Org", org);
   };
   const onReportModalChange = (e) => {
     if (e) {
@@ -60,7 +67,6 @@ const TenantReport = ({
     // deactiveTenantsDetails(reason);
     handleClose();
   };
-
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -103,9 +109,9 @@ const TenantReport = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {allorg &&
-                            allorg[0] &&
-                            allorg.map((org, index) => {
+                          {exp_org_detail &&
+                            exp_org_detail[0] &&
+                            exp_org_detail.map((org, index) => {
                               return (
                                 <tr>
                                   <td>{org.OrganizationName}</td>
@@ -116,7 +122,10 @@ const TenantReport = ({
                                   <td>{org.enddate}</td>
                                   <td>
                                     {org.AgreementStatus === "Expired" ? (
-                                      <button className="rewbtn">
+                                      <button
+                                        className="rewbtn"
+                                        onClick={() => renewal(org)}
+                                      >
                                         Renewal
                                       </button>
                                     ) : (
