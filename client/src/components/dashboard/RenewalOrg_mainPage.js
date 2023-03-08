@@ -112,6 +112,9 @@ const RenewalOrg_mainPage = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
+      <div>
+        <h1>Renew</h1>
+      </div>
       <section className="sub_reg">
         <div className="row">
           <div

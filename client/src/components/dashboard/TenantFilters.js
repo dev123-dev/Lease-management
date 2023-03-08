@@ -128,7 +128,7 @@ const TenantFilters = ({
       {user.usergroup === "Super Admin" ? (
         //super admin filter
         <Fragment>
-          <div className="container_align top_menu tenant_filter ">
+          <div className="container_align top_menu  ">
             <div className="row pb-2  ml-2 responsiveDiv">
               <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
                 {/* brdr-clr-styles */}

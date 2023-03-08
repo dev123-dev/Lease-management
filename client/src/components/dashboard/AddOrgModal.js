@@ -161,7 +161,6 @@ const AddOrgModal = ({
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered
-          className="logout-modal m-2 "
         >
           <Modal.Header>
             <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
@@ -200,7 +199,7 @@ const AddOrgModal = ({
                     name="OrganizationName"
                     value={OrganizationName}
                     onChange={(e) => onORGchange(e)}
-                    className="form-control   "
+                    className="form-control    "
                     placeholder="OrganizationName"
                   />
                 </div>

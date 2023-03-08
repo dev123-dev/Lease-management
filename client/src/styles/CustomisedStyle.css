@@ -294,8 +294,7 @@ footer.footer .top_top {
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
+display: inline;
   margin-right: 0px;
   margin-left: 0px;
 }
@@ -574,7 +573,7 @@ p {
   .refreshbtn{
 
    position: relative;
-   top: -30px;
+   top: -25px;
    height:20px;
    right:10px;
  
@@ -594,6 +593,16 @@ p {
     margin-top:-4%;
     
    
+  }
+  .table-responsive{
+    width:100%;
+  }
+  .table{
+    display:block;
+  }
+
+  .tenantfilter{
+    display: none;
   }
  
   
@@ -2156,7 +2165,7 @@ button {
 .rewbtn {
   background-color: #095a4a;
   color: white;
-  width: 90%;
+  width: 100%;
   height: 40px;
   border-radius: 0%;
   border-color: transparent;
@@ -2296,9 +2305,9 @@ button {
 }
 
 
-/* div{
+div{
   border:1px solid rgba(242, 10, 10, 0.541);
-}     */
+}      
 .deactive {
   position: absolute;
   background-color: rgb(221, 95, 95);
