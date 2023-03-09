@@ -153,8 +153,6 @@ const AddOrgDashBoard = ({
               />
             </div>
 
-            <div></div>
-
             <div className="row ">
               <div className="col-lg-1"></div>
 
@@ -221,7 +219,6 @@ const AddOrgDashBoard = ({
                   </tbody>
                 </table>
               </div>
-              <div className="col-lg-1"></div>
 
               {/* <div className="row">
                 <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
@@ -240,6 +237,7 @@ const AddOrgDashBoard = ({
                   <label>No of Property : {allorg.length}</label>
                 </div>
               </div> */}
+              <div className="col-lg-1"></div>
             </div>
           </div>
         </div>
