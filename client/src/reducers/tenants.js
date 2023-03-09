@@ -18,6 +18,9 @@ import {
   GET_PARTICULAR_ORG_TENANTSETTING,
   PARTICULAR_ORG_TENANT,
   EXP_ORG_DETAIL,
+  EXP_ORG_REPORT,
+  EXP_ORG_COUNT,
+  YEAR_EXP_COUNT_ORG,
 } from "../actions/types";
 
 const initialState = {
@@ -48,6 +51,8 @@ const initialState = {
   get_particular_org_user: [""],
   get_Particular_org_Tenantsetting: [""],
   get_particular_org_tenant: [""],
+  exp_org_count: [],
+  ext_year_count_org: [],
 };
 
 const tenants = (state = initialState, action) => {
@@ -139,6 +144,21 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         exp_org_detail: payload,
+      };
+    case EXP_ORG_REPORT:
+      return {
+        ...state,
+        exp_org_report: payload,
+      };
+    case EXP_ORG_COUNT:
+      return {
+        ...state,
+        exp_org_count: payload,
+      };
+    case YEAR_EXP_COUNT_ORG:
+      return {
+        ...state,
+        ext_year_count_org: payload,
       };
     default:
       return state;

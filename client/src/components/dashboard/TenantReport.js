@@ -216,6 +216,9 @@ const TenantReport = ({
                                 </tr>
                               );
                             })}
+                          {expReport.length < 1 && (
+                            <td colSpan={10}>No Data Available</td>
+                          )}
                         </tbody>
                       </table>
                     </div>
