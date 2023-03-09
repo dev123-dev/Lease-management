@@ -12,7 +12,6 @@ const ReneworgAggreement = ({
 }) => {
   const Location = new useLocation();
   const orgData = Location.state;
-  console.log(orgData);
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },

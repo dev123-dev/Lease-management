@@ -16,9 +16,7 @@ const TenantReport = ({
   getAllOrganization,
   getOrganizationExpiryReport,
 }) => {
-  useEffect(() => {
-    console.log("exp_org_report", exp_org_report);
-  }, []);
+  useEffect(() => {}, []);
   getAllOrganization();
 
   const componentRef = useRef();
