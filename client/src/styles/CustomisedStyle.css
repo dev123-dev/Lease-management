@@ -545,7 +545,10 @@ p {
   }
   .heading_color{
     position: relative;
-    margin-top: 50%;
+    font-size:larger;
+    font-weight: 500;
+    margin-top: -10%;
+    left:20px;
   }
   #datatable2{
     position: relative;
@@ -558,42 +561,59 @@ p {
    
   }
   #plusicon{
-    top:-40px;
+    top:-25px;
     right:85px;
     height: 20px;
     position: relative;
     background-color:transparent;
   }
-  .heading_color {
-    font-size:large;
-    font-weight: 500;
-    margin-top: -10%;
-
+  
+  .plusicon{
+    background-color:transparent;
+    position: relative;
+    top:150%;
+    right:100%
   }
   .refreshbtn{
 
    position: relative;
-   top: -25px;
+   top: -15px;
    height:20px;
-   right:10px;
+   right:20px;
  
   }
-  .count{
-    right:50px;
+  .count {
+    right:80px;
+  }
+  .page {
+    left:60px;
   }
   .headinghover:hover{
      color:lightgray;
   }
   .orghea{
-    
-    font-size:0px;
-    right:25px;
+    font-size:medium;
+    right:50px;
     position: absolute;
-    margin-left: -25px;
     margin-top:-4%;
     
-   
   }
+  .edithea{
+    background-color: #095a4a;
+    margin-right: 60px;
+    
+  }
+  .editcl{
+    margin-right: 50px;
+
+  }
+ .save:hover{
+  background-color: #095a4a;
+
+ }
+ .nvbar{
+  margin-right: 15px;
+ }
   .table-responsive{
     width:100%;
   }
@@ -604,6 +624,7 @@ p {
   .tenantfilter{
     display: none;
   }
+  
  
   
 }
@@ -1555,11 +1576,8 @@ input[type="radio"].error {
 
 }
 .refreshbtn{
-
- 
-  margin-left: 107%;
- margin-top: -7%;
-  
+  margin-left: 85%;
+ position: absolute;
   cursor: pointer; 
 }
 
@@ -2019,8 +2037,11 @@ input[type="number"]::-webkit-outer-spin-button {
   border-color: transparent;
   border: transparent;
   color: #095a4a;
-  margin-left: 400px;
+  margin-left: 200px;
   cursor: pointer;
+}
+.close:hover{
+  background-color: lightgrey;
 }
 .clprop {
   margin-left: 100px;
@@ -2033,7 +2054,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-color: transparent;
   border: transparent;
   color: #095a4a;
-  margin-left: 250px;
+  margin-left: 140px;
   cursor: pointer;
 }
 .clorg:hover {
@@ -2041,6 +2062,10 @@ input[type="number"]::-webkit-outer-spin-button {
   
 }
 .orghea{
+  margin-left: 220px;
+  font-size: 30px;
+}
+.edithea{
   margin-left: 220px;
   font-size: large;
 }
@@ -2206,13 +2231,12 @@ button {
   background-color: black;
 }
 .addicon {
-  border-color: white;
+  border-color: rgb(255, 255, 255);
   background-color: transparent;
   width: 30px;
   height: 20%;
-  margin-top: 60px;
- 
   cursor: pointer;
+  
 }
 .Uservalidation {
   color: red;

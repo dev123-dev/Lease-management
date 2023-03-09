@@ -58,7 +58,7 @@ const SuperUserDashboard = ({
   const [Deactiveshow, setDeactiveShow] = useState(false);
 
   const [userdata, setuser] = useState("");
-  const [OrgId, setId] = useState("");
+  const [UserId, setId] = useState("");
 
   const onDelete = (id) => {
     setId(id);
@@ -87,10 +87,11 @@ const SuperUserDashboard = ({
   const onAdd = () => {
     setDeactiveShow(false);
     const reason = {
-      Org_id: OrgId,
+      userId: UserId,
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
+
     deactivateUser(reason);
   };
 

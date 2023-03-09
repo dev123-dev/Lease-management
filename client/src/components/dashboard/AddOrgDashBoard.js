@@ -57,6 +57,9 @@ const AddOrgDashBoard = ({
   };
   //multiple location end
 
+  //edit
+  const [showadd, setShowadd] = useState(false);
+
   //deactivate
   const [showDeactivate, setShowDeactivate] = useState(false);
   //Edit
@@ -111,146 +114,133 @@ const AddOrgDashBoard = ({
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentDatas =
     allorg && allorg.slice(indexOfFirstData, indexOfLastData);
+
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
 
   return (
-    <div>
-      <div className="container container_align">
-        {/* OrganiZation Details  start*/}
-        <section className="sub_reg">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className="  col-lg-10 col-md-12 col-sm-12 col-11 ">
-              <h2 className="heading_color ">Organization Details </h2>
-              <hr></hr>
+    <>
+      <div className="col mt-5">
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col mt-5 h2">Organistration Details</div>
+        <div className="text-end"> </div>
 
-              <div>
-                <img
-                  className="refreshbtn "
-                  height="25px"
-                  onClick={() => refreshbtn()}
-                  src={require("../../static/images/refresh-icon.png")}
-                  alt="Add User"
-                  title="Refresh User"
-                />
+        <div className="container-fluid d-flex align-items-center justify-content-center ">
+          <div className="col">
+            <div className="refreshbtn">
+              {/* <AddOrgModal />{" "} */}
+
+              <img
+                height="25px"
+                className="mx-2 plusicon"
+                onClick={() => setShowadd(true)}
+                src={require("../../static/images/add-icon.png")}
+                alt="Add User"
+                title="Add User"
+              />
+              <img
+                height="25px"
+                onClick={() => refreshbtn()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="Add User"
+                title="Refresh User"
+              />
+            </div>
+
+            <div></div>
+
+            <div className="row ">
+              <div className="col-lg-1"></div>
+
+              <div className=" mt-5 col-lg-10  d-flex align-items-center justify-content-center ">
+                <table
+                  className="table table-bordered table-striped table-hover table-active  table-responsive fixTableHeadjoin mt-3"
+                  id="datatable2"
+                >
+                  <thead>
+                    <tr>
+                      <th>Organistration Name</th>
+                      <th>Organistration Email</th>
+                      <th>Organistration Phone</th>
+                      <th>Organistration Address</th>
+
+                      {/* <th>Number of Users</th> */}
+
+                      <th>Location</th>
+                      <th>StartDate</th>
+                      <th>EndDate</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentDatas &&
+                      currentDatas[0] &&
+                      currentDatas.map((orgVal, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td>{orgVal.OrganizationName}</td>
+                            <td>{orgVal.OrganizationEmail}</td>
+                            <td>{orgVal.OrganizationNumber}</td>
+                            <td>{orgVal.OrganizationAddress}</td>
+                            <td>{orgVal.Location + ","}</td>
+                            <td>{orgVal.date}</td>
+                            <td>{orgVal.enddate}</td>
+                            <td>
+                              {orgVal.org_status === "Active" ||
+                              orgVal.org_status === "Renewed" ? (
+                                <>
+                                  <img
+                                    className="Cursor"
+                                    onClick={() => onedit(orgVal, idx)}
+                                    src={require("../../static/images/edit_icon.png")}
+                                    alt="Edit"
+                                    title="Edit User"
+                                  />
+                                  &nbsp;
+                                  <img
+                                    className="Cursor"
+                                    onClick={() => onDelete(orgVal._id)}
+                                    src={require("../../static/images/delete.png")}
+                                    alt="delete User"
+                                    title="delete User"
+                                  />
+                                </>
+                              ) : (
+                                <div className="blank">DeActivated</div>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
               </div>
-            </div>
-            <div className="link_to_org">
-              <AddOrgModal />
+              <div className="col-lg-1"></div>
             </div>
           </div>
-          <div className="row ">
-            <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center">
-              <section className="body">
-                <div className="body-inner no-padding ">
-                  <table
-                    className="table table-bordered table-striped table-hover table-active  table-responsive fixTableHeadjoin"
-                    id="datatable2"
-                  >
-                    <thead>
-                      <tr>
-                        <th>Org Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Address</th>
-
-                        {/* <th>Number of Users</th> */}
-
-                        <th>Location</th>
-                        <th>StartDate</th>
-                        <th>EndDate</th>
-                        <th>Operation</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {currentDatas &&
-                        currentDatas[0] &&
-                        currentDatas.map((orgVal, idx) => {
-                          return (
-                            <tr key={idx}>
-                              <td>{orgVal.OrganizationName}</td>
-                              <td>{orgVal.OrganizationEmail}</td>
-                              <td>{orgVal.OrganizationNumber}</td>
-                              <td>{orgVal.OrganizationAddress}</td>
-                              <td>{orgVal.Location + ","}</td>
-                              <td>{orgVal.date}</td>
-                              <td>{orgVal.enddate}</td>
-                              <td>
-                                {orgVal.org_status === "Active" ||
-                                orgVal.org_status === "Renewed" ? (
-                                  <>
-                                    <img
-                                      className="Cursor"
-                                      onClick={() => onedit(orgVal, idx)}
-                                      src={require("../../static/images/edit_icon.png")}
-                                      alt="Edit"
-                                      title="Edit User"
-                                    />
-                                    &nbsp;
-                                    <img
-                                      className="Cursor"
-                                      onClick={() => onDelete(orgVal._id)}
-                                      src={require("../../static/images/delete.png")}
-                                      alt="delete User"
-                                      title="delete User"
-                                    />
-                                  </>
-                                ) : (
-                                  <div className="blank">DeActivated</div>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-              {allorg && allorg.length !== 0 ? (
-                <Pagination
-                  dataPerPage={dataPerPage}
-                  totalData={allorg.length}
-                  paginate={paginate}
-                  currentPage={currentData}
-                />
-              ) : (
-                <Fragment />
-              )}
-            </div>
-            <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right count">
-              <label>No of OrganiZations : {allorg.length}</label>
-            </div>
-          </div>
-        </section>
-        {/* OrganiZation Deatils End */}
+        </div>
       </div>
 
       {/* deactivating the Super User */}
-      <Modal
-        show={showDeactivate}
-        // onHide={handleClose}
-        centered
-      >
-        <Modal.Title>
-          <></>
-          <div className="text-center h4">
-            <b className="ml-2">Deactivate</b>
-
-            <Button onClick={() => setShowDeactivate(false)} id="Deactiveclose">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </Button>
+      <Modal show={showDeactivate} centered>
+        <Modal.Header>
+          <div className="col-lg-11 ">
+            <h3 className="modal-title text-center">DEACTIVATE</h3>
           </div>
-        </Modal.Title>
+          <div className="col-lg-1">
+            <img
+              src={require("../../static/images/close.png")}
+              alt="X"
+              style={{ height: "20px", width: "20px" }}
+              onClick={() => setShowDeactivate(false)}
+            />
+          </div>
+        </Modal.Header>
 
         <Modal.Body>
           <Form>
@@ -293,16 +283,15 @@ const AddOrgDashBoard = ({
         centered
       >
         <Modal.Header>
-          <div className="col-lg-10">
+          <div className="col-lg-10 ">
             <h3>
-              <b className="modal-title text-center h3">
-                Edit Organization Details{" "}
-              </b>
+              <b className="text-center ">Edit Organization Details </b>
             </h3>
           </div>
-          <div className="col-lg-2">
+          <div className="col-lg-2 ">
             <button onClick={editclose} className="close">
               <img
+                className="editcl"
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
@@ -315,8 +304,136 @@ const AddOrgDashBoard = ({
         </Modal.Body>
       </Modal>
 
-      {/* edit old code end */}
-    </div>
+      {/* Add model */}
+
+      <Modal
+        show={showadd}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <AddOrgModal setShowadd={setShowadd} />
+      </Modal>
+    </>
+
+    // <div>
+    //   <div className="container container_align">
+    //     {/* OrganiZation Details  start*/}
+    //     <section className="sub_reg">
+    //       <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+    //         <div className="  col-lg-10 col-md-12 col-sm-12 col-11 ">
+    //           <h2 className="heading_color">Organization Details </h2>
+    //           <hr></hr>
+
+    //           <div>
+    //             <img
+    //               className="refreshbtn "
+    //               height="25px"
+    //               onClick={() => refreshbtn()}
+    //               src={require("../../static/images/refresh-icon.png")}
+    //               alt="Add User"
+    //               title="Refresh User"
+    //             />
+    //           </div>
+    //         </div>
+    //         <div className="link_to_org">
+    //           <AddOrgModal />
+    //         </div>
+    //       </div>
+    //       <div className="row ">
+    //         <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center">
+    //           <section className="body">
+    //             <div className="body-inner no-padding ">
+    //               <table
+    //                 className="table table-bordered table-striped table-hover table-active  table-responsive fixTableHeadjoin"
+    //                 id="datatable2"
+    //               >
+    //                 <thead>
+    //                   <tr>
+    //                     <th>Org Name</th>
+    //                     <th>Email</th>
+    //                     <th>Phone</th>
+    //                     <th>Address</th>
+
+    //                     {/* <th>Number of Users</th> */}
+
+    //                     <th>Location</th>
+    //                     <th>StartDate</th>
+    //                     <th>EndDate</th>
+    //                     <th>Operation</th>
+    //                   </tr>
+    //                 </thead>
+    //                 <tbody>
+    //                   {currentDatas &&
+    //                     currentDatas[0] &&
+    //                     currentDatas.map((orgVal, idx) => {
+    //                       return (
+    //                         <tr key={idx}>
+    //                           <td>{orgVal.OrganizationName}</td>
+    //                           <td>{orgVal.OrganizationEmail}</td>
+    //                           <td>{orgVal.OrganizationNumber}</td>
+    //                           <td>{orgVal.OrganizationAddress}</td>
+    //                           <td>{orgVal.Location + ","}</td>
+    //                           <td>{orgVal.date}</td>
+    //                           <td>{orgVal.enddate}</td>
+    //                           <td>
+    //                             {orgVal.org_status === "Active" ||
+    //                             orgVal.org_status === "Renewed" ? (
+    //                               <>
+    //                                 <img
+    //                                   className="Cursor"
+    //                                   onClick={() => onedit(orgVal, idx)}
+    //                                   src={require("../../static/images/edit_icon.png")}
+    //                                   alt="Edit"
+    //                                   title="Edit User"
+    //                                 />
+    //                                 &nbsp;
+    //                                 <img
+    //                                   className="Cursor"
+    //                                   onClick={() => onDelete(orgVal._id)}
+    //                                   src={require("../../static/images/delete.png")}
+    //                                   alt="delete User"
+    //                                   title="delete User"
+    //                                 />
+    //                               </>
+    //                             ) : (
+    //                               <div className="blank">DeActivated</div>
+    //                             )}
+    //                           </td>
+    //                         </tr>
+    //                       );
+    //                     })}
+    //                 </tbody>
+    //               </table>
+    //             </div>
+    //           </section>
+    //         </div>
+    //       </div>
+
+    //       <div className="row">
+    //         <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding page">
+    //           {allorg && allorg.length !== 0 ? (
+    //             <Pagination
+    //               dataPerPage={dataPerPage}
+    //               totalData={allorg.length}
+    //               paginate={paginate}
+    //               currentPage={currentData}
+    //             />
+    //           ) : (
+    //             <Fragment />
+    //           )}
+    //         </div>
+    //         <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right count">
+    //           <label>No of OrganiZations : {allorg.length}</label>
+    //         </div>
+    //       </div>
+    //     </section>
+    //     {/* OrganiZation Deatils End */}
+    //   </div>
+
+    //   {/* edit old code end */}
+    // </div>
   );
 };
 const mapStateToProps = (state) => ({
