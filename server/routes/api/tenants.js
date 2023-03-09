@@ -740,7 +740,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
   const { selectedVal } = req.body;
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-  console.log("firstday", firstDay);
+
   try {
     const yeardata = await OrganizationDetails.aggregate([
       {
@@ -756,7 +756,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
         },
       },
     ]);
-    console.log(yeardata, "year data");
+
     res.json(yeardata);
   } catch (err) {
     console.error(err.message);
@@ -813,7 +813,6 @@ router.post("/get-tenant-exp-report", async (req, res) => {
     var monthVal = "0" + monthSearch;
   }
   var yearMonth = yearSearch + "-" + monthVal;
-  console.log(yearMonth);
 
   try {
     const tenantSettingsData = await TenantSettings.find({});
@@ -897,7 +896,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         },
       },
     ]);
-    console.log("tenantExpReport", tenantExpReport);
+
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -1172,7 +1171,6 @@ router.get("/get-all-tenants", async (req, res) => {
     ]).sort({ tenantstatus: 1 });
     res.json(tenanatData);
   } catch (err) {
-    console.log(err);
     res.status(500).send("Internal Server Error.");
   }
 });

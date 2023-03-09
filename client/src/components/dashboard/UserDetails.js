@@ -23,7 +23,6 @@ const UserDetails = ({
     get_particular_org_user({
       OrganizationId: user && user.OrganizationId,
     });
-    console.log("this is user", get_particularOrg_user);
   }, []);
 
   const [formData, setFormData] = useState({

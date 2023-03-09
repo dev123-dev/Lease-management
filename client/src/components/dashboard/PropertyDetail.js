@@ -42,7 +42,6 @@ const PropertyDetail = ({
           value: ele,
         });
         SetselLoction(Loc);
-        console.log(Sellocation);
       });
   };
   const name = user && user.OrganizationName;
