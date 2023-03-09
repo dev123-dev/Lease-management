@@ -21,11 +21,12 @@ const AddShopDetails = ({
 }) => {
   useEffect(() => {
     fun();
+    console.log(get_Particular_org_Tenantsetting);
     //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     getParticularTenantSetting({
-      Organization_id: user && user.OrganizationId,
+      OrganizationId: user && user.OrganizationId,
     });
   }, []);
 
@@ -305,11 +306,11 @@ const AddShopDetails = ({
                       width="30"
                       height="30"
                       fill="currentColor"
-                      class="bi bi-plus-lg"
+                      className="bi bi-plus-lg"
                       viewBox="0 0 16 16"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
                       />
                     </svg>

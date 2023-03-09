@@ -17,7 +17,6 @@ const MainAdminPage = ({
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
   }, []);
-
   let count = 0;
   let AvaiableShopCount = 0;
   const [PropertyCount, setPropertyCount] = useState();
@@ -30,7 +29,8 @@ const MainAdminPage = ({
   );
 
   const fun = () => {
-    particular_org_data.map((ind) => setPropertyCount(count++));
+    particular_org_data &&
+      particular_org_data.map((ind) => setPropertyCount(count + 1));
     ShopStatus.map((ele) => {
       if (ele.label === "Avaiable") {
         AvaiableShopCount = AvaiableShopCount + 1;
@@ -38,7 +38,6 @@ const MainAdminPage = ({
     });
     setStatus(AvaiableShopCount);
   };
-
   return (
     <div>
       <div className="container container_align ">

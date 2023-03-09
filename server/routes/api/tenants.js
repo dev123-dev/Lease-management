@@ -212,7 +212,6 @@ router.post("/update-Organization", async (req, res) => {
         },
       }
     );
-
     res.json(updateorg);
   } catch (error) {
     console.log("ERROR IN AP", error);

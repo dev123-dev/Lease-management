@@ -82,7 +82,6 @@ router.post(
         const payload = {
           user: {
             id: userDetails._id,
-            
           },
         };
 
@@ -144,7 +143,9 @@ router.post(
 // @access   Private
 router.get("/load-user", auth, async (req, res) => {
   try {
-    const user = await UserDetails.findById(req.user.id)/*.select("-password");*/
+    const user = await UserDetails.findById(
+      req.user.id
+    ); /*.select("-password");*/
     res.json(user);
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
@@ -156,7 +157,7 @@ router.get("/load-user", auth, async (req, res) => {
 // @access   Private
 router.get(GET_ALL_USERS, auth, async (req, res) => {
   try {
-    const user = await UserDetails.find()/*.select("-password");*/ //.select('-password');
+    const user = await UserDetails.find(); /*.select("-password");*/ //.select('-password');
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -179,7 +180,7 @@ router.post(FILTER_USERS, auth, async (req, res) => {
         },
       };
     }
-    userDetails = await UserDetails.find(query)/*.select("-password");*/
+    userDetails = await UserDetails.find(query); /*.select("-password");*/
 
     res.json(userDetails);
   } catch (err) {
@@ -205,9 +206,9 @@ router.post(
     let data = req.body;
     try {
       //Preparing The Salt
-     // const salt = await bcrypt.genSalt(10);
+      // const salt = await bcrypt.genSalt(10);
       //Hashing the Password
-     // const password = await bcrypt.hash(data.password, salt);
+      // const password = await bcrypt.hash(data.password, salt);
 
       await UserDetails.findOneAndUpdate(
         { _id: req.user.id },
