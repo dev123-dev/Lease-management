@@ -2,8 +2,8 @@ import React, { Fragment, useState } from "react";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { changeUsersPwd } from "../../actions/auth";
-
+//import { changeUsersPwd } from "../../actions/auth";
+import { changePwd } from "../../actions/auth";
 let UserNameFont = {
   fontSize: "23px",
   lineHeight: "12px",
@@ -176,7 +176,7 @@ const ChangeUsersPwd = ({ user, changeUsersPwd, onPwdChange }) => {
   };
 
   if (isSubmitted) {
-    return <Redirect to="/users" />;
+    // return <Redirect to="/users" />;
   }
 
   return (

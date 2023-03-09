@@ -192,7 +192,7 @@ const Tenant_Details = ({
                                 <td>{Val.tenantLeaseEndDate}</td>
                                 <td>{Val.tenantRentAmount}</td>
 
-                                {Val.tenantstatus === " Active" ? (
+                                {Val.tenantstatus === "Active" ? (
                                   <td>
                                     <img
                                       className=" log"

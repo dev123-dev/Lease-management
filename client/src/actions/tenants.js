@@ -5,7 +5,6 @@ import axios from "axios";
 import {
   TENANT_ADD_INIT,
   AUTH_ERROR,
-  SHOP_ADD_INIT,
   AGREEMENT_ADD_INIT,
   MONTH_EXP_CNT,
   YEAR_EXP_CNT,
@@ -16,13 +15,10 @@ import {
   GET_ALL_SHOPS,
   GET_ALL_TENANTS,
   GET_ALL_SETTINGS,
-  GET_DELAYS,
   GET_DOORNUMBER,
-  GET_ALL_USER,
   FINAL_DATA_REP,
   GET_ALL_ORGANIZATION,
   GET_ALL_SUPERUSER,
-  UPDATE_ORG,
   PARTICULAR_ORG_PROPERTY,
   PARTICULAR_ORG_LOCATION,
   PARTICULAR_USER,
@@ -34,8 +30,6 @@ import {
   EXP_ORG_COUNT,
   YEAR_EXP_COUNT_ORG,
 } from "./types";
-
-var linkPath = "";
 
 const config = {
   headers: {
@@ -139,7 +133,7 @@ export const getAllOrganization = () => async (dispatch) => {
 //update Organzation
 export const updateOrganization = (updatedata) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/update-Organization`,
       updatedata,
       config
@@ -151,7 +145,7 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
 //update Property
 export const updateProperty = (updatedata) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/update-Property`,
       updatedata,
       config
@@ -165,11 +159,7 @@ export const updateProperty = (updatedata) => async (dispatch) => {
 //update Super User Form
 export const UpdateUser = (userdata) => async (dispatch) => {
   try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/Update-User`,
-      userdata,
-      config
-    );
+    await axios.post(`${linkPath}/api/tenants/Update-User`, userdata, config);
     dispatch(getalluser());
   } catch (error) {
     console.error(error.message);
@@ -179,11 +169,7 @@ export const UpdateUser = (userdata) => async (dispatch) => {
 //adding Super user
 export const Adduser = (userData) => async (dispatch) => {
   try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/add-SuperUser`,
-      userData,
-      config
-    );
+    await axios.post(`${linkPath}/api/tenants/add-SuperUser`, userData, config);
     dispatch(getalluser());
   } catch (err) {
     dispatch({
@@ -194,7 +180,6 @@ export const Adduser = (userData) => async (dispatch) => {
 
 //get particular tenant details based on organization
 export const ParticularTenant = (data) => async (dispatch) => {
-  console.log("this is tenant data", data);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-Tenant`,
@@ -215,7 +200,6 @@ export const ParticularTenant = (data) => async (dispatch) => {
 
 //add admin user
 export const AddAdminuser = (userData) => async (dispatch) => {
-  let data = userData.OrganizationId;
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/add-AdminUser`,
@@ -273,11 +257,7 @@ export const get_particular_org_user = (data) => async (dispatch) => {
 //deactivating the user in super admin page
 export const deactivateUser = (id) => async (dispatch) => {
   try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/deactive-user`,
-      id,
-      config
-    );
+    await axios.post(`${linkPath}/api/tenants/deactive-user`, id, config);
     dispatch(getalluser());
     //dispatch(get_particular_org_user({ OrganizationId: id.orgId }));
   } catch (err) {
@@ -290,7 +270,7 @@ export const deactivateUser = (id) => async (dispatch) => {
 //deleting organization details
 export const deleteOrganization = (id) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/deactive-Organization`,
       id,
       config
@@ -307,7 +287,7 @@ export const deleteOrganization = (id) => async (dispatch) => {
 //Renew Organization details
 export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/Renew-Organization`,
       renewdata,
       config
@@ -424,7 +404,7 @@ export const AddTenantAgreementform = (finalData) => async (dispatch) => {
 //deactivate property details
 export const deactiveProperty = (finalData) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/deactive-property`,
       finalData,
       config
@@ -442,7 +422,7 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
 
 export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/deactive-tenant`,
       finalData,
       config
@@ -456,7 +436,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
 };
 export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/update-tenant-details`,
       finalData,
       config
@@ -472,7 +452,7 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
 
 export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/tenant-update-history`,
       historyData,
       config
@@ -486,7 +466,7 @@ export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `${linkPath}/api/tenants/update-tenant`,
       finalData,
       config
@@ -716,11 +696,6 @@ export const getAllDoorNumbers = () => async (dispatch) => {
 
 export const getOrganizationExpiryReport =
   (finalOrgData) => async (dispatch) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
     try {
       const res = await axios.post(
         `${linkPath}/api/tenants/get-organization-expiry-report`,

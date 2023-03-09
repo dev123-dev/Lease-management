@@ -273,7 +273,7 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log(finalData);
+
     AddTenantDetailsform(finalData);
     setFormData({
       ...formData,

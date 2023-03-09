@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
@@ -34,14 +34,12 @@ const ReneworgAggreement = ({
   if (mm < 10) {
     mm = "0" + mm;
   }
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [showEditModal, setShowEditModal] = useState(false);
 
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
@@ -86,14 +84,6 @@ const ReneworgAggreement = ({
     date: entryDate,
     enddate: leaseEndDate,
   });
-  const {
-    OrganizationId,
-    OrganizationName,
-    OrganizationEmail,
-    OrganizationNumber,
-    OrganizationStartDate,
-    OrganizationEndDate,
-  } = formData;
 
   const onSubmit = () => {
     const finalData = {
@@ -135,8 +125,6 @@ const ReneworgAggreement = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
-              // min={yesterdayDt}
-              //min={today}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
               value={entryDate}

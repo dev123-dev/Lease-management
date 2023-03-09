@@ -18,10 +18,6 @@ const Edituser = ({
   getalluser,
   EditModal,
 }) => {
-  useEffect(() => {
-    getalluser();
-  }, []);
-
   const [orgname, setOrgname] = useState({});
 
   const orglist = [];
@@ -99,8 +95,9 @@ const Edituser = ({
   const onuser = (e) => {
     setus(e);
   };
-
+  const [refersh, setrefresh] = useState("");
   const onUpdate = () => {
+    setrefresh("x");
     EditModal(false);
     const updateUSER = {
       userid: superuser._id,
@@ -115,6 +112,9 @@ const Edituser = ({
     UpdateUser(updateUSER);
     handleClose(true);
   };
+  useEffect(() => {
+    getalluser();
+  }, [refersh]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (

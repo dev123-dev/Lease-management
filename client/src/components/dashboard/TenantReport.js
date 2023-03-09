@@ -2,30 +2,28 @@ import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getAllTenants } from "../../actions/tenants";
-import { deactiveTenantsDetails } from "../../actions/tenants";
+import {
+  deactiveTenantsDetails,
+  ParticularTenant,
+} from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
-import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
-import RenewalReportPrint from "../printPdf/renewalReportPrint";
-import { getAllOrganization, ParticularTenant } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { get_particular_org_tenant, allorg },
-  getAllTenants,
-  deactiveTenantsDetails,
   ParticularTenant,
-  getAllOrganization,
+  deactiveTenantsDetails,
 }) => {
   useEffect(() => {
-    // ParticularTenant({ OrganizationId: user && user.OrganizationId });
+    ParticularTenant({ OrganizationId: user && user.OrganizationId });
   });
-  // getAllOrganization();
+
   const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => componentRef.current,
+  // });
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
@@ -36,11 +34,6 @@ const TenantReport = ({
   const handleShow = () => setShow(true);
 
   const [tId, setId] = useState("");
-
-  const onDelete = (id) => {
-    setId(id);
-    handleShow();
-  };
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -53,6 +46,7 @@ const TenantReport = ({
   };
 
   const onRenewal = (tenants) => {
+    // setId(id);
     setShowEditModal(true);
     setUserData(tenants);
   };
@@ -356,5 +350,4 @@ export default connect(mapStateToProps, {
   getAllTenants,
   deactiveTenantsDetails,
   ParticularTenant,
-  //getAllOrganization,
 })(TenantReport);
