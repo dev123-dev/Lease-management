@@ -27,8 +27,7 @@ export const login = (useremail, password) => async (dispatch) => {
   };
 
   const body = JSON.stringify({ useremail, password });
-  // console.log("useremail", useremail);
-  // console.log("useremail", useremail);
+
   try {
     const res = await axios.post(`${linkPath}/api/auth/login`, body, config);
     dispatch({
@@ -83,8 +82,7 @@ export const loadUser = () => async (dispatch) => {
 
   try {
     const res = await axios.get(`${linkPath}/api/auth/load-user`);
-    // console.log("inside action auth");
-    // console.log(res.data);
+
     dispatch({
       type: USER_LOADED,
       payload: res.data,

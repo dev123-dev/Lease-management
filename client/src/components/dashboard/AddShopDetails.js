@@ -28,7 +28,6 @@ const AddShopDetails = ({
       Organization_id: user && user.OrganizationId,
     });
   }, []);
-  // console.log(user);
 
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];

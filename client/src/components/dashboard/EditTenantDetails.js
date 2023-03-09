@@ -179,8 +179,6 @@ const EditTenantDetails = ({
       tenantDate: todayDateymd,
     };
 
-    // console.log(finalData);
-
     UpdateTenantsDetails(finalData);
 
     // const historyData = {
