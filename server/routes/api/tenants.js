@@ -91,6 +91,7 @@ router.post("/add-tenant-details", async (req, res) => {
       OrganizationId: data.OrganizationId,
       BuildingName: data.BuildingName,
       BuildingId: data.BuildingId,
+      tenantstatus: "Active",
       tenantFileNo: data.tenantFileNo,
       tenantDoorNo: data.tenantDoorNo.label,
       tenantRentAmount: data.tenantRentAmount,
@@ -126,7 +127,7 @@ router.post("/add-Organization", async (req, res) => {
       org_status: output.org_status,
       enter_by_dateTime: output.enter_by_dateTime,
     };
-    console.log(finalData2);
+
     let output2 = new OrganizationDetailsHistories(finalData2);
     let orghistory = output2.save();
     res.send(output);
@@ -139,7 +140,9 @@ router.post("/add-Organization", async (req, res) => {
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
   try {
-    const orgdata = await OrganizationDetails.find({}).sort({ org_status: 1 });
+    const orgdata = await OrganizationDetails.find({}).sort({
+      org_status: 1,
+    });
 
     res.json(orgdata);
   } catch (err) {
@@ -418,6 +421,7 @@ router.post("/deactive-property", async (req, res) => {
 //getting particular Tenant details based on Orgaination
 router.post("/get-particular-Tenant", async (req, res) => {
   let { OrganizationId, LocationName } = req.body;
+
   let query = { OrganizationId: OrganizationId };
   if (LocationName) {
     query = {
@@ -570,10 +574,49 @@ router.post(
   }
 );
 
-// Get Exp Month Count
-router.get("/get-month-exp-count", async (req, res) => {
-  const { selectedY } = req.body; //change
+//get exp month count for Organization
+router.post("/get-month-exp-org", async (req, res) => {
+  const { selectedY } = req.body;
+  var yearVal = new Date().getFullYear();
+  if (selectedY) {
+    yearVal = selectedY;
+  }
+  try {
+    const orgexp = await OrganizationDetails.aggregate([
+      {
+        $match: {
+          enddate: { $regex: new RegExp("^" + yearVal, "i") },
+          AgreementStatus: { $eq: "Expired" },
+          org_status: "Active",
+        },
+      },
+      {
+        $group: {
+          _id: {
+            year: {
+              $year: { $dateFromString: { dateString: "$enddate" } },
+            },
+            month: {
+              $month: {
+                $dateFromString: { dateString: "$enddate" },
+              },
+            },
+          },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
 
+    res.json(orgexp);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+// Get Exp Month Count
+router.post("/get-month-exp-count", async (req, res) => {
+  const { selectedY, OrganizationId } = req.body; //change
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     //change
@@ -591,6 +634,7 @@ router.get("/get-month-exp-count", async (req, res) => {
       },
       {
         $match: {
+          OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearVal, "i") },
           AgreementStatus: { $ne: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
@@ -691,10 +735,38 @@ router.post("/get-all-shops", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
+//get year count for Organization
+router.post("/get-previous-years-exp-Org", async (req, res) => {
+  const { selectedVal } = req.body;
+  var date = new Date(selectedVal);
+  var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
+  console.log("firstday", firstDay);
+  try {
+    const yeardata = await OrganizationDetails.aggregate([
+      {
+        $match: {
+          enddate: { $lt: firstDay },
+          AgreementStatus: { $eq: "Expired" },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+    console.log(yeardata, "year data");
+    res.json(yeardata);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
 
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
-  const { selectedVal } = req.body;
+  const { selectedVal, OrganizationId } = req.body;
 
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
@@ -713,6 +785,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
       },
       {
         $match: {
+          OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $lt: firstDay },
           AgreementStatus: { $ne: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
@@ -757,6 +830,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
       {
         $project: {
           tenantName: "$tenantName",
+          OrganizationId: "$OrganizationId",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantRentAmount: "$output.tenantRentAmount",
           AgreementStatus: "$output.AgreementStatus",
@@ -816,13 +890,14 @@ router.post("/get-tenant-exp-report", async (req, res) => {
       },
       {
         $match: {
-          OrganizationId: { $eq: OrganizationId },
+          OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
           AgreementStatus: { $ne: "Renewed" },
           tenantstatus: { $eq: "Active" },
         },
       },
     ]);
+    console.log("tenantExpReport", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -873,7 +948,7 @@ router.get("/get-door-nos", async (req, res) => {
 //get organization expiry data to Tenant filter
 router.post("/get-organization-expiry-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
-  var count = 0;
+
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;

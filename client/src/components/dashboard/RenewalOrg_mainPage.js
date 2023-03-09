@@ -95,7 +95,7 @@ const RenewalOrg_mainPage = ({
 
   const onSubmit = () => {
     const finalData = {
-      isSubmitted: false,
+      isSubmitted: true,
       OrganizationId: orgData._id,
       Orgname: orgData.OrganizationName,
       Orgemail: orgData.OrganizationEmail,

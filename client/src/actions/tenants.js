@@ -31,6 +31,8 @@ import {
   GET_PARTICULAR_ORG_TENANTSETTING,
   PARTICULAR_ORG_TENANT,
   EXP_ORG_DETAIL,
+  EXP_ORG_COUNT,
+  YEAR_EXP_COUNT_ORG,
 } from "./types";
 
 var linkPath = "";
@@ -192,6 +194,7 @@ export const Adduser = (userData) => async (dispatch) => {
 
 //get particular tenant details based on organization
 export const ParticularTenant = (data) => async (dispatch) => {
+  console.log("this is tenant data", data);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-Tenant`,
@@ -494,11 +497,26 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
     });
   }
 };
+//get month exp for organization
+export const getOrgExpCount = (finaldata) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-month-exp-org`,
+      finaldata
+    );
+    dispatch({
+      type: EXP_ORG_COUNT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 // Get Exp Month Count
 export const getMonthExpCount = (finalData) => async (dispatch) => {
   try {
-    const res = await axios.get(
+    const res = await axios.post(
       `${linkPath}/api/tenants/get-month-exp-count`,
       finalData
     );
@@ -551,6 +569,23 @@ export const getAllShops = (data) => async (dispatch) => {
   }
 };
 
+//get year exp count for Orgnization
+export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-previous-years-exp-Org`,
+      data,
+      config
+    );
+    dispatch({
+      type: YEAR_EXP_COUNT_ORG,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 // Get Year Exp Count filter
 export const getPreviousYearsExpCount = (finalData) => async (dispatch) => {
   const config = {
@@ -583,6 +618,9 @@ export const getTenantReportYearMonth =
         "Content-Type": "application/json",
       },
     };
+    dispatch(
+      ParticularTenant({ OrganizationId: finalDataReport.OrganizationId })
+    );
     dispatch({
       type: FINAL_DATA_REP,
       payload: finalDataReport,

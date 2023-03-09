@@ -115,77 +115,7 @@ const MainSuperPage = ({
           </div>
         </div>
       </div>
-      {/* <div className="row ">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
-          <br></br>
-          <h1
-            style={{ fontFamily: "Serif", color: "#877bae" }}
-            className="font-weight-bold "
-          >
-            Dashboard
-          </h1>
-          <br />
-          <br />
-          <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center body-inner no-padding table-responsive fixTableHead ">
-            <hr></hr>
 
-            <img
-              className="img_icon_size log refreshbtn"
-              // onClick={() => onClickHandler()}
-              src={require("../../static/images/print.png")}
-              alt="Print"
-              title="Print"
-            />
-            <table
-              border="1"
-              id="datatable2"
-              className="table-striped  table-bordered table-hover"
-            >
-              <thead>
-                <tr>
-                  <th>Orgnization Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Address</th>
-                  <th>Org-Status</th>
-                  <th>Agreement Status</th>
-                  <th>End Date</th>
-                  <th>Renewal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {allorg &&
-                  allorg[0] &&
-                  allorg.map((org, index) => {
-                    return (
-                      <tr>
-                        <td>{org.OrganizationName}</td>
-                        <td>{org.OrganizationEmail}</td>
-                        <td>{org.OrganizationNumber}</td>
-                        <td>{org.OrganizationAddress}</td>
-                        <td>{org.org_status}</td>
-                        <td>{org.AgreementStatus}</td>
-                        <td>{org.enddate}</td>
-                        <td>
-                          {org.AgreementStatus === "Expired" ? (
-                            <button
-                              className="rewbtn"
-                              onClick={() => onRenewal(org, index)}
-                            >
-                              Renewal
-                            </button>
-                          ) : (
-                            <p>x</p>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div> */}
       <Modal
         show={showRenewalModal}
         backdrop="static"
