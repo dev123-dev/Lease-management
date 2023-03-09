@@ -2210,14 +2210,14 @@ button {
 .logut:hover {
   background-color: #949796;
 }
-#Renewalbtn {
-  margin-left: 465px;
+.Renewalbtn {
+  
   height: 50px;
   width: 110px;
   background-color: #095a4a;
   color: white;
 }
-#Renewalbtn:hover {
+.Renewalbtn:hover {
   background-color: #000000;
 }
 .tenantEditSave {
