@@ -122,7 +122,7 @@ const EditOrganization = ({
 
       Location: items,
     };
-    updateOrganization(update);
+    updateOrganization(updateData);
   };
 
   return !isAuthenticated || !user || !users ? (

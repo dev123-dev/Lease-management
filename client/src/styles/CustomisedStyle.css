@@ -555,11 +555,15 @@ p {
     margin-top: -10% ;
 
   }
+  .locadds{
+    left:10px;
+  }
   .link_to_org{
     margin-top:-35% ;
     margin-left: 90%;
    
   }
+  
   #plusicon{
     top:-25px;
     right:85px;
@@ -2327,11 +2331,7 @@ button {
   cursor: pointer;
   /* margin-top: -9%; */
 }
-
-
-div{
-  border:1px solid rgba(242, 10, 10, 0.541);
-}      
+   
 .deactive {
   position: absolute;
   background-color: rgb(221, 95, 95);
@@ -2340,3 +2340,15 @@ div{
   margin-top: -10px;
   margin-left: -11px;
 }
+.closeicon{
+  cursor: pointer;
+}
+.closeicon:hover{
+  background-color: lightgray;
+}
+
+
+
+div{
+  border:1px solid rgba(242, 10, 10, 0.541);
+}    

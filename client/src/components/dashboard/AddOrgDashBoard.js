@@ -144,6 +144,7 @@ const AddOrgDashBoard = ({
                 title="Add User"
               />
               <img
+                className="mt-1"
                 height="25px"
                 onClick={() => refreshbtn()}
                 src={require("../../static/images/refresh-icon.png")}
@@ -164,10 +165,10 @@ const AddOrgDashBoard = ({
                 >
                   <thead>
                     <tr>
-                      <th>Organistration Name</th>
-                      <th>Organistration Email</th>
-                      <th>Organistration Phone</th>
-                      <th>Organistration Address</th>
+                      <th> Name</th>
+                      <th> Email</th>
+                      <th> Phone</th>
+                      <th> Address</th>
 
                       {/* <th>Number of Users</th> */}
 
@@ -221,6 +222,24 @@ const AddOrgDashBoard = ({
                 </table>
               </div>
               <div className="col-lg-1"></div>
+
+              {/* <div className="row">
+                <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+                  {allorg && allorg.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={allorg.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+                <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
+                  <label>No of Property : {allorg.length}</label>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -230,9 +249,11 @@ const AddOrgDashBoard = ({
       <Modal show={showDeactivate} centered>
         <Modal.Header>
           <div className="col-lg-11 ">
-            <h3 className="modal-title text-center">DEACTIVATE</h3>
+            <h3 className="modal-title text-center">
+              <b>DEACTIVATE</b>
+            </h3>
           </div>
-          <div className="col-lg-1">
+          <div className="col-lg-1 closeicon">
             <img
               src={require("../../static/images/close.png")}
               alt="X"
@@ -316,124 +337,6 @@ const AddOrgDashBoard = ({
         <AddOrgModal setShowadd={setShowadd} />
       </Modal>
     </>
-
-    // <div>
-    //   <div className="container container_align">
-    //     {/* OrganiZation Details  start*/}
-    //     <section className="sub_reg">
-    //       <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-    //         <div className="  col-lg-10 col-md-12 col-sm-12 col-11 ">
-    //           <h2 className="heading_color">Organization Details </h2>
-    //           <hr></hr>
-
-    //           <div>
-    //             <img
-    //               className="refreshbtn "
-    //               height="25px"
-    //               onClick={() => refreshbtn()}
-    //               src={require("../../static/images/refresh-icon.png")}
-    //               alt="Add User"
-    //               title="Refresh User"
-    //             />
-    //           </div>
-    //         </div>
-    //         <div className="link_to_org">
-    //           <AddOrgModal />
-    //         </div>
-    //       </div>
-    //       <div className="row ">
-    //         <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center">
-    //           <section className="body">
-    //             <div className="body-inner no-padding ">
-    //               <table
-    //                 className="table table-bordered table-striped table-hover table-active  table-responsive fixTableHeadjoin"
-    //                 id="datatable2"
-    //               >
-    //                 <thead>
-    //                   <tr>
-    //                     <th>Org Name</th>
-    //                     <th>Email</th>
-    //                     <th>Phone</th>
-    //                     <th>Address</th>
-
-    //                     {/* <th>Number of Users</th> */}
-
-    //                     <th>Location</th>
-    //                     <th>StartDate</th>
-    //                     <th>EndDate</th>
-    //                     <th>Operation</th>
-    //                   </tr>
-    //                 </thead>
-    //                 <tbody>
-    //                   {currentDatas &&
-    //                     currentDatas[0] &&
-    //                     currentDatas.map((orgVal, idx) => {
-    //                       return (
-    //                         <tr key={idx}>
-    //                           <td>{orgVal.OrganizationName}</td>
-    //                           <td>{orgVal.OrganizationEmail}</td>
-    //                           <td>{orgVal.OrganizationNumber}</td>
-    //                           <td>{orgVal.OrganizationAddress}</td>
-    //                           <td>{orgVal.Location + ","}</td>
-    //                           <td>{orgVal.date}</td>
-    //                           <td>{orgVal.enddate}</td>
-    //                           <td>
-    //                             {orgVal.org_status === "Active" ||
-    //                             orgVal.org_status === "Renewed" ? (
-    //                               <>
-    //                                 <img
-    //                                   className="Cursor"
-    //                                   onClick={() => onedit(orgVal, idx)}
-    //                                   src={require("../../static/images/edit_icon.png")}
-    //                                   alt="Edit"
-    //                                   title="Edit User"
-    //                                 />
-    //                                 &nbsp;
-    //                                 <img
-    //                                   className="Cursor"
-    //                                   onClick={() => onDelete(orgVal._id)}
-    //                                   src={require("../../static/images/delete.png")}
-    //                                   alt="delete User"
-    //                                   title="delete User"
-    //                                 />
-    //                               </>
-    //                             ) : (
-    //                               <div className="blank">DeActivated</div>
-    //                             )}
-    //                           </td>
-    //                         </tr>
-    //                       );
-    //                     })}
-    //                 </tbody>
-    //               </table>
-    //             </div>
-    //           </section>
-    //         </div>
-    //       </div>
-
-    //       <div className="row">
-    //         <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding page">
-    //           {allorg && allorg.length !== 0 ? (
-    //             <Pagination
-    //               dataPerPage={dataPerPage}
-    //               totalData={allorg.length}
-    //               paginate={paginate}
-    //               currentPage={currentData}
-    //             />
-    //           ) : (
-    //             <Fragment />
-    //           )}
-    //         </div>
-    //         <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right count">
-    //           <label>No of OrganiZations : {allorg.length}</label>
-    //         </div>
-    //       </div>
-    //     </section>
-    //     {/* OrganiZation Deatils End */}
-    //   </div>
-
-    //   {/* edit old code end */}
-    // </div>
   );
 };
 const mapStateToProps = (state) => ({

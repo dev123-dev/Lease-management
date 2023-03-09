@@ -137,7 +137,7 @@ const AddOrgModal = ({
     }
   };
   return !isAuthenticated || !user || !users ? (
-    <Fragment>123</Fragment>
+    <Fragment></Fragment>
   ) : (
     <div>
       <Fragment>
