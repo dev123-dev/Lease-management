@@ -579,7 +579,6 @@ router.post("/get-month-exp-org", async (req, res) => {
   const { selectedY } = req.body;
   var yearVal = new Date().getFullYear();
   if (selectedY) {
-    //change
     yearVal = selectedY;
   }
   try {
@@ -587,7 +586,7 @@ router.post("/get-month-exp-org", async (req, res) => {
       {
         $match: {
           enddate: { $regex: new RegExp("^" + yearVal, "i") },
-          AgreementStatus: { $eq: "Active" },
+          AgreementStatus: { $eq: "Expired" },
           org_status: "Active",
         },
       },
@@ -747,7 +746,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
       {
         $match: {
           enddate: { $lt: firstDay },
-          AgreementStatus: { $ne: "Renewed" },
+          AgreementStatus: { $eq: "Expired" },
         },
       },
       {

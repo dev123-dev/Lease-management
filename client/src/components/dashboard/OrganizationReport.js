@@ -98,8 +98,8 @@ const TenantReport = ({
                             <th>Email</th>
                             <th>Phone</th>
                             <th>StartDate</th>
-                            <th>Org-Status</th>
                             <th>End D</th>
+                            <th>Org-Status</th>
                             <th>Operation</th>
                           </tr>
                         </thead>
@@ -112,9 +112,10 @@ const TenantReport = ({
                                   <td>{org.OrganizationName}</td>
                                   <td>{org.OrganizationEmail}</td>
                                   <td>{org.OrganizationNumber}</td>
-                                  <td>{org.OrganizationAddress}</td>
-                                  <td>{org.AgreementStatus}</td>
+                                  <td>{org.date}</td>
                                   <td>{org.enddate}</td>
+                                  <td>{org.AgreementStatus}</td>
+
                                   <td>
                                     {org.AgreementStatus === "Expired" ? (
                                       <button
