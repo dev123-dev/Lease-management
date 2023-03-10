@@ -82,6 +82,17 @@ export const getParticularProperty = (data) => async (dispatch) => {
   }
 };
 
+export const getAllRenewalAmount = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-renewal-amount`,
+      data
+    );
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getParticularOrg = (data) => async (dispatch) => {
   try {
     const res = await axios.post(
@@ -479,6 +490,7 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 };
 //get month exp for organization
 export const getOrgExpCount = (finaldata) => async (dispatch) => {
+  console.log("insde action getexpcount=", finaldata);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-month-exp-org`,
@@ -495,6 +507,7 @@ export const getOrgExpCount = (finaldata) => async (dispatch) => {
 
 // Get Exp Month Count
 export const getMonthExpCount = (finalData) => async (dispatch) => {
+  console.log("this i saction in getMonthExpCount", finalData);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-month-exp-count`,
@@ -551,6 +564,7 @@ export const getAllShops = (data) => async (dispatch) => {
 
 //get year exp count for Orgnization
 export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
+  console.log("insde action od getprevious year exp count=", data);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-previous-years-exp-Org`,
@@ -568,6 +582,7 @@ export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
 
 // Get Year Exp Count filter
 export const getPreviousYearsExpCount = (finalData) => async (dispatch) => {
+  console.log("inside action of getPreviousYearsExpCount=", finalData);
   const config = {
     headers: {
       "Content-Type": "application/json",

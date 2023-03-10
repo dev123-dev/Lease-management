@@ -41,8 +41,7 @@ const auth = (state = initialState, action) => {
 
   switch (type) {
     case USER_LOADED:
-      // console.log("inside reducer");
-      // console.log(payload);
+      localStorage.setItem("user", JSON.stringify(payload));
       return {
         ...state,
         isAuthenticated: true,
@@ -64,6 +63,7 @@ const auth = (state = initialState, action) => {
     case AUTH_ERROR:
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.clear();
       return {
         ...state,
         user: null,

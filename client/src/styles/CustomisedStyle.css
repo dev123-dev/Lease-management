@@ -13,7 +13,6 @@
   color: #4d4d4d;
 }
 
-
 .container_align {
   margin-top: 55px;
   margin-bottom: 55px;
@@ -206,7 +205,6 @@ h5:last-child {
   display: block;
 }
 
-
 .navbar-inverse .navbar-brand,
 .navbar-inverse {
   color: #fff;
@@ -294,7 +292,7 @@ footer.footer .top_top {
 }
 
 .row {
-display: inline;
+  display: inline;
   margin-right: 0px;
   margin-left: 0px;
 }
@@ -535,104 +533,92 @@ p {
   }
 }
 
-@media screen and (max-width : 420px) {
-  .tenant_filter{
-   width: 200%;
-     height: fit-content;
+@media screen and (max-width: 420px) {
+  .tenant_filter {
+    width: 200%;
+    height: fit-content;
   }
-  .log_size{
+  .log_size {
     margin-left: 100%;
   }
-  .heading_color{
+  .heading_color {
     position: relative;
-    font-size:larger;
+    font-size: larger;
     font-weight: 500;
     margin-top: -10%;
-    left:20px;
+    left: 20px;
   }
-  #datatable2{
+  #datatable2 {
     position: relative;
-    margin-top: -10% ;
-
+    margin-top: -10%;
   }
-  .locadds{
-    left:10px;
+  .locadds {
+    left: 10px;
   }
-  .link_to_org{
-    margin-top:-35% ;
+  .link_to_org {
+    margin-top: -35%;
     margin-left: 90%;
-   
   }
-  
-  #plusicon{
-    top:-25px;
-    right:85px;
+
+  #plusicon {
+    top: -25px;
+    right: 85px;
     height: 20px;
     position: relative;
-    background-color:transparent;
+    background-color: transparent;
   }
-  
-  .plusicon{
-    background-color:transparent;
-    position: relative;
-    top:150%;
-    right:100%
-  }
-  .refreshbtn{
 
-   position: relative;
-   top: -15px;
-   height:20px;
-   right:20px;
- 
+  .plusicon {
+    background-color: transparent;
+    position: relative;
+    top: 150%;
+    right: 100%;
+  }
+  .refreshbtn {
+    position: relative;
+    top: -15px;
+    height: 20px;
+    right: 20px;
   }
   .count {
-    right:80px;
+    right: 80px;
   }
   .page {
-    left:60px;
+    left: 60px;
   }
-  .headinghover:hover{
-     color:lightgray;
+  .headinghover:hover {
+    color: lightgray;
   }
-  .orghea{
-    font-size:medium;
-    right:50px;
+  .orghea {
+    font-size: medium;
+    right: 50px;
     position: absolute;
-    margin-top:-4%;
-    
+    margin-top: -4%;
   }
-  .edithea{
+  .edithea {
     background-color: #095a4a;
     margin-right: 60px;
-    
   }
-  .editcl{
+  .editcl {
     margin-right: 50px;
-
   }
- .save:hover{
-  background-color: #095a4a;
-
- }
- .nvbar{
-  margin-right: 15px;
- }
-  .table-responsive{
-    width:100%;
+  .save:hover {
+    background-color: #095a4a;
   }
-  .table{
-    display:block;
+  .nvbar {
+    margin-right: 15px;
+  }
+  .table-responsive {
+    width: 100%;
+  }
+  .table {
+    display: block;
   }
 
-  .tenantfilter{
+  .tenantfilter {
     display: none;
   }
-  
- 
-  
 }
-
 
 .positioning {
   position: absolute;
@@ -1495,18 +1481,16 @@ input[type="radio"].error {
 }
 .img_icon_size {
   width: 20px;
-  height: 20px; 
+  height: 20px;
   cursor: pointer;
 }
-.property{
+.property {
   margin-left: 1000px;
   /* width: 20px;
   height: 20px; */
-  
+
   cursor: pointer;
-
 }
-
 
 .align_right {
   padding-right: 0px;
@@ -1571,18 +1555,23 @@ input[type="radio"].error {
   color: #0e0e0e;
   /*border-radius: 10px;*/
 }
-.top-level-menu li:hover .second-level-menu  {
+.top-level-menu li:hover .second-level-menu {
   display: inline-block;
-
 }
 .drophover:hover {
   background-color: lightgrey;
-
 }
+<<<<<<< HEAD
 .refreshbtn{
   margin-left: 90%;
  position: absolute;
   cursor: pointer; 
+=======
+.refreshbtn {
+  margin-left: 85%;
+  position: absolute;
+  cursor: pointer;
+>>>>>>> 82abe527572d5c5508cc6ddd36865d945c047caf
 }
 
 /*multi level dropdown navbar*/
@@ -1593,9 +1582,9 @@ input[type="radio"].error {
      background-color: #000; 
   } */
 
-  .second-level-menu2 {
-    display: none;
-  }
+.second-level-menu2 {
+  display: none;
+}
 /* } */
 @media (max-width: 992px) {
   .second-level-menu {
@@ -1605,24 +1594,22 @@ input[type="radio"].error {
     display: none;
   }
 }
- .top-level-menu {
+.top-level-menu {
   list-style: none;
   padding: 0;
   margin-top: 10px;
-  
 }
 .top-level-menu > li {
-  position: relative; 
-   height: 30px;
+  position: relative;
+  height: 30px;
 }
 
- .top-level-menu a {
+.top-level-menu a {
   color: #fff;
   text-decoration: none;
   padding: 0 0 0 0px;
   display: block;
-  
-}  
+}
 
 .second-level-menu2 a,
 .second-level-menu2 p {
@@ -2022,13 +2009,12 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 120%;
 }
 
-
 .close-btn-wrapper {
   position: relative;
   width: 700px;
   left: 100%;
 }
-.Cursor{
+.Cursor {
   cursor: pointer;
 }
 
@@ -2044,7 +2030,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-left: 200px;
   cursor: pointer;
 }
-.close:hover{
+.close:hover {
   background-color: lightgrey;
 }
 .clprop {
@@ -2062,14 +2048,13 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 .clorg:hover {
-  background-color:lightgrey;
-  
+  background-color: lightgrey;
 }
-.orghea{
+.orghea {
   margin-left: 220px;
   font-size: 30px;
 }
-.edithea{
+.edithea {
   margin-left: 220px;
   font-size: large;
 }
@@ -2144,23 +2129,23 @@ input[type="number"]::-webkit-outer-spin-button {
   border: transparent;
   position: absolute;
 }
-.tenantaddicon{
+.tenantaddicon {
   margin-top: 75px;
   margin-left: 75px;
   cursor: pointer;
 }
-.useraddicon{
+.useraddicon {
   margin-top: 65px;
   margin-left: 8px;
   cursor: pointer;
 }
 
 .locadd:hover {
-  background-color:#095a4a;
+  background-color: #095a4a;
   color: white;
 }
 .locadds:hover {
-  background-color:#095a4a;
+  background-color: #095a4a;
   color: white;
 }
 .locadds {
@@ -2218,7 +2203,6 @@ button {
   background-color: #949796;
 }
 .Renewalbtn {
-  
   height: 50px;
   width: 110px;
   background-color: #095a4a;
@@ -2243,7 +2227,6 @@ button {
   width: 30px;
   height: 20%;
   cursor: pointer;
-  
 }
 .Uservalidation {
   color: red;
@@ -2289,7 +2272,7 @@ button {
   margin-top: -10px;
   color: #095a4a;
 }
-.head{
+.head {
   margin-left: 190px;
 }
 .mainpage {
@@ -2335,13 +2318,12 @@ button {
   color:white;
 
 }
-.refreshbtnad{
- 
-  margin-left: 4000%; 
+.refreshbtnad {
+  margin-left: 4000%;
   cursor: pointer;
   /* margin-top: -9%; */
 }
-   
+
 .deactive {
   position: absolute;
   background-color: rgb(221, 95, 95);
@@ -2350,10 +2332,10 @@ button {
   margin-top: -10px;
   margin-left: -11px;
 }
-.closeicon{
+.closeicon {
   cursor: pointer;
 }
-.closeicon:hover{
+.closeicon:hover {
   background-color: lightgray;
 }
 

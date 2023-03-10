@@ -43,13 +43,16 @@ const TenantFilters = ({
   getOrganizationExpiryReport,
   getPreviousYearsExpCountOfOrg,
 }) => {
+  const logUser = JSON.parse(localStorage.getItem("user"));
+  console.log(logUser, "loggedUser");
   useEffect(() => {
-    getMonthExpCount();
+    getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
   }, [getMonthExpCount]);
 
   useEffect(() => {
     const finalData = {
       selectedVal: new Date(),
+      OrganizationId: logUser && logUser.OrganizationId,
     };
     getPreviousYearsExpCount(finalData);
   }, [getPreviousYearsExpCount]);
@@ -57,12 +60,12 @@ const TenantFilters = ({
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
       yearSearch: new Date().getFullYear(),
-      OrganizationId: user && user.OrganizationId,
+      OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportYearMonth(finalDataReport);
     const data = {
-      OrganizationId: user && user.OrganizationId,
-      LocationName: user && user.OrganizationName,
+      OrganizationId: logUser && logUser.OrganizationId,
+      LocationName: logUser && logUser.OrganizationName,
     };
     ParticularTenant(data);
   }, [getTenantReportYearMonth]);
@@ -82,13 +85,13 @@ const TenantFilters = ({
       const finalData = {
         selectedY: getYear,
         selectedVal: dt,
-        OrganizationId: user && user.OrganizationId,
+        OrganizationId: logUser && logUser.OrganizationId,
       };
       setSearchData({
         ...searchData,
         monthSearch: "",
       });
-      getMonthExpCount(finalData);
+      getMonthExpCount(finalData); //Done
       getPreviousYearsExpCount(finalData);
     }
   };
@@ -120,6 +123,7 @@ const TenantFilters = ({
       const finalDataReport = {
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
+        OrganizationId: logUser && logUser.OrganizationId,
       };
       getTenantReportYearMonth(finalDataReport);
     }
@@ -143,14 +147,16 @@ const TenantFilters = ({
   const oldExpCountFetch = () => {
     const finalDataReportOld = {
       yearSearch: new Date(startMonthDate).getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
     };
+    getTenantReportOldExp(finalDataReportOld);
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <>
-      {user.usergroup === "Super Admin" ? (
+      {logUser.usergroup === "Super Admin" ? (
         //super admin filter
         <Fragment>
           <div className="container_align top_menu  ">
@@ -339,7 +345,7 @@ const TenantFilters = ({
                                       ? {
                                           fontSize: "80%",
                                           color: "#000",
-                                          background: "#fff",
+                                          background: "red",
                                         }
                                       : {
                                           fontSize: "80%",

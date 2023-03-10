@@ -111,7 +111,7 @@ const TenantReport = ({
                             allorg[0] &&
                             allorg.map((org, index) => {
                               return (
-                                <tr>
+                                <tr key={index}>
                                   <td>{org.OrganizationName}</td>
                                   <td>{org.OrganizationEmail}</td>
                                   <td>{org.OrganizationNumber}</td>

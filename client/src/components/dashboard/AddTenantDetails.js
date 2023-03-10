@@ -30,9 +30,6 @@ const AddTenantDetails = ({
   getAllSettings,
 }) => {
   useEffect(() => {
-    getParticularTenantSetting({
-      Organization_id: user && user.OrganizationId,
-    });
     getParticularProperty({ OrganizationId: user.OrganizationId });
     getAllTenants();
   }, []);

@@ -22,12 +22,14 @@ const Tenant_Details = ({
   getParticularProperty,
   deactiveTenantsDetails,
 }) => {
+  const [freshpage, setFreshPage] = useState(true);
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
-  }, []);
+  }, [freshpage]);
+
   const [sellocation, setselLoction] = useState(null);
   const [location, setlocation] = useState([]);
   const Loc = [];
@@ -100,6 +102,7 @@ const Tenant_Details = ({
     };
     deactiveTenantsDetails(reason);
     handleClose();
+    setFreshPage(!freshpage);
   };
   //pagination code
   const [currentData, setCurrentData] = useState(1);

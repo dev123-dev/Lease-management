@@ -6,7 +6,7 @@ const cron = require("node-cron");
 const shell = require("shelljs");
 const fs = require("fs");
 const { Console } = require("console");
-
+const TenantDetails = require("../server/models/TenantDetails");
 const TenentAgreement = require("../server/models/TenantAgreementDetails");
 const OrganizationDetails = require("../server/models/OrganizationDetails");
 
@@ -34,6 +34,16 @@ async function updateExpiryStatus() {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     console.log("test");
+    const updateTenant = await TenentAgreement.updateMany(
+      {
+        tenantLeaseEndDate: { $lte: todayDateymd },
+      },
+      {
+        $set: {
+          AgreementStatus: "Expired",
+        },
+      }
+    );
     const updateStatus = await TenentAgreement.updateMany(
       { tenantLeaseEndDate: { $lte: todayDateymd }, AgreementStatus: "Active" },
       {
