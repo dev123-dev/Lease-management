@@ -1561,17 +1561,10 @@ input[type="radio"].error {
 .drophover:hover {
   background-color: lightgrey;
 }
-<<<<<<< HEAD
 .refreshbtn{
   margin-left: 90%;
  position: absolute;
   cursor: pointer; 
-=======
-.refreshbtn {
-  margin-left: 85%;
-  position: absolute;
-  cursor: pointer;
->>>>>>> 82abe527572d5c5508cc6ddd36865d945c047caf
 }
 
 /*multi level dropdown navbar*/
