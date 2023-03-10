@@ -1066,6 +1066,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
         },
       },
     ]);
+    console.log(tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
