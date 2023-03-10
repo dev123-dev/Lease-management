@@ -156,11 +156,12 @@ const RenewalOrg_mainPage = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12 Savebutton" size="lg">
+          <div className="col-lg-12 " size="lg">
             <button
+              id="savebtn"
+              className="btn sub_form btn_continue Save float-right"
               variant="success"
-              id="Renewalbtn"
-              onClick={() => onSubmit()}
+              onClick={() => console.log("clicker renwe")} //onSubmit()}
               style={
                 leaseEndDate !== ""
                   ? { opacity: "1" }

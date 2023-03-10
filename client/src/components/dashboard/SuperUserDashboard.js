@@ -29,6 +29,8 @@ const SuperUserDashboard = ({
   useEffect(() => {
     getalluser("");
   }, []);
+
+  const [showadd, setShowadd] = useState(false);
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
@@ -80,10 +82,6 @@ const SuperUserDashboard = ({
     setAdmin(user);
   };
 
-  const onClickReset = () => {
-    getalluser("");
-  };
-
   const onAdd = () => {
     setDeactiveShow(false);
     const reason = {
@@ -126,15 +124,32 @@ const SuperUserDashboard = ({
       user &&
       user.usergroup === "Super Admin" ? (
         // this is for super admin page
-        <div className="container container_align ">
-          <section className="sub_reg">
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-              <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                <h2 className="heading_color mb-3"> User Details </h2>
-                <hr></hr>
-                <div>
+
+        <>
+          <div className="col mt-5">
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col"></div>
+            <div className="col mt-5 h2">User Details</div>
+            <div className="text-end"> </div>
+
+            <div className="container-fluid d-flex align-items-center justify-content-center ">
+              <div className="col">
+                <div className="refreshbtn">
+                  {/* <AddOrgModal />{" "} */}
+
                   <img
-                    className="refreshbtn"
+                    height="25px"
+                    className="mx-2 plusicon"
+                    onClick={() => setShowadd(true)}
+                    src={require("../../static/images/add-icon.png")}
+                    alt="Add User"
+                    title="Add User"
+                  />
+                  <img
+                    className="mt-1"
                     height="25px"
                     onClick={() => refreshbtn()}
                     src={require("../../static/images/refresh-icon.png")}
@@ -142,16 +157,13 @@ const SuperUserDashboard = ({
                     title="Refresh User"
                   />
                 </div>
-              </div>
 
-              <AddSuperUserModal />
-            </div>
-            <div className="row orgtable mt-2">
-              <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                <section className="body">
-                  <div className="body-inner no-padding  ">
+                <div className="row ">
+                  <div className="col-lg-1"></div>
+
+                  <div className=" mt-5 col-lg-10  d-flex align-items-center justify-content-center">
                     <table
-                      className="table table-bordered table-striped table-hover table-active"
+                      className="table table-bordered table-striped table-hover table-active table-responsive fixTableHeadjoin mt-3"
                       id="datatable2"
                     >
                       <thead>
@@ -208,27 +220,118 @@ const SuperUserDashboard = ({
                       </tbody>
                     </table>
                   </div>
-                </section>
+                  <div className="col-lg-1"></div>
+                </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-                {allsuperuser && allsuperuser.length !== 0 ? (
-                  <Pagination
-                    dataPerPage={dataPerPage}
-                    totalData={allsuperuser.length}
-                    paginate={paginate}
-                    currentPage={currentData}
-                  />
-                ) : (
-                  <Fragment />
-                )}
+          </div>
+
+          {/*  */}
+
+          {/* <section className="sub_reg">
+              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+                <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
+                  <h2 className="heading_color mb-3"> User Details </h2>
+                  <hr></hr>
+                  <div>
+                    <img
+                      className="refreshbtn"
+                      height="25px"
+                      onClick={() => refreshbtn()}
+                      src={require("../../static/images/refresh-icon.png")}
+                      alt="Add User"
+                      title="Refresh User"
+                    />
+                  </div>
+                </div>
+
+                <AddSuperUserModal />
               </div>
-              <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
-                <label>No of User : {allsuperuser.length}</label>
+              <div className="row orgtable mt-2">
+                <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+                  <section className="body">
+                    <div className="body-inner no-padding  ">
+                      <table
+                        className="table table-bordered table-striped table-hover table-active"
+                        id="datatable2"
+                      >
+                        <thead>
+                          <tr>
+                            <th> Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Group</th>
+                            <th>Organization</th>
+                            <th>Address</th>
+                            <th>Operation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {currentDatas &&
+                            currentDatas[0] &&
+                            currentDatas.map((allsuperuse, idx) => {
+                              return (
+                                <tr key={idx}>
+                                  <td>{allsuperuse.username}</td>
+                                  <td>{allsuperuse.useremail}</td>
+                                  <td>{allsuperuse.userphone}</td>
+                                  <td>{allsuperuse.usergroup}</td>
+                                  <td>{allsuperuse.OrganizationName}</td>
+                                  <td>{allsuperuse.useraddress}</td>
+                                  <td>
+                                    {allsuperuse.userStatus === "Active" ? (
+                                      <>
+                                        <img
+                                          className="Cursor"
+                                          onClick={() =>
+                                            onEdit(allsuperuse, idx)
+                                          }
+                                          src={require("../../static/images/edit_icon.png")}
+                                          alt="Edit"
+                                          title="Edit"
+                                        />
+                                        &nbsp;
+                                        <img
+                                          className="Cursor"
+                                          onClick={() =>
+                                            onDelete(allsuperuse._id)
+                                          }
+                                          src={require("../../static/images/delete.png")}
+                                          alt="delete"
+                                          title="delete"
+                                        />
+                                      </>
+                                    ) : (
+                                      <div className="blank">DeActivated</div>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
               </div>
-            </div>
-          </section>
+              <div className="row">
+                <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+                  {allsuperuser && allsuperuser.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={allsuperuser.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+                <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
+                  <label>No of User : {allsuperuser.length}</label>
+                </div>
+              </div>
+            </section> */}
 
           {/* this id for Deactivating the Super user starting */}
           <Modal
@@ -236,21 +339,22 @@ const SuperUserDashboard = ({
             // onHide={handleClose}
             centered
           >
-            <Modal.Title className="text-center">
-              <b> Deactivate</b>
-              <Button
-                variant="primary"
-                onClick={() => setDeactiveShow(false)}
-                id="Deactiveclose"
-              >
+            <Modal.Header>
+              <div className="col-lg-11 ">
+                <h3 className="modal-title text-center">
+                  <b>DEACTIVATE</b>
+                </h3>
+              </div>
+              <div className="col-lg-1 closeicon">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
                   style={{ height: "20px", width: "20px" }}
+                  onClick={() => setDeactiveShow(false)}
                 />
-              </Button>
-            </Modal.Title>
-            {/* <Modal.Header className="lg" ></Modal.Header> */}
+              </div>
+            </Modal.Header>
+
             <Modal.Body>
               <Form>
                 <Form.Group
@@ -275,7 +379,7 @@ const SuperUserDashboard = ({
             </Modal.Body>
             <Modal.Footer>
               <Button id="deactivebtn" onClick={onAdd}>
-                <b>DeActivate</b>
+                <b>DeActive</b>
               </Button>
             </Modal.Footer>
           </Modal>
@@ -320,7 +424,17 @@ const SuperUserDashboard = ({
             </Modal.Body>
           </Modal>
           {/* Modal Edit Ending */}
-        </div>
+
+          <Modal
+            show={showadd}
+            backdrop="static"
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <AddSuperUserModal setShowadd={setShowadd} />
+          </Modal>
+        </>
       ) : (
         <></>
       )}

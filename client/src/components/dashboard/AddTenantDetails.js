@@ -364,7 +364,7 @@ const AddTenantDetails = ({
                   </i>
                 </label>
                 <Select
-                  name="doorno"
+                  name="Property name"
                   options={allBuildingNames}
                   value={buildingData}
                   onChange={(e) => onBuildingChange(e)}

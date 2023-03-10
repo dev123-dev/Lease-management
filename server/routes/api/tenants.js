@@ -1268,6 +1268,7 @@ router.post(
 );
 
 router.post("/update-tenant-details", async (req, res) => {
+  console.log(req.body);
   try {
     let data = req.body;
 
@@ -1275,8 +1276,14 @@ router.post("/update-tenant-details", async (req, res) => {
       { _id: data.recordId },
       {
         $set: {
+          OrganizationId: data.OrganizationId,
+          OrganizationName: data.OrganizationName,
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
+          shopDoorNo: data.tenantDoorNo.label,
+          tenantRentAmount: data.tenantRentAmount,
+          tenantLeaseEndDate: data.tenantLeaseEndDate,
+          tenantLeaseStartDate: data.tenantLeaseStartDate,
           tenantFirmName: data.tenantFirmName,
           tenantAddr: data.tenantAddr,
           tenantAdharNo: data.tenantAdharNo,
@@ -1290,22 +1297,22 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-
+    console.log("Edited details", updatetenantdetails);
     res.json(updatetenantdetails);
 
-    // const AgreementUpdate = await TenentAgreement.updateOne(
-    //   { tdId: data.recordId, AgreementStatus: data.AgreementStatus },
+    const AgreementUpdate = await TenentAgreement.updateOne(
+      { tdId: data.recordId },
 
-    //   {
-    //     $set: {
-    //       tenantRentAmount: data.tenantRentAmount,
-    //       tenantLeaseStartDate: data.tenantLeaseStartDate,
-    //       tenantLeaseEndDate: data.tenantLeaseEndDate,
-    //     },
-    //   }
-    // );
-
-    // res.json(AgreementUpdate);
+      {
+        $set: {
+          tenantRentAmount: data.tenantRentAmount,
+          tenantLeaseStartDate: data.tenantLeaseStartDate,
+          tenantLeaseEndDate: data.tenantLeaseEndDate,
+        },
+      }
+    );
+    console.log("aggrement setting", AgreementUpdate);
+    //res.json(AgreementUpdate);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
   }

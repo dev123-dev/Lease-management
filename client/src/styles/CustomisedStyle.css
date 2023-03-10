@@ -552,13 +552,28 @@ p {
     position: relative;
     margin-top: -10%;
   }
+<<<<<<< HEAD
   .link_to_org {
     margin-top: -35%;
+=======
+  .locadds{
+    left:10px;
+  }
+  .link_to_org{
+    margin-top:-35% ;
+>>>>>>> 006d92a69d0701cedf5ef324e1a545d479973b9c
     margin-left: 90%;
   }
+<<<<<<< HEAD
   #plusicon {
     top: -25px;
     right: 85px;
+=======
+  
+  #plusicon{
+    top:-25px;
+    right:85px;
+>>>>>>> 006d92a69d0701cedf5ef324e1a545d479973b9c
     height: 20px;
     position: relative;
     background-color: transparent;
@@ -2188,14 +2203,14 @@ button {
 .logut:hover {
   background-color: #949796;
 }
-#Renewalbtn {
-  margin-left: 465px;
+.Renewalbtn {
+  
   height: 50px;
   width: 110px;
   background-color: #095a4a;
   color: white;
 }
-#Renewalbtn:hover {
+.Renewalbtn:hover {
   background-color: #000000;
 }
 .tenantEditSave {
@@ -2303,10 +2318,14 @@ button {
   cursor: pointer;
   /* margin-top: -9%; */
 }
+<<<<<<< HEAD
 
 /* div{
   border:1px solid rgba(242, 10, 10, 0.541);
 }       */
+=======
+   
+>>>>>>> 006d92a69d0701cedf5ef324e1a545d479973b9c
 .deactive {
   position: absolute;
   background-color: rgb(221, 95, 95);
@@ -2315,3 +2334,15 @@ button {
   margin-top: -10px;
   margin-left: -11px;
 }
+.closeicon{
+  cursor: pointer;
+}
+.closeicon:hover{
+  background-color: lightgray;
+}
+
+
+
+div{
+  border:1px solid rgba(242, 10, 10, 0.541);
+}    

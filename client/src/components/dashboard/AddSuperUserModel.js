@@ -9,6 +9,7 @@ const AddSuperUserModel = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allorg },
   Adduser,
+  setShowadd,
 }) => {
   const orglist = [];
   allorg.map((org) => {
@@ -223,7 +224,7 @@ const AddSuperUserModel = ({
         OrganizationName: orgname,
       };
 
-      setShowAdd(false);
+      setShowadd(false);
       Adduser(finalUserData);
       setFormData({
         ...formData,
@@ -238,7 +239,6 @@ const AddSuperUserModel = ({
       });
     }
   };
-  const [showAdd, setShowAdd] = useState(false);
 
   const [supershow, setSuperShow] = useState();
   const superhandleClose = () => setSuperShow(false);
@@ -253,184 +253,161 @@ const AddSuperUserModel = ({
     user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
-      <div className="addicon ml-5">
-        <img
-          height="25px"
-          className="ml-5"
-          src={require("../../static/images/add-icon.png")}
-          onClick={() => superhandleShow()}
-          alt="Add User"
-          title="Add User"
-        />
-      </div>
-
       <form>
-        <Modal
-          show={supershow}
-          backdrop="static"
-          keyboard={false}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal"
-        >
-          <Modal.Header>
-            <Modal.Title className="container">
-              <h1 className="text-center h2 orghea ">Add user</h1>
-            </Modal.Title>
-            <div className="  col-lg-2 ">
-              <button className="close ml-5" onClick={() => superhandleClose()}>
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{
-                    height: "20px",
-                    width: "20px",
-                    color: "black",
-                    marginLeft: "4.5rem",
-                  }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
+        <Modal.Header>
+          <div className="col-lg-10 ">
+            <h3>
+              <b className="text-center ">Add User Details </b>
+            </h3>
+          </div>
+          <div className="col-lg-2 ">
+            <button onClick={() => setShowadd(false)} className="close">
+              <img
+                className="editcl"
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
 
-          <Modal.Body>
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-6">
-                  <label>
-                    {" "}
-                    Name
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                    :
-                  </label>{" "}
-                  <input
-                    type="text"
-                    name="name"
-                    value={name}
-                    className="form-control"
-                    placeholder="Name"
-                    onChange={(e) => onuserchange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  <label>
-                    Email{" "}
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                    :
-                  </label>{" "}
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    className="form-control"
-                    onChange={(e) => onuserchange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  PhoneNo
-                  <input
-                    type="number"
-                    name="phone"
-                    placeholder="PhoneNo"
-                    value={phone}
-                    className="form-control"
-                    onChange={(e) => onuserchange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
+        <Modal.Body>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <label>
                   {" "}
-                  <label>
-                    Organization belongs to{" "}
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                    :{" "}
-                  </label>{" "}
-                  <Select
-                    name="orgname"
-                    className=""
-                    placeholder="---Select---"
-                    isSearchable={false}
-                    options={orglist}
-                    value={orgname}
-                    onChange={(e) => onchangeOrg(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary: "black",
-                      },
-                    })}
+                  Name
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>{" "}
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  className="form-control"
+                  placeholder="Name"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                <label>
+                  Email{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :
+                </label>{" "}
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                PhoneNo
+                <input
+                  type="number"
+                  name="phone"
+                  placeholder="PhoneNo"
+                  value={phone}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                {" "}
+                <label>
+                  Organization belongs to{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>{" "}
+                </label>{" "}
+                <Select
+                  name="orgname"
+                  className=""
+                  placeholder="---Select---"
+                  isSearchable={false}
+                  options={orglist}
+                  value={orgname}
+                  onChange={(e) => onchangeOrg(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "gray",
+                    },
+                  })}
+                  required
+                ></Select>
+              </div>
+              <div className="col-lg-6">
+                <label className="control-label">
+                  Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+                <div className="controls">
+                  <input
+                    name="password"
+                    id="user_password"
+                    type="password"
+                    autoComplete="off"
+                    value={password}
+                    className="form-control"
+                    style={passwordInptErrStyle}
+                    onChange={(e) => onPasswordChange(e)}
                     required
-                  ></Select>
+                  />
+                  {passwordValChecker && (
+                    <span className="form-input-info" style={passwordValStyle}>
+                      {passwordValResult}
+                    </span>
+                  )}
                 </div>
-                <div className="col-lg-6">
-                  <label className="control-label">
-                    Password <span>*</span>
-                  </label>
-                  <div className="controls">
-                    <input
-                      name="password"
-                      id="user_password"
-                      type="password"
-                      autoComplete="off"
-                      value={password}
-                      className="form-control"
-                      style={passwordInptErrStyle}
-                      onChange={(e) => onPasswordChange(e)}
-                      required
-                    />
-                    {passwordValChecker && (
-                      <span
-                        className="form-input-info"
-                        style={passwordValStyle}
-                      >
-                        {passwordValResult}
+              </div>
+
+              <div className="col-lg-6">
+                <label className="control-label">
+                  Confirm Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+                <div className="controls">
+                  <input
+                    name="rePassword"
+                    id="user_confpass"
+                    type="password"
+                    value={rePassword}
+                    autoComplete="off"
+                    className="form-control"
+                    style={repwdInptErrStyle}
+                    onChange={(e) => onPasswordChange(e)}
+                    required
+                  />
+                  {repwdValChecker && (
+                    <Fragment>
+                      <span className="form-input-info" style={repwdValStyle}>
+                        {repwdValResult}
                       </span>
-                    )}
-                  </div>
+                    </Fragment>
+                  )}
+                  <span id="category_result" className="form-input-info"></span>
                 </div>
+              </div>
 
-                <div className="col-lg-6">
-                  <label className="control-label">
-                    Confirm Password <span>*</span>
-                  </label>
-                  <div className="controls">
-                    <input
-                      name="rePassword"
-                      id="user_confpass"
-                      type="password"
-                      value={rePassword}
-                      autoComplete="off"
-                      className="form-control"
-                      style={repwdInptErrStyle}
-                      onChange={(e) => onPasswordChange(e)}
-                      required
-                    />
-                    {repwdValChecker && (
-                      <Fragment>
-                        <span className="form-input-info" style={repwdValStyle}>
-                          {repwdValResult}
-                        </span>
-                      </Fragment>
-                    )}
-                    <span
-                      id="category_result"
-                      className="form-input-info"
-                    ></span>
-                  </div>
-                </div>
-
-                {/* <div className="col-lg-6">
+              {/* <div className="col-lg-6">
                   {" "}
                   <label>
                     Password{" "}
@@ -467,69 +444,68 @@ const AddSuperUserModel = ({
                     onChange={(e) => onuserchange(e)}
                   />
                 </div> */}
-                <div className="col-lg-6">
-                  Address
-                  <textarea
-                    name="OrganizationAddress"
-                    value={address}
-                    onChange={(e) => onuserchange(e)}
-                    // id="tenantAddr"
-                    className="textarea form-control"
-                    rows="4"
-                    cols="20"
-                    placeholder="Address"
-                    // onChange={(e) => onInputChange(e)}
-                    style={{ width: "100%" }}
-                    required
-                  ></textarea>{" "}
-                </div>
-                <div className="col-lg-6">
-                  <label>
-                    UserGroup{" "}
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                    :{" "}
-                  </label>
-                  <Select
-                    name="usergroup"
-                    className=""
-                    options={UserGroups}
-                    isSearchable={false}
-                    placeholder="------------------Select--------------------"
-                    onChange={(e) => onuser(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
+              <div className="col-lg-6">
+                Address
+                <textarea
+                  name="OrganizationAddress"
+                  value={address}
+                  onChange={(e) => onuserchange(e)}
+                  // id="tenantAddr"
+                  className="textarea form-control"
+                  rows="4"
+                  cols="20"
+                  placeholder="Address"
+                  // onChange={(e) => onInputChange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>{" "}
+              </div>
+              <div className="col-lg-6">
+                <label>
+                  UserGroup{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                  :{" "}
+                </label>
+                <Select
+                  name="usergroup"
+                  className=""
+                  options={UserGroups}
+                  isSearchable={false}
+                  placeholder="--------------Select---------------"
+                  onChange={(e) => onuser(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
 
-                      colors: {
-                        ...theme.colors,
-                        primary: "black",
-                      },
-                    })}
-                  />
-                </div>
+                    colors: {
+                      ...theme.colors,
+                      primary: "gray",
+                    },
+                  })}
+                />
+              </div>
 
-                <h5 className="Uservalidation">
-                  {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
-                </h5>
-                <div className="col-lg-1 Savebutton ">
-                  <button
-                    type="submit"
-                    variant="success"
-                    id="savebtn"
-                    className="btn sub_form btn_continue Save "
-                    onClick={() => onsubmitUserData()}
-                  >
-                    Save
-                  </button>
-                </div>
+              <h5 className="Uservalidation">
+                {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
+              </h5>
+              <div className="col-lg-1 Savebutton ">
+                <button
+                  type="submit"
+                  variant="success"
+                  id="savebtn"
+                  className="btn sub_form btn_continue Save "
+                  onClick={() => onsubmitUserData()}
+                >
+                  Save
+                </button>
               </div>
             </div>
-          </Modal.Body>
-        </Modal>
+          </div>
+        </Modal.Body>
       </form>
     </Fragment>
   ) : (

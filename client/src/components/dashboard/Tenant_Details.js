@@ -300,7 +300,7 @@ const Tenant_Details = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <EditTenantDetails tenants={EditTenant} />
+            <EditTenantDetails tenantsdetails={EditTenant} />
           </Modal.Body>
         </Modal>
       </Fragment>
