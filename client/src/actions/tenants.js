@@ -441,7 +441,7 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    dispatch(getAllTenants());
+    dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
   } catch (err) {
     console.log(err.message);
     dispatch({
