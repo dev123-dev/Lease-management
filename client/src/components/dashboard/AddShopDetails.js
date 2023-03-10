@@ -21,8 +21,6 @@ const AddShopDetails = ({
 }) => {
   useEffect(() => {
     fun();
-    console.log(get_Particular_org_Tenantsetting);
-    //this below console statement is required bez if removed the data will not present in "particular_org_loc" and throw an error as undefined
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     getParticularTenantSetting({
