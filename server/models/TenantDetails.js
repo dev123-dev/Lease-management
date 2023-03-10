@@ -56,7 +56,7 @@ const TenantDetails = new mongoose.Schema({
   tenantchequeDate: {
     type: String,
   },
-  tenantstatcus: {
+  tenantstatus: {
     type: String,
 
     default: "Active", //Active,Deactive

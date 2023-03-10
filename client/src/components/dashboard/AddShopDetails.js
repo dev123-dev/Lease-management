@@ -19,15 +19,18 @@ const AddShopDetails = ({
   getParticularTenantSetting,
   getParticularProperty,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+  const [pageRefresh, SetRefresh] = useState(false);
   useEffect(() => {
     fun();
-    getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    getParticularOrg({ OrganizationId: myuser && myuser.OrganizationId });
+    getParticularProperty({ OrganizationId: myuser && myuser.OrganizationId });
     getParticularTenantSetting({
-      OrganizationId: user && user.OrganizationId,
+      OrganizationId: myuser && myuser.OrganizationId,
     });
-  }, []);
+  }, [pageRefresh]);
 
+  console.log("hello", get_Particular_org_Tenantsetting);
   const [orgLoc, setLoc] = useState([]);
   const locationList = [];
 

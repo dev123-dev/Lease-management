@@ -114,7 +114,19 @@ router.post("/add-tenant-details", async (req, res) => {
 router.post("/add-Organization", async (req, res) => {
   let data = req.body;
   try {
-    let orgData = new OrganizationDetails(data);
+    let orgd = {
+      OrganizationName: data.OrganizationName,
+      OrganizationEmail: data.OrganizationEmail,
+      OrganizationNumber: data.OrganizationNumber,
+      OrganizationAddress: data.OrganizationAddress,
+      date: data.date,
+      enddate: data.enddate,
+      Location: data.Location,
+      org_status: data.org_status,
+      enter_by_dateTime: data.enter_by_dateTime,
+    };
+
+    let orgData = new OrganizationDetails(orgd);
     output = await orgData.save();
     const finalData2 = {
       OrganizationName: output.OrganizationName,
@@ -140,11 +152,11 @@ router.post("/add-Organization", async (req, res) => {
 //get all organization
 router.get("/get-all-Organization", async (req, res) => {
   try {
-    const orgdata = await OrganizationDetails.find({}).sort({
+    const data = await OrganizationDetails.find({}).sort({
       org_status: 1,
     });
 
-    res.json(orgdata);
+    res.json(data);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -168,6 +180,14 @@ router.post("/get-particular-org", async (req, res) => {
     console.log(error.message);
   }
 });
+
+//get renewal amount of particu;lar organiozation
+// router.post("/get-renewal-amount",async(req,res)=>{
+//   let data = req.body;
+//   try{
+
+//   }catch(error){console.log(error.message)}
+// })
 
 //get particular user data for admin side
 router.post("/get-particular-user", async (req, res) => {
@@ -576,10 +596,12 @@ router.post(
 //get exp month count for Organization
 router.post("/get-month-exp-org", async (req, res) => {
   const { selectedY } = req.body;
+  console.log("insde api get month=", selectedY);
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     yearVal = selectedY;
   }
+  console.log(yearVal, "yearval");
   try {
     const orgexp = await OrganizationDetails.aggregate([
       {
@@ -616,6 +638,7 @@ router.post("/get-month-exp-org", async (req, res) => {
 // Get Exp Month Count
 router.post("/get-month-exp-count", async (req, res) => {
   const { selectedY, OrganizationId } = req.body; //change
+  console.log("COUNTTTTT", OrganizationId);
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     //change
@@ -737,9 +760,10 @@ router.post("/get-all-shops", async (req, res) => {
 //get year count for Organization
 router.post("/get-previous-years-exp-Org", async (req, res) => {
   const { selectedVal } = req.body;
+
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-
+  console.log(firstDay);
   try {
     const yeardata = await OrganizationDetails.aggregate([
       {
@@ -766,13 +790,11 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
   const { selectedVal, OrganizationId } = req.body;
-
+  console.log("rrrrr", selectedVal, OrganizationId);
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
+  console.log(firstDay, "rddd");
   try {
-    // const MonthExpCntData = await TenentAgreement.find({
-    //   tenantLeaseEndDate: { $lt: firstDay },
-    // }).count();
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
         $lookup: {
@@ -798,6 +820,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
         },
       },
     ]);
+    console.log("expreport", MonthExpCntData);
     res.json(MonthExpCntData);
   } catch (err) {
     console.error(err.message);
@@ -965,7 +988,7 @@ router.post("/get-organization-expiry-report", async (req, res) => {
 });
 
 router.post("/get-tenant-old-exp-report", async (req, res) => {
-  const { yearSearch } = req.body;
+  const { yearSearch, OrganizationId } = req.body;
   var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
   try {
     const tenantSettingsData = await TenantSettings.find({});
@@ -989,6 +1012,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           agreementId: "$output._id",
           tenantDoorNo: "$output.tenantDoorNo",
           tenantFileNo: "$output.tenantFileNo",
+          OrganizationId: "$OrganizationId",
           chargesCal: {
             $add: [
               {
@@ -1035,6 +1059,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
       },
       {
         $match: {
+          OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $lte: lastDate },
           AgreementStatus: { $ne: "Renewed" },
           tenantstatus: { $eq: "Active" },
