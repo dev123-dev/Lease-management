@@ -1,15 +1,17 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
+import { useLocation } from "react-router-dom";
 
-const RenewalOrg_mainPage = ({
+const ReneworgAggreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   //Org: { allOrgSetting },
   RenewOrgDetailsform,
-  orgData,
   onReportModalChange,
 }) => {
+  const Location = new useLocation();
+  const orgData = Location.state;
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -32,14 +34,12 @@ const RenewalOrg_mainPage = ({
   if (mm < 10) {
     mm = "0" + mm;
   }
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [showEditModal, setShowEditModal] = useState(false);
 
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
@@ -84,14 +84,6 @@ const RenewalOrg_mainPage = ({
     date: entryDate,
     enddate: leaseEndDate,
   });
-  const {
-    OrganizationId,
-    OrganizationName,
-    OrganizationEmail,
-    OrganizationNumber,
-    OrganizationStartDate,
-    OrganizationEndDate,
-  } = formData;
 
   const onSubmit = () => {
     const finalData = {
@@ -112,8 +104,8 @@ const RenewalOrg_mainPage = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div></div>
-      <section className="sub_reg">
+      <section className="sub_reg mt-5 p-5">
+        <div>Renewal Agreement</div>
         <div className="row">
           <div
             className="col-lg-4 col-md-2 col-sm-4 col-12"
@@ -134,8 +126,6 @@ const RenewalOrg_mainPage = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
-              // min={yesterdayDt}
-              //min={today}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
               value={entryDate}
@@ -152,22 +142,15 @@ const RenewalOrg_mainPage = ({
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{leaseEndDate}</label>
+            <input
+              className="form-control cpp-input datevalidation"
+              value={leaseEndDate}
+            ></input>
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12 " size="lg">
-            <button
-              id="savebtn"
-              className="btn sub_form btn_continue Save float-right"
-              variant="success"
-              onClick={() => console.log("clicker renwe")} //onSubmit()}
-              style={
-                leaseEndDate !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
-            >
+          <div className="col-lg-12 Savebutton" size="lg">
+            <button variant="success" id="savebtn" onClick={() => onSubmit()}>
               Renew
             </button>
           </div>
@@ -177,7 +160,7 @@ const RenewalOrg_mainPage = ({
   );
 };
 
-RenewalOrg_mainPage.propTypes = {
+ReneworgAggreement.propTypes = {
   auth: PropTypes.object.isRequired,
 
   // RenewTenantDetailsform: PropTypes.func.isRequired,
@@ -189,5 +172,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { RenewOrgDetailsform })(
-  RenewalOrg_mainPage
+  ReneworgAggreement
 );

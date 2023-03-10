@@ -1,17 +1,16 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
-import { useLocation } from "react-router-dom";
 
-const ReneworgAggreement = ({
+const RenewalOrg_mainPage = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   //Org: { allOrgSetting },
   RenewOrgDetailsform,
+  orgData,
   onReportModalChange,
+  setShowRenewalModal,
 }) => {
-  const Location = new useLocation();
-  const orgData = Location.state;
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
     selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -34,12 +33,14 @@ const ReneworgAggreement = ({
   if (mm < 10) {
     mm = "0" + mm;
   }
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
@@ -84,8 +85,17 @@ const ReneworgAggreement = ({
     date: entryDate,
     enddate: leaseEndDate,
   });
+  const {
+    OrganizationId,
+    OrganizationName,
+    OrganizationEmail,
+    OrganizationNumber,
+    OrganizationStartDate,
+    OrganizationEndDate,
+  } = formData;
 
   const onSubmit = () => {
+    // setShowRenewalModal(false);
     const finalData = {
       isSubmitted: true,
       OrganizationId: orgData._id,
@@ -104,7 +114,8 @@ const ReneworgAggreement = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <section className="sub_reg mt-5 p-5">
+      <div></div>
+      <section className="sub_reg">
         <div className="row">
           <div
             className="col-lg-4 col-md-2 col-sm-4 col-12"
@@ -113,7 +124,9 @@ const ReneworgAggreement = ({
             <label> Organization Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{orgData.OrganizationName}</label>
+            <label>
+              <b>{orgData.OrganizationName}</b>
+            </label>
           </div>
         </div>
         <div className="row py-2">
@@ -125,6 +138,8 @@ const ReneworgAggreement = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
+              // min={yesterdayDt}
+              //min={today}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
               value={entryDate}
@@ -142,18 +157,24 @@ const ReneworgAggreement = ({
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
+              placeholder="dd-mm-yyyy"
               className="form-control cpp-input datevalidation"
               value={leaseEndDate}
             ></input>
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12 Savebutton" size="lg">
+          <div className="col-lg-12 " size="lg">
             <button
-              className="ml-5"
-              variant="success"
               id="savebtn"
+              className="btn sub_form btn_continue Save float-right"
+              variant="success"
               onClick={() => onSubmit()}
+              style={
+                leaseEndDate !== ""
+                  ? { opacity: "1" }
+                  : { opacity: "1", pointerEvents: "none" }
+              }
             >
               Renew
             </button>
@@ -164,7 +185,7 @@ const ReneworgAggreement = ({
   );
 };
 
-ReneworgAggreement.propTypes = {
+RenewalOrg_mainPage.propTypes = {
   auth: PropTypes.object.isRequired,
 
   // RenewTenantDetailsform: PropTypes.func.isRequired,
@@ -176,5 +197,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { RenewOrgDetailsform })(
-  ReneworgAggreement
+  RenewalOrg_mainPage
 );

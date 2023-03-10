@@ -1561,10 +1561,10 @@ input[type="radio"].error {
 .drophover:hover {
   background-color: lightgrey;
 }
-.refreshbtn {
-  margin-left: 85%;
-  position: absolute;
-  cursor: pointer;
+.refreshbtn{
+  margin-left: 90%;
+ position: absolute;
+  cursor: pointer; 
 }
 
 /*multi level dropdown navbar*/
@@ -2085,6 +2085,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: black;
   border-radius: 0%;
   border-color: #000;
+  cursor: pointer;
 }
 #savebtn:hover {
   background-color: #095a4a;
@@ -2176,10 +2177,12 @@ button {
   height: 40px;
   border-radius: 0%;
   border-color: transparent;
+  
 }
 .rewbtn:hover {
   background-color: black;
   color: white;
+  cursor: pointer;
 }
 .userhea {
   background-color: red;
@@ -2295,11 +2298,18 @@ button {
   color: white;
 }
 #logoutbtn {
-  background-color: #095a4a;
+  background-color:transparent;
   width: 75px;
   height: 40px;
   border-radius: 5px;
-  color: white;
+  color:black;
+  border-color: #000;
+  border-radius: 0%;
+}
+#logoutbtn:hover{
+  background-color: #095a4a;
+  color:white;
+
 }
 .refreshbtnad {
   margin-left: 4000%;
@@ -2322,6 +2332,8 @@ button {
   background-color: lightgray;
 }
 
-/* div {
-  border: 1px solid rgba(242, 10, 10, 0.541);
-} */
+
+
+/* div{
+  border:1px solid rgba(242, 10, 10, 0.541);
+}     */

@@ -216,7 +216,6 @@ const AddOrgModal = ({
                   type="number"
                   className="form-control"
                   placeholder="Number Of User"
-                  readOnly={true}
                 />
               </div>
               <div className="col-lg-6">

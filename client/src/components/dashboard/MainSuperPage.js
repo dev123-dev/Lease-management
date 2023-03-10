@@ -6,7 +6,8 @@ import { Modal, Button } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
-import RenewalOrg_mainPage from "./RenewalOrg_mainPage";
+import RenewalOrg_mainPage from "./RenewalOrg_model";
+import Pagination from "../layout/Pagination";
 const MainSuperPage = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allorg },
@@ -41,6 +42,18 @@ const MainSuperPage = ({
       handleRenewalModalClose();
     }
   };
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(7);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    allorg && allorg.slice(indexOfFirstData, indexOfLastData);
+
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -56,15 +69,10 @@ const MainSuperPage = ({
           <div className="row ">
             <div className="col-lg-1"></div>
 
-            <div className=" mt-5 col-lg-10  d-flex align-items-center justify-content-center ">
+            <div className="body-inner no-padding table-responsive">
               <table
-                border="1"
+                className="table table-bordered table-striped table-hover  table-active mt-5"
                 id="datatable2"
-                className="table table-bordered table-striped table-hover mt-3  table-responsive fixTableHeadjoin "
-                style={{
-                  width: "100%",
-                  border: "1px solid black",
-                }}
               >
                 <thead>
                   <tr>
@@ -80,9 +88,9 @@ const MainSuperPage = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {allorg &&
-                    allorg[0] &&
-                    allorg.map((org, index) => {
+                  {currentDatas &&
+                    currentDatas[0] &&
+                    currentDatas.map((org, index) => {
                       return (
                         <tr key={index}>
                           <td>{org.OrganizationName}</td>
@@ -113,6 +121,24 @@ const MainSuperPage = ({
             </div>
             <div className="col-lg-1"></div>
           </div>
+          <div className="row ">
+            <div className="col-lg-6">
+              {allorg && allorg.length !== 0 ? (
+                <Pagination
+                  dataPerPage={dataPerPage}
+                  totalData={allorg.length}
+                  paginate={paginate}
+                  currentPage={currentData}
+                />
+              ) : (
+                <Fragment />
+              )}
+            </div>
+
+            <div className="col-lg-6  ">
+              <p className="text-end"> No of Organization : {allorg.length}</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -126,7 +152,9 @@ const MainSuperPage = ({
       >
         <Modal.Header>
           <div className="col-lg-10">
-            <h4 className=" text-center">Renewal Agreement</h4>
+            <h4 className=" text-center">
+              <b>Renewal Agreement</b>
+            </h4>
           </div>
           <div className="col-lg-2">
             <button onClick={handleEditModalClose} className="close">
@@ -142,6 +170,7 @@ const MainSuperPage = ({
           <RenewalOrg_mainPage
             orgData={userData}
             onReportModalChange={onReportModalChange}
+            setShowRenewalModal={setShowRenewalModal}
           />
         </Modal.Body>
       </Modal>

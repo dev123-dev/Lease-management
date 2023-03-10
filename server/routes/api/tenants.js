@@ -601,7 +601,6 @@ router.post("/get-month-exp-org", async (req, res) => {
   if (selectedY) {
     yearVal = selectedY;
   }
-  console.log(yearVal, "yearval");
   try {
     const orgexp = await OrganizationDetails.aggregate([
       {
@@ -627,7 +626,7 @@ router.post("/get-month-exp-org", async (req, res) => {
         },
       },
     ]);
-
+    console.log("orgexp", orgexp);
     res.json(orgexp);
   } catch (err) {
     console.error(err.message);
@@ -779,7 +778,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
         },
       },
     ]);
-
+    console.log("year data", yeardata);
     res.json(yeardata);
   } catch (err) {
     console.error(err.message);
