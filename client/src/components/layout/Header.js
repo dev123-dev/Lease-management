@@ -330,10 +330,10 @@ const Header = ({
           </Modal.Body>
           <Modal.Footer>
             <button id="logoutbtn" onClick={() => LogoutModalClose()}>
-              YES
+              <b>YES</b>
             </button>
             <button id="logoutbtn" onClick={() => handleLogoutModalClose()}>
-              NO
+              <b>NO</b>
             </button>
           </Modal.Footer>
         </Modal>

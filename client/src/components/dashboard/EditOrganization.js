@@ -171,6 +171,7 @@ const EditOrganization = ({
           <div className="col-lg-6">
             <label>Number of User</label>
             <input
+              placeholder="Number of User"
               type="number"
               readOnly={true}
               className="form-control"
@@ -191,6 +192,7 @@ const EditOrganization = ({
           <div className="col-lg-6">
             <label>LeaseEndDate</label>
             <input
+              placeholder="dd-mm-yyyy"
               type="text"
               readOnly={true}
               value={showEnddate}

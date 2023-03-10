@@ -9,6 +9,7 @@ const RenewalOrg_mainPage = ({
   RenewOrgDetailsform,
   orgData,
   onReportModalChange,
+  setShowRenewalModal,
 }) => {
   const [error, setError] = useState({
     nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
@@ -94,6 +95,7 @@ const RenewalOrg_mainPage = ({
   } = formData;
 
   const onSubmit = () => {
+    // setShowRenewalModal(false);
     const finalData = {
       isSubmitted: true,
       OrganizationId: orgData._id,
@@ -122,7 +124,9 @@ const RenewalOrg_mainPage = ({
             <label> Organization Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{orgData.OrganizationName}</label>
+            <label>
+              <b>{orgData.OrganizationName}</b>
+            </label>
           </div>
         </div>
         <div className="row py-2">
@@ -152,7 +156,11 @@ const RenewalOrg_mainPage = ({
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{leaseEndDate}</label>
+            <input
+              placeholder="dd-mm-yyyy"
+              className="form-control cpp-input datevalidation"
+              value={leaseEndDate}
+            ></input>
           </div>
         </div>
         <div className="row py-2">
@@ -161,7 +169,7 @@ const RenewalOrg_mainPage = ({
               id="savebtn"
               className="btn sub_form btn_continue Save float-right"
               variant="success"
-              onClick={() => console.log("clicker renwe")} //onSubmit()}
+              onClick={() => onSubmit()}
               style={
                 leaseEndDate !== ""
                   ? { opacity: "1" }

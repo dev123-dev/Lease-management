@@ -8,7 +8,7 @@ import RouteDriver from "../dashboard/RouteDriver";
 
 //DashBoard
 import changePassword from "../auth/ChangePwd";
-import RenewalorgAgreement from "../dashboard/RenewalorgAgreement";
+import RenewalorgAgreement from "../dashboard/RenewalorgAgreementPage";
 import AddTenantDetails from "../dashboard/AddTenantDetails";
 import TenantSettings from "../dashboard/TenantSettings";
 import TenantReport from "../dashboard/TenantReport";
@@ -17,7 +17,7 @@ import AddShopDetails from "../dashboard/AddShopDetails";
 import EditTenantDetails from "../dashboard/EditTenantDetails";
 import AddOrgDashBoard from "../dashboard/AddOrgDashBoard";
 import SuperDashboard from "../dashboard/SuperUserDashboard";
-import RenewalOrg_mainPage from "../dashboard/RenewalOrg_mainPage";
+import RenewalOrg_mainPage from "../dashboard/RenewalOrg_model";
 import MainSuperPage from "../dashboard/MainSuperPage";
 import Tenant_Details from "../dashboard/Tenant_Details";
 import AddOrgModal from "../dashboard/AddOrgModal";

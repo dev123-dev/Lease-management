@@ -105,6 +105,7 @@ const ReneworgAggreement = ({
   ) : (
     <Fragment>
       <section className="sub_reg mt-5 p-5">
+        <div>Renewal Agreement</div>
         <div className="row">
           <div
             className="col-lg-4 col-md-2 col-sm-4 col-12"
@@ -146,11 +147,7 @@ const ReneworgAggreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-12 Savebutton" size="lg">
-            <button
-              variant="success"
-              id="Renewalbtn"
-              onClick={() => onSubmit()}
-            >
+            <button variant="success" id="savebtn" onClick={() => onSubmit()}>
               Renew
             </button>
           </div>

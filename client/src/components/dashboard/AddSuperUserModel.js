@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, ModalFooter } from "react-bootstrap";
 import { useState, Fragment } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
@@ -407,43 +407,6 @@ const AddSuperUserModel = ({
                 </div>
               </div>
 
-              {/* <div className="col-lg-6">
-                  {" "}
-                  <label>
-                    Password{" "}
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                    :
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    autoComplete="off"
-                    value={password}
-                    placeholder="Password"
-                    className="form-control"
-                    onChange={(e) => onuserchange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  {" "}
-                  <label>
-                    ConfirmPassword{" "}
-                    <i className="text-danger ">
-                      <b>*</b>
-                    </i>
-                    :
-                  </label>
-                  <input
-                    type="password"
-                    name="cnfrmpassword"
-                    placeholder="ConfirmPassword"
-                    value={cpassword}
-                    className="form-control"
-                    onChange={(e) => onuserchange(e)}
-                  />
-                </div> */}
               <div className="col-lg-6">
                 Address
                 <textarea
@@ -452,7 +415,7 @@ const AddSuperUserModel = ({
                   onChange={(e) => onuserchange(e)}
                   // id="tenantAddr"
                   className="textarea form-control"
-                  rows="4"
+                  rows="3"
                   cols="20"
                   placeholder="Address"
                   // onChange={(e) => onInputChange(e)}
@@ -492,16 +455,20 @@ const AddSuperUserModel = ({
               <h5 className="Uservalidation">
                 {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
               </h5>
-              <div className="col-lg-1 Savebutton ">
-                <button
-                  type="submit"
-                  variant="success"
-                  id="savebtn"
-                  className="btn sub_form btn_continue Save "
-                  onClick={() => onsubmitUserData()}
-                >
-                  Save
-                </button>
+              <div className="col-lg-12 ">
+                <ModalFooter>
+                  <div className=" Savebutton  " size="lg">
+                    <button
+                      type="submit"
+                      variant="success"
+                      id="savebtn"
+                      className="btn sub_form btn_continue Save float-right "
+                      onClick={() => onsubmitUserData()}
+                    >
+                      Save
+                    </button>
+                  </div>
+                </ModalFooter>
               </div>
             </div>
           </div>

@@ -161,9 +161,9 @@ const SuperUserDashboard = ({
                 <div className="row ">
                   <div className="col-lg-1"></div>
 
-                  <div className=" mt-5 col-lg-10  d-flex align-items-center justify-content-center">
+                  <div className="body-inner no-padding table-responsive">
                     <table
-                      className="table table-bordered table-striped table-hover table-active table-responsive fixTableHeadjoin mt-3"
+                      className="table table-bordered table-striped table-hover  table-active mt-5"
                       id="datatable2"
                     >
                       <thead>
@@ -189,31 +189,30 @@ const SuperUserDashboard = ({
                                 <td>{allsuperuse.usergroup}</td>
                                 <td>{allsuperuse.OrganizationName}</td>
                                 <td>{allsuperuse.useraddress}</td>
-                                <td>
-                                  {allsuperuse.userStatus === "Active" ? (
-                                    <>
-                                      <img
-                                        className="Cursor"
-                                        onClick={() => onEdit(allsuperuse, idx)}
-                                        src={require("../../static/images/edit_icon.png")}
-                                        alt="Edit"
-                                        title="Edit"
-                                      />
-                                      &nbsp;
-                                      <img
-                                        className="Cursor"
-                                        onClick={() =>
-                                          onDelete(allsuperuse._id)
-                                        }
-                                        src={require("../../static/images/delete.png")}
-                                        alt="delete"
-                                        title="delete"
-                                      />
-                                    </>
-                                  ) : (
-                                    <div className="blank">DeActivated</div>
-                                  )}
-                                </td>
+
+                                {allsuperuse.userStatus === "Active" ? (
+                                  <td className="text-center">
+                                    <img
+                                      className="Cursor "
+                                      onClick={() => onEdit(allsuperuse, idx)}
+                                      src={require("../../static/images/edit_icon.png")}
+                                      alt="Edit"
+                                      title="Edit"
+                                    />
+                                    &nbsp;
+                                    <img
+                                      className="Cursor "
+                                      onClick={() => onDelete(allsuperuse._id)}
+                                      src={require("../../static/images/delete.png")}
+                                      alt="delete"
+                                      title="delete"
+                                    />
+                                  </td>
+                                ) : (
+                                  <td className="blank text-center">
+                                    DeActivated
+                                  </td>
+                                )}
                               </tr>
                             );
                           })}
@@ -222,116 +221,30 @@ const SuperUserDashboard = ({
                   </div>
                   <div className="col-lg-1"></div>
                 </div>
+                <div className="row ">
+                  <div className="col-lg-6">
+                    {allsuperuser && allsuperuser.length !== 0 ? (
+                      <Pagination
+                        dataPerPage={dataPerPage}
+                        totalData={allsuperuser.length}
+                        paginate={paginate}
+                        currentPage={currentData}
+                      />
+                    ) : (
+                      <Fragment />
+                    )}
+                  </div>
+
+                  <div className="col-lg-6  ">
+                    <p className="text-end">
+                      {" "}
+                      No of Property : {allsuperuser.length}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          {/*  */}
-
-          {/* <section className="sub_reg">
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color mb-3"> User Details </h2>
-                  <hr></hr>
-                  <div>
-                    <img
-                      className="refreshbtn"
-                      height="25px"
-                      onClick={() => refreshbtn()}
-                      src={require("../../static/images/refresh-icon.png")}
-                      alt="Add User"
-                      title="Refresh User"
-                    />
-                  </div>
-                </div>
-
-                <AddSuperUserModal />
-              </div>
-              <div className="row orgtable mt-2">
-                <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                  <section className="body">
-                    <div className="body-inner no-padding  ">
-                      <table
-                        className="table table-bordered table-striped table-hover table-active"
-                        id="datatable2"
-                      >
-                        <thead>
-                          <tr>
-                            <th> Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Group</th>
-                            <th>Organization</th>
-                            <th>Address</th>
-                            <th>Operation</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {currentDatas &&
-                            currentDatas[0] &&
-                            currentDatas.map((allsuperuse, idx) => {
-                              return (
-                                <tr key={idx}>
-                                  <td>{allsuperuse.username}</td>
-                                  <td>{allsuperuse.useremail}</td>
-                                  <td>{allsuperuse.userphone}</td>
-                                  <td>{allsuperuse.usergroup}</td>
-                                  <td>{allsuperuse.OrganizationName}</td>
-                                  <td>{allsuperuse.useraddress}</td>
-                                  <td>
-                                    {allsuperuse.userStatus === "Active" ? (
-                                      <>
-                                        <img
-                                          className="Cursor"
-                                          onClick={() =>
-                                            onEdit(allsuperuse, idx)
-                                          }
-                                          src={require("../../static/images/edit_icon.png")}
-                                          alt="Edit"
-                                          title="Edit"
-                                        />
-                                        &nbsp;
-                                        <img
-                                          className="Cursor"
-                                          onClick={() =>
-                                            onDelete(allsuperuse._id)
-                                          }
-                                          src={require("../../static/images/delete.png")}
-                                          alt="delete"
-                                          title="delete"
-                                        />
-                                      </>
-                                    ) : (
-                                      <div className="blank">DeActivated</div>
-                                    )}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </section>
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-                  {allsuperuser && allsuperuser.length !== 0 ? (
-                    <Pagination
-                      dataPerPage={dataPerPage}
-                      totalData={allsuperuser.length}
-                      paginate={paginate}
-                      currentPage={currentData}
-                    />
-                  ) : (
-                    <Fragment />
-                  )}
-                </div>
-                <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
-                  <label>No of User : {allsuperuser.length}</label>
-                </div>
-              </div>
-            </section> */}
 
           {/* this id for Deactivating the Super user starting */}
           <Modal
@@ -397,9 +310,7 @@ const SuperUserDashboard = ({
             <Modal.Header>
               <div className="col-lg-10">
                 <h3>
-                  <b className="modal-title text-center h3">
-                    Edit User Details{" "}
-                  </b>
+                  <b className="text-center ">Edit User Details </b>
                 </h3>
               </div>
               <div className="col-lg-2">

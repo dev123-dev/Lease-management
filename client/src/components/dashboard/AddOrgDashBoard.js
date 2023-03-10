@@ -155,10 +155,9 @@ const AddOrgDashBoard = ({
 
             <div className="row ">
               <div className="col-lg-1"></div>
-
-              <div className=" mt-5 col-lg-10  d-flex align-items-center justify-content-center ">
+              <div className="body-inner no-padding table-responsive">
                 <table
-                  className="table table-bordered table-striped table-hover table-active  table-responsive fixTableHeadjoin mt-3"
+                  className="table table-bordered table-striped table-hover  table-active mt-5"
                   id="datatable2"
                 >
                   <thead>
@@ -194,7 +193,7 @@ const AddOrgDashBoard = ({
                               orgVal.org_status === "Renewed" ? (
                                 <>
                                   <img
-                                    className="Cursor"
+                                    className="Cursor text-center"
                                     onClick={() => onedit(orgVal, idx)}
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
@@ -202,7 +201,7 @@ const AddOrgDashBoard = ({
                                   />
                                   &nbsp;
                                   <img
-                                    className="Cursor"
+                                    className="Cursor text-center"
                                     onClick={() => onDelete(orgVal._id)}
                                     src={require("../../static/images/delete.png")}
                                     alt="delete User"
@@ -219,25 +218,29 @@ const AddOrgDashBoard = ({
                   </tbody>
                 </table>
               </div>
-
-              {/* <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-                  {allorg && allorg.length !== 0 ? (
-                    <Pagination
-                      dataPerPage={dataPerPage}
-                      totalData={allorg.length}
-                      paginate={paginate}
-                      currentPage={currentData}
-                    />
-                  ) : (
-                    <Fragment />
-                  )}
-                </div>
-                <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
-                  <label>No of Property : {allorg.length}</label>
-                </div>
-              </div> */}
               <div className="col-lg-1"></div>
+            </div>
+
+            <div className="row ">
+              <div className="col-lg-6">
+                {allorg && allorg.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={allorg.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <Fragment />
+                )}
+              </div>
+
+              <div className="col-lg-6  ">
+                <p className="text-end">
+                  {" "}
+                  No of Organization : {allorg.length}
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -198,7 +198,7 @@ const Edituser = ({
               // onChange={(e) => onORGchange(e)}
               // id="tenantAddr"
               className="textarea form-control"
-              rows="4"
+              rows="3"
               cols="20"
               placeholder="Address"
               onChange={(e) => onInputChange(e)}
