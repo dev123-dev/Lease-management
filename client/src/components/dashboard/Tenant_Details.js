@@ -28,7 +28,6 @@ const Tenant_Details = ({
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
-    console.log("use effect called ");
   }, [freshpage]);
 
   const [sellocation, setselLoction] = useState(null);

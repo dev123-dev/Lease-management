@@ -141,14 +141,18 @@ const ReneworgAggreement = ({
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{leaseEndDate}</label>
+            <input
+              className="form-control cpp-input datevalidation"
+              value={leaseEndDate}
+            ></input>
           </div>
         </div>
         <div className="row py-2">
           <div className="col-lg-12 Savebutton" size="lg">
             <button
+              className="ml-5"
               variant="success"
-              id="Renewalbtn"
+              id="savebtn"
               onClick={() => onSubmit()}
             >
               Renew
