@@ -33,7 +33,6 @@ async function updateExpiryStatus() {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
-    console.log("test");
     await TenentAgreement.updateMany(
       {
         tenantLeaseEndDate: { $lte: todayDateymd },

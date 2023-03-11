@@ -1290,7 +1290,6 @@ router.post(
 );
 
 router.post("/update-tenant-details", async (req, res) => {
-  console.log(req.body);
   try {
     let data = req.body;
 
@@ -1319,7 +1318,6 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    console.log("Edited details", updatetenantdetails);
     res.json(updatetenantdetails);
 
     const AgreementUpdate = await TenentAgreement.updateOne(
@@ -1333,7 +1331,6 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    console.log("aggrement setting", AgreementUpdate);
     //res.json(AgreementUpdate);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });

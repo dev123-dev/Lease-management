@@ -30,11 +30,7 @@ const AddShopDetails = ({
     });
   }, [pageRefresh]);
 
-  console.log("hello", get_Particular_org_Tenantsetting);
   const [orgLoc, setLoc] = useState([]);
-  const locationList = [];
-
-  const [LOCATION, SetLocation] = useState(null);
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
 
