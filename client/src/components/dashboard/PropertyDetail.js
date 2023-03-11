@@ -273,7 +273,7 @@ const PropertyDetail = ({
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={onDeactive} id="deactivebtn">
-            <b>DeActivate</b>
+            <b>DeActive</b>
           </Button>
         </Modal.Footer>
       </Modal>
