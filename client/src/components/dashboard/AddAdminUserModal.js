@@ -239,7 +239,7 @@ const AddAdminUserModal = ({
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
     <>
-      <div className="useraddicon">
+      <div className="">
         <img
           height="25px"
           onClick={handleShow}
