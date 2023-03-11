@@ -139,6 +139,7 @@ const Tenant_Details = ({
             <div className="text-end"> </div>
             <div className="w-25 ml-3 ">
               <Select
+                className="dropdown"
                 placeholder="Search-Location"
                 name="location"
                 options={location}
@@ -227,7 +228,9 @@ const Tenant_Details = ({
                                   </td>
                                 ) : (
                                   <td>
-                                    <div className="blank">DeActivated</div>
+                                    <div className="blank text-center">
+                                      DeActivated
+                                    </div>
                                   </td>
                                 )}
                               </tr>
@@ -264,7 +267,21 @@ const Tenant_Details = ({
 
         {/* Deactivating the tenant start*/}
         <Modal show={show} centered>
-          <Modal.Title>Deactivate</Modal.Title>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <h3 className="modal-title text-center">
+                <b>DEACTIVATE</b>
+              </h3>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={handleClose}
+              />
+            </div>
+          </Modal.Header>
 
           <Modal.Body>
             <Form>
@@ -273,21 +290,23 @@ const Tenant_Details = ({
                 controlId="exampleForm.ControlInput1"
               >
                 <Form.Label>Reason For Deactivating</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="Tenant_deactive_reason"
+                <textarea
+                  rows="2"
+                  name="deactive_reason"
+                  value={deactive_reason}
                   onChange={(e) => onInputChange(e)}
                   autoFocus
-                />
+                  id="org_reason"
+                  className="form-control "
+                  required
+                ></textarea>
+                <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={onAdd} id="savebtn">
-              Save
-            </Button>
-            <Button variant="primary" onClick={handleClose} id="savebtn">
-              close
+            <Button variant="primary" onClick={onAdd} id="deactivebtn">
+              <b>DeActive</b>
             </Button>
           </Modal.Footer>
         </Modal>
@@ -295,14 +314,24 @@ const Tenant_Details = ({
         {/* Deactivation End */}
 
         {/* Edit start */}
-        <Modal show={showEditModal} centered>
+        <Modal
+          show={showEditModal}
+          backdrop="static"
+          keyboard={false}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
           <Modal.Header>
             <div className="col-lg-10">
-              <h3 className="h3">Edit Tenant Details </h3>
+              <h3>
+                <b className="text-center">Edit Tenant Details </b>
+              </h3>
             </div>
             <div className="col-lg-2">
               <button onClick={handleEditModalClose} className="close">
                 <img
+                  className="editcl"
                   src={require("../../static/images/close.png")}
                   alt="X"
                   style={{ height: "20px", width: "20px" }}

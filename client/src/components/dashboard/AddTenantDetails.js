@@ -17,11 +17,12 @@ const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: {
     allDoorNos,
-    setShowadd,
+
     allTenantSetting,
     particular_org_data,
     get_Particular_org_Tenantsetting,
   },
+  setShowadd,
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
@@ -292,7 +293,7 @@ const AddTenantDetails = ({
       tenantChequenoOrDdno: "",
       generatordepoAmt: "",
     });
-    setShowadd(false);
+
     //handleInformationModalOpen();
     //setShowInformation(true);
     setEntryDate("");
@@ -301,6 +302,7 @@ const AddTenantDetails = ({
     setNewLeaseEndDate("");
     setChequeDate("");
     setFileNoData("");
+    setShowadd(false);
   };
   const [showInformationModal, setShowInformation] = useState(false);
   const handleInformationModalOpen = () => setShowInformation(true);
@@ -315,22 +317,15 @@ const AddTenantDetails = ({
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
-      <div className="tenantaddicon "></div>
-
+    <>
       <Modal.Header>
         <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
           <h2>
-            <b className="text-center h2  head">ADD TENANT DETAILS</b>
+            <b className="text-center ml-5">ADD TENANT DETAILS</b>
           </h2>
         </div>
         <div className=" col-lg-2">
-          <button
-            onClick={() => {
-              setShowadd(false);
-            }}
-            className="close "
-          >
+          <button className="close" onClick={() => setShowadd(false)}>
             <img
               className="mr-5"
               src={require("../../static/images/close.png")}
@@ -670,7 +665,7 @@ const AddTenantDetails = ({
           </div>
         </div>
       </Modal.Body>
-    </Fragment>
+    </>
   );
 };
 

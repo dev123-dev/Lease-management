@@ -204,7 +204,7 @@ const PropertyDetail = ({
                                 />
                               </td>
                             ) : (
-                              <td className="blank">DeActivated</td>
+                              <td className="blank text-center">DeActivated</td>
                             )}
                           </tr>
                         );
@@ -275,7 +275,7 @@ const PropertyDetail = ({
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={onDeactive} id="deactivebtn">
-            <b>DeActivate</b>
+            <b>DeActive</b>
           </Button>
         </Modal.Footer>
       </Modal>
@@ -298,7 +298,6 @@ const PropertyDetail = ({
           <div className="col-lg-2">
             <button onClick={handleUpdateModalOpen} className="close ml-5">
               <img
-                className="editcl"
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
