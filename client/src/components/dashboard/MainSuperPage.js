@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import { Modal, Button } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
@@ -57,7 +56,7 @@ const MainSuperPage = ({
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <div className="col mt-5">
+    <div className="col mt-5 DashBoard">
       <div className="col"></div>
       <div className="col"></div>
       <div className="col"></div>
@@ -181,9 +180,6 @@ const MainSuperPage = ({
   );
 };
 
-MainSuperPage.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

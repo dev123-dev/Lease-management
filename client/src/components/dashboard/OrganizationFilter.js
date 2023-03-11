@@ -1,24 +1,20 @@
-import React, { useState, Fragment, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useState, Fragment, useRef, useEffect } from "react";
 import { connect } from "react-redux";
-import { getAllTenants } from "../../actions/tenants";
-import { deactiveTenantsDetails } from "../../actions/tenants";
+import { deactiveTenantsDetails, getAllTenants } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
-import AddTenantDetails from "./AddTenantDetails";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
-import { getAllOrganization } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allTenants, allorg },
   getAllTenants,
   deactiveTenantsDetails,
-  getAllOrganization,
 }) => {
-  getAllTenants();
-  // getAllOrganization();
+  useEffect(() => {
+    getAllTenants();
+  });
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -83,7 +79,6 @@ const TenantReport = ({
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
                   <img
                     className="img_icon_size log"
-                    // onClick={() => onClickHandler()}
                     src={require("../../static/images/print.png")}
                     alt="Add User"
                     title="Add User"
@@ -338,9 +333,6 @@ const TenantReport = ({
   );
 };
 
-TenantReport.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

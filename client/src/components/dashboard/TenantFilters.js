@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
-import TenantReport from "../dashboard/TenantReport";
+import { Link } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import {
@@ -44,7 +42,6 @@ const TenantFilters = ({
   getPreviousYearsExpCountOfOrg,
 }) => {
   const logUser = JSON.parse(localStorage.getItem("user"));
-  console.log(logUser, "loggedUser");
   useEffect(() => {
     getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
   }, [getMonthExpCount]);
@@ -56,6 +53,7 @@ const TenantFilters = ({
     };
     getPreviousYearsExpCount(finalData);
   }, [getPreviousYearsExpCount]);
+
   useEffect(() => {
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
@@ -128,8 +126,9 @@ const TenantFilters = ({
       getTenantReportYearMonth(finalDataReport);
     }
   };
-
+  const [monthfilter, setMonthFilter] = useState("");
   const onSelectOrgChange = (optFiltrVal) => {
+    setMonthFilter(optFiltrVal);
     if (optFiltrVal) {
       setSearchData({
         ...searchData,
@@ -138,6 +137,7 @@ const TenantFilters = ({
       });
       const finalDataReport = {
         monthSearch: optFiltrVal,
+
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
       getOrganizationExpiryReport(finalDataReport);
@@ -146,10 +146,12 @@ const TenantFilters = ({
 
   const oldExpCountFetch = () => {
     const finalDataReportOld = {
+      monthSearch: monthfilter,
       yearSearch: new Date(startMonthDate).getFullYear(),
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportOldExp(finalDataReportOld);
+    getOrganizationExpiryReport(finalDataReportOld);
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -160,7 +162,7 @@ const TenantFilters = ({
         //super admin filter
         <Fragment>
           <div className="container_align top_menu  ">
-            <div className="row pb-2  ml-2 responsiveDiv">
+            <div className="row pb-2  ml-2 responsiveDiv ">
               <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
                 <div className=" ">
                   {/* this is for textbox below image for showing the total count of Renewal */}
@@ -212,7 +214,6 @@ const TenantFilters = ({
                           <Link
                             to="/Organization-report"
                             name="alphaSearch"
-                            // className="btnLink"
                             onClick={() => onSelectOrgChange(optFiltr.value)}
                             style={
                               Number(monthSearch) === Number(optFiltr.value)
@@ -268,8 +269,6 @@ const TenantFilters = ({
                 <div className="container_align top_menu ">
                   <div className="row pb-5  ml-2 responsiveDiv">
                     <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
-                      {/* brdr-clr-styles */}
-                      {/* <form> */}
                       <div className=" ">
                         <Link
                           to="/tenant-report"
@@ -282,14 +281,11 @@ const TenantFilters = ({
                             ? yearExpCnt[0].count
                             : 0}
                         </Link>
-
-                        {/* className="btn-rou" */}
                       </div>
                       <div className="py-2">
                         <DatePicker
                           className="form-control yearpicker"
                           placeholder="yyyy"
-                          //   maxDate={subMonths(new Date(), -1)}
                           onChange={(date) => monthYearChange(date)}
                           dateFormat="yyyy"
                           selected={startMonthDate}
@@ -361,12 +357,7 @@ const TenantFilters = ({
                             </div>
                           );
                         })}
-                      {/* </form> */}
                     </div>
-
-                    {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
-                      <TenantReport />
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -378,14 +369,6 @@ const TenantFilters = ({
   );
 };
 
-TenantFilters.propTypes = {
-  auth: PropTypes.object.isRequired,
-  getMonthExpCount: PropTypes.func.isRequired,
-  //getMonthExpCountFilter: PropTypes.func.isRequired,
-  getPreviousYearsExpCount: PropTypes.func.isRequired,
-  getTenantReportYearMonth: PropTypes.func.isRequired,
-  getTenantReportOldExp: PropTypes.func.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

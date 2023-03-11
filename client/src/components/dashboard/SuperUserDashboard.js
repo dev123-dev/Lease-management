@@ -1,34 +1,33 @@
 import React, { useEffect, useState, Fragment } from "react";
 import AddSuperUserModal from "./AddSuperUserModel";
 import { Modal, Button, Form } from "react-bootstrap";
-import tenants from "../../reducers/tenants";
-import { getAllSettings } from "../../actions/tenants";
 import { connect } from "react-redux";
-import { getalluser } from "../../actions/tenants";
-import PropTypes from "prop-types";
-import { deactivateUser } from "../../actions/tenants";
 import Edituser from "./Edituser";
-import AddAdminModal from "./AddAdminUserModal";
-import { getParticularUser } from "../../actions/tenants";
-import EditAdminUser from "./EditAdminUser";
+import {
+  getParticularUser,
+  deactivateUser,
+  getalluser,
+  getAllSettings,
+} from "../../actions/tenants";
 import Pagination from "../layout/Pagination";
 const SuperUserDashboard = ({
   auth: { isAuthenticated, loading, user },
-  tenants: { allsuperuser, particular_user }, //this is a reudcer
+  tenants: { allsuperuser }, //this is a reudcer
   getalluser,
   getParticularUser,
   deactivateUser, //this is a action function to call
 }) => {
+  const [refresh, setrefresh] = useState(false);
   useEffect(() => {
     getParticularUser({
       OrganizationName: user && user.OrganizationName,
       OrganizationId: user && user.OrganizationId,
     });
     deactivateUser();
-  }, []);
+  }, [refresh]);
   useEffect(() => {
     getalluser("");
-  }, []);
+  }, [refresh]);
 
   const [showadd, setShowadd] = useState(false);
   const [formData, setFormData] = useState({
@@ -40,15 +39,6 @@ const SuperUserDashboard = ({
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const handleUpdateModalClose = () => setShowUpdateModal(false);
-
-  const onUpdateModalChange = (e) => {
-    if (e) {
-      handleUpdateModalClose();
-    }
   };
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -73,16 +63,7 @@ const SuperUserDashboard = ({
     setShowEditModal(true);
   };
 
-  const [Admindata, setAdmin] = useState("");
-  const [AdminId, Setid] = useState("");
-
-  const onAdminEdit = (user, id) => {
-    setShowUpdateModal(true);
-    Setid(id);
-    setAdmin(user);
-  };
-
-  const onAdd = () => {
+  const onDeactive = () => {
     setDeactiveShow(false);
     const reason = {
       userId: UserId,
@@ -90,15 +71,6 @@ const SuperUserDashboard = ({
       deactive_reason: deactive_reason,
     };
 
-    deactivateUser(reason);
-  };
-
-  const onAdminAdd = () => {
-    const reason = {
-      Org_id: AdminId,
-      userStatus: "Deactive",
-      deactive_reason: deactive_reason,
-    };
     deactivateUser(reason);
   };
 
@@ -247,11 +219,7 @@ const SuperUserDashboard = ({
           </div>
 
           {/* this id for Deactivating the Super user starting */}
-          <Modal
-            show={Deactiveshow}
-            // onHide={handleClose}
-            centered
-          >
+          <Modal show={Deactiveshow} centered>
             <Modal.Header>
               <div className="col-lg-11 ">
                 <h3 className="modal-title text-center">
@@ -291,7 +259,7 @@ const SuperUserDashboard = ({
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button id="deactivebtn" onClick={onAdd}>
+              <Button id="deactivebtn" onClick={onDeactive}>
                 <b>DeActive</b>
               </Button>
             </Modal.Footer>
@@ -327,11 +295,7 @@ const SuperUserDashboard = ({
               </div>
             </Modal.Header>
             <Modal.Body>
-              <Edituser
-                superuser={userdata}
-                EditModal={setShowEditModal}
-                //onUpdateModalChange={onUpdateModalChange}
-              />
+              <Edituser superuser={userdata} EditModal={setShowEditModal} />
             </Modal.Body>
           </Modal>
           {/* Modal Edit Ending */}

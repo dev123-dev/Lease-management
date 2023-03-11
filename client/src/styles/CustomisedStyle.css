@@ -538,6 +538,7 @@ p {
     width: 200%;
     height: fit-content;
   }
+
   .log_size {
     margin-left: 100%;
   }
@@ -583,7 +584,7 @@ p {
   .count {
     right: 80px;
   }
- 
+
   .headinghover:hover {
     color: lightgray;
   }
@@ -1559,10 +1560,10 @@ input[type="radio"].error {
 .drophover:hover {
   background-color: lightgrey;
 }
-.refreshbtn{
+.refreshbtn {
   margin-left: 90%;
- position: absolute;
-  cursor: pointer; 
+  position: absolute;
+  cursor: pointer;
 }
 
 /*multi level dropdown navbar*/
@@ -2175,7 +2176,6 @@ button {
   height: 40px;
   border-radius: 0%;
   border-color: transparent;
-  
 }
 .rewbtn:hover {
   background-color: black;
@@ -2296,18 +2296,17 @@ button {
   color: white;
 }
 #logoutbtn {
-  background-color:transparent;
+  background-color: transparent;
   width: 75px;
   height: 40px;
   border-radius: 5px;
-  color:black;
+  color: black;
   border-color: #000;
   border-radius: 0%;
 }
-#logoutbtn:hover{
+#logoutbtn:hover {
   background-color: #095a4a;
-  color:white;
-
+  color: white;
 }
 .refreshbtnad {
   margin-left: 4000%;
@@ -2329,7 +2328,6 @@ button {
 .closeicon:hover {
   background-color: lightgray;
 }
-
 
 /* 
 div{

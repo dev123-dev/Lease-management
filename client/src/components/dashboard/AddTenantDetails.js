@@ -673,14 +673,6 @@ const AddTenantDetails = ({
   );
 };
 
-AddTenantDetails.propTypes = {
-  auth: PropTypes.object.isRequired,
-  tenants: PropTypes.object.isRequired,
-  AddTenantDetailsform: PropTypes.func.isRequired,
-  getAllDoorNos: PropTypes.func.isRequired,
-  getAllSettings: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

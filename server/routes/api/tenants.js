@@ -159,7 +159,7 @@ router.get("/get-all-Organization", async (req, res) => {
     res.json(data);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Internal Server Error.");
+    res.status(500).send("Internal Server Error in get all orgainzation.");
   }
 });
 //get particular organization for displaying location in Add property page
@@ -596,7 +596,7 @@ router.post(
 //get exp month count for Organization
 router.post("/get-month-exp-org", async (req, res) => {
   const { selectedY } = req.body;
-  console.log("insde api get month=", selectedY);
+
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     yearVal = selectedY;
@@ -626,7 +626,7 @@ router.post("/get-month-exp-org", async (req, res) => {
         },
       },
     ]);
-    console.log("orgexp", orgexp);
+
     res.json(orgexp);
   } catch (err) {
     console.error(err.message);
@@ -637,7 +637,6 @@ router.post("/get-month-exp-org", async (req, res) => {
 // Get Exp Month Count
 router.post("/get-month-exp-count", async (req, res) => {
   const { selectedY, OrganizationId } = req.body; //change
-  console.log("COUNTTTTT", OrganizationId);
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     //change
@@ -762,7 +761,6 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-  console.log(firstDay);
   try {
     const yeardata = await OrganizationDetails.aggregate([
       {
@@ -778,7 +776,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
         },
       },
     ]);
-    console.log("year data", yeardata);
+
     res.json(yeardata);
   } catch (err) {
     console.error(err.message);
@@ -789,10 +787,10 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
   const { selectedVal, OrganizationId } = req.body;
-  console.log("rrrrr", selectedVal, OrganizationId);
+
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-  console.log(firstDay, "rddd");
+
   try {
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
@@ -819,7 +817,6 @@ router.post("/get-previous-years-exp", async (req, res) => {
         },
       },
     ]);
-    console.log("expreport", MonthExpCntData);
     res.json(MonthExpCntData);
   } catch (err) {
     console.error(err.message);
@@ -917,7 +914,6 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         },
       },
     ]);
-
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -968,6 +964,7 @@ router.get("/get-door-nos", async (req, res) => {
 //get organization expiry data to Tenant filter
 router.post("/get-organization-expiry-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
+  console.log(req.body);
 
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
@@ -980,6 +977,7 @@ router.post("/get-organization-expiry-report", async (req, res) => {
       AgreementStatus: { $eq: "Expired" },
       org_status: "Active",
     });
+    console.log("res", data);
     res.json(data);
   } catch (error) {
     console.log(error.message);
@@ -1292,7 +1290,6 @@ router.post(
 );
 
 router.post("/update-tenant-details", async (req, res) => {
-  console.log(req.body);
   try {
     let data = req.body;
 
@@ -1321,7 +1318,6 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    console.log("Edited details", updatetenantdetails);
     res.json(updatetenantdetails);
 
     const AgreementUpdate = await TenentAgreement.updateOne(
@@ -1335,7 +1331,6 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    console.log("aggrement setting", AgreementUpdate);
     //res.json(AgreementUpdate);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });

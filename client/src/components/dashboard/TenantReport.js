@@ -1,18 +1,17 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+
 import { connect } from "react-redux";
-import { getAllTenants } from "../../actions/tenants";
 import {
   deactiveTenantsDetails,
   ParticularTenant,
+  getAllTenants,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
-import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants: { get_particular_org_tenant, allorg },
+  tenants: { allorg },
   ParticularTenant,
   deactiveTenantsDetails,
 }) => {
@@ -46,7 +45,7 @@ const TenantReport = ({
   };
 
   const onRenewal = (tenants) => {
-    // setId(id);
+    //setId(id);
     setShowEditModal(true);
     setUserData(tenants);
   };
@@ -102,7 +101,7 @@ const TenantReport = ({
                             <th>Phone</th>
                             <th>StartDate</th>
                             <th>Org-Status</th>
-                            <th>End D</th>
+                            <th>End Date</th>
                             <th>Operation</th>
                           </tr>
                         </thead>
@@ -166,9 +165,9 @@ const TenantReport = ({
                             <th>Door No</th>
                             <th>File No</th>
                             <th>Location</th>
-                            <th>Phone Number</th>
+                            <th>Stamp Duty</th>
                             <th>Expiry Date</th>
-                            <th>Rent Amount</th>
+                            <th>Next Rent Amount</th>
                             <th>Agreement Status</th>
                             <th>Expired</th>
                           </tr>
@@ -188,9 +187,9 @@ const TenantReport = ({
                                   <td>{Val.tenantDoorNo}</td>
                                   <td>{Val.tenantFileNo}</td>
                                   <td>{Val.Location}</td>
-                                  <td>{Val.tenantPhone}</td>
+                                  <td>{Val.stampDuty}</td>
                                   <td>{Val.tenantLeaseEndDate}</td>
-                                  <td>{Val.tenantRentAmount}</td>
+                                  <td>{Val.chargesCal}</td>
                                   <td>{Val.tenantstatus}</td>
                                   {Val.AgreementStatus === "Expired" ? (
                                     <td>
@@ -338,9 +337,6 @@ const TenantReport = ({
   );
 };
 
-TenantReport.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

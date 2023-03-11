@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { Fragment } from "react";
 import { connect } from "react-redux";
 import { AddOrganization } from "../../actions/tenants";
@@ -247,13 +247,13 @@ const AddOrgModal = ({
                 <br></br>
                 <input
                   type="text"
-                  placeholder="dd/mm/yyyy"
-                  value={leaseEndDate}
+                  placeholder={leaseEndDate}
                   className="form-control cpp-input datevalidation"
                   name="tenantLeaseStartDate"
                   style={{
                     width: "100%",
                   }}
+                  readOnly
                 />
               </div>
               <div className="col-lg-6">

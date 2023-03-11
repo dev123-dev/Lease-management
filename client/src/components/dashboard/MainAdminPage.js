@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 
 const MainAdminPage = ({
-  auth: { isAuthenticated, user, users },
+  auth: { user },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
   getAllRenewalAmount,
@@ -46,7 +46,7 @@ const MainAdminPage = ({
   };
   return (
     <div>
-      <div className="container container_align ">
+      <div className="container container_align  ">
         <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
           <h2 className="heading_color  pt-5 ">DashBoard </h2>
           <hr></hr>

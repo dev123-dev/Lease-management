@@ -1,10 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import AddOrgModal from "./AddOrgModal";
-import { Props } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import { UpdateUser } from "../../actions/tenants";
@@ -124,24 +119,20 @@ const Edituser = ({
           <div className="col-lg-6">
             <label> Name:</label>
 
-            {/* <div className="col-lg-3 col-md-4 col-sm-4 col-12"> */}
             <input
               type="text"
               name="username"
               value={username}
-              // onChange={(e) => onORGchange(e)}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />
           </div>
           <div className="col-lg-6">
             <label> Email </label>
-            {/* <div className="col-lg-3  col-md-4 col-sm-4 col-12"> */}
             <input
               type="email"
               name="useremail"
               value={useremail}
-              // onChange={(e) => onORGchange(e)}
               className="form-control"
               onChange={(e) => onInputChange(e)}
               required
@@ -150,12 +141,10 @@ const Edituser = ({
           <div className="col-lg-6">
             <label>Phone No:</label>
 
-            {/* <div className="col-lg-4 col-md-4 col-sm-4 col-12"> */}
             <input
               type="number"
               name="userphone"
               value={userphone}
-              // onChange={(e) => onORGchange(e)}
               className="form-control"
               onChange={(e) => onInputChange(e)}
             />
@@ -168,7 +157,6 @@ const Edituser = ({
               </i>
               :{" "}
             </label>
-            {/* <input type="text" placeholder={user.OrganizationName}></input> */}
 
             <Select
               name="orgname"
@@ -191,12 +179,9 @@ const Edituser = ({
           </div>
           <div className="col-lg-6">
             <label> Address *:</label>
-            {/* <div className="col-lg-3 col-md-4 col-sm-6 col-12"> */}
             <textarea
               name="useraddress"
               value={useraddress}
-              // onChange={(e) => onORGchange(e)}
-              // id="tenantAddr"
               className="textarea form-control"
               rows="3"
               cols="20"
@@ -236,7 +221,6 @@ const Edituser = ({
         </div>
       </div>
 
-      {/* </div> */}
       <div className="col-lg-12 Savebutton " size="lg">
         <button
           id="savebtn"
@@ -255,9 +239,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 export default connect(mapStateToProps, {
-  // getalluser,
-  //getAllSettings,
-  //  deactivateUser,
   UpdateUser,
   getalluser,
 })(Edituser); // to connect to particular function which is getalluser

@@ -1,26 +1,14 @@
 import React, { useState, Fragment } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 const ReneworgAggreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
-  //Org: { allOrgSetting },
   RenewOrgDetailsform,
-  onReportModalChange,
 }) => {
   const Location = new useLocation();
   const orgData = Location.state;
-  const [error, setError] = useState({
-    nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-    selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-  });
-  // useEffect(() => {
-  //   getAllSettings();
-  // }, [getAllSettings]);
-
-  const { nextBtnStyle } = error;
 
   //formData
 
@@ -35,12 +23,6 @@ const ReneworgAggreement = ({
     mm = "0" + mm;
   }
 
-  var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
-
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
@@ -54,7 +36,7 @@ const ReneworgAggreement = ({
     //Calculating lease end date
     var dateData = calDate.getDate();
     calDate.setMonth(calDate.getMonth() + +leaseMonth);
-    if (calDate.getDate() != dateData) {
+    if (calDate.getDate() !== dateData) {
       calDate.setDate(0);
     }
     var dd1 = calDate.getDate();
@@ -73,7 +55,7 @@ const ReneworgAggreement = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  const [formData, setFormData] = useState({
+  useState({
     isSubmitted: false,
     OrganizationId: orgData._id,
     Orgname: orgData.OrganizationName,
@@ -180,12 +162,6 @@ const ReneworgAggreement = ({
       </section>
     </Fragment>
   );
-};
-
-ReneworgAggreement.propTypes = {
-  auth: PropTypes.object.isRequired,
-
-  // RenewTenantDetailsform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

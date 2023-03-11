@@ -1,5 +1,4 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   ParticularTenant,
@@ -33,7 +32,7 @@ const Tenant_Details = ({
   const [sellocation, setselLoction] = useState(null);
   const [location, setlocation] = useState([]);
   const Loc = [];
-  const { _id, Location } = particular_org_loc[0];
+  const { Location } = particular_org_loc[0];
 
   const fun = () => {
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
@@ -264,11 +263,7 @@ const Tenant_Details = ({
         </div>
 
         {/* Deactivating the tenant start*/}
-        <Modal
-          show={show}
-          // onHide={handleClose}
-          centered
-        >
+        <Modal show={show} centered>
           <Modal.Title>Deactivate</Modal.Title>
 
           <Modal.Body>
@@ -334,9 +329,6 @@ const Tenant_Details = ({
   );
 };
 
-Tenant_Details.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

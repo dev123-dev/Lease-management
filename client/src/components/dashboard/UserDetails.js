@@ -2,15 +2,17 @@ import React, { useEffect, useState, Fragment } from "react";
 import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
-import { getAllSettings } from "../../actions/tenants";
 import { connect } from "react-redux";
-import { getalluser } from "../../actions/tenants";
-import PropTypes from "prop-types";
-import { deactivateUser, get_particular_org_user } from "../../actions/tenants";
 import Edituser from "../dashboard/Edituser";
 import "../../../src/styles/CustomisedStyle.css";
 import Pagination from "../layout/Pagination";
-import { getParticularUser } from "../../actions/tenants";
+import {
+  getParticularUser,
+  getAllSettings,
+  getalluser,
+  deactivateUser,
+  get_particular_org_user,
+} from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
 
 const UserDetails = ({
@@ -73,7 +75,6 @@ const UserDetails = ({
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    // console.log(reason);
     deactivateUser(reason);
     // get_particular_org_user({ orgid: user.OrganizationId });
   };
@@ -178,26 +179,6 @@ const UserDetails = ({
                   </section>
                 </div>
               </div>
-              {/* <div className="row">
-                <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-                  {get_particularOrg_user &&
-                  get_particularOrg_user.length !== 0 ? (
-                    <Pagination
-                      dataPerPage={dataPerPage}
-                      totalData={get_particularOrg_user.length}
-                      paginate={paginate}
-                      currentPage={currentData}
-                    />
-                  ) : (
-                    <Fragment />
-                  )}
-                </div>
-                <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
-                  <label>
-                    No of OrganiZations : {get_particularOrg_user.length}
-                  </label>
-                </div>
-              </div> */}
             </section>
             {/* this id for Deactivating the Super user starting */}
             <Modal show={Deactiveshow} centered>
@@ -268,10 +249,7 @@ const UserDetails = ({
                 </div>
               </Modal.Header>
               <Modal.Body>
-                <Edituser
-                  superuser={Admindata}
-                  //onUpdateModalChange={onUpdateModalChange}
-                />
+                <Edituser superuser={Admindata} />
               </Modal.Body>
             </Modal>
             {/* Modal Edit Ending */}
@@ -279,44 +257,6 @@ const UserDetails = ({
         ) : (
           <></>
         )}
-        {/* deactivating the Super User */}
-        {/* <Modal show={show} centered>
-        <Modal.Title>
-          <></>
-          <div className="text-center h4">
-            <b>Deactivate</b>
-          </div>
-        </Modal.Title>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label className="h5">Reason For Deactivating</Form.Label>
-              <textarea
-                rows="2"
-                name="deactive_reason"
-                onChange={(e) => onInputChange(e)}
-                autoFocus
-                id="org_reason"
-                className="form-control "
-                required
-              ></textarea>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            // variant="primary"
-            id="savebtn"
-            onClick={onAdminAdd}
-          >
-            Save
-          </Button>
-          <Button variant="primary" onClick={handleClose} id="savebtn">
-            close
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
-        {/*  End Deactivating the user  */}
       </div>
     </>
   );

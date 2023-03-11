@@ -1,13 +1,15 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
-import { getAllShops } from "../../actions/tenants";
 import { Form } from "react-bootstrap";
-import { deactiveProperty } from "../../actions/tenants";
 import EditProperty from "../dashboard/EditProperty";
-import { getParticularProperty, getParticularOrg } from "../../actions/tenants";
+import {
+  getParticularProperty,
+  getParticularOrg,
+  deactiveProperty,
+  getAllShops,
+} from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
 const PropertyDetail = ({
@@ -325,11 +327,6 @@ const PropertyDetail = ({
   );
 };
 
-PropertyDetail.propTypes = {
-  tenants: PropTypes.object.isRequired,
-  //getAllShops: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   tenants: state.tenants,
   auth: state.auth,

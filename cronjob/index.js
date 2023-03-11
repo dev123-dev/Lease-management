@@ -33,8 +33,7 @@ async function updateExpiryStatus() {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
-    console.log("test");
-    const updateTenant = await TenentAgreement.updateMany(
+    await TenentAgreement.updateMany(
       {
         tenantLeaseEndDate: { $lte: todayDateymd },
       },
@@ -44,7 +43,7 @@ async function updateExpiryStatus() {
         },
       }
     );
-    const updateStatus = await TenentAgreement.updateMany(
+    await TenentAgreement.updateMany(
       { tenantLeaseEndDate: { $lte: todayDateymd }, AgreementStatus: "Active" },
       {
         $set: {
@@ -52,7 +51,7 @@ async function updateExpiryStatus() {
         },
       }
     );
-    const updateOrgStatus = await OrganizationDetails.updateMany(
+    await OrganizationDetails.updateMany(
       {
         enddate: { $lte: todayDateymd },
         AgreementStatus: "Active",
@@ -70,7 +69,7 @@ async function updateExpiryStatus() {
 }
 
 function expairyNotif() {
-  cron.schedule("* * * * *", function () {
+  cron.schedule("19 07 * * *", function () {
     updateExpiryStatus();
   });
 }

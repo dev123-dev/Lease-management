@@ -17,9 +17,7 @@ const AddAdminUserModal = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const [Deactiveshow, setDeactiveShow] = useState(false);
 
-  const onClickReset = () => {
-    alert("refersh working");
-  };
+  const onClickReset = () => {};
 
   const orglist = [];
   allorg.map((org) => {
@@ -171,7 +169,7 @@ const AddAdminUserModal = ({
         ...error,
         repwdValChecker: true,
         repwdValResult: "DOES NOT MATCH",
-        //repwdValResult: 'REQUIRED',
+
         repwdValStyle: { color: "#FF0000", marginTop: "10px" },
         repwdInptErrStyle: { border: "1px solid #FF0000" },
       });

@@ -31,11 +31,7 @@ const AddShopDetails = ({
     });
   }, [pageRefresh]);
 
-  console.log("hello", get_Particular_org_Tenantsetting);
   const [orgLoc, setLoc] = useState([]);
-  const locationList = [];
-
-  const [LOCATION, SetLocation] = useState(null);
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
 
@@ -376,12 +372,6 @@ const AddShopDetails = ({
       </Modal.Body>
     </>
   );
-};
-
-AddShopDetails.propTypes = {
-  auth: PropTypes.object.isRequired,
-  AddShopDetailsform: PropTypes.func.isRequired,
-  // getAllShops: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

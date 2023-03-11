@@ -1,15 +1,13 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { UpdateTenantsDetails } from "../../actions/tenants";
 import {
   getAllTenants,
   getParticularProperty,
   getParticularTenantSetting,
   tenantsDetailsHistory,
+  UpdateTenantsDetails,
 } from "../../actions/tenants";
 import Select from "react-select";
-import { Modal, Button } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },

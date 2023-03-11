@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 
@@ -11,15 +10,9 @@ const RenewTenentAgreement = ({
   getAllSettings,
   onReportModalChange,
 }) => {
-  const [error, setError] = useState({
-    nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-    selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-  });
   useEffect(() => {
     getAllSettings();
   }, [getAllSettings]);
-
-  const { nextBtnStyle } = error;
 
   //formData
   const [formData, setFormData] = useState({
@@ -56,7 +49,6 @@ const RenewTenentAgreement = ({
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [showEditModal, setShowEditModal] = useState(false);
 
   const onSubmit = () => {
     const finalData = {
@@ -194,11 +186,8 @@ const RenewTenentAgreement = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
-              //   min={yesterdayDt}
-              //   max={today2}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
-              // value={tenants.tenantLeaseEndDate}
               onChange={(e) => onDateChangeEntry(e)}
               style={{
                 width: "70%",
@@ -234,13 +223,6 @@ const RenewTenentAgreement = ({
       </section>
     </Fragment>
   );
-};
-
-RenewTenentAgreement.propTypes = {
-  auth: PropTypes.object.isRequired,
-  tenants: PropTypes.object.isRequired,
-  RenewTenantDetailsform: PropTypes.func.isRequired,
-  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

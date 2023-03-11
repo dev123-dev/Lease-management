@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/layout/Header";
@@ -23,12 +23,12 @@ import Login from "./components/auth/Login";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
+var innerW = window.innerWidth;
 
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
-
   return (
     <Provider store={store}>
       <Router>
