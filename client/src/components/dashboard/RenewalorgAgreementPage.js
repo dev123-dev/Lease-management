@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
 import { useLocation } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 const ReneworgAggreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   //Org: { allOrgSetting },
@@ -105,24 +105,26 @@ const ReneworgAggreement = ({
   ) : (
     <Fragment>
       <section className="sub_reg mt-5 p-5">
-        <div>Renewal Agreement</div>
+        <div className="h2">Renewal Agreement</div>
         <div className="row">
           <div
-            className="col-lg-4 col-md-2 col-sm-4 col-12"
+            className="col-lg-2 col-md-2 col-sm-4 col-12 "
             style={{ paddingRight: "0px" }}
           >
             <label> Organization Name:</label>
           </div>
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{orgData.OrganizationName}</label>
+          <div className="col-lg-10  col-md-4 col-sm-4 col-12">
+            <label>
+              <b>{orgData.OrganizationName}</b>
+            </label>
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label>Lease Start Date* :</label>
           </div>
 
-          <div className="col-lg-6 col-md-4 col-sm-4 col-12">
+          <div className="col-lg-10 col-md-4 col-sm-4 col-12">
             <input
               type="date"
               placeholder="dd/mm/yyyy"
@@ -131,28 +133,48 @@ const ReneworgAggreement = ({
               value={entryDate}
               onChange={(e) => onDateChangeEntry(e)}
               style={{
-                width: "100%",
+                width: "25%",
               }}
             />
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12">
             <label>Lease End Date:</label>
           </div>
 
-          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-10  col-md-4 col-sm-4 col-12">
             <input
               className="form-control cpp-input datevalidation"
+              placeholder="dd-mm-yyyy"
               value={leaseEndDate}
+              style={{
+                width: "25%",
+              }}
             ></input>
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12 Savebutton" size="lg">
-            <button variant="success" id="savebtn" onClick={() => onSubmit()}>
-              Renew
+          <div className="col-lg-2 col-md-2 col-sm-4 col-12"></div>
+
+          <div className="col-lg-10 Savebutton">
+            <button
+              variant="success"
+              id="buttonchanges"
+              onClick={() => onSubmit()}
+            >
+              <b>Renew</b>
             </button>
+            &nbsp;
+            {/* <Link to="/Organization-report"> */}
+            <button
+              variant="success"
+              id="buttonchanges"
+              onClick={() => onSubmit()}
+            >
+              <b>Cancel</b>
+            </button>
+            {/* </Link> */}
           </div>
         </div>
       </section>

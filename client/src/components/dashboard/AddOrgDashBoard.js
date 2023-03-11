@@ -148,7 +148,7 @@ const AddOrgDashBoard = ({
                 height="25px"
                 onClick={() => refreshbtn()}
                 src={require("../../static/images/refresh-icon.png")}
-                alt="Add User"
+                alt="refresh User"
                 title="Refresh User"
               />
             </div>
@@ -236,8 +236,7 @@ const AddOrgDashBoard = ({
               </div>
 
               <div className="col-lg-6  ">
-                <p className="text-end">
-                  {" "}
+                <p className="text-end h6  ">
                   No of Organization : {allorg.length}
                 </p>
               </div>
