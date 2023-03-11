@@ -16,9 +16,6 @@ const EditProperty = ({
       handleEditModalClose();
     }
   };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   //adding multiple location start
   const [inputdata, setinput] = useState("");
@@ -92,6 +89,7 @@ const EditProperty = ({
       shopStatus: "Acquired",
     };
     updateProperty(update);
+    handleEditModalClose();
   };
 
   return (
