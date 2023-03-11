@@ -208,7 +208,7 @@ const SuperUserDashboard = ({
                   </div>
 
                   <div className="col-lg-6  ">
-                    <p className="text-end">
+                    <p className="text-end h6">
                       {" "}
                       No of Property : {allsuperuser.length}
                     </p>

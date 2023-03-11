@@ -63,7 +63,7 @@ const PropertyDetail = ({
   };
 
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  // const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const [PropertyId, setId] = useState("");
@@ -92,6 +92,8 @@ const PropertyDetail = ({
     deactiveProperty(reason);
   };
 
+  const [showadd, setShowadd] = useState(false);
+
   //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(7);
@@ -108,26 +110,42 @@ const PropertyDetail = ({
     window.location.reload(true);
   };
   return (
-    <div>
-      <div className="container container_align ">
-        <section className="sub_reg">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-              <h2 className="heading_color "> PropertyDetails</h2>
-              <hr></hr>
-            </div>
-            <div className="w-25 ml-2">
-              <Select
-                placeholder="Search-Location"
-                name="location"
-                options={Sellocation}
-                value={LOCATION}
-                onChange={(e) => onchangeLocation(e)}
-              ></Select>
-            </div>
-            <div>
+    <>
+      <div className="col mt-5">
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col"></div>
+
+        <div className="col mt-5 h2 ml-2">Property Details</div>
+
+        <div className="text-end"></div>
+
+        <div className="w-25 ml-4">
+          <Select
+            placeholder="Search-Location"
+            name="location"
+            options={Sellocation}
+            value={LOCATION}
+            onChange={(e) => onchangeLocation(e)}
+          ></Select>
+        </div>
+
+        <div className="container-fluid d-flex align-items-center justify-content-center ">
+          <div className="col">
+            <div className="refreshbtn">
+              {/* <AddShopDetails /> */}
               <img
-                className="refreshbtnad"
+                height="25px"
+                onClick={() => setShowadd(true)}
+                src={require("../../static/images/add-icon.png")}
+                alt="Add Prop"
+                title="Add Prop"
+              />
+
+              <img
+                className="mt-1"
                 height="25px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
@@ -135,99 +153,107 @@ const PropertyDetail = ({
                 title="refresh"
               />
             </div>
-            <AddShopDetails />
-            <table
-              className="table table-bordered table-striped table-hover mt-3 ml-2 "
-              id="datatable2"
-            >
-              <thead>
-                <tr>
-                  <th>Building Name</th>
-                  <th>Door Number</th>
-                  <th>Location</th>
-                  <th>Hike %</th>
-                  <th>Stamp Duty</th>
-                  <th>Lease Time Period</th>
-                  <th>Address</th>
-                  <th>Operation</th>
-                </tr>
-              </thead>
-              <tbody>
-                {particular_org_data &&
-                  particular_org_data.map((Val, idx) => {
-                    return (
-                      <tr key={idx}>
-                        <td>{Val.buildingName}</td>
-                        <td>{Val.shopDoorNo}</td>
-                        <td>{Val.Location}</td>
-                        <td>{Val.hikePercentage}</td>
-                        <td>{Val.stampDuty}</td>
-                        <td>{Val.leaseTimePeriod}</td>
-                        <td>{Val.shopAddress}</td>
-                        <td>
-                          {Val.shopStatus === "Acquired" ? (
-                            <td className="text-center">
-                              <img
-                                className=" log"
-                                onClick={() => onEdit(Val)}
-                                src={require("../../static/images/edit_icon.png")}
-                                alt="Edit Property"
-                                title="Edit Property"
-                              />
-                              &nbsp;
-                              <img
-                                className=" log"
-                                onClick={() => onDelete(Val._id)}
-                                src={require("../../static/images/delete.png")}
-                                alt="Delete Property "
-                                title="Delete Property"
-                              />
-                            </td>
-                          ) : (
-                            <div className="blank">DeActivated</div>
-                          )}
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
-          </div>
-          <div className="row">
-            <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-              {particular_org_data && particular_org_data.length !== 0 ? (
-                <Pagination
-                  dataPerPage={dataPerPage}
-                  totalData={particular_org_data.length}
-                  paginate={paginate}
-                  currentPage={currentData}
-                />
-              ) : (
-                <Fragment />
-              )}
+            <div className="row ">
+              <div className="col-lg-1"></div>
+              <div className="body-inner no-padding table-responsive">
+                <table
+                  className="table table-bordered table-striped table-hover  table-active mt-5"
+                  id="datatable2"
+                >
+                  <thead>
+                    <tr>
+                      <th>Building Name</th>
+                      <th>Door Number</th>
+                      <th>Location</th>
+                      <th>Hike %</th>
+                      <th>Stamp Duty</th>
+                      <th>Lease Time Period</th>
+                      <th>Address</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {particular_org_data &&
+                      particular_org_data.map((Val, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td>{Val.buildingName}</td>
+                            <td>{Val.shopDoorNo}</td>
+                            <td>{Val.Location}</td>
+                            <td>{Val.hikePercentage}</td>
+                            <td>{Val.stampDuty}</td>
+                            <td>{Val.leaseTimePeriod}</td>
+                            <td>{Val.shopAddress}</td>
+
+                            {Val.shopStatus === "Acquired" ? (
+                              <td className=" text-center">
+                                <img
+                                  className="Cursor"
+                                  onClick={() => onEdit(Val)}
+                                  src={require("../../static/images/edit_icon.png")}
+                                  alt="Edit Property"
+                                  title="Edit Property"
+                                />
+                                &nbsp;
+                                <img
+                                  className=" Cursor"
+                                  onClick={() => onDelete(Val._id)}
+                                  src={require("../../static/images/delete.png")}
+                                  alt="Delete Property "
+                                  title="Delete Property"
+                                />
+                              </td>
+                            ) : (
+                              <td className="blank">DeActivated</td>
+                            )}
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+              <div className="col-lg-1"></div>
             </div>
-            <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
-              <label>No of Property : {particular_org_data.length}</label>
+
+            <div className="row">
+              <div className="col-lg-6">
+                {particular_org_data && particular_org_data.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={particular_org_data.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <Fragment />
+                )}
+              </div>
+              <div className="col-lg-6">
+                <p className="text-end h6">
+                  No of Property : {particular_org_data.length}
+                </p>
+              </div>
             </div>
           </div>
-        </section>
+        </div>
       </div>
       {/* modal for Deactivating the Property starting */}
-      <Modal
-        show={show}
-        // onHide={handleClose}
-        centered
-      >
-        <Modal.Title className="text-center h4">
-          <b className="ml-2">Deactivate</b>
-          <Button id="Deactiveclose" onClick={() => setShow(false)}>
+      <Modal show={show} centered>
+        <Modal.Header>
+          <div className="col-lg-11 ">
+            <h3 className="modal-title text-center">
+              <b>DEACTIVATE</b>
+            </h3>
+          </div>
+          <div className="col-lg-1 closeicon">
             <img
               src={require("../../static/images/close.png")}
               alt="X"
               style={{ height: "20px", width: "20px" }}
+              onClick={() => setShow(false)}
             />
-          </Button>
-        </Modal.Title>
+          </div>
+        </Modal.Header>
 
         <Modal.Body>
           <Form>
@@ -265,11 +291,14 @@ const PropertyDetail = ({
       >
         <Modal.Header>
           <div className="col-lg-10">
-            <h3 className="h3">Edit Property Details </h3>
+            <h3>
+              <b className="text-center">Edit Property Details</b>{" "}
+            </h3>
           </div>
           <div className="col-lg-2">
-            <button onClick={handleUpdateModalOpen} className="close">
+            <button onClick={handleUpdateModalOpen} className="close ml-5">
               <img
+                className="editcl"
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
@@ -284,7 +313,17 @@ const PropertyDetail = ({
           />
         </Modal.Body>
       </Modal>
-    </div>
+      {/* add model */}
+      <Modal
+        show={showadd}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <AddShopDetails setShowadd={setShowadd} />
+      </Modal>
+    </>
   );
 };
 

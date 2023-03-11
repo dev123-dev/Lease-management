@@ -103,6 +103,8 @@ const Tenant_Details = ({
     handleClose();
     setFreshPage(!freshpage);
   };
+  const [showadd, setShowadd] = useState(false);
+
   //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(8);
@@ -125,22 +127,38 @@ const Tenant_Details = ({
     <>
       {" "}
       <Fragment>
-        <div className="container container_align ">
-          <section className="sub_reg">
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-              <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                <h2 className="heading_color">TenantDetails </h2>
-                <hr></hr>
-                <div className="w-25 ">
-                  <Select
-                    placeholder="Search-Location"
-                    name="location"
-                    options={location}
-                    value={sellocation}
-                    onChange={(e) => onchangeLocation(e)}
-                  ></Select>
+        <div className="col mt-5 ">
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+          <div className="col"></div>
+
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+            <h2 className="col mt-5 h2 ml-2">Tenant Details </h2>
+            <div className="text-end"> </div>
+            <div className="w-25 ml-3 ">
+              <Select
+                placeholder="Search-Location"
+                name="location"
+                options={location}
+                value={sellocation}
+                onChange={(e) => onchangeLocation(e)}
+              ></Select>
+            </div>
+            <div className="container-fluid d-flex align-items-center justify-content-center ">
+              <div className="col">
+                <div className="refreshbtn">
+                  {/* <AddTenantDetails /> */}
                   <img
-                    className="refreshbtn"
+                    height="25px"
+                    onClick={() => setShowadd(true)}
+                    src={require("../../static/images/add-icon.png")}
+                    alt="Add Tenant"
+                    title="Add Tenant"
+                  />
+                  <img
+                    className="mt-1"
                     height="25px"
                     onClick={() => refresh()}
                     src={require("../../static/images/refresh-icon.png")}
@@ -148,18 +166,13 @@ const Tenant_Details = ({
                     title="refresh"
                   />
                 </div>
-              </div>
 
-              <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
-                <AddTenantDetails />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                <section className="body">
-                  <div className="body-inner no-padding  ">
+                <div className="row">
+                  <div className="col-lg-1"></div>
+
+                  <div className="body-inner no-padding table-responsive">
                     <table
-                      className="table table-bordered table-striped table-hover ml-2 "
+                      className="table table-bordered table-striped table-hover  table-active mt-5"
                       id="datatable2"
                     >
                       <thead>
@@ -195,25 +208,26 @@ const Tenant_Details = ({
                                 <td>{Val.tenantRentAmount}</td>
 
                                 {Val.tenantstatus === "Active" ? (
-                                  <td>
+                                  <td className=" text-center">
                                     <img
-                                      className=" log"
+                                      className="Cursor  "
                                       onClick={() => onEdit(Val)}
                                       src={require("../../static/images/edit_icon.png")}
                                       alt="Edit"
-                                      title="Add User"
-                                    />
+                                      title="Edit"
+                                    />{" "}
+                                    &nbsp;
                                     <img
-                                      className=" log"
+                                      className="Cursor "
                                       onClick={() => onDelete(Val._id)}
                                       src={require("../../static/images/delete.png")}
-                                      alt="Add User"
-                                      title="Add User"
+                                      alt="Delete"
+                                      title="Delete"
                                     />
                                   </td>
                                 ) : (
                                   <td>
-                                    <div className="blank"></div>
+                                    <div className="blank">DeActivated</div>
                                   </td>
                                 )}
                               </tr>
@@ -222,28 +236,30 @@ const Tenant_Details = ({
                       </tbody>
                     </table>
                   </div>
-                </section>
+                </div>
+                <div className="row">
+                  <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
+                    {get_particular_org_tenant &&
+                    get_particular_org_tenant.length !== 0 ? (
+                      <Pagination
+                        dataPerPage={dataPerPage}
+                        totalData={get_particular_org_tenant.length}
+                        paginate={paginate}
+                        currentPage={currentData}
+                      />
+                    ) : (
+                      <Fragment />
+                    )}
+                  </div>
+                  <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
+                    <label>
+                      No of Tenants: {get_particular_org_tenant.length}
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-                {get_particular_org_tenant &&
-                get_particular_org_tenant.length !== 0 ? (
-                  <Pagination
-                    dataPerPage={dataPerPage}
-                    totalData={get_particular_org_tenant.length}
-                    paginate={paginate}
-                    currentPage={currentData}
-                  />
-                ) : (
-                  <Fragment />
-                )}
-              </div>
-              <div className="col-lg-5 col-md-6 col-sm-11 col-11 align_right">
-                <label>No of Tenants: {get_particular_org_tenant.length}</label>
-              </div>
-            </div>
-          </section>
+          </div>
         </div>
 
         {/* Deactivating the tenant start*/}
@@ -297,6 +313,16 @@ const Tenant_Details = ({
           <Modal.Body>
             <EditTenantDetails tenantsdetails={EditTenant} />
           </Modal.Body>
+        </Modal>
+        {/* add model */}
+        <Modal
+          show={showadd}
+          backdrop="static"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <AddTenantDetails setShowadd={setShowadd} />
         </Modal>
       </Fragment>
     </>

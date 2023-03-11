@@ -182,6 +182,23 @@ const EditProperty = ({
               required
             ></textarea>
             <br></br>
+
+            <label className="">
+              Location
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>{" "}
+              :
+            </label>
+            <input
+              type="text"
+              placeholder="Location"
+              name="Location"
+              value={Location}
+              className="form-control  input"
+              onChange={(e) => onInputChange(e)}
+              required
+            />
           </div>
 
           <div className="  col-lg-6 ">
@@ -234,27 +251,9 @@ const EditProperty = ({
             </div>
           </div>
 
-          <div className="col-lg-6">
-            <label className="">
-              Location
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>{" "}
-              :
-            </label>
-            <input
-              type="text"
-              placeholder="Location"
-              name="Location"
-              value={Location}
-              className="form-control  input"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
           <div className="col-lg-12">
             <button
-              className="btn sub_form btn_continue Save float-right  text-end"
+              className="btn sub_form btn_continue Save float-right"
               id="savebtn"
               onClick={() => onUpdate()}
             >

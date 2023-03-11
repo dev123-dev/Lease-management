@@ -584,9 +584,7 @@ p {
   .count {
     right: 80px;
   }
-  .page {
-    left: 60px;
-  }
+
   .headinghover:hover {
     color: lightgray;
   }
@@ -2024,9 +2022,9 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-left: 200px;
   cursor: pointer;
 }
-.close:hover {
+/* .close:hover {
   background-color: lightgrey;
-}
+} */
 .clprop {
   margin-left: 100px;
   cursor: pointer;
@@ -2330,3 +2328,8 @@ button {
 .closeicon:hover {
   background-color: lightgray;
 }
+
+/* 
+div{
+  border:1px solid rgba(242, 10, 10, 0.541);
+}     */
