@@ -17,9 +17,7 @@ const AddAdminUserModal = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const [Deactiveshow, setDeactiveShow] = useState(false);
 
-  const onClickReset = () => {
-    alert("refersh working");
-  };
+  const onClickReset = () => {};
 
   const orglist = [];
   allorg.map((org) => {

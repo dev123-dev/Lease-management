@@ -159,7 +159,7 @@ router.get("/get-all-Organization", async (req, res) => {
     res.json(data);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Internal Server Error.");
+    res.status(500).send("Internal Server Error in get all orgainzation.");
   }
 });
 //get particular organization for displaying location in Add property page
@@ -914,7 +914,6 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         },
       },
     ]);
-
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -965,6 +964,7 @@ router.get("/get-door-nos", async (req, res) => {
 //get organization expiry data to Tenant filter
 router.post("/get-organization-expiry-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
+  console.log(req.body);
 
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
@@ -977,6 +977,7 @@ router.post("/get-organization-expiry-report", async (req, res) => {
       AgreementStatus: { $eq: "Expired" },
       org_status: "Active",
     });
+    console.log("res", data);
     res.json(data);
   } catch (error) {
     console.log(error.message);
@@ -1062,7 +1063,6 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
         },
       },
     ]);
-    console.log(tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);

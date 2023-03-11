@@ -53,6 +53,7 @@ const TenantFilters = ({
     };
     getPreviousYearsExpCount(finalData);
   }, [getPreviousYearsExpCount]);
+
   useEffect(() => {
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
@@ -125,8 +126,9 @@ const TenantFilters = ({
       getTenantReportYearMonth(finalDataReport);
     }
   };
-
+  const [monthfilter, setMonthFilter] = useState("");
   const onSelectOrgChange = (optFiltrVal) => {
+    setMonthFilter(optFiltrVal);
     if (optFiltrVal) {
       setSearchData({
         ...searchData,
@@ -135,6 +137,7 @@ const TenantFilters = ({
       });
       const finalDataReport = {
         monthSearch: optFiltrVal,
+
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
       getOrganizationExpiryReport(finalDataReport);
@@ -143,9 +146,12 @@ const TenantFilters = ({
 
   const oldExpCountFetch = () => {
     const finalDataReportOld = {
+      monthSearch: monthfilter,
       yearSearch: new Date(startMonthDate).getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportOldExp(finalDataReportOld);
+    getOrganizationExpiryReport(finalDataReportOld);
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -208,7 +214,6 @@ const TenantFilters = ({
                           <Link
                             to="/Organization-report"
                             name="alphaSearch"
-                            // className="btnLink"
                             onClick={() => onSelectOrgChange(optFiltr.value)}
                             style={
                               Number(monthSearch) === Number(optFiltr.value)
