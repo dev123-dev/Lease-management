@@ -618,11 +618,6 @@ p {
 
   .tenantfilter {
     display: none;
-    /* background-color: #dc9a44; */
-    /* position: sticky; */
-  }
-  .Super_Filter {
-    display: block;
   }
 }
 

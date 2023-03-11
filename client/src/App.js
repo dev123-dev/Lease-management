@@ -26,8 +26,6 @@ if (localStorage.token) {
 var innerW = window.innerWidth;
 
 const App = () => {
-  const [admin, setadmin] = useState("");
-  const [tenant, settenant] = useState("");
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
