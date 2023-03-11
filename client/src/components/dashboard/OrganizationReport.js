@@ -1,26 +1,17 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import RenewalorgAgreement from "./RenewalorgAgreementPage";
-import { Form, Button } from "react-bootstrap";
-import { Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import {
-  getAllOrganization,
-  getOrganizationExpiryReport,
-} from "../../actions/tenants";
+import { getAllOrganization } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
-  auth: { expReport, isAuthenticated, user, users },
-  tenants: { allorg, exp_org_detail, exp_org_report },
+  auth: { isAuthenticated, user, users },
+  tenants: { exp_org_detail, exp_org_report },
   getAllOrganization,
-  getOrganizationExpiryReport,
 }) => {
   useEffect(() => {
-    console.log("this is report", exp_org_report);
-    console.log("this is detail", exp_org_detail);
+    getAllOrganization();
   }, []);
-  getAllOrganization();
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -151,9 +142,6 @@ const TenantReport = ({
   );
 };
 
-TenantReport.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

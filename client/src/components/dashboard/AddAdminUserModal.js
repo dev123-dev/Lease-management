@@ -171,7 +171,7 @@ const AddAdminUserModal = ({
         ...error,
         repwdValChecker: true,
         repwdValResult: "DOES NOT MATCH",
-        //repwdValResult: 'REQUIRED',
+
         repwdValStyle: { color: "#FF0000", marginTop: "10px" },
         repwdInptErrStyle: { border: "1px solid #FF0000" },
       });

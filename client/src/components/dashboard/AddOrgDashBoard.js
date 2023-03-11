@@ -1,21 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import AddOrgModal from "./AddOrgModal";
-import { Props } from "react";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
-import { getAllOrganization } from "../../actions/tenants";
-import { deleteOrganization } from "../../actions/tenants";
+import { deleteOrganization, getAllOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import EditOrganization from "./EditOrganization";
-import Table from "react-bootstrap/Table";
 
 import Pagination from "../layout/Pagination";
 
 const AddOrgDashBoard = ({
-  //here to connect to action we need to import the function
-  //then again we need to mention inside the const function
   tenants: { allorg },
   deleteOrganization,
   getAllOrganization,

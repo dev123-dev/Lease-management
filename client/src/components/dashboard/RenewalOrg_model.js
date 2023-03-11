@@ -1,28 +1,12 @@
-import React, { useState, useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
 
 const RenewalOrg_mainPage = ({
   auth: { isAuthenticated, user, users, finalDataRep },
-  //Org: { allOrgSetting },
   RenewOrgDetailsform,
   orgData,
-  onReportModalChange,
-  setShowRenewalModal,
 }) => {
-  const [error, setError] = useState({
-    nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-    selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-  });
-  // useEffect(() => {
-  //   getAllSettings();
-  // }, [getAllSettings]);
-
-  const { nextBtnStyle } = error;
-
-  //formData
-
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -33,18 +17,10 @@ const RenewalOrg_mainPage = ({
   if (mm < 10) {
     mm = "0" + mm;
   }
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
-
-  var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
-
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const [showEditModal, setShowEditModal] = useState(false);
-
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
     var newDate = e.target.value;
@@ -55,7 +31,7 @@ const RenewalOrg_mainPage = ({
     //Calculating lease end date
     var dateData = calDate.getDate();
     calDate.setMonth(calDate.getMonth() + +leaseMonth);
-    if (calDate.getDate() != dateData) {
+    if (calDate.getDate() !== dateData) {
       calDate.setDate(0);
     }
     var dd1 = calDate.getDate();
@@ -74,7 +50,7 @@ const RenewalOrg_mainPage = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  const [formData, setFormData] = useState({
+  useState({
     isSubmitted: false,
     OrganizationId: orgData._id,
     Orgname: orgData.OrganizationName,
@@ -85,17 +61,8 @@ const RenewalOrg_mainPage = ({
     date: entryDate,
     enddate: leaseEndDate,
   });
-  const {
-    OrganizationId,
-    OrganizationName,
-    OrganizationEmail,
-    OrganizationNumber,
-    OrganizationStartDate,
-    OrganizationEndDate,
-  } = formData;
 
   const onSubmit = () => {
-    // setShowRenewalModal(false);
     const finalData = {
       isSubmitted: true,
       OrganizationId: orgData._id,
@@ -138,8 +105,6 @@ const RenewalOrg_mainPage = ({
             <input
               type="date"
               placeholder="dd/mm/yyyy"
-              // min={yesterdayDt}
-              //min={today}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
               value={entryDate}
@@ -183,12 +148,6 @@ const RenewalOrg_mainPage = ({
       </section>
     </Fragment>
   );
-};
-
-RenewalOrg_mainPage.propTypes = {
-  auth: PropTypes.object.isRequired,
-
-  // RenewTenantDetailsform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

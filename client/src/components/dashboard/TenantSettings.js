@@ -1,5 +1,4 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddTenantSettingform } from "../../actions/tenants";
 import {
@@ -161,13 +160,6 @@ const TenantSettings = ({
       </div>
     </Fragment>
   );
-};
-
-TenantSettings.propTypes = {
-  getAllSettings: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  AddTenantSettingform: PropTypes.func.isRequired,
-  UpdateTenantSettingform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

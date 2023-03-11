@@ -356,11 +356,6 @@ const AddShopDetails = ({
                 ></textarea>
                 <br></br>
               </div>
-
-              {/* </div> */}
-
-              {/* </div> */}
-
               <div className="col-lg-12">
                 <button
                   className="btn sub_form btn_continue Save float-right  text-end"
@@ -376,12 +371,6 @@ const AddShopDetails = ({
       </Modal>
     </>
   );
-};
-
-AddShopDetails.propTypes = {
-  auth: PropTypes.object.isRequired,
-  AddShopDetailsform: PropTypes.func.isRequired,
-  // getAllShops: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

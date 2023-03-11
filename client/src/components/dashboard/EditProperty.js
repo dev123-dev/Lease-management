@@ -1,17 +1,9 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
-import AddOrgModal from "./AddOrgModal";
-import { Props } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import Select from "react-select";
-import { getAllOrganization } from "../../actions/tenants";
-import { deleteOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import { updateProperty } from "../../actions/tenants";
 const EditProperty = ({
-  auth: { isAuthenticated, user, users },
+  auth: { user },
   Property,
   setShowUpdateModal,
   updateProperty,
@@ -39,7 +31,6 @@ const EditProperty = ({
     setitem(delitem);
   };
 
-  const [doornum, setdoornum] = useState("");
   const [dno, setdno] = useState(Property.shopDoorNo);
 
   const handleDoorNumclose = (ele1, index) => {

@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
 import { Modal, Button } from "react-bootstrap";
 
 import { useReactToPrint } from "react-to-print";
@@ -178,9 +177,6 @@ const MainSuperPage = ({
   );
 };
 
-MainSuperPage.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
   tenants: state.tenants,

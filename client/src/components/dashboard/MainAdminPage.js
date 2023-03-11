@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 
 const MainAdminPage = ({
-  auth: { isAuthenticated, user, users },
+  auth: { user },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
   getAllRenewalAmount,

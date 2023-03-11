@@ -596,7 +596,7 @@ router.post(
 //get exp month count for Organization
 router.post("/get-month-exp-org", async (req, res) => {
   const { selectedY } = req.body;
-  console.log("insde api get month=", selectedY);
+
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     yearVal = selectedY;
@@ -626,7 +626,7 @@ router.post("/get-month-exp-org", async (req, res) => {
         },
       },
     ]);
-    console.log("orgexp", orgexp);
+
     res.json(orgexp);
   } catch (err) {
     console.error(err.message);
@@ -637,7 +637,6 @@ router.post("/get-month-exp-org", async (req, res) => {
 // Get Exp Month Count
 router.post("/get-month-exp-count", async (req, res) => {
   const { selectedY, OrganizationId } = req.body; //change
-  console.log("COUNTTTTT", OrganizationId);
   var yearVal = new Date().getFullYear();
   if (selectedY) {
     //change
@@ -762,7 +761,6 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-  console.log(firstDay);
   try {
     const yeardata = await OrganizationDetails.aggregate([
       {
@@ -778,7 +776,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
         },
       },
     ]);
-    console.log("year data", yeardata);
+
     res.json(yeardata);
   } catch (err) {
     console.error(err.message);
@@ -789,10 +787,10 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
   const { selectedVal, OrganizationId } = req.body;
-  console.log("rrrrr", selectedVal, OrganizationId);
+
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-  console.log(firstDay, "rddd");
+
   try {
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
@@ -819,7 +817,6 @@ router.post("/get-previous-years-exp", async (req, res) => {
         },
       },
     ]);
-    console.log("expreport", MonthExpCntData);
     res.json(MonthExpCntData);
   } catch (err) {
     console.error(err.message);
