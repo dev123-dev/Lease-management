@@ -161,8 +161,8 @@ const TenantFilters = ({
       {logUser.usergroup === "Super Admin" ? (
         //super admin filter
         <Fragment>
-          <div className="container_align top_menu  ">
-            <div className="row pb-2  ml-2 responsiveDiv">
+          <div className="container_align top_menu tenantfilter bg-danger Super_Filter ">
+            <div className="row pb-2  ml-2 responsiveDiv tenantfilter">
               <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
                 <div className=" ">
                   {/* this is for textbox below image for showing the total count of Renewal */}

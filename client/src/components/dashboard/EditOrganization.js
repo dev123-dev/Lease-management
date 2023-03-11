@@ -228,7 +228,7 @@ const EditOrganization = ({
                   width="30"
                   height="30"
                   fill="currentColor"
-                  class="bi bi-plus-lg"
+                  className="bi bi-plus-lg"
                   viewBox="0 0 16 16"
                 >
                   <path

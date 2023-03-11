@@ -64,7 +64,7 @@ const AddOrgDashBoard = ({
     setShowEditModal(false);
   };
 
-  const [OrgId, setId] = useState("");
+  const [OrgId, setId] = useState(null);
 
   const onDelete = (id) => {
     setId(id);
@@ -158,13 +158,10 @@ const AddOrgDashBoard = ({
                 >
                   <thead>
                     <tr>
-                      <th> Name</th>
-                      <th> Email</th>
-                      <th> Phone</th>
-                      <th> Address</th>
-
-                      {/* <th>Number of Users</th> */}
-
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Address</th>
                       <th>Location</th>
                       <th>StartDate</th>
                       <th>EndDate</th>
@@ -184,30 +181,27 @@ const AddOrgDashBoard = ({
                             <td>{orgVal.Location + ","}</td>
                             <td>{orgVal.date}</td>
                             <td>{orgVal.enddate}</td>
-                            <td>
-                              {orgVal.org_status === "Active" ||
-                              orgVal.org_status === "Renewed" ? (
-                                <>
-                                  <img
-                                    className="Cursor text-center"
-                                    onClick={() => onedit(orgVal, idx)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit User"
-                                  />
-                                  &nbsp;
-                                  <img
-                                    className="Cursor text-center"
-                                    onClick={() => onDelete(orgVal._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="delete User"
-                                    title="delete User"
-                                  />
-                                </>
-                              ) : (
-                                <div className="blank">DeActivated</div>
-                              )}
-                            </td>
+                            {orgVal.org_status === "Active" ||
+                            orgVal.org_status === "Renewed" ? (
+                              <td>
+                                <img
+                                  className="Cursor text-center"
+                                  onClick={() => onedit(orgVal, idx)}
+                                  src={require("../../static/images/edit_icon.png")}
+                                  alt="Edit"
+                                  title="Edit User"
+                                />
+                                <img
+                                  className="Cursor text-center"
+                                  onClick={() => onDelete(orgVal._id)}
+                                  src={require("../../static/images/delete.png")}
+                                  alt="delete User"
+                                  title="delete User"
+                                />
+                              </td>
+                            ) : (
+                              <td className="blank">DeActivated</td>
+                            )}
                           </tr>
                         );
                       })}

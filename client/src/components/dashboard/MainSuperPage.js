@@ -56,7 +56,7 @@ const MainSuperPage = ({
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <div className="col mt-5">
+    <div className="col mt-5 DashBoard">
       <div className="col"></div>
       <div className="col"></div>
       <div className="col"></div>
