@@ -555,30 +555,26 @@ router.post("/deactive-tenant", async (req, res) => {
   }
 });
 
-router.post(
-  "/update-tenant",
-  // [check("tdId", "Invalid Request").not().isEmpty()],
-  async (req, res) => {
-    try {
-      let data = req.body;
+router.post("/update-tenant", async (req, res) => {
+  try {
+    let data = req.body;
 
-      const updateagreementdetails = await TenantSettings.updateOne(
-        { _id: data.recordId },
-        {
-          $set: {
-            hikePercentage: data.hikePercentage,
-            stampDuty: data.stampDuty,
-            leaseTimePeriod: data.leaseTimePeriod,
-          },
-        }
-      );
+    const updateagreementdetails = await TenantSettings.updateOne(
+      { _id: data.recordId },
+      {
+        $set: {
+          hikePercentage: data.hikePercentage,
+          stampDuty: data.stampDuty,
+          leaseTimePeriod: data.leaseTimePeriod,
+        },
+      }
+    );
 
-      res.json(updateagreementdetails);
-    } catch (error) {
-      res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    res.json(updateagreementdetails);
+  } catch (error) {
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
-);
+});
 
 //get exp month count for Organization
 router.post("/get-month-exp-org", async (req, res) => {
