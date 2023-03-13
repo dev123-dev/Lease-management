@@ -3,7 +3,6 @@ import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
 import { connect } from "react-redux";
-import Edituser from "../dashboard/Edituser";
 import "../../../src/styles/CustomisedStyle.css";
 import Pagination from "../layout/Pagination";
 import {
@@ -285,7 +284,7 @@ const UserDetails = ({
           </div>
         </Modal.Header>
         <Modal.Body>
-          <Edituser superuser={Admindata} />
+          <EditAdminUser org={Admindata} />
         </Modal.Body>
       </Modal>
       {/* Modal Edit Ending */}

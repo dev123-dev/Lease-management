@@ -151,7 +151,7 @@ const Edituser = ({
           </div>
           <div className="col-lg-6">
             <label>
-              Organization belongs to{" "}
+              Organization belongs to xxx{" "}
               <i className="text-danger ">
                 <b>*</b>
               </i>
