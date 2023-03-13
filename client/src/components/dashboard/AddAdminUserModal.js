@@ -11,6 +11,7 @@ const AddAdminUserModal = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allorg },
   AddAdminuser,
+  setShowadd,
   get_particular_org_user,
 }) => {
   useEffect(() => {});
@@ -203,32 +204,37 @@ const AddAdminUserModal = ({
   const onuserchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  const [fill, setfill] = useState(false);
   const onsubmitUserData = () => {
-    const finalUserData = {
-      username: name,
-      useremail: email,
-      userphone: phone,
-      useraddress: address,
-      usergroup: User,
-      password: rePassword,
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
-    };
+    if (name === "" || email === "" || user === "") {
+      setfill(true);
+    } else {
+      const finalUserData = {
+        username: name,
+        useremail: email,
+        userphone: phone,
+        useraddress: address,
+        usergroup: User,
+        password: rePassword,
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+      };
+      setShowadd(false);
+      AddAdminuser(finalUserData);
 
-    AddAdminuser(finalUserData);
-    handleClose();
-    setFormData({
-      ...formData,
-      name: "",
-      phone: "",
-      email: "",
-      address: "",
-      group: "",
-      OrganizationName: "",
-      password: "",
-    });
+      setFormData({
+        ...formData,
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        group: "",
+        OrganizationName: "",
+        password: "",
+      });
+    }
   };
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -239,218 +245,205 @@ const AddAdminUserModal = ({
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
     <>
-      <div className="">
-        <img
-          height="25px"
-          onClick={handleShow}
-          src={require("../../static/images/add-icon.png")}
-          alt="Add User"
-          title="Add User"
-        />
-      </div>
-      <Modal
-        show={show}
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        className="logout-modal"
-      >
-        <Modal.Header>
-          <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h2>
-              <b className="heading_color h1 text-center">Add Admin's User</b>{" "}
-            </h2>
-          </div>
-          <div className="  col-lg-2 ">
-            <button className=" cluser" onClick={handleClose}>
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px", color: "black" }}
+      <div className=""></div>
+
+      <Modal.Header>
+        <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
+          <h3>
+            <b className=" text-center ml-5">ADD USER DETAILS</b>{" "}
+          </h3>
+        </div>
+        <div className="  col-lg-2 ">
+          <button
+            className=" close"
+            onClick={() => {
+              setShowadd(false);
+            }}
+          >
+            <img
+              className="mr-5"
+              src={require("../../static/images/close.png")}
+              alt="X"
+              style={{ height: "20px", width: "20px", color: "black" }}
+            />
+          </button>
+        </div>
+      </Modal.Header>
+
+      <Modal.Body>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6">
+              <label>
+                {" "}
+                Name
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+                :
+              </label>{" "}
+              <input
+                type="text"
+                name="name"
+                value={name}
+                className="form-control"
+                placeholder="Name"
+                onChange={(e) => onuserchange(e)}
               />
-            </button>
-          </div>
-        </Modal.Header>
+            </div>
+            <div className="col-lg-6">
+              <label>
+                Email{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+                :
+              </label>{" "}
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={email}
+                className="form-control"
+                onChange={(e) => onuserchange(e)}
+              />
+            </div>
 
-        <Modal.Body>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <label>
-                  {" "}
-                  Name
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>{" "}
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  className="form-control"
-                  placeholder="Name"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
-              <div className="col-lg-6">
-                <label>
-                  Email{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>{" "}
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={email}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
+            <div className="col-lg-6">
+              PhoneNo
+              <input
+                type="number"
+                name="phone"
+                placeholder="PhoneNo"
+                value={phone}
+                className="form-control"
+                onChange={(e) => onuserchange(e)}
+              />
+            </div>
+            <div className="col-lg-6">
+              {" "}
+              <label>
+                Organization belongs to{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+                :{" "}
+              </label>{" "}
+              <input
+                type="text"
+                placeholder="{user.OrganizationName}"
+                value={user.OrganizationName}
+                className="form-control"
+                onChange={(e) => onuserchange(e)}
+              />
+            </div>
 
-              <div className="col-lg-6">
-                PhoneNo
-                <input
-                  type="number"
-                  name="phone"
-                  placeholder="PhoneNo"
-                  value={phone}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
-              <div className="col-lg-6">
-                {" "}
-                <label>
-                  Organization belongs to{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :{" "}
-                </label>{" "}
-                <input
-                  type="text"
-                  placeholder="{user.OrganizationName}"
-                  value={user.OrganizationName}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
-
-              <div className="col-lg-6">
-                {" "}
-                <label>
-                  Password{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={password}
-                  className="form-control"
-                  style={passwordInptErrStyle}
-                  onChange={(e) => onPasswordChange(e)}
-                />
-                {passwordValChecker && (
-                  <span className="form-input-info" style={passwordValStyle}>
-                    {passwordValResult}
+            <div className="col-lg-6">
+              {" "}
+              <label>
+                Password{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+              </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={password}
+                className="form-control"
+                style={passwordInptErrStyle}
+                onChange={(e) => onPasswordChange(e)}
+              />
+              {passwordValChecker && (
+                <span className="form-input-info" style={passwordValStyle}>
+                  {passwordValResult}
+                </span>
+              )}
+            </div>
+            <div className="col-lg-6">
+              {" "}
+              <label>
+                ConfirmPassword{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+                :
+              </label>
+              <input
+                type="password"
+                name="rePassword"
+                value={rePassword}
+                autoComplete="off"
+                className="form-control"
+                style={repwdInptErrStyle}
+                onChange={(e) => onPasswordChange(e)}
+              />
+              {repwdValChecker && (
+                <Fragment>
+                  <span className="form-input-info" style={repwdValStyle}>
+                    {repwdValResult}
                   </span>
-                )}
-              </div>
-              <div className="col-lg-6">
-                {" "}
-                <label>
-                  ConfirmPassword{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>
-                <input
-                  type="password"
-                  name="rePassword"
-                  value={rePassword}
-                  autoComplete="off"
-                  className="form-control"
-                  style={repwdInptErrStyle}
-                  onChange={(e) => onPasswordChange(e)}
-                />
-                {repwdValChecker && (
-                  <Fragment>
-                    <span className="form-input-info" style={repwdValStyle}>
-                      {repwdValResult}
-                    </span>
-                  </Fragment>
-                )}
-              </div>
-              <div className="col-lg-6">
-                Address
-                <textarea
-                  name="address"
-                  value={address}
-                  onChange={(e) => onuserchange(e)}
-                  className="textarea form-control"
-                  rows="5"
-                  cols="20"
-                  placeholder="Address"
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>{" "}
-              </div>
+                </Fragment>
+              )}
+            </div>
+            <div className="col-lg-6">
+              Address
+              <textarea
+                name="address"
+                value={address}
+                onChange={(e) => onuserchange(e)}
+                className="textarea form-control"
+                rows="3"
+                cols="20"
+                placeholder="Address"
+                style={{ width: "100%" }}
+                required
+              ></textarea>{" "}
+            </div>
 
-              <div className="col-lg-6">
-                <label>
-                  UserGroup{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :{" "}
-                </label>
-                <Select
-                  name="usergroup"
-                  options={UserGroups}
-                  isSearchable={false}
-                  placeholder="Select"
-                  onChange={(e) => onuser(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
-                    colors: {
-                      ...theme.colors,
-                      primary: "black",
-                    },
-                  })}
-                />
-              </div>
+            <div className="col-lg-6">
+              <label>
+                UserGroup{" "}
+                <i className="text-danger ">
+                  <b>*</b>
+                </i>
+                :{" "}
+              </label>
+              <Select
+                name="usergroup"
+                options={UserGroups}
+                isSearchable={false}
+                placeholder="Select"
+                onChange={(e) => onuser(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
             </div>
           </div>
-        </Modal.Body>
-
-        <Modal.Footer>
-          {/* save button  */}
-          <div className="col-lg-1 Savebutton ">
-            <button
-              variant="success"
-              id="savebtn"
-              className="btn sub_form btn_continue Save "
-              onClick={() => onsubmitUserData()}
-            >
-              Save
-            </button>
-          </div>
-        </Modal.Footer>
-      </Modal>
+        </div>
+        <h5 className="Uservalidation">
+          {fill ? <>Please fill all Mandatory(*) fields..!!</> : <></>}
+        </h5>
+        {/* save button  */}
+        <div className="col-lg-12 ">
+          <button
+            id="savebtn"
+            className="btn sub_form btn_continue Save float-right  "
+            onClick={() => onsubmitUserData()}
+          >
+            Save
+          </button>
+        </div>
+      </Modal.Body>
     </>
   ) : (
     //for admin side

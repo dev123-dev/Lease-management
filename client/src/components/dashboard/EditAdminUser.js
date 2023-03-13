@@ -25,6 +25,16 @@ const EditAdminUser = ({
   const onchangeOrg = (e) => {
     setOrgname(e);
   };
+  const [formData, setFormData] = useState({
+    username: "",
+    useremail: "",
+    useraddress: "",
+    userphone: "",
+    usergroup: "",
+    OrganizationName: "",
+    password: "",
+  });
+
   const UserGroups = [
     { value: "Admin", label: "Admin" },
     { value: "Super Admin", label: "Super Admin" },
@@ -102,6 +112,9 @@ const EditAdminUser = ({
     UpdateUser(updateUSER);
     getalluser();
   };
+  const onuserchange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -148,25 +161,13 @@ const EditAdminUser = ({
               </i>
               :{" "}
             </label>
-
-            <Select
-              name="orgname"
-              options={orglist}
-              value={orgname}
-              onChange={(e) => onchangeOrg(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
-            >
-              select Organization
-            </Select>
+            <input
+              type="text"
+              placeholder="{user.OrganizationName}"
+              value={user.OrganizationName}
+              className="form-control"
+              onChange={(e) => onuserchange(e)}
+            />
           </div>
           <div className="col-lg-6">
             <label>

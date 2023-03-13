@@ -242,67 +242,82 @@ const AddTenantDetails = ({
   };
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
-
+  const [fill, setfill] = useState(false);
   const onSubmit = () => {
-    const finalData = {
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
-      BuildingName: buildingName,
-      BuildingId: buildingId,
-      Location: LocList,
-      tenantFileNo: tenantFileNo,
-      tenantDoorNo: doorno,
-      tenantName: tenantName,
-      tenantPhone: tenantPhone,
-      tenantFirmName: tenantFirmName,
-      tenantAddr: tenantAddr,
-      tenantAdharNo: tenantAdharNo,
-      tenantPanNo: tenantPanNo,
-      tenantDepositAmt: tenantDepositAmt,
-      tenantPaymentMode: tenantPaymentMode.value,
-      tenantChequenoOrDdno: tenantChequenoOrDdno,
-      tenantBankName: tenantBankName,
-      tenantchequeDate: startSelectedDate,
-      tenantRentAmount: tenantRentAmount,
-      tenantLeaseStartDate: entryDate,
-      tenantLeaseEndDate: newLeaseEndDate,
-      generatordepoAmt: generatordepoAmt,
-      tenantEnteredBy: user && user._id,
-      tenantDate: todayDateymd,
-      selectedY: finalDataRep.yearSearch,
-      selectedVal: dt,
-    };
+    if (
+      buildingName === "" ||
+      doorno === "" ||
+      LocList === "" ||
+      tenantFileNo === "" ||
+      tenantName === "" ||
+      tenantRentAmount === "" ||
+      tenantDepositAmt === "" ||
+      tenantPaymentMode === "" ||
+      entryDate === "" ||
+      tenantAddr === ""
+    ) {
+      setfill(true);
+    } else {
+      const finalData = {
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+        BuildingName: buildingName,
+        BuildingId: buildingId,
+        Location: LocList,
+        tenantFileNo: tenantFileNo,
+        tenantDoorNo: doorno,
+        tenantName: tenantName,
+        tenantPhone: tenantPhone,
+        tenantFirmName: tenantFirmName,
+        tenantAddr: tenantAddr,
+        tenantAdharNo: tenantAdharNo,
+        tenantPanNo: tenantPanNo,
+        tenantDepositAmt: tenantDepositAmt,
+        tenantPaymentMode: tenantPaymentMode.value,
+        tenantChequenoOrDdno: tenantChequenoOrDdno,
+        tenantBankName: tenantBankName,
+        tenantchequeDate: startSelectedDate,
+        tenantRentAmount: tenantRentAmount,
+        tenantLeaseStartDate: entryDate,
+        tenantLeaseEndDate: newLeaseEndDate,
+        generatordepoAmt: generatordepoAmt,
+        tenantEnteredBy: user && user._id,
+        tenantDate: todayDateymd,
+        selectedY: finalDataRep.yearSearch,
+        selectedVal: dt,
+      };
 
-    AddTenantDetailsform(finalData);
-    setFormData({
-      ...formData,
-      tenantFileNo: "",
-      tenantDoorNo: "",
-      tenantName: "",
-      tenantPhone: "",
-      tenantFirmName: "",
-      tenantAddr: "",
-      tenantAdharNo: "",
-      tenantPanNo: "",
-      tenantDepositAmt: "",
-      tenantPaymentMode: "",
-      tenantBankName: "",
-      tenantchequeDate: "",
-      tenantRentAmount: "",
-      tenantLeaseEndDate: "",
-      tenantChequenoOrDdno: "",
-      generatordepoAmt: "",
-    });
+      AddTenantDetailsform(finalData);
+      setFormData({
+        ...formData,
+        tenantFileNo: "",
+        tenantDoorNo: "",
+        tenantName: "",
+        tenantPhone: "",
+        tenantFirmName: "",
+        tenantAddr: "",
+        tenantAdharNo: "",
+        tenantPanNo: "",
+        tenantDepositAmt: "",
+        tenantPaymentMode: "",
+        tenantBankName: "",
+        tenantchequeDate: "",
+        tenantRentAmount: "",
+        tenantLeaseEndDate: "",
+        tenantChequenoOrDdno: "",
+        generatordepoAmt: "",
+      });
 
-    //handleInformationModalOpen();
-    //setShowInformation(true);
-    setEntryDate("");
-    getDoorNoData("");
-    setLeaseEndDate("");
-    setNewLeaseEndDate("");
-    setChequeDate("");
-    setFileNoData("");
-    setShowadd(false);
+      //handleInformationModalOpen();
+      //setShowInformation(true);
+      setEntryDate("");
+      getDoorNoData("");
+      setLeaseEndDate("");
+      setNewLeaseEndDate("");
+      setChequeDate("");
+      setFileNoData("");
+      setShowadd(false);
+    }
   };
   const [showInformationModal, setShowInformation] = useState(false);
   const handleInformationModalOpen = () => setShowInformation(true);
@@ -319,10 +334,10 @@ const AddTenantDetails = ({
   ) : (
     <>
       <Modal.Header>
-        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-          <h2>
-            <b className="text-center ml-5">ADD TENANT DETAILS</b>
-          </h2>
+        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead ">
+          <h3>
+            <b className="text-center ">ADD TENANT DETAILS</b>
+          </h3>
         </div>
         <div className=" col-lg-2">
           <button className="close" onClick={() => setShowadd(false)}>
@@ -392,7 +407,7 @@ const AddTenantDetails = ({
               <input
                 type="text"
                 name="tenantFileNo"
-                placeholder="FileNo"
+                placeholder="File No"
                 value={tenantFileNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -416,13 +431,12 @@ const AddTenantDetails = ({
                 required
               />
             </div>
-
             <div className="col-lg-4">
               PhoneNo
               <input
                 type="number"
                 name="tenantPhone"
-                placeholder="PhoneNo"
+                placeholder="Phone No"
                 value={tenantPhone}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -438,7 +452,7 @@ const AddTenantDetails = ({
               <input
                 type="text"
                 name="tenantFirmName"
-                placeholder="FirmName"
+                placeholder="Firm Name"
                 value={tenantFirmName}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -450,7 +464,7 @@ const AddTenantDetails = ({
               <input
                 type="number"
                 name="tenantAdharNo"
-                placeholder="AdharNo"
+                placeholder="Adhar No"
                 value={tenantAdharNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -460,18 +474,12 @@ const AddTenantDetails = ({
                 required
               />
             </div>
-
             <div className="col-lg-4">
-              <label className="ml-2">
-                Tenant Pan Number{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Pan Number </label>
               <input
                 type="text"
                 name="tenantPanNo"
-                placeholder="PanNo"
+                placeholder="Pan No"
                 value={tenantPanNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -492,7 +500,7 @@ const AddTenantDetails = ({
               <input
                 type="number"
                 name="tenantRentAmount"
-                placeholder="RentAmount"
+                placeholder="Rent Amount"
                 value={tenantRentAmount}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -513,7 +521,7 @@ const AddTenantDetails = ({
                 type="number"
                 name="tenantDepositAmt"
                 value={tenantDepositAmt}
-                placeholder="DepositAmount"
+                placeholder="Deposit Amount"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 onKeyDown={(e) =>
@@ -523,16 +531,11 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                GeneratorDepositAmount{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">GeneratorDepositAmount </label>
               <input
                 type="number"
                 name="generatordepoAmt"
-                placeholder="GeneratorDepositAmount"
+                placeholder="GeneratorDeposit Amount"
                 value={generatordepoAmt}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -545,6 +548,9 @@ const AddTenantDetails = ({
             </div>
             <div className="col-lg-4">
               Mode Of Payment
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
               <Select
                 name="tenantPaymentMode"
                 options={PaymentMethods}
@@ -563,10 +569,13 @@ const AddTenantDetails = ({
                   },
                 })}
               />
-            </div>
-
+              <br></br>
+            </div>{" "}
             <div className="col-lg-4">
-              LeaseStartDate
+              LeaseStartDate{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
               <input
                 type="date"
                 placeholder="dd/mm/yyyy"
@@ -577,58 +586,62 @@ const AddTenantDetails = ({
                 style={{
                   width: "100%",
                 }}
-              />
-            </div>
+              />{" "}
+              <br></br>
+            </div>{" "}
             <div className="col-lg-4 ">
-              <label>Lease End Date:</label>
-              <br />
-              <label>
-                <b>{leaseEndDate}</b>
-              </label>
-            </div>
+              Lease End Date{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+              <input
+                placeholder="dd/mm/yyyy"
+                className="form-control cpp-input datevalidation"
+                value={leaseEndDate}
+              ></input>
+              <br></br>
+            </div>{" "}
             <div className="col-lg-12">
               {showChequenoSection ? (
                 <>
-                  <div className="container-fluid">
-                    <div className="row">
-                      <div className="  col-lg-4">
-                        Cheque No/DD No
-                        <input
-                          type="text"
-                          name="tenantChequenoOrDdno"
-                          value={tenantChequenoOrDdno}
-                          className="form-control"
-                          onChange={(e) => onInputChange(e)}
-                          required
-                        />
-                        <br></br>
-                      </div>
+                  <div className="row">
+                    <div className="  col-lg-4 ">
+                      Cheque No/DD No
+                      <input
+                        type="text"
+                        name="tenantChequenoOrDdno"
+                        value={tenantChequenoOrDdno}
+                        className="form-control"
+                        onChange={(e) => onInputChange(e)}
+                        required
+                      />
+                      <br></br>
+                    </div>
 
-                      <div className=" col-lg-4">
-                        BankName :
-                        <input
-                          type="text"
-                          name="tenantBankName"
-                          value={tenantBankName}
-                          className="form-control"
-                          onChange={(e) => onInputChange(e)}
-                          required
-                        />
-                      </div>
-                      <div className="  col-lg-4">
-                        ChequeDate:
-                        <input
-                          type="date"
-                          placeholder="dd/mm/yyyy"
-                          className="form-control cpp-input datevalidation"
-                          name="tenantchequeDate"
-                          value={startSelectedDate}
-                          onChange={(e) => onDateChange(e)}
-                          style={{
-                            width: "75%",
-                          }}
-                        />
-                      </div>
+                    <div className=" col-lg-4">
+                      BankName :
+                      <input
+                        type="text"
+                        name="tenantBankName"
+                        value={tenantBankName}
+                        className="form-control"
+                        onChange={(e) => onInputChange(e)}
+                        required
+                      />
+                    </div>
+                    <div className="  col-lg-4">
+                      ChequeDate:
+                      <input
+                        type="date"
+                        placeholder="dd/mm/yyyy"
+                        className="form-control cpp-input datevalidation"
+                        name="tenantchequeDate"
+                        value={startSelectedDate}
+                        onChange={(e) => onDateChange(e)}
+                        style={{
+                          width: "100%",
+                        }}
+                      />
                     </div>
                   </div>
                 </>
@@ -636,9 +649,13 @@ const AddTenantDetails = ({
                 <></>
               )}
             </div>
-
             <div className="col-lg-8">
-              <label>Tenant's Address *:</label>
+              <label>
+                Tenant's Address{" "}
+                <i className="text-danger  ">
+                  <b>*</b>
+                </i>
+              </label>
               <textarea
                 name="tenantAddr"
                 value={tenantAddr}
@@ -651,7 +668,9 @@ const AddTenantDetails = ({
                 required
               ></textarea>{" "}
             </div>
-
+            <h5 className="Uservalidation">
+              {fill ? <>Please fill all Mandatory(*) fields..!!</> : <></>}
+            </h5>
             <div className="col-lg-12">
               <button
                 variant="success"

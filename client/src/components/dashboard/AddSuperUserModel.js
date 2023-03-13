@@ -362,7 +362,6 @@ const AddSuperUserModel = ({
                     name="password"
                     id="user_password"
                     type="password"
-                    autoComplete="off"
                     value={password}
                     className="form-control"
                     style={passwordInptErrStyle}

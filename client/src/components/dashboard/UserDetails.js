@@ -50,8 +50,6 @@ const UserDetails = ({
   const handleShow = () => setShow(true);
 
   const [Deactiveshow, setDeactiveShow] = useState(false);
-  const DeactivehandleClose = () => setDeactiveShow(false);
-  const DeactivehandleShow = () => setDeactiveShow(true);
 
   const [Admindata, setAdmin] = useState("");
 
@@ -65,7 +63,7 @@ const UserDetails = ({
 
   const onDelete = (id) => {
     Setid(id);
-    DeactivehandleShow();
+    setDeactiveShow(true);
   };
 
   const onAdminAdd = () => {
@@ -78,20 +76,24 @@ const UserDetails = ({
     deactivateUser(reason);
     // get_particular_org_user({ orgid: user.OrganizationId });
   };
+
+  const [showadd, setShowadd] = useState(false);
+
+  const refresh = () => {
+    window.location.reload(true);
+  };
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(7);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentDatas =
     get_particularOrg_user &&
     get_particularOrg_user.slice(indexOfFirstData, indexOfLastData);
+
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
-  };
-  const refresh = () => {
-    window.location.reload(true);
   };
 
   return (
@@ -110,6 +112,13 @@ const UserDetails = ({
           <div className="col">
             <div className="refreshbtn">
               <img
+                height="25px"
+                onClick={() => setShowadd(true)}
+                src={require("../../static/images/add-icon.png")}
+                alt="Add User"
+                title="Add User"
+              />
+              <img
                 className="mt-1"
                 height="25px"
                 onClick={() => refresh()}
@@ -118,7 +127,7 @@ const UserDetails = ({
                 title="refresh"
               />
             </div>
-            <AddAdminUserModal />
+            {/* <AddAdminUserModal /> */}
 
             <div className="row">
               <div className="col-lg-1"></div>
@@ -196,7 +205,8 @@ const UserDetails = ({
                 </div>
                 <div className="col-lg-6">
                   <p className="text-end h6">
-                    No of User : {get_particularOrg_user.length}
+                    No of User :{" "}
+                    {get_particularOrg_user && get_particularOrg_user.length}
                   </p>
                 </div>
               </div>
@@ -206,9 +216,22 @@ const UserDetails = ({
       </div>
       {/* this id for Deactivating the Super user starting */}
       <Modal show={Deactiveshow} centered>
-        <Modal.Title className="text-center">
-          <b> Deactivate</b>
-        </Modal.Title>
+        <Modal.Header>
+          <div className="col-lg-11 ">
+            <h3 className="modal-title text-center">
+              <b>DEACTIVATE</b>
+            </h3>
+          </div>
+          <div className="col-lg-1 closeicon">
+            <img
+              src={require("../../static/images/close.png")}
+              alt="X"
+              style={{ height: "20px", width: "20px" }}
+              onClick={() => setDeactiveShow(false)}
+            />
+          </div>
+        </Modal.Header>
+
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -224,15 +247,13 @@ const UserDetails = ({
                 className="form-control "
                 required
               ></textarea>
+              <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button id="savebtn" onClick={onAdminAdd}>
-            DeActivate
-          </Button>
-          <Button variant="primary" onClick={DeactivehandleClose} id="savebtn">
-            close
+          <Button id="deactivebtn" onClick={onAdminAdd}>
+            <b>DeActive</b>
           </Button>
         </Modal.Footer>
       </Modal>
@@ -250,7 +271,7 @@ const UserDetails = ({
         <Modal.Header>
           <div className="col-lg-10">
             <h3>
-              <b className="modal-title text-center h3">Edit User Details </b>
+              <b className=" text-center ">Edit User Details </b>
             </h3>
           </div>
           <div className="col-lg-2">
@@ -268,6 +289,15 @@ const UserDetails = ({
         </Modal.Body>
       </Modal>
       {/* Modal Edit Ending */}
+      <Modal
+        show={showadd}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <AddAdminUserModal setShowadd={setShowadd} />
+      </Modal>
     </>
   );
 };

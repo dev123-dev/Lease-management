@@ -563,7 +563,14 @@ p {
   .dropdown{
     width: 130px;
   }
+  .modhead{
+   
+    right:50px;
+  }
+  #buttonchanges{
   
+    
+  }
   #plusicon {
     top: -25px;
     right: 85px;
@@ -2027,9 +2034,7 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-left: 200px;
   cursor: pointer;
 }
-.close:hover {
-  background-color: lightgrey;
-}
+
 .clprop {
   margin-left: 100px;
   cursor: pointer;

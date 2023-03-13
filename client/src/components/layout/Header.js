@@ -247,7 +247,7 @@ const Header = ({
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                           </Link>
-                          <ul className="dropdown-menu second-level-menu">
+                          <ul className="dropdown-menu second-level-menu ">
                             <li className="hwhite  drophover ">
                               <Link
                                 to="#"

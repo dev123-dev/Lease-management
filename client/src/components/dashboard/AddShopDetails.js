@@ -165,10 +165,10 @@ const AddShopDetails = ({
   ) : (
     <>
       <Modal.Header>
-        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 ">
-          <h2>
+        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead">
+          <h3>
             <b className="text-center ">ADD PROPERTY DETAILS</b>
-          </h2>
+          </h3>
         </div>
         <div className="col-lg-2">
           <button

@@ -173,8 +173,8 @@ const PropertyDetail = ({
                     </tr>
                   </thead>
                   <tbody>
-                    {particular_org_data &&
-                      particular_org_data.map((Val, idx) => {
+                    {currentDatas &&
+                      currentDatas.map((Val, idx) => {
                         return (
                           <tr key={idx}>
                             <td>{Val.buildingName}</td>

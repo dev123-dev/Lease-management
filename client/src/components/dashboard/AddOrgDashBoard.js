@@ -278,7 +278,7 @@ const AddOrgDashBoard = ({
             id="deactivebtn"
             onClick={onAdd}
           >
-            <b> DeActive</b>
+            <b> DeActivate</b>
           </Button>
         </Modal.Footer>
       </Modal>
