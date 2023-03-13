@@ -13,10 +13,12 @@ const AddSuperUserModel = ({
 }) => {
   const orglist = [];
   allorg.map((org) => {
-    orglist.push({
-      label: org.OrganizationName,
-      value: org._id,
-    });
+    if (org.org_status != "Deactive") {
+      orglist.push({
+        label: org.OrganizationName,
+        value: org._id,
+      });
+    }
   });
 
   const [orgname, setOrgname] = useState({});
@@ -52,8 +54,6 @@ const AddSuperUserModel = ({
     setus(e);
   };
 
-  const [PASSWORD, SETPASSWORD] = useState("");
-  const [finalPass, Setpass] = useState("");
   // password validation starting
   const [error, setError] = useState({
     passwordValChecker: false,

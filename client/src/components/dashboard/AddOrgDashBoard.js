@@ -37,11 +37,8 @@ const AddOrgDashBoard = ({
     const delitem = nameofLocation.Location.filter((ele) => {
       return indexx != ele;
     });
-    // const delitem = items.filter((ele, ind) => {
-    //   return ind != index;
-    // });
+
     setitem(delitem);
-    //nameofLocation.Location(items);
   };
 
   const addItem = () => {
@@ -89,7 +86,7 @@ const AddOrgDashBoard = ({
 
   const { Organization_DE_Reason } = formData;
 
-  const onAdd = () => {
+  const onDeactivate = () => {
     setShowDeactivate(false);
     const reason = {
       Org_id: OrgId,
@@ -129,8 +126,6 @@ const AddOrgDashBoard = ({
         <div className="container-fluid d-flex align-items-center justify-content-center ">
           <div className="col">
             <div className="refreshbtn">
-              {/* <AddOrgModal />{" "} */}
-
               <img
                 height="25px"
                 className="mx-2 plusicon"
@@ -276,7 +271,7 @@ const AddOrgDashBoard = ({
           <Button
             // variant="primary"
             id="deactivebtn"
-            onClick={onAdd}
+            onClick={onDeactivate}
           >
             <b> DeActive</b>
           </Button>

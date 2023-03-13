@@ -93,7 +93,7 @@ const Tenant_Details = ({
     });
   };
 
-  const onAdd = () => {
+  const onDeactivate = () => {
     const reason = {
       deactive_reason: deactive_reason,
       tid: tId,
@@ -305,7 +305,7 @@ const Tenant_Details = ({
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary" onClick={onAdd} id="deactivebtn">
+            <Button variant="primary" onClick={onDeactivate} id="deactivebtn">
               <b>DeActive</b>
             </Button>
           </Modal.Footer>
