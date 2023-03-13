@@ -22,7 +22,8 @@ const MainAdminPage = ({
     getAllRenewalAmount({ OrganizationId: user && user.OrganizationId });
     fun();
   }, []);
-  //localStorage.setItem("", JSON.stringify(payload));
+  const total = JSON.parse(localStorage.getItem("total"));
+
   let count = 0;
   let AvaiableShopCount = 0;
   const [PropertyCount, setPropertyCount] = useState();
@@ -105,6 +106,7 @@ const MainAdminPage = ({
                 className="mainpageimg"
               ></img>
               Total Renewal
+              <div> {total}</div>
             </div>
           </div>
         </section>

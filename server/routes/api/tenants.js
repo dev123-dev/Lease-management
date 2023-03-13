@@ -503,8 +503,6 @@ router.post("/deactive-user", async (req, res) => {
 
 //ddeactivating the organization
 router.post("/deactive-Organization", async (req, res) => {
-  let data = req.body;
-
   try {
     let data = req.body;
     let dltOrg = await OrganizationDetails.updateOne(
@@ -525,7 +523,6 @@ router.post("/deactive-tenant", async (req, res) => {
 
   try {
     let data = req.body;
-
     const updatedetails = await TenantDetails.updateOne(
       { _id: data.tid },
       {
@@ -536,6 +533,17 @@ router.post("/deactive-tenant", async (req, res) => {
       }
     );
 
+    await TenentAgreement.updateOne(
+      {
+        tdId: data.tid,
+      },
+      {
+        $set: {
+          tenantstatus: "Deactive",
+          AgreementStatus: "Deactivated",
+        },
+      }
+    );
     const finalData2 = {
       tdId: data.tid,
       thStatus: "Deactive",
@@ -544,7 +552,7 @@ router.post("/deactive-tenant", async (req, res) => {
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
 
-    const detail = ShopDetails.updateOne(
+    ShopDetails.updateOne(
       { tdId: data.tid },
       {
         $set: {
@@ -553,14 +561,14 @@ router.post("/deactive-tenant", async (req, res) => {
       }
     );
 
-    // const shopDoorNoUpdate = await ShopDetails.updateOne(
-    //   { tdId: data.tid },
-    //   {
-    //     $set: {
-    //       shopStatus: "Available",
-    //     },
-    //   }
-    // );
+    await ShopDetails.updateOne(
+      { tdId: data.tid },
+      {
+        $set: {
+          shopStatus: "Available",
+        },
+      }
+    );
     //res.json(shopDoorNoUpdate);
     res.json(updatedetails);
   } catch (error) {

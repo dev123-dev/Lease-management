@@ -17,7 +17,10 @@ const TenantReport = ({
 }) => {
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
-  });
+
+    let total = expReport.reduce((acc, obj) => acc + obj.chargesCal, 0);
+    localStorage.setItem("total", total);
+  }, []);
 
   const componentRef = useRef();
   // const handlePrint = useReactToPrint({
