@@ -1,5 +1,4 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddShopDetailsform } from "../../actions/tenants";
 import { Modal, Button } from "react-bootstrap";
@@ -10,6 +9,7 @@ import {
   getParticularOrg,
   getParticularTenantSetting,
 } from "../../actions/tenants";
+import { v4 as uuid } from "uuid";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
@@ -92,6 +92,8 @@ const AddShopDetails = ({
   };
 
   const addItem = () => {
+    let id = uuid();
+
     if (!inputdata) {
     } else {
       setitem([...items, inputdata]);
@@ -99,6 +101,7 @@ const AddShopDetails = ({
     }
   };
 
+  console.log("this i slocation dartsa", inputdata);
   const onPropertychange = (e) => {
     setFormData({
       ...formData,
@@ -142,8 +145,8 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Acquired",
       };
-
-      AddShopDetailsform(finalData);
+      console.log(finalData);
+      // AddShopDetailsform(finalData);
       setFormData({
         ...formData,
         buildingName: "",
