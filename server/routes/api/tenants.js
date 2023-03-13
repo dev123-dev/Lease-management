@@ -509,8 +509,6 @@ router.post("/deactive-Organization", async (req, res) => {
 });
 
 router.post("/deactive-tenant", async (req, res) => {
-  // [check("tdId", "Invalid Request").not().isEmpty()],
-
   try {
     let data = req.body;
     const updatedetails = await TenantDetails.updateOne(
@@ -542,16 +540,7 @@ router.post("/deactive-tenant", async (req, res) => {
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
 
-    ShopDetails.updateOne(
-      { tdId: data.tid },
-      {
-        $set: {
-          shopStatus: "Available",
-        },
-      }
-    );
-
-    await ShopDetails.updateOne(
+    await property.updateOne(
       { tdId: data.tid },
       {
         $set: {
