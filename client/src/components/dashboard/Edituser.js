@@ -43,24 +43,8 @@ const Edituser = ({
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [userid, setId] = useState("");
-
-  const onedit = (id) => {
-    setId(id);
-    handleOpen();
-  };
-
   // adding multiple location start
-  const [inputdata, setinput] = useState("");
-  const [items, setitem] = useState();
 
-  const addItem = () => {
-    if (!inputdata) {
-    } else {
-      setitem([...items, inputdata]);
-      setinput("");
-    }
-  };
   //multiple location end
 
   const [userData, setuserData] = useState({
@@ -151,7 +135,7 @@ const Edituser = ({
           </div>
           <div className="col-lg-6">
             <label>
-              Organization belongs to xxx{" "}
+              Organization belongs to{" "}
               <i className="text-danger ">
                 <b>*</b>
               </i>

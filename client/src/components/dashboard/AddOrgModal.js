@@ -6,7 +6,7 @@ import { AddOrganization } from "../../actions/tenants";
 
 const AddOrgModal = ({
   // tenants: {AddOrganization },
-  auth: { isAuthenticated, user, users, finalDataRep },
+  auth: { isAuthenticated, user, users },
   AddOrganization,
   setShowadd,
 }) => {
@@ -141,8 +141,6 @@ const AddOrgModal = ({
   ) : (
     <div>
       <Fragment>
-        {/* Adding Organization     onClick={() => setShowadd(false)}*/}
-
         <Modal.Header>
           <div className="col-lg-10 ">
             <h3>

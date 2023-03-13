@@ -181,14 +181,6 @@ router.post("/get-particular-org", async (req, res) => {
   }
 });
 
-//get renewal amount of particu;lar organiozation
-// router.post("/get-renewal-amount",async(req,res)=>{
-//   let data = req.body;
-//   try{
-
-//   }catch(error){console.log(error.message)}
-// })
-
 //get particular user data for admin side
 router.post("/get-particular-user", async (req, res) => {
   let data = req.body;
@@ -234,7 +226,6 @@ router.post("/update-Organization", async (req, res) => {
     );
     res.json(updateorg);
   } catch (error) {
-    console.log("ERROR IN AP", error);
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
@@ -261,7 +252,6 @@ router.post("/update-Property", async (req, res) => {
 
     res.json(updateorg);
   } catch (error) {
-    console.log("ERROR IN AP", error);
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
@@ -972,7 +962,6 @@ router.get("/get-door-nos", async (req, res) => {
 //get organization expiry data to Tenant filter
 router.post("/get-organization-expiry-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
-  console.log(req.body);
 
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
@@ -985,7 +974,7 @@ router.post("/get-organization-expiry-report", async (req, res) => {
       AgreementStatus: { $eq: "Expired" },
       org_status: "Active",
     });
-    console.log("res", data);
+
     res.json(data);
   } catch (error) {
     console.log(error.message);

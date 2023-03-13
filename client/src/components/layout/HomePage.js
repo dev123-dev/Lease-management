@@ -48,9 +48,6 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
   );
 };
 
-Homepage.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });

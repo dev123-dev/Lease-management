@@ -1,29 +1,21 @@
 import React, { Fragment, useState, useEffect } from "react";
-import {
-  Container,
-  Navbar,
-  Nav,
-  NavItem,
-  Modal,
-  Button,
-} from "react-bootstrap";
-import { Link, NavLink, Redirect } from "react-router-dom";
+import { Container, Navbar, Nav, Modal } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
-import Dropdown from "react-bootstrap/Dropdown";
 import Login from "../auth/Login";
 
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
 import "../dashboard/SuperUserDashboard";
-import { getAllOrganization } from "../../actions/tenants";
-import { getAllSettings } from "../../actions/tenants";
-import { getalluser } from "../../actions/tenants";
+import {
+  getAllSettings,
+  getAllOrganization,
+  getalluser,
+} from "../../actions/tenants";
 
 const Header = ({
-  auth: { isAuthenticated, loading, user, allTenantSetting },
-  tenants: { allorg },
+  auth: { isAuthenticated, loading, user },
   logout,
   getAllSettings,
   getalluser,
@@ -341,11 +333,6 @@ const Header = ({
       {/* header ending */}
     </Fragment>
   );
-};
-Header.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
