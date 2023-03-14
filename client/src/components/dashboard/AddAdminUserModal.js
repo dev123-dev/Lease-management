@@ -11,8 +11,6 @@ const AddAdminUserModal = ({
   AddAdminuser,
   setShowadd,
 }) => {
-  useEffect(() => {});
-
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
@@ -20,11 +18,6 @@ const AddAdminUserModal = ({
       value: org._id,
     });
   });
-
-  const [orgname, setOrgname] = useState({});
-  const onchangeOrg = (e) => {
-    setOrgname(e);
-  };
 
   const [formData, setFormData] = useState({
     username: "",
@@ -40,16 +33,7 @@ const AddAdminUserModal = ({
 
   // validation
 
-  const {
-    name,
-    email,
-    address,
-    phone,
-    group,
-    OrganizationName,
-    password,
-    rePassword,
-  } = formData;
+  const { name, email, address, phone, password, rePassword } = formData;
   // validation for password starting
   const [error, setError] = useState({
     passwordValChecker: false,

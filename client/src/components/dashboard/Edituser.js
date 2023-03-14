@@ -13,8 +13,6 @@ const Edituser = ({
   getalluser,
   EditModal,
 }) => {
-  const [orgname, setOrgname] = useState({});
-
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
@@ -22,6 +20,12 @@ const Edituser = ({
       value: org._id,
     });
   });
+  console.log(superuser, "superuser", orglist);
+  const [orgname, setOrgname] = useState(
+    superuser
+      ? orglist && orglist.filter((x) => x.value === superuser._id)[0]
+      : ""
+  );
 
   const onchangeOrg = (e) => {
     setOrgname(e);
@@ -125,7 +129,6 @@ const Edituser = ({
               name="orgname"
               options={orglist}
               value={orgname}
-              placeholder={OrganizationName}
               onChange={(e) => onchangeOrg(e)}
             >
               select Organization
