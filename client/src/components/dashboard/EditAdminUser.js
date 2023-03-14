@@ -122,7 +122,7 @@ const EditAdminUser = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label> Name:</label>
+            <label> Name</label>
             <input
               type="text"
               name="username"
@@ -143,7 +143,7 @@ const EditAdminUser = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>Phone No:</label>
+            <label>Phone No</label>
 
             <input
               type="number"
@@ -154,13 +154,7 @@ const EditAdminUser = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>
-              Organization belongs to{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :{" "}
-            </label>
+            <label>Organization belongs to </label>
             <input
               type="text"
               placeholder="{OrganizationName}"
@@ -170,13 +164,7 @@ const EditAdminUser = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>
-              User Group
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :{" "}
-            </label>
+            <label>User Group</label>
 
             <Select
               name="group"
@@ -197,12 +185,12 @@ const EditAdminUser = ({
             />
           </div>
           <div className="col-lg-6">
-            <label> Address *:</label>
+            <label> Address</label>
             <textarea
               name="useraddress"
               value={useraddress}
               className="textarea form-control"
-              rows="5"
+              rows="3"
               cols="20"
               placeholder="Address"
               onChange={(e) => onInputChange(e)}
@@ -221,7 +209,7 @@ const EditAdminUser = ({
           className="btn sub_form btn_continue Save float-right"
           onClick={() => onUpdate()}
         >
-          Update
+          Save
         </button>
       </div>
     </Fragment>
