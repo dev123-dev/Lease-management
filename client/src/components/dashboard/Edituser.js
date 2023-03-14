@@ -101,7 +101,7 @@ const Edituser = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label> Name:</label>
+            <label> Name</label>
 
             <input
               type="text"
@@ -123,7 +123,7 @@ const Edituser = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>Phone No:</label>
+            <label>Phone No</label>
 
             <input
               type="number"
@@ -134,13 +134,7 @@ const Edituser = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>
-              Organization belongs to{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :{" "}
-            </label>
+            <label>Organization belongs to </label>
 
             <Select
               name="orgname"
@@ -162,7 +156,7 @@ const Edituser = ({
             </Select>
           </div>
           <div className="col-lg-6">
-            <label> Address *:</label>
+            <label> Address </label>
             <textarea
               name="useraddress"
               value={useraddress}
@@ -176,13 +170,7 @@ const Edituser = ({
             ></textarea>{" "}
           </div>
           <div className="col-lg-6">
-            <label>
-              UserGroup
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :{" "}
-            </label>
+            <label>UserGroup</label>
 
             <Select
               name="group"

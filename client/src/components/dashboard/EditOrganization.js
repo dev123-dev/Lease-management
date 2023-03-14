@@ -204,13 +204,7 @@ const EditOrganization = ({
             ></textarea>{" "}
           </div>
           <div className="col-lg-6">
-            <label className="ml-2">
-              Location
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>{" "}
-              :
-            </label>
+            <label className="ml-2">Location</label>
 
             <input
               className="form-control"

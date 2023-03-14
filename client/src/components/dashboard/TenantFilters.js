@@ -265,100 +265,93 @@ const TenantFilters = ({
           {/* TENANT FILTER */}
           <Fragment>
             <div className="container_align top_menu ">
-              <div className="row pb-5 responsiveDiv years">
-                <div className="container_align top_menu ">
-                  <div className="row pb-5  ml-2 responsiveDiv">
-                    <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
-                      <div className=" ">
-                        <Link
-                          to="/tenant-report"
-                          className="btn btn_more"
-                          onClick={() => oldExpCountFetch()}
-                        >
-                          {yearExpCnt &&
-                          yearExpCnt[0] &&
-                          yearExpCnt[0].count > 0
-                            ? yearExpCnt[0].count
-                            : 0}
-                        </Link>
-                      </div>
-                      <div className="py-2">
-                        <DatePicker
-                          className="form-control yearpicker"
-                          placeholder="yyyy"
-                          onChange={(date) => monthYearChange(date)}
-                          dateFormat="yyyy"
-                          selected={startMonthDate}
-                          style={{ textAlign: "center" }}
-                          showYearPicker
-                        />
-                      </div>
-
-                      {optName &&
-                        optName.map((optFiltr, idx) => {
-                          let countVal = 0;
-                          monthExpCnt.map((monthExpCntVal) => {
-                            if (
-                              Number(monthExpCntVal._id.month) ===
-                              Number(optFiltr.value)
-                            ) {
-                              countVal = monthExpCntVal.count;
-                            }
-                            return <></>;
-                          });
-                          return (
-                            <div className="py-2" key={idx}>
-                              <div
-                                style={{
-                                  color: "#fff",
-                                  padding: "0px 0px 0px 5px",
-                                }}
-                              >
-                                {" "}
-                                <Link
-                                  to="/tenant-report"
-                                  name="alphaSearch"
-                                  // className="btnLink"
-                                  onClick={() => onSelectChange(optFiltr.value)}
-                                  style={
-                                    Number(monthSearch) ===
-                                    Number(optFiltr.value)
-                                      ? {
-                                          fontWeight: "200",
-                                          color: "black",
-                                          fontSize: "115%",
-                                        }
-                                      : { fontWeight: "", fontSize: "115%" }
-                                  }
-                                >
-                                  {optFiltr.label}
-                                </Link>{" "}
-                                &nbsp;
-                                <label
-                                  className="btn-roun"
-                                  style={
-                                    countVal !== 0
-                                      ? {
-                                          fontSize: "80%",
-                                          color: "#000",
-                                          background: "red",
-                                        }
-                                      : {
-                                          fontSize: "80%",
-                                          color: "#429f8c",
-                                          background: "#fff",
-                                        }
-                                  }
-                                >
-                                  {countVal}
-                                </label>
-                              </div>
-                              <div> </div>
-                            </div>
-                          );
-                        })}
-                    </div>
+              <div className="row pb-2 ml-2 responsiveDiv ">
+                <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
+                  <div className=" ">
+                    <Link
+                      to="/tenant-report"
+                      className="btn btn_more"
+                      onClick={() => oldExpCountFetch()}
+                    >
+                      {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
+                        ? yearExpCnt[0].count
+                        : 0}
+                    </Link>
                   </div>
+                  <div className="py-2">
+                    <DatePicker
+                      className="form-control yearpicker"
+                      placeholder="yyyy"
+                      onChange={(date) => monthYearChange(date)}
+                      dateFormat="yyyy"
+                      selected={startMonthDate}
+                      style={{ textAlign: "center" }}
+                      showYearPicker
+                    />
+                  </div>
+
+                  {optName &&
+                    optName.map((optFiltr, idx) => {
+                      let countVal = 0;
+                      monthExpCnt.map((monthExpCntVal) => {
+                        if (
+                          Number(monthExpCntVal._id.month) ===
+                          Number(optFiltr.value)
+                        ) {
+                          countVal = monthExpCntVal.count;
+                        }
+                        return <></>;
+                      });
+                      return (
+                        <div className="py-2" key={idx}>
+                          <div
+                            style={{
+                              color: "#fff",
+                              padding: "0px 0px 0px 5px",
+                            }}
+                          >
+                            {" "}
+                            <Link
+                              to="/tenant-report"
+                              name="alphaSearch"
+                              // className="btnLink"
+                              onClick={() => onSelectChange(optFiltr.value)}
+                              style={
+                                Number(monthSearch) === Number(optFiltr.value)
+                                  ? {
+                                      fontWeight: "200",
+                                      color: "black",
+                                      fontSize: "115%",
+                                    }
+                                  : { fontWeight: "", fontSize: "115%" }
+                              }
+                            >
+                              {optFiltr.label}
+                            </Link>{" "}
+                            &nbsp;
+                            <label
+                              className="btn-roun"
+                              style={
+                                countVal !== 0
+                                  ? {
+                                      fontSize: "80%",
+                                      color: "#000",
+                                      background: "red",
+                                    }
+                                  : {
+                                      fontSize: "80%",
+                                      color: "#429f8c",
+                                      background: "#fff",
+                                    }
+                              }
+                            >
+                              {countVal}
+                            </label>
+                          </div>
+                          <div> </div>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

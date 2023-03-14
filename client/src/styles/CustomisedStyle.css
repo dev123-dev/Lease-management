@@ -2165,10 +2165,16 @@ button {
   background-color: #020101;
 }
 .showItemcl .eachItem .btndrp {
-  background-color: #bbacac;
+  background-color:transparent;
+  border-color: white;
   display: flex;
   margin-left: 90%;
   margin-top: -5%;
+}
+.showItemcl{
+  overflow-y: scroll;
+  height:70px;
+  
 }
 .rewbtn {
   background-color: #095a4a;
@@ -2277,8 +2283,9 @@ button {
 #buttonchanges {
   border-color: black;
   border-radius: 0%;
-  width: 10%;
+  width:fit-content;
   height: 50px;
+  padding: 10px;
   background-color: transparent;
 }
 #buttonchanges:hover {

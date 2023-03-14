@@ -153,6 +153,7 @@ const Tenant_Details = ({
                 <div className="refreshbtn">
                   {/* <AddTenantDetails /> */}
                   <img
+                    className="mr-2"
                     height="25px"
                     onClick={() => setShowadd(true)}
                     src={require("../../static/images/add-icon.png")}

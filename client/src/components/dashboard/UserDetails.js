@@ -111,6 +111,7 @@ const UserDetails = ({
           <div className="col">
             <div className="refreshbtn">
               <img
+                className="mr-2"
                 height="25px"
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}

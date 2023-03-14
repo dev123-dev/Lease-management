@@ -34,7 +34,7 @@ const AddShopDetails = ({
   const [orgLoc, setLoc] = useState([]);
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
-
+  const [showscroll, setshowscroll] = useState("none");
   const { _id, Location } = particular_org_loc[0];
   const fun = () => {
     particular_org_loc[0] &&
@@ -89,9 +89,15 @@ const AddShopDetails = ({
       return ind != index;
     });
     setitem(delitem);
+    console.log(items.length, "hai");
+
+    // if (items.length() === 0) {
+    //   setshowscroll("none");
+    // }
   };
 
   const addItem = () => {
+    setshowscroll("block");
     if (!inputdata) {
     } else {
       setitem([...items, inputdata]);
@@ -314,7 +320,7 @@ const AddShopDetails = ({
                   </svg>
                 </div>
                 <br></br>
-                <div className="showItemcl ">
+                <div className="showItemcl " style={{ display: showscroll }}>
                   {items.map((ele, index) => {
                     return (
                       <div className="eachItem" key={index}>

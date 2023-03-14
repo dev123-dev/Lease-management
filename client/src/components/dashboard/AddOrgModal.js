@@ -55,6 +55,7 @@ const AddOrgModal = ({
   };
 
   const addItem = () => {
+    setshowscroll("block");
     if (!inputdata) {
     } else {
       setitem([...items, inputdata]);
@@ -89,7 +90,7 @@ const AddOrgModal = ({
   };
   const [showAddModal, setModal] = useState();
   const show = () => setModal(true);
-
+  const [showscroll, setshowscroll] = useState("none");
   const [showAdd, setShowAdd] = useState();
   const onshow = () => setShowAdd(true);
   const onremove = () => setShowAdd(false);
@@ -308,7 +309,7 @@ const AddOrgModal = ({
                     </svg>
                   </div>
                   <br></br>
-                  <div className="showItemcl ">
+                  <div className="showItemcl" style={{ display: showscroll }}>
                     {items.map((ele, index) => {
                       return (
                         <div className="eachItem" key={index}>

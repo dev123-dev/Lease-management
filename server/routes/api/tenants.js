@@ -707,7 +707,6 @@ router.post("/add-agreement-details", async (req, res) => {
     output = await tenantAgreementDetails.save();
     res.send(output);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
@@ -724,7 +723,6 @@ router.post("/get-all-shops", async (req, res) => {
 
     res.json(ShopsData);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
@@ -752,7 +750,6 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 
     res.json(yeardata);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
@@ -792,7 +789,6 @@ router.post("/get-previous-years-exp", async (req, res) => {
     ]);
     res.json(MonthExpCntData);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });

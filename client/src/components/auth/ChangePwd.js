@@ -260,22 +260,26 @@ const ChangePwd = ({
               </div>
             </div>
             <br></br>
-            <div className=" ml-4">
-              <input
-                type="submit"
-                name="Submit"
-                value="UPDATE"
-                id="buttonchanges"
-              />
-              &nbsp;
-              <Link to="/tenant-report">
+            <div className="row">
+              <div className="col-lg-4">
                 <input
                   type="submit"
                   name="Submit"
-                  value="CANCEL"
+                  value="UPDATE"
                   id="buttonchanges"
                 />
-              </Link>
+                &nbsp;
+                <Link to="/tenant-report">
+                  <input
+                    type="submit"
+                    name="Submit"
+                    value="CANCEL"
+                    id="buttonchanges"
+                  />
+                </Link>
+              </div>
+              <div className="col-lg-4"></div>
+              <div className="col-lg-4"></div>
             </div>
           </form>
         </section>
