@@ -65,7 +65,7 @@ const UserDetails = ({
     setDeactiveShow(true);
   };
 
-  const onAdminAdd = () => {
+  const onDeactivate = () => {
     const reason = {
       userId: AdminId,
       orgId: user && user.OrganizationId,
@@ -251,7 +251,7 @@ const UserDetails = ({
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button id="deactivebtn" onClick={onAdminAdd}>
+          <Button id="deactivebtn" onClick={onDeactivate}>
             <b>DeActive</b>
           </Button>
         </Modal.Footer>

@@ -92,8 +92,6 @@ const AddShopDetails = ({
   };
 
   const addItem = () => {
-    let id = uuid();
-
     if (!inputdata) {
     } else {
       setitem([...items, inputdata]);
@@ -101,7 +99,6 @@ const AddShopDetails = ({
     }
   };
 
-  console.log("this i slocation dartsa", inputdata);
   const onPropertychange = (e) => {
     setFormData({
       ...formData,
@@ -145,8 +142,7 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Acquired",
       };
-      console.log(finalData);
-      // AddShopDetailsform(finalData);
+      AddShopDetailsform(finalData);
       setFormData({
         ...formData,
         buildingName: "",
