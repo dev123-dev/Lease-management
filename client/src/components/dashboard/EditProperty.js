@@ -97,12 +97,7 @@ const EditProperty = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label>
-              Building Name
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
+            <label>Building Name</label>
 
             <input
               type="text"
@@ -116,12 +111,7 @@ const EditProperty = ({
             <br></br>
           </div>
           <div className="col-lg-6">
-            <label>
-              Stamp Duty{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
+            <label>Stamp Duty </label>
             <input
               type="text"
               name="stampDuty"
@@ -133,9 +123,6 @@ const EditProperty = ({
           <div className="col-lg-6">
             <label>
               Hike<b>%</b>{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
             </label>
             <input
               type="text"
@@ -146,12 +133,7 @@ const EditProperty = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>
-              Lease Time Period{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
+            <label>Lease Time Period </label>
             <input
               type="text"
               name="hikePercentage"
@@ -161,12 +143,7 @@ const EditProperty = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>
-              Address
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-            </label>
+            <label>Address</label>
 
             <textarea
               name="shopAddress"
@@ -181,13 +158,7 @@ const EditProperty = ({
             ></textarea>
             <br></br>
 
-            <label className="">
-              Location
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>{" "}
-              :
-            </label>
+            <label className="">Location</label>
             <input
               type="text"
               placeholder="Location"
@@ -200,12 +171,7 @@ const EditProperty = ({
           </div>
 
           <div className="  col-lg-6 ">
-            <label className="ml-2">
-              Door No{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Door No </label>
             <input
               className="form-control"
               type="text"

@@ -343,7 +343,10 @@ const Tenant_Details = ({
             </div>
           </Modal.Header>
           <Modal.Body>
-            <EditTenantDetails tenantsdetails={EditTenant} />
+            <EditTenantDetails
+              tenantsdetails={EditTenant}
+              setShowEditModal={setShowEditModal}
+            />
           </Modal.Body>
         </Modal>
         {/* add model */}
