@@ -299,12 +299,7 @@ const EditTenantDetails = ({
       <div className="conatiner-fluid ">
         <div className="row">
           <div className="col-lg-4">
-            <label className="ml-2">
-              Property Name
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Property Name</label>
             <Select
               name="Property name"
               options={allBuildingNames}
@@ -314,12 +309,7 @@ const EditTenantDetails = ({
             ></Select>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              Door No{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Door No </label>
             <Select
               name="doorno"
               options={DnoList}
@@ -330,12 +320,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              Location{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Location </label>
             <input
               type="text"
               placeholder={tenantLocation}
@@ -345,12 +330,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              File No{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">File No </label>
             <input
               type="text"
               name="tenantFileNo"
@@ -362,12 +342,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              Tenant Name{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Tenant Name </label>
             <input
               type="text"
               name="tenantName"
@@ -422,12 +397,7 @@ const EditTenantDetails = ({
           </div>
 
           <div className="col-lg-4">
-            <label className="ml-2">
-              Tenant Pan Number{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Tenant Pan Number </label>
             <input
               type="text"
               name="tenantPanNo"
@@ -443,12 +413,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              Rent Amount{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Rent Amount </label>
             <input
               type="number"
               name="tenantRentAmount"
@@ -463,12 +428,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              Deposit Amount{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Deposit Amount </label>
             <input
               type="number"
               name="tenantDepositAmt"
@@ -483,12 +443,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">
-              Generator Deposit Amount{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
-            </label>
+            <label className="ml-2">Generator Deposit Amount </label>
             <input
               type="number"
               name="generatordepoAmt"

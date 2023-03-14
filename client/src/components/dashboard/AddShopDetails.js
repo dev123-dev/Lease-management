@@ -89,11 +89,10 @@ const AddShopDetails = ({
       return ind != index;
     });
     setitem(delitem);
-    console.log(items.length, "hai");
 
-    // if (items.length() === 0) {
-    //   setshowscroll("none");
-    // }
+    if (items.length === 1) {
+      setshowscroll("none");
+    }
   };
 
   const addItem = () => {
@@ -148,7 +147,7 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Acquired",
       };
-      console.log("proerty data", finalData);
+
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,

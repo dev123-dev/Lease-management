@@ -305,6 +305,7 @@ const TenantFilters = ({
                       return (
                         <div className="py-2" key={idx}>
                           <div
+                            className="tenantfil"
                             style={{
                               color: "#fff",
                               padding: "0px 0px 0px 5px",
@@ -336,7 +337,7 @@ const TenantFilters = ({
                                   ? {
                                       fontSize: "80%",
                                       color: "#000",
-                                      background: "red",
+                                      background: "white",
                                     }
                                   : {
                                       fontSize: "80%",
