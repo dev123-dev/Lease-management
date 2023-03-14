@@ -52,6 +52,9 @@ const AddOrgModal = ({
       return ind != index;
     });
     setitem(delitem);
+    if (items.length === 1) {
+      setshowscroll("none");
+    }
   };
 
   const addItem = () => {
