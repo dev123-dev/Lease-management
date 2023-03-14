@@ -311,11 +311,11 @@ const AddSuperUserModel = ({
                 />
               </div>
               <div className="col-lg-6">
-                PhoneNo
+                Phone No
                 <input
                   type="number"
                   name="phone"
-                  placeholder="PhoneNo"
+                  placeholder="Phone No"
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
@@ -435,7 +435,7 @@ const AddSuperUserModel = ({
                   className=""
                   options={UserGroups}
                   isSearchable={false}
-                  placeholder="--------------Select---------------"
+                  placeholder="Select...."
                   onChange={(e) => onuser(e)}
                   theme={(theme) => ({
                     ...theme,

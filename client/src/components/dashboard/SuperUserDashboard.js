@@ -171,7 +171,7 @@ const SuperUserDashboard = ({
                                       alt="Edit"
                                       title="Edit"
                                     />
-                                    &nbsp;
+
                                     <img
                                       className="Cursor "
                                       onClick={() => onDelete(allsuperuse._id)}
@@ -182,7 +182,7 @@ const SuperUserDashboard = ({
                                   </td>
                                 ) : (
                                   <td className="blank text-center">
-                                    DeActivated
+                                    Deactive
                                   </td>
                                 )}
                               </tr>
@@ -253,14 +253,14 @@ const SuperUserDashboard = ({
                     required
                   ></textarea>
                   <Form.Label>
-                    Are you sure You Want To DeActivate..?
+                    Are you sure You Want To Deactivate..?
                   </Form.Label>
                 </Form.Group>
               </Form>
             </Modal.Body>
             <Modal.Footer>
               <Button id="deactivebtn" onClick={onDeactive}>
-                <b>DeActive</b>
+                <b>Deactive</b>
               </Button>
             </Modal.Footer>
           </Modal>

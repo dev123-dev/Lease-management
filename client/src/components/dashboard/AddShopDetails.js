@@ -191,7 +191,7 @@ const AddShopDetails = ({
           <div className="row">
             <div className="col-lg-6">
               <label>
-                BuildingName
+                Building Name
                 <i className="text-danger ">
                   <b>*</b>
                 </i>
@@ -199,7 +199,7 @@ const AddShopDetails = ({
 
               <input
                 type="text"
-                placeholder="BuildingName"
+                placeholder="Building Name"
                 name="buildingName"
                 value={buildingName}
                 className="form-control input"
@@ -236,7 +236,7 @@ const AddShopDetails = ({
             </div>
             <div className="col-lg-6">
               <label>
-                StampDuty{" "}
+                Stamp Duty{" "}
                 <i className="text-danger ">
                   <b>*</b>
                 </i>
@@ -244,7 +244,7 @@ const AddShopDetails = ({
               <input
                 type="text"
                 placeholder={stampDuty}
-                name="stampDuty"
+                name="stamp Duty"
                 className="form-control  input"
                 readOnly
               />
@@ -266,7 +266,7 @@ const AddShopDetails = ({
             </div>
             <div className="col-lg-6">
               <label>
-                LeaseTimePeriod{" "}
+                Lease Time Period{" "}
                 <i className="text-danger ">
                   <b>*</b>
                 </i>
@@ -281,7 +281,7 @@ const AddShopDetails = ({
               </div>
 
               <label className="ml-2">
-                DoorNo{" "}
+                Door No{" "}
                 <i className="text-danger  ">
                   <b>*</b>
                 </i>

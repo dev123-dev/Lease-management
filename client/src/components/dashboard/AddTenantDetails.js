@@ -362,7 +362,7 @@ const AddTenantDetails = ({
             </div>
             <div className="col-lg-4">
               <label className="ml-2">
-                DoorNo{" "}
+                Door No{" "}
                 <i className="text-danger  ">
                   <b>*</b>
                 </i>
@@ -391,7 +391,7 @@ const AddTenantDetails = ({
             </div>
             <div className="col-lg-4">
               <label className="ml-2">
-                FileNo{" "}
+                File No{" "}
                 <i className="text-danger  ">
                   <b>*</b>
                 </i>
@@ -408,7 +408,7 @@ const AddTenantDetails = ({
             </div>
             <div className="col-lg-4">
               <label className="ml-2">
-                TenantName{" "}
+                Tenant Name{" "}
                 <i className="text-danger  ">
                   <b>*</b>
                 </i>
@@ -424,7 +424,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              PhoneNo
+              Phone No
               <input
                 type="number"
                 name="tenantPhone"
@@ -440,7 +440,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              FirmName
+              Firm Name
               <input
                 type="text"
                 name="tenantFirmName"
@@ -452,11 +452,11 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              Adhaar No
+              Aadhaar No
               <input
                 type="number"
                 name="tenantAdharNo"
-                placeholder="Adhar No"
+                placeholder="Aadhar No"
                 value={tenantAdharNo}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
@@ -484,7 +484,7 @@ const AddTenantDetails = ({
             </div>
             <div className="col-lg-4">
               <label className="ml-2">
-                RentAmount{" "}
+                Rent Amount{" "}
                 <i className="text-danger  ">
                   <b>*</b>
                 </i>
@@ -504,7 +504,7 @@ const AddTenantDetails = ({
             </div>
             <div className="col-lg-4">
               <label className="ml-2">
-                DepositAmount{" "}
+                Deposit Amount{" "}
                 <i className="text-danger  ">
                   <b>*</b>
                 </i>
@@ -523,7 +523,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">GeneratorDepositAmount </label>
+              <label className="ml-2">Generator Deposit Amount </label>
               <input
                 type="number"
                 name="generatordepoAmt"
@@ -564,13 +564,13 @@ const AddTenantDetails = ({
               <br></br>
             </div>{" "}
             <div className="col-lg-4">
-              LeaseStartDate{" "}
+              Lease Start Date{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
               <input
                 type="date"
-                placeholder="dd/mm/yyyy"
+                placeholder="dd-mm-yyyy"
                 className="form-control cpp-input datevalidation"
                 name="tenantLeaseStartDate"
                 value={entryDate}
@@ -587,7 +587,7 @@ const AddTenantDetails = ({
                 <b>*</b>
               </i>
               <input
-                placeholder="dd/mm/yyyy"
+                placeholder="dd-mm-yyyy"
                 className="form-control cpp-input datevalidation"
                 value={leaseEndDate}
               ></input>
@@ -611,7 +611,7 @@ const AddTenantDetails = ({
                     </div>
 
                     <div className=" col-lg-4">
-                      BankName :
+                      Bank Name :
                       <input
                         type="text"
                         name="tenantBankName"
@@ -622,7 +622,7 @@ const AddTenantDetails = ({
                       />
                     </div>
                     <div className="  col-lg-4">
-                      ChequeDate:
+                      Cheque Date:
                       <input
                         type="date"
                         placeholder="dd/mm/yyyy"
