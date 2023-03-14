@@ -131,7 +131,7 @@ router.post("/add-Organization", async (req, res) => {
     };
 
     let output2 = new OrganizationDetailsHistories(finalData2);
-    let orghistory = output2.save();
+    output2.save();
     res.send(output);
   } catch (err) {
     console.error(err.message);
@@ -333,7 +333,7 @@ router.post("/get-particular-org-user", async (req, res) => {
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
   try {
-    const updateuser = await UserDetails.updateOne(
+    await UserDetails.updateOne(
       { _id: data.userid },
       {
         $set: {
@@ -1109,8 +1109,6 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
-
-//
 
 router.get("/get-all-tenants", async (req, res) => {
   try {
