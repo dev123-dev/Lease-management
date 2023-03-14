@@ -1256,7 +1256,7 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
+
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
       {
@@ -1283,8 +1283,8 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    console.log(updatetenantdetails);
-    // res.json(updatetenantdetails);
+
+    res.json(updatetenantdetails);
 
     await TenentAgreement.updateOne(
       { tdId: data.recordId },
