@@ -194,10 +194,8 @@ const Tenant_Details = ({
                         {currentDatas &&
                           currentDatas[0] &&
                           currentDatas.map((Val, idx) => {
-                            // var ED = Val.tenantLeaseEndDate.split(/\D/g);
-                            // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-                            //   "-"
-                            // );
+                            var ED = Val.tenantLeaseEndDate.split(/\D/g);
+                            var tenant = [ED[2], ED[1], ED[0]].join("-");
                             return (
                               <tr key={idx}>
                                 <td>{Val.tenantName}</td>
@@ -206,7 +204,7 @@ const Tenant_Details = ({
                                 <td>{Val.tenantFileNo}</td>
                                 <td>{Val.Location}</td>
                                 <td>{Val.tenantPhone}</td>
-                                <td>{Val.tenantLeaseEndDate}</td>
+                                <td>{tenant}</td>
                                 <td>{Val.tenantRentAmount}</td>
 
                                 {Val.tenantstatus === "Active" ? (
@@ -345,6 +343,8 @@ const Tenant_Details = ({
           <Modal.Body>
             <EditTenantDetails
               tenantsdetails={EditTenant}
+              setFreshPage={setFreshPage}
+              freshpage={freshpage}
               setShowEditModal={setShowEditModal}
             />
           </Modal.Body>

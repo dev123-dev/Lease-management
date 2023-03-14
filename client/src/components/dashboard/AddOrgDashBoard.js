@@ -167,6 +167,8 @@ const AddOrgDashBoard = ({
                     {currentDatas &&
                       currentDatas[0] &&
                       currentDatas.map((orgVal, idx) => {
+                        var ED = orgVal.enddate.split(/\D/g);
+                        var Enddate = [ED[2], ED[1], ED[0]].join("-");
                         return (
                           <tr key={idx}>
                             <td>{orgVal.OrganizationName}</td>
@@ -175,7 +177,7 @@ const AddOrgDashBoard = ({
                             <td>{orgVal.OrganizationAddress}</td>
                             <td>{orgVal.Location + ","}</td>
                             <td>{orgVal.date}</td>
-                            <td>{orgVal.enddate}</td>
+                            <td>{Enddate}</td>
                             {orgVal.org_status === "Active" ||
                             orgVal.org_status === "Renewed" ? (
                               <td className="text-center">
