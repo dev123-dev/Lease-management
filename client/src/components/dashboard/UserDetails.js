@@ -3,7 +3,6 @@ import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import tenants from "../../reducers/tenants";
 import { connect } from "react-redux";
-import Edituser from "../dashboard/Edituser";
 import "../../../src/styles/CustomisedStyle.css";
 import Pagination from "../layout/Pagination";
 import {
@@ -66,7 +65,7 @@ const UserDetails = ({
     setDeactiveShow(true);
   };
 
-  const onAdminAdd = () => {
+  const onDeactivate = () => {
     const reason = {
       userId: AdminId,
       orgId: user && user.OrganizationId,
@@ -252,7 +251,7 @@ const UserDetails = ({
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button id="deactivebtn" onClick={onAdminAdd}>
+          <Button id="deactivebtn" onClick={onDeactivate}>
             <b>DeActive</b>
           </Button>
         </Modal.Footer>
@@ -285,7 +284,7 @@ const UserDetails = ({
           </div>
         </Modal.Header>
         <Modal.Body>
-          <Edituser superuser={Admindata} />
+          <EditAdminUser org={Admindata} />
         </Modal.Body>
       </Modal>
       {/* Modal Edit Ending */}

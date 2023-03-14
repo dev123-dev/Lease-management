@@ -1,24 +1,17 @@
 import React, { useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { useState, Fragment } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
-import { AddAdminuser } from "../../actions/tenants";
-import { get_particular_org_user } from "../../actions/tenants";
-import { Form } from "react-bootstrap";
+import { get_particular_org_user, AddAdminuser } from "../../actions/tenants";
 
 const AddAdminUserModal = ({
-  auth: { isAuthenticated, user, users, finalDataRep },
+  auth: { isAuthenticated, user, users },
   tenants: { allorg },
   AddAdminuser,
   setShowadd,
-  get_particular_org_user,
 }) => {
   useEffect(() => {});
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [Deactiveshow, setDeactiveShow] = useState(false);
-
-  const onClickReset = () => {};
 
   const orglist = [];
   allorg.map((org) => {
@@ -234,14 +227,6 @@ const AddAdminUserModal = ({
       });
     }
   };
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [supershow, setSuperShow] = useState(false);
-  const superhandleClose = () => setSuperShow(false);
-  const superhandleShow = () => setSuperShow(true);
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
     <>

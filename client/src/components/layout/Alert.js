@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { closeCustomAlert } from "../../actions/alert";
 
@@ -21,11 +20,6 @@ const Alert = ({ alerts, closeCustomAlert }) =>
       </div>
     </div>
   ));
-
-Alert.propTypes = {
-  alerts: PropTypes.array.isRequired,
-  closeCustomAlert: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
   alerts: state.alert,

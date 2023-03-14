@@ -55,12 +55,6 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
     });
   }
 };
-//get count of unOccupied Property
-// export const getUnoccupiedProperty = () => async (dispatch) => {
-//   try {
-//   } catch (error) {
-//   }
-// };
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) => async (dispatch) => {

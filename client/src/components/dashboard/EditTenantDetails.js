@@ -8,6 +8,7 @@ import {
   UpdateTenantsDetails,
 } from "../../actions/tenants";
 import Select from "react-select";
+import { v4 as uuid } from "uuid";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
@@ -67,7 +68,7 @@ const EditTenantDetails = ({
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
               label: doornumber,
-              value: doornumber,
+              value: uuid(),
             });
           });
         }

@@ -1,26 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const config = require("config");
-const { check, validationResult } = require("express-validator");
-const mongoose = require("mongoose");
 const TenantDetails = require("../../models/TenantDetails");
 const TenantSettings = require("../../models/TenantSettings");
 const OrganizationDetails = require("../../models/OrganizationDetails");
 const OrganizationDetailsHistories = require("../../models/OrganizationDetailsHistories");
 const UserDetails = require("../../models/UserDetails");
-const userdetail = require("../../models/UserDetail");
-//const UserHistory = require("../../models/UserDetailsHistories")
 const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
-
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
-const bcrypt = require("bcryptjs");
-const { cat } = require("shelljs");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-
   try {
     let tenantDetails = {
       OrganizationName: data.OrganizationName,
@@ -30,6 +21,7 @@ router.post("/add-tenant-details", async (req, res) => {
       Location: data.Location,
       tenantFileNo: data.tenantFileNo,
       shopDoorNo: data.tenantDoorNo.label,
+      // DoorId: data.tenanatDoorNo.value,
       tenantName: data.tenantName,
       tenantPhone: data.tenantPhone,
       tenantFirmName: data.tenantFirmName,
@@ -52,8 +44,7 @@ router.post("/add-tenant-details", async (req, res) => {
     };
 
     let tenantdata = await new TenantDetails(tenantDetails);
-
-    let finalData = tenantdata.save();
+    tenantdata.save();
 
     const finalData2 = {
       tdId: tenantdata._id,
@@ -78,6 +69,7 @@ router.post("/add-tenant-details", async (req, res) => {
       { _id: tenantdata.shopId },
       {
         $set: {
+          // DoorId: data.tenanatDoorNo.value,
           shopStatus: "Used",
           tdId: tenantdata._id,
         },
@@ -102,8 +94,6 @@ router.post("/add-tenant-details", async (req, res) => {
     };
     let tenantAgreementDetails = new TenentAgreement(finalData1);
     output1 = await tenantAgreementDetails.save();
-    // res.send(output);
-    // res.send(output1);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -181,14 +171,6 @@ router.post("/get-particular-org", async (req, res) => {
   }
 });
 
-//get renewal amount of particu;lar organiozation
-// router.post("/get-renewal-amount",async(req,res)=>{
-//   let data = req.body;
-//   try{
-
-//   }catch(error){console.log(error.message)}
-// })
-
 //get particular user data for admin side
 router.post("/get-particular-user", async (req, res) => {
   let data = req.body;
@@ -234,7 +216,6 @@ router.post("/update-Organization", async (req, res) => {
     );
     res.json(updateorg);
   } catch (error) {
-    console.log("ERROR IN AP", error);
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
@@ -261,7 +242,6 @@ router.post("/update-Property", async (req, res) => {
 
     res.json(updateorg);
   } catch (error) {
-    console.log("ERROR IN AP", error);
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
@@ -519,8 +499,6 @@ router.post("/deactive-Organization", async (req, res) => {
 });
 
 router.post("/deactive-tenant", async (req, res) => {
-  // [check("tdId", "Invalid Request").not().isEmpty()],
-
   try {
     let data = req.body;
     const updatedetails = await TenantDetails.updateOne(
@@ -552,16 +530,7 @@ router.post("/deactive-tenant", async (req, res) => {
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
 
-    ShopDetails.updateOne(
-      { tdId: data.tid },
-      {
-        $set: {
-          shopStatus: "Available",
-        },
-      }
-    );
-
-    await ShopDetails.updateOne(
+    await property.updateOne(
       { tdId: data.tid },
       {
         $set: {
@@ -576,30 +545,26 @@ router.post("/deactive-tenant", async (req, res) => {
   }
 });
 
-router.post(
-  "/update-tenant",
-  // [check("tdId", "Invalid Request").not().isEmpty()],
-  async (req, res) => {
-    try {
-      let data = req.body;
+router.post("/update-tenant", async (req, res) => {
+  try {
+    let data = req.body;
 
-      const updateagreementdetails = await TenantSettings.updateOne(
-        { _id: data.recordId },
-        {
-          $set: {
-            hikePercentage: data.hikePercentage,
-            stampDuty: data.stampDuty,
-            leaseTimePeriod: data.leaseTimePeriod,
-          },
-        }
-      );
+    const updateagreementdetails = await TenantSettings.updateOne(
+      { _id: data.recordId },
+      {
+        $set: {
+          hikePercentage: data.hikePercentage,
+          stampDuty: data.stampDuty,
+          leaseTimePeriod: data.leaseTimePeriod,
+        },
+      }
+    );
 
-      res.json(updateagreementdetails);
-    } catch (error) {
-      res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    res.json(updateagreementdetails);
+  } catch (error) {
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
-);
+});
 
 //get exp month count for Organization
 router.post("/get-month-exp-org", async (req, res) => {
@@ -972,7 +937,6 @@ router.get("/get-door-nos", async (req, res) => {
 //get organization expiry data to Tenant filter
 router.post("/get-organization-expiry-report", async (req, res) => {
   const { monthSearch, yearSearch } = req.body;
-  console.log(req.body);
 
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
@@ -985,7 +949,7 @@ router.post("/get-organization-expiry-report", async (req, res) => {
       AgreementStatus: { $eq: "Expired" },
       org_status: "Active",
     });
-    console.log("res", data);
+
     res.json(data);
   } catch (error) {
     console.log(error.message);
@@ -1218,7 +1182,7 @@ router.get("/get-all-users", async (req, res) => {
 router.post("/Renew-Organization", async (req, res) => {
   let data = req.body;
   try {
-    const finaldata = await OrganizationDetails.updateOne(
+    await OrganizationDetails.updateOne(
       {
         _id: data.OrganizationId,
       },
@@ -1272,30 +1236,26 @@ router.post("/renew-tenant-details", async (req, res) => {
   }
 });
 
-router.post(
-  "/update-tenant",
-  // [check("tdId", "Invalid Request").not().isEmpty()],
-  async (req, res) => {
-    try {
-      let data = req.body;
+router.post("/update-tenant", async (req, res) => {
+  try {
+    let data = req.body;
 
-      const updateagreementdetails = await TenantSettings.updateOne(
-        { _id: data.recordId },
-        {
-          $set: {
-            hikePercentage: data.hikePercentage,
-            stampDuty: data.stampDuty,
-            leaseTimePeriod: data.leaseTimePeriod,
-          },
-        }
-      );
+    const updateagreementdetails = await TenantSettings.updateOne(
+      { _id: data.recordId },
+      {
+        $set: {
+          hikePercentage: data.hikePercentage,
+          stampDuty: data.stampDuty,
+          leaseTimePeriod: data.leaseTimePeriod,
+        },
+      }
+    );
 
-      res.json(updateagreementdetails);
-    } catch (error) {
-      res.status(500).json({ errors: [{ msg: "Server Error" }] });
-    }
+    res.json(updateagreementdetails);
+  } catch (error) {
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
-);
+});
 
 router.post("/update-tenant-details", async (req, res) => {
   try {
@@ -1310,6 +1270,7 @@ router.post("/update-tenant-details", async (req, res) => {
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
           shopDoorNo: data.tenantDoorNo.label,
+          DoorId: data.tenanatDoorNo.value,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,
@@ -1328,7 +1289,7 @@ router.post("/update-tenant-details", async (req, res) => {
     );
     res.json(updatetenantdetails);
 
-    const AgreementUpdate = await TenentAgreement.updateOne(
+    await TenentAgreement.updateOne(
       { tdId: data.recordId },
 
       {

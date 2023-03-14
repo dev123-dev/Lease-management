@@ -9,16 +9,17 @@ import {
   getParticularTenantSetting,
   getAllSettings,
 } from "../../actions/tenants";
+import { v4 as uuid } from "uuid";
 import Select from "react-select";
 import { Modal, Button } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddTenantDetails = ({
+  setFreshPage,
+  freshpage,
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: {
     allDoorNos,
-
-    allTenantSetting,
     particular_org_data,
     get_Particular_org_Tenantsetting,
   },
@@ -26,14 +27,13 @@ const AddTenantDetails = ({
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
+
   getParticularTenantSetting,
-  Addorgform,
-  getAllTenants,
   getAllSettings,
 }) => {
   useEffect(() => {
     getParticularProperty({ OrganizationId: user.OrganizationId });
-    getAllTenants();
+    getParticularTenantSetting({ OrganizationId: user.OrganizationId });
   }, []);
 
   useEffect(() => {
@@ -152,13 +152,13 @@ const AddTenantDetails = ({
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
               label: doornumber,
-              value: doornumber,
+              value: doornumber, //uuid(),
             });
           });
         }
         setDnoList(temp);
       });
-
+    console.log("door list", DnoList);
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.label ? e.label : "");
@@ -243,6 +243,7 @@ const AddTenantDetails = ({
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
   const [fill, setfill] = useState(false);
+
   const onSubmit = () => {
     if (
       buildingName === "" ||
@@ -288,6 +289,8 @@ const AddTenantDetails = ({
       };
 
       AddTenantDetailsform(finalData);
+      setFreshPage(!freshpage);
+
       setFormData({
         ...formData,
         tenantFileNo: "",
@@ -308,8 +311,6 @@ const AddTenantDetails = ({
         generatordepoAmt: "",
       });
 
-      //handleInformationModalOpen();
-      //setShowInformation(true);
       setEntryDate("");
       getDoorNoData("");
       setLeaseEndDate("");
@@ -318,15 +319,6 @@ const AddTenantDetails = ({
       setFileNoData("");
       setShowadd(false);
     }
-  };
-  const [showInformationModal, setShowInformation] = useState(false);
-  const handleInformationModalOpen = () => setShowInformation(true);
-  const LogoutModalOpen = () => {
-    handleInformationModalOpen();
-  };
-  const handleInformationModalClose = () => setShowInformation(false);
-  const LogoutModalClose = () => {
-    handleInformationModalClose();
   };
 
   return !isAuthenticated || !user || !users ? (

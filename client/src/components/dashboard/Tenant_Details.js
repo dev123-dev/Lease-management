@@ -53,7 +53,8 @@ const Tenant_Details = ({
 
   const [tId, setId] = useState("");
 
-  const onDelete = (id) => {
+  const onDelete = (id, Dno) => {
+    console.log(id, Dno);
     setId(id);
     handleShow();
   };
@@ -220,7 +221,9 @@ const Tenant_Details = ({
                                     &nbsp;
                                     <img
                                       className="Cursor "
-                                      onClick={() => onDelete(Val._id)}
+                                      onClick={() =>
+                                        onDelete(Val._id, Val.DoorId)
+                                      }
                                       src={require("../../static/images/delete.png")}
                                       alt="Delete"
                                       title="Delete"
@@ -351,7 +354,11 @@ const Tenant_Details = ({
           aria-labelledby="contained-modal-title-vcenter"
           centered
         >
-          <AddTenantDetails setShowadd={setShowadd} />
+          <AddTenantDetails
+            setShowadd={setShowadd}
+            setFreshPage={setFreshPage}
+            freshpage={freshpage}
+          />
         </Modal>
       </Fragment>
     </>

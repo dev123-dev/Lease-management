@@ -163,8 +163,8 @@ const EditAdminUser = ({
             </label>
             <input
               type="text"
-              placeholder="{user.OrganizationName}"
-              value={user.OrganizationName}
+              placeholder="{OrganizationName}"
+              value={OrganizationName}
               className="form-control"
               onChange={(e) => onuserchange(e)}
             />
