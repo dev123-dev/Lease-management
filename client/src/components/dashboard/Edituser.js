@@ -140,17 +140,8 @@ const Edituser = ({
               name="orgname"
               options={orglist}
               value={orgname}
+              placeholder={superuser.OrganizationName}
               onChange={(e) => onchangeOrg(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
             >
               select Organization
             </Select>

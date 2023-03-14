@@ -438,6 +438,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
   }
 };
 export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
+  console.log("action =", finalData);
   try {
     await axios.post(
       `${linkPath}/api/tenants/update-tenant-details`,

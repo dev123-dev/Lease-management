@@ -124,9 +124,8 @@ const RenewalOrg_mainPage = ({
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
-              placeholder="dd-mm-yyyy"
               className="form-control cpp-input datevalidation"
-              value={leaseEndDate}
+              placeholder={leaseEndDate}
             ></input>
           </div>
         </div>

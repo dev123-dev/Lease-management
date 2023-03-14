@@ -46,7 +46,7 @@ const EditOrganization = ({
     }
   };
   //multiple location end
-
+  console.log("org data", org);
   const [formDataORG, setFormDataORG] = useState({
     OrganizationId: org._id,
     OrganizationName: org.OrganizationName,
@@ -54,6 +54,7 @@ const EditOrganization = ({
     OrganizationNumber: org.OrganizationNumber,
     OrganizationAddress: org.OrganizationAddress,
     startdate: org.date,
+    enddate: org.enddate,
     Logo: "",
     Location: items,
   });
@@ -64,6 +65,7 @@ const EditOrganization = ({
     OrganizationNumber,
     OrganizationAddress,
     startdate,
+    enddate,
     Location,
   } = formDataORG;
 
@@ -181,11 +183,11 @@ const EditOrganization = ({
           <div className="col-lg-6">
             <label>Lease End Date</label>
             <input
-              placeholder="dd-mm-yyyy"
               type="text"
               readOnly={true}
               value={showEnddate}
               className="form-control"
+              placeholder={enddate}
               onChange={(e) => onInputChange(e)}
             />{" "}
           </div>

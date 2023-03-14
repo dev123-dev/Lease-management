@@ -1256,7 +1256,7 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
-
+    console.log(data);
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
       {
@@ -1266,7 +1266,7 @@ router.post("/update-tenant-details", async (req, res) => {
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
           shopDoorNo: data.tenantDoorNo.label,
-          DoorId: data.tenanatDoorNo.value,
+          // DoorId: data.tenanatDoorNo.value,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,
@@ -1283,7 +1283,8 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    res.json(updatetenantdetails);
+    console.log(updatetenantdetails);
+    // res.json(updatetenantdetails);
 
     await TenentAgreement.updateOne(
       { tdId: data.recordId },
@@ -1298,6 +1299,7 @@ router.post("/update-tenant-details", async (req, res) => {
     );
     //res.json(AgreementUpdate);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
   }
 });

@@ -10,7 +10,7 @@ import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
   AddTenantSettingform,
   UpdateTenantSettingform,
-  tenants: { allTenantSetting },
+  tenants: { get_Particular_org_Tenantsetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
   getParticularTenantSetting,
@@ -26,13 +26,17 @@ const TenantSettings = ({
   //formData
 
   const [formData, setFormData] = useState({
-    recordId: allTenantSetting[0] ? allTenantSetting[0]._id : "",
-    hikePercentage: allTenantSetting[0]
-      ? allTenantSetting[0].hikePercentage
+    recordId: get_Particular_org_Tenantsetting[0]
+      ? get_Particular_org_Tenantsetting[0]._id
       : "",
-    stampDuty: allTenantSetting[0] ? allTenantSetting[0].stampDuty : "",
-    leaseTimePeriod: allTenantSetting[0]
-      ? allTenantSetting[0].leaseTimePeriod
+    hikePercentage: get_Particular_org_Tenantsetting[0]
+      ? get_Particular_org_Tenantsetting[0].hikePercentage
+      : "",
+    stampDuty: get_Particular_org_Tenantsetting[0]
+      ? get_Particular_org_Tenantsetting[0].stampDuty
+      : "",
+    leaseTimePeriod: get_Particular_org_Tenantsetting[0]
+      ? get_Particular_org_Tenantsetting[0].leaseTimePeriod
       : "",
   });
 
@@ -53,9 +57,11 @@ const TenantSettings = ({
     AddTenantSettingform(finalData);
   };
 
-  const onUpdate = (allTenantSetting) => {
+  const onUpdate = (get_Particular_org_Tenantsetting) => {
     const finalData = {
-      recordId: allTenantSetting ? allTenantSetting[0]._id : "",
+      recordId: get_Particular_org_Tenantsetting
+        ? get_Particular_org_Tenantsetting[0]._id
+        : "",
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
@@ -139,7 +145,8 @@ const TenantSettings = ({
           </div>
         </div>
         <div className="col-lg-12 Savebutton" size="lg">
-          {allTenantSetting && allTenantSetting.length === 0 ? (
+          {get_Particular_org_Tenantsetting &&
+          get_Particular_org_Tenantsetting.length === 0 ? (
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
@@ -151,7 +158,7 @@ const TenantSettings = ({
             <button
               variant="success"
               id="TenantSettingBtn"
-              onClick={() => onUpdate(allTenantSetting)}
+              onClick={() => onUpdate(get_Particular_org_Tenantsetting)}
             >
               Update
             </button>

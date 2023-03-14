@@ -8,7 +8,6 @@ import {
   UpdateTenantsDetails,
 } from "../../actions/tenants";
 import Select from "react-select";
-import { v4 as uuid } from "uuid";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
@@ -16,9 +15,9 @@ const EditTenantDetails = ({
   tenants: { particular_org_data, get_Particular_org_Tenantsetting },
   tenantsdetails,
   UpdateTenantsDetails,
-  onUpdateModalChange,
-  tenantsDetailsHistory,
   setShowEditModal,
+  setFreshPage,
+  freshpage,
   getAllTenants,
   getParticularTenantSetting,
   getParticularProperty,
@@ -69,7 +68,7 @@ const EditTenantDetails = ({
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
               label: doornumber,
-              value: uuid(),
+              value: doornumber,
             });
           });
         }
@@ -90,10 +89,9 @@ const EditTenantDetails = ({
   const [showHide, setShowHide] = useState({
     showChequenoSection:
       tenants && tenants.tenantPaymentMode === "Cheque" ? true : false,
-    // showChequenoSection: false,
+    showChequenoSection: false,
   });
   const { showChequenoSection } = showHide;
-  // const [tenantchequeDate, setChequeDate] = useState("");
   const [startSelectedDate, setStartDate] = useState(tenants.tenantchequeDate);
   const onDateChange = (e) => {
     setStartDate(e.target.value);
@@ -119,8 +117,11 @@ const EditTenantDetails = ({
   };
   const [formData, setFormData] = useState({
     isSubmitted: false,
+    BuildingName: tenantsdetails.BuildingName,
+    BuildingId: tenantsdetails.BuildingId,
     tenantId: tenantsdetails._id,
-    tenantDoorNo: tenantsdetails.tenantDoorNo,
+    tenantLocation: tenantsdetails.Location,
+    tenantDoorNo: tenantsdetails.shopDoorNo,
     tenantFileNo: tenantsdetails.tenantFileNo,
     tenantRentAmount: tenantsdetails.tenantRentAmount,
     tenantName: tenantsdetails.tenantName,
@@ -149,6 +150,8 @@ const EditTenantDetails = ({
   });
   const {
     tenantId,
+    BuildingName,
+    tenantLocation,
     tenantFileNo,
     tenantDoorNo,
     tenantName,
@@ -223,14 +226,14 @@ const EditTenantDetails = ({
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   //For setting mindate as todays date
-
+  console.log(tenantsdetails);
   const onUpdate = (tenantsdetails, idx) => {
-    setShowEditModal(false);
     //  onDateChangeEntry1();
     const finalData = {
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
       OrganizationName: user && user.OrganizationName,
+      BuildingName: buildingName,
       tenantDoorNo: doorno,
       tenantFileNo: tenantFileNo,
       tenantRentAmount: tenantRentAmount,
@@ -252,41 +255,42 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    // UpdateTenantsDetails(finalData);
 
-    const historyData = {
-      tdId: tenantId,
-      tenantDoorNo: tenantsdetails.tenantDoorNo,
-      tenantFileNo: tenantsdetails.tenantFileNo,
-      thRentAmount: tenantsdetails.tenantRentAmount,
-      thName: tenantsdetails.tenantName,
-      thPhone: tenantsdetails.tenantPhone,
-      thFirmName: tenantsdetails.tenantFirmName,
-      thAddr: tenantsdetails.tenantAddr,
-      thAdharNo: tenantsdetails.tenantAdharNo,
-      thPanNo: tenantsdetails.tenantPanNo,
-      thDepositAmt: tenantsdetails.tenantDepositAmt,
-      thPaymentMode: tenantsdetails.tenantPaymentMode,
-      thBankName: tenantsdetails.tenantBankName,
-      thChequenoOrDdno: tenantsdetails.tenantChequenoOrDdno,
-      thgeneratordepoAmt: tenantsdetails.generatordepoAmt,
-      thStatus: "Edit",
-      tenantBankName: tenantsdetails.tenantBankName,
-      //tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
-      tenantPaymentMode: "",
-      tenantchequeDate: tenantsdetails.startSelectedDate
-        ? tenantsdetails.startSelectedDate
-        : "",
-      thLeaseStartDate: tenantsdetails.tenantLeaseStartDate,
-      thLeaseEndDate: tenantsdetails.tenantLeaseEndDate,
-      AgreementStatus: tenantsdetails.AgreementStatus,
-      thEnteredBy: user && user._id,
-      thDate: todayDateymd,
-    };
+    UpdateTenantsDetails(finalData);
+    setFreshPage(!freshpage);
 
-    tenantsDetailsHistory(historyData);
+    // const historyData = {
+    //   tdId: tenantId,
+    //   //tenantDoorNo: tenantsdetails.shopDoorNo,
+    //   //  tenantFileNo: tenantsdetails.tenantFileNo,
+    //   thRentAmount: tenantsdetails.tenantRentAmount,
+    //   thName: tenantsdetails.tenantName,
+    //   thPhone: tenantsdetails.tenantPhone,
+    //   thFirmName: tenantsdetails.tenantFirmName,
+    //   thAddr: tenantsdetails.tenantAddr,
+    //   thAdharNo: tenantsdetails.tenantAdharNo,
+    //   thPanNo: tenantsdetails.tenantPanNo,
+    //   thDepositAmt: tenantsdetails.tenantDepositAmt,
+    //   thPaymentMode: tenantsdetails.tenantPaymentMode,
+    //   thBankName: tenantsdetails.tenantBankName,
+    //   thChequenoOrDdno: tenantsdetails.tenantChequenoOrDdno,
+    //   thgeneratordepoAmt: tenantsdetails.generatordepoAmt,
+    //   thStatus: "Edit",
+    //   tenantBankName: tenantsdetails.tenantBankName,
+    //   tenantChequenoOrDdno: tenants.tenantChequenoOrDdno,
+    //   tenantPaymentMode: "",
+    //   tenantchequeDate: tenantsdetails.startSelectedDate
+    //     ? tenantsdetails.startSelectedDate
+    //     : "",
+    //   thLeaseStartDate: tenantsdetails.tenantLeaseStartDate,
+    //   thLeaseEndDate: tenantsdetails.tenantLeaseEndDate,
+    //   AgreementStatus: tenantsdetails.AgreementStatus,
+    //   thEnteredBy: user && user._id,
+    //   thDate: todayDateymd,
+    // };
 
-    onUpdateModalChange(true);
+    // tenantsDetailsHistory(historyData);
+    setShowEditModal(false);
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -295,35 +299,58 @@ const EditTenantDetails = ({
       <div className="conatiner-fluid ">
         <div className="row">
           <div className="col-lg-4">
-            <label className="ml-2">Property Name</label>
+            <label className="ml-2">
+              Property Name
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <Select
               name="Property name"
               options={allBuildingNames}
               value={buildingData}
+              placeholder={BuildingName}
               onChange={(e) => onBuildingChange(e)}
             ></Select>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Door No </label>
+            <label className="ml-2">
+              Door No{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <Select
               name="doorno"
               options={DnoList}
               value={doorno}
+              placeholder={tenantDoorNo}
               onChange={(e) => onchangeDoor(e)}
             ></Select>
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Location </label>
+            <label className="ml-2">
+              Location{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="text"
-              placeholder={LocList}
+              placeholder={tenantLocation}
               className="form-control"
+              readOnly
             ></input>
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">File No </label>
+            <label className="ml-2">
+              File No{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="text"
               name="tenantFileNo"
@@ -335,7 +362,12 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Tenant Name </label>
+            <label className="ml-2">
+              Tenant Name{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="text"
               name="tenantName"
@@ -390,7 +422,12 @@ const EditTenantDetails = ({
           </div>
 
           <div className="col-lg-4">
-            <label className="ml-2">Tenant Pan Number </label>
+            <label className="ml-2">
+              Tenant Pan Number{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="text"
               name="tenantPanNo"
@@ -406,7 +443,12 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Rent Amount </label>
+            <label className="ml-2">
+              Rent Amount{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="number"
               name="tenantRentAmount"
@@ -421,7 +463,12 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Deposit Amount </label>
+            <label className="ml-2">
+              Deposit Amount{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="number"
               name="tenantDepositAmt"
@@ -436,7 +483,12 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Generator Deposit Amount </label>
+            <label className="ml-2">
+              Generator Deposit Amount{" "}
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <input
               type="number"
               name="generatordepoAmt"
@@ -476,10 +528,10 @@ const EditTenantDetails = ({
             Lease Start Date
             <input
               type="date"
-              placeholder="dd/mm/yyyy"
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
               value={entryDate}
+              placeholder={tenantLeaseStartDate}
               onChange={(e) => onDateChangeEntry(e)}
               style={{
                 width: "100%",
@@ -549,7 +601,7 @@ const EditTenantDetails = ({
           </div>
 
           <div className="col-lg-8  col-md-4 col-sm-4 col-12">
-            <label>Tenant's Address </label>
+            <label>Tenant's Address *:</label>
             <textarea
               name="tenantAddr"
               value={tenantAddr}
