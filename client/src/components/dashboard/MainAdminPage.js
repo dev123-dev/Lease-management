@@ -4,10 +4,7 @@ import prop from "../../static/images/property.png";
 import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
-import {
-  getParticularProperty,
-  getAllRenewalAmount,
-} from "../../actions/tenants";
+import { getParticularProperty } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -15,11 +12,9 @@ const MainAdminPage = ({
   auth: { user },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
-  getAllRenewalAmount,
 }) => {
   useEffect(() => {
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
-    getAllRenewalAmount({ OrganizationId: user && user.OrganizationId });
     fun();
   }, []);
   const total = JSON.parse(localStorage.getItem("total"));
@@ -130,5 +125,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getParticularProperty,
-  getAllRenewalAmount,
 })(MainAdminPage);

@@ -8,32 +8,13 @@ const EditOrganization = ({
   EditModal,
   updateOrganization,
 }) => {
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [OrgId, setId] = useState("");
-
-  const onedit = (id) => {
-    setId(id);
-    handleOpen();
-  };
-
   // adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState(org.Location);
 
   const handleLocationclose = (ele1, index) => {
     const delitem = items.filter((ele, ind) => {
-      return ele1 != ele;
+      return ele1 !== ele;
     });
     setitem(delitem);
   };
@@ -46,7 +27,6 @@ const EditOrganization = ({
     }
   };
   //multiple location end
-  console.log("org data", org);
   const [formDataORG, setFormDataORG] = useState({
     OrganizationId: org._id,
     OrganizationName: org.OrganizationName,
@@ -66,7 +46,6 @@ const EditOrganization = ({
     OrganizationAddress,
     startdate,
     enddate,
-    Location,
   } = formDataORG;
 
   //Leasestartdate
@@ -84,7 +63,7 @@ const EditOrganization = ({
       //Calculating lease end date
       var dateData = calDate.getDate();
       calDate.setMonth(calDate.getMonth() + +leaseMonth);
-      if (calDate.getDate() != dateData) {
+      if (calDate.getDate() !== dateData) {
         calDate.setDate(0);
       }
       var dd1 = calDate.getDate();
@@ -114,7 +93,6 @@ const EditOrganization = ({
       OrganizationAddress: OrganizationAddress,
       startdate: showStartdate,
       enddate: showEnddate,
-
       Location: items,
     };
     updateOrganization(updateData);
@@ -159,16 +137,16 @@ const EditOrganization = ({
               onChange={(e) => onInputChange(e)}
             />
           </div>
-          <div className="col-lg-6">
+          {/* <div className="col-lg-6">
             <label>Number of User</label>
             <input
               placeholder="Number of User"
               type="number"
               readOnly={true}
               className="form-control"
-              onChange={(e) => onInputChange(e)}
+              //onChange={(e) => onInputChange(e)}
             />{" "}
-          </div>
+          </div> */}
           <div className="col-lg-6">
             <label>Lease Start Date</label>
             <input

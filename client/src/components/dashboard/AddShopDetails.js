@@ -9,7 +9,6 @@ import {
   getParticularOrg,
   getParticularTenantSetting,
 } from "../../actions/tenants";
-import { v4 as uuid } from "uuid";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },

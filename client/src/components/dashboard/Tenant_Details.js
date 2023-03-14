@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useRef, useEffect } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   ParticularTenant,
@@ -54,7 +54,6 @@ const Tenant_Details = ({
   const [tId, setId] = useState("");
 
   const onDelete = (id, Dno) => {
-    console.log(id, Dno);
     setId(id);
     handleShow();
   };
@@ -70,11 +69,6 @@ const Tenant_Details = ({
   // const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -331,7 +325,7 @@ const Tenant_Details = ({
               </h3>
             </div>
             <div className="col-lg-2">
-              <button onClick={handleEditModalClose} className="close">
+              <button onClick={() => handleEditModalClose()} className="close">
                 <img
                   className="editcl"
                   src={require("../../static/images/close.png")}

@@ -25,7 +25,7 @@ const AddOrgModal = ({
     //Calculating lease end date
     var dateData = calDate.getDate();
     calDate.setMonth(calDate.getMonth() + +leaseMonth);
-    if (calDate.getDate() != dateData) {
+    if (calDate.getDate() !== dateData) {
       calDate.setDate(0);
     }
     var dd1 = calDate.getDate();
@@ -49,7 +49,7 @@ const AddOrgModal = ({
 
   const handleLocationclose = (index) => {
     const delitem = items.filter((ele, ind) => {
-      return ind != index;
+      return ind !== index;
     });
     setitem(delitem);
     if (items.length === 1) {
@@ -80,9 +80,6 @@ const AddOrgModal = ({
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
-    enddate,
-    date,
-    Location,
   } = formDataORG;
 
   const onORGchange = (e) => {
@@ -91,8 +88,7 @@ const AddOrgModal = ({
       [e.target.name]: e.target.value,
     });
   };
-  const [showAddModal, setModal] = useState();
-  const show = () => setModal(true);
+
   const [showscroll, setshowscroll] = useState("none");
   const [showAdd, setShowAdd] = useState();
   const onshow = () => setShowAdd(true);
@@ -212,14 +208,14 @@ const AddOrgModal = ({
                   placeholder="Phone Number"
                 />
               </div>
-              <div className="col-lg-6">
+              {/* <div className="col-lg-6">
                 <label>No of User</label>
                 <input
                   type="number"
                   className="form-control"
                   placeholder="Number Of User"
                 />
-              </div>
+              </div> */}
               <div className="col-lg-6">
                 <label>
                   Lease Start Date

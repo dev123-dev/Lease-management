@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
-import tenants from "../../reducers/tenants";
 import { connect } from "react-redux";
 import "../../../src/styles/CustomisedStyle.css";
 import Pagination from "../layout/Pagination";
@@ -15,7 +14,7 @@ import {
 import EditAdminUser from "./EditAdminUser";
 
 const UserDetails = ({
-  auth: { isAuthenticated, loading, user },
+  auth: { user },
   tenants: { get_particularOrg_user }, //this is a reudcer
   get_particular_org_user,
   deactivateUser, //this is a action function to call
@@ -37,16 +36,8 @@ const UserDetails = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const handleUpdateModalClose = () => setShowUpdateModal(false);
-
   const [showSuperModal, setSuperModal] = useState("");
   const SuperUpdateModalClose = () => setSuperModal(false);
-  const SuperUpdateModalOpen = () => setSuperModal(true);
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [Deactiveshow, setDeactiveShow] = useState(false);
 

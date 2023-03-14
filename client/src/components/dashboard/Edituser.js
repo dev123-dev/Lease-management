@@ -31,17 +31,8 @@ const Edituser = ({
     { value: "Super Admin", label: "Super Admin" },
   ];
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   // adding multiple location start
 
@@ -57,14 +48,8 @@ const Edituser = ({
     OrganizationName: superuser.OrganizationName,
     OrganizationId: superuser.OrganizationId,
   });
-  const {
-    username,
-    useremail,
-    usergroup,
-    useraddress,
-    userphone,
-    OrganizationName,
-  } = userData;
+  const { username, useremail, useraddress, userphone, OrganizationName } =
+    userData;
   const onInputChange = (e) => {
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
@@ -140,7 +125,7 @@ const Edituser = ({
               name="orgname"
               options={orglist}
               value={orgname}
-              placeholder={superuser.OrganizationName}
+              placeholder={OrganizationName}
               onChange={(e) => onchangeOrg(e)}
             >
               select Organization
