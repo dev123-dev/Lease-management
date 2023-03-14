@@ -11,7 +11,6 @@ import Select from "react-select";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
-  tenants1: { allTenantSetting },
   tenants: { particular_org_data, get_Particular_org_Tenantsetting },
   tenantsdetails,
   UpdateTenantsDetails,
@@ -63,7 +62,7 @@ const EditTenantDetails = ({
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     particular_org_data &&
       particular_org_data.map((ele) => {
-        if (e.buildingId == ele._id) {
+        if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
