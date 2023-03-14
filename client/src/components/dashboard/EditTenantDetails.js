@@ -255,8 +255,7 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    console.log("edit details", finalData);
-    //  UpdateTenantsDetails(finalData);
+    UpdateTenantsDetails(finalData);
 
     const historyData = {
       tdId: tenantId,
@@ -288,9 +287,8 @@ const EditTenantDetails = ({
       thDate: todayDateymd,
     };
 
-    tenantsDetailsHistory(historyData);
-
-    onUpdateModalChange(true);
+    // tenantsDetailsHistory(historyData);
+    onUpdateModalChange(false);
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
