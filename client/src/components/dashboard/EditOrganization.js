@@ -8,25 +8,6 @@ const EditOrganization = ({
   EditModal,
   updateOrganization,
 }) => {
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const [OrgId, setId] = useState("");
-
-  const onedit = (id) => {
-    setId(id);
-    handleOpen();
-  };
-
   // adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState(org.Location);

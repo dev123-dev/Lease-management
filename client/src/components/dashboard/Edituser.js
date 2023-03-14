@@ -41,7 +41,6 @@ const Edituser = ({
   };
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   // adding multiple location start
 
