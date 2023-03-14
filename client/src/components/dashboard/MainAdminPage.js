@@ -47,14 +47,17 @@ const MainAdminPage = ({
   };
   return (
     <div>
-      <div className="container container_align  ">
-        <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-          <h2 className="heading_color  pt-5 ">DashBoard </h2>
-          <hr></hr>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col">
+            <h2 className="heading_color mt-5 pt-5 ">DashBoard </h2>
+            <hr></hr>
+          </div>
         </div>
-        <section className="sub_reg mainpage ">
-          <div className="1">
-            {" "}
+
+        <div className="row">
+          <div className="col-lg-1"></div>
+          <div className="col-lg-5 col-sm-12 col-md-12 ">
             <div className=" card h3 text-center pt-5" id="shadow-bck">
               <img
                 src={prop}
@@ -67,8 +70,8 @@ const MainAdminPage = ({
               <div>{PropertyCount}</div>
             </div>
           </div>
-          <div className="2">
-            {" "}
+
+          <div className="col-lg-5 col-sm-12 col-md-12 ">
             <div className=" card  h3 text-center pt-5" id="shadow-bck">
               <img
                 src={unprop}
@@ -81,8 +84,13 @@ const MainAdminPage = ({
               <div>{status}</div>
             </div>
           </div>
-          <div className="3">
-            {" "}
+          <div className="col-lg-1"></div>
+        </div>
+
+        <div className="row">
+          <div className="col-lg-1 "></div>
+
+          <div className="col-lg-5 col-sm-12 col-md-12">
             <div className="card h3 text-center pt-5" id="shadow-bck">
               <img
                 src={people}
@@ -95,8 +103,8 @@ const MainAdminPage = ({
               <div>{get_particular_org_tenant.length}</div>
             </div>
           </div>
-          <div className="4">
-            {" "}
+
+          <div className="col-lg-5 col-sm-12 col-md-12">
             <div className="card h3 text-center pt-5 " id="shadow-bck">
               <img
                 src={money}
@@ -109,7 +117,9 @@ const MainAdminPage = ({
               <div> {total}</div>
             </div>
           </div>
-        </section>
+
+          <div className="col-lg-1"></div>
+        </div>
       </div>
     </div>
   );

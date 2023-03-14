@@ -145,7 +145,7 @@ const PropertyDetail = ({
               />
 
               <img
-                className="mt-1"
+                className=""
                 height="25px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}

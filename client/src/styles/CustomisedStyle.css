@@ -553,6 +553,7 @@ p {
     position: relative;
     margin-top: -10%;
   }
+
   .locadds {
     left: 10px;
   }
@@ -567,10 +568,7 @@ p {
    
     right:50px;
   }
-  #buttonchanges{
-  
-    
-  }
+
   #plusicon {
     top: -25px;
     right: 85px;
