@@ -47,7 +47,7 @@ const EditProperty = ({
   //multiple location end
 
   const [formData, setFormData] = useState({
-    buildingName: Property.buildingName,
+    buildingName: Property.buildingname,
     shopDoorNo: [],
     Location: Property.Location,
     shopAddress: Property.shopAddress,
@@ -106,9 +106,9 @@ const EditProperty = ({
 
             <input
               type="text"
-              placeholder="BuildingName"
               name="buildingName"
               value={buildingName}
+              placeholder={buildingName}
               className="form-control input"
               onChange={(e) => onInputChange(e)}
               required

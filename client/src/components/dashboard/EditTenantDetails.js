@@ -8,7 +8,6 @@ import {
   UpdateTenantsDetails,
 } from "../../actions/tenants";
 import Select from "react-select";
-import { v4 as uuid } from "uuid";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
@@ -68,7 +67,7 @@ const EditTenantDetails = ({
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
               label: doornumber,
-              value: uuid(),
+              value: doornumber,
             });
           });
         }
@@ -118,7 +117,10 @@ const EditTenantDetails = ({
   };
   const [formData, setFormData] = useState({
     isSubmitted: false,
+    BuildingName: tenantsdetails.BuildingName,
+    BuildingId: tenantsdetails.BuildingId,
     tenantId: tenantsdetails._id,
+    tenantLocation: tenantsdetails.Location,
     tenantDoorNo: tenantsdetails.tenantDoorNo,
     tenantFileNo: tenantsdetails.tenantFileNo,
     tenantRentAmount: tenantsdetails.tenantRentAmount,
@@ -148,6 +150,8 @@ const EditTenantDetails = ({
   });
   const {
     tenantId,
+    BuildingName,
+    tenantLocation,
     tenantFileNo,
     tenantDoorNo,
     tenantName,
@@ -229,6 +233,7 @@ const EditTenantDetails = ({
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
       OrganizationName: user && user.OrganizationName,
+      BuildingName: buildingName,
       tenantDoorNo: doorno,
       tenantFileNo: tenantFileNo,
       tenantRentAmount: tenantRentAmount,
@@ -250,7 +255,8 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    UpdateTenantsDetails(finalData);
+    console.log("edit details", finalData);
+    //  UpdateTenantsDetails(finalData);
 
     const historyData = {
       tdId: tenantId,
@@ -298,6 +304,7 @@ const EditTenantDetails = ({
               name="Property name"
               options={allBuildingNames}
               value={buildingData}
+              placeholder={BuildingName}
               onChange={(e) => onBuildingChange(e)}
             ></Select>
           </div>
@@ -312,6 +319,7 @@ const EditTenantDetails = ({
               name="doorno"
               options={DnoList}
               value={doorno}
+              placeholder={tenantDoorNo}
               onChange={(e) => onchangeDoor(e)}
             ></Select>
             <br></br>
@@ -325,8 +333,9 @@ const EditTenantDetails = ({
             </label>
             <input
               type="text"
-              placeholder={LocList}
+              placeholder={tenantLocation}
               className="form-control"
+              readOnly
             ></input>
             <br></br>
           </div>
@@ -511,13 +520,13 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            LeaseStartDate
+            Lease Start Date
             <input
               type="date"
-              placeholder="dd/mm/yyyy"
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
               value={entryDate}
+              placeholder={tenantLeaseStartDate}
               onChange={(e) => onDateChangeEntry(e)}
               style={{
                 width: "100%",

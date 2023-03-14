@@ -132,7 +132,7 @@ const AddShopDetails = ({
       const finalData = {
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
-        buildingName: buildingName,
+        buildingname: buildingName,
         shopDoorNo: items,
         hikePercentage: hikePercentage,
         stampDuty: stampDuty,
@@ -142,6 +142,7 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Acquired",
       };
+      console.log("proerty data", finalData);
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,
