@@ -253,27 +253,7 @@ const AddOrgModal = ({
                   }}
                   readOnly
                 />
-              </div>
-              <div className="col-lg-6">
-                <label>
-                  {" "}
-                  Address
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
-                <textarea
-                  name="OrganizationAddress"
-                  value={OrganizationAddress}
-                  onChange={(e) => onORGchange(e)}
-                  className="textarea form-control"
-                  rows="3"
-                  cols="20"
-                  placeholder="Address"
-                  style={{ width: "100%" }}
-                ></textarea>{" "}
-              </div>
-              <div className="  col-lg-6 ">
+
                 <label className="ml-2">
                   Location
                   <i className="text-danger  ">
@@ -324,6 +304,25 @@ const AddOrgModal = ({
                     })}
                   </div>
                 </div>
+              </div>
+              <div className="col-lg-6">
+                <label>
+                  {" "}
+                  Address
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
+                <textarea
+                  name="OrganizationAddress"
+                  value={OrganizationAddress}
+                  onChange={(e) => onORGchange(e)}
+                  className="textarea form-control"
+                  rows="3"
+                  cols="20"
+                  placeholder="Address"
+                  style={{ width: "100%" }}
+                ></textarea>{" "}
               </div>
               <h5 className="Uservalidation">
                 {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}

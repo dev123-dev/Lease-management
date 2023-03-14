@@ -168,24 +168,7 @@ const EditOrganization = ({
               placeholder={enddate}
               onChange={(e) => onInputChange(e)}
             />{" "}
-          </div>
-          <div className="col-lg-6">
-            <label> Address </label>
-            <textarea
-              name="OrganizationAddress"
-              value={OrganizationAddress}
-              className="textarea form-control"
-              rows="3"
-              cols="20"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>{" "}
-          </div>
-          <div className="col-lg-6">
             <label className="ml-2">Location</label>
-
             <input
               className="form-control"
               type="text"
@@ -227,6 +210,20 @@ const EditOrganization = ({
                 })}
               </div>
             </div>
+          </div>
+          <div className="col-lg-6">
+            <label> Address </label>
+            <textarea
+              name="OrganizationAddress"
+              value={OrganizationAddress}
+              className="textarea form-control"
+              rows="3"
+              cols="20"
+              placeholder="Address"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              required
+            ></textarea>{" "}
           </div>
         </div>
       </div>
