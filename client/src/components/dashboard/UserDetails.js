@@ -118,7 +118,7 @@ const UserDetails = ({
                 title="Add User"
               />
               <img
-                className="mt-1"
+                className=""
                 height="25px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
@@ -161,7 +161,7 @@ const UserDetails = ({
                             <td>{alluser.useraddress}</td>
 
                             {alluser.userStatus === "Deactive" ? (
-                              <td className="blank text-center">DeActivated</td>
+                              <td className="blank text-center">Deactive</td>
                             ) : (
                               <td className="text-center">
                                 <img
@@ -246,13 +246,13 @@ const UserDetails = ({
                 className="form-control "
                 required
               ></textarea>
-              <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
+              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button id="deactivebtn" onClick={onDeactivate}>
-            <b>DeActive</b>
+            <b>Deactive</b>
           </Button>
         </Modal.Footer>
       </Modal>

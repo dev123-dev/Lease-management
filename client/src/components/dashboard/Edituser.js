@@ -177,7 +177,7 @@ const Edituser = ({
           </div>
           <div className="col-lg-6">
             <label>
-              User Group
+              UserGroup
               <i className="text-danger ">
                 <b>*</b>
               </i>

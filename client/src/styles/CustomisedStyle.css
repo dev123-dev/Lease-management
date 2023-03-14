@@ -553,6 +553,7 @@ p {
     position: relative;
     margin-top: -10%;
   }
+
   .locadds {
     left: 10px;
   }
@@ -567,10 +568,7 @@ p {
    
     right:50px;
   }
-  #buttonchanges{
-  
-    
-  }
+
   #plusicon {
     top: -25px;
     right: 85px;
@@ -2142,14 +2140,7 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-.locadd:hover {
-  background-color: #095a4a;
-  color: white;
-}
-.locadds:hover {
-  background-color: #095a4a;
-  color: white;
-}
+
 .locadds {
   background-color: transparent;
   margin-left: 83%;

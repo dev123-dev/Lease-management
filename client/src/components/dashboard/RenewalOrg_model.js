@@ -5,6 +5,7 @@ import { RenewOrgDetailsform } from "../../actions/tenants";
 const RenewalOrg_mainPage = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   RenewOrgDetailsform,
+  setShowRenewalModal,
   orgData,
 }) => {
   var today = new Date();
@@ -63,6 +64,7 @@ const RenewalOrg_mainPage = ({
   });
 
   const onSubmit = () => {
+    setShowRenewalModal(false);
     const finalData = {
       isSubmitted: true,
       OrganizationId: orgData._id,

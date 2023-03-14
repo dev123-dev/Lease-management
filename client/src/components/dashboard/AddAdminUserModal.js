@@ -295,11 +295,11 @@ const AddAdminUserModal = ({
             </div>
 
             <div className="col-lg-6">
-              PhoneNo
+              Phone No
               <input
                 type="number"
                 name="phone"
-                placeholder="PhoneNo"
+                placeholder="Phone No"
                 value={phone}
                 className="form-control"
                 onChange={(e) => onuserchange(e)}
@@ -349,13 +349,14 @@ const AddAdminUserModal = ({
             <div className="col-lg-6">
               {" "}
               <label>
-                ConfirmPassword{" "}
+                Confirm Password{" "}
                 <i className="text-danger ">
                   <b>*</b>
                 </i>
                 :
               </label>
               <input
+                placeholder="Confirm Password"
                 type="password"
                 name="rePassword"
                 value={rePassword}

@@ -125,7 +125,7 @@ const EditOrganization = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label> OrganizationName</label>
+            <label> Organization Name</label>
 
             <input
               type="text"
@@ -168,7 +168,7 @@ const EditOrganization = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>LeaseStartDate</label>
+            <label>Lease Start Date</label>
             <input
               name="startdate"
               type="date"
@@ -179,7 +179,7 @@ const EditOrganization = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>LeaseEndDate</label>
+            <label>Lease End Date</label>
             <input
               placeholder="dd-mm-yyyy"
               type="text"

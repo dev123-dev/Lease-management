@@ -160,7 +160,7 @@ const Tenant_Details = ({
                     title="Add Tenant"
                   />
                   <img
-                    className="mt-1"
+                    className=""
                     height="25px"
                     onClick={() => refresh()}
                     src={require("../../static/images/refresh-icon.png")}
@@ -232,7 +232,7 @@ const Tenant_Details = ({
                                 ) : (
                                   <td>
                                     <div className="blank text-center">
-                                      DeActivated
+                                      Deactive
                                     </div>
                                   </td>
                                 )}
@@ -303,13 +303,13 @@ const Tenant_Details = ({
                   className="form-control "
                   required
                 ></textarea>
-                <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
+                <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
               </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={onDeactivate} id="deactivebtn">
-              <b>DeActive</b>
+              <b>Deactive</b>
             </Button>
           </Modal.Footer>
         </Modal>

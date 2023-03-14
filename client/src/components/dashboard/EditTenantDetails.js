@@ -299,7 +299,12 @@ const EditTenantDetails = ({
       <div className="conatiner-fluid ">
         <div className="row">
           <div className="col-lg-4">
-            <label className="ml-2">Property Name:</label>
+            <label className="ml-2">
+              Property Name
+              <i className="text-danger  ">
+                <b>*</b>
+              </i>
+            </label>
             <Select
               name="Property name"
               options={allBuildingNames}
@@ -310,7 +315,7 @@ const EditTenantDetails = ({
           </div>
           <div className="col-lg-4">
             <label className="ml-2">
-              DoorNo{" "}
+              Door No{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
@@ -341,7 +346,7 @@ const EditTenantDetails = ({
           </div>
           <div className="col-lg-4">
             <label className="ml-2">
-              FileNo{" "}
+              File No{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
@@ -358,7 +363,7 @@ const EditTenantDetails = ({
           </div>
           <div className="col-lg-4">
             <label className="ml-2">
-              TenantName{" "}
+              Tenant Name{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
@@ -390,7 +395,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label>Firm Name :</label>
+            <label>Firm Name </label>
             <input
               type="text"
               name="tenantFirmName"
@@ -402,7 +407,7 @@ const EditTenantDetails = ({
           </div>
 
           <div className="col-lg-4 ">
-            <label>Adhaar No:</label>
+            <label>Adhaar No</label>
             <input
               type="number"
               name="tenantAdharNo"
@@ -439,7 +444,7 @@ const EditTenantDetails = ({
           </div>
           <div className="col-lg-4">
             <label className="ml-2">
-              RentAmount{" "}
+              Rent Amount{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
@@ -459,7 +464,7 @@ const EditTenantDetails = ({
           </div>
           <div className="col-lg-4">
             <label className="ml-2">
-              DepositAmount{" "}
+              Deposit Amount{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
@@ -479,7 +484,7 @@ const EditTenantDetails = ({
           </div>
           <div className="col-lg-4">
             <label className="ml-2">
-              GeneratorDepositAmount{" "}
+              Generator Deposit Amount{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>
@@ -534,11 +539,12 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4 ">
-            <label>Lease End Date:</label>
-            <br />
-            <label>
-              <b>{leaseEndDate}</b>
-            </label>
+            Lease End Date
+            <input
+              placeholder="dd-mm-yyyy"
+              className="form-control cpp-input datevalidation"
+              value={leaseEndDate}
+            ></input>
           </div>
 
           <div className="col-lg-12">
@@ -549,6 +555,7 @@ const EditTenantDetails = ({
                     <div className="  col-lg-4">
                       <label>Cheque No/DD No :</label>
                       <input
+                        placeholder="Cheque Date"
                         type="text"
                         name="tenantChequenoOrDdno"
                         value={tenantChequenoOrDdno}
@@ -572,10 +579,10 @@ const EditTenantDetails = ({
                     </div>
 
                     <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                      <label>ChequeDate:</label>
+                      <label>Cheque Date:</label>
                       <input
                         type="date"
-                        placeholder="dd/mm/yyyy"
+                        placeholder="dd-mm-yyyy"
                         className="form-control cpp-input datevalidation"
                         name="tenantchequeDate"
                         value={startSelectedDate}

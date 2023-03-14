@@ -165,7 +165,7 @@ const AddOrgModal = ({
               <div className="col-lg-6 col-sm-12 col-md-12 col-12">
                 <label>
                   {" "}
-                  OrganiZationName
+                  Organization Name
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
@@ -176,7 +176,7 @@ const AddOrgModal = ({
                   value={OrganizationName}
                   onChange={(e) => onORGchange(e)}
                   className="form-control    "
-                  placeholder="OrganizationName"
+                  placeholder="Organization Name"
                 />
               </div>
               <br></br>
@@ -198,18 +198,18 @@ const AddOrgModal = ({
               </div>{" "}
               <br></br>
               <div className="col-lg-6">
-                PhoneNo
+                Phone No
                 <input
                   type="number"
                   name="OrganizationNumber"
                   value={OrganizationNumber}
                   onChange={(e) => onORGchange(e)}
                   className="form-control"
-                  placeholder="PhoneNumber"
+                  placeholder="Phone Number"
                 />
               </div>
               <div className="col-lg-6">
-                <label>No Of User</label>
+                <label>No of User</label>
                 <input
                   type="number"
                   className="form-control"
@@ -218,7 +218,7 @@ const AddOrgModal = ({
               </div>
               <div className="col-lg-6">
                 <label>
-                  LeaseStartDate
+                  Lease Start Date
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
@@ -237,7 +237,7 @@ const AddOrgModal = ({
               </div>
               <div className="col-lg-6">
                 <label>
-                  LeaseEndDate
+                  Lease End Date
                   <i className="text-danger ">
                     <b>*</b>
                   </i>

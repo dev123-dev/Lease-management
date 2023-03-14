@@ -98,7 +98,7 @@ const EditProperty = ({
         <div className="row">
           <div className="col-lg-6">
             <label>
-              BuildingName
+              Building Name
               <i className="text-danger ">
                 <b>*</b>
               </i>
@@ -117,7 +117,7 @@ const EditProperty = ({
           </div>
           <div className="col-lg-6">
             <label>
-              StampDuty{" "}
+              Stamp Duty{" "}
               <i className="text-danger ">
                 <b>*</b>
               </i>
@@ -147,7 +147,7 @@ const EditProperty = ({
           </div>
           <div className="col-lg-6">
             <label>
-              LeaseTimePeriod{" "}
+              Lease Time Period{" "}
               <i className="text-danger ">
                 <b>*</b>
               </i>
@@ -201,7 +201,7 @@ const EditProperty = ({
 
           <div className="  col-lg-6 ">
             <label className="ml-2">
-              DoorNo{" "}
+              Door No{" "}
               <i className="text-danger  ">
                 <b>*</b>
               </i>

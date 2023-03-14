@@ -145,7 +145,7 @@ const PropertyDetail = ({
               />
 
               <img
-                className="mt-1"
+                className=""
                 height="25px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
@@ -204,7 +204,7 @@ const PropertyDetail = ({
                                 />
                               </td>
                             ) : (
-                              <td className="blank text-center">DeActivated</td>
+                              <td className="blank text-center">Deactive</td>
                             )}
                           </tr>
                         );
@@ -269,13 +269,13 @@ const PropertyDetail = ({
                 className="form-control "
                 required
               ></textarea>
-              <Form.Label>Are you sure You Want To DeActivate..?</Form.Label>
+              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={onDeactive} id="deactivebtn">
-            <b>DeActive</b>
+            <b>Deactive</b>
           </Button>
         </Modal.Footer>
       </Modal>
