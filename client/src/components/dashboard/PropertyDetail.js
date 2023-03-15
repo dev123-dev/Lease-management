@@ -179,7 +179,7 @@ const PropertyDetail = ({
                         return (
                           <tr key={idx}>
                             <td>{Val.buildingname}</td>
-                            <td>{Val.shopDoorNo}</td>
+                            <td>{Val.shopDoorNo + ","}</td>
                             <td>{Val.Location}</td>
                             <td>{Val.hikePercentage}</td>
                             <td>{Val.stampDuty}</td>

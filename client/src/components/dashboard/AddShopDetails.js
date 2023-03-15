@@ -109,16 +109,7 @@ const AddShopDetails = ({
       [e.target.name]: e.target.value,
     });
   };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
-  const [showInformationModal, setShowInformation] = useState(false);
-  const handleInformationModalopen = () => setShowInformation(true);
-  const handleInformationModalClose = () => setShowInformation(false);
-  const LogoutModalClose = () => {
-    handleInformationModalClose();
-  };
   const [fill, setfill] = useState(false);
   const onSubmit = () => {
     if (
@@ -132,7 +123,6 @@ const AddShopDetails = ({
     ) {
       setfill(true);
     } else {
-      setShow(false);
       const finalData = {
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
@@ -159,7 +149,6 @@ const AddShopDetails = ({
         shopStatus: "",
         isSubmitted: true,
       });
-      // handleInformationModalopen();
       setShowadd(false);
     }
   };

@@ -89,70 +89,69 @@ const Edituser = ({
   ) : (
     <Fragment>
       <form className="row" onSubmit={(e) => onUpdate(e)}>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-6">
-              <label> Name</label>
-              <input
-                type="text"
-                name="username"
-                value={username}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-            <div className="col-lg-6">
-              <label> Email </label>
-              <input
-                type="email"
-                name="useremail"
-                value={useremail}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />{" "}
-            </div>
-            <div className="col-lg-6">
-              <label>Phone No</label>
+        <div className="row">
+          <div className="col-lg-6">
+            <label> Name</label>
+            <input
+              type="text"
+              name="username"
+              value={username}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              required
+            />
+          </div>
+          <div className="col-lg-6">
+            <label> Email </label>
+            <input
+              type="email"
+              name="useremail"
+              value={useremail}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+              required
+            />{" "}
+          </div>
+          <div className="col-lg-6">
+            <label>Phone No</label>
 
-              <input
-                type="number"
-                name="userphone"
-                value={userphone}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-            <div className="col-lg-6">
-              <label>Organization belongs to </label>
+            <input
+              type="number"
+              name="userphone"
+              value={userphone}
+              className="form-control"
+              onChange={(e) => onInputChange(e)}
+            />
+          </div>
+          <div className="col-lg-6">
+            <label>Organization belongs to </label>
 
-              <Select
-                name="orgname"
-                options={orglist}
-                value={orgname}
-                placeholder={OrganizationName}
-                onChange={(e) => onchangeOrg(e)}
-              >
-                select Organization
-              </Select>
-            </div>
-            <div className="col-lg-6">
-              <label> Address </label>
-              <textarea
-                name="useraddress"
-                value={useraddress}
-                className="textarea form-control"
-                rows="3"
-                cols="20"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>{" "}
-            </div>
-            <div className="col-lg-6">
-              <label>UserGroup</label>
+            <Select
+              name="orgname"
+              options={orglist}
+              value={orgname}
+              placeholder={OrganizationName}
+              onChange={(e) => onchangeOrg(e)}
+            >
+              select Organization
+            </Select>
+          </div>
+          <div className="col-lg-6">
+            <label> Address </label>
+            <textarea
+              name="useraddress"
+              value={useraddress}
+              className="textarea form-control"
+              rows="3"
+              cols="20"
+              placeholder="Address"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              required
+            ></textarea>{" "}
+          </div>
+          <div className="col-lg-6">
+            <label>UserGroup</label>
 
             <Select
               name="orgname"
