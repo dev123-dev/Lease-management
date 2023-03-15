@@ -304,6 +304,7 @@ router.get("/get-all-Superuser", async (req, res) => {
           userStatus: "$userStatus",
           useraddress: "$useraddress",
           password: "$password",
+          OrganizationId: "$OrganizationId",
           OrganizationName: "$OrganizationName",
         },
       },

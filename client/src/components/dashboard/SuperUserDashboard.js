@@ -59,6 +59,7 @@ const SuperUserDashboard = ({
 
   const onEdit = (allsuperuse, id) => {
     setId(id);
+    console.log("edit", allsuperuse);
     setuser(allsuperuse);
     setShowEditModal(true);
   };
@@ -161,7 +162,6 @@ const SuperUserDashboard = ({
                                 <td>{allsuperuse.usergroup}</td>
                                 <td>{allsuperuse.OrganizationName}</td>
                                 <td>{allsuperuse.useraddress}</td>
-
                                 {allsuperuse.userStatus === "Active" ? (
                                   <td className="text-center">
                                     <img
