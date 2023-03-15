@@ -195,7 +195,7 @@ const Tenant_Details = ({
                               <tr key={idx}>
                                 <td>{Val.tenantName}</td>
                                 <td>{Val.BuildingName}</td>
-                                <td>{Val.shopDoorNo}</td>
+                                <td>{(Val.shopDoorNo, ",")}</td>
                                 <td>{Val.tenantFileNo}</td>
                                 <td>{Val.Location}</td>
                                 <td>{Val.tenantPhone}</td>

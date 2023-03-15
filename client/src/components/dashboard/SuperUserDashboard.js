@@ -256,7 +256,7 @@ const SuperUserDashboard = ({
                     className="form-control"
                     required
                   ></textarea>
-                  <p>{errormessage}</p>
+                  {/* <p>{errormessage}</p> */}
                   <Form.Label>
                     Are you sure You Want To Deactivate..?
                   </Form.Label>
