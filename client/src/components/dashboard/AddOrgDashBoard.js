@@ -252,23 +252,24 @@ const AddOrgDashBoard = ({
         </Modal.Header>
 
         <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label className="h5 despace">
-                Reason For Deactivating
-              </Form.Label>
-              <textarea
-                rows="2"
-                name="Organization_DE_Reason"
-                onChange={(e) => onInputChange(e)}
-                autoFocus
-                id="org_reason"
-                className="form-control "
-                required
-              ></textarea>
-              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
-            </Form.Group>
-          </Form>
+          {/* <Form> */}
+          {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+          <Form.Label className="h5 despace">
+            Reason For Deactivating
+          </Form.Label>
+          <textarea
+            name="Organization_DE_Reason"
+            id="Organization_DE_Reason"
+            className="textarea form-control"
+            rows="3"
+            placeholder="Deactive Reason"
+            onChange={(e) => onInputChange(e)}
+            style={{ width: "100%" }}
+            required
+          ></textarea>
+          <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
+          {/* </Form.Group> */}
+          {/* </Form> */}
         </Modal.Body>
         <Modal.Footer>
           <Button

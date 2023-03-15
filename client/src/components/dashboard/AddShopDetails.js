@@ -195,12 +195,7 @@ const AddShopDetails = ({
         <div className="container-fluid propcont">
           <div className="row">
             <div className="col-lg-6">
-              <label>
-                Building Name
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Building Name*:</label>
 
               <input
                 type="text"
@@ -214,12 +209,7 @@ const AddShopDetails = ({
               <br></br>
             </div>
             <div className="col-lg-6">
-              <label>
-                Location
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Location*:</label>
               <Select
                 name="orgLoc"
                 options={Sellocation}
@@ -240,12 +230,7 @@ const AddShopDetails = ({
               <br></br>
             </div>
             <div className="col-lg-6">
-              <label>
-                Stamp Duty{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Stamp Duty*:</label>
               <input
                 type="text"
                 placeholder={stampDuty}
@@ -256,10 +241,7 @@ const AddShopDetails = ({
             </div>
             <div className="col-lg-6">
               <label>
-                Hike<b>%</b>{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
+                Hike<b>%</b>*:
               </label>
               <input
                 type="text"
@@ -270,12 +252,7 @@ const AddShopDetails = ({
               />
             </div>
             <div className="col-lg-6">
-              <label>
-                Lease Time Period{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Lease Time Period*:</label>
               <div className="controls">
                 <input
                   placeholder={LeaseTime}
@@ -285,12 +262,7 @@ const AddShopDetails = ({
                 <span id="category_result" className="form-input-info"></span>
               </div>
 
-              <label className="ml-2">
-                Door No{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Door No*:</label>
 
               <input
                 className="form-control"
@@ -338,12 +310,7 @@ const AddShopDetails = ({
             </div>
 
             <div className="col-lg-6">
-              <label>
-                Address
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Address*:</label>
 
               <textarea
                 name="shopAddress"

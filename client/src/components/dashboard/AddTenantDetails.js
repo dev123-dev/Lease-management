@@ -346,12 +346,7 @@ const AddTenantDetails = ({
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-4">
-              <label className="ml-2">
-                Property Name{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Property Name*:</label>
               <Select
                 name="Property name"
                 options={allBuildingNames}
@@ -361,12 +356,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                Door No{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Door No*:</label>
               <Select
                 name="doorno"
                 options={DnoList}
@@ -376,12 +366,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                Location{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Location*:</label>
               <input
                 type="text"
                 placeholder={LocList}
@@ -390,12 +375,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                File No{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">File No*:</label>
               <input
                 type="text"
                 name="tenantFileNo"
@@ -407,12 +387,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                Tenant Name{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Tenant Name*:</label>
               <input
                 type="text"
                 name="tenantName"
@@ -483,12 +458,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                Rent Amount{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Rent Amount*:</label>
               <input
                 type="number"
                 name="tenantRentAmount"
@@ -503,12 +473,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">
-                Deposit Amount{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label className="ml-2">Deposit Amount*:</label>
               <input
                 type="number"
                 name="tenantDepositAmt"
@@ -539,10 +504,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              Mode Of Payment
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
+              Mode Of Payment*:
               <Select
                 name="tenantPaymentMode"
                 options={PaymentMethods}
@@ -564,10 +526,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>{" "}
             <div className="col-lg-4">
-              Lease Start Date{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
+              Lease Start Date*:
               <input
                 type="date"
                 placeholder="dd-mm-yyyy"
@@ -582,10 +541,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>{" "}
             <div className="col-lg-4 ">
-              Lease End Date{" "}
-              <i className="text-danger  ">
-                <b>*</b>
-              </i>
+              Lease End Date*:
               <input
                 placeholder="dd-mm-yyyy"
                 className="form-control cpp-input datevalidation"
@@ -642,12 +598,7 @@ const AddTenantDetails = ({
               )}
             </div>
             <div className="col-lg-8">
-              <label>
-                Tenant's Address{" "}
-                <i className="text-danger  ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Tenant's Address*:</label>
               <textarea
                 name="tenantAddr"
                 value={tenantAddr}

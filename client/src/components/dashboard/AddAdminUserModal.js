@@ -259,14 +259,7 @@ const AddAdminUserModal = ({
         <div className="container">
           <div className="row">
             <div className="col-lg-6">
-              <label>
-                {" "}
-                Name
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-                :
-              </label>{" "}
+              <label> Name*:</label>{" "}
               <input
                 type="text"
                 name="name"
@@ -277,13 +270,7 @@ const AddAdminUserModal = ({
               />
             </div>
             <div className="col-lg-6">
-              <label>
-                Email{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-                :
-              </label>{" "}
+              <label>Email*:</label>{" "}
               <input
                 type="email"
                 name="email"
@@ -303,17 +290,12 @@ const AddAdminUserModal = ({
                 value={phone}
                 className="form-control"
                 onChange={(e) => onuserchange(e)}
+                required
               />
             </div>
             <div className="col-lg-6">
               {" "}
-              <label>
-                Organization belongs to{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-                :{" "}
-              </label>{" "}
+              <label>Organization belongs to*:</label>{" "}
               <input
                 type="text"
                 placeholder="{user.OrganizationName}"
@@ -325,12 +307,7 @@ const AddAdminUserModal = ({
 
             <div className="col-lg-6">
               {" "}
-              <label>
-                Password{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-              </label>
+              <label>Password*:</label>
               <input
                 type="password"
                 name="password"
@@ -348,13 +325,7 @@ const AddAdminUserModal = ({
             </div>
             <div className="col-lg-6">
               {" "}
-              <label>
-                Confirm Password{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-                :
-              </label>
+              <label>Confirm Password*:</label>
               <input
                 placeholder="Confirm Password"
                 type="password"
@@ -384,18 +355,11 @@ const AddAdminUserModal = ({
                 cols="20"
                 placeholder="Address"
                 style={{ width: "100%" }}
-                required
               ></textarea>{" "}
             </div>
 
             <div className="col-lg-6">
-              <label>
-                UserGroup{" "}
-                <i className="text-danger ">
-                  <b>*</b>
-                </i>
-                :{" "}
-              </label>
+              <label>UserGroup*:</label>
               <Select
                 name="usergroup"
                 options={UserGroups}
