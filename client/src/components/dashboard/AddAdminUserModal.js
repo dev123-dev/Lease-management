@@ -282,7 +282,7 @@ const AddAdminUserModal = ({
             </div>
 
             <div className="col-lg-6">
-              Phone No
+              Phone No:
               <input
                 type="number"
                 name="phone"
@@ -345,7 +345,7 @@ const AddAdminUserModal = ({
               )}
             </div>
             <div className="col-lg-6">
-              Address
+              Address:
               <textarea
                 name="address"
                 value={address}
