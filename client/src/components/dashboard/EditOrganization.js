@@ -105,7 +105,7 @@ const EditOrganization = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label> Organization Name</label>
+            <label> Organization Name*:</label>
 
             <input
               type="text"
@@ -116,7 +116,7 @@ const EditOrganization = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>Email </label>
+            <label>Email*: </label>
             <input
               type="email"
               name="OrganizationEmail"
@@ -127,7 +127,7 @@ const EditOrganization = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>Phone No</label>
+            <label>Phone No:</label>
 
             <input
               type="number"
@@ -148,7 +148,7 @@ const EditOrganization = ({
             />{" "}
           </div> */}
           <div className="col-lg-6">
-            <label>Lease Start Date</label>
+            <label>Lease Start Date*:</label>
             <input
               name="startdate"
               type="date"
@@ -159,7 +159,7 @@ const EditOrganization = ({
             />{" "}
           </div>
           <div className="col-lg-6">
-            <label>Lease End Date</label>
+            <label>Lease End Date*:</label>
             <input
               type="text"
               readOnly={true}
@@ -168,7 +168,7 @@ const EditOrganization = ({
               placeholder={enddate}
               onChange={(e) => onInputChange(e)}
             />{" "}
-            <label className="ml-2">Location</label>
+            <label className="ml-2">Location*:</label>
             <input
               className="form-control"
               type="text"
@@ -212,7 +212,7 @@ const EditOrganization = ({
             </div>
           </div>
           <div className="col-lg-6">
-            <label> Address </label>
+            <label> Address*: </label>
             <textarea
               name="OrganizationAddress"
               value={OrganizationAddress}

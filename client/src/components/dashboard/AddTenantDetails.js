@@ -398,7 +398,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              Phone No
+              Phone No:
               <input
                 type="number"
                 name="tenantPhone"
@@ -414,7 +414,7 @@ const AddTenantDetails = ({
               <br></br>
             </div>
             <div className="col-lg-4">
-              Firm Name
+              Firm Name:
               <input
                 type="text"
                 name="tenantFirmName"
@@ -426,7 +426,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              Aadhaar No
+              Aadhaar No:
               <input
                 type="number"
                 name="tenantAdharNo"
@@ -441,7 +441,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">Pan Number </label>
+              <label className="ml-2">Pan Number :</label>
               <input
                 type="text"
                 name="tenantPanNo"
@@ -487,7 +487,7 @@ const AddTenantDetails = ({
               />
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">Generator Deposit Amount </label>
+              <label className="ml-2">Generator Deposit Amount :</label>
               <input
                 type="number"
                 name="generatordepoAmt"
@@ -553,7 +553,7 @@ const AddTenantDetails = ({
                 <>
                   <div className="row">
                     <div className="  col-lg-4 ">
-                      Cheque No/DD No
+                      Cheque No/DD No:
                       <input
                         type="text"
                         name="tenantChequenoOrDdno"

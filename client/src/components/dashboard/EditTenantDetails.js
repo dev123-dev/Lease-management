@@ -225,9 +225,7 @@ const EditTenantDetails = ({
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   //For setting mindate as todays date
-  console.log(tenantsdetails);
   const onUpdate = (tenantsdetails, idx) => {
-    //  onDateChangeEntry1();
     const finalData = {
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
@@ -250,7 +248,6 @@ const EditTenantDetails = ({
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       generatordepoAmt: generatordepoAmt,
-      //AgreementStatus: tenants.AgreementStatus,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
@@ -298,7 +295,7 @@ const EditTenantDetails = ({
       <div className="conatiner-fluid ">
         <div className="row">
           <div className="col-lg-4">
-            <label className="ml-2">Property Name</label>
+            <label className="ml-2">Property Name*:</label>
             <Select
               name="Property name"
               options={allBuildingNames}
@@ -308,7 +305,7 @@ const EditTenantDetails = ({
             ></Select>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Door No </label>
+            <label className="ml-2">Door No*: </label>
             <Select
               name="doorno"
               options={DnoList}
@@ -319,7 +316,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Location </label>
+            <label className="ml-2">Location*: </label>
             <input
               type="text"
               placeholder={tenantLocation}
@@ -329,7 +326,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">File No </label>
+            <label className="ml-2">File No*: </label>
             <input
               type="text"
               name="tenantFileNo"
@@ -341,7 +338,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Tenant Name </label>
+            <label className="ml-2">Tenant Name*: </label>
             <input
               type="text"
               name="tenantName"
@@ -369,7 +366,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label>Firm Name </label>
+            <label>Firm Name: </label>
             <input
               type="text"
               name="tenantFirmName"
@@ -381,7 +378,7 @@ const EditTenantDetails = ({
           </div>
 
           <div className="col-lg-4 ">
-            <label>Adhaar No</label>
+            <label>Adhaar No:</label>
             <input
               type="number"
               name="tenantAdharNo"
@@ -396,7 +393,7 @@ const EditTenantDetails = ({
           </div>
 
           <div className="col-lg-4">
-            <label className="ml-2">Tenant Pan Number </label>
+            <label className="ml-2"> Pan Number: </label>
             <input
               type="text"
               name="tenantPanNo"
@@ -412,7 +409,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Rent Amount </label>
+            <label className="ml-2">Rent Amount*: </label>
             <input
               type="number"
               name="tenantRentAmount"
@@ -427,7 +424,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Deposit Amount </label>
+            <label className="ml-2">Deposit Amount*: </label>
             <input
               type="number"
               name="tenantDepositAmt"
@@ -442,7 +439,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            <label className="ml-2">Generator Deposit Amount </label>
+            <label className="ml-2">Generator Deposit Amount :</label>
             <input
               type="number"
               name="generatordepoAmt"
@@ -458,7 +455,7 @@ const EditTenantDetails = ({
             <br></br>
           </div>
           <div className="col-lg-4">
-            Mode Of Payment
+            Mode Of Payment*:
             <Select
               name="tenantPaymentMode"
               options={PaymentMethods}
@@ -479,7 +476,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4">
-            Lease Start Date
+            Lease Start Date*:
             <input
               type="date"
               className="form-control cpp-input datevalidation"
@@ -493,7 +490,7 @@ const EditTenantDetails = ({
             />
           </div>
           <div className="col-lg-4 ">
-            Lease End Date
+            Lease End Date*:
             <input
               placeholder="dd-mm-yyyy"
               className="form-control cpp-input datevalidation"
@@ -507,7 +504,7 @@ const EditTenantDetails = ({
                 <div className="container-fluid">
                   <div className="row">
                     <div className="  col-lg-4">
-                      <label>Cheque No/DD No :</label>
+                      <label>Cheque No/DD No:</label>
                       <input
                         placeholder="Cheque Date"
                         type="text"

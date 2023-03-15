@@ -97,7 +97,7 @@ const EditProperty = ({
       <div className="container-fluid">
         <div className="row">
           <div className="col-lg-6">
-            <label>Building Name</label>
+            <label>Building Name*:</label>
 
             <input
               type="text"
@@ -111,7 +111,7 @@ const EditProperty = ({
             <br></br>
           </div>
           <div className="col-lg-6">
-            <label>Stamp Duty </label>
+            <label>Stamp Duty*: </label>
             <input
               type="text"
               name="stampDuty"
@@ -122,7 +122,7 @@ const EditProperty = ({
           </div>
           <div className="col-lg-6">
             <label>
-              Hike<b>%</b>{" "}
+              Hike<b>%</b>*:
             </label>
             <input
               type="text"
@@ -133,7 +133,7 @@ const EditProperty = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>Lease Time Period </label>
+            <label>Lease Time Period*: </label>
             <input
               type="text"
               name="hikePercentage"
@@ -143,7 +143,7 @@ const EditProperty = ({
             />
           </div>
           <div className="col-lg-6">
-            <label>Address</label>
+            <label>Address*:</label>
 
             <textarea
               name="shopAddress"
@@ -158,7 +158,7 @@ const EditProperty = ({
             ></textarea>
             <br></br>
 
-            <label className="">Location</label>
+            <label className="">Location*:</label>
             <input
               type="text"
               placeholder="Location"
@@ -171,7 +171,7 @@ const EditProperty = ({
           </div>
 
           <div className="  col-lg-6 ">
-            <label className="ml-2">Door No </label>
+            <label className="ml-2">Door No*: </label>
             <input
               className="form-control"
               type="text"
