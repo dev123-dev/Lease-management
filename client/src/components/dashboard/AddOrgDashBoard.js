@@ -167,8 +167,12 @@ const AddOrgDashBoard = ({
                     {currentDatas &&
                       currentDatas[0] &&
                       currentDatas.map((orgVal, idx) => {
-                        var ED = orgVal.enddate.split(/\D/g);
-                        var Enddate = [ED[2], ED[1], ED[0]].join("-");
+                        var ED = orgVal.enddate && orgVal.enddate.split(/\D/g);
+                        var Enddate = [
+                          ED && ED[2],
+                          ED && ED[1],
+                          ED && ED[0],
+                        ].join("-");
                         return (
                           <tr key={idx}>
                             <td>{orgVal.OrganizationName}</td>

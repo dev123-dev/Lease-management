@@ -80,7 +80,7 @@ const OrganizationSchema = new mongoose.Schema({
   },
   deactive_reason: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 module.exports = mongoose.model("OrganizationDetails", OrganizationSchema);

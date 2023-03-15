@@ -197,35 +197,31 @@ const AddAdminUserModal = ({
   const onuserchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [fill, setfill] = useState(false);
-  const onsubmitUserData = () => {
-    if (name === "" || email === "" || user === "") {
-      setfill(true);
-    } else {
-      const finalUserData = {
-        username: name,
-        useremail: email,
-        userphone: phone,
-        useraddress: address,
-        usergroup: User,
-        password: rePassword,
-        OrganizationName: user.OrganizationName,
-        OrganizationId: user.OrganizationId,
-      };
-      setShowadd(false);
-      AddAdminuser(finalUserData);
 
-      setFormData({
-        ...formData,
-        name: "",
-        phone: "",
-        email: "",
-        address: "",
-        group: "",
-        OrganizationName: "",
-        password: "",
-      });
-    }
+  const onsubmitUserData = () => {
+    const finalUserData = {
+      username: name,
+      useremail: email,
+      userphone: phone,
+      useraddress: address,
+      usergroup: User,
+      password: rePassword,
+      OrganizationName: user.OrganizationName,
+      OrganizationId: user.OrganizationId,
+    };
+    setShowadd(false);
+    AddAdminuser(finalUserData);
+
+    setFormData({
+      ...formData,
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      group: "",
+      OrganizationName: "",
+      password: "",
+    });
   };
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
@@ -256,143 +252,151 @@ const AddAdminUserModal = ({
       </Modal.Header>
 
       <Modal.Body>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-6">
-              <label> Name*:</label>{" "}
-              <input
-                type="text"
-                name="name"
-                value={name}
-                className="form-control"
-                placeholder="Name"
-                onChange={(e) => onuserchange(e)}
-              />
-            </div>
-            <div className="col-lg-6">
-              <label>Email*:</label>{" "}
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={email}
-                className="form-control"
-                onChange={(e) => onuserchange(e)}
-              />
-            </div>
+        <form onSubmit={() => onsubmitUserData()}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <label> Name*:</label>{" "}
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  className="form-control"
+                  placeholder="Name"
+                  onChange={(e) => onuserchange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-6">
+                <label>Email*:</label>{" "}
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                  required
+                />
+              </div>
 
-            <div className="col-lg-6">
-              Phone No:
-              <input
-                type="number"
-                name="phone"
-                placeholder="Phone No"
-                value={phone}
-                className="form-control"
-                onChange={(e) => onuserchange(e)}
-                required
-              />
-            </div>
-            <div className="col-lg-6">
-              {" "}
-              <label>Organization belongs to*:</label>{" "}
-              <input
-                type="text"
-                placeholder="{user.OrganizationName}"
-                value={user.OrganizationName}
-                className="form-control"
-                onChange={(e) => onuserchange(e)}
-              />
-            </div>
+              <div className="col-lg-6">
+                Phone No:
+                <input
+                  type="number"
+                  name="phone"
+                  placeholder="Phone No"
+                  value={phone}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                {" "}
+                <label>Organization belongs to*:</label>{" "}
+                <input
+                  type="text"
+                  placeholder="{user.OrganizationName}"
+                  value={user.OrganizationName}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                  required
+                />
+              </div>
 
-            <div className="col-lg-6">
-              {" "}
-              <label>Password*:</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={password}
-                className="form-control"
-                style={passwordInptErrStyle}
-                onChange={(e) => onPasswordChange(e)}
-              />
-              {passwordValChecker && (
-                <span className="form-input-info" style={passwordValStyle}>
-                  {passwordValResult}
-                </span>
-              )}
-            </div>
-            <div className="col-lg-6">
-              {" "}
-              <label>Confirm Password*:</label>
-              <input
-                placeholder="Confirm Password"
-                type="password"
-                name="rePassword"
-                value={rePassword}
-                autoComplete="off"
-                className="form-control"
-                style={repwdInptErrStyle}
-                onChange={(e) => onPasswordChange(e)}
-              />
-              {repwdValChecker && (
-                <Fragment>
-                  <span className="form-input-info" style={repwdValStyle}>
-                    {repwdValResult}
+              <div className="col-lg-6">
+                {" "}
+                <label>Password*:</label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  className="form-control"
+                  style={passwordInptErrStyle}
+                  onChange={(e) => onPasswordChange(e)}
+                  required
+                />
+                {passwordValChecker && (
+                  <span className="form-input-info" style={passwordValStyle}>
+                    {passwordValResult}
                   </span>
-                </Fragment>
-              )}
-            </div>
-            <div className="col-lg-6">
-              Address:
-              <textarea
-                name="address"
-                value={address}
-                onChange={(e) => onuserchange(e)}
-                className="textarea form-control"
-                rows="3"
-                cols="20"
-                placeholder="Address"
-                style={{ width: "100%" }}
-              ></textarea>{" "}
-            </div>
+                )}
+              </div>
+              <div className="col-lg-6">
+                {" "}
+                <label>Confirm Password*:</label>
+                <input
+                  placeholder="Confirm Password"
+                  type="password"
+                  name="rePassword"
+                  value={rePassword}
+                  autoComplete="off"
+                  className="form-control"
+                  style={repwdInptErrStyle}
+                  onChange={(e) => onPasswordChange(e)}
+                  required
+                />
+                {repwdValChecker && (
+                  <Fragment>
+                    <span className="form-input-info" style={repwdValStyle}>
+                      {repwdValResult}
+                    </span>
+                  </Fragment>
+                )}
+              </div>
+              <div className="col-lg-6">
+                Address:
+                <textarea
+                  name="address"
+                  value={address}
+                  onChange={(e) => onuserchange(e)}
+                  className="textarea form-control"
+                  rows="3"
+                  cols="20"
+                  placeholder="Address"
+                  style={{ width: "100%" }}
+                ></textarea>{" "}
+              </div>
 
-            <div className="col-lg-6">
-              <label>UserGroup*:</label>
-              <Select
-                name="usergroup"
-                options={UserGroups}
-                isSearchable={false}
-                placeholder="Select"
-                onChange={(e) => onuser(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
-              />
+              <div className="col-lg-6">
+                <label>UserGroup*:</label>
+                <Select
+                  name="usergroup"
+                  options={UserGroups}
+                  isSearchable={false}
+                  placeholder="Select"
+                  onChange={(e) => onuser(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                  required
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <h5 className="Uservalidation">
-          {fill ? <>Please fill all Mandatory(*) fields..!!</> : <></>}
-        </h5>
-        {/* save button  */}
-        <div className="col-lg-12 ">
-          <button
-            id="savebtn"
-            className="btn sub_form btn_continue Save float-right  "
-            onClick={() => onsubmitUserData()}
-          >
-            Save
-          </button>
-        </div>
+
+          {/* save button  */}
+          <div className="col-lg-9 text-danger">
+            * Indicates mandatory fields, Please fill mandatory fields before
+            Submit
+          </div>
+          <div className="col-lg-3 float-right">
+            <button
+              id="savebtn"
+              className="btn sub_form btn_continue Save float-right  "
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </Modal.Body>
     </>
   ) : (

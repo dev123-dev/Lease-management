@@ -500,53 +500,52 @@ const EditTenantDetails = ({
               className="form-control cpp-input datevalidation"
               value={leaseEndDate}
             ></input>
+            <br></br>
           </div>
 
           <div className="col-lg-12">
             {showChequenoSection ? (
               <>
-                <div className="container-fluid">
-                  <div className="row">
-                    <div className="  col-lg-4">
-                      <label>Cheque No/DD No:</label>
-                      <input
-                        placeholder="Cheque Date"
-                        type="text"
-                        name="tenantChequenoOrDdno"
-                        value={tenantChequenoOrDdno}
-                        className="form-control"
-                        onChange={(e) => onInputChange(e)}
-                        required
-                      />
-                      <br></br>
-                    </div>
+                <div className="row">
+                  <div className="  col-lg-4">
+                    <label>Cheque No/DD No:</label>
+                    <input
+                      placeholder="Cheque Date"
+                      type="text"
+                      name="tenantChequenoOrDdno"
+                      value={tenantChequenoOrDdno}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      required
+                    />
+                    <br></br>
+                  </div>
 
-                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                      <label>Bank Name :</label>
-                      <input
-                        type="text"
-                        name="tenantBankName"
-                        value={tenantBankName}
-                        className="form-control"
-                        onChange={(e) => onInputChange(e)}
-                        required
-                      />
-                    </div>
+                  <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                    <label>Bank Name :</label>
+                    <input
+                      type="text"
+                      name="tenantBankName"
+                      value={tenantBankName}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      required
+                    />
+                  </div>
 
-                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                      <label>Cheque Date:</label>
-                      <input
-                        type="date"
-                        placeholder="dd-mm-yyyy"
-                        className="form-control cpp-input datevalidation"
-                        name="tenantchequeDate"
-                        value={startSelectedDate}
-                        onChange={(e) => onDateChange(e)}
-                        style={{
-                          width: "100%",
-                        }}
-                      />
-                    </div>
+                  <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                    <label>Cheque Date:</label>
+                    <input
+                      type="date"
+                      placeholder="dd-mm-yyyy"
+                      className="form-control cpp-input datevalidation"
+                      name="tenantchequeDate"
+                      value={startSelectedDate}
+                      onChange={(e) => onDateChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
                   </div>
                 </div>
               </>

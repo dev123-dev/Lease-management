@@ -83,6 +83,7 @@ const AddOrgModal = ({
   } = formDataORG;
 
   const onORGchange = (e) => {
+    e.preventDefault();
     setFormDataORG({
       ...formDataORG,
       [e.target.name]: e.target.value,
@@ -94,47 +95,31 @@ const AddOrgModal = ({
   const onshow = () => setShowAdd(true);
   const onremove = () => setShowAdd(false);
 
-  //fill all the field state
-  const [fill, setfill] = useState(false);
-
   const onSubmitORGdata = () => {
-    if (
-      OrganizationName === "" ||
-      OrganizationEmail === "" ||
-      OrganizationNumber === "" ||
-      OrganizationAddress === "" ||
-      entryDate === "" ||
-      newLeaseEndDate === "" ||
-      items === ""
-    ) {
-      setfill(true);
-    } else {
-      setShowAdd(false);
-      const finalORGdata = {
-        OrganizationName: OrganizationName,
-        OrganizationEmail: OrganizationEmail,
-        OrganizationNumber: OrganizationNumber,
-        OrganizationAddress: OrganizationAddress,
-        date: entryDate,
-        enddate: newLeaseEndDate,
-        Location: items,
-      };
+    const finalORGdata = {
+      OrganizationName: OrganizationName,
+      OrganizationEmail: OrganizationEmail,
+      OrganizationNumber: OrganizationNumber,
+      OrganizationAddress: OrganizationAddress,
+      date: entryDate,
+      enddate: newLeaseEndDate,
+      Location: items,
+    };
 
-      AddOrganization(finalORGdata);
-      setShowadd(false);
-      onshow();
-      setFormDataORG({
-        ...formDataORG,
-        OrganizationName: "",
-        OrganizationEmail: "",
-        OrganizationNumber: "",
-        OrganizationAddress: "",
-        OrganizationStatus: "",
-        date: "",
-        enddate: "",
-        Location: [],
-      });
-    }
+    AddOrganization(finalORGdata);
+    setShowadd(false);
+    onshow();
+    setFormDataORG({
+      ...formDataORG,
+      OrganizationName: "",
+      OrganizationEmail: "",
+      OrganizationNumber: "",
+      OrganizationAddress: "",
+      OrganizationStatus: "",
+      date: "",
+      enddate: "",
+      Location: [],
+    });
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -160,44 +145,47 @@ const AddOrgModal = ({
         </Modal.Header>
 
         <Modal.Body className="org_add ">
-          <div className="container-fluid ">
-            <div className="row">
-              <div className="col-lg-6 col-sm-12 col-md-12 col-12">
-                <label> Organization Name*:</label>
-                <input
-                  type="text"
-                  name="OrganizationName"
-                  value={OrganizationName}
-                  onChange={(e) => onORGchange(e)}
-                  className="form-control    "
-                  placeholder="Organization Name"
-                />
-              </div>
-              <br></br>
-              <div className="col-lg-6">
-                <label>Email*:</label>
-                <input
-                  type="email"
-                  name="OrganizationEmail"
-                  value={OrganizationEmail}
-                  onChange={(e) => onORGchange(e)}
-                  className="form-control"
-                  placeholder="Email"
-                />{" "}
-              </div>{" "}
-              <br></br>
-              <div className="col-lg-6">
-                Phone No
-                <input
-                  type="number"
-                  name="OrganizationNumber"
-                  value={OrganizationNumber}
-                  onChange={(e) => onORGchange(e)}
-                  className="form-control"
-                  placeholder="Phone Number"
-                />
-              </div>
-              {/* <div className="col-lg-6">
+          <form onSubmit={() => onSubmitORGdata()}>
+            <div className="container-fluid ">
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12 col-12">
+                  <label> Organization Name*:</label>
+                  <input
+                    type="text"
+                    name="OrganizationName"
+                    value={OrganizationName}
+                    onChange={(e) => onORGchange(e)}
+                    className="form-control    "
+                    placeholder="Organization Name"
+                    required
+                  />
+                </div>
+                <br></br>
+                <div className="col-lg-6">
+                  <label>Email*:</label>
+                  <input
+                    type="email"
+                    name="OrganizationEmail"
+                    value={OrganizationEmail}
+                    onChange={(e) => onORGchange(e)}
+                    className="form-control"
+                    placeholder="Email"
+                    required
+                  />{" "}
+                </div>{" "}
+                <br></br>
+                <div className="col-lg-6">
+                  Phone No
+                  <input
+                    type="number"
+                    name="OrganizationNumber"
+                    value={OrganizationNumber}
+                    onChange={(e) => onORGchange(e)}
+                    className="form-control"
+                    placeholder="Phone Number"
+                  />
+                </div>
+                {/* <div className="col-lg-6">
                 <label>No of User</label>
                 <input
                   type="number"
@@ -205,112 +193,117 @@ const AddOrgModal = ({
                   placeholder="Number Of User"
                 />
               </div> */}
-              <div className="col-lg-6">
-                <label>Lease Start Date*:</label>
-                <input
-                  type="date"
-                  placeholder="dd/mm/yyyy"
-                  className="form-control cpp-input datevalidation"
-                  name="tenantLeaseStartDate"
-                  value={entryDate}
-                  onChange={(e) => onDateChangeEntry(e)}
-                  style={{
-                    width: "100%",
-                  }}
-                />
-              </div>
-              <div className="col-lg-6">
-                <label>Lease End Date*:</label>
-                <br></br>
-                <input
-                  type="text"
-                  placeholder={leaseEndDate}
-                  className="form-control cpp-input datevalidation"
-                  name="tenantLeaseStartDate"
-                  style={{
-                    width: "100%",
-                  }}
-                  readOnly
-                />
-
-                <label className="ml-2">Location*:</label>
-
-                <input
-                  className="form-control"
-                  type="text"
-                  name="Location"
-                  value={inputdata}
-                  onChange={(e) => setinput(e.target.value)}
-                  placeholder="Location"
-                  id="Location"
-                ></input>
-
-                <div>
-                  <div className="locadds " onClick={addItem}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      fill="currentColor"
-                      className="bi bi-plus-lg"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
-                      />
-                    </svg>
-                  </div>
+                <div className="col-lg-6">
+                  <label>Lease Start Date*:</label>
+                  <input
+                    type="date"
+                    placeholder="dd/mm/yyyy"
+                    className="form-control cpp-input datevalidation"
+                    name="tenantLeaseStartDate"
+                    value={entryDate}
+                    onChange={(e) => onDateChangeEntry(e)}
+                    style={{
+                      width: "100%",
+                    }}
+                    required
+                  />
+                </div>
+                <div className="col-lg-6">
+                  <label>Lease End Date*:</label>
                   <br></br>
-                  <div className="showItemcl" style={{ display: showscroll }}>
-                    {items.map((ele, index) => {
-                      return (
-                        <div className="eachItem" key={index}>
-                          <span>{ele}</span>
-                          <button
-                            onClick={() => handleLocationclose(index)}
-                            className="btndrp "
-                          >
-                            X
-                          </button>
-                        </div>
-                      );
-                    })}
+                  <input
+                    type="text"
+                    placeholder={leaseEndDate}
+                    className="form-control cpp-input datevalidation"
+                    name="tenantLeaseStartDate"
+                    style={{
+                      width: "100%",
+                    }}
+                    readOnly
+                  />
+
+                  <label className="ml-2">Location*:</label>
+
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="Location"
+                    value={inputdata}
+                    onChange={(e) => setinput(e.target.value)}
+                    placeholder="Location"
+                    id="Location"
+                    required
+                  ></input>
+
+                  <div>
+                    <div className="locadds " onClick={addItem}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="30"
+                        height="30"
+                        fill="currentColor"
+                        className="bi bi-plus-lg"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                        />
+                      </svg>
+                    </div>
+                    <br></br>
+                    <div className="showItemcl" style={{ display: showscroll }}>
+                      {items.map((ele, index) => {
+                        return (
+                          <div className="eachItem" key={index}>
+                            <span>{ele}</span>
+                            <button
+                              onClick={() => handleLocationclose(index)}
+                              className="btndrp "
+                            >
+                              X
+                            </button>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="col-lg-6">
-                <label> Address*:</label>
-                <textarea
-                  name="OrganizationAddress"
-                  value={OrganizationAddress}
-                  onChange={(e) => onORGchange(e)}
-                  className="textarea form-control"
-                  rows="3"
-                  cols="20"
-                  placeholder="Address"
-                  style={{ width: "100%" }}
-                ></textarea>{" "}
-              </div>
-              <h5 className="Uservalidation">
-                {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
-              </h5>
-              <div className="col-lg-12">
-                <Modal.Footer>
-                  <div className=" Savebutton  " size="lg">
-                    <button
-                      variant="success"
-                      id="savebtn"
-                      className="btn sub_form btn_continue Save float-right"
-                      onClick={() => onSubmitORGdata()}
-                    >
-                      Save
-                    </button>
-                  </div>
-                </Modal.Footer>
+                <div className="col-lg-6">
+                  <label> Address*:</label>
+                  <textarea
+                    name="OrganizationAddress"
+                    value={OrganizationAddress}
+                    onChange={(e) => onORGchange(e)}
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    style={{ width: "100%" }}
+                    required
+                  ></textarea>{" "}
+                </div>
+                <div className="col-lg-9 text-danger">
+                  * Indicates mandatory fields, Please fill mandatory fields
+                  before Submit
+                </div>
+                <div className="col-lg-3">
+                  <Modal.Footer>
+                    <div className=" Savebutton  " size="lg">
+                      <button
+                        type="submit"
+                        variant="success"
+                        id="savebtn"
+                        className="btn sub_form btn_continue Save float-right"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </Modal.Footer>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
         </Modal.Body>
       </Fragment>
     </div>

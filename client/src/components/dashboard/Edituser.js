@@ -60,7 +60,8 @@ const Edituser = ({
     setus(e);
   };
   const [refersh, setrefresh] = useState("");
-  const onUpdate = () => {
+  const onUpdate = (e) => {
+    e.preventDefault();
     setrefresh("x");
     EditModal(false);
     const updateUSER = {
@@ -83,7 +84,7 @@ const Edituser = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <form className="row" onSubmit={(e) => onUpdate(e)}>
+      <form onSubmit={(e) => onUpdate(e)} method="post">
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6">
@@ -128,6 +129,7 @@ const Edituser = ({
                 value={orgname}
                 placeholder={OrganizationName}
                 onChange={(e) => onchangeOrg(e)}
+                required
               >
                 select Organization
               </Select>
@@ -143,7 +145,6 @@ const Edituser = ({
                 placeholder="Address"
                 onChange={(e) => onInputChange(e)}
                 style={{ width: "100%" }}
-                required
               ></textarea>{" "}
             </div>
             <div className="col-lg-6">
@@ -170,17 +171,21 @@ const Edituser = ({
             </div>
           </div>
         </div>
-        <div className="col-lg-12 Savebutton " size="lg">
+        <div className="col-lg-9 text-danger">
+          * Indicates mandatory fields, Please fill mandatory fields before
+          Submit
+        </div>
+        <div className="col-lg-3 Savebutton float-right" size="lg">
           <input
+            id="savebtn"
             type="submit"
             name="Save"
             value="Update"
             className="btn sub_form btn_continue Save float-right"
           />
         </div>
-      </form>
 
-      {/* <div className="col-lg-12 Savebutton " size="lg">
+        {/* <div className="col-lg-12 Savebutton " size="lg">
         // <input
         //   type="submit"
         //   name="Save"
@@ -196,7 +201,8 @@ const Edituser = ({
         >
           Update
         </button> */}
-      {/* </div>  */}
+        {/* </div>  */}
+      </form>
     </Fragment>
   );
 };

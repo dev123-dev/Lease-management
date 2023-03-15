@@ -202,42 +202,31 @@ const AddSuperUserModel = ({
   };
 
   //fill all field state
-  const [fill, setfill] = useState(false);
-  const onsubmitUserData = () => {
-    if (
-      name === "" ||
-      email === "" ||
-      address === "" ||
-      us === "" ||
-      password === "" ||
-      orgname === ""
-    ) {
-      setfill(true);
-    } else {
-      const finalUserData = {
-        username: name,
-        useremail: email,
-        userphone: phone,
-        useraddress: address,
-        usergroup: us,
-        password: rePassword,
-        OrganizationName: orgname,
-      };
 
-      setShowadd(false);
-      Adduser(finalUserData);
-      setFormData({
-        ...formData,
-        name: "",
-        phone: "",
-        email: "",
-        address: "",
-        group: "",
-        OrganizationName: "",
-        password: "",
-        password: "",
-      });
-    }
+  const onsubmitUserData = () => {
+    const finalUserData = {
+      username: name,
+      useremail: email,
+      userphone: phone,
+      useraddress: address,
+      usergroup: us,
+      password: rePassword,
+      OrganizationName: orgname,
+    };
+
+    setShowadd(false);
+    Adduser(finalUserData);
+    setFormData({
+      ...formData,
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+      group: "",
+      OrganizationName: "",
+      password: "",
+      password: "",
+    });
   };
 
   const [supershow, setSuperShow] = useState();
@@ -273,171 +262,179 @@ const AddSuperUserModel = ({
         </Modal.Header>
 
         <Modal.Body>
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-6">
-                <label> Name*:</label>{" "}
-                <input
-                  type="text"
-                  name="name"
-                  value={name}
-                  className="form-control"
-                  placeholder="Name"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
-              <div className="col-lg-6">
-                <label>Email*:</label>{" "}
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  value={email}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                />
-              </div>
-              <div className="col-lg-6">
-                Phone No
-                <input
-                  type="number"
-                  name="phone"
-                  placeholder="Phone No"
-                  value={phone}
-                  className="form-control"
-                  onChange={(e) => onuserchange(e)}
-                  required
-                />
-              </div>
-              <div className="col-lg-6">
-                {" "}
-                <label>Organization belongs to*:</label>{" "}
-                <Select
-                  name="orgname"
-                  className=""
-                  placeholder="---Select---"
-                  isSearchable={false}
-                  options={orglist}
-                  value={orgname}
-                  onChange={(e) => onchangeOrg(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
-                    colors: {
-                      ...theme.colors,
-                      primary: "gray",
-                    },
-                  })}
-                  required
-                ></Select>
-              </div>
-              <div className="col-lg-6">
-                <label className="control-label">Password*:</label>
-                <div className="controls">
+          <form onSubmit={() => onsubmitUserData()}>
+            <div className="container">
+              <div className="row">
+                <div className="col-lg-6">
+                  <label> Name*:</label>{" "}
                   <input
-                    name="password"
-                    id="user_password"
-                    type="password"
-                    value={password}
+                    type="text"
+                    name="name"
+                    value={name}
                     className="form-control"
-                    style={passwordInptErrStyle}
-                    onChange={(e) => onPasswordChange(e)}
+                    placeholder="Name"
+                    onChange={(e) => onuserchange(e)}
                     required
                   />
-                  {passwordValChecker && (
-                    <span className="form-input-info" style={passwordValStyle}>
-                      {passwordValResult}
-                    </span>
-                  )}
                 </div>
-              </div>
-
-              <div className="col-lg-6">
-                <label className="control-label">Confirm Password*:</label>
-                <div className="controls">
+                <div className="col-lg-6">
+                  <label>Email*:</label>{" "}
                   <input
-                    name="rePassword"
-                    id="user_confpass"
-                    type="password"
-                    value={rePassword}
-                    autoComplete="off"
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={email}
                     className="form-control"
-                    style={repwdInptErrStyle}
-                    onChange={(e) => onPasswordChange(e)}
+                    onChange={(e) => onuserchange(e)}
                     required
                   />
-                  {repwdValChecker && (
-                    <Fragment>
-                      <span className="form-input-info" style={repwdValStyle}>
-                        {repwdValResult}
+                </div>
+                <div className="col-lg-6">
+                  Phone No:
+                  <input
+                    type="number"
+                    name="phone"
+                    placeholder="Phone No"
+                    value={phone}
+                    className="form-control"
+                    onChange={(e) => onuserchange(e)}
+                  />
+                </div>
+                <div className="col-lg-6">
+                  {" "}
+                  <label>Organization belongs to*:</label>{" "}
+                  <Select
+                    name="orgname"
+                    className=""
+                    placeholder="---Select---"
+                    isSearchable={false}
+                    options={orglist}
+                    value={orgname}
+                    onChange={(e) => onchangeOrg(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary: "gray",
+                      },
+                    })}
+                    required
+                  ></Select>
+                </div>
+                <div className="col-lg-6">
+                  <label className="control-label">Password*:</label>
+                  <div className="controls">
+                    <input
+                      name="password"
+                      id="user_password"
+                      type="password"
+                      value={password}
+                      className="form-control"
+                      style={passwordInptErrStyle}
+                      onChange={(e) => onPasswordChange(e)}
+                      required
+                    />
+                    {passwordValChecker && (
+                      <span
+                        className="form-input-info"
+                        style={passwordValStyle}
+                      >
+                        {passwordValResult}
                       </span>
-                    </Fragment>
-                  )}
-                  <span id="category_result" className="form-input-info"></span>
-                </div>
-              </div>
-
-              <div className="col-lg-6">
-                Address
-                <textarea
-                  name="OrganizationAddress"
-                  value={address}
-                  onChange={(e) => onuserchange(e)}
-                  // id="tenantAddr"
-                  className="textarea form-control"
-                  rows="3"
-                  cols="20"
-                  placeholder="Address"
-                  // onChange={(e) => onInputChange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>{" "}
-              </div>
-              <div className="col-lg-6">
-                <label>UserGroup*:</label>
-                <Select
-                  name="usergroup"
-                  className=""
-                  options={UserGroups}
-                  isSearchable={false}
-                  placeholder="Select...."
-                  onChange={(e) => onuser(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
-
-                    colors: {
-                      ...theme.colors,
-                      primary: "gray",
-                    },
-                  })}
-                />
-              </div>
-
-              <h5 className="Uservalidation">
-                {fill ? <>Please fill all Mandatory(*) fields..!!</> : <> </>}
-              </h5>
-              <div className="col-lg-12 ">
-                <ModalFooter>
-                  <div className=" Savebutton  " size="lg">
-                    <button
-                      type="submit"
-                      variant="success"
-                      id="savebtn"
-                      className="btn sub_form btn_continue Save float-right "
-                      onClick={() => onsubmitUserData()}
-                    >
-                      Save
-                    </button>
+                    )}
                   </div>
-                </ModalFooter>
+                </div>
+
+                <div className="col-lg-6">
+                  <label className="control-label">Confirm Password*:</label>
+                  <div className="controls">
+                    <input
+                      name="rePassword"
+                      id="user_confpass"
+                      type="password"
+                      value={rePassword}
+                      autoComplete="off"
+                      className="form-control"
+                      style={repwdInptErrStyle}
+                      onChange={(e) => onPasswordChange(e)}
+                      required
+                    />
+                    {repwdValChecker && (
+                      <Fragment>
+                        <span className="form-input-info" style={repwdValStyle}>
+                          {repwdValResult}
+                        </span>
+                      </Fragment>
+                    )}
+                    <span
+                      id="category_result"
+                      className="form-input-info"
+                    ></span>
+                  </div>
+                </div>
+
+                <div className="col-lg-6">
+                  Address:
+                  <textarea
+                    name="OrganizationAddress"
+                    value={address}
+                    onChange={(e) => onuserchange(e)}
+                    // id="tenantAddr"
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    // onChange={(e) => onInputChange(e)}
+                    style={{ width: "100%" }}
+                  ></textarea>{" "}
+                </div>
+                <div className="col-lg-6">
+                  <label>UserGroup*:</label>
+                  <Select
+                    name="usergroup"
+                    className=""
+                    options={UserGroups}
+                    isSearchable={false}
+                    placeholder="Select...."
+                    onChange={(e) => onuser(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+
+                      colors: {
+                        ...theme.colors,
+                        primary: "gray",
+                      },
+                    })}
+                    required
+                  />
+                </div>
+                <div className="col-lg-9 text-danger">
+                  * Indicates mandatory fields, Please fill mandatory fields
+                  before Submit
+                </div>
+                <div className="col-lg-3">
+                  <ModalFooter>
+                    <div className=" Savebutton  " size="lg">
+                      <button
+                        type="submit"
+                        variant="success"
+                        id="savebtn"
+                        className="btn sub_form btn_continue Save float-right "
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </ModalFooter>
+                </div>
               </div>
             </div>
-          </div>
+          </form>
         </Modal.Body>
       </form>
     </Fragment>
