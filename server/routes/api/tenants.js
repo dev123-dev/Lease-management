@@ -491,6 +491,7 @@ router.post("/deactive-Organization", async (req, res) => {
       {
         $set: {
           org_status: "Deactive",
+          AgreementStatus: "Deactivated",
           deactive_reason: data.deactive_reason,
         },
       }

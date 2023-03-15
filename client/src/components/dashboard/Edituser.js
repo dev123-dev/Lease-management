@@ -13,7 +13,6 @@ const Edituser = ({
   getalluser,
   EditModal,
 }) => {
-  console.log("edit page", superuser);
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
