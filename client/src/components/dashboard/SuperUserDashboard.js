@@ -36,6 +36,7 @@ const SuperUserDashboard = ({
   });
 
   const { deactive_reason } = formData;
+  // const [errormessage, setErrorMessage] = useState("");
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -59,20 +60,23 @@ const SuperUserDashboard = ({
 
   const onEdit = (allsuperuse, id) => {
     setId(id);
-    console.log("edit", allsuperuse);
     setuser(allsuperuse);
     setShowEditModal(true);
   };
 
   const onDeactive = () => {
-    setDeactiveShow(false);
-    const reason = {
-      userId: UserId,
-      userStatus: "Deactive",
-      deactive_reason: deactive_reason,
-    };
+    // setDeactiveShow(false);
+    if (deactive_reason.length == 0) {
+      // setErrorMessage("xxx");
+    } else {
+      const reason = {
+        userId: UserId,
+        userStatus: "Deactive",
+        deactive_reason: deactive_reason,
+      };
 
-    deactivateUser(reason);
+      //deactivateUser(reason);
+    }
   };
 
   //pagination code
@@ -248,10 +252,11 @@ const SuperUserDashboard = ({
                     name="deactive_reason"
                     onChange={(e) => onInputChange(e)}
                     autoFocus
-                    id="org_reason"
-                    className="form-control "
+                    id="reason"
+                    className="form-control"
                     required
                   ></textarea>
+                  <p>{errormessage}</p>
                   <Form.Label>
                     Are you sure You Want To Deactivate..?
                   </Form.Label>
