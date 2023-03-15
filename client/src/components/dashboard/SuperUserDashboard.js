@@ -227,7 +227,7 @@ const SuperUserDashboard = ({
             <Modal.Header>
               <div className="col-lg-11 ">
                 <h3 className="modal-title text-center">
-                  <b>DEACTIVATE</b>
+                  <b>DEACTIVATE dfsgdfg</b>
                 </h3>
               </div>
               <div className="col-lg-1 closeicon">
@@ -283,7 +283,7 @@ const SuperUserDashboard = ({
             <Modal.Header>
               <div className="col-lg-10">
                 <h3>
-                  <b className="text-center ">Edit User Details </b>
+                  <b className="text-center ">Edit User Details dsf</b>
                 </h3>
               </div>
               <div className="col-lg-2">

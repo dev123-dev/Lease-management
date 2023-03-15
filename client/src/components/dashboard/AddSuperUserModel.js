@@ -276,14 +276,7 @@ const AddSuperUserModel = ({
           <div className="container">
             <div className="row">
               <div className="col-lg-6">
-                <label>
-                  {" "}
-                  Name
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>{" "}
+                <label> Name*:</label>{" "}
                 <input
                   type="text"
                   name="name"
@@ -294,13 +287,7 @@ const AddSuperUserModel = ({
                 />
               </div>
               <div className="col-lg-6">
-                <label>
-                  Email{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :
-                </label>{" "}
+                <label>Email*:</label>{" "}
                 <input
                   type="email"
                   name="email"
@@ -319,16 +306,12 @@ const AddSuperUserModel = ({
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
+                  required
                 />
               </div>
               <div className="col-lg-6">
                 {" "}
-                <label>
-                  Organization belongs to{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>{" "}
-                </label>{" "}
+                <label>Organization belongs to*:</label>{" "}
                 <Select
                   name="orgname"
                   className=""
@@ -351,12 +334,7 @@ const AddSuperUserModel = ({
                 ></Select>
               </div>
               <div className="col-lg-6">
-                <label className="control-label">
-                  Password{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label className="control-label">Password*:</label>
                 <div className="controls">
                   <input
                     name="password"
@@ -377,12 +355,7 @@ const AddSuperUserModel = ({
               </div>
 
               <div className="col-lg-6">
-                <label className="control-label">
-                  Confirm Password{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label className="control-label">Confirm Password*:</label>
                 <div className="controls">
                   <input
                     name="rePassword"
@@ -423,13 +396,7 @@ const AddSuperUserModel = ({
                 ></textarea>{" "}
               </div>
               <div className="col-lg-6">
-                <label>
-                  UserGroup{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                  :{" "}
-                </label>
+                <label>UserGroup*:</label>
                 <Select
                   name="usergroup"
                   className=""

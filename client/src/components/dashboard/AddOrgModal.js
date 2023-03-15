@@ -163,13 +163,7 @@ const AddOrgModal = ({
           <div className="container-fluid ">
             <div className="row">
               <div className="col-lg-6 col-sm-12 col-md-12 col-12">
-                <label>
-                  {" "}
-                  Organization Name
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label> Organization Name*:</label>
                 <input
                   type="text"
                   name="OrganizationName"
@@ -181,12 +175,7 @@ const AddOrgModal = ({
               </div>
               <br></br>
               <div className="col-lg-6">
-                <label>
-                  Email{" "}
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label>Email*:</label>
                 <input
                   type="email"
                   name="OrganizationEmail"
@@ -217,12 +206,7 @@ const AddOrgModal = ({
                 />
               </div> */}
               <div className="col-lg-6">
-                <label>
-                  Lease Start Date
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label>Lease Start Date*:</label>
                 <input
                   type="date"
                   placeholder="dd/mm/yyyy"
@@ -236,12 +220,7 @@ const AddOrgModal = ({
                 />
               </div>
               <div className="col-lg-6">
-                <label>
-                  Lease End Date
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label>Lease End Date*:</label>
                 <br></br>
                 <input
                   type="text"
@@ -254,12 +233,7 @@ const AddOrgModal = ({
                   readOnly
                 />
 
-                <label className="ml-2">
-                  Location
-                  <i className="text-danger  ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label className="ml-2">Location*:</label>
 
                 <input
                   className="form-control"
@@ -306,13 +280,7 @@ const AddOrgModal = ({
                 </div>
               </div>
               <div className="col-lg-6">
-                <label>
-                  {" "}
-                  Address
-                  <i className="text-danger ">
-                    <b>*</b>
-                  </i>
-                </label>
+                <label> Address*:</label>
                 <textarea
                   name="OrganizationAddress"
                   value={OrganizationAddress}

@@ -194,7 +194,7 @@ const EditOrganization = ({
                   />
                 </svg>
               </div>
-              <div className="showItemcl ">
+              <div className="showItemcl">
                 {items.map((ele, index1) => {
                   return (
                     <div className="eachItem" key={index1}>
