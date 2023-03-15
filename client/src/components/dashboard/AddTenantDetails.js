@@ -13,6 +13,7 @@ import { v4 as uuid } from "uuid";
 import Select from "react-select";
 import { Modal, Button } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
+import { Multiselect } from "multiselect-react-dropdown";
 
 const AddTenantDetails = ({
   setFreshPage,
@@ -361,6 +362,7 @@ const AddTenantDetails = ({
                 options={DnoList}
                 value={doorno}
                 onChange={(e) => onchangeDoor(e)}
+                isMulti={true}
               ></Select>
               <br></br>
             </div>

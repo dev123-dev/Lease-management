@@ -12,6 +12,8 @@ const TenentHistories = require("../../models/TenantHistories");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
+  // console.log(data.tenantDoorNo.map((ele) => ele.value));
+  const tenetDoorNo = data.tenantDoorNo.map((ele) => ele.value);
   try {
     let tenantDetails = {
       OrganizationName: data.OrganizationName,
@@ -20,8 +22,7 @@ router.post("/add-tenant-details", async (req, res) => {
       BuildingId: data.BuildingId,
       Location: data.Location,
       tenantFileNo: data.tenantFileNo,
-      shopDoorNo: data.tenantDoorNo.label,
-      // DoorId: data.tenanatDoorNo.value,
+      shopDoorNo: tenetDoorNo,
       tenantName: data.tenantName,
       tenantPhone: data.tenantPhone,
       tenantFirmName: data.tenantFirmName,
@@ -531,17 +532,27 @@ router.post("/deactive-tenant", async (req, res) => {
 
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
+    let dno = data.Dno;
 
-    await property.updateOne(
-      { tdId: data.tid },
-      {
-        $set: {
-          shopStatus: "Available",
+    let tenantDoorNumber = await new TenantDetails.find({ shopDoorNo: dno });
+    if (tenantDoorNumber) {
+      let new_data = await property.updateOne(
+        { tdId: data.tid },
+        {
+          $unset: {
+            shopDoorNo: "",
+          },
         },
-      }
-    );
-    //res.json(shopDoorNoUpdate);
-    res.json(updatedetails);
+        {
+          $set: {
+            shopStatus: "Available",
+          },
+        }
+      );
+      console.log("new data", new_data);
+      //res.json(shopDoorNoUpdate);
+      res.json(updatedetails);
+    }
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -1256,6 +1267,7 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
+    let doonum = data.tenantDoorNo.map((ele) => ele.value);
 
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
@@ -1265,8 +1277,7 @@ router.post("/update-tenant-details", async (req, res) => {
           OrganizationName: data.OrganizationName,
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
-          shopDoorNo: data.tenantDoorNo.label,
-          // DoorId: data.tenanatDoorNo.value,
+          shopDoorNo: doonum,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,

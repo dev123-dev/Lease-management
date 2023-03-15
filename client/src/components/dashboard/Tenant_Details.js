@@ -52,9 +52,10 @@ const Tenant_Details = ({
   const handleShow = () => setShow(true);
 
   const [tId, setId] = useState("");
-
+  const [dno, SetDno] = useState("");
   const onDelete = (id, Dno) => {
     setId(id);
+    SetDno(Dno);
     handleShow();
   };
   // Edit model state
@@ -90,6 +91,7 @@ const Tenant_Details = ({
 
   const onDeactivate = () => {
     const reason = {
+      Dno: dno,
       deactive_reason: deactive_reason,
       tid: tId,
       isSubmitted: "true",
@@ -201,7 +203,7 @@ const Tenant_Details = ({
                               <tr key={idx}>
                                 <td>{Val.tenantName}</td>
                                 <td>{Val.BuildingName}</td>
-                                <td>{Val.shopDoorNo}</td>
+                                <td>{Val.shopDoorNo + ","}</td>
                                 <td>{Val.tenantFileNo}</td>
                                 <td>{Val.Location}</td>
                                 <td>{Val.tenantPhone}</td>
@@ -221,7 +223,7 @@ const Tenant_Details = ({
                                     <img
                                       className="Cursor "
                                       onClick={() =>
-                                        onDelete(Val._id, Val.DoorId)
+                                        onDelete(Val._id, Val.shopDoorNo)
                                       }
                                       src={require("../../static/images/delete.png")}
                                       alt="Delete"

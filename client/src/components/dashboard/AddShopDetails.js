@@ -123,6 +123,7 @@ const AddShopDetails = ({
     ) {
       setfill(true);
     } else {
+      // setShow(false);
       const finalData = {
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
@@ -149,6 +150,7 @@ const AddShopDetails = ({
         shopStatus: "",
         isSubmitted: true,
       });
+      // handleInformationModalopen();
       setShowadd(false);
     }
   };
