@@ -74,7 +74,7 @@ const UserSchema = new mongoose.Schema({
   },
   deactive_reason: {
     type: String,
-    required: true,
+    // required: true,
   },
 });
 

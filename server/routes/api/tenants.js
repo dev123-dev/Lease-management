@@ -250,6 +250,7 @@ router.post("/update-Property", async (req, res) => {
 //Super user adding
 router.post("/add-SuperUser", async (req, res) => {
   let userdata = req.body;
+
   try {
     const adduser = {
       username: userdata.username,
@@ -262,7 +263,7 @@ router.post("/add-SuperUser", async (req, res) => {
       OrganizationId: userdata.OrganizationName.value,
     };
 
-    let u_data = new UserDetails(adduser);
+    let u_data = await new UserDetails(adduser);
     output = await u_data.save();
     res.send(u_data);
   } catch (err) {
@@ -368,6 +369,8 @@ router.post("/add-tenant-settings", async (req, res) => {
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
+  console.log("hit:");
+  console.log(data);
   try {
     let proper = new property(data);
     let output = await proper.save();

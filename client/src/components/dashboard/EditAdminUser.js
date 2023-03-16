@@ -104,7 +104,8 @@ const EditAdminUser = ({
     setus(e);
   };
 
-  const onUpdate = () => {
+  const onUpdate = (e) => {
+    e.preventDefault();
     const updateUSER = {
       userid: org._id,
       username: username,
@@ -124,99 +125,104 @@ const EditAdminUser = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-6">
-            <label> Name*:</label>
-            <input
-              type="text"
-              name="username"
-              value={username}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-            />
-          </div>
-          <div className="col-lg-6">
-            <label> Email*: </label>
-            <input
-              type="email"
-              name="useremail"
-              value={useremail}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />{" "}
-          </div>
-          <div className="col-lg-6">
-            <label>Phone No:</label>
+      <form onSubmit={(e) => onUpdate(e)}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-6">
+              <label> Name*:</label>
+              <input
+                type="text"
+                name="username"
+                value={username}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+            <div className="col-lg-6">
+              <label> Email*: </label>
+              <input
+                type="email"
+                name="useremail"
+                value={useremail}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />{" "}
+            </div>
+            <div className="col-lg-6">
+              <label>Phone No:</label>
 
-            <input
-              type="number"
-              name="userphone"
-              value={userphone}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>Organization belongs to*: </label>
-            <input
-              type="text"
-              placeholder="{OrganizationName}"
-              value={OrganizationName}
-              className="form-control"
-              onChange={(e) => onuserchange(e)}
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>User Group*:</label>
+              <input
+                type="number"
+                name="userphone"
+                value={userphone}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>Organization belongs to*: </label>
+              <input
+                type="text"
+                placeholder="{OrganizationName}"
+                value={OrganizationName}
+                className="form-control"
+                onChange={(e) => onuserchange(e)}
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>User Group*:</label>
 
-            <Select
-              name="group"
-              options={UserGroups}
-              value={group}
-              isSearchable={false}
-              onChange={(e) => onuser(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
-            />
-          </div>
-          <div className="col-lg-6">
-            <label> Address</label>
-            <textarea
-              name="useraddress"
-              value={useraddress}
-              className="textarea form-control"
-              rows="3"
-              cols="20"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>{" "}
+              <Select
+                name="group"
+                options={UserGroups}
+                value={group}
+                isSearchable={false}
+                onChange={(e) => onuser(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+            </div>
+            <div className="col-lg-6">
+              <label> Address</label>
+              <textarea
+                name="useraddress"
+                value={useraddress}
+                className="textarea form-control"
+                rows="3"
+                cols="20"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+              ></textarea>{" "}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* </div> */}
-      <div className="col-lg-12 Savebutton " size="lg">
-        <button
-          id="savebtn"
-          variant="success"
-          className="btn sub_form btn_continue Save float-right"
-          onClick={() => onUpdate()}
-        >
-          Save
-        </button>
-      </div>
+        {/* </div> */}
+        <div className="col-lg-9 text-danger">
+          * Indicates mandatory fields, Please fill mandatory fields before
+          Submit
+        </div>
+        <div className="col-lg-3 Savebutton float-right " size="lg">
+          <button
+            id="savebtn"
+            variant="success"
+            className="btn sub_form btn_continue Save float-right"
+          >
+            Save
+          </button>
+        </div>
+      </form>
     </Fragment>
   );
 };

@@ -95,7 +95,8 @@ const AddOrgModal = ({
   const onshow = () => setShowAdd(true);
   const onremove = () => setShowAdd(false);
 
-  const onSubmitORGdata = () => {
+  const onSubmitORGdata = (e) => {
+    e.preventDefault();
     const finalORGdata = {
       OrganizationName: OrganizationName,
       OrganizationEmail: OrganizationEmail,
@@ -145,7 +146,7 @@ const AddOrgModal = ({
         </Modal.Header>
 
         <Modal.Body className="org_add ">
-          <form onSubmit={() => onSubmitORGdata()}>
+          <form onSubmit={(e) => onSubmitORGdata(e)}>
             <div className="container-fluid ">
               <div className="row">
                 <div className="col-lg-6 col-sm-12 col-md-12 col-12">
@@ -291,7 +292,6 @@ const AddOrgModal = ({
                   <Modal.Footer>
                     <div className=" Savebutton  " size="lg">
                       <button
-                        type="submit"
                         variant="success"
                         id="savebtn"
                         className="btn sub_form btn_continue Save float-right"

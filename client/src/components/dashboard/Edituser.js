@@ -27,14 +27,22 @@ const Edituser = ({
           orglist.filter((x) => x.value === superuser.OrganizationId)[0]
       : ""
   );
-
-  const onchangeOrg = (e) => {
-    setOrgname(e);
-  };
   const UserGroups = [
     { value: "Admin", label: "Admin" },
     { value: "Super Admin", label: "Super Admin" },
   ];
+  const [usergroup, setUsergroup] = useState(
+    superuser
+      ? UserGroups &&
+          UserGroups.filter((x) => x.value === superuser.usergroup)[0]
+      : ""
+  );
+  const onchangeOrg = (e) => {
+    setOrgname(e);
+  };
+  const onchangeuser = (e) => {
+    setUsergroup(e);
+  };
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -79,7 +87,8 @@ const Edituser = ({
       OrganizationName: superuser.OrganizationName,
       OrganizationId: superuser.OrganizationId,
     };
-    UpdateUser(updateUSER);
+    console.log(updateUSER);
+    // UpdateUser(updateUSER);
     handleClose(true);
   };
   useEffect(() => {
@@ -89,7 +98,7 @@ const Edituser = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <form onSubmit={(e) => onUpdate(e)} method="post">
+      <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6">
@@ -152,34 +161,9 @@ const Edituser = ({
                 style={{ width: "100%" }}
               ></textarea>{" "}
             </div>
+
             <div className="col-lg-6">
               <label>UserGroup*:</label>
-
-              <Select
-                name="orgname"
-                options={orglist}
-                value={orgname}
-                onChange={(e) => onchangeOrg(e)}
-              >
-                select Organization
-              </Select>
-            </div>
-            <div className="col-lg-6">
-              <label> Address </label>
-              <textarea
-                name="useraddress"
-                value={useraddress}
-                className="textarea form-control"
-                rows="3"
-                cols="20"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>{" "}
-            </div>
-            <div className="col-lg-6">
-              <label>UserGroup</label>
 
               <Select
                 name="group"
