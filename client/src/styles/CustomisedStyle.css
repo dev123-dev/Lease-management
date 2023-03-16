@@ -561,12 +561,11 @@ p {
     margin-top: -35%;
     margin-left: 90%;
   }
-  .dropdown{
+  .dropdown {
     width: 130px;
   }
-  .modhead{
-   
-    right:50px;
+  .modhead {
+    right: 50px;
   }
 
   #plusicon {
@@ -672,7 +671,7 @@ p {
   border-bottom-color: #383838;
 }
 
-.checkbox-inline,
+/* .checkbox-inline,
 .radio-inline {
   position: relative;
   display: inline-block;
@@ -684,7 +683,7 @@ p {
   font-size: 20px;
   line-height: 22px;
   font-weight: 300;
-}
+} */
 
 .top_radio {
   margin-top: 1.5em;
@@ -1899,9 +1898,10 @@ span.input-radio-sm {
 .radiolevels {
   display: none;
 }
-input[type="checkbox"] {
+
+/* input[type="checkbox"] {
   display: none;
-}
+} */
 
 input[type="radio"]:checked ~ label > img {
   transform: scale(2);
@@ -2140,7 +2140,6 @@ input[type="number"]::-webkit-outer-spin-button {
   cursor: pointer;
 }
 
-
 .locadds {
   background-color: transparent;
   margin-left: 83%;
@@ -2165,16 +2164,15 @@ button {
   background-color: #020101;
 }
 .showItemcl .eachItem .btndrp {
-  background-color:transparent;
+  background-color: transparent;
   border-color: white;
   display: flex;
   margin-left: 90%;
   margin-top: -5%;
 }
-.showItemcl{
+.showItemcl {
   overflow-y: scroll;
-  height:70px;
-  
+  height: 70px;
 }
 .rewbtn {
   background-color: #095a4a;
@@ -2283,7 +2281,7 @@ button {
 #buttonchanges {
   border-color: black;
   border-radius: 0%;
-  width:fit-content;
+  width: fit-content;
   height: 50px;
   padding: 10px;
   background-color: transparent;
@@ -2337,6 +2335,6 @@ button {
   background-color: lightgray;
 }
 
- /* div{
+/* div{
   border:1px solid rgba(242, 10, 10, 0.541);
 }      */

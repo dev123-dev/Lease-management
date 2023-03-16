@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from "react";
+import React, { useState, Fragment, useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import {
   ParticularTenant,
@@ -22,6 +22,7 @@ const Tenant_Details = ({
   deactiveTenantsDetails,
 }) => {
   const [freshpage, setFreshPage] = useState(true);
+  const checkboxRef = useRef(null);
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
@@ -50,11 +51,21 @@ const Tenant_Details = ({
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [selectDno, SetDoornumber] = useState();
+  const handleShowDno = () => SetDoornumber(false);
+  const handleCloseDno = () => {
+    SetDoornumber(false);
+    setCheckData([]);
+  };
 
   const [tId, setId] = useState("");
-  const [dno, SetDno] = useState("");
+  const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno) => {
     setId(id);
+    if (Dno.length > 1) {
+      SetDno(Dno);
+      SetDoornumber(true);
+    }
     SetDno(Dno);
     handleShow();
   };
@@ -73,12 +84,41 @@ const Tenant_Details = ({
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
+    DoorNumber: "",
     isSubmitted: false,
   });
   const { deactive_reason } = formData;
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const [selectedDoorNumber, SetSelectedDoorNumber] = useState([]);
+  // const [isChecked, setIsChecked] = useState(false);
+  //const handleOnChange = () => {
+  // setIsChecked(!isChecked);
+  //};
+  // const onDoorclickChange = (ele,index) => {
+
+  // if (!isChecked) {
+  //   console.log("not checked");
+  //   console.log("this is door number", e.target.value);
+  //   SetSelectedDoorNumber("xxx");
+  // } else {
+  //   console.log("checked");
+  //   console.log("this is door number", e.target.value);
+  //   SetSelectedDoorNumber(e.target.value);
+  // }
+  // };
+
+  const [checkData, setCheckData] = useState([]);
+  const HandelCheck = (e) => {
+    var updatedlist = [...checkData];
+    if (e.target.checked) {
+      updatedlist = [...checkData, e.target.value];
+    } else {
+      updatedlist.splice(checkData.indexOf(e.target.value), 1);
+    }
+    setCheckData(updatedlist);
   };
 
   const onchangeLocation = (loc) => {
@@ -91,7 +131,7 @@ const Tenant_Details = ({
 
   const onDeactivate = () => {
     const reason = {
-      Dno: dno,
+      Dno: checkData,
       deactive_reason: deactive_reason,
       tid: tId,
       isSubmitted: "true",
@@ -99,6 +139,7 @@ const Tenant_Details = ({
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);
+    setCheckData([]);
   };
   const [showadd, setShowadd] = useState(false);
 
@@ -367,6 +408,62 @@ const Tenant_Details = ({
           />
         </Modal>
       </Fragment>
+      <Modal show={selectDno} centered>
+        <Modal.Header>
+          <div className="col-lg-11 ">
+            <h3 className="modal-title text-center">
+              <b> Choose Door Number To Deactivate</b>
+            </h3>
+          </div>
+          <div className="col-lg-1 closeicon">
+            <img
+              src={require("../../static/images/close.png")}
+              alt="X"
+              style={{ height: "20px", width: "20px" }}
+              onClick={handleCloseDno}
+            />
+          </div>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Reason For Deactivating</Form.Label>
+              <div className="checkbox mx-5">
+                {dno.map((ele, index) => {
+                  return (
+                    <>
+                      <input
+                        type="checkbox"
+                        id="checkbox"
+                        value={ele}
+                        onChange={(e) => HandelCheck(e)}
+                      />
+                      <label for="vehicle1">{ele}</label>
+                    </>
+                  );
+                })}
+              </div>
+              <textarea
+                rows="2"
+                name="deactive_reason"
+                value={deactive_reason}
+                onChange={(e) => onInputChange(e)}
+                autoFocus
+                id="org_reason"
+                className="form-control "
+                required
+              ></textarea>
+              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={onDeactivate} id="deactivebtn">
+            <b>Deactive</b>
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

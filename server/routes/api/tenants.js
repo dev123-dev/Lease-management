@@ -504,55 +504,77 @@ router.post("/deactive-Organization", async (req, res) => {
 router.post("/deactive-tenant", async (req, res) => {
   try {
     let data = req.body;
-    const updatedetails = await TenantDetails.updateOne(
-      { _id: data.tid },
-      {
-        $set: {
-          tenantstatus: "Deactive",
-          tenantdeactivereason: data.deactive_reason,
-        },
-      }
-    );
+    console.log(data);
+    let doonum = data.Dno.map((ele) => ele);
 
-    await TenentAgreement.updateOne(
-      {
-        tdId: data.tid,
-      },
-      {
-        $set: {
-          tenantstatus: "Deactive",
-          AgreementStatus: "Deactivated",
-        },
-      }
-    );
-    const finalData2 = {
-      tdId: data.tid,
-      thStatus: "Deactive",
-    };
-
-    let tenantHistories = new TenentHistories(finalData2);
-    output2 = await tenantHistories.save();
-    let dno = data.Dno;
-
-    let tenantDoorNumber = await new TenantDetails.find({ shopDoorNo: dno });
-    if (tenantDoorNumber) {
-      let new_data = await property.updateOne(
-        { tdId: data.tid },
+    doonum.map((ele) => {
+      TenantDetails.updateOne(
+        { _id: data.tid, shopDoorNo: ele },
+        // { shopDoorNo: 1 }
         {
-          $unset: {
-            shopDoorNo: "",
-          },
-        },
-        {
-          $set: {
-            shopStatus: "Available",
+          $pull: {
+            shopDoorNo: ele,
           },
         }
-      );
-      console.log("new data", new_data);
-      //res.json(shopDoorNoUpdate);
-      res.json(updatedetails);
-    }
+      ).then(data);
+    });
+
+    // let tenantDoorNumber = await new TenantDetails.find({ shopDoorNo: doonum });
+    // console.log("tenant d no", tenantDoorNumber);
+    // if (tenantDoorNumber) {
+    //   const updatedetails = await TenantDetails.updateOne(
+    //     { _id: data.tid },
+    //     {
+    //       $set: {
+    //         tenantstatus: "Deactive",
+    //         tenantdeactivereason: data.deactive_reason,
+    //       },
+    //     },
+    //     {
+    //       $unset: {
+    //         shopDoorNo: "",
+    //       },
+    //     }
+    //   );
+
+    //   await TenentAgreement.updateOne(
+    //     {
+    //       tdId: data.tid,
+    //     },
+    //     {
+    //       $set: {
+    //         tenantstatus: "Deactive",
+    //         AgreementStatus: "Deactivated",
+    //       },
+    //     }
+    //   );
+    //   const finalData2 = {
+    //     tdId: data.tid,
+    //     thStatus: "Deactive",
+    //   };
+
+    //   let tenantHistories = new TenentHistories(finalData2);
+    //   output2 = await tenantHistories.save();
+
+    //   if (tenantDoorNumber) {
+    //     let new_data = await property.updateOne(
+    //       { tdId: data.tid },
+    //       {
+    //         $unset: {
+    //           shopDoorNo: "",
+    //         },
+    //       },
+    //       {
+    //         $set: {
+    //           shopStatus: "Available",
+    //         },
+    //       }
+    //     );
+    //   }
+    //   console.log("new data", new_data);
+    //   //res.json(shopDoorNoUpdate);
+    res.json(finaldata);
+    // }
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
