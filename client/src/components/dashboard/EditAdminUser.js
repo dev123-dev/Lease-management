@@ -21,7 +21,7 @@ const EditAdminUser = ({
       ? UserGroups && UserGroups.filter((x) => x.value === org.usergroup)[0]
       : ""
   );
-  const [orgname, setOrgname] = useState({});
+  const [orgname, setOrgname] = useState();
 
   const orglist = [];
   allorg.map((org) => {
@@ -52,9 +52,6 @@ const EditAdminUser = ({
       handleEditModalClose();
     }
   };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [userid, setId] = useState("");
 
@@ -113,7 +110,7 @@ const EditAdminUser = ({
       useraddress: useraddress,
       useremail: useremail,
       usergroup: us,
-      OrganizationName: orgname,
+      OrganizationName: org.OrganizationName,
     };
     UpdateUser(updateUSER);
     getalluser();
