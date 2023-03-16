@@ -103,7 +103,7 @@ const EditOrganization = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <form onSubmit={(e) => onUpdate(e)} method="post">
+      <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6">

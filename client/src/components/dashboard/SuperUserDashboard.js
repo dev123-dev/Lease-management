@@ -66,17 +66,14 @@ const SuperUserDashboard = ({
 
   const onDeactive = () => {
     // setDeactiveShow(false);
-    if (deactive_reason.length == 0) {
-      // setErrorMessage("xxx");
-    } else {
-      const reason = {
-        userId: UserId,
-        userStatus: "Deactive",
-        deactive_reason: deactive_reason,
-      };
 
-      //deactivateUser(reason);
-    }
+    const reason = {
+      userId: UserId,
+      userStatus: "Deactive",
+      deactive_reason: deactive_reason,
+    };
+
+    deactivateUser(reason);
   };
 
   //pagination code
@@ -227,7 +224,7 @@ const SuperUserDashboard = ({
             <Modal.Header>
               <div className="col-lg-11 ">
                 <h3 className="modal-title text-center">
-                  <b>DEACTIVATE dfsgdfg</b>
+                  <b>DEACTIVATE </b>
                 </h3>
               </div>
               <div className="col-lg-1 closeicon">
@@ -283,7 +280,7 @@ const SuperUserDashboard = ({
             <Modal.Header>
               <div className="col-lg-10">
                 <h3>
-                  <b className="text-center ">Edit User Details dsf</b>
+                  <b className="text-center ">Edit User Details</b>
                 </h3>
               </div>
               <div className="col-lg-2">

@@ -29,7 +29,7 @@ const AddSuperUserModel = ({
   const [formData, setFormData] = useState({
     username: "",
     useremail: "",
-    useraddress: "",
+    address: "",
     userphone: "",
     usergroup: "",
     OrganizationName: "",
@@ -203,7 +203,9 @@ const AddSuperUserModel = ({
 
   //fill all field state
 
-  const onsubmitUserData = () => {
+  const onsubmitUserData = (e) => {
+    e.preventDefault();
+
     const finalUserData = {
       username: name,
       useremail: email,
@@ -213,9 +215,10 @@ const AddSuperUserModel = ({
       password: rePassword,
       OrganizationName: orgname,
     };
+    console.log(finalUserData);
 
-    setShowadd(false);
     Adduser(finalUserData);
+    setShowadd(false);
     setFormData({
       ...formData,
       name: "",
@@ -229,214 +232,198 @@ const AddSuperUserModel = ({
     });
   };
 
-  const [supershow, setSuperShow] = useState();
-  const superhandleClose = () => setSuperShow(false);
-  const superhandleShow = () => setSuperShow(true);
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
-  const con = () => {
-    alert("hii");
-  };
+
   return isAuthenticated &&
     users &&
     user &&
     user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
-      <form>
-        <Modal.Header>
-          <div className="col-lg-10 ">
-            <h3>
-              <b className="text-center ">Add User Details </b>
-            </h3>
-          </div>
-          <div className="col-lg-2 ">
-            <button onClick={() => setShowadd(false)} className="close">
-              <img
-                className="editcl"
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-        </Modal.Header>
+      <Modal.Header>
+        <div className="col-lg-10 ">
+          <h3>
+            <b className="text-center ">Add User Details </b>
+          </h3>
+        </div>
+        <div className="col-lg-2 ">
+          <button onClick={() => setShowadd(false)} className="close">
+            <img
+              className="editcl"
+              src={require("../../static/images/close.png")}
+              alt="X"
+              style={{ height: "20px", width: "20px" }}
+            />
+          </button>
+        </div>
+      </Modal.Header>
 
-        <Modal.Body>
-          <form onSubmit={() => onsubmitUserData()}>
-            <div className="container">
-              <div className="row">
-                <div className="col-lg-6">
-                  <label> Name*:</label>{" "}
+      <Modal.Body>
+        <form onSubmit={(e) => onsubmitUserData(e)}>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-6">
+                <label> Name*:</label>{" "}
+                <input
+                  type="text"
+                  name="name"
+                  value={name}
+                  className="form-control"
+                  placeholder="Name"
+                  onChange={(e) => onuserchange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-6">
+                <label>Email*:</label>{" "}
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={email}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-6">
+                Phone No:
+                <input
+                  type="number"
+                  name="phone"
+                  placeholder="Phone No"
+                  value={phone}
+                  className="form-control"
+                  onChange={(e) => onuserchange(e)}
+                />
+              </div>
+              <div className="col-lg-6">
+                {" "}
+                <label>Organization belongs to*:</label>{" "}
+                <Select
+                  name="orgname"
+                  className=""
+                  placeholder="---Select---"
+                  isSearchable={false}
+                  options={orglist}
+                  value={orgname}
+                  onChange={(e) => onchangeOrg(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "gray",
+                    },
+                  })}
+                  required
+                ></Select>
+              </div>
+              <div className="col-lg-6">
+                <label className="control-label">Password*:</label>
+                <div className="controls">
                   <input
-                    type="text"
-                    name="name"
-                    value={name}
+                    name="password"
+                    id="user_password"
+                    type="password"
+                    value={password}
                     className="form-control"
-                    placeholder="Name"
-                    onChange={(e) => onuserchange(e)}
+                    style={passwordInptErrStyle}
+                    onChange={(e) => onPasswordChange(e)}
                     required
                   />
-                </div>
-                <div className="col-lg-6">
-                  <label>Email*:</label>{" "}
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    value={email}
-                    className="form-control"
-                    onChange={(e) => onuserchange(e)}
-                    required
-                  />
-                </div>
-                <div className="col-lg-6">
-                  Phone No:
-                  <input
-                    type="number"
-                    name="phone"
-                    placeholder="Phone No"
-                    value={phone}
-                    className="form-control"
-                    onChange={(e) => onuserchange(e)}
-                  />
-                </div>
-                <div className="col-lg-6">
-                  {" "}
-                  <label>Organization belongs to*:</label>{" "}
-                  <Select
-                    name="orgname"
-                    className=""
-                    placeholder="---Select---"
-                    isSearchable={false}
-                    options={orglist}
-                    value={orgname}
-                    onChange={(e) => onchangeOrg(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary: "gray",
-                      },
-                    })}
-                    required
-                  ></Select>
-                </div>
-                <div className="col-lg-6">
-                  <label className="control-label">Password*:</label>
-                  <div className="controls">
-                    <input
-                      name="password"
-                      id="user_password"
-                      type="password"
-                      value={password}
-                      className="form-control"
-                      style={passwordInptErrStyle}
-                      onChange={(e) => onPasswordChange(e)}
-                      required
-                    />
-                    {passwordValChecker && (
-                      <span
-                        className="form-input-info"
-                        style={passwordValStyle}
-                      >
-                        {passwordValResult}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  <label className="control-label">Confirm Password*:</label>
-                  <div className="controls">
-                    <input
-                      name="rePassword"
-                      id="user_confpass"
-                      type="password"
-                      value={rePassword}
-                      autoComplete="off"
-                      className="form-control"
-                      style={repwdInptErrStyle}
-                      onChange={(e) => onPasswordChange(e)}
-                      required
-                    />
-                    {repwdValChecker && (
-                      <Fragment>
-                        <span className="form-input-info" style={repwdValStyle}>
-                          {repwdValResult}
-                        </span>
-                      </Fragment>
-                    )}
-                    <span
-                      id="category_result"
-                      className="form-input-info"
-                    ></span>
-                  </div>
-                </div>
-
-                <div className="col-lg-6">
-                  Address:
-                  <textarea
-                    name="OrganizationAddress"
-                    value={address}
-                    onChange={(e) => onuserchange(e)}
-                    // id="tenantAddr"
-                    className="textarea form-control"
-                    rows="3"
-                    cols="20"
-                    placeholder="Address"
-                    // onChange={(e) => onInputChange(e)}
-                    style={{ width: "100%" }}
-                  ></textarea>{" "}
-                </div>
-                <div className="col-lg-6">
-                  <label>UserGroup*:</label>
-                  <Select
-                    name="usergroup"
-                    className=""
-                    options={UserGroups}
-                    isSearchable={false}
-                    placeholder="Select...."
-                    onChange={(e) => onuser(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-
-                      colors: {
-                        ...theme.colors,
-                        primary: "gray",
-                      },
-                    })}
-                    required
-                  />
-                </div>
-                <div className="col-lg-9 text-danger">
-                  * Indicates mandatory fields, Please fill mandatory fields
-                  before Submit
-                </div>
-                <div className="col-lg-3">
-                  <ModalFooter>
-                    <div className=" Savebutton  " size="lg">
-                      <button
-                        type="submit"
-                        variant="success"
-                        id="savebtn"
-                        className="btn sub_form btn_continue Save float-right "
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </ModalFooter>
+                  {passwordValChecker && (
+                    <span className="form-input-info" style={passwordValStyle}>
+                      {passwordValResult}
+                    </span>
+                  )}
                 </div>
               </div>
+
+              <div className="col-lg-6">
+                <label className="control-label">Confirm Password*:</label>
+                <div className="controls">
+                  <input
+                    name="rePassword"
+                    id="user_confpass"
+                    type="password"
+                    value={rePassword}
+                    autoComplete="off"
+                    className="form-control"
+                    style={repwdInptErrStyle}
+                    onChange={(e) => onPasswordChange(e)}
+                    required
+                  />
+                  {repwdValChecker && (
+                    <Fragment>
+                      <span className="form-input-info" style={repwdValStyle}>
+                        {repwdValResult}
+                      </span>
+                    </Fragment>
+                  )}
+                  <span id="category_result" className="form-input-info"></span>
+                </div>
+              </div>
+
+              <div className="col-lg-6">
+                Address:
+                <textarea
+                  name="address"
+                  value={address}
+                  onChange={(e) => onuserchange(e)}
+                  className="textarea form-control"
+                  rows="3"
+                  cols="20"
+                  placeholder="Address"
+                  style={{ width: "100%" }}
+                ></textarea>{" "}
+              </div>
+              <div className="col-lg-6">
+                <label>UserGroup*:</label>
+                <Select
+                  name="usergroup"
+                  className=""
+                  options={UserGroups}
+                  isSearchable={false}
+                  placeholder="Select...."
+                  onChange={(e) => onuser(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+
+                    colors: {
+                      ...theme.colors,
+                      primary: "gray",
+                    },
+                  })}
+                  required
+                />
+              </div>
+              <div className="col-lg-9 text-danger">
+                * Indicates mandatory fields, Please fill mandatory fields
+                before Submit
+              </div>
+              <div className="col-lg-3">
+                <ModalFooter>
+                  <div className="Savebutton " size="lg">
+                    <button
+                      variant="success"
+                      id="savebtn"
+                      className="btn sub_form btn_continue Save float-right "
+                    >
+                      Save
+                    </button>
+                  </div>
+                </ModalFooter>
+              </div>
             </div>
-          </form>
-        </Modal.Body>
-      </form>
+          </div>
+        </form>
+      </Modal.Body>
     </Fragment>
   ) : (
     //for admin side

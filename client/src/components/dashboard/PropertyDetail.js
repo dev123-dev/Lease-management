@@ -102,6 +102,7 @@ const PropertyDetail = ({
   const currentDatas =
     particular_org_data &&
     particular_org_data.slice(indexOfFirstData, indexOfLastData);
+  console.log(currentDatas);
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
@@ -177,7 +178,7 @@ const PropertyDetail = ({
                       currentDatas.map((Val, idx) => {
                         return (
                           <tr key={idx}>
-                            <td>{Val.buildingName}</td>
+                            <td>{Val.buildingname}</td>
                             <td>{Val.shopDoorNo + ","}</td>
                             <td>{Val.Location}</td>
                             <td>{Val.hikePercentage}</td>
@@ -238,7 +239,7 @@ const PropertyDetail = ({
         </div>
       </div>
       {/* modal for Deactivating the Property starting */}
-      <Modal show={show} centered>
+      {/* <Modal show={show} centered>
         <Modal.Header>
           <div className="col-lg-11 ">
             <h3 className="modal-title text-center">
@@ -278,9 +279,9 @@ const PropertyDetail = ({
             <b>Deactive</b>
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
 
-      {/* Modal Ending */}
+      {/* Modal edit */}
       <Modal
         show={showUpdateModal}
         backdrop="static"
@@ -312,6 +313,7 @@ const PropertyDetail = ({
           />
         </Modal.Body>
       </Modal>
+
       {/* add model */}
       <Modal
         show={showadd}

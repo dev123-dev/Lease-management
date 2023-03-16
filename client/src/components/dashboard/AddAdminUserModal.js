@@ -182,7 +182,8 @@ const AddAdminUserModal = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onsubmitUserData = () => {
+  const onsubmitUserData = (e) => {
+    e.preventDefault();
     const finalUserData = {
       username: name,
       useremail: email,
@@ -236,7 +237,7 @@ const AddAdminUserModal = ({
       </Modal.Header>
 
       <Modal.Body>
-        <form onSubmit={() => onsubmitUserData()}>
+        <form onSubmit={(e) => onsubmitUserData(e)}>
           <div className="container">
             <div className="row">
               <div className="col-lg-6">

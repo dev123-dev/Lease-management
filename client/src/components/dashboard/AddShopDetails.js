@@ -117,7 +117,8 @@ const AddShopDetails = ({
     handleInformationModalClose();
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     // setShow(false);
     const finalData = {
       OrganizationName: user.OrganizationName,
@@ -177,7 +178,7 @@ const AddShopDetails = ({
       </Modal.Header>
 
       <Modal.Body>
-        <form onsubmit={() => onSubmit()}>
+        <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid propcont">
             <div className="row">
               <div className="col-lg-6">
@@ -259,7 +260,6 @@ const AddShopDetails = ({
                   onChange={(e) => setinput(e.target.value)}
                   placeholder="Door Number"
                   id="Door Number"
-                  required
                 ></input>
 
                 <div>
@@ -320,6 +320,7 @@ const AddShopDetails = ({
 
               <div className="col-lg-3">
                 <button
+                  type="submit"
                   className="btn sub_form btn_continue Save float-right  "
                   id="savebtn"
                 >

@@ -267,7 +267,8 @@ const EditTenantDetails = ({
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   //For setting mindate as todays date
-  const onUpdate = (tenantsdetails, idx) => {
+  const onUpdate = (tenantsdetails, idx, e) => {
+    e.preventDefault();
     const finalData = {
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
@@ -334,290 +335,290 @@ const EditTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="conatiner-fluid ">
-        <div className="row">
-          <div className="col-lg-4">
-            <label className="ml-2">Property Name*:</label>
-            <Select
-              name="Property name"
-              options={allBuildingNames}
-              value={orgname}
-              onChange={(e) => onBuildingChange(e)}
-            ></Select>
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">Door No*: </label>
-            <Select
-              name="doorno"
-              options={DnoList}
-              value={doorno}
-              onChange={(e) => onchangeDoor(e)}
-              isMulti={true}
-            ></Select>
-            <br></br>
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">Location*: </label>
-            <input
-              type="text"
-              placeholder={tenantLocation}
-              className="form-control"
-              readOnly
-            ></input>
-            <br></br>
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">File No*: </label>
-            <input
-              type="text"
-              name="tenantFileNo"
-              placeholder="FileNo"
-              value={tenantFileNo}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">Tenant Name*: </label>
-            <input
-              type="text"
-              name="tenantName"
-              placeholder="Name"
-              value={tenantName}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
+      <form onSubmit={(e) => onUpdate(e)}>
+        <div className="conatiner-fluid ">
+          <div className="row">
+            <div className="col-lg-4">
+              <label className="ml-2">Property Name*:</label>
+              <Select
+                name="Property name"
+                options={allBuildingNames}
+                value={orgname}
+                onChange={(e) => onBuildingChange(e)}
+                required
+              ></Select>
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">Door No*: </label>
+              <Select
+                name="doorno"
+                options={DnoList}
+                value={doorno}
+                onChange={(e) => onchangeDoor(e)}
+                isMulti={true}
+                required
+              ></Select>
+              <br></br>
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">Location*: </label>
+              <input
+                type="text"
+                placeholder={tenantLocation}
+                className="form-control"
+                readOnly
+              ></input>
+              <br></br>
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">File No*: </label>
+              <input
+                type="text"
+                name="tenantFileNo"
+                placeholder="FileNo"
+                value={tenantFileNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">Tenant Name*: </label>
+              <input
+                type="text"
+                name="tenantName"
+                placeholder="Name"
+                value={tenantName}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+            </div>
 
-          <div className="col-lg-4 ">
-            <label>Phone No:</label>
-            <input
-              type="number"
-              name="tenantPhone"
-              value={tenantPhone}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-4">
-            <label>Firm Name: </label>
-            <input
-              type="text"
-              name="tenantFirmName"
-              value={tenantFirmName}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
+            <div className="col-lg-4 ">
+              <label>Phone No:</label>
+              <input
+                type="number"
+                name="tenantPhone"
+                value={tenantPhone}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+              />
+              <br></br>
+            </div>
+            <div className="col-lg-4">
+              <label>Firm Name: </label>
+              <input
+                type="text"
+                name="tenantFirmName"
+                value={tenantFirmName}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
 
-          <div className="col-lg-4 ">
-            <label>Adhaar No:</label>
-            <input
-              type="number"
-              name="tenantAdharNo"
-              value={tenantAdharNo}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
-              required
-            />
-          </div>
+            <div className="col-lg-4 ">
+              <label>Adhaar No:</label>
+              <input
+                type="number"
+                name="tenantAdharNo"
+                value={tenantAdharNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+              />
+            </div>
 
-          <div className="col-lg-4">
-            <label className="ml-2"> Pan Number: </label>
-            <input
-              type="text"
-              name="tenantPanNo"
-              placeholder="PanNo"
-              value={tenantPanNo}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
-              required
-            />{" "}
-            <br></br>
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">Rent Amount*: </label>
-            <input
-              type="number"
-              name="tenantRentAmount"
-              placeholder="RentAmount"
-              value={tenantRentAmount}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
-              required
-            />
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">Deposit Amount*: </label>
-            <input
-              type="number"
-              name="tenantDepositAmt"
-              value={tenantDepositAmt}
-              placeholder="DepositAmount"
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
-              required
-            />
-          </div>
-          <div className="col-lg-4">
-            <label className="ml-2">Generator Deposit Amount :</label>
-            <input
-              type="number"
-              name="generatordepoAmt"
-              placeholder="GeneratorDepositAmount"
-              value={generatordepoAmt}
-              className="form-control"
-              onChange={(e) => onInputChange(e)}
-              onKeyDown={(e) =>
-                (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-              }
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-4">
-            Mode Of Payment*:
-            <Select
-              name="tenantPaymentMode"
-              options={PaymentMethods}
-              isSearchable={false}
-              value={tenantPaymentMode}
-              placeholder="Select..."
-              onChange={(e) => onPaymentModeChange(e)}
-              theme={(theme) => ({
-                ...theme,
-                height: 26,
-                minHeight: 26,
-                borderRadius: 1,
-                colors: {
-                  ...theme.colors,
-                  primary: "black",
-                },
-              })}
-            />
-          </div>
-          <div className="col-lg-4">
-            Lease Start Date*:
-            <input
-              type="date"
-              className="form-control cpp-input datevalidation"
-              name="tenantLeaseStartDate"
-              value={entryDate}
-              placeholder={tenantLeaseStartDate}
-              onChange={(e) => onDateChangeEntry(e)}
-              style={{
-                width: "100%",
-              }}
-            />
-          </div>
-          <div className="col-lg-4 ">
-            Lease End Date*:
-            <input
-              placeholder="dd-mm-yyyy"
-              className="form-control cpp-input datevalidation"
-              value={leaseEndDate}
-            ></input>
-            <br></br>
-          </div>
+            <div className="col-lg-4">
+              <label className="ml-2"> Pan Number: </label>
+              <input
+                type="text"
+                name="tenantPanNo"
+                placeholder="PanNo"
+                value={tenantPanNo}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+              />{" "}
+              <br></br>
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">Rent Amount*: </label>
+              <input
+                type="number"
+                name="tenantRentAmount"
+                placeholder="RentAmount"
+                value={tenantRentAmount}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+                required
+              />
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">Deposit Amount*: </label>
+              <input
+                type="number"
+                name="tenantDepositAmt"
+                value={tenantDepositAmt}
+                placeholder="DepositAmount"
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+                required
+              />
+            </div>
+            <div className="col-lg-4">
+              <label className="ml-2">Generator Deposit Amount :</label>
+              <input
+                type="number"
+                name="generatordepoAmt"
+                placeholder="GeneratorDepositAmount"
+                value={generatordepoAmt}
+                className="form-control"
+                onChange={(e) => onInputChange(e)}
+                onKeyDown={(e) =>
+                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                }
+              />
+              <br></br>
+            </div>
+            <div className="col-lg-4">
+              Mode Of Payment*:
+              <Select
+                name="tenantPaymentMode"
+                options={PaymentMethods}
+                isSearchable={false}
+                value={tenantPaymentMode}
+                placeholder="Select..."
+                onChange={(e) => onPaymentModeChange(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+            </div>
+            <div className="col-lg-4">
+              Lease Start Date*:
+              <input
+                type="date"
+                className="form-control cpp-input datevalidation"
+                name="tenantLeaseStartDate"
+                value={entryDate}
+                placeholder={tenantLeaseStartDate}
+                onChange={(e) => onDateChangeEntry(e)}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </div>
+            <div className="col-lg-4 ">
+              Lease End Date*:
+              <input
+                placeholder="dd-mm-yyyy"
+                className="form-control cpp-input datevalidation"
+                value={leaseEndDate}
+                required
+              ></input>
+              <br></br>
+            </div>
 
-          <div className="col-lg-12">
-            {showChequenoSection ? (
-              <>
-                <div className="row">
-                  <div className="  col-lg-4">
-                    <label>Cheque No/DD No:</label>
-                    <input
-                      placeholder="Cheque Date"
-                      type="text"
-                      name="tenantChequenoOrDdno"
-                      value={tenantChequenoOrDdno}
-                      className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                      required
-                    />
-                    <br></br>
+            <div className="col-lg-12">
+              {showChequenoSection ? (
+                <>
+                  <div className="row">
+                    <div className="  col-lg-4">
+                      <label>Cheque No/DD No:</label>
+                      <input
+                        placeholder="Cheque Date"
+                        type="text"
+                        name="tenantChequenoOrDdno"
+                        value={tenantChequenoOrDdno}
+                        className="form-control"
+                        onChange={(e) => onInputChange(e)}
+                      />
+                      <br></br>
+                    </div>
+
+                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                      <label>Bank Name :</label>
+                      <input
+                        type="text"
+                        name="tenantBankName"
+                        value={tenantBankName}
+                        className="form-control"
+                        onChange={(e) => onInputChange(e)}
+                      />
+                    </div>
+
+                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                      <label>Cheque Date:</label>
+                      <input
+                        type="date"
+                        placeholder="dd-mm-yyyy"
+                        className="form-control cpp-input datevalidation"
+                        name="tenantchequeDate"
+                        value={startSelectedDate}
+                        onChange={(e) => onDateChange(e)}
+                        style={{
+                          width: "100%",
+                        }}
+                      />
+                    </div>
                   </div>
+                </>
+              ) : (
+                <></>
+              )}
+            </div>
 
-                  <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                    <label>Bank Name :</label>
-                    <input
-                      type="text"
-                      name="tenantBankName"
-                      value={tenantBankName}
-                      className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                    <label>Cheque Date:</label>
-                    <input
-                      type="date"
-                      placeholder="dd-mm-yyyy"
-                      className="form-control cpp-input datevalidation"
-                      name="tenantchequeDate"
-                      value={startSelectedDate}
-                      onChange={(e) => onDateChange(e)}
-                      style={{
-                        width: "100%",
-                      }}
-                    />
-                  </div>
-                </div>
-              </>
-            ) : (
-              <></>
-            )}
-          </div>
-
-          <div className="col-lg-8  col-md-4 col-sm-4 col-12">
-            <label>Tenant's Address *:</label>
-            <textarea
-              name="tenantAddr"
-              value={tenantAddr}
-              id="tenantAddr"
-              className="textarea form-control"
-              rows="4"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>{" "}
-          </div>
-
-          <div className="col-lg-12">
-            <button
-              variant="success"
-              className="btn sub_form btn_continue Save float-right"
-              id="savebtn"
-              onClick={() => onUpdate()}
-            >
-              Save
-            </button>
+            <div className="col-lg-8  col-md-4 col-sm-4 col-12">
+              <label>Tenant's Address *:</label>
+              <textarea
+                name="tenantAddr"
+                value={tenantAddr}
+                id="tenantAddr"
+                className="textarea form-control"
+                rows="4"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>{" "}
+            </div>
+            <div className="col-lg-9 text-danger">
+              * Indicates mandatory fields, Please fill mandatory fields before
+              Submit
+            </div>
+            <div className="col-lg-3">
+              <button
+                variant="success"
+                className="btn sub_form btn_continue Save float-right"
+                id="savebtn"
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </Fragment>
   );
 };

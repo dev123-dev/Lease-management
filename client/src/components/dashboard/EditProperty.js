@@ -19,20 +19,19 @@ const EditProperty = ({
 
   //adding multiple location start
   const [inputdata, setinput] = useState("");
-  const [items, setitem] = useState(Property.Location);
+  const [items, setitem] = useState([]);
 
   const handleLocationclose = (ele1, index) => {
     const delitem = items.filter((ele, ind) => {
-      return ele1 != ele;
+      return ele1 !== ele;
     });
     setitem(delitem);
   };
 
   const [dno, setdno] = useState(Property.shopDoorNo);
-
   const handleDoorNumclose = (ele1, index) => {
     const delitem = dno.filter((ele, ind) => {
-      return ele1 != ele;
+      return ele1 !== ele;
     });
     setdno(delitem);
   };
@@ -41,6 +40,7 @@ const EditProperty = ({
     if (!inputdata) {
     } else {
       setitem([...items, inputdata]);
+      setdno([...dno, inputdata]);
       setinput("");
     }
   };
@@ -72,7 +72,8 @@ const EditProperty = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onUpdate = () => {
+  const onUpdate = (e) => {
+    e.preventDefault();
     setShowUpdateModal(false);
     const update = {
       OrganizationName: user.OrganizationName,
@@ -88,144 +89,148 @@ const EditProperty = ({
       isSubmitted: true,
       shopStatus: "Acquired",
     };
+
     updateProperty(update);
     handleEditModalClose();
   };
 
   return (
     <Fragment>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-lg-6">
-            <label>Building Name*:</label>
+      <form onSubmit={(e) => onUpdate(e)}>
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-6">
+              <label>Building Name*:</label>
 
-            <input
-              type="text"
-              name="buildingName"
-              value={buildingName}
-              placeholder={buildingName}
-              className="form-control input"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-            <br></br>
-          </div>
-          <div className="col-lg-6">
-            <label>Stamp Duty*: </label>
-            <input
-              type="text"
-              name="stampDuty"
-              value={stampDuty}
-              className="form-control  input"
-              readOnly
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>
-              Hike<b>%</b>*:
-            </label>
-            <input
-              type="text"
-              name="hikePercentage"
-              value={hikePercentage}
-              className="form-control  input"
-              readOnly
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>Lease Time Period*: </label>
-            <input
-              type="text"
-              name="hikePercentage"
-              value={LeaseTime}
-              className="form-control  input"
-              readOnly
-            />
-          </div>
-          <div className="col-lg-6">
-            <label>Address*:</label>
+              <input
+                type="text"
+                name="buildingName"
+                value={buildingName}
+                placeholder={buildingName}
+                className="form-control input"
+                onChange={(e) => onInputChange(e)}
+                required
+              />
+              <br></br>
+            </div>
+            <div className="col-lg-6">
+              <label>Stamp Duty*: </label>
+              <input
+                type="text"
+                name="stampDuty"
+                value={stampDuty}
+                className="form-control  input"
+                readOnly
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>
+                Hike<b>%</b>*:
+              </label>
+              <input
+                type="text"
+                name="hikePercentage"
+                value={hikePercentage}
+                className="form-control  input"
+                readOnly
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>Lease Time Period*: </label>
+              <input
+                type="text"
+                name="hikePercentage"
+                value={LeaseTime}
+                className="form-control  input"
+                readOnly
+              />
+            </div>
+            <div className="col-lg-6">
+              <label>Address*:</label>
 
-            <textarea
-              name="shopAddress"
-              value={shopAddress}
-              id=" addprop "
-              className="textarea form-control"
-              rows="3"
-              placeholder="Address"
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              required
-            ></textarea>
-            <br></br>
+              <textarea
+                name="shopAddress"
+                value={shopAddress}
+                id=" addprop "
+                className="textarea form-control"
+                rows="3"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>
+              <br></br>
 
-            <label className="">Location*:</label>
-            <input
-              type="text"
-              placeholder="Location"
-              name="Location"
-              value={Location}
-              className="form-control  input"
-              onChange={(e) => onInputChange(e)}
-              required
-            />
-          </div>
+              <label className="">Location*:</label>
+              <input
+                type="text"
+                placeholder="Location"
+                name="Location"
+                value={Location}
+                className="form-control  input"
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
 
-          <div className="  col-lg-6 ">
-            <label className="ml-2">Door No*: </label>
-            <input
-              className="form-control"
-              type="text"
-              name="shopDoorNo"
-              value={inputdata}
-              onChange={(e) => setinput(e.target.value)}
-              placeholder="Door Number"
-              id="Door Number"
-            ></input>
-            <div>
-              <div className="locadd " onClick={addItem}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="30"
-                  height="30"
-                  fill="currentColor"
-                  className="bi bi-plus-lg"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
-                  />
-                </svg>
-              </div>
-              <div className="showItemcl ">
-                {dno.map((ele, index1) => {
-                  return (
-                    <div className="eachItem" key={index1}>
-                      <span>{ele}</span>{" "}
-                      <button
-                        onClick={() => handleDoorNumclose(ele, index1)}
-                        className="btndrp"
-                      >
-                        X
-                      </button>
-                    </div>
-                  );
-                })}
+            <div className="  col-lg-6 ">
+              <label className="ml-2">Door No*: </label>
+              <input
+                className="form-control"
+                type="text"
+                name="inputdata"
+                value={inputdata}
+                onChange={(e) => setinput(e.target.value)}
+                id="Door Number"
+              ></input>
+              <div>
+                <div className="locadd " onClick={addItem}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="30"
+                    height="30"
+                    fill="currentColor"
+                    className="bi bi-plus-lg"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"
+                    />
+                  </svg>
+                </div>
+                <div className="showItemcl ">
+                  {dno.map((ele, index1) => {
+                    return (
+                      <div className="eachItem" key={index1}>
+                        <span>{ele}</span>{" "}
+                        <button
+                          onClick={() => handleDoorNumclose(ele, index1)}
+                          className="btndrp"
+                        >
+                          X
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
+            <div className="col-lg-9 text-danger">
+              * Indicates mandatory fields, Please fill mandatory fields before
+              Submit
+            </div>
 
-          <div className="col-lg-12">
-            <button
-              className="btn sub_form btn_continue Save float-right"
-              id="savebtn"
-              onClick={() => onUpdate()}
-            >
-              Save
-            </button>
+            <div className="col-lg-3">
+              <button
+                className="btn sub_form btn_continue Save float-right"
+                id="savebtn"
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </Fragment>
   );
 };

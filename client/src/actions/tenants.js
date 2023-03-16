@@ -371,6 +371,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
   try {
+    console.log("hit");
     await axios.post(
       `${linkPath}/api/tenants/add-Property-details`,
       finalData,

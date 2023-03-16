@@ -242,7 +242,8 @@ const AddTenantDetails = ({
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
@@ -326,7 +327,7 @@ const AddTenantDetails = ({
         </div>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={() => onSubmit()}>
+        <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-4">
