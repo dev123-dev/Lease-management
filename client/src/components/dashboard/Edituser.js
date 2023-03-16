@@ -13,8 +13,6 @@ const Edituser = ({
   getalluser,
   EditModal,
 }) => {
-  const [orgname, setOrgname] = useState({});
-
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
@@ -22,6 +20,13 @@ const Edituser = ({
       value: org._id,
     });
   });
+
+  const [orgname, setOrgname] = useState(
+    superuser
+      ? orglist &&
+          orglist.filter((x) => x.value === superuser.OrganizationId)[0]
+      : ""
+  );
 
   const onchangeOrg = (e) => {
     setOrgname(e);
@@ -151,6 +156,32 @@ const Edituser = ({
               <label>UserGroup*:</label>
 
               <Select
+                name="orgname"
+                options={orglist}
+                value={orgname}
+                onChange={(e) => onchangeOrg(e)}
+              >
+                select Organization
+              </Select>
+            </div>
+            <div className="col-lg-6">
+              <label> Address </label>
+              <textarea
+                name="useraddress"
+                value={useraddress}
+                className="textarea form-control"
+                rows="3"
+                cols="20"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>{" "}
+            </div>
+            <div className="col-lg-6">
+              <label>UserGroup</label>
+
+              <Select
                 name="group"
                 options={UserGroups}
                 isSearchable={false}
@@ -166,23 +197,22 @@ const Edituser = ({
                     primary: "black",
                   },
                 })}
-                required
               />
             </div>
           </div>
-        </div>
-        <div className="col-lg-9 text-danger">
-          * Indicates mandatory fields, Please fill mandatory fields before
-          Submit
-        </div>
-        <div className="col-lg-3 Savebutton float-right" size="lg">
-          <input
-            id="savebtn"
-            type="submit"
-            name="Save"
-            value="Update"
-            className="btn sub_form btn_continue Save float-right"
-          />
+          <div className="col-lg-9 text-danger">
+            * Indicates mandatory fields, Please fill mandatory fields before
+            Submit
+          </div>
+          <div className="col-lg-3 Savebutton float-right" size="lg">
+            <input
+              id="savebtn"
+              type="submit"
+              name="Save"
+              value="Update"
+              className="btn sub_form btn_continue Save float-right"
+            />
+          </div>
         </div>
 
         {/* <div className="col-lg-12 Savebutton " size="lg">

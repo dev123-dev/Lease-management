@@ -12,6 +12,8 @@ const TenentHistories = require("../../models/TenantHistories");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
+  // console.log(data.tenantDoorNo.map((ele) => ele.value));
+  const tenetDoorNo = data.tenantDoorNo.map((ele) => ele.value);
   try {
     let tenantDetails = {
       OrganizationName: data.OrganizationName,
@@ -20,8 +22,7 @@ router.post("/add-tenant-details", async (req, res) => {
       BuildingId: data.BuildingId,
       Location: data.Location,
       tenantFileNo: data.tenantFileNo,
-      shopDoorNo: data.tenantDoorNo.label,
-      // DoorId: data.tenanatDoorNo.value,
+      shopDoorNo: tenetDoorNo,
       tenantName: data.tenantName,
       tenantPhone: data.tenantPhone,
       tenantFirmName: data.tenantFirmName,
@@ -131,7 +132,7 @@ router.post("/add-Organization", async (req, res) => {
     };
 
     let output2 = new OrganizationDetailsHistories(finalData2);
-    let orghistory = output2.save();
+    output2.save();
     res.send(output);
   } catch (err) {
     console.error(err.message);
@@ -304,6 +305,7 @@ router.get("/get-all-Superuser", async (req, res) => {
           userStatus: "$userStatus",
           useraddress: "$useraddress",
           password: "$password",
+          OrganizationId: "$OrganizationId",
           OrganizationName: "$OrganizationName",
         },
       },
@@ -333,7 +335,7 @@ router.post("/get-particular-org-user", async (req, res) => {
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
   try {
-    const updateuser = await UserDetails.updateOne(
+    await UserDetails.updateOne(
       { _id: data.userid },
       {
         $set: {
@@ -490,6 +492,7 @@ router.post("/deactive-Organization", async (req, res) => {
       {
         $set: {
           org_status: "Deactive",
+          AgreementStatus: "Deactivated",
           deactive_reason: data.deactive_reason,
         },
       }
@@ -529,17 +532,27 @@ router.post("/deactive-tenant", async (req, res) => {
 
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
+    let dno = data.Dno;
 
-    await property.updateOne(
-      { tdId: data.tid },
-      {
-        $set: {
-          shopStatus: "Available",
+    let tenantDoorNumber = await new TenantDetails.find({ shopDoorNo: dno });
+    if (tenantDoorNumber) {
+      let new_data = await property.updateOne(
+        { tdId: data.tid },
+        {
+          $unset: {
+            shopDoorNo: "",
+          },
         },
-      }
-    );
-    //res.json(shopDoorNoUpdate);
-    res.json(updatedetails);
+        {
+          $set: {
+            shopStatus: "Available",
+          },
+        }
+      );
+      console.log("new data", new_data);
+      //res.json(shopDoorNoUpdate);
+      res.json(updatedetails);
+    }
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -1110,8 +1123,6 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
   }
 });
 
-//
-
 router.get("/get-all-tenants", async (req, res) => {
   try {
     const tenanatData = await TenantDetails.aggregate([
@@ -1256,7 +1267,8 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
+    let doonum = data.tenantDoorNo.map((ele) => ele.value);
+
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
       {
@@ -1265,8 +1277,7 @@ router.post("/update-tenant-details", async (req, res) => {
           OrganizationName: data.OrganizationName,
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
-          shopDoorNo: data.tenantDoorNo.label,
-          // DoorId: data.tenanatDoorNo.value,
+          shopDoorNo: doonum,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,
@@ -1283,8 +1294,8 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    console.log(updatetenantdetails);
-    // res.json(updatetenantdetails);
+
+    res.json(updatetenantdetails);
 
     await TenentAgreement.updateOne(
       { tdId: data.recordId },

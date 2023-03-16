@@ -12,6 +12,15 @@ const EditAdminUser = ({
   UpdateUser,
   getalluser,
 }) => {
+  const UserGroups = [
+    { value: "Admin", label: "Admin" },
+    { value: "Super Admin", label: "Super Admin" },
+  ];
+  const [group, setgroup] = useState(
+    org
+      ? UserGroups && UserGroups.filter((x) => x.value === org.usergroup)[0]
+      : ""
+  );
   const [orgname, setOrgname] = useState({});
 
   const orglist = [];
@@ -34,11 +43,6 @@ const EditAdminUser = ({
     OrganizationName: "",
     password: "",
   });
-
-  const UserGroups = [
-    { value: "Admin", label: "Admin" },
-    { value: "Super Admin", label: "Super Admin" },
-  ];
 
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
@@ -76,7 +80,7 @@ const EditAdminUser = ({
     //  userid : org[0]._id,
     username: org.username,
     useremail: org.useremail,
-    usergroup: org.usergroup,
+    usergroup: group,
     useraddress: org.useraddress,
     userphone: org.userphone,
     OrganizationName: org.OrganizationName,
@@ -96,6 +100,7 @@ const EditAdminUser = ({
   const [us, setus] = useState("");
 
   const onuser = (e) => {
+    setgroup(e);
     setus(e);
   };
 
@@ -169,8 +174,8 @@ const EditAdminUser = ({
             <Select
               name="group"
               options={UserGroups}
+              value={group}
               isSearchable={false}
-              placeholder="Select"
               onChange={(e) => onuser(e)}
               theme={(theme) => ({
                 ...theme,

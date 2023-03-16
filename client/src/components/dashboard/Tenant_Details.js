@@ -52,9 +52,10 @@ const Tenant_Details = ({
   const handleShow = () => setShow(true);
 
   const [tId, setId] = useState("");
-
+  const [dno, SetDno] = useState("");
   const onDelete = (id, Dno) => {
     setId(id);
+    SetDno(Dno);
     handleShow();
   };
   // Edit model state
@@ -90,6 +91,7 @@ const Tenant_Details = ({
 
   const onDeactivate = () => {
     const reason = {
+      Dno: dno,
       deactive_reason: deactive_reason,
       tid: tId,
       isSubmitted: "true",
@@ -189,13 +191,19 @@ const Tenant_Details = ({
                         {currentDatas &&
                           currentDatas[0] &&
                           currentDatas.map((Val, idx) => {
-                            var ED = Val.tenantLeaseEndDate.split(/\D/g);
-                            var tenant = [ED[2], ED[1], ED[0]].join("-");
+                            var ED =
+                              Val.tenantLeaseEndDate &&
+                              Val.tenantLeaseEndDate.split(/\D/g);
+                            var tenant = [
+                              ED && ED[2],
+                              ED && ED[1],
+                              ED && ED[0],
+                            ].join("-");
                             return (
                               <tr key={idx}>
                                 <td>{Val.tenantName}</td>
                                 <td>{Val.BuildingName}</td>
-                                <td>{Val.shopDoorNo}</td>
+                                <td>{Val.shopDoorNo + ","}</td>
                                 <td>{Val.tenantFileNo}</td>
                                 <td>{Val.Location}</td>
                                 <td>{Val.tenantPhone}</td>
@@ -215,7 +223,7 @@ const Tenant_Details = ({
                                     <img
                                       className="Cursor "
                                       onClick={() =>
-                                        onDelete(Val._id, Val.DoorId)
+                                        onDelete(Val._id, Val.shopDoorNo)
                                       }
                                       src={require("../../static/images/delete.png")}
                                       alt="Delete"

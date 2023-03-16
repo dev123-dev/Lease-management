@@ -11,7 +11,6 @@ import Select from "react-select";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
-  tenants1: { allTenantSetting },
   tenants: { particular_org_data, get_Particular_org_Tenantsetting },
   tenantsdetails,
   UpdateTenantsDetails,
@@ -40,13 +39,38 @@ const EditTenantDetails = ({
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.buildingName,
-      value: buildingData._id,
     })
+  );
+
+  const [orgname, setOrgname] = useState(
+    tenantsdetails
+      ? allBuildingNames &&
+          allBuildingNames.filter(
+            (x) => x.label === tenantsdetails.BuildingName
+          )[0]
+      : ""
   );
 
   // building name end
   // location listing start
   const [DnoList, setDnoList] = useState([]);
+  // if (DnoList && particular_org_data) {
+  //   let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
+  //   particular_org_data &&
+  //     particular_org_data.map((ele) => {
+  //       console.log("=", tenantsdetails.BuildingId, "===", ele._id);
+  //       if (tenantsdetails.BuildingId === ele._id) {
+  //         SetLocList(ele.Location);
+  //         ele.shopDoorNo.map((doornumber) => {
+  //           temp.push({
+  //             label: doornumber,
+  //             value: doornumber,
+  //           });
+  //         });
+  //       }
+  //       setDnoList(temp);
+  //     });
+  // }
   const [LocList, SetLocList] = useState([]);
 
   const LocName = [];
@@ -63,7 +87,7 @@ const EditTenantDetails = ({
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     particular_org_data &&
       particular_org_data.map((ele) => {
-        if (e.buildingId == ele._id) {
+        if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
             temp.push({
@@ -179,6 +203,23 @@ const EditTenantDetails = ({
   const onchangeDoor = (e) => {
     setdno(e);
   };
+  let doorNos = [];
+  if (
+    doorno.length < 1 &&
+    tenantsdetails &&
+    tenantsdetails.shopDoorNo.length > 0 &&
+    DnoList.length > 0
+  ) {
+    tenantsdetails &&
+      DnoList &&
+      DnoList.map((x) => {
+        tenantsdetails.shopDoorNo.map((ele) => {
+          if (x.value === ele) doorNos.push(x);
+        });
+      });
+    setdno(doorNos);
+  }
+
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
     var newDate = e.target.value;
@@ -226,9 +267,7 @@ const EditTenantDetails = ({
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   //For setting mindate as todays date
-  console.log(tenantsdetails);
   const onUpdate = (tenantsdetails, idx) => {
-    //  onDateChangeEntry1();
     const finalData = {
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
@@ -251,7 +290,6 @@ const EditTenantDetails = ({
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       generatordepoAmt: generatordepoAmt,
-      //AgreementStatus: tenants.AgreementStatus,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
@@ -303,8 +341,7 @@ const EditTenantDetails = ({
             <Select
               name="Property name"
               options={allBuildingNames}
-              value={buildingData}
-              placeholder={BuildingName}
+              value={orgname}
               onChange={(e) => onBuildingChange(e)}
             ></Select>
           </div>
@@ -314,8 +351,8 @@ const EditTenantDetails = ({
               name="doorno"
               options={DnoList}
               value={doorno}
-              placeholder={tenantDoorNo}
               onChange={(e) => onchangeDoor(e)}
+              isMulti={true}
             ></Select>
             <br></br>
           </div>

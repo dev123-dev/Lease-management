@@ -70,12 +70,8 @@ const TenantDetails = new mongoose.Schema({
   Location: {
     type: String,
   },
-  shopDoorNo: {
-    type: String,
-  },
-  DoorId: {
-    type: String,
-  },
+  shopDoorNo: [],
+
   shopId: {
     type: ObjectId,
   },

@@ -178,8 +178,8 @@ const PropertyDetail = ({
                       currentDatas.map((Val, idx) => {
                         return (
                           <tr key={idx}>
-                            <td>{Val.buildingname}</td>
-                            <td>{Val.shopDoorNo}</td>
+                            <td>{Val.buildingName}</td>
+                            <td>{Val.shopDoorNo + ","}</td>
                             <td>{Val.Location}</td>
                             <td>{Val.hikePercentage}</td>
                             <td>{Val.stampDuty}</td>

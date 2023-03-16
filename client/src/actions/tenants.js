@@ -424,6 +424,7 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
 };
 
 export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
+  console.log("in action", finalData);
   try {
     await axios.post(
       `${linkPath}/api/tenants/deactive-tenant`,
@@ -438,7 +439,6 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
   }
 };
 export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
-  console.log("action =", finalData);
   try {
     await axios.post(
       `${linkPath}/api/tenants/update-tenant-details`,

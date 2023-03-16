@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import MainSuperPage from "./components/dashboard/MainSuperPage";
 import Header from "./components/layout/Header";
 import TenantFilters from "./components/dashboard/TenantFilters";
 import Footer from "./components/layout/Footer";

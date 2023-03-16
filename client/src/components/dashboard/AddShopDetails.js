@@ -109,9 +109,6 @@ const AddShopDetails = ({
       [e.target.name]: e.target.value,
     });
   };
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
 
   const [showInformationModal, setShowInformation] = useState(false);
   const handleInformationModalopen = () => setShowInformation(true);
@@ -121,7 +118,7 @@ const AddShopDetails = ({
   };
 
   const onSubmit = () => {
-    setShow(false);
+    // setShow(false);
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,

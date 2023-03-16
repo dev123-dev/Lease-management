@@ -27,7 +27,6 @@ const AddTenantDetails = ({
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
-
   getParticularTenantSetting,
   getAllSettings,
 }) => {
@@ -158,7 +157,7 @@ const AddTenantDetails = ({
         }
         setDnoList(temp);
       });
-    console.log("door list", DnoList);
+
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.label ? e.label : "");
@@ -348,6 +347,7 @@ const AddTenantDetails = ({
                   options={DnoList}
                   value={doorno}
                   onChange={(e) => onchangeDoor(e)}
+                  isMulti={true}
                   required
                 ></Select>
                 <br></br>
