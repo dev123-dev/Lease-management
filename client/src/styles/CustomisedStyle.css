@@ -576,8 +576,11 @@ p {
     background-color: transparent;
   }
   .bckcolor{
-    background-color: white;
+    border: 5px solid red;
+    background-color: rgb(8, 8, 8);
   }
+  
+  
 
   .plusicon {
     background-color: transparent;
@@ -844,7 +847,7 @@ label {
   top: 100%;
   left: auto;
   z-index: 99999;
-  background: #fff;
+  background: #bcbcbc;
   display: none;
   float: left;
   min-width: 10rem;
@@ -906,7 +909,30 @@ label {
     color: #262626;
     background-color: #e8e8e8;
   }
-
+  @media print {
+    @page {
+      size: 50mm 150mm;
+    }
+  }
+  @page {
+    size: auto;
+    margin: 10mm;
+    /* margin-right: 10mm;
+    margin-left: 5px; */
+  }
+  
+  @media print {
+    .page-break {
+      margin-top: 50px;
+      display: block;
+      page-break-before: auto;
+    }
+  }
+  @media all {
+    .page-break {
+      display: inline;
+    }
+  }
   .build-input {
     padding: 4px;
     margin: 0;
@@ -1568,6 +1594,7 @@ input[type="radio"].error {
 }
 .top-level-menu li:hover .second-level-menu {
   display: inline-block;
+
 }
 .drophover:hover {
   background-color: lightgrey;
@@ -1627,6 +1654,7 @@ input[type="radio"].error {
 }
 
 .second-level-menu a {
+  background: #ffffff;
   padding: 3px 20px;
   clear: both;
   font-weight: 400;
@@ -2337,6 +2365,65 @@ button {
 .closeicon:hover {
   background-color: lightgray;
 }
+div.page-footer {
+  text-align: center;
+  height: 50px;
+  font-size: 10px;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+div.page-footer p {
+  margin: 0;
+}
+.watermark {
+  display: none;
+  top: 50vh;
+  z-index: -9;
+  width: 50vw;
+  page-break-after: always;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .1;
+}
+.table.report-container {
+  page-break-after: always;
+  width: 100%;
+}
+thead.report-header {
+  display: table-header-group;
+}
+tfoot.report-footer {
+  display: table-footer-group;
+}
+div.footer-info, div.page-footer {
+  display: none;
+  height: 60px;
+}
+.load{
+  size: 64;
+color:green;
+sizeUnit: '1px';
+}
+@media print {
+  @page {
+      size: A4;
+      margin: 16mm 16mm 16mm 16mm;
+  }
+
+  .watermark {
+      display: block;
+      counter-increment: page;
+      position: fixed;
+  }
+
+  div.page-footer, div.footer-info {
+      display: block;
+  }
+}
+
 
 /* div{
   border:1px solid rgba(242, 10, 10, 0.541);

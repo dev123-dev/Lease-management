@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login, removeError } from "../../actions/auth";
 import "../../styles/CustomisedStyle.css";
+import { Roller } from "react-awesome-spinners";
 
 const Login = ({
   login,
@@ -166,6 +167,10 @@ const Login = ({
   // };
 
   if (isAuthenticated) {
+    // <Roller />;
+    // if (loading === false) {
+    //   <Roller />;
+    // }
     return <Redirect to="/route-driver" />;
   }
 
@@ -239,6 +244,7 @@ const Login = ({
           </div>
         </form>
         {/* </form> */}
+        <Roller />
       </div>
     </Fragment>
   );

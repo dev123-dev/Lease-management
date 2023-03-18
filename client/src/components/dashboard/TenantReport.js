@@ -9,6 +9,7 @@ import {
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
+import logo from "../../static/images/lraLogo_wh.png";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allorg },
@@ -23,9 +24,7 @@ const TenantReport = ({
   }, []);
 
   const componentRef = useRef();
-  // const handlePrint = useReactToPrint({
-  //   content: () => componentRef.current,
-  // });
+
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
@@ -71,7 +70,7 @@ const TenantReport = ({
   // };
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: "Generate Label",
+    documentTitle: "TenantReports",
     onAfterPrint: () => alert("print success"),
   });
 
@@ -157,27 +156,31 @@ const TenantReport = ({
                   <h2 className="heading_color">Tenant Reports </h2>
                 </div>
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
-                  <img
-                    onClick={handlePrint}
-                    className=""
-                    height="25px"
-                    // onClick={() => refresh()}
-                    src={require("../../static/images/print.png")}
-                    alt="refresh"
-                    title="refresh"
-                  />
+                  <button onClick={handlePrint}>
+                    <img
+                      className=""
+                      height="25px"
+                      // onClick={() => refresh()}
+                      src={require("../../static/images/print.png")}
+                      alt="Print"
+                      title="Print"
+                    />
+                  </button>
                 </div>
               </div>
               <div className="row">
-                <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+                <div
+                  ref={componentRef}
+                  className=" col-lg-11 col-md-11 col-sm-11 col-11 text-center "
+                >
                   <section className="body">
                     <div className="body-inner no-padding  table-responsive fixTableHead">
+                      <img alt={""} src={logo} className={"watermark"} />
                       <table
-                        ref={componentRef}
-                        className="table table-bordered table-striped table-hover"
+                        className="table table-bordered table-striped table-hover report-container"
                         id="datatable2"
                       >
-                        <thead>
+                        <thead className="report-header">
                           <tr>
                             <th>Name</th>
                             <th>Building Name</th>
@@ -234,6 +237,17 @@ const TenantReport = ({
                         </tbody>
                       </table>
                     </div>
+                    <tfoot className="report-footer">
+                      <tr>
+                        <td className="report-footer-cell">
+                          <div className="footer-info">
+                            <div className={"page-footer"}>
+                              footer content....
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
                   </section>
                 </div>
               </div>

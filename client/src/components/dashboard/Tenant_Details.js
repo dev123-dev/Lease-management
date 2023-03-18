@@ -65,9 +65,10 @@ const Tenant_Details = ({
     if (Dno.length > 1) {
       SetDno(Dno);
       SetDoornumber(true);
+    } else {
+      SetDno(Dno);
+      handleShow();
     }
-    SetDno(Dno);
-    handleShow();
   };
   // Edit model state
   const [EditTenant, setEditTenant] = useState(null);
@@ -129,7 +130,9 @@ const Tenant_Details = ({
     });
   };
 
-  const onDeactivate = () => {
+  const onDeactivate = (e) => {
+    e.preventDefault();
+    SetDoornumber(true);
     const reason = {
       Dno: checkData,
       deactive_reason: deactive_reason,
@@ -415,60 +418,62 @@ const Tenant_Details = ({
         </Modal>
       </Fragment>
       <Modal show={selectDno} centered>
-        <Modal.Header>
-          <div className="col-lg-11 ">
-            <h3 className="modal-title text-center">
-              <b> Choose Door Number To Deactivate</b>
-            </h3>
-          </div>
-          <div className="col-lg-1 closeicon">
-            <img
-              src={require("../../static/images/close.png")}
-              alt="X"
-              style={{ height: "20px", width: "20px" }}
-              onClick={handleCloseDno}
-            />
-          </div>
-        </Modal.Header>
+        <form onSubmit={onDeactivate}>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <h5 className="modal-title text-center">
+                <b> Choose Door Number To Deactivate</b>
+              </h5>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={handleCloseDno}
+              />
+            </div>
+          </Modal.Header>
 
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Reason For Deactivating</Form.Label>
-              <div className="checkbox mx-5">
-                {dno.map((ele, index) => {
-                  return (
-                    <>
-                      <input
-                        type="checkbox"
-                        id="checkbox"
-                        value={ele}
-                        onChange={(e) => HandelCheck(e)}
-                      />
-                      <label for="vehicle1">{ele}</label>
-                    </>
-                  );
-                })}
-              </div>
-              <textarea
-                rows="2"
-                name="deactive_reason"
-                value={deactive_reason}
-                onChange={(e) => onInputChange(e)}
-                autoFocus
-                id="org_reason"
-                className="form-control "
-                required
-              ></textarea>
-              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={onDeactivate} id="deactivebtn">
-            <b>Deactive</b>
-          </Button>
-        </Modal.Footer>
+          <Modal.Body>
+            {/* <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+            <div className="h5 despace">Reason For Deactivating</div>
+            <div className="checkbox mx-5">
+              {dno.map((ele, index) => {
+                return (
+                  <>
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      value={ele}
+                      onChange={(e) => HandelCheck(e)}
+                    />
+                    <label for="vehicle1">{ele}</label>
+                  </>
+                );
+              })}
+            </div>
+            <textarea
+              rows="2"
+              name="deactive_reason"
+              value={deactive_reason}
+              onChange={(e) => onInputChange(e)}
+              autoFocus
+              id="org_reason"
+              className="form-control "
+              required
+            ></textarea>
+            <div>Are you sure You Want To Deactivate..?</div>
+            {/* </Form.Group>
+          </Form> */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" id="deactivebtn" type="submit">
+              <b>Deactive</b>
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
     </>
   );

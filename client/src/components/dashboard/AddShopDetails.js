@@ -95,9 +95,9 @@ const AddShopDetails = ({
   };
 
   const addItem = () => {
-    setshowscroll("block");
     if (!inputdata) {
     } else {
+      setshowscroll("block");
       setitem([...items, inputdata]);
       setinput("");
     }

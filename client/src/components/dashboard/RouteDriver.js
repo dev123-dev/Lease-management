@@ -2,6 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
+import { Roller } from "react-awesome-spinners";
 
 const RouteDriver = ({ auth: { user }, loadUser }) => {
   useEffect(() => {
@@ -15,7 +16,7 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
       return <Redirect to="/MainSuper" />;
     }
   }
-  return <Fragment>loading...</Fragment>;
+  return <Fragment></Fragment>;
 };
 
 const mapStateToProps = (state) => ({
