@@ -267,7 +267,7 @@ const EditTenantDetails = ({
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   //For setting mindate as todays date
-  const onUpdate = (tenantsdetails, idx, e) => {
+  const onUpdate = (e) => {
     e.preventDefault();
     const finalData = {
       recordId: tenantId,
@@ -609,6 +609,7 @@ const EditTenantDetails = ({
             </div>
             <div className="col-lg-3">
               <button
+                type="submit"
                 variant="success"
                 className="btn sub_form btn_continue Save float-right"
                 id="savebtn"

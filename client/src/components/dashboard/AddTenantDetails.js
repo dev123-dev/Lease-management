@@ -357,9 +357,9 @@ const AddTenantDetails = ({
                 <label className="ml-2">Location*:</label>
                 <input
                   type="text"
-                  placeholder={LocList}
+                  value={LocList}
                   className="form-control"
-                  required
+                  readOnly
                 ></input>
                 <br></br>
               </div>
