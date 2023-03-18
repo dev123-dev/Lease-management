@@ -102,7 +102,7 @@ const PropertyDetail = ({
   const currentDatas =
     particular_org_data &&
     particular_org_data.slice(indexOfFirstData, indexOfLastData);
-  console.log(currentDatas);
+
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
