@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useRef, useEffect } from "react";
-
+import { useReactToPrint } from "react-to-print";
 import { connect } from "react-redux";
 import {
   deactiveTenantsDetails,
@@ -66,6 +66,14 @@ const TenantReport = ({
     deactiveTenantsDetails(reason);
     handleClose();
   };
+  // const handlePrint = () => {
+  //   alert();
+  // };
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Generate Label",
+    onAfterPrint: () => alert("print success"),
+  });
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -82,7 +90,6 @@ const TenantReport = ({
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
                   <img
                     className="img_icon_size log"
-                    // onClick={() => onClickHandler()}
                     src={require("../../static/images/print.png")}
                     alt="Add User"
                     title="Add User"
@@ -150,7 +157,15 @@ const TenantReport = ({
                   <h2 className="heading_color">Tenant Reports </h2>
                 </div>
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
-                  {/* <AddTenantDetails /> */}
+                  <img
+                    onClick={handlePrint}
+                    className=""
+                    height="25px"
+                    // onClick={() => refresh()}
+                    src={require("../../static/images/print.png")}
+                    alt="refresh"
+                    title="refresh"
+                  />
                 </div>
               </div>
               <div className="row">
@@ -158,6 +173,7 @@ const TenantReport = ({
                   <section className="body">
                     <div className="body-inner no-padding  table-responsive fixTableHead">
                       <table
+                        ref={componentRef}
                         className="table table-bordered table-striped table-hover"
                         id="datatable2"
                       >

@@ -60,7 +60,7 @@ const Header = ({
           menu.style.display = "block";
         }
       } else {
-        menu.style.display = "none";
+        // menu.style.display = "none";
       }
     }
   };
@@ -239,7 +239,7 @@ const Header = ({
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                           </Link>
-                          <ul className="dropdown-menu second-level-menu ">
+                          <ul className="dropdown-menu second-level-menu bckcolor ">
                             <li className="hwhite  drophover ">
                               <Link
                                 to="#"

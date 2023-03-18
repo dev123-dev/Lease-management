@@ -57,6 +57,8 @@ const UserDetails = ({
   };
 
   const onDeactivate = () => {
+    console.log("clicked");
+    setDeactiveShow(false);
     const reason = {
       userId: AdminId,
       orgId: user && user.OrganizationId,
@@ -70,7 +72,10 @@ const UserDetails = ({
   const [showadd, setShowadd] = useState(false);
 
   const refresh = () => {
-    window.location.reload(true);
+    // window.location.reload(true);
+    get_particular_org_user({
+      OrganizationId: user && user.OrganizationId,
+    });
   };
   //pagination code
   const [currentData, setCurrentData] = useState(1);
@@ -95,7 +100,7 @@ const UserDetails = ({
         <div className="col"></div>
         <div className="col"></div>
 
-        <div className="col mt-5 h2 ml-2">User Details </div>
+        <div className="col mt-5 h2 ml-2">User Details</div>
 
         <div className="text-end"></div>
         <div className="container-fluid d-flex align-items-center justify-content-center ">
@@ -207,46 +212,46 @@ const UserDetails = ({
       </div>
       {/* this id for Deactivating the Super user starting */}
       <Modal show={Deactiveshow} centered>
-        <Modal.Header>
-          <div className="col-lg-11 ">
-            <h3 className="modal-title text-center">
-              <b>DEACTIVATE</b>
-            </h3>
-          </div>
-          <div className="col-lg-1 closeicon">
-            <img
-              src={require("../../static/images/close.png")}
-              alt="X"
-              style={{ height: "20px", width: "20px" }}
-              onClick={() => setDeactiveShow(false)}
-            />
-          </div>
-        </Modal.Header>
+        <form onSubmit={onDeactivate}>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <h3 className="modal-title text-center">
+                <b>DEACTIVATE</b>
+              </h3>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={() => setDeactiveShow(false)}
+              />
+            </div>
+          </Modal.Header>
 
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label className="text-center">
-                Reason For Deactivating{" "}
-              </Form.Label>
-              <textarea
-                rows="2"
-                name="deactive_reason"
-                onChange={(e) => onInputChange(e)}
-                autoFocus
-                id="org_reason"
-                className="form-control "
-                required
-              ></textarea>
-              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button id="deactivebtn" onClick={onDeactivate}>
-            <b>Deactive</b>
-          </Button>
-        </Modal.Footer>
+          <Modal.Body>
+            {/* <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+            <div className="h5 despace">Reason For Deactivating </div>
+            <textarea
+              rows="2"
+              name="deactive_reason"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              id="org_reason"
+              className="form-control "
+              required
+            ></textarea>
+            <div>Are you sure You Want To Deactivate..?</div>
+            {/* </Form.Group>
+          </Form> */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button id="deactivebtn" type="submit">
+              <b>Deactive</b>
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
       {/* Modal Ending */}
 

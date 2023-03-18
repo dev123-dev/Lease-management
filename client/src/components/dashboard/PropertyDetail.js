@@ -108,7 +108,12 @@ const PropertyDetail = ({
     setCurrentData(nmbr);
   };
   const refresh = () => {
-    window.location.reload(true);
+    // window.location.reload(true);
+    fun();
+    const OrganizationId = {
+      OrganizationId: user && user.OrganizationId,
+    };
+    getParticularOrg(OrganizationId);
   };
   return (
     <>
@@ -240,47 +245,50 @@ const PropertyDetail = ({
         </div>
       </div>
       {/* modal for Deactivating the Property starting */}
-      {/* <Modal show={show} centered>
-        <Modal.Header>
-          <div className="col-lg-11 ">
-            <h3 className="modal-title text-center">
-              <b>DEACTIVATE</b>
-            </h3>
-          </div>
-          <div className="col-lg-1 closeicon">
-            <img
-              src={require("../../static/images/close.png")}
-              alt="X"
-              style={{ height: "20px", width: "20px" }}
-              onClick={() => setShow(false)}
-            />
-          </div>
-        </Modal.Header>
+      <Modal show={show} centered>
+        <form onSubmit={onDeactive}>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <h3 className="modal-title text-center">
+                <b>DEACTIVATE</b>
+              </h3>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={() => setShow(false)}
+              />
+            </div>
+          </Modal.Header>
 
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Reason For Deactivating</Form.Label>
-              <textarea
-                rows="2"
-                name="deactive_reason"
-                value={deactive_reason}
-                onChange={(e) => onInputChange(e)}
-                autoFocus
-                id="org_reason"
-                className="form-control "
-                required
-              ></textarea>
-              <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={onDeactive} id="deactivebtn">
-            <b>Deactive</b>
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
+          <Modal.Body>
+            {/* <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+            <div className="h5 despace">Reason For Deactivating</div>
+            <textarea
+              rows="2"
+              name="deactive_reason"
+              value={deactive_reason}
+              onChange={(e) => onInputChange(e)}
+              placeholder="Deactive Reason"
+              id="org_reason"
+              className="form-control "
+              style={{ width: "100%" }}
+              required
+            ></textarea>
+            <div>Are you sure You Want To Deactivate..?</div>
+            {/* </Form.Group>
+          </Form> */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button id="deactivebtn" type="submit">
+              <b>Deactive</b>
+            </Button>
+          </Modal.Footer>
+        </form>
+      </Modal>
 
       {/* Modal edit */}
       <Modal
