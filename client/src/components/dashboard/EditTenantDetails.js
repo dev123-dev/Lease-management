@@ -51,8 +51,6 @@ const EditTenantDetails = ({
       : ""
   );
 
-  // building name end
-  // location listing start
   const [DnoList, setDnoList] = useState([]);
   // if (DnoList && particular_org_data) {
   //   let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
@@ -294,9 +292,9 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-
-    UpdateTenantsDetails(finalData);
-    setFreshPage(!freshpage);
+    console.log(finalData);
+    // UpdateTenantsDetails(finalData);
+    // setFreshPage(!freshpage);
 
     // const historyData = {
     //   tdId: tenantId,
