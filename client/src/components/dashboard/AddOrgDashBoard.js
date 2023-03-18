@@ -96,7 +96,8 @@ const AddOrgDashBoard = ({
     deleteOrganization(reason);
   };
   const refreshbtn = () => {
-    window.location.reload(true);
+    // window.location.reload(true);
+    getAllOrganization("");
   };
 
   //pagination code
@@ -239,51 +240,51 @@ const AddOrgDashBoard = ({
 
       {/* deactivating the Super User */}
       <Modal show={showDeactivate} centered>
-        <Modal.Header>
-          <div className="col-lg-11 ">
-            <h3 className="modal-title text-center">
-              <b>DEACTIVATE</b>
-            </h3>
-          </div>
-          <div className="col-lg-1 closeicon">
-            <img
-              src={require("../../static/images/close.png")}
-              alt="X"
-              style={{ height: "20px", width: "20px" }}
-              onClick={() => setShowDeactivate(false)}
-            />
-          </div>
-        </Modal.Header>
+        <form onSubmit={onDeactivate}>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <h3 className="modal-title text-center">
+                <b>DEACTIVATE</b>
+              </h3>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={() => setShowDeactivate(false)}
+              />
+            </div>
+          </Modal.Header>
 
-        <Modal.Body>
-          {/* <Form> */}
-          {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-          <Form.Label className="h5 despace">
-            Reason For Deactivating
-          </Form.Label>
-          <textarea
-            name="Organization_DE_Reason"
-            id="Organization_DE_Reason"
-            className="textarea form-control"
-            rows="3"
-            placeholder="Deactive Reason"
-            onChange={(e) => onInputChange(e)}
-            style={{ width: "100%" }}
-            required
-          ></textarea>
-          <Form.Label>Are you sure You Want To Deactivate..?</Form.Label>
-          {/* </Form.Group> */}
-          {/* </Form> */}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            // variant="primary"
-            id="deactivebtn"
-            onClick={onDeactivate}
-          >
-            <b> Deactive</b>
-          </Button>
-        </Modal.Footer>
+          <Modal.Body>
+            {/* <Form> */}
+            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+            <div className="h5 despace">Reason For Deactivating</div>
+            <textarea
+              name="Organization_DE_Reason"
+              id="Organization_DE_Reason"
+              className="textarea form-control"
+              rows="3"
+              placeholder="Deactive Reason"
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              required
+            ></textarea>
+            <div>Are you sure You Want To Deactivate..?</div>
+            {/* </Form.Group> */}
+            {/* </Form> */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              type="submit"
+              // variant="primary"
+              id="deactivebtn"
+            >
+              <b> Deactive</b>
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
       {/*  End Deactivating the user  */}
 

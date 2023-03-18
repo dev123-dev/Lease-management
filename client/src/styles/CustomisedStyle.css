@@ -575,6 +575,9 @@ p {
     position: relative;
     background-color: transparent;
   }
+  .bckcolor{
+    background-color: white;
+  }
 
   .plusicon {
     background-color: transparent;
