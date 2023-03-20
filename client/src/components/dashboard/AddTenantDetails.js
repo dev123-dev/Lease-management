@@ -113,6 +113,10 @@ const AddTenantDetails = ({
 
   //For setting mindate as todays date
 
+  const funcKeyDown = (e) => {
+    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+  };
+
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState();
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
@@ -331,7 +335,7 @@ const AddTenantDetails = ({
           <div className="container-fluid">
             <div className="row">
               <div className="col-lg-4">
-                <label className="ml-2">Property Name*:</label>
+                Property Name*:
                 <Select
                   name="Property name"
                   options={allBuildingNames}
@@ -342,7 +346,7 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Door No*:</label>
+                Door No*:
                 <Select
                   name="doorno"
                   options={DnoList}
@@ -354,17 +358,18 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Location*:</label>
+                Location*:
                 <input
                   type="text"
                   value={LocList}
+                  placeholder="Location"
                   className="form-control"
                   readOnly
                 ></input>
                 <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">File No*:</label>
+                File No*:
                 <input
                   type="text"
                   name="tenantFileNo"
@@ -373,10 +378,11 @@ const AddTenantDetails = ({
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
-                />
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Tenant Name*:</label>
+                Tenant Name*:
                 <input
                   type="text"
                   name="tenantName"
@@ -385,7 +391,8 @@ const AddTenantDetails = ({
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
-                />
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-4">
                 Phone No:
@@ -396,10 +403,7 @@ const AddTenantDetails = ({
                   value={tenantPhone}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
+                  onKeyDown={(e) => funcKeyDown(e)}
                 />{" "}
                 <br></br>
               </div>
@@ -412,7 +416,8 @@ const AddTenantDetails = ({
                   value={tenantFirmName}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                />
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-4">
                 Aadhaar No:
@@ -423,14 +428,12 @@ const AddTenantDetails = ({
                   value={tenantAdharNo}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
-                />
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Pan Number :</label>
+                Pan Number:
                 <input
                   type="text"
                   name="tenantPanNo"
@@ -438,15 +441,12 @@ const AddTenantDetails = ({
                   value={tenantPanNo}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
-                />{" "}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />
                 <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Rent Amount*:</label>
+                Rent Amount*:
                 <input
                   type="number"
                   name="tenantRentAmount"
@@ -454,15 +454,13 @@ const AddTenantDetails = ({
                   value={tenantRentAmount}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
+                  onKeyDown={(e) => funcKeyDown(e)}
                   required
-                />
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Deposit Amount*:</label>
+                Deposit Amount*:
                 <input
                   type="number"
                   name="tenantDepositAmt"
@@ -470,15 +468,13 @@ const AddTenantDetails = ({
                   placeholder="Deposit Amount"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
+                  onKeyDown={(e) => funcKeyDown(e)}
                   required
-                />
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-4">
-                <label className="ml-2">Generator Deposit Amount :</label>
+                Generator Deposit Amount :
                 <input
                   type="number"
                   name="generatordepoAmt"
@@ -486,10 +482,7 @@ const AddTenantDetails = ({
                   value={generatordepoAmt}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
+                  onKeyDown={(e) => funcKeyDown(e)}
                 />
                 <br></br>
               </div>
@@ -566,7 +559,8 @@ const AddTenantDetails = ({
                           value={tenantBankName}
                           className="form-control"
                           onChange={(e) => onInputChange(e)}
-                        />
+                        />{" "}
+                        <br></br>
                       </div>
                       <div className="  col-lg-4">
                         Cheque Date:
@@ -580,7 +574,8 @@ const AddTenantDetails = ({
                           style={{
                             width: "100%",
                           }}
-                        />
+                        />{" "}
+                        <br></br>
                       </div>
                     </div>
                   </>
@@ -589,7 +584,7 @@ const AddTenantDetails = ({
                 )}
               </div>
               <div className="col-lg-8">
-                <label>Tenant's Address*:</label>
+                Tenant's Address*:
                 <textarea
                   name="tenantAddr"
                   value={tenantAddr}
@@ -601,6 +596,7 @@ const AddTenantDetails = ({
                   style={{ width: "100%" }}
                   required
                 ></textarea>{" "}
+                <br></br>
               </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields

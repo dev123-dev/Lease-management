@@ -116,128 +116,138 @@ const PropertyDetail = ({
   };
   return (
     <>
-      <div className="col mt-5">
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
+      <div className="col mt-4 space">
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+          <div className="col mt-5 h2 ml-2">Property Details</div>
 
-        <div className="col mt-5 h2 ml-2">Property Details</div>
+          <div className="text-end"></div>
 
-        <div className="text-end"></div>
+          <div className="w-25 ml-3">
+            <Select
+              className="dropdown"
+              placeholder="Search-Location"
+              name="location"
+              options={Sellocation}
+              value={LOCATION}
+              // style={{ width: "100%" }}
+              onChange={(e) => onchangeLocation(e)}
+            ></Select>
+          </div>
 
-        <div className="w-25 ml-4">
-          <Select
-            placeholder="Search-Location"
-            name="location"
-            options={Sellocation}
-            value={LOCATION}
-            onChange={(e) => onchangeLocation(e)}
-          ></Select>
-        </div>
+          <div className="container-fluid d-flex align-items-center justify-content-center ">
+            <div className="col">
+              <div className=" refreshbtn">
+                {/* <AddShopDetails /> */}
+                <img
+                  className="plusicon"
+                  height="25px"
+                  onClick={() => setShowadd(true)}
+                  src={require("../../static/images/add-icon.png")}
+                  alt="Add Prop"
+                  title="Add Prop"
+                />
 
-        <div className="container-fluid d-flex align-items-center justify-content-center ">
-          <div className="col">
-            <div className="refreshbtn">
-              {/* <AddShopDetails /> */}
-              <img
-                className="mr-2"
-                height="25px"
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add Prop"
-                title="Add Prop"
-              />
-
-              <img
-                className=""
-                height="25px"
-                onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
-                alt="refresh"
-                title="refresh"
-              />
-            </div>
-            <div className="row ">
-              <div className="col-lg-1"></div>
-              <div className="body-inner no-padding table-responsive">
-                <table
-                  className="table table-bordered table-striped table-hover  table-active mt-5"
-                  id="datatable2"
-                >
-                  <thead>
-                    <tr>
-                      <th>Building Name</th>
-                      <th>Door Number</th>
-                      <th>Location</th>
-                      <th>Hike %</th>
-                      <th>Stamp Duty</th>
-                      <th>Lease Time Period</th>
-                      <th>Address</th>
-                      <th>Operation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentDatas &&
-                      currentDatas.map((Val, idx) => {
-                        return (
-                          <tr key={idx}>
-                            <td>{Val.buildingname}</td>
-                            <td>{Val.shopDoorNo + ","}</td>
-                            <td>{Val.Location}</td>
-                            <td>{Val.hikePercentage}</td>
-                            <td>{Val.stampDuty}</td>
-                            <td>{Val.leaseTimePeriod}</td>
-                            <td>{Val.shopAddress}</td>
-
-                            {Val.shopStatus === "Acquired" ? (
-                              <td className=" text-center">
-                                <img
-                                  className="Cursor"
-                                  onClick={() => onEdit(Val)}
-                                  src={require("../../static/images/edit_icon.png")}
-                                  alt="Edit Property"
-                                  title="Edit Property"
-                                />
-                                &nbsp;
-                                <img
-                                  className=" Cursor"
-                                  onClick={() => onDelete(Val._id)}
-                                  src={require("../../static/images/delete.png")}
-                                  alt="Delete Property "
-                                  title="Delete Property"
-                                />
+                <img
+                  className="ml-2"
+                  height="25px"
+                  onClick={() => refresh()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="refresh"
+                  title="refresh"
+                />
+              </div>
+              <div className="row ">
+                <div className="col-lg-1"></div>
+                <div className="firstrowsticky body-inner no-padding table-responsive">
+                  <table
+                    className="table table-bordered table-striped table-hover  table-active mt-5 new1"
+                    id="datatable2"
+                  >
+                    <thead>
+                      <tr>
+                        <th
+                          className="headcolstatic"
+                          style={{ height: "-10px !important" }}
+                        >
+                          Building Name
+                        </th>
+                        <th>Door Number</th>
+                        <th>Location</th>
+                        <th>Hike %</th>
+                        <th>Stamp Duty</th>
+                        <th>Lease Time Period</th>
+                        <th>Address</th>
+                        <th>Operation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentDatas &&
+                        currentDatas.map((Val, idx) => {
+                          return (
+                            <tr key={idx}>
+                              <td className="headcolstatic secondlinebreak1">
+                                {Val.buildingname}
                               </td>
-                            ) : (
-                              <td className="blank text-center">Deactive</td>
-                            )}
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </div>
-              <div className="col-lg-1"></div>
-            </div>
+                              <td>{Val.shopDoorNo + ","}</td>
+                              <td>{Val.Location}</td>
+                              <td>{Val.hikePercentage}</td>
+                              <td>{Val.stampDuty}</td>
+                              <td>{Val.leaseTimePeriod}</td>
+                              <td>{Val.shopAddress}</td>
 
-            <div className="row">
-              <div className="col-lg-6">
-                {particular_org_data && particular_org_data.length !== 0 ? (
-                  <Pagination
-                    dataPerPage={dataPerPage}
-                    totalData={particular_org_data.length}
-                    paginate={paginate}
-                    currentPage={currentData}
-                  />
-                ) : (
-                  <Fragment />
-                )}
+                              {Val.shopStatus === "Acquired" ? (
+                                <td className=" text-center">
+                                  <img
+                                    className="Cursor"
+                                    onClick={() => onEdit(Val)}
+                                    src={require("../../static/images/edit_icon.png")}
+                                    alt="Edit Property"
+                                    title="Edit Property"
+                                  />
+                                  &nbsp;
+                                  <img
+                                    className=" Cursor"
+                                    onClick={() => onDelete(Val._id)}
+                                    src={require("../../static/images/delete.png")}
+                                    alt="Delete Property "
+                                    title="Delete Property"
+                                  />
+                                </td>
+                              ) : (
+                                <td className="blank text-center">Deactive</td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="col-lg-1"></div>
               </div>
-              <div className="col-lg-6">
-                <p className="text-end h6">
-                  No of Property : {particular_org_data.length}
-                </p>
+
+              <div className="row">
+                <div className="col-lg-6">
+                  {particular_org_data && particular_org_data.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={particular_org_data.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+                <div className="col-lg-6">
+                  <p className="text-end h6">
+                    No of Property : {particular_org_data.length}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

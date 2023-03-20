@@ -246,6 +246,7 @@ const SuperUserDashboard = ({
                 <div className="h5 despace">Reason For Deactivating </div>
                 <textarea
                   rows="2"
+                  placeholder="Deactive reason"
                   name="deactive_reason"
                   onChange={(e) => onInputChange(e)}
                   autoFocus

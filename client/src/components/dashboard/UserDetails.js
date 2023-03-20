@@ -92,22 +92,23 @@ const UserDetails = ({
   };
 
   return (
-    <>
+    <div style={{ marginTop: "70px" }}>
       <div className="col mt-5">
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
-        <div className="col"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
+        <div className="col smallscreen"></div>
 
-        <div className="col mt-5 h2 ml-2">User Details</div>
+        <div className="col h2 ml-2 mt-5">User Details</div>
 
         <div className="text-end"></div>
         <div className="container-fluid d-flex align-items-center justify-content-center ">
-          <div className="col">
+          <div className="col ">
             <div className="refreshbtn">
               <img
-                className="mr-2"
+                className=" plusicon"
                 height="25px"
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}
@@ -115,7 +116,7 @@ const UserDetails = ({
                 title="Add User"
               />
               <img
-                className=""
+                className="ml-2"
                 height="25px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
@@ -294,7 +295,7 @@ const UserDetails = ({
       >
         <AddAdminUserModal setShowadd={setShowadd} />
       </Modal>
-    </>
+    </div>
   );
 };
 

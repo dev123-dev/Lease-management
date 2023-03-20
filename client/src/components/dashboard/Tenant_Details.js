@@ -134,7 +134,8 @@ const Tenant_Details = ({
     e.preventDefault();
     SetDoornumber(true);
     const reason = {
-      Dno: checkData,
+      OrganizationId: user && user.OrganizationId,
+      Dno: checkData.length !== 0 ? checkData : dno,
       deactive_reason: deactive_reason,
       tid: tId,
       isSubmitted: "true",
@@ -172,12 +173,12 @@ const Tenant_Details = ({
     <>
       {" "}
       <Fragment>
-        <div className="col mt-5 ">
-          <div className="col"></div>
-          <div className="col"></div>
-          <div className="col"></div>
-          <div className="col"></div>
-          <div className="col"></div>
+        <div className="col mt-4 space ">
+          <div className="col smallscreen"></div>
+          <div className="col smallscreen"></div>
+          <div className="col smallscreen"></div>
+          <div className="col smallscreen"></div>
+          <div className="col smallscreen"></div>
 
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
             <h2 className="col mt-5 h2 ml-2">Tenant Details </h2>
@@ -197,7 +198,7 @@ const Tenant_Details = ({
                 <div className="refreshbtn">
                   {/* <AddTenantDetails /> */}
                   <img
-                    className="mr-2"
+                    className="plusicon"
                     height="25px"
                     onClick={() => setShowadd(true)}
                     src={require("../../static/images/add-icon.png")}
@@ -205,7 +206,7 @@ const Tenant_Details = ({
                     title="Add Tenant"
                   />
                   <img
-                    className=""
+                    className="ml-2"
                     height="25px"
                     onClick={() => refresh()}
                     src={require("../../static/images/refresh-icon.png")}

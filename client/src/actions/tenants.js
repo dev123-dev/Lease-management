@@ -431,7 +431,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    dispatch(getAllTenants());
+    ParticularTenant({ OrganizationId: finalData.OrganizationId });
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,

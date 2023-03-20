@@ -7,9 +7,10 @@ import money from "../../static/images/money.png";
 import { getParticularProperty } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
+import { Roller } from "react-awesome-spinners";
 
 const MainAdminPage = ({
-  auth: { user },
+  auth: { user, isAuthenticated, loading },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
 }) => {
@@ -40,7 +41,10 @@ const MainAdminPage = ({
     });
     setStatus(AvaiableShopCount);
   };
-  return (
+  console.log(loading, "loading");
+  return !isAuthenticated || !user || loading ? (
+    <Roller />
+  ) : (
     <div>
       <div className="container-fluid">
         <div className="row">
@@ -53,7 +57,10 @@ const MainAdminPage = ({
         <div className="row">
           <div className="col-lg-1"></div>
           <div className="col-lg-5 col-sm-12 col-md-12 ">
-            <div className=" card h3 text-center pt-5" id="shadow-bck">
+            <div
+              className=" card h3 text-center pt-5  col-sm-12"
+              id="shadow-bck"
+            >
               <img
                 src={prop}
                 alt="x"
@@ -67,7 +74,10 @@ const MainAdminPage = ({
           </div>
 
           <div className="col-lg-5 col-sm-12 col-md-12 ">
-            <div className=" card  h3 text-center pt-5" id="shadow-bck">
+            <div
+              className=" card  h3 text-center  col-sm-12 pt-5 "
+              id="shadow-bck"
+            >
               <img
                 src={unprop}
                 alt="x"
@@ -86,7 +96,10 @@ const MainAdminPage = ({
           <div className="col-lg-1 "></div>
 
           <div className="col-lg-5 col-sm-12 col-md-12">
-            <div className="card h3 text-center pt-5" id="shadow-bck">
+            <div
+              className="card h3 text-center pt-5  col-sm-12"
+              id="shadow-bck"
+            >
               <img
                 src={people}
                 alt="x"
@@ -100,7 +113,10 @@ const MainAdminPage = ({
           </div>
 
           <div className="col-lg-5 col-sm-12 col-md-12">
-            <div className="card h3 text-center pt-5 " id="shadow-bck">
+            <div
+              className="card h3 text-center pt-5  col-sm-12"
+              id="shadow-bck"
+            >
               <img
                 src={money}
                 alt="x"

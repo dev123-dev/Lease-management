@@ -237,7 +237,8 @@ const AddShopDetails = ({
                   name="hikePercentage"
                   className="form-control  input"
                   readOnly
-                />
+                />{" "}
+                <br></br>
               </div>
               <div className="col-lg-6">
                 <label>Lease Time Period*:</label>
@@ -247,7 +248,8 @@ const AddShopDetails = ({
                     className="form-control"
                     readOnly
                   />
-                  <span id="category_result" className="form-input-info"></span>
+                  <span id="category_result" className="form-input-info"></span>{" "}
+                  <br></br>
                 </div>
 
                 <label className="ml-2">Door No*:</label>

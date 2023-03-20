@@ -7,8 +7,9 @@ import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
 import RenewalOrg_mainPage from "./RenewalOrg_model";
 import Pagination from "../layout/Pagination";
+import { Roller } from "react-awesome-spinners";
 const MainSuperPage = ({
-  auth: { expReport, isAuthenticated, user, users },
+  auth: { expReport, isAuthenticated, user, users, loading },
   tenants: { allorg },
   getAllOrganization,
 }) => {
@@ -53,8 +54,8 @@ const MainSuperPage = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-  return !isAuthenticated || !user || !users ? (
-    <Fragment></Fragment>
+  return !isAuthenticated || !user || !users || loading ? (
+    <Roller />
   ) : (
     <div className="col mt-5 DashBoard">
       <div className="col"></div>

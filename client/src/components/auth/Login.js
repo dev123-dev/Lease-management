@@ -244,7 +244,6 @@ const Login = ({
           </div>
         </form>
         {/* </form> */}
-        <Roller />
       </div>
     </Fragment>
   );

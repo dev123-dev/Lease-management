@@ -198,10 +198,11 @@ const EditTenantDetails = ({
   };
 
   const [doorno, setdno] = useState([]);
+  let doorNos = [];
   const onchangeDoor = (e) => {
     setdno(e);
   };
-  let doorNos = [];
+
   if (
     doorno.length < 1 &&
     tenantsdetails &&

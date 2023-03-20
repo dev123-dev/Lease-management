@@ -12,6 +12,8 @@ import {
   ALL_USERS,
   GET_ALL_USER,
   LOGOUT,
+  SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -25,6 +27,9 @@ export const login = (useremail, password) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
+  dispatch({
+    type: SET_LOADING_TRUE,
+  });
 
   const body = JSON.stringify({ useremail, password });
 
@@ -33,6 +38,9 @@ export const login = (useremail, password) => async (dispatch) => {
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
+    });
+    dispatch({
+      type: SET_LOADING_FALSE,
     });
   } catch (err) {
     // const errors = err.response.data.errors;

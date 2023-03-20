@@ -161,14 +161,14 @@ const TenantFilters = ({
       {logUser.usergroup === "Super Admin" ? (
         //super admin filter
         <Fragment>
-          <div className="container_align top_menu  ">
+          <div className="container_align top_menu col-sm-12s  ">
             <div className="row pb-2  ml-2 responsiveDiv ">
-              <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
-                <div className=" ">
-                  {/* this is for textbox below image for showing the total count of Renewal */}
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter ">
+                {/* this is for textbox below image for showing the total count of Renewal */}
+                <div>
                   <Link
                     to="/Organization-report"
-                    className="btn btn_more"
+                    className="btn btn_more "
                     onClick={() => oldExpCountFetch()}
                   >
                     {" "}
@@ -178,8 +178,8 @@ const TenantFilters = ({
                       ? ext_year_count_org[0].count
                       : 0}
                   </Link>
-                </div>
-                <div className="py-2 ">
+
+                  {/* <div className="py-2 "> */}
                   <DatePicker
                     className="form-control yearpicker"
                     placeholder="yyyy"
@@ -190,6 +190,8 @@ const TenantFilters = ({
                     showYearPicker
                   />
                 </div>
+
+                {/* </div> */}
 
                 {optName &&
                   optName.map((optFiltr, idx) => {
@@ -205,15 +207,20 @@ const TenantFilters = ({
                         return <></>;
                       });
                     return (
-                      <div className="py-2 " key={idx}>
+                      <div
+                        className="py-2  "
+                        key={idx}
+                        style={{ border: "5px soild blue" }}
+                      >
                         <div
-                          className="tenantfil"
+                          className="tenantfil "
                           style={{ color: "#fff", padding: "0px 0px 0px 5px" }}
                         >
                           {" "}
                           <Link
                             to="/Organization-report"
                             name="alphaSearch"
+                            // className="bg-danger"
                             onClick={() => onSelectOrgChange(optFiltr.value)}
                             style={
                               Number(monthSearch) === Number(optFiltr.value)
@@ -264,10 +271,10 @@ const TenantFilters = ({
         <>
           {/* TENANT FILTER */}
           <Fragment>
-            <div className="container_align top_menu ">
+            <div className="container_align top_menu col-sm-12">
               <div className="row pb-2 ml-2 responsiveDiv ">
-                <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center  ">
-                  <div className=" ">
+                <div className="col-lg-12 col-md-1 col-1 text-center tenantfilter ">
+                  <div className="filtertop">
                     <Link
                       to="/tenant-report"
                       className="btn btn_more"
@@ -277,10 +284,9 @@ const TenantFilters = ({
                         ? yearExpCnt[0].count
                         : 0}
                     </Link>
-                  </div>
-                  <div className="py-2">
+
                     <DatePicker
-                      className="form-control yearpicker"
+                      className="form-control yearpicker "
                       placeholder="yyyy"
                       onChange={(date) => monthYearChange(date)}
                       dateFormat="yyyy"

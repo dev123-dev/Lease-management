@@ -13,6 +13,7 @@ import {
   GET_ALL_USER,
   // OTP_SENT,
   SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
   FINAL_DATA_REP,
 } from "../actions/types";
 
@@ -60,6 +61,11 @@ const auth = (state = initialState, action) => {
       };
 
     case LOGIN_FAIL:
+      return {
+        ...state,
+
+        errorResponse: "Invalid UserName or Password",
+      };
     case AUTH_ERROR:
     case LOGOUT:
       localStorage.removeItem("token");
@@ -70,7 +76,7 @@ const auth = (state = initialState, action) => {
         token: null,
         isAuthenticated: false,
         loading: false,
-        errorResponse: "Invalid UserName or Password",
+        errorResponse: payload, //"Invalid UserName or Password",
         successResponse: "",
         // otpMessage: "",
       };
@@ -145,12 +151,16 @@ const auth = (state = initialState, action) => {
     //     errorResponse: "",
     //     loading: false,
     //   };
-    // case SET_LOADING_TRUE:
-    //   return {
-    //     ...state,
-    //     loading: true,
-    //     otpMessage: "",
-    //   };
+    case SET_LOADING_TRUE:
+      return {
+        ...state,
+        loading: true,
+      };
+    case SET_LOADING_FALSE:
+      return {
+        ...state,
+        loading: false,
+      };
     default:
       return state;
   }

@@ -65,18 +65,22 @@ router.post("/add-tenant-details", async (req, res) => {
 
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
-
-    const updateStatus = await property.updateOne(
-      { _id: tenantdata.shopId },
-      {
-        $set: {
-          // DoorId: data.tenanatDoorNo.value,
-          shopStatus: "Used",
-          tdId: tenantdata._id,
-        },
-      }
-    );
-    res.json(updateStatus);
+    let doonum = data.tenantDoorNo.map((ele) => ele.value);
+    doonum.map((ele) => {
+      property
+        .updateOne(
+          { _id: data.BuildingId, shopDoorNo: ele },
+          {
+            $set: {
+              tdId: tenantdata._id,
+            },
+            $pull: {
+              shopDoorNo: ele,
+            },
+          }
+        )
+        .then((data) => console.log(data));
+    });
 
     const finalData1 = {
       tdId: tenantdata._id,
@@ -513,13 +517,28 @@ router.post("/deactive-tenant", async (req, res) => {
     doonum.map((ele) => {
       TenantDetails.updateOne(
         { _id: data.tid, shopDoorNo: ele },
-        // { shopDoorNo: 1 }
         {
           $pull: {
             shopDoorNo: ele,
           },
+          $set: {
+            tenantstatus: "Deactive",
+            tenantdeactivereason: data.deactive_reason,
+          },
         }
       ).then(data);
+    });
+    doonum.map((ele) => {
+      property
+        .updateOne(
+          { tdId: data.tid },
+          {
+            $addToSet: {
+              shopDoorNo: ele,
+            },
+          }
+        )
+        .then(data);
     });
 
     // let tenantDoorNumber = await new TenantDetails.find({ shopDoorNo: doonum });
