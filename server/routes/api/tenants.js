@@ -7,6 +7,7 @@ const OrganizationDetailsHistories = require("../../models/OrganizationDetailsHi
 const UserDetails = require("../../models/UserDetails");
 const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
+const propertyHistory = require("../../models/PropertyDetailsHistories");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 
@@ -226,14 +227,19 @@ router.post("/update-Organization", async (req, res) => {
 });
 router.post("/update-Property", async (req, res) => {
   let data = req.body;
-
+  let doornumber = data.shopDoorNo.map((ele) => {
+    return {
+      label: ele,
+      status: "Acquired",
+    };
+  });
   try {
     const updateorg = await property.updateOne(
       { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
       {
         $set: {
           buildingName: data.buildingName,
-          shopDoorNo: data.shopDoorNo,
+          shopDoorNo: doornumber,
           shopAddress: data.shopAddress,
           hikePercentage: data.hikePercentage,
           stampDuty: data.stampDuty,
@@ -244,7 +250,6 @@ router.post("/update-Property", async (req, res) => {
         },
       }
     );
-
     res.json(updateorg);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
@@ -373,7 +378,6 @@ router.post("/add-tenant-settings", async (req, res) => {
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
-  console.log("hit:");
   console.log(data);
   try {
     let proper = new property(data);
@@ -409,17 +413,29 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
+
   try {
-    const propertydata = await property.updateOne(
-      { OrganizationId: data.OrganizationId, _id: data.PropertyId },
-      {
-        $set: {
-          shopStatus: "Avaiable",
-          deactive_reason: data.deactive_reason,
-        },
-      }
-    );
-    res.json(propertydata);
+    data.Dno.map((eleDoor) => {
+      property
+        .updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.PropertyId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Deleted the Door Number",
+              deactive_reason: data.deactive_reason,
+            },
+          }
+        )
+        .then((data) => {
+          console.log("data", data);
+        });
+    });
+
+    // res.json(propertydata);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");

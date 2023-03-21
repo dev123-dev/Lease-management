@@ -70,7 +70,7 @@ const AddShopDetails = ({
     isSubmitted: false,
   });
 
-  const [inputdata, setinput] = useState("");
+  const [inputdata, setinput] = useState([]);
   const [items, setitem] = useState([]);
 
   const {
@@ -98,7 +98,7 @@ const AddShopDetails = ({
     if (!inputdata) {
     } else {
       setshowscroll("block");
-      setitem([...items, inputdata]);
+      setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
       setinput("");
     }
   };
@@ -123,7 +123,7 @@ const AddShopDetails = ({
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
-      buildingname: buildingName,
+      buildingName: buildingName,
       shopDoorNo: items,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
@@ -285,7 +285,7 @@ const AddShopDetails = ({
                     {items.map((ele, index) => {
                       return (
                         <div className="eachItem" key={index}>
-                          <span>{ele}</span>
+                          <span>{ele.doorNo}</span>
                           <button
                             onClick={() => handleLocationclose(index)}
                             className="btndrp "

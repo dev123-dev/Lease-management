@@ -282,7 +282,7 @@ const Tenant_Details = ({
                                 ) : (
                                   <td>
                                     <div className="blank text-center">
-                                      Deactive
+                                      Deactived
                                     </div>
                                   </td>
                                 )}

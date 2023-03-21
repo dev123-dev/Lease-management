@@ -1968,8 +1968,10 @@ input.visually-hidden:focus-within + label {
 /* datepicker css changes end */
 
 .yearpicker {
+  background-color: #020101;
   text-align: center;
   font-weight: bold;
+  border-radius: 10px;
 }
 
 .item {
@@ -2045,8 +2047,10 @@ input[type="number"]::-webkit-outer-spin-button {
     
   }
   .btn.btn_more {
-    width: 65px;
-    margin-left: 3px;
+    border-radius: 10px;
+    width: 78px;
+    height:40px;
+    margin-left: 2px;
     margin-right: 3px;
     margin-top: 25px;
   }

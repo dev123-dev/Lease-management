@@ -159,7 +159,7 @@ const UserDetails = ({
                             <td>{alluser.useraddress}</td>
 
                             {alluser.userStatus === "Deactive" ? (
-                              <td className="blank text-center">Deactive</td>
+                              <td className="blank text-center">Deactived</td>
                             ) : (
                               <td className="text-center">
                                 <img

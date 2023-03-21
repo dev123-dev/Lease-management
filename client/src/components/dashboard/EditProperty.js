@@ -1,22 +1,25 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { updateProperty } from "../../actions/tenants";
+import { updateProperty, getParticularOrg } from "../../actions/tenants";
+import Select from "react-select";
 const EditProperty = ({
   auth: { user },
-  Property,
+  tenants: { particular_org_loc },
+  Propertydata,
   setShowUpdateModal,
   updateProperty,
+  getParticularOrg,
 }) => {
+  useEffect(() => {
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    fun();
+  }, []);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
 
+  const [orgLoc, setLoc] = useState([]);
+  const [Sellocation, SetselLoction] = useState([]);
   //adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState([]);
@@ -28,7 +31,8 @@ const EditProperty = ({
     setitem(delitem);
   };
 
-  const [dno, setdno] = useState(Property.shopDoorNo);
+  const [dno, setdno] = useState(Propertydata.shopDoorNo);
+  console.log("data", Propertydata.shopDoorNo);
   const handleDoorNumclose = (ele1, index) => {
     const delitem = dno.filter((ele, ind) => {
       return ele1 !== ele;
@@ -44,16 +48,30 @@ const EditProperty = ({
       setinput("");
     }
   };
+  const onchangeLoc = (e) => {
+    setLoc(e);
+  };
+  const loc = [];
+  const { Location } = particular_org_loc[0];
+  const fun = () => {
+    particular_org_loc[0] &&
+      Location.map((ele) => {
+        loc.push({
+          label: ele,
+          value: ele,
+        });
+        SetselLoction(loc);
+      });
+  };
   //multiple location end
-
   const [formData, setFormData] = useState({
-    buildingName: Property.buildingname,
+    buildingName: Propertydata.buildingName,
     shopDoorNo: [],
-    Location: Property.Location,
-    shopAddress: Property.shopAddress,
-    hikePercentage: Property.hikePercentage,
-    stampDuty: Property.stampDuty,
-    LeaseTime: Property.leaseTimePeriod,
+    Location: Propertydata.Location,
+    shopAddress: Propertydata.shopAddress,
+    hikePercentage: Propertydata.hikePercentage,
+    stampDuty: Propertydata.stampDuty,
+    LeaseTime: Propertydata.leaseTimePeriod,
     isSubmitted: false,
   });
 
@@ -64,7 +82,6 @@ const EditProperty = ({
     hikePercentage,
     stampDuty,
     LeaseTime,
-    Location,
     shopStatus,
   } = formData;
 
@@ -78,18 +95,18 @@ const EditProperty = ({
     const update = {
       OrganizationName: user.OrganizationName,
       Orgainzation_id: user.OrganizationId,
-      Property_id: Property._id,
+      Property_id: Propertydata._id,
       buildingName: buildingName,
       shopDoorNo: dno,
       shopAddress: shopAddress,
       hikePercentage: hikePercentage,
       stampDuty: stampDuty,
       leaseTimePeriod: LeaseTime,
-      Location: Location,
+      Location: orgLoc,
       isSubmitted: true,
       shopStatus: "Acquired",
     };
-
+    console.log(update);
     updateProperty(update);
     handleEditModalClose();
   };
@@ -106,7 +123,6 @@ const EditProperty = ({
                 type="text"
                 name="buildingName"
                 value={buildingName}
-                placeholder={buildingName}
                 className="form-control input"
                 onChange={(e) => onInputChange(e)}
                 required
@@ -119,6 +135,7 @@ const EditProperty = ({
                 type="text"
                 name="stampDuty"
                 value={stampDuty}
+                placeholder={stampDuty}
                 className="form-control  input"
                 readOnly
               />
@@ -162,13 +179,22 @@ const EditProperty = ({
               <br></br>
 
               <label className="">Location*:</label>
-              <input
-                type="text"
-                placeholder="Location"
-                name="Location"
-                value={Location}
-                className="form-control  input"
-                onChange={(e) => onInputChange(e)}
+              <Select
+                name="orgLoc"
+                options={Sellocation}
+                value={orgLoc}
+                onChange={(e) => onchangeLoc(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+                required
               />
             </div>
 
@@ -200,17 +226,19 @@ const EditProperty = ({
                 </div>
                 <div className="showItemcl ">
                   {dno.map((ele, index1) => {
-                    return (
-                      <div className="eachItem" key={index1}>
-                        <span>{ele}</span>{" "}
-                        <button
-                          onClick={() => handleDoorNumclose(ele, index1)}
-                          className="btndrp"
-                        >
-                          X
-                        </button>
-                      </div>
-                    );
+                    if (ele.status === "Avaiable") {
+                      return (
+                        <div className="eachItem" key={index1}>
+                          <span>{ele.doorNo}</span>{" "}
+                          <button
+                            onClick={() => handleDoorNumclose(ele, index1)}
+                            className="btndrp"
+                          >
+                            X
+                          </button>
+                        </div>
+                      );
+                    }
                   })}
                 </div>
               </div>
@@ -243,4 +271,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   updateProperty,
+  getParticularOrg,
 })(EditProperty);

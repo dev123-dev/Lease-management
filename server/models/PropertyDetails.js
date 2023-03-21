@@ -1,15 +1,13 @@
 const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
-  buildingname: {
+  buildingName: {
     type: String,
   },
   buildingid: {
     type: String,
   },
-  shopDoorNo: {
-    type: [],
-  },
+  shopDoorNo: [],
   DoorId: {
     type: String,
   },

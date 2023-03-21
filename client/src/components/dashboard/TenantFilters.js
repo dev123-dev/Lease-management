@@ -161,14 +161,15 @@ const TenantFilters = ({
       {logUser.usergroup === "Super Admin" ? (
         //super admin filter
         <Fragment>
-          <div className="container_align top_menu col-sm-12s  ">
+          <div className="container_align top_menu col-sm-12 ">
             <div className="row pb-2  ml-2 responsiveDiv ">
               <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter ">
                 {/* this is for textbox below image for showing the total count of Renewal */}
                 <div>
                   <Link
+                    title="Total Renewal Count"
                     to="/Organization-report"
-                    className="btn btn_more "
+                    className="btn btn_more  "
                     onClick={() => oldExpCountFetch()}
                   >
                     {" "}
@@ -181,7 +182,7 @@ const TenantFilters = ({
 
                   {/* <div className="py-2 "> */}
                   <DatePicker
-                    className="form-control yearpicker"
+                    className="form-control yearpicker "
                     placeholder="yyyy"
                     onChange={(date) => OrgainzationmonthYearChange(date)}
                     dateFormat="yyyy"
@@ -273,8 +274,8 @@ const TenantFilters = ({
           <Fragment>
             <div className="container_align top_menu col-sm-12">
               <div className="row pb-2 ml-2 responsiveDiv ">
-                <div className="col-lg-12 col-md-1 col-1 text-center tenantfilter ">
-                  <div className="filtertop">
+                <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter ">
+                  <div>
                     <Link
                       to="/tenant-report"
                       className="btn btn_more"
@@ -309,9 +310,13 @@ const TenantFilters = ({
                         return <></>;
                       });
                       return (
-                        <div className="py-2" key={idx}>
+                        <div
+                          className="py-2 "
+                          key={idx}
+                          style={{ border: "5px soild blue" }}
+                        >
                           <div
-                            className="tenantfil"
+                            className="tenantfil "
                             style={{
                               color: "#fff",
                               padding: "0px 0px 0px 5px",
@@ -343,7 +348,7 @@ const TenantFilters = ({
                                   ? {
                                       fontSize: "80%",
                                       color: "#000",
-                                      background: "white",
+                                      background: "#fff",
                                     }
                                   : {
                                       fontSize: "80%",

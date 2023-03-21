@@ -35,7 +35,7 @@ const PropertyDetail = ({
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
 
-  const { _id, Location } = particular_org_loc[0];
+  const { Location } = particular_org_loc[0];
   const fun = () => {
     particular_org_loc[0] &&
       Location.map((ele) => {
@@ -45,14 +45,38 @@ const PropertyDetail = ({
         });
         SetselLoction(Loc);
       });
+
+    let isDoorcheck = particular_org_data.map((ele) => {
+      return ele.shopDoorNo;
+    });
+    let isDoortrue = isDoorcheck.map((ele) => ele.status === "Avaiable");
+    //console.log(isDoortrue);
+
+    //console.log("nly if one of then is true", output);
   };
-  const name = user && user.OrganizationName;
+
+  let output = particular_org_data.filter(
+    (item) =>
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  );
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
-  const [property, setProperty] = useState(null);
+  const [property, setProperty] = useState([]);
 
   const onEdit = (ele) => {
-    setProperty(ele);
+    let propertydata = {
+      OrganizationId: ele.OrganizationId,
+      OrganizationName: ele.OrganizationName,
+      buildingName: ele.buildingName,
+      hikePercentage: ele.hikePercentage,
+      leaseTimePeriod: ele.leaseTimePeriod,
+      shopAddress: ele.shopAddress,
+      shopDoorNo: ele.shopDoorNo,
+      Location: ele.Location,
+      stampDuty: ele.stampDuty,
+    };
+    setProperty(propertydata);
     handleUpdateModalOpen();
   };
 
@@ -65,11 +89,34 @@ const PropertyDetail = ({
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
 
-  const [PropertyId, setId] = useState("");
-
-  const onDelete = (id) => {
-    setId(id);
-    handleShow();
+  const [checkData, setCheckData] = useState([]);
+  const HandelCheck = (e) => {
+    var updatedlist = [...checkData];
+    if (e.target.checked) {
+      updatedlist = [...checkData, e.target.value];
+    } else {
+      updatedlist.splice(checkData.indexOf(e.target.value), 1);
+    }
+    setCheckData(updatedlist);
+  };
+  const [dno, SetDno] = useState([]);
+  const [PropertyId, setPropertyId] = useState([]);
+  const [selectDno, SetDoornumber] = useState();
+  const handleShowDno = () => SetDoornumber(false);
+  const handleCloseDno = () => {
+    SetDoornumber(false);
+    setCheckData([]);
+  };
+  const onDelete = (id, Dno) => {
+    if (Dno.length > 1) {
+      SetDno(Dno);
+      setPropertyId(id);
+      SetDoornumber(true);
+    } else {
+      SetDno(Dno);
+      setPropertyId(id);
+      handleShow();
+    }
   };
   const onchangeLocation = (e) => {
     SetLocation(e);
@@ -80,11 +127,13 @@ const PropertyDetail = ({
     getParticularProperty(OrgainationId_Loc_name);
   };
 
-  const onDeactive = () => {
+  const onDeactivate = (e) => {
+    e.preventDefault();
     setShow(false);
     const reason = {
       PropertyId: PropertyId,
       OrganizationId: user && user.OrganizationId,
+      Dno: checkData.length !== 0 ? checkData : dno,
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
@@ -186,41 +235,47 @@ const PropertyDetail = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {currentDatas &&
-                        currentDatas.map((Val, idx) => {
+                      {output &&
+                        output.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
-                                {Val.buildingname}
+                                {Val.buildingName}
                               </td>
-                              <td>{Val.shopDoorNo + ","}</td>
+                              <td>
+                                {Val.shopDoorNo &&
+                                  Val.shopDoorNo.map((ele) => {
+                                    if (
+                                      ele.status !== "Deleted the Door Number"
+                                    ) {
+                                      return <i>{ele.doorNo + ","}</i>;
+                                    }
+                                  })}
+                              </td>
                               <td>{Val.Location}</td>
                               <td>{Val.hikePercentage}</td>
                               <td>{Val.stampDuty}</td>
                               <td>{Val.leaseTimePeriod}</td>
                               <td>{Val.shopAddress}</td>
-
-                              {Val.shopStatus === "Acquired" ? (
-                                <td className=" text-center">
-                                  <img
-                                    className="Cursor"
-                                    onClick={() => onEdit(Val)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit Property"
-                                    title="Edit Property"
-                                  />
-                                  &nbsp;
-                                  <img
-                                    className=" Cursor"
-                                    onClick={() => onDelete(Val._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="Delete Property "
-                                    title="Delete Property"
-                                  />
-                                </td>
-                              ) : (
-                                <td className="blank text-center">Deactive</td>
-                              )}
+                              <td className=" text-center">
+                                <img
+                                  className="Cursor"
+                                  onClick={() => onEdit(Val)}
+                                  src={require("../../static/images/edit_icon.png")}
+                                  alt="Edit Property"
+                                  title="Edit Property"
+                                />
+                                &nbsp;
+                                <img
+                                  className=" Cursor"
+                                  onClick={() =>
+                                    onDelete(Val._id, Val.shopDoorNo)
+                                  }
+                                  src={require("../../static/images/delete.png")}
+                                  alt="Delete Property "
+                                  title="Delete Property"
+                                />
+                              </td>
                             </tr>
                           );
                         })}
@@ -253,9 +308,9 @@ const PropertyDetail = ({
           </div>
         </div>
       </div>
-      {/* modal for Deactivating the Property starting */}
+      {/* modal for Deactivating the single Property starting */}
       <Modal show={show} centered>
-        <form onSubmit={onDeactive}>
+        <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header>
             <div className="col-lg-11 ">
               <h3 className="modal-title text-center">
@@ -299,6 +354,67 @@ const PropertyDetail = ({
         </form>
       </Modal>
 
+      <Modal show={selectDno} centered>
+        <form onSubmit={(e) => onDeactivate(e)}>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <h5 className="modal-title text-center">
+                <b> Choose Door Number To Deactivate</b>
+              </h5>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={handleCloseDno}
+              />
+            </div>
+          </Modal.Header>
+
+          <Modal.Body>
+            {/* <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
+            <div className="h5 despace">Reason For Deactivating</div>
+            <div className="checkbox mx-5">
+              {dno.map((ele) => {
+                if (ele.status == "Avaiable") {
+                  return (
+                    <>
+                      <input
+                        type="checkbox"
+                        id="checkbox"
+                        value={ele.doorNo}
+                        onChange={(e) => HandelCheck(e)}
+                      />
+                      <label htmlFor="vehicle1">{ele.doorNo}</label>
+                    </>
+                  );
+                }
+              })}
+            </div>
+            <textarea
+              rows="2"
+              name="deactive_reason"
+              value={deactive_reason}
+              onChange={(e) => onInputChange(e)}
+              autoFocus
+              id="org_reason"
+              className="form-control "
+              required
+            ></textarea>
+            <div>Are you sure You Want To Deactivate..?</div>
+            {/* </Form.Group>
+          </Form> */}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" id="deactivebtn" type="submit">
+              <b>Deactive</b>
+            </Button>
+          </Modal.Footer>
+        </form>
+      </Modal>
+
       {/* Modal edit */}
       <Modal
         show={showUpdateModal}
@@ -326,7 +442,7 @@ const PropertyDetail = ({
         </Modal.Header>
         <Modal.Body>
           <EditProperty
-            Property={property}
+            Propertydata={property}
             setShowUpdateModal={setShowUpdateModal}
           />
         </Modal.Body>
