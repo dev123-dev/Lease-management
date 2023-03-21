@@ -150,13 +150,16 @@ const AddTenantDetails = ({
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     particular_org_data &&
       particular_org_data.map((ele) => {
-        if (e.buildingId == ele._id) {
+        if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
-            temp.push({
-              label: doornumber,
-              value: doornumber, //uuid(),
-            });
+            if (doornumber.status === "Avaiable") {
+              temp.push({
+                label: doornumber.doorNo,
+                value: doornumber.doorNo,
+                status: doornumber.status, //uuid(),
+              });
+            }
           });
         }
         setDnoList(temp);
@@ -276,8 +279,8 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-
-    AddTenantDetailsform(finalData);
+    console.log(finalData);
+    // AddTenantDetailsform(finalData);
     setFreshPage(!freshpage);
 
     setFormData({
