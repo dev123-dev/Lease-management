@@ -171,8 +171,8 @@ const EditTenantDetails = ({
       ? tenantsdetails.tenantChequenoOrDdno
       : "null",
     startSelectedDate: tenantsdetails.tenantchequeDate,
-    tenantLeaseStartDate: tenantsdetails.tenantLeaseStartDate,
-    tenantLeaseEndDate: tenantsdetails.tenantLeaseEndDate,
+    tenantLeaseStartDate: new Date(tenantsdetails.tenantLeaseStartDate),
+    tenantLeaseEndDate: new Date(tenantsdetails.tenantLeaseEndDate),
     AgreementStatus: tenantsdetails.AgreementStatus,
     generatordepoAmt: tenantsdetails.generatordepoAmt,
     tenantPaymentMode:
@@ -291,8 +291,8 @@ const EditTenantDetails = ({
       tenantDate: todayDateymd,
     };
     console.log(finalData);
-    // UpdateTenantsDetails(finalData);
-    // setFreshPage(!freshpage);
+    UpdateTenantsDetails(finalData);
+    setFreshPage(!freshpage);
 
     // const historyData = {
     //   tdId: tenantId,

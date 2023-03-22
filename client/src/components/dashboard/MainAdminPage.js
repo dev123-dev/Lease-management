@@ -22,7 +22,7 @@ const MainAdminPage = ({
 
   let count = 0;
   let AvaiableShopCount = 0;
-  const [PropertyCount, setPropertyCount] = useState();
+  const [PropertyCount, setPropertyCount] = useState(0);
   const [status, setStatus] = useState("");
   let ShopStatus = [];
   particular_org_data.map((ele) =>
@@ -32,8 +32,12 @@ const MainAdminPage = ({
   );
 
   const fun = () => {
-    particular_org_data &&
-      particular_org_data.map((ind) => setPropertyCount(count + 1));
+    // particular_org_data.map((ind) => setPropertyCount(count + 1));
+    let pCount =
+      particular_org_data &&
+      particular_org_data.reduce((acu, cur) => acu + 1, 0);
+    setPropertyCount(pCount);
+
     ShopStatus.map((ele) => {
       if (ele.label === "Avaiable") {
         AvaiableShopCount = AvaiableShopCount + 1;

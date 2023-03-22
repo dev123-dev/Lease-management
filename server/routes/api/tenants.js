@@ -12,7 +12,6 @@ const TenentHistories = require("../../models/TenantHistories");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-  console.log(data);
   try {
     let tenantDetails = {
       OrganizationName: data.OrganizationName,
@@ -62,16 +61,6 @@ router.post("/add-tenant-details", async (req, res) => {
     let tenantHistories = new TenentHistories(finalData2);
     output2 = await tenantHistories.save();
 
-    let storeProperty = {
-      BuildingName: tenantdata.BuildingName,
-      BuildingId: tenantdata.BuildingId,
-      shopDoorNo: tenantdata.shopDoorNo,
-      OrganizationName: tenantdata.OrganizationName,
-      OrganizationId: tenantdata.OrganizationId,
-      shopStatus: "Acquired",
-      Location: tenantdata.Location,
-      tdId: tenantdata._id,
-    };
     tenantdata.shopDoorNo.map((eleDoor) => {
       property.updateOne(
         {
@@ -87,23 +76,23 @@ router.post("/add-tenant-details", async (req, res) => {
       );
     });
 
-    // const finalData1 = {
-    //   tdId: tenantdata._id,
-    //   OrganizationName: data.OrganizationName,
-    //   OrganizationId: data.OrganizationId,
-    //   BuildingName: data.BuildingName,
-    //   BuildingId: data.BuildingId,
-    //   tenantstatus: "Active",
-    //   tenantFileNo: data.tenantFileNo,
-    //   tenantDoorNo: data.tenantDoorNo.label,
-    //   tenantRentAmount: data.tenantRentAmount,
-    //   tenantLeaseStartDate: data.tenantLeaseStartDate,
-    //   tenantLeaseEndDate: data.tenantLeaseEndDate,
-    //   tenantAgreementEntredBy: data.tenantEnteredBy,
-    //   tenantAgreementDate: data.tenantDate,
-    // };
-    // let tenantAgreementDetails = new TenentAgreement(finalData1);
-    // output1 = await tenantAgreementDetails.save();
+    const finalData1 = {
+      tdId: tenantdata._id,
+      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
+      BuildingName: data.BuildingName,
+      BuildingId: data.BuildingId,
+      tenantstatus: "Active",
+      tenantFileNo: data.tenantFileNo,
+      tenantDoorNo: data.tenantDoorNo.label,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+      tenantAgreementEntredBy: data.tenantEnteredBy,
+      tenantAgreementDate: data.tenantDate,
+    };
+    let tenantAgreementDetails = new TenentAgreement(finalData1);
+    output1 = await tenantAgreementDetails.save();
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -514,6 +503,16 @@ router.post("/deactive-user", async (req, res) => {
 router.post("/deactive-Organization", async (req, res) => {
   try {
     let data = req.body;
+    UserDetails.updateMany(
+      {
+        OrganizationId: data.Org_id,
+      },
+      {
+        $set: {
+          userStatus: "Deactive",
+        },
+      }
+    );
     let dltOrg = await OrganizationDetails.updateOne(
       { _id: data.Org_id },
       {
