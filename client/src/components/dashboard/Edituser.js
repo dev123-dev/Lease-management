@@ -88,7 +88,7 @@ const Edituser = ({
       OrganizationId: superuser.OrganizationId,
     };
     console.log(updateUSER);
-    // UpdateUser(updateUSER);
+    UpdateUser(updateUSER);
     handleClose(true);
   };
   useEffect(() => {

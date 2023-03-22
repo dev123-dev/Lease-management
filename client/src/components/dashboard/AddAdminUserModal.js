@@ -29,10 +29,6 @@ const AddAdminUserModal = ({
     password: "",
   });
 
-  // validation for Password starting
-
-  // validation
-
   const { name, email, address, phone, password, rePassword } = formData;
   // validation for password starting
   const [error, setError] = useState({

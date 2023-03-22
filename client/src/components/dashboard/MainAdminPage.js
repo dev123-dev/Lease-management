@@ -4,7 +4,7 @@ import prop from "../../static/images/property.png";
 import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
-import { getParticularProperty } from "../../actions/tenants";
+import { getParticularProperty, ParticularTenant } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 // import { Roller } from "react-awesome-spinners";
@@ -13,10 +13,12 @@ const MainAdminPage = ({
   auth: { user, isAuthenticated, loading },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
+  ParticularTenant,
 }) => {
   useEffect(() => {
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    ParticularTenant({ OrganizationId: user && user.OrganizationId });
   }, []);
   const total = JSON.parse(localStorage.getItem("total"));
 
@@ -140,4 +142,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getParticularProperty,
+  ParticularTenant,
 })(MainAdminPage);

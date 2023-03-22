@@ -21,10 +21,7 @@ const PropertyDetail = ({
 }) => {
   useEffect(() => {
     fun();
-    const OrganizationId = {
-      OrganizationId: user && user.OrganizationId,
-    };
-    getParticularOrg(OrganizationId);
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
   }, []);
 
   const [formData, setFormData] = useState({
@@ -129,7 +126,7 @@ const PropertyDetail = ({
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    // deactiveProperty(reason);
+    deactiveProperty(reason);
   };
 
   const [showadd, setShowadd] = useState(false);
@@ -148,7 +145,6 @@ const PropertyDetail = ({
     setCurrentData(nmbr);
   };
   const refresh = () => {
-    // window.location.reload(true);
     fun();
     const OrganizationId = {
       OrganizationId: user && user.OrganizationId,
