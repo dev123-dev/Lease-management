@@ -48,88 +48,83 @@ const MainAdminPage = ({
   ) : (
     <div>
       <div className="container-fluid">
-        <div className="row">
-          <div className="col">
-            <h2 className="heading_color mt-5 pt-5 ">DashBoard </h2>
-            <hr></hr>
-          </div>
+        <div className="col">
+          <h2 className="heading_color mt-sm-5 pt-5 ">DashBoard </h2>
+          <hr></hr>
         </div>
-
         <div className="row">
           <div className="col-lg-1"></div>
-          <div className="col-lg-5 col-sm-12 col-md-12 ">
+          <div className="col-lg-5">
             <div
-              className=" card h3 text-center pt-5  col-sm-12"
+              className="  row card h3 text-center pt-5  col-sm-12"
               id="shadow-bck"
             >
-              <img
-                src={prop}
-                alt="x"
-                height="40%"
-                width="20%"
-                className="mainpageimg"
-              ></img>
-              Total Property Count
-              <div>{PropertyCount}</div>
+              <div className="col-lg-1"></div>
+              <div className="col-lg-10 text-center">
+                {" "}
+                <img src={prop} alt="x" height="40%" width="20%"></img>
+                <br></br>
+                Total Property Count
+                <div>{PropertyCount}</div>
+              </div>
+              <div className="col-lg-1"></div>
             </div>
           </div>
-
-          <div className="col-lg-5 col-sm-12 col-md-12 ">
+          <div className="col-lg-5">
+            {" "}
             <div
-              className=" card  h3 text-center  col-sm-12 pt-5 "
+              className="  row card h3 text-center pt-5  col-sm-12"
               id="shadow-bck"
             >
-              <img
-                src={unprop}
-                alt="x"
-                height="35%"
-                width="15%"
-                className="mainpageimg"
-              ></img>
-              UnOccupied Property
-              <div>{status}</div>
+              <div className="col-lg-1"></div>
+              <div className="col-lg-10 text-center">
+                {" "}
+                <img src={unprop} alt="x" height="35%" width="15%"></img>
+                <br></br>
+                Unoccupied Property
+                <div>{status}</div>
+              </div>
+              <div className="col-lg-1"></div>
             </div>
           </div>
           <div className="col-lg-1"></div>
         </div>
-
         <div className="row">
-          <div className="col-lg-1 "></div>
-
-          <div className="col-lg-5 col-sm-12 col-md-12">
+          <div className="col-lg-1"></div>
+          <div className="col-lg-5">
+            {" "}
             <div
-              className="card h3 text-center pt-5  col-sm-12"
+              className="  row card h3 text-center pt-5  col-sm-12"
               id="shadow-bck"
             >
-              <img
-                src={people}
-                alt="x"
-                height="35%"
-                width="15%"
-                className="mainpageimg"
-              ></img>
-              No Of Tenants Count
-              <div>{get_particular_org_tenant.length}</div>
+              <div className="col-lg-1"></div>
+              <div className="col-lg-10 text-center">
+                {" "}
+                <img src={people} alt="x" height="35%" width="15%"></img>
+                <br></br>
+                No of Tenants Count
+                <div>{get_particular_org_tenant.length}</div>
+              </div>
+              <div className="col-lg-1"></div>
             </div>
           </div>
-
-          <div className="col-lg-5 col-sm-12 col-md-12">
+          <div className="col-lg-5">
+            {" "}
             <div
-              className="card h3 text-center pt-5  col-sm-12"
+              className="  row card h3 text-center pt-5  col-sm-12"
               id="shadow-bck"
             >
-              <img
-                src={money}
-                alt="x"
-                height="35%"
-                width="15%"
-                className="mainpageimg"
-              ></img>
-              Total Renewal
-              <div> {total}</div>
+              <div className="col-lg-1"></div>
+              <div className="col-lg-10 text-center">
+                {" "}
+                <img src={money} alt="x" height="35%" width="15%"></img>
+                <br></br>
+                Total Renewal
+                <div> {total}</div>
+              </div>
+              <div className="col-lg-1"></div>
             </div>
           </div>
-
           <div className="col-lg-1"></div>
         </div>
       </div>

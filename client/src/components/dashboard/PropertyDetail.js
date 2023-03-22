@@ -157,56 +157,61 @@ const PropertyDetail = ({
   };
   return (
     <>
-      <div className="col mt-4 space">
+      <div className="col mt-sm-4 space  ">
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-          <div className="col mt-5 h2 ml-2">Property Details</div>
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
+          <h2 className="col mt-sm-4 h2 ml-3 ">Property Details</h2>
+          <div>
+            <hr className="line"></hr>
+          </div>
 
           <div className="text-end"></div>
 
-          <div className="w-25 ml-3">
-            <Select
-              className="dropdown"
-              placeholder="Search-Location"
-              name="location"
-              options={Sellocation}
-              value={LOCATION}
-              // style={{ width: "100%" }}
-              onChange={(e) => onchangeLocation(e)}
-            ></Select>
-          </div>
-
-          <div className="container-fluid d-flex align-items-center justify-content-center ">
+          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-3 ">
             <div className="col">
-              <div className=" refreshbtn">
-                {/* <AddShopDetails /> */}
-                <img
-                  className="plusicon"
-                  height="25px"
-                  onClick={() => setShowadd(true)}
-                  src={require("../../static/images/add-icon.png")}
-                  alt="Add Prop"
-                  title="Add Prop"
-                />
-
-                <img
-                  className="ml-2"
-                  height="25px"
-                  onClick={() => refresh()}
-                  src={require("../../static/images/refresh-icon.png")}
-                  alt="refresh"
-                  title="refresh"
-                />
+              <div className="row text-end ">
+                <div className="col-lg-4">
+                  {" "}
+                  <Select
+                    className="dropdown text-center"
+                    placeholder="Search-Location"
+                    name="location"
+                    options={Sellocation}
+                    value={LOCATION}
+                    onChange={(e) => onchangeLocation(e)}
+                  ></Select>
+                </div>
+                <div className="col-lg-4"></div>
+                <div className="col-lg-4 refresh ">
+                  {" "}
+                  <img
+                    height="20px"
+                    onClick={() => setShowadd(true)}
+                    src={require("../../static/images/add-icon.png")}
+                    alt="Add Prop"
+                    title="Add Prop"
+                  />
+                  <img
+                    className="ml-2"
+                    height="20px"
+                    onClick={() => refresh()}
+                    src={require("../../static/images/refresh-icon.png")}
+                    alt="refresh"
+                    title="refresh"
+                  />
+                </div>
               </div>
+              {/* <div className="w-25 ml-3 mt-4"></div> */}
+              {/* <div className=" refreshbtn"></div> */}
               <div className="row ">
                 <div className="col-lg-1"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
                   <table
-                    className="table table-bordered table-striped table-hover  table-active mt-5 new1"
+                    className="table table-bordered table-striped table-hover  table-active mt-3 new1"
                     id="datatable2"
                   >
                     <thead>
@@ -240,7 +245,7 @@ const PropertyDetail = ({
                                     if (
                                       ele.status !== "Deleted the Door Number"
                                     ) {
-                                      return <i>{ele.doorNo + ","}</i>;
+                                      return <>{ele.doorNo + ","}</>;
                                     }
                                   })}
                               </td>
