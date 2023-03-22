@@ -126,6 +126,7 @@ const AddTenantDetails = ({
   const [buildingName, setBuildingName] = useState();
 
   const allBuildingNames = [];
+
   particular_org_data.map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
@@ -144,6 +145,7 @@ const AddTenantDetails = ({
       value: loc._id,
     });
   });
+  console.log("org", particular_org_data);
   const onBuildingChange = (e) => {
     setBuildingID(e.value);
     setBuildingName(e.label);
@@ -157,7 +159,11 @@ const AddTenantDetails = ({
               temp.push({
                 label: doornumber.doorNo,
                 value: doornumber.doorNo,
-                status: doornumber.status, //uuid(),
+                status: doornumber.status,
+              });
+            } else {
+              temp.push({
+                label: "Blank",
               });
             }
           });
@@ -280,7 +286,7 @@ const AddTenantDetails = ({
       selectedVal: dt,
     };
     console.log(finalData);
-    // AddTenantDetailsform(finalData);
+    AddTenantDetailsform(finalData);
     setFreshPage(!freshpage);
 
     setFormData({

@@ -13,93 +13,90 @@ const TenentHistories = require("../../models/TenantHistories");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-  // console.log(data.tenantDoorNo.map((ele) => ele.value));
   const tenetDoorNo = data.tenantDoorNo.map((ele) => ele.value);
+  console.log(data, "data");
+  console.log(tenantDoorNo);
   try {
-    let tenantDetails = {
-      OrganizationName: data.OrganizationName,
-      OrganizationId: data.OrganizationId,
-      BuildingName: data.BuildingName,
-      BuildingId: data.BuildingId,
-      Location: data.Location,
-      tenantFileNo: data.tenantFileNo,
-      shopDoorNo: tenetDoorNo,
-      tenantName: data.tenantName,
-      tenantPhone: data.tenantPhone,
-      tenantFirmName: data.tenantFirmName,
-      tenantAddr: data.tenantAddr,
-      tenantAdharNo: data.tenantAdharNo,
-      tenantPanNo: data.tenantPanNo,
-      tenantDepositAmt: data.tenantDepositAmt,
-      tenantPaymentMode: data.tenantPaymentMode,
-      tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-      tenantBankName: data.tenantBankName,
-      tenantchequeDate: data.startSelectedDate,
-      tenantRentAmount: data.tenantRentAmount,
-      tenantLeaseStartDate: data.tenantLeaseStartDate,
-      tenantLeaseEndDate: data.tenantLeaseEndDate,
-      generatordepoAmt: data.generatordepoAmt,
-      tenantEnteredBy: data.tenantEnteredBy,
-      tenantDate: data.todayDateymd,
-      selectedY: data.selectedY,
-      selectedVal: data.selectedVal,
-    };
-
-    let tenantdata = await new TenantDetails(tenantDetails);
-    tenantdata.save();
-
-    const finalData2 = {
-      tdId: tenantdata._id,
-      thName: data.tenantName,
-      thPhone: data.tenantPhone,
-      thFirmName: data.tenantFirmName,
-      thAddr: data.tenantAddr,
-      thAdharNo: data.tenantAdharNo,
-      thPanNo: data.tenantPanNo,
-      thDepositAmt: data.tenantDepositAmt,
-      thgeneratordepoAmt: data.generatordepoAmt,
-      thshopId: data.shopId,
-      thStatus: "Add",
-      thEnteredBy: data.tenantEnteredBy,
-      thDate: data.tenantDate,
-    };
-
-    let tenantHistories = new TenentHistories(finalData2);
-    output2 = await tenantHistories.save();
-    let doonum = data.tenantDoorNo.map((ele) => ele.value);
-    doonum.map((ele) => {
-      property
-        .updateOne(
-          { _id: data.BuildingId, shopDoorNo: ele },
-          {
-            $set: {
-              tdId: tenantdata._id,
-            },
-            $pull: {
-              shopDoorNo: ele,
-            },
-          }
-        )
-        .then((data) => console.log(data));
-    });
-
-    const finalData1 = {
-      tdId: tenantdata._id,
-      OrganizationName: data.OrganizationName,
-      OrganizationId: data.OrganizationId,
-      BuildingName: data.BuildingName,
-      BuildingId: data.BuildingId,
-      tenantstatus: "Active",
-      tenantFileNo: data.tenantFileNo,
-      tenantDoorNo: data.tenantDoorNo.label,
-      tenantRentAmount: data.tenantRentAmount,
-      tenantLeaseStartDate: data.tenantLeaseStartDate,
-      tenantLeaseEndDate: data.tenantLeaseEndDate,
-      tenantAgreementEntredBy: data.tenantEnteredBy,
-      tenantAgreementDate: data.tenantDate,
-    };
-    let tenantAgreementDetails = new TenentAgreement(finalData1);
-    output1 = await tenantAgreementDetails.save();
+    // let tenantDetails = {
+    //   OrganizationName: data.OrganizationName,
+    //   OrganizationId: data.OrganizationId,
+    //   BuildingName: data.BuildingName,
+    //   BuildingId: data.BuildingId,
+    //   Location: data.Location,
+    //   tenantFileNo: data.tenantFileNo,
+    //   shopDoorNo: tenetDoorNo,
+    //   tenantName: data.tenantName,
+    //   tenantPhone: data.tenantPhone,
+    //   tenantFirmName: data.tenantFirmName,
+    //   tenantAddr: data.tenantAddr,
+    //   tenantAdharNo: data.tenantAdharNo,
+    //   tenantPanNo: data.tenantPanNo,
+    //   tenantDepositAmt: data.tenantDepositAmt,
+    //   tenantPaymentMode: data.tenantPaymentMode,
+    //   tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+    //   tenantBankName: data.tenantBankName,
+    //   tenantchequeDate: data.startSelectedDate,
+    //   tenantRentAmount: data.tenantRentAmount,
+    //   tenantLeaseStartDate: data.tenantLeaseStartDate,
+    //   tenantLeaseEndDate: data.tenantLeaseEndDate,
+    //   generatordepoAmt: data.generatordepoAmt,
+    //   tenantEnteredBy: data.tenantEnteredBy,
+    //   tenantDate: data.todayDateymd,
+    //   selectedY: data.selectedY,
+    //   selectedVal: data.selectedVal,
+    // };
+    // let tenantdata = await new TenantDetails(tenantDetails);
+    // tenantdata.save();
+    // const finalData2 = {
+    //   tdId: tenantdata._id,
+    //   thName: data.tenantName,
+    //   thPhone: data.tenantPhone,
+    //   thFirmName: data.tenantFirmName,
+    //   thAddr: data.tenantAddr,
+    //   thAdharNo: data.tenantAdharNo,
+    //   thPanNo: data.tenantPanNo,
+    //   thDepositAmt: data.tenantDepositAmt,
+    //   thgeneratordepoAmt: data.generatordepoAmt,
+    //   thshopId: data.shopId,
+    //   thStatus: "Add",
+    //   thEnteredBy: data.tenantEnteredBy,
+    //   thDate: data.tenantDate,
+    // };
+    // let tenantHistories = new TenentHistories(finalData2);
+    // output2 = await tenantHistories.save();
+    // let doonum = data.tenantDoorNo.map((ele) => ele.value);
+    // doonum.map((ele) => {
+    //   property
+    //     .updateOne(
+    //       { _id: data.BuildingId, shopDoorNo: ele },
+    //       {
+    //         $set: {
+    //           tdId: tenantdata._id,
+    //         },
+    //         $pull: {
+    //           shopDoorNo: ele,
+    //         },
+    //       }
+    //     )
+    //     .then((data) => console.log(data));
+    // });
+    // const finalData1 = {
+    //   tdId: tenantdata._id,
+    //   OrganizationName: data.OrganizationName,
+    //   OrganizationId: data.OrganizationId,
+    //   BuildingName: data.BuildingName,
+    //   BuildingId: data.BuildingId,
+    //   tenantstatus: "Active",
+    //   tenantFileNo: data.tenantFileNo,
+    //   tenantDoorNo: data.tenantDoorNo.label,
+    //   tenantRentAmount: data.tenantRentAmount,
+    //   tenantLeaseStartDate: data.tenantLeaseStartDate,
+    //   tenantLeaseEndDate: data.tenantLeaseEndDate,
+    //   tenantAgreementEntredBy: data.tenantEnteredBy,
+    //   tenantAgreementDate: data.tenantDate,
+    // };
+    // let tenantAgreementDetails = new TenentAgreement(finalData1);
+    // output1 = await tenantAgreementDetails.save();
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
