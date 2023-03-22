@@ -57,7 +57,6 @@ const UserDetails = ({
   };
 
   const onDeactivate = () => {
-    console.log("clicked");
     setDeactiveShow(false);
     const reason = {
       userId: AdminId,
@@ -92,119 +91,125 @@ const UserDetails = ({
   };
 
   return (
-    <div style={{ marginTop: "70px" }}>
-      <div className="col mt-5">
+    <>
+      <div className="col mt-sm-4 space">
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
-
-        <div className="col h2 ml-2 mt-5">User Details</div>
-
-        <div className="text-end"></div>
-        <div className="container-fluid d-flex align-items-center justify-content-center ">
-          <div className="col ">
-            <div className="refreshbtn">
-              <img
-                className=" plusicon"
-                height="25px"
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add User"
-                title="Add User"
-              />
-              <img
-                className="ml-2"
-                height="25px"
-                onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
-                alt="refresh"
-                title="refresh"
-              />
-            </div>
-            {/* <AddAdminUserModal /> */}
-
-            <div className="row">
-              <div className="col-lg-1"></div>
-
-              <div className="body-inner no-padding table-responsive ">
-                <table
-                  className="table table-bordered table-striped table-hover  table-active mt-5"
-                  id="datatable2"
-                >
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Group</th>
-                      <th>Organization</th>
-                      <th>Address</th>
-                      <th>Operation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentDatas &&
-                      currentDatas[0] &&
-                      currentDatas.map((alluser, idx) => {
-                        return (
-                          <tr key={idx}>
-                            <td>{alluser.username}</td>
-                            <td>{alluser.useremail}</td>
-                            <td>{alluser.userphone}</td>
-                            <td>{alluser.usergroup}</td>
-                            <td>{alluser.OrganizationName}</td>
-                            <td>{alluser.useraddress}</td>
-
-                            {alluser.userStatus === "Deactive" ? (
-                              <td className="blank text-center">Deactived</td>
-                            ) : (
-                              <td className="text-center">
-                                <img
-                                  className="Cursor"
-                                  onClick={() => onEdit(alluser, idx)}
-                                  src={require("../../static/images/edit_icon.png")}
-                                  alt="Edit"
-                                  title="Edit"
-                                />
-                                &nbsp;
-                                <img
-                                  className="Cursor"
-                                  onClick={() => onDelete(alluser._id)}
-                                  src={require("../../static/images/delete.png")}
-                                  alt="Delete"
-                                  title="Delete"
-                                />
-                              </td>
-                            )}
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </div>
-              <div className="col-lg-1"></div>
-              <div className="row">
-                <div className="col-lg-6">
-                  {get_particularOrg_user &&
-                  get_particularOrg_user.length !== 0 ? (
-                    <Pagination
-                      dataPerPage={dataPerPage}
-                      totalData={get_particularOrg_user.length}
-                      paginate={paginate}
-                      currentPage={currentData}
-                    />
-                  ) : (
-                    <Fragment />
-                  )}
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
+          <h2 className="col mt-sm-4 h2 ml-3">User Details</h2>
+          <div>
+            <hr className="line"></hr>
+          </div>
+          <div className="text-end"></div>
+          <div className="container-fluid d-flex align-items-center justify-content-center ">
+            <div className="col ">
+              <div className="row text-end ">
+                <div className="col-lg-4"></div>
+                <div className="col-lg-4"></div>
+                <div className="col-lg-4 refresh">
+                  <img
+                    height="20px"
+                    onClick={() => setShowadd(true)}
+                    src={require("../../static/images/add-icon.png")}
+                    alt="Add User"
+                    title="Add User"
+                  />
+                  <img
+                    className="ml-2"
+                    height="20px"
+                    onClick={() => refresh()}
+                    src={require("../../static/images/refresh-icon.png")}
+                    alt="refresh"
+                    title="refresh"
+                  />
                 </div>
-                <div className="col-lg-6">
-                  <p className="text-end h6">
-                    No of User :{" "}
-                    {get_particularOrg_user && get_particularOrg_user.length}
-                  </p>
+              </div>
+              {/* <AddAdminUserModal /> */}
+
+              <div className="row">
+                <div className="col-lg-1"></div>
+
+                <div className="body-inner no-padding table-responsive ">
+                  <table
+                    className="table table-bordered table-striped table-hover  table-active mt-5"
+                    id="datatable2"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Group</th>
+                        <th>Organization</th>
+                        <th>Address</th>
+                        <th>Operation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentDatas &&
+                        currentDatas[0] &&
+                        currentDatas.map((alluser, idx) => {
+                          return (
+                            <tr key={idx}>
+                              <td>{alluser.username}</td>
+                              <td>{alluser.useremail}</td>
+                              <td>{alluser.userphone}</td>
+                              <td>{alluser.usergroup}</td>
+                              <td>{alluser.OrganizationName}</td>
+                              <td>{alluser.useraddress}</td>
+
+                              {alluser.userStatus === "Deactive" ? (
+                                <td className="blank text-center">Deactived</td>
+                              ) : (
+                                <td className="text-center">
+                                  <img
+                                    className="Cursor"
+                                    onClick={() => onEdit(alluser, idx)}
+                                    src={require("../../static/images/edit_icon.png")}
+                                    alt="Edit"
+                                    title="Edit"
+                                  />
+                                  &nbsp;
+                                  <img
+                                    className="Cursor"
+                                    onClick={() => onDelete(alluser._id)}
+                                    src={require("../../static/images/delete.png")}
+                                    alt="Delete"
+                                    title="Delete"
+                                  />
+                                </td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="col-lg-1"></div>
+                <div className="row">
+                  <div className="col-lg-6">
+                    {get_particularOrg_user &&
+                    get_particularOrg_user.length !== 0 ? (
+                      <Pagination
+                        dataPerPage={dataPerPage}
+                        totalData={get_particularOrg_user.length}
+                        paginate={paginate}
+                        currentPage={currentData}
+                      />
+                    ) : (
+                      <Fragment />
+                    )}
+                  </div>
+                  <div className="col-lg-6">
+                    <p className="text-end h6">
+                      No of User :{" "}
+                      {get_particularOrg_user && get_particularOrg_user.length}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -295,7 +300,7 @@ const UserDetails = ({
       >
         <AddAdminUserModal setShowadd={setShowadd} />
       </Modal>
-    </div>
+    </>
   );
 };
 
