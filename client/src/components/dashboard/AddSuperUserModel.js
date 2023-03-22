@@ -215,7 +215,6 @@ const AddSuperUserModel = ({
       password: rePassword,
       OrganizationName: orgname,
     };
-    console.log(finalUserData);
 
     Adduser(finalUserData);
     setShowadd(false);

@@ -290,7 +290,6 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    console.log(finalData);
     UpdateTenantsDetails(finalData);
     setFreshPage(!freshpage);
 

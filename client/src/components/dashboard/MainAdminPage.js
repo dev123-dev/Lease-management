@@ -45,7 +45,6 @@ const MainAdminPage = ({
     });
     setStatus(AvaiableShopCount);
   };
-  console.log(loading, "loading");
   return !isAuthenticated || !user || loading ? (
     // <Roller />
     <></>

@@ -144,7 +144,6 @@ const Tenant_Details = ({
       tid: tId,
       isSubmitted: "true",
     };
-    console.log(reason);
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);

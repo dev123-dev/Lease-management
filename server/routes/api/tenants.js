@@ -371,7 +371,6 @@ router.post("/add-tenant-settings", async (req, res) => {
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
-  console.log(data);
   try {
     let proper = new property(data);
     let output = await proper.save();
@@ -409,23 +408,19 @@ router.post("/deactive-property", async (req, res) => {
 
   try {
     data.Dno.map((eleDoor) => {
-      property
-        .updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.PropertyId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+      property.updateOne(
+        {
+          OrganizationId: data.OrganizationId,
+          _id: data.PropertyId,
+          shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+        },
+        {
+          $set: {
+            "shopDoorNo.$.status": "Deleted the Door Number",
+            deactive_reason: data.deactive_reason,
           },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Deleted the Door Number",
-              deactive_reason: data.deactive_reason,
-            },
-          }
-        )
-        .then((data) => {
-          console.log("data", data);
-        });
+        }
+      );
     });
 
     // res.json(propertydata);
@@ -530,7 +525,6 @@ router.post("/deactive-Organization", async (req, res) => {
 router.post("/deactive-tenant", async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
     if (data.Dno.length === 0) {
       TenantDetails.updateOne(
         {
@@ -542,9 +536,7 @@ router.post("/deactive-tenant", async (req, res) => {
             deactive_reason: data.deactive_reason,
           },
         }
-      ).then((data) => {
-        console.log(data);
-      });
+      );
     }
     data.Dno.map((ele) => {
       TenantDetails.updateOne(
@@ -558,9 +550,7 @@ router.post("/deactive-tenant", async (req, res) => {
             deactive_reason: data.deactive_reason,
           },
         }
-      ).then((data) => {
-        console.log(data);
-      });
+      );
     });
     doonum.map((ele) => {
       property
