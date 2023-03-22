@@ -7,7 +7,7 @@ import money from "../../static/images/money.png";
 import { getParticularProperty } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import { Roller } from "react-awesome-spinners";
+// import { Roller } from "react-awesome-spinners";
 
 const MainAdminPage = ({
   auth: { user, isAuthenticated, loading },
@@ -43,7 +43,8 @@ const MainAdminPage = ({
   };
   console.log(loading, "loading");
   return !isAuthenticated || !user || loading ? (
-    <Roller />
+    // <Roller />
+    <></>
   ) : (
     <div>
       <div className="container-fluid">

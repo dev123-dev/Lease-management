@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login, removeError } from "../../actions/auth";
 import "../../styles/CustomisedStyle.css";
-import { Roller } from "react-awesome-spinners";
+// import { Roller } from "react-awesome-spinners";
 
 const Login = ({
   login,

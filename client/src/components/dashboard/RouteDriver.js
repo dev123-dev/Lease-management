@@ -2,7 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
-import { Roller } from "react-awesome-spinners";
+// import { Roller } from "react-awesome-spinners";
 
 const RouteDriver = ({ auth: { user }, loadUser }) => {
   useEffect(() => {
