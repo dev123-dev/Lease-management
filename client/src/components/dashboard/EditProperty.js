@@ -32,7 +32,6 @@ const EditProperty = ({
   };
 
   const [dno, setdno] = useState(Propertydata.shopDoorNo);
-  console.log("data", Propertydata.shopDoorNo);
   const handleDoorNumclose = (ele1, index) => {
     const delitem = dno.filter((ele, ind) => {
       return ele1 !== ele;
@@ -106,7 +105,6 @@ const EditProperty = ({
       isSubmitted: true,
       shopStatus: "Acquired",
     };
-    console.log(update);
     updateProperty(update);
     handleEditModalClose();
   };

@@ -7,79 +7,86 @@ const OrganizationDetailsHistories = require("../../models/OrganizationDetailsHi
 const UserDetails = require("../../models/UserDetails");
 const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
-const propertyHistory = require("../../models/PropertyDetailsHistories");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
-  const tenetDoorNo = data.tenantDoorNo.map((ele) => ele.value);
-  console.log(data, "data");
-  console.log(tenantDoorNo);
+  console.log(data);
   try {
-    // let tenantDetails = {
-    //   OrganizationName: data.OrganizationName,
-    //   OrganizationId: data.OrganizationId,
-    //   BuildingName: data.BuildingName,
-    //   BuildingId: data.BuildingId,
-    //   Location: data.Location,
-    //   tenantFileNo: data.tenantFileNo,
-    //   shopDoorNo: tenetDoorNo,
-    //   tenantName: data.tenantName,
-    //   tenantPhone: data.tenantPhone,
-    //   tenantFirmName: data.tenantFirmName,
-    //   tenantAddr: data.tenantAddr,
-    //   tenantAdharNo: data.tenantAdharNo,
-    //   tenantPanNo: data.tenantPanNo,
-    //   tenantDepositAmt: data.tenantDepositAmt,
-    //   tenantPaymentMode: data.tenantPaymentMode,
-    //   tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-    //   tenantBankName: data.tenantBankName,
-    //   tenantchequeDate: data.startSelectedDate,
-    //   tenantRentAmount: data.tenantRentAmount,
-    //   tenantLeaseStartDate: data.tenantLeaseStartDate,
-    //   tenantLeaseEndDate: data.tenantLeaseEndDate,
-    //   generatordepoAmt: data.generatordepoAmt,
-    //   tenantEnteredBy: data.tenantEnteredBy,
-    //   tenantDate: data.todayDateymd,
-    //   selectedY: data.selectedY,
-    //   selectedVal: data.selectedVal,
-    // };
-    // let tenantdata = await new TenantDetails(tenantDetails);
-    // tenantdata.save();
-    // const finalData2 = {
-    //   tdId: tenantdata._id,
-    //   thName: data.tenantName,
-    //   thPhone: data.tenantPhone,
-    //   thFirmName: data.tenantFirmName,
-    //   thAddr: data.tenantAddr,
-    //   thAdharNo: data.tenantAdharNo,
-    //   thPanNo: data.tenantPanNo,
-    //   thDepositAmt: data.tenantDepositAmt,
-    //   thgeneratordepoAmt: data.generatordepoAmt,
-    //   thshopId: data.shopId,
-    //   thStatus: "Add",
-    //   thEnteredBy: data.tenantEnteredBy,
-    //   thDate: data.tenantDate,
-    // };
-    // let tenantHistories = new TenentHistories(finalData2);
-    // output2 = await tenantHistories.save();
-    // let doonum = data.tenantDoorNo.map((ele) => ele.value);
-    // doonum.map((ele) => {
-    //   property
-    //     .updateOne(
-    //       { _id: data.BuildingId, shopDoorNo: ele },
-    //       {
-    //         $set: {
-    //           tdId: tenantdata._id,
-    //         },
-    //         $pull: {
-    //           shopDoorNo: ele,
-    //         },
-    //       }
-    //     )
-    //     .then((data) => console.log(data));
-    // });
+    let tenantDetails = {
+      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
+      BuildingName: data.BuildingName,
+      BuildingId: data.BuildingId,
+      Location: data.Location,
+      tenantFileNo: data.tenantFileNo,
+      shopDoorNo: data.tenantDoorNo,
+      tenantName: data.tenantName,
+      tenantPhone: data.tenantPhone,
+      tenantFirmName: data.tenantFirmName,
+      tenantAddr: data.tenantAddr,
+      tenantAdharNo: data.tenantAdharNo,
+      tenantPanNo: data.tenantPanNo,
+      tenantDepositAmt: data.tenantDepositAmt,
+      tenantPaymentMode: data.tenantPaymentMode,
+      tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+      tenantBankName: data.tenantBankName,
+      tenantchequeDate: data.startSelectedDate,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+      generatordepoAmt: data.generatordepoAmt,
+      tenantEnteredBy: data.tenantEnteredBy,
+      tenantDate: data.todayDateymd,
+      selectedY: data.selectedY,
+      selectedVal: data.selectedVal,
+    };
+    let tenantdata = await new TenantDetails(tenantDetails);
+    tenantdata.save();
+    const finalData2 = {
+      tdId: tenantdata._id,
+      thName: data.tenantName,
+      thPhone: data.tenantPhone,
+      thFirmName: data.tenantFirmName,
+      thAddr: data.tenantAddr,
+      thAdharNo: data.tenantAdharNo,
+      thPanNo: data.tenantPanNo,
+      thDepositAmt: data.tenantDepositAmt,
+      thgeneratordepoAmt: data.generatordepoAmt,
+      thshopId: data.shopId,
+      thStatus: "Add",
+      thEnteredBy: data.tenantEnteredBy,
+      thDate: data.tenantDate,
+    };
+    let tenantHistories = new TenentHistories(finalData2);
+    output2 = await tenantHistories.save();
+
+    let storeProperty = {
+      BuildingName: tenantdata.BuildingName,
+      BuildingId: tenantdata.BuildingId,
+      shopDoorNo: tenantdata.shopDoorNo,
+      OrganizationName: tenantdata.OrganizationName,
+      OrganizationId: tenantdata.OrganizationId,
+      shopStatus: "Acquired",
+      Location: tenantdata.Location,
+      tdId: tenantdata._id,
+    };
+    tenantdata.shopDoorNo.map((eleDoor) => {
+      property.updateOne(
+        {
+          OrganizationId: tenantdata.OrganizationId,
+          _id: tenantdata.BuildingId,
+          shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+        },
+        {
+          $set: {
+            "shopDoorNo.$.status": "Acquired",
+          },
+        }
+      );
+    });
+
     // const finalData1 = {
     //   tdId: tenantdata._id,
     //   OrganizationName: data.OrganizationName,
@@ -525,89 +532,50 @@ router.post("/deactive-tenant", async (req, res) => {
   try {
     let data = req.body;
     console.log(data);
-    let doonum = data.Dno.map((ele) => ele);
-
-    doonum.map((ele) => {
+    if (data.Dno.length === 0) {
       TenantDetails.updateOne(
-        { _id: data.tid, shopDoorNo: ele },
         {
-          $pull: {
-            shopDoorNo: ele,
-          },
+          _id: data.tid,
+        },
+        {
           $set: {
             tenantstatus: "Deactive",
-            tenantdeactivereason: data.deactive_reason,
+            deactive_reason: data.deactive_reason,
           },
         }
-      ).then(data);
+      ).then((data) => {
+        console.log(data);
+      });
+    }
+    data.Dno.map((ele) => {
+      TenantDetails.updateOne(
+        {
+          _id: data.tid,
+          shopDoorNo: { $elemMatch: { label: ele } },
+        },
+        {
+          $set: {
+            "shopDoorNo.$.status": "Deleted the Door Number",
+            deactive_reason: data.deactive_reason,
+          },
+        }
+      ).then((data) => {
+        console.log(data);
+      });
     });
     doonum.map((ele) => {
       property
         .updateOne(
           { tdId: data.tid },
           {
-            $addToSet: {
-              shopDoorNo: ele,
+            $set: {
+              "shopDoorNo.$.status": "Avaiable",
             },
           }
         )
         .then(data);
     });
 
-    // let tenantDoorNumber = await new TenantDetails.find({ shopDoorNo: doonum });
-    // console.log("tenant d no", tenantDoorNumber);
-    // if (tenantDoorNumber) {
-    //   const updatedetails = await TenantDetails.updateOne(
-    //     { _id: data.tid },
-    //     {
-    //       $set: {
-    //         tenantstatus: "Deactive",
-    //         tenantdeactivereason: data.deactive_reason,
-    //       },
-    //     },
-    //     {
-    //       $unset: {
-    //         shopDoorNo: "",
-    //       },
-    //     }
-    //   );
-
-    //   await TenentAgreement.updateOne(
-    //     {
-    //       tdId: data.tid,
-    //     },
-    //     {
-    //       $set: {
-    //         tenantstatus: "Deactive",
-    //         AgreementStatus: "Deactivated",
-    //       },
-    //     }
-    //   );
-    //   const finalData2 = {
-    //     tdId: data.tid,
-    //     thStatus: "Deactive",
-    //   };
-
-    //   let tenantHistories = new TenentHistories(finalData2);
-    //   output2 = await tenantHistories.save();
-
-    //   if (tenantDoorNumber) {
-    //     let new_data = await property.updateOne(
-    //       { tdId: data.tid },
-    //       {
-    //         $unset: {
-    //           shopDoorNo: "",
-    //         },
-    //       },
-    //       {
-    //         $set: {
-    //           shopStatus: "Available",
-    //         },
-    //       }
-    //     );
-    //   }
-    //   console.log("new data", new_data);
-    //   //res.json(shopDoorNoUpdate);
     res.json(finaldata);
     // }
   } catch (error) {

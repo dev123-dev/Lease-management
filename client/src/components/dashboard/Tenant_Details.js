@@ -15,7 +15,11 @@ import Pagination from "../layout/Pagination";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
-  tenants: { get_particular_org_tenant, particular_org_loc },
+  tenants: {
+    particular_org_data,
+    get_particular_org_tenant,
+    particular_org_loc,
+  },
   ParticularTenant,
   getParticularOrg,
   getParticularProperty,
@@ -46,6 +50,18 @@ const Tenant_Details = ({
         setlocation(Loc);
       });
   };
+
+  // let output = get_particular_org_tenant.filter(
+  //   (item) =>
+  //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  // );
+
+  let output = get_particular_org_tenant.filter(
+    (item) =>
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  );
+
+  console.log("output", output);
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -94,22 +110,10 @@ const Tenant_Details = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const [selectedDoorNumber, SetSelectedDoorNumber] = useState([]);
-  // const [isChecked, setIsChecked] = useState(false);
-  //const handleOnChange = () => {
-  // setIsChecked(!isChecked);
-  //};
-  // const onDoorclickChange = (ele,index) => {
-
-  // if (!isChecked) {
-  //   console.log("not checked");
-  //   console.log("this is door number", e.target.value);
-  //   SetSelectedDoorNumber("xxx");
-  // } else {
-  //   console.log("checked");
-  //   console.log("this is door number", e.target.value);
-  //   SetSelectedDoorNumber(e.target.value);
-  // }
-  // };
+  const [isChecked, setIsChecked] = useState(false);
+  const handleOnChange = () => {
+    setIsChecked(!isChecked);
+  };
 
   const [checkData, setCheckData] = useState([]);
   const HandelCheck = (e) => {
@@ -140,6 +144,7 @@ const Tenant_Details = ({
       tid: tId,
       isSubmitted: "true",
     };
+    console.log(reason);
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);
@@ -166,6 +171,12 @@ const Tenant_Details = ({
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
   };
+
+  const tenantCount = currentDatas.filter((ele) => {
+    if (currentDatas.status === "Active") {
+      return ele;
+    }
+  });
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -238,7 +249,6 @@ const Tenant_Details = ({
                       </thead>
                       <tbody>
                         {currentDatas &&
-                          currentDatas[0] &&
                           currentDatas.map((Val, idx) => {
                             var ED =
                               Val.tenantLeaseEndDate &&
@@ -248,46 +258,57 @@ const Tenant_Details = ({
                               ED && ED[1],
                               ED && ED[0],
                             ].join("-");
-                            return (
-                              <tr key={idx}>
-                                <td>{Val.tenantName}</td>
-                                <td>{Val.BuildingName}</td>
-                                <td>{Val.shopDoorNo + ","}</td>
-                                <td>{Val.tenantFileNo}</td>
-                                <td>{Val.Location}</td>
-                                <td>{Val.tenantPhone}</td>
-                                <td>{tenant}</td>
-                                <td>{Val.tenantRentAmount}</td>
 
-                                {Val.tenantstatus === "Active" ? (
-                                  <td className=" text-center">
-                                    <img
-                                      className="Cursor  "
-                                      onClick={() => onEdit(Val)}
-                                      src={require("../../static/images/edit_icon.png")}
-                                      alt="Edit"
-                                      title="Edit"
-                                    />{" "}
-                                    &nbsp;
-                                    <img
-                                      className="Cursor "
-                                      onClick={() =>
-                                        onDelete(Val._id, Val.shopDoorNo)
-                                      }
-                                      src={require("../../static/images/delete.png")}
-                                      alt="Delete"
-                                      title="Delete"
-                                    />
-                                  </td>
-                                ) : (
+                            if (currentDatas.status === "Active") {
+                              return (
+                                <tr key={idx}>
+                                  <td>{Val.tenantName}</td>
+                                  <td>{Val.BuildingName}</td>
                                   <td>
-                                    <div className="blank text-center">
-                                      Deactived
-                                    </div>
+                                    {Val.shopDoorNo.map((ele) => {
+                                      if (ele.status === "Avaiable") {
+                                        return <i>{ele.label + ","}</i>;
+                                      } else {
+                                        return <i>{""}</i>;
+                                      }
+                                    })}
                                   </td>
-                                )}
-                              </tr>
-                            );
+                                  <td>{Val.tenantFileNo}</td>
+                                  <td>{Val.Location}</td>
+                                  <td>{Val.tenantPhone}</td>
+                                  <td>{tenant}</td>
+                                  <td>{Val.tenantRentAmount}</td>
+
+                                  {Val.tenantstatus === "Active" ? (
+                                    <td className=" text-center">
+                                      <img
+                                        className="Cursor  "
+                                        onClick={() => onEdit(Val)}
+                                        src={require("../../static/images/edit_icon.png")}
+                                        alt="Edit"
+                                        title="Edit"
+                                      />{" "}
+                                      &nbsp;
+                                      <img
+                                        className="Cursor "
+                                        onClick={() =>
+                                          onDelete(Val._id, Val.shopDoorNo)
+                                        }
+                                        src={require("../../static/images/delete.png")}
+                                        alt="Delete"
+                                        title="Delete"
+                                      />
+                                    </td>
+                                  ) : (
+                                    <td>
+                                      <div className="blank text-center">
+                                        Deactived
+                                      </div>
+                                    </td>
+                                  )}
+                                </tr>
+                              );
+                            }
                           })}
                       </tbody>
                     </table>
@@ -299,7 +320,7 @@ const Tenant_Details = ({
                     get_particular_org_tenant.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
-                        totalData={get_particular_org_tenant.length}
+                        totalData={currentDatas.length}
                         paginate={paginate}
                         currentPage={currentData}
                       />
@@ -308,9 +329,7 @@ const Tenant_Details = ({
                     )}
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
-                    <label>
-                      No of Tenants: {get_particular_org_tenant.length}
-                    </label>
+                    <label>No of Tenants: {tenantCount.length}</label>
                   </div>
                 </div>
               </div>
@@ -442,17 +461,19 @@ const Tenant_Details = ({
             <div className="h5 despace">Reason For Deactivating</div>
             <div className="checkbox mx-5">
               {dno.map((ele, index) => {
-                return (
-                  <>
-                    <input
-                      type="checkbox"
-                      id="checkbox"
-                      value={ele}
-                      onChange={(e) => HandelCheck(e)}
-                    />
-                    <label for="vehicle1">{ele}</label>
-                  </>
-                );
+                if (ele.status == "Avaiable") {
+                  return (
+                    <>
+                      <input
+                        type="checkbox"
+                        id="checkbox"
+                        value={ele.label}
+                        onChange={(e) => HandelCheck(e)}
+                      />
+                      <label for="doorNumber">{ele.label}</label>
+                    </>
+                  );
+                }
               })}
             </div>
             <textarea

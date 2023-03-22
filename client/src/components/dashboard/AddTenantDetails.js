@@ -1,5 +1,4 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
@@ -9,9 +8,8 @@ import {
   getParticularTenantSetting,
   getAllSettings,
 } from "../../actions/tenants";
-import { v4 as uuid } from "uuid";
 import Select from "react-select";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
 
 const AddTenantDetails = ({
@@ -125,9 +123,13 @@ const AddTenantDetails = ({
   const [buildingId, setBuildingID] = useState();
   const [buildingName, setBuildingName] = useState();
 
+  //this code is used to filter out only those building whose room number is avaiable if not avaiable it will not display the building name
+  let AvaiableRoomBuilding = particular_org_data.filter(
+    (item) =>
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  );
   const allBuildingNames = [];
-
-  particular_org_data.map((buildingData) =>
+  AvaiableRoomBuilding.map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.buildingName,
@@ -145,13 +147,13 @@ const AddTenantDetails = ({
       value: loc._id,
     });
   });
-  console.log("org", particular_org_data);
+
   const onBuildingChange = (e) => {
     setBuildingID(e.value);
     setBuildingName(e.label);
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
-    particular_org_data &&
-      particular_org_data.map((ele) => {
+    AvaiableRoomBuilding &&
+      AvaiableRoomBuilding.map((ele) => {
         if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
@@ -159,7 +161,7 @@ const AddTenantDetails = ({
               temp.push({
                 label: doornumber.doorNo,
                 value: doornumber.doorNo,
-                status: doornumber.status,
+                status: "Acquired",
               });
             } else {
               temp.push({

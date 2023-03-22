@@ -22,6 +22,7 @@ const EditTenantDetails = ({
   getParticularProperty,
 }) => {
   useEffect(() => {
+    fun();
     getParticularProperty({ OrganizationId: user.OrganizationId });
     getParticularTenantSetting({
       OrganizationId: user && user.OrganizationId,
@@ -33,12 +34,21 @@ const EditTenantDetails = ({
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
   const [buildingName, setBuildingName] = useState();
+  const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
+  const fun = () => {
+    let AvaiableRoomBuilding = particular_org_data.filter(
+      (item) =>
+        !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+    );
+    setAvaiableRoomBuilding(AvaiableRoomBuilding);
+  };
 
   const allBuildingNames = [];
-  particular_org_data.map((buildingData) =>
+  AvaiableRoomBuilding.map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.buildingName,
+      value: buildingData._id,
     })
   );
 
@@ -47,59 +57,62 @@ const EditTenantDetails = ({
       ? allBuildingNames &&
           allBuildingNames.filter(
             (x) => x.label === tenantsdetails.BuildingName
-          )[0]
+          )
       : ""
   );
 
-  const [DnoList, setDnoList] = useState([]);
-  // if (DnoList && particular_org_data) {
-  //   let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
-  //   particular_org_data &&
-  //     particular_org_data.map((ele) => {
-  //       console.log("=", tenantsdetails.BuildingId, "===", ele._id);
-  //       if (tenantsdetails.BuildingId === ele._id) {
-  //         SetLocList(ele.Location);
-  //         ele.shopDoorNo.map((doornumber) => {
-  //           temp.push({
-  //             label: doornumber,
-  //             value: doornumber,
-  //           });
-  //         });
-  //       }
-  //       setDnoList(temp);
-  //     });
-  // }
+  const [Dno, setDno] = useState([]);
+
   const [LocList, SetLocList] = useState([]);
 
   const LocName = [];
-  particular_org_data.map((loc) => {
+  AvaiableRoomBuilding.map((loc) => {
     LocName.push({
       label: loc.Location,
       value: loc._id,
     });
   });
-
+  let temp = [];
   const onBuildingChange = (e) => {
     setBuildingID(e.value);
     setBuildingName(e.label);
-    let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
-    particular_org_data &&
-      particular_org_data.map((ele) => {
+    //let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
+    AvaiableRoomBuilding &&
+      AvaiableRoomBuilding.map((ele) => {
         if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
-            temp.push({
-              label: doornumber,
-              value: doornumber,
-            });
+            if (doornumber.status === "Avaiable") {
+              temp.push({
+                label: doornumber.doorNo,
+                value: doornumber.doorNo,
+                status: "Acquired",
+              });
+            }
           });
+          setDno(temp);
         }
-        setDnoList(temp);
       });
 
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.label ? e.label : "");
+
+    if (
+      doorno.length < 1 &&
+      tenantsdetails &&
+      tenantsdetails.shopDoorNo.length > 0 &&
+      Dno.length > 0
+    ) {
+      tenantsdetails &&
+        Dno &&
+        Dno.map((x) => {
+          tenantsdetails.shopDoorNo.map((ele) => {
+            if (x.value === ele) doorNos.push(x);
+          });
+        });
+      setdno(doorNos);
+    }
   };
 
   // location listing end
@@ -202,22 +215,6 @@ const EditTenantDetails = ({
   const onchangeDoor = (e) => {
     setdno(e);
   };
-
-  if (
-    doorno.length < 1 &&
-    tenantsdetails &&
-    tenantsdetails.shopDoorNo.length > 0 &&
-    DnoList.length > 0
-  ) {
-    tenantsdetails &&
-      DnoList &&
-      DnoList.map((x) => {
-        tenantsdetails.shopDoorNo.map((ele) => {
-          if (x.value === ele) doorNos.push(x);
-        });
-      });
-    setdno(doorNos);
-  }
 
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
@@ -342,7 +339,7 @@ const EditTenantDetails = ({
               <Select
                 name="Property name"
                 options={allBuildingNames}
-                value={orgname}
+                value={buildingData}
                 onChange={(e) => onBuildingChange(e)}
                 required
               ></Select>
@@ -351,7 +348,7 @@ const EditTenantDetails = ({
               <label className="ml-2">Door No*: </label>
               <Select
                 name="doorno"
-                options={DnoList}
+                options={Dno}
                 value={doorno}
                 onChange={(e) => onchangeDoor(e)}
                 isMulti={true}

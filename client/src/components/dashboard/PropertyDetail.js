@@ -45,14 +45,6 @@ const PropertyDetail = ({
         });
         SetselLoction(Loc);
       });
-
-    let isDoorcheck = particular_org_data.map((ele) => {
-      return ele.shopDoorNo;
-    });
-    let isDoortrue = isDoorcheck.map((ele) => ele.status === "Avaiable");
-    //console.log(isDoortrue);
-
-    //console.log("nly if one of then is true", output);
   };
 
   let output = particular_org_data.filter(
@@ -137,7 +129,7 @@ const PropertyDetail = ({
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    deactiveProperty(reason);
+    // deactiveProperty(reason);
   };
 
   const [showadd, setShowadd] = useState(false);
