@@ -233,7 +233,6 @@ const AddOrgModal = ({
                     onChange={(e) => setinput(e.target.value)}
                     placeholder="Location"
                     id="Location"
-                    required
                   ></input>
 
                   <div>

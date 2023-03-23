@@ -253,12 +253,14 @@ const AddOrgDashBoard = ({
                 <b>DEACTIVATE</b>
               </h3>
             </div>
-            <div className="col-lg-1 closeicon">
+            <div
+              className="col-lg-1 closeicon"
+              onClick={() => setShowDeactivate(false)}
+            >
               <img
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
-                onClick={() => setShowDeactivate(false)}
               />
             </div>
           </Modal.Header>

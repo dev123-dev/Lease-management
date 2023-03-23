@@ -50,7 +50,7 @@ const EditOrganization = ({
 
   //Leasestartdate
   const [showStartdate, setShowStartdate] = useState(org.date);
-  const [showEnddate, setShowEnddate] = useState(null);
+  const [showEnddate, setShowEnddate] = useState(org.enddate);
 
   const onInputChange = (e) => {
     if (e.target.name === "startdate") {

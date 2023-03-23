@@ -182,6 +182,7 @@ const EditProperty = ({
 
               <label className="">Location*:</label>
               <Select
+                className="loc"
                 name="orgLoc"
                 options={Sellocation}
                 value={orgLoc}

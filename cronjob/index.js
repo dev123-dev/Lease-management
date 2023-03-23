@@ -55,6 +55,7 @@ async function updateExpiryStatus() {
       {
         enddate: { $lte: todayDateymd },
         AgreementStatus: "Active",
+        org_status: "Active",
       },
       {
         $set: { AgreementStatus: "Expired" },

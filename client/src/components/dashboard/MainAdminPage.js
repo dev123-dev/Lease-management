@@ -17,7 +17,6 @@ const MainAdminPage = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
 
-  // localStorage.setItem("user",
   useEffect(() => {
     if (myuser) {
       fun();
@@ -35,11 +34,24 @@ const MainAdminPage = ({
 
   const [status, setStatus] = useState("");
   let ShopStatus = [];
-  particular_org_data.map((ele) =>
-    ShopStatus.push({
-      label: ele.shopStatus,
-    })
-  );
+  // particular_org_data.map((ele) =>
+  //   ShopStatus.push({
+  //     label: ele.shopStatus,
+  //   })
+  // );
+
+  particular_org_data &&
+    particular_org_data.map((ele) => {
+      ele.shopDoorNo &&
+        ele.shopDoorNo.map((ele1) => {
+          if (ele1.status === "Avaiable") {
+            ShopStatus.push({
+              ele1,
+            });
+          }
+        });
+    });
+
   const tenantCount = get_particular_org_tenant.filter((ele) => {
     if (ele.tenantstatus === "Active") {
       return ele;
@@ -50,13 +62,6 @@ const MainAdminPage = ({
       particular_org_data &&
       particular_org_data.reduce((acu, cur) => acu + 1, 0);
     setPropertyCount(pCount);
-
-    ShopStatus.map((ele) => {
-      if (ele.label === "Avaiable") {
-        AvaiableShopCount = AvaiableShopCount + 1;
-      }
-    });
-    setStatus(AvaiableShopCount);
   };
   return !isAuthenticated || !user || loading ? (
     // <Roller />
@@ -81,7 +86,8 @@ const MainAdminPage = ({
                 <img src={prop} alt="x" height="40%" width="20%"></img>
                 <br></br>
                 Total Property Count
-                <div>{PropertyCount}</div>
+                {/* <div>{PropertyCount}</div> */}
+                <div>{particular_org_data && particular_org_data.length}</div>
               </div>
               <div className="col-lg-1"></div>
             </div>
@@ -98,7 +104,7 @@ const MainAdminPage = ({
                 <img src={unprop} alt="x" height="35%" width="15%"></img>
                 <br></br>
                 Unoccupied Property
-                <div>{status}</div>
+                <div>{ShopStatus && ShopStatus.length}</div>
               </div>
               <div className="col-lg-1"></div>
             </div>
