@@ -272,9 +272,9 @@ const TenantFilters = ({
         <>
           {/* TENANT FILTER */}
           <Fragment>
-            <div className="container_align top_menu col-sm-12 ">
-              <div className="row pb-2 ml-2 responsiveDiv ">
-                <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter ">
+            <div className="container_align top_menu col-sm-12  ">
+              <div className="row pb-2 ml-2 responsiveDiv  ">
+                <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
                   <div classname="xy">
                     <Link
                       to="/tenant-report"

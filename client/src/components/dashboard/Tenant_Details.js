@@ -446,9 +446,9 @@ const Tenant_Details = ({
         <form onSubmit={onDeactivate}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h5 className="modal-title text-center">
-                <b> Choose Door Number To Deactivate</b>
-              </h5>
+              <h3 className="modal-title text-center">
+                <b>DEACTIVATE</b>
+              </h3>
             </div>
             <div className="col-lg-1 closeicon">
               <img
@@ -463,7 +463,8 @@ const Tenant_Details = ({
           <Modal.Body>
             {/* <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-            <div className="h5 despace">Reason For Deactivating</div>
+            <div className="text-dark">Choose Door No for Deactivate</div>
+
             <div className="checkbox mx-5">
               {dno.map((ele, index) => {
                 if (ele.status == "Acquired" || ele.status == "Avaiable") {
@@ -474,13 +475,15 @@ const Tenant_Details = ({
                         id="checkbox"
                         value={ele.label}
                         onChange={(e) => HandelCheck(e)}
-                      />
-                      <label for="doorNumber">{ele.label}</label>
+                      />{" "}
+                      &nbsp;
+                      <label for="doorNumber">{ele.label}&nbsp; &nbsp;</label>
                     </>
                   );
                 }
               })}
             </div>
+            <div className=" despace pt-3">Reason For Deactivating</div>
             <textarea
               rows="2"
               name="deactive_reason"
