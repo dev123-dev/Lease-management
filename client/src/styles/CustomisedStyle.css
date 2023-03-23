@@ -1866,7 +1866,8 @@ input[type="number"]::-webkit-outer-spin-button {
   .responsiveDiv {
     overflow: scroll;
     overflow-y: auto;
-    background-color: #095a4a;
+    margin-top: -17px;
+    background-color: #0e643d;
   }
 
   .smallscreen {
@@ -2281,7 +2282,7 @@ div {
 }
 .top_menu {
   background-color: #095a4a;
-  margin-left: -2px;
+  margin-left: -10px;
 }
 
 @media screen and (max-width: 420px) {
@@ -2289,6 +2290,7 @@ div {
     width: 200%;
     height: fit-content;
   }
+
   .second-level-menu {
     background-color: red;
   }

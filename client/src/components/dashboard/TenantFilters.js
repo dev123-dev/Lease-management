@@ -209,7 +209,7 @@ const TenantFilters = ({
                       });
                     return (
                       <div
-                        className="py-2 filter_bg "
+                        className="filter_bg "
                         key={idx}
                         style={{ border: "5px soild blue" }}
                       >
