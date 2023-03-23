@@ -702,7 +702,6 @@ p {
   border-bottom-color: #383838;
 }
 
-
 .top_radio {
   margin-top: 1.5em;
 }
@@ -2433,10 +2432,10 @@ div.page-footer {
 .refresh {
   cursor: pointer;
 }
-.checkbx{
+.checkbx {
   margin-left: 5px;
 }
 
 div {
-  border: 1px solid transparent;
+  border: 3px solid transparent;
 }

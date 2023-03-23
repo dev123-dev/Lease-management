@@ -56,8 +56,6 @@ const Tenant_Details = ({
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   );
 
-  console.log("output", output);
-
   // Modal for Deactivation
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -73,7 +71,8 @@ const Tenant_Details = ({
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno) => {
     setId(id);
-    if (Dno.length > 1) {
+
+    if (Dno.length >= 1) {
       SetDno(Dno);
       SetDoornumber(true);
     } else {
@@ -139,6 +138,7 @@ const Tenant_Details = ({
       tid: tId,
       isSubmitted: "true",
     };
+    console.log(reason);
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);
@@ -269,7 +269,10 @@ const Tenant_Details = ({
                                   <td>{Val.BuildingName}</td>
                                   <td>
                                     {Val.shopDoorNo.map((ele) => {
-                                      if (ele.status === "Avaiable") {
+                                      if (
+                                        ele.status === "Avaiable" ||
+                                        ele.status === "Acquired"
+                                      ) {
                                         return <i>{ele.label + ","}</i>;
                                       } else {
                                         return <i>{""}</i>;
@@ -465,7 +468,7 @@ const Tenant_Details = ({
 
             <div className="checkbox mx-5">
               {dno.map((ele, index) => {
-                if (ele.status === "Avaiable") {
+                if (ele.status == "Acquired" || ele.status == "Avaiable") {
                   return (
                     <>
                       <input
