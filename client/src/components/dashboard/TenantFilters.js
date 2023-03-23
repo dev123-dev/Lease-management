@@ -162,7 +162,7 @@ const TenantFilters = ({
         //super admin filter
         <Fragment>
           <div className="container_align top_menu col-sm-12 ">
-            <div className="row pb-2  ml-2 responsiveDiv ">
+            <div className="row pb-2  ml-2 responsiveDiv  ">
               <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter">
                 {/* this is for textbox below image for showing the total count of Renewal */}
                 <div>
@@ -209,7 +209,7 @@ const TenantFilters = ({
                       });
                     return (
                       <div
-                        className="filter_bg "
+                        className="  filter_bg "
                         key={idx}
                         style={{ border: "5px soild blue" }}
                       >

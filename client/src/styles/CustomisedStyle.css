@@ -2286,6 +2286,9 @@ div {
 }
 
 @media screen and (max-width: 420px) {
+  .filter_bg {
+    margin-left: 2px;
+  }
   .tenant_filter {
     width: 200%;
     height: fit-content;
