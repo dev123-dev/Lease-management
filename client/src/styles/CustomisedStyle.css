@@ -598,10 +598,7 @@ p {
     right: 50px;
   }
 
-  .bckcolor {
-    border: 5px solid red;
-    background-color: rgb(8, 8, 8);
-  }
+
   .space {
     margin-bottom: 200px;
   }
@@ -1595,7 +1592,7 @@ input[type="radio"].error {
   display: inline-block;
 }
 .drophover:hover {
-  background-color: lightgrey;
+  background-color: rgb(189, 0, 0);
 }
 .refreshbtn {
   margin-left: 90%;
@@ -1660,6 +1657,7 @@ input[type="radio"].error {
   line-height: 1.42857143;
   white-space: nowrap;
 }
+
 
 .second-level-menu {
   position: absolute;

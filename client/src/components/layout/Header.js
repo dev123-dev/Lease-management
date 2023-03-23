@@ -239,8 +239,8 @@ const Header = ({
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                           </Link>
-                          <ul className="dropdown-menu second-level-menu bckcolor">
-                            <li className="hwhite  drophover ">
+                          <ul className="dropdown-menu second-level-menu ">
+                            <li className="  drophover ">
                               <Link
                                 to="#"
                                 onClick={() => handleTenantSettingModalShow()}
