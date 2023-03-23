@@ -36,7 +36,7 @@ const App = () => {
           <Header />
 
           <div className="row ">
-            <div className="col-lg-1 col-md-12 col-sm-12 no_padding ">
+            <div className="col-lg-1 col-md-12 col-sm-12 no_padding  ">
               <TenantFilters />
             </div>
             {/* <Alert /> */}
