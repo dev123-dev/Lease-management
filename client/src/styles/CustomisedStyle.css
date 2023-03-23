@@ -550,117 +550,7 @@ p {
   color: #ffffff;
 }
 
-@media screen and (max-width: 420px) {
-  .tenant_filter {
-    width: 200%;
-    height: fit-content;
-  }
 
-  .btn.btn_more {
-    border-radius: 0px;
-    width: 68px;
-    height: 35px;
-    margin-left: 0px;
-    margin-right: 3px;
-    margin-top: 10px;
-    margin-bottom: 3px;
-    background-color: #ffffff;
-  }
-  .mainpageimg {
-  }
-
-  .log_size {
-    margin-left: 100%;
-  }
-  .heading_color {
-    position: relative;
-    font-size: larger;
-    font-weight: 500;
-    margin-top: -10%;
-    left: 20px;
-  }
-  #datatable2 {
-    position: relative;
-    margin-top: -10%;
-  }
-
-  .locadds {
-    left: 10px;
-  }
-  .link_to_org {
-    margin-top: -35%;
-    margin-left: 90%;
-  }
-  .dropdown {
-    width: 170px;
-  }
-  .modhead {
-    right: 50px;
-  }
-
-  .bckcolor {
-    border: 5px solid red;
-    background-color: rgb(8, 8, 8);
-  }
-  .space {
-    margin-bottom: 200px;
-  }
-
-  .plusicon {
-    background-color: transparent;
-    position: relative;
-    top: 150%;
-    right: 100%;
-  }
-  .refreshbtn {
-    position: relative;
-    top: -10px;
-    height: 20px;
-    right: 20px;
-  }
-  .count {
-    right: 80px;
-  }
-  .page {
-    left: 60px;
-  }
-  .headinghover:hover {
-    color: lightgray;
-  }
-  .orghea {
-    font-size: medium;
-    right: 50px;
-    position: absolute;
-    margin-top: -4%;
-  }
-  .edithea {
-    background-color: #095a4a;
-    margin-right: 60px;
-  }
-  .editcl {
-    margin-right: 50px;
-  }
-  .save:hover {
-    background-color: #095a4a;
-  }
-  .nvbar {
-    margin-right: 15px;
-  }
-  .table-responsive {
-    width: 100%;
-  }
-  .table {
-    display: block;
-  }
-
-  .tenantfilter {
-    display: flex;
-
-    /* width: 100%; */
-    /* position: absolute; */
-    /* flex-flow: row; */
-  }
-}
 
 .positioning {
   position: absolute;
@@ -877,13 +767,12 @@ label {
 
 #datatable2 th {
   background: #095a4a;
-  color: #fff;
+   color: #fff;
   padding: 8px;
   text-align: center;
   position: sticky;
   top: 0;
 }
-
 .fixTableHead {
   overflow-y: auto;
   height: 750px;
@@ -950,18 +839,6 @@ label {
     line-height: 30px;
   }
 }
-/*
-@media (min-width: 768px) {
- .container {
-    width: 750px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    width: 1090px;
-  }
-}*/
 
 @media screen and (max-width: 767px) {
   .top_radio .checkbox-inline,
@@ -1061,7 +938,7 @@ label {
   .top_radio .checkbox-inline + .checkbox-inline,
   .radio-inline + .radio-inline {
     margin-left: 0px;
-    /*margin-top: 1em;*/
+    
   }
 }
 
@@ -1566,49 +1443,44 @@ input[type="radio"].error {
 
 /***********Pagination Styles********/
 .pagination {
-  /* display: inline-flex; */
-  /* margin: 1% 0%; */
+  
   border: 1px solid #fff;
-  /* padding: 0px; */
+
 }
 .pagination a {
   color: #000;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
-  /*border: 1px solid #111111;*/
+ 
   font-weight: 100;
 }
 .pagination a.active {
   background: #fff;
   color: #095a4a;
   font-weight: 500;
-  /*border-radius: 10px;*/
+
 }
 .pagination a:hover {
   background: #fff;
   color: #0e0e0e;
-  /*border-radius: 10px;*/
+
 }
 .top-level-menu li:hover .second-level-menu {
   display: inline-block;
+  
 }
 .drophover:hover {
-  background-color: lightgrey;
+  background-color: rgb(220, 220, 220);
+  
 }
 .refreshbtn {
-  margin-left: 90%;
+  margin-left: 95%;
   position: absolute;
   cursor: pointer;
 }
 
-/*multi level dropdown navbar*/
-/* @media (min-width: 1000px) {
-  .top-level-menu li:hover .second-level-menu {
-     display: block;
-    
-     background-color: #000; 
-  } */
+
 
 .second-level-menu2 {
   display: none;
@@ -1622,6 +1494,7 @@ input[type="radio"].error {
     display: none;
   }
 }
+
 .top-level-menu {
   list-style: none;
   padding: 0;
@@ -1649,9 +1522,9 @@ input[type="radio"].error {
   white-space: nowrap;
   cursor: pointer;
 }
-
+/* full screen */
 .second-level-menu a {
-  background: #ffffff;
+  background-color: transparent;
   padding: 3px 20px;
   clear: both;
   font-weight: 400;
@@ -1659,6 +1532,8 @@ input[type="radio"].error {
   line-height: 1.42857143;
   white-space: nowrap;
 }
+
+
 
 .second-level-menu {
   position: absolute;
@@ -1668,7 +1543,7 @@ input[type="radio"].error {
   display: none;
   padding: 0;
   margin: 0 0 0 -20px;
-  background: #fff;
+  background-color:white;
 }
 
 .second-level-menu2 {
@@ -1697,14 +1572,6 @@ input[type="radio"].error {
   height: 30px;
 }
 
-.second-level-menu > li:hover {
-  /* background: #cccccc; */
-}
-
-.second-level-menu > li:hover .third-level-menu {
-  /* display: block; */
-}
-
 .second-level-menu2 > li:active .second-level-menu2 {
   background: inherit;
 }
@@ -1722,12 +1589,6 @@ input[type="radio"].error {
 .third-level-menu > li {
   height: 30px;
   background: #fff;
-}
-.third-level-menu > li:hover {
-  /* background: #cccccc; */
-}
-.third-level-menu > li:hover .fourth-level-menu {
-  /* display: block; */
 }
 
 .fourth-level-menu {
@@ -1760,7 +1621,6 @@ input[type="radio"].error {
 
 .css-623h2l-control {
   width: 100%;
-  /* padding: 0.175rem 0.75rem; */
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
@@ -1820,8 +1680,7 @@ input[type="radio"].error {
   .autoDivD {
     padding-left: 20px;
     border-left: none;
-    /* margin-top: 3em; */
-  }
+     }
   .top_total2 {
     display: none;
   }
@@ -1861,14 +1720,12 @@ button.swap-btn {
   color: #ccc;
   pointer-events: none;
   opacity: 0.5;
-  /* background-color: #fff !important; */
 }
 
 .react-datepicker-wrapper {
-  /* display: inline-block; */
+
   padding: 0 !important;
   border: 0 !important;
-  /* width: 100% !important; */
 }
 
 .react-datepicker__day-names,
@@ -1919,17 +1776,9 @@ span.input-radio-sm {
   border-right: dotted 2px;
 }
 
-/* for set image zoomed in for levels*/
-/* input[type="radio"] {
-  display: none;
-} */
 .radiolevels {
   display: none;
 }
-
-/* input[type="checkbox"] {
-  display: none;
-} */
 
 input[type="radio"]:checked ~ label > img {
   transform: scale(2);
@@ -2025,12 +1874,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @media (max-height: 1300px) {
   .responsiveDiv {
-    /* display: block; */
-    overflow: scroll;
+      overflow: scroll;
     overflow-y: auto;
     background-color: #095a4a;
-    /* width: 100%;Full screen*/
-  }
+    }
 
   .smallscreen {
     display: none;
@@ -2110,12 +1957,10 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 600%;
 }
 #hea {
-  /* background-color: #000; */
   color: white;
   height: 20px;
 }
 #hea:hover {
-  /* background-color: #000; */
   color: rgb(162, 154, 154);
 }
 .card {
@@ -2351,8 +2196,7 @@ button {
 .refreshbtnad {
   margin-left: 4000%;
   cursor: pointer;
-  /* margin-top: -9%; */
-}
+ }
 
 .deactive {
   position: absolute;
@@ -2409,8 +2253,7 @@ div.page-footer {
 .load {
   size: 64;
   color: green;
-  sizeunit: "1px";
-}
+ }
 @media print {
   @page {
     size: A4;
@@ -2422,7 +2265,6 @@ div.page-footer {
     counter-increment: page;
     position: fixed;
   }
-
   div.page-footer,
   div.footer-info {
     display: block;
@@ -2437,7 +2279,116 @@ div.page-footer {
 .checkbx {
   margin-left: 5px;
 }
+.li:hover{
+  color: red ;
+}
 
 div {
-  border: 3px solid transparent;
+  border: 1px solid transparent;
+}
+@media screen and (max-width: 420px) {
+  .tenant_filter {
+    width: 200%;
+    height: fit-content;
+  }
+  .second-level-menu{
+    background-color: red;
+  }
+
+  .btn.btn_more {
+    border-radius: 0px;
+    width: 68px;
+    height: 35px;
+    margin-left: 0px;
+    margin-right: 3px;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    background-color: #ffffff;
+  }
+  /* .log_size {
+    margin-left: 100%;
+  } */
+  .heading_color {
+    position: relative;
+    font-size: larger;
+    font-weight: 500;
+    margin-top: -10%;
+    left: 20px;
+  }
+  #datatable2 {
+    position: relative;
+    margin-top: -10%;
+  }
+
+  .locadds {
+    left: 10px;
+  }
+  .link_to_org {
+    margin-top: -35%;
+    margin-left: 90%;
+  }
+  .dropdown {
+    width: 250px;
+  }
+  .modhead {
+    right: 50px;
+  }
+  .space {
+    margin-bottom: 200px;
+  }
+  .plusicon {
+    background-color: transparent;
+    position: relative;
+    top: 150%;
+    right: 100%;
+  }
+  .refreshbtn {
+    position: relative;
+    top: -10px;
+    height: 20px;
+    right: 20px;
+  }
+  .count {
+    right: 80px;
+  }
+  .page {
+    left: 60px;
+  }
+  .headinghover:hover {
+    color: lightgray;
+  }
+  .orghea {
+    font-size: medium;
+    right: 50px;
+    position: absolute;
+    margin-top: -4%;
+  }
+  .edithea {
+    background-color: #095a4a;
+    margin-right: 60px;
+  }
+  .editcl {
+    margin-right: 50px;
+  }
+  .save:hover {
+    background-color: #095a4a;
+  }
+  .nvbar {
+    margin-right: 15px;
+  }
+  .table-responsive {
+    width: 100%;
+  }
+  .table {
+    display: block;
+  }
+
+  .tenantfilter {
+    display: flex;
+  }
+}
+.hwhite{
+  background-color: white;
+  height: 20px;
+  width: 160px;
 }
