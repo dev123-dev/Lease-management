@@ -46,6 +46,7 @@ const PropertyDetail = ({
 
   let output = particular_org_data.filter(
     (item) =>
+      item.shopDoorNo &&
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
 
@@ -160,8 +161,8 @@ const PropertyDetail = ({
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
-          <h2 className="col mt-sm-4 h2 ml-3 ">Property Details</h2>
           <div>
+            <h2 className="col mt-sm-4 h2 ml-2 ">Property Details</h2>
             <hr className="line"></hr>
           </div>
 
@@ -201,13 +202,12 @@ const PropertyDetail = ({
                   />
                 </div>
               </div>
-              {/* <div className="w-25 ml-3 mt-4"></div> */}
-              {/* <div className=" refreshbtn"></div> */}
+
               <div className="row ">
                 <div className="col-lg-1"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
                   <table
-                    className="table table-bordered table-striped table-hover  table-active mt-3 new1"
+                    className="table table-bordered table-striped table-hover  table-active mt-1  "
                     id="datatable2"
                   >
                     <thead>
@@ -241,7 +241,9 @@ const PropertyDetail = ({
                                     if (
                                       ele.status !== "Deleted the Door Number"
                                     ) {
-                                      return <>{ele.doorNo + ","}</>;
+                                      return (
+                                        <div key={idx}>{ele.doorNo + ","}</div>
+                                      );
                                     }
                                   })}
                               </td>

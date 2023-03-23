@@ -275,7 +275,7 @@ const TenantFilters = ({
             <div className="container_align top_menu col-sm-12  ">
               <div className="row pb-2 ml-2 responsiveDiv  ">
                 <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
-                  <div classname="xy">
+                  <div>
                     <Link
                       to="/tenant-report"
                       className="btn btn_more"
@@ -287,7 +287,7 @@ const TenantFilters = ({
                     </Link>
 
                     <DatePicker
-                      className="form-control yearpicker "
+                      className="form-control yearpicker  "
                       placeholder="yyyy"
                       onChange={(date) => monthYearChange(date)}
                       dateFormat="yyyy"
@@ -311,12 +311,12 @@ const TenantFilters = ({
                       });
                       return (
                         <div
-                          className="py-2 "
+                          className="py-2  "
                           key={idx}
                           style={{ border: "5px soild blue" }}
                         >
                           <div
-                            className="tenantfil "
+                            className="tenantfil  "
                             style={{
                               color: "#fff",
                               padding: "0px 0px 0px 5px",
@@ -342,7 +342,7 @@ const TenantFilters = ({
                             </Link>{" "}
                             &nbsp;
                             <label
-                              className="btn-roun"
+                              className="btn-roun "
                               style={
                                 countVal !== 0
                                   ? {

@@ -240,7 +240,7 @@ const Header = ({
                             </div>
                           </Link>
                           <ul className="dropdown-menu second-level-menu ">
-                            <li className="  drophover ">
+                            <li className=" hwhite  drophover ">
                               <Link
                                 to="#"
                                 onClick={() => handleTenantSettingModalShow()}
@@ -249,10 +249,10 @@ const Header = ({
                               </Link>
                             </li>
 
-                            <li className=" drophover ">
+                            <li className="hwhite drophover ">
                               <Link to="/change-password">Change Password</Link>
                             </li>
-                            <li className=" drophover ">
+                            <li className="hwhite drophover ">
                               <Link
                                 to="#"
                                 onClick={() => handleLogoutModalShow()}

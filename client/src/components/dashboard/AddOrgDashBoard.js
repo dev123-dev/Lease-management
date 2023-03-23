@@ -115,123 +115,129 @@ const AddOrgDashBoard = ({
 
   return (
     <>
-      <div className="col mt-5">
+      <div className="col mt-sm-5">
         <div className="col"></div>
         <div className="col"></div>
         <div className="col"></div>
         <div className="col"></div>
         <div className="col"></div>
-        <div className="col mt-5 h2">Organistration Details</div>
-        <div className="text-end"> </div>
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
+          <div>
+            <h2 className="col h2 ml-2">Organistration Details</h2>
+            <hr className="line"></hr>
+          </div>
+          <div className="text-end"> </div>
 
-        <div className="container-fluid d-flex align-items-center justify-content-center ">
-          <div className="col">
-            <div className="refreshbtn">
-              <img
-                height="25px"
-                className="mx-2 plusicon"
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add User"
-                title="Add User"
-              />
-              <img
-                className="mt-1"
-                height="25px"
-                onClick={() => refreshbtn()}
-                src={require("../../static/images/refresh-icon.png")}
-                alt="refresh User"
-                title="Refresh User"
-              />
-            </div>
-
-            <div className="row ">
-              <div className="col-lg-1"></div>
-              <div className="body-inner no-padding table-responsive">
-                <table
-                  className="table table-bordered table-striped table-hover  table-active mt-5"
-                  id="datatable2"
-                >
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Address</th>
-                      <th>Location</th>
-                      <th>StartDate</th>
-                      <th>EndDate</th>
-                      <th>Operation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {currentDatas &&
-                      currentDatas[0] &&
-                      currentDatas.map((orgVal, idx) => {
-                        var ED = orgVal.enddate && orgVal.enddate.split(/\D/g);
-                        var Enddate = [
-                          ED && ED[2],
-                          ED && ED[1],
-                          ED && ED[0],
-                        ].join("-");
-                        return (
-                          <tr key={idx}>
-                            <td>{orgVal.OrganizationName}</td>
-                            <td>{orgVal.OrganizationEmail}</td>
-                            <td>{orgVal.OrganizationNumber}</td>
-                            <td>{orgVal.OrganizationAddress}</td>
-                            <td>{orgVal.Location + ","}</td>
-                            <td>{orgVal.date}</td>
-                            <td>{Enddate}</td>
-                            {orgVal.org_status === "Active" ||
-                            orgVal.org_status === "Renewed" ? (
-                              <td className="text-center">
-                                <img
-                                  className="Cursor "
-                                  onClick={() => onedit(orgVal, idx)}
-                                  src={require("../../static/images/edit_icon.png")}
-                                  alt="Edit"
-                                  title="Edit User"
-                                />
-
-                                <img
-                                  className="Cursor"
-                                  onClick={() => onDelete(orgVal._id)}
-                                  src={require("../../static/images/delete.png")}
-                                  alt="delete User"
-                                  title="delete User"
-                                />
-                              </td>
-                            ) : (
-                              <td className="blank">Deactive</td>
-                            )}
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </table>
-              </div>
-              <div className="col-lg-1"></div>
-            </div>
-
-            <div className="row ">
-              <div className="col-lg-6">
-                {allorg && allorg.length !== 0 ? (
-                  <Pagination
-                    dataPerPage={dataPerPage}
-                    totalData={allorg.length}
-                    paginate={paginate}
-                    currentPage={currentData}
-                  />
-                ) : (
-                  <Fragment />
-                )}
+          <div className="container-fluid d-flex align-items-center justify-content-center ">
+            <div className="col">
+              <div className="refreshbtn">
+                <img
+                  className="plusicon"
+                  height="20px"
+                  onClick={() => setShowadd(true)}
+                  src={require("../../static/images/add-icon.png")}
+                  alt="Add org"
+                  title="Add org"
+                />
+                <img
+                  className="ml-2"
+                  height="20px"
+                  onClick={() => refreshbtn()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="refresh org"
+                  title="Refresh org"
+                />
               </div>
 
-              <div className="col-lg-6  ">
-                <p className="text-end h6  ">
-                  No of Organization : {allorg.length}
-                </p>
+              <div className="row ">
+                <div className="col-lg-1"></div>
+                <div className="body-inner no-padding table-responsive">
+                  <table
+                    className="table table-bordered table-striped table-hover  table-active mt-5"
+                    id="datatable2"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th>Location</th>
+                        <th>StartDate</th>
+                        <th>EndDate</th>
+                        <th>Operation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {currentDatas &&
+                        currentDatas[0] &&
+                        currentDatas.map((orgVal, idx) => {
+                          var ED =
+                            orgVal.enddate && orgVal.enddate.split(/\D/g);
+                          var Enddate = [
+                            ED && ED[2],
+                            ED && ED[1],
+                            ED && ED[0],
+                          ].join("-");
+                          return (
+                            <tr key={idx}>
+                              <td>{orgVal.OrganizationName}</td>
+                              <td>{orgVal.OrganizationEmail}</td>
+                              <td>{orgVal.OrganizationNumber}</td>
+                              <td>{orgVal.OrganizationAddress}</td>
+                              <td>{orgVal.Location + ","}</td>
+                              <td>{orgVal.date}</td>
+                              <td>{Enddate}</td>
+                              {orgVal.org_status === "Active" ||
+                              orgVal.org_status === "Renewed" ? (
+                                <td className="text-center">
+                                  <img
+                                    className="Cursor "
+                                    onClick={() => onedit(orgVal, idx)}
+                                    src={require("../../static/images/edit_icon.png")}
+                                    alt="Edit"
+                                    title="Edit User"
+                                  />
+
+                                  <img
+                                    className="Cursor"
+                                    onClick={() => onDelete(orgVal._id)}
+                                    src={require("../../static/images/delete.png")}
+                                    alt="delete User"
+                                    title="delete User"
+                                  />
+                                </td>
+                              ) : (
+                                <td className="blank">Deactive</td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="col-lg-1"></div>
+              </div>
+
+              <div className="row ">
+                <div className="col-lg-6">
+                  {allorg && allorg.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={allorg.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+
+                <div className="col-lg-6  ">
+                  <p className="text-end h6  ">
+                    No of Organization : {allorg.length}
+                  </p>
+                </div>
               </div>
             </div>
           </div>

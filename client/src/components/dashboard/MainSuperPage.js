@@ -58,89 +58,94 @@ const MainSuperPage = ({
     // <Roller />
     <></>
   ) : (
-    <div className="col mt-5 DashBoard">
+    <div className="col mt-sm-5 DashBoard">
       <div className="col"></div>
       <div className="col"></div>
       <div className="col"></div>
       <div className="col"></div>
       <div className="col"></div>
-      <div className="col mt-5 h2">DashBaord</div>
-      <div className="container-fluid d-flex align-items-center justify-content-center ">
-        <div className="col">
-          <div className="row ">
-            <div className="col-lg-1"></div>
+      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
+        <div>
+          <h2 className="col h2 ml-2">DashBaord</h2>
+          <hr className="line"></hr>
+        </div>
+        <div className="container-fluid d-flex align-items-center justify-content-center ">
+          <div className="col">
+            <div className="row ">
+              <div className="col-lg-1"></div>
 
-            <div className="body-inner no-padding table-responsive">
-              <table
-                className="table table-bordered table-striped table-hover  table-active mt-5"
-                id="datatable2"
-              >
-                <thead>
-                  <tr>
-                    <th>Orgnization Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Org-Status</th>
-                    <th>Agreement Status</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Renewal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentDatas &&
-                    currentDatas[0] &&
-                    currentDatas.map((org, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{org.OrganizationName}</td>
-                          <td>{org.OrganizationEmail}</td>
-                          <td>{org.OrganizationNumber}</td>
-                          <td>{org.OrganizationAddress}</td>
-                          <td>{org.org_status}</td>
-                          <td>{org.AgreementStatus}</td>
-                          <td>{org.date}</td>
-                          <td>{org.enddate}</td>
-                          <td>
-                            {org.AgreementStatus === "Expired" ? (
-                              <button
-                                className="rewbtn"
-                                onClick={() => onRenewal(org, index)}
-                              >
-                                Renewal
-                              </button>
-                            ) : (
-                              <p></p>
-                            )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+              <div className="body-inner no-padding table-responsive">
+                <table
+                  className="table table-bordered table-striped table-hover  table-active mt-5"
+                  id="datatable2"
+                >
+                  <thead>
+                    <tr>
+                      <th>Orgnization Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Address</th>
+                      <th>Org-Status</th>
+                      <th>Agreement Status</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                      <th>Renewal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentDatas &&
+                      currentDatas[0] &&
+                      currentDatas.map((org, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{org.OrganizationName}</td>
+                            <td>{org.OrganizationEmail}</td>
+                            <td>{org.OrganizationNumber}</td>
+                            <td>{org.OrganizationAddress}</td>
+                            <td>{org.org_status}</td>
+                            <td>{org.AgreementStatus}</td>
+                            <td>{org.date}</td>
+                            <td>{org.enddate}</td>
+                            <td>
+                              {org.AgreementStatus === "Expired" ? (
+                                <button
+                                  className="rewbtn"
+                                  onClick={() => onRenewal(org, index)}
+                                >
+                                  Renewal
+                                </button>
+                              ) : (
+                                <p></p>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
+              <div className="col-lg-1"></div>
             </div>
-            <div className="col-lg-1"></div>
-          </div>
-          <div className="row ">
-            <div className="col-lg-6">
-              {allorg && allorg.length !== 0 ? (
-                <Pagination
-                  dataPerPage={dataPerPage}
-                  totalData={allorg.length}
-                  paginate={paginate}
-                  currentPage={currentData}
-                />
-              ) : (
-                <Fragment />
-              )}
-            </div>
+            <div className="row ">
+              <div className="col-lg-6">
+                {allorg && allorg.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={allorg.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <Fragment />
+                )}
+              </div>
 
-            <div className="col-lg-6  ">
-              <p className="text-end h6">
-                {" "}
-                No of Organization : {allorg.length}
-              </p>
+              <div className="col-lg-6  ">
+                <p className="text-end h6">
+                  {" "}
+                  No of Organization : {allorg.length}
+                </p>
+              </div>
             </div>
           </div>
         </div>

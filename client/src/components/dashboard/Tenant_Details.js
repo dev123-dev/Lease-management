@@ -53,6 +53,7 @@ const Tenant_Details = ({
 
   let output = get_particular_org_tenant.filter(
     (item) =>
+      item.shopDoorNo &&
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   );
 
@@ -235,7 +236,7 @@ const Tenant_Details = ({
 
                   <div className="body-inner no-padding table-responsive">
                     <table
-                      className="table table-bordered table-striped table-hover  table-active mt-3"
+                      className="table table-bordered table-striped table-hover  table-active mt-1"
                       id="datatable2"
                     >
                       <thead>
@@ -274,9 +275,11 @@ const Tenant_Details = ({
                                         ele.status === "Avaiable" ||
                                         ele.status === "Acquired"
                                       ) {
-                                        return <i>{ele.label + ","}</i>;
+                                        return (
+                                          <div key={idx}>{ele.label + ","}</div>
+                                        );
                                       } else {
-                                        return <i>{""}</i>;
+                                        return <div key={ele._id}>{""}</div>;
                                       }
                                     })}
                                   </td>
