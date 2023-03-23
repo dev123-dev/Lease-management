@@ -53,17 +53,25 @@ const EditTenantDetails = ({
   );
 
   const [orgname, setOrgname] = useState(
-    tenantsdetails
-      ? allBuildingNames &&
-          allBuildingNames.filter(
-            (x) => x.label === tenantsdetails.BuildingName
-          )
-      : ""
+    tenantsdetails ? tenantsdetails.BuildingName : ""
   );
-
+  const [testdno, settestdno] = useState(
+    tenantsdetails
+      ? tenantsdetails.shopDoorNo.filter((ele) => {
+          if (ele.status !== "Deleted the Door Number") {
+            return ele;
+          }
+        })
+      : "No data"
+  );
   const [Dno, setDno] = useState([]);
 
   const [LocList, SetLocList] = useState([]);
+  const [doorno, setdno] = useState([]);
+  let doorNos = [];
+  const onchangeDoor = (e) => {
+    setdno(e);
+  };
 
   const LocName = [];
   AvaiableRoomBuilding.map((loc) => {
@@ -93,7 +101,6 @@ const EditTenantDetails = ({
           setDno(temp);
         }
       });
-
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.label ? e.label : "");
@@ -210,12 +217,6 @@ const EditTenantDetails = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [doorno, setdno] = useState([]);
-  let doorNos = [];
-  const onchangeDoor = (e) => {
-    setdno(e);
-  };
-
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
     var newDate = e.target.value;
@@ -290,7 +291,8 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    UpdateTenantsDetails(finalData);
+    console.log(finalData);
+    // UpdateTenantsDetails(finalData);
     setFreshPage(!freshpage);
 
     // const historyData = {
@@ -339,6 +341,7 @@ const EditTenantDetails = ({
                 name="Property name"
                 options={allBuildingNames}
                 value={buildingData}
+                placeholder={<p>{orgname}</p>}
                 onChange={(e) => onBuildingChange(e)}
                 required
               ></Select>
@@ -348,7 +351,7 @@ const EditTenantDetails = ({
               <Select
                 name="doorno"
                 options={Dno}
-                value={doorno}
+                value={testdno}
                 onChange={(e) => onchangeDoor(e)}
                 isMulti={true}
                 required

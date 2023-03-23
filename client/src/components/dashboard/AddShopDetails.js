@@ -131,7 +131,7 @@ const AddShopDetails = ({
       shopAddress: shopAddress,
       isSubmitted: false,
       Location: orgLoc.value,
-      shopStatus: "Acquired",
+      shopStatus: "Avaiable",
     };
 
     AddShopDetailsform(finalData);

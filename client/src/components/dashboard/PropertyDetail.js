@@ -126,6 +126,7 @@ const PropertyDetail = ({
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
+    // console.log(reason);
     deactiveProperty(reason);
   };
 

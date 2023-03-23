@@ -15,16 +15,24 @@ const MainAdminPage = ({
   getParticularProperty,
   ParticularTenant,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
+  // localStorage.setItem("user",
   useEffect(() => {
-    fun();
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
-    ParticularTenant({ OrganizationId: user && user.OrganizationId });
+    if (myuser) {
+      fun();
+      getParticularProperty({
+        OrganizationId: myuser && myuser.OrganizationId,
+      });
+      ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
+    }
   }, []);
   const total = JSON.parse(localStorage.getItem("total"));
-
   let count = 0;
   let AvaiableShopCount = 0;
   const [PropertyCount, setPropertyCount] = useState(0);
+  const [TenantCount, setTenantCount] = useState(0);
+
   const [status, setStatus] = useState("");
   let ShopStatus = [];
   particular_org_data.map((ele) =>
@@ -32,9 +40,12 @@ const MainAdminPage = ({
       label: ele.shopStatus,
     })
   );
-
+  const tenantCount = get_particular_org_tenant.filter((ele) => {
+    if (ele.tenantstatus === "Active") {
+      return ele;
+    }
+  });
   const fun = () => {
-    // particular_org_data.map((ind) => setPropertyCount(count + 1));
     let pCount =
       particular_org_data &&
       particular_org_data.reduce((acu, cur) => acu + 1, 0);
@@ -108,7 +119,7 @@ const MainAdminPage = ({
                 <img src={people} alt="x" height="35%" width="15%"></img>
                 <br></br>
                 No of Tenants Count
-                <div>{get_particular_org_tenant.length}</div>
+                <div>{tenantCount.length}</div>
               </div>
               <div className="col-lg-1"></div>
             </div>

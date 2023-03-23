@@ -407,21 +407,36 @@ router.post("/deactive-property", async (req, res) => {
   let data = req.body;
 
   try {
-    data.Dno.map((eleDoor) => {
+    if (data.Dno.length === 0) {
       property.updateOne(
         {
           OrganizationId: data.OrganizationId,
           _id: data.PropertyId,
-          shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
         },
         {
           $set: {
-            "shopDoorNo.$.status": "Deleted the Door Number",
+            shopStatus: "Deactive",
             deactive_reason: data.deactive_reason,
           },
         }
       );
-    });
+    } else {
+      data.Dno.map((eleDoor) => {
+        property.updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.PropertyId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Deleted the Door Number",
+              deactive_reason: data.deactive_reason,
+            },
+          }
+        );
+      });
+    }
 
     // res.json(propertydata);
   } catch (err) {

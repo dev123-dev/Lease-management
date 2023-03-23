@@ -18,8 +18,12 @@ const EditProperty = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
 
-  const [orgLoc, setLoc] = useState([]);
   const [Sellocation, SetselLoction] = useState([]);
+  const [orgLoc, setLoc] = useState(
+    Propertydata ? Propertydata.Location : "xxx"
+  );
+  console.log(orgLoc, "orgloc");
+
   //adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState([]);
@@ -181,6 +185,8 @@ const EditProperty = ({
                 name="orgLoc"
                 options={Sellocation}
                 value={orgLoc}
+                placeholder={<p>{orgLoc}</p>}
+                readOnly={true}
                 onChange={(e) => onchangeLoc(e)}
                 theme={(theme) => ({
                   ...theme,
@@ -192,7 +198,6 @@ const EditProperty = ({
                     primary: "black",
                   },
                 })}
-                required
               />
             </div>
 

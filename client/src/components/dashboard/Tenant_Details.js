@@ -469,6 +469,7 @@ const Tenant_Details = ({
 
             <div className="checkbox mx-5">
               {dno.map((ele, index) => {
+                <p>{index}</p>;
                 if (ele.status == "Acquired" || ele.status == "Avaiable") {
                   return (
                     <>
