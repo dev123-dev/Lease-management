@@ -271,15 +271,14 @@ const Tenant_Details = ({
                                   <td>{Val.BuildingName}</td>
                                   <td>
                                     {Val.shopDoorNo.map((ele) => {
+                                      <p key={idx}></p>;
                                       if (
                                         ele.status === "Avaiable" ||
                                         ele.status === "Acquired"
                                       ) {
-                                        return (
-                                          <div key={idx}>{ele.label + ","}</div>
-                                        );
+                                        return <>{ele.label + ","}</>;
                                       } else {
-                                        return <div key={ele._id}>{""}</div>;
+                                        return <>{""}</>;
                                       }
                                     })}
                                   </td>

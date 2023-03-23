@@ -238,11 +238,12 @@ const PropertyDetail = ({
                               <td>
                                 {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
+                                    <p key={idx}></p>;
                                     if (
                                       ele.status !== "Deleted the Door Number"
                                     ) {
                                       return (
-                                        <div key={idx}>{ele.doorNo + ","}</div>
+                                        <inline>{ele.doorNo + ","}</inline>
                                       );
                                     }
                                   })}
