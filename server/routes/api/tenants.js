@@ -525,8 +525,7 @@ router.post("/deactive-Organization", async (req, res) => {
 router.post("/deactive-tenant", async (req, res) => {
   try {
     let data = req.body;
-    console.log(data.Dno.length);
-    if (data.Dno.length <= 1) {
+    if (data.Dno.length === 0) {
       data.Dno.map((ele) => {
         TenantDetails.updateOne(
           {
@@ -536,7 +535,6 @@ router.post("/deactive-tenant", async (req, res) => {
           {
             $set: {
               tenantstatus: "Deactive",
-              "shopDoorNo.$.status": "Deleted the Door Number",
               deactive_reason: data.deactive_reason,
             },
           }

@@ -113,10 +113,11 @@ const Tenant_Details = ({
   const HandelCheck = (e) => {
     var updatedlist = [...checkData];
     if (e.target.checked) {
-      updatedlist = [...checkData, e.target.value];
+      updatedlist = [...checkData, { label: e.target.value }];
     } else {
       updatedlist.splice(checkData.indexOf(e.target.value), 1);
     }
+    console.log("updated", updatedlist);
     setCheckData(updatedlist);
   };
 

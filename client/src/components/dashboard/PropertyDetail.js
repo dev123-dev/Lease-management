@@ -97,7 +97,7 @@ const PropertyDetail = ({
     setCheckData([]);
   };
   const onDelete = (id, Dno) => {
-    if (Dno.length > 1) {
+    if (Dno.length >= 1) {
       SetDno(Dno);
       setPropertyId(id);
       SetDoornumber(true);
