@@ -167,7 +167,7 @@ const Tenant_Details = ({
   };
 
   const tenantCount = currentDatas.filter((ele) => {
-    if (currentDatas.status === "Active") {
+    if (ele.tenantstatus === "Active") {
       return ele;
     }
   });
@@ -262,7 +262,7 @@ const Tenant_Details = ({
                               ED && ED[0],
                             ].join("-");
 
-                            if (currentDatas.status === "Active") {
+                            if (Val.tenantstatus === "Active") {
                               return (
                                 <tr key={idx}>
                                   <td>{Val.tenantName}</td>

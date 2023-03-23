@@ -351,9 +351,9 @@ const PropertyDetail = ({
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h5 className="modal-title text-center">
-                <b> Choose Door Number To Deactivate</b>
-              </h5>
+              <h3 className="modal-title text-center">
+                <b>DEACTIVATE</b>
+              </h3>
             </div>
             <div className="col-lg-1 closeicon">
               <img
@@ -368,10 +368,12 @@ const PropertyDetail = ({
           <Modal.Body>
             {/* <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-            <div className="h5 despace">Reason For Deactivating</div>
-            <div className="checkbox mx-5">
+
+            <div className="text-dark">Choose Door No for Deactivate</div>
+            <div className="checkbx">
+              {/* eslint-disable-next-line array-callback-return */}
               {dno.map((ele) => {
-                if (ele.status == "Avaiable") {
+                if (ele.status === "Avaiable") {
                   return (
                     <>
                       <input
@@ -380,12 +382,16 @@ const PropertyDetail = ({
                         value={ele.doorNo}
                         onChange={(e) => HandelCheck(e)}
                       />
-                      <label htmlFor="vehicle1">{ele.doorNo}</label>
+                      &nbsp;
+                      <label htmlFor="vehicle1">
+                        {ele.doorNo}&nbsp; &nbsp;
+                      </label>
                     </>
                   );
                 }
               })}
             </div>
+            <div className=" despace pt-3">Reason For Deactivating</div>
             <textarea
               rows="2"
               name="deactive_reason"

@@ -85,6 +85,7 @@ const SuperUserDashboard = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+  //refresh
   const refreshbtn = () => {
     setrefresh(!refresh);
     // window.location.reload(true);
