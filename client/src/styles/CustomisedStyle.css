@@ -1154,10 +1154,14 @@ label {
 }
 
 @media screen and (min-width: 1200px) {
+
   #pass_help {
     margin-left: 6em;
     margin-top: -4.5em;
     position: absolute;
+  }
+  .filter_bg {
+    margin-left:-30px;
   }
 }
 
@@ -2294,6 +2298,9 @@ div {
 }
 
 @media screen and (max-width: 420px) {
+  .filter_bg {
+    margin-left: 2px;
+  }
   .tenant_filter {
     width: 200%;
     height: fit-content;
