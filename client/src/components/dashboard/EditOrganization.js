@@ -84,7 +84,6 @@ const EditOrganization = ({
 
   const onUpdate = (e) => {
     e.preventDefault();
-    EditModal(false);
 
     const updateData = {
       OrganizationId: org._id,
@@ -97,6 +96,7 @@ const EditOrganization = ({
       Location: items,
     };
     updateOrganization(updateData);
+    EditModal(false);
   };
 
   return !isAuthenticated || !user || !users ? (

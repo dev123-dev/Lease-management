@@ -31,17 +31,9 @@ const Edituser = ({
     { value: "Admin", label: "Admin" },
     { value: "Super Admin", label: "Super Admin" },
   ];
-  const [usergroup, setUsergroup] = useState(
-    superuser
-      ? UserGroups &&
-          UserGroups.filter((x) => x.value === superuser.usergroup)[0]
-      : ""
-  );
+
   const onchangeOrg = (e) => {
     setOrgname(e);
-  };
-  const onchangeuser = (e) => {
-    setUsergroup(e);
   };
 
   const [show, setShow] = useState(false);
@@ -67,7 +59,12 @@ const Edituser = ({
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const [us, setus] = useState("");
+  const [us, setus] = useState(
+    superuser
+      ? UserGroups &&
+          UserGroups.filter((x) => x.value === superuser.usergroup)[0]
+      : ""
+  );
 
   const onuser = (e) => {
     setus(e);
@@ -87,7 +84,6 @@ const Edituser = ({
       OrganizationName: superuser.OrganizationName,
       OrganizationId: superuser.OrganizationId,
     };
-    console.log(updateUSER);
     UpdateUser(updateUSER);
     handleClose(true);
   };
@@ -166,10 +162,9 @@ const Edituser = ({
               <label>UserGroup*:</label>
 
               <Select
-                name="group"
+                name="us"
+                value={us}
                 options={UserGroups}
-                isSearchable={false}
-                placeholder="Select"
                 onChange={(e) => onuser(e)}
                 theme={(theme) => ({
                   ...theme,

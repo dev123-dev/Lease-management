@@ -92,6 +92,7 @@
   width: 35px;
   border-radius: 50% !important;
   font-size: 10px;
+
   font-weight: 500;
 
   background: transparent;
@@ -2278,9 +2279,11 @@ div.page-footer {
 div {
   border: 3px solid transparent;
 }
-/* .bck {
-  background-color: rgb(231, 231, 231);
-} */
+.top_menu {
+  background-color: #095a4a;
+  margin-left: -2px;
+}
+
 @media screen and (max-width: 420px) {
   .tenant_filter {
     width: 200%;
