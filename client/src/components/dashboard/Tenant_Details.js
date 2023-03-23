@@ -71,8 +71,8 @@ const Tenant_Details = ({
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno) => {
     setId(id);
-    console.log(Dno);
-    if (Dno.length > 1) {
+
+    if (Dno.length >= 1) {
       SetDno(Dno);
       SetDoornumber(true);
     } else {
@@ -138,6 +138,7 @@ const Tenant_Details = ({
       tid: tId,
       isSubmitted: "true",
     };
+    console.log(reason);
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);

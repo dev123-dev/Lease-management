@@ -525,47 +525,59 @@ router.post("/deactive-Organization", async (req, res) => {
 router.post("/deactive-tenant", async (req, res) => {
   try {
     let data = req.body;
-    if (data.Dno.length === 0) {
-      TenantDetails.updateOne(
-        {
-          _id: data.tid,
-        },
-        {
-          $set: {
-            tenantstatus: "Deactive",
-            deactive_reason: data.deactive_reason,
+    console.log(data.Dno.length);
+    if (data.Dno.length <= 1) {
+      data.Dno.map((ele) => {
+        TenantDetails.updateOne(
+          {
+            _id: data.tid,
+            shopDoorNo: { $elemMatch: { label: ele.label } },
           },
-        }
-      );
-    }
-    data.Dno.map((ele) => {
-      TenantDetails.updateOne(
-        {
-          _id: data.tid,
-          shopDoorNo: { $elemMatch: { label: ele } },
-        },
-        {
-          $set: {
-            "shopDoorNo.$.status": "Deleted the Door Number",
-            deactive_reason: data.deactive_reason,
-          },
-        }
-      );
-    });
-    doonum.map((ele) => {
-      property
-        .updateOne(
-          { tdId: data.tid },
           {
             $set: {
-              "shopDoorNo.$.status": "Avaiable",
+              tenantstatus: "Deactive",
+              "shopDoorNo.$.status": "Deleted the Door Number",
+              deactive_reason: data.deactive_reason,
             },
           }
-        )
-        .then(data);
-    });
+        ).then((data) => console.log("single tenant", data));
+      });
+    } else {
+      data.Dno.map((ele) => {
+        TenantDetails.updateOne(
+          {
+            _id: data.tid,
+            shopDoorNo: { $elemMatch: { label: ele.label } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Deleted the Door Number",
+              deactive_reason: data.deactive_reason,
+            },
+          }
+        ).then((data) => console.log("else part", data));
+      });
+      data.Dno.map((ele) => {
+        property
+          .updateOne(
+            {
+              tdId: data.tid,
+              shopDoorNo: {
+                $elemMatch: {
+                  doorNo: ele.label,
+                },
+              },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then((data) => console.log(data));
+      });
+    }
 
-    res.json(finaldata);
     // }
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
