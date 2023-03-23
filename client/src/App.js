@@ -16,6 +16,7 @@ import setAuthToken from "./utils/setAuthToken";
 //import './App.css';
 import "./styles/bootstrap/css/bootstrap.min.css";
 import "./styles/CustomisedStyle.css";
+// import "./static/images";
 
 import Login from "./components/auth/Login";
 // import Alert from "./components/layout/Alert";
@@ -34,25 +35,26 @@ const App = () => {
       <Router>
         <Fragment>
           <Header />
-
-          <div className="row ">
-            <div className="col-lg-1 col-md-12 col-sm-12 no_padding ">
-              <TenantFilters />
+          <div>
+            <div className="row ">
+              <div className="col-lg-1 col-md-12 col-sm-12 no_padding ">
+                <TenantFilters />
+              </div>
+              {/* <Alert /> */}
+              <div className="col-lg-10 col-md-12 col-sm-12 no_padding">
+                <Switch>
+                  <Route exact path="/" component={HomePage} />
+                  <Route exact path="/login" component={Login} />
+                  <Route component={RoutesFile} />
+                </Switch>
+              </div>{" "}
             </div>
-            {/* <Alert /> */}
-            <div className="col-lg-10 col-md-12 col-sm-12 no_padding">
-              <Switch>
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/login" component={Login} />
-                <Route component={RoutesFile} />
-              </Switch>
-            </div>{" "}
-          </div>
 
-          <footer className="footer">
-            <Footer />
-            <br />
-          </footer>
+            <footer className="footer">
+              <Footer />
+              <br />
+            </footer>
+          </div>
         </Fragment>
       </Router>
     </Provider>

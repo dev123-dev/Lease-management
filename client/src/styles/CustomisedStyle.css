@@ -550,8 +550,6 @@ p {
   color: #ffffff;
 }
 
-
-
 .positioning {
   position: absolute;
   top: 27px;
@@ -767,7 +765,7 @@ label {
 
 #datatable2 th {
   background: #095a4a;
-   color: #fff;
+  color: #fff;
   padding: 8px;
   text-align: center;
   position: sticky;
@@ -938,7 +936,6 @@ label {
   .top_radio .checkbox-inline + .checkbox-inline,
   .radio-inline + .radio-inline {
     margin-left: 0px;
-    
   }
 }
 
@@ -1157,6 +1154,9 @@ label {
     margin-left: 6em;
     margin-top: -4.5em;
     position: absolute;
+  }
+  .filter_bg {
+    margin-left: -30px;
   }
 }
 
@@ -1443,44 +1443,36 @@ input[type="radio"].error {
 
 /***********Pagination Styles********/
 .pagination {
-  
   border: 1px solid #fff;
-
 }
 .pagination a {
   color: #000;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
- 
+
   font-weight: 100;
 }
 .pagination a.active {
   background: #fff;
   color: #095a4a;
   font-weight: 500;
-
 }
 .pagination a:hover {
   background: #fff;
   color: #0e0e0e;
-
 }
 .top-level-menu li:hover .second-level-menu {
   display: inline-block;
-  
 }
 .drophover:hover {
   background-color: rgb(220, 220, 220);
-  
 }
 .refreshbtn {
   margin-left: 95%;
   position: absolute;
   cursor: pointer;
 }
-
-
 
 .second-level-menu2 {
   display: none;
@@ -1533,8 +1525,6 @@ input[type="radio"].error {
   white-space: nowrap;
 }
 
-
-
 .second-level-menu {
   position: absolute;
   top: 30px;
@@ -1543,7 +1533,7 @@ input[type="radio"].error {
   display: none;
   padding: 0;
   margin: 0 0 0 -20px;
-  background-color:white;
+  background-color: white;
 }
 
 .second-level-menu2 {
@@ -1680,7 +1670,7 @@ input[type="radio"].error {
   .autoDivD {
     padding-left: 20px;
     border-left: none;
-     }
+  }
   .top_total2 {
     display: none;
   }
@@ -1723,7 +1713,6 @@ button.swap-btn {
 }
 
 .react-datepicker-wrapper {
-
   padding: 0 !important;
   border: 0 !important;
 }
@@ -1874,10 +1863,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 @media (max-height: 1300px) {
   .responsiveDiv {
-      overflow: scroll;
+    overflow: scroll;
     overflow-y: auto;
     background-color: #095a4a;
-    }
+  }
 
   .smallscreen {
     display: none;
@@ -2196,7 +2185,7 @@ button {
 .refreshbtnad {
   margin-left: 4000%;
   cursor: pointer;
- }
+}
 
 .deactive {
   position: absolute;
@@ -2208,6 +2197,9 @@ button {
 }
 .closeicon {
   cursor: pointer;
+}
+.loc {
+  height: 20%;
 }
 .closeicon:hover {
   background-color: lightgray;
@@ -2253,7 +2245,7 @@ div.page-footer {
 .load {
   size: 64;
   color: green;
- }
+}
 @media print {
   @page {
     size: A4;
@@ -2279,20 +2271,26 @@ div.page-footer {
 .checkbx {
   margin-left: 5px;
 }
-.li:hover{
-  color: red ;
+.li:hover {
+  color: red;
 }
 
 div {
-  border: 1px solid transparent;
+  border: 3px solid transparent;
 }
+/* .bck {
+  background-color: rgb(231, 231, 231);
+} */
 @media screen and (max-width: 420px) {
   .tenant_filter {
     width: 200%;
     height: fit-content;
   }
-  .second-level-menu{
+  .second-level-menu {
     background-color: red;
+  }
+  .filter_bg {
+    margin-left: 2px;
   }
 
   .btn.btn_more {
@@ -2387,7 +2385,7 @@ div {
     display: flex;
   }
 }
-.hwhite{
+.hwhite {
   background-color: white;
   height: 20px;
   width: 160px;

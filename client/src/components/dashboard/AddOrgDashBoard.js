@@ -245,7 +245,7 @@ const AddOrgDashBoard = ({
       </div>
 
       {/* deactivating the Super User */}
-      <Modal show={showDeactivate} centered>
+      <Modal show={showDeactivate} centered size="md">
         <form onSubmit={onDeactivate}>
           <Modal.Header>
             <div className="col-lg-11 ">
