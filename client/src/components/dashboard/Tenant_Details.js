@@ -51,14 +51,9 @@ const Tenant_Details = ({
       });
   };
 
-  // let output = get_particular_org_tenant.filter(
-  //   (item) =>
-  //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
-  // );
-
   let output = get_particular_org_tenant.filter(
     (item) =>
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   );
 
   console.log("output", output);
