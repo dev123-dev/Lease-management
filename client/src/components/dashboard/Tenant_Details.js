@@ -58,7 +58,7 @@ const Tenant_Details = ({
 
   let output = get_particular_org_tenant.filter(
     (item) =>
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   );
 
   console.log("output", output);
@@ -173,7 +173,7 @@ const Tenant_Details = ({
   };
 
   const tenantCount = currentDatas.filter((ele) => {
-    if (currentDatas.status === "Active") {
+    if (ele.tenantstatus === "Active") {
       return ele;
     }
   });
@@ -268,7 +268,7 @@ const Tenant_Details = ({
                               ED && ED[0],
                             ].join("-");
 
-                            if (currentDatas.status === "Active") {
+                            if (Val.tenantstatus === "Active") {
                               return (
                                 <tr key={idx}>
                                   <td>{Val.tenantName}</td>
