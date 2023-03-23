@@ -550,114 +550,7 @@ p {
   color: #ffffff;
 }
 
-@media screen and (max-width: 420px) {
-  .tenant_filter {
-    width: 200%;
-    height: fit-content;
-  }
 
-  .btn.btn_more {
-    border-radius: 0px;
-    width: 68px;
-    height: 35px;
-    margin-left: 0px;
-    margin-right: 3px;
-    margin-top: 10px;
-    margin-bottom: 3px;
-    background-color: #ffffff;
-  }
-  .mainpageimg {
-  }
-
-  .log_size {
-    margin-left: 100%;
-  }
-  .heading_color {
-    position: relative;
-    font-size: larger;
-    font-weight: 500;
-    margin-top: -10%;
-    left: 20px;
-  }
-  #datatable2 {
-    position: relative;
-    margin-top: -10%;
-  }
-
-  .locadds {
-    left: 10px;
-  }
-  .link_to_org {
-    margin-top: -35%;
-    margin-left: 90%;
-  }
-  .dropdown {
-    width: 170px;
-  }
-  .modhead {
-    right: 50px;
-  }
-
-
-  .space {
-    margin-bottom: 200px;
-  }
-
-  .plusicon {
-    background-color: transparent;
-    position: relative;
-    top: 150%;
-    right: 100%;
-  }
-  .refreshbtn {
-    position: relative;
-    top: -10px;
-    height: 20px;
-    right: 20px;
-  }
-  .count {
-    right: 80px;
-  }
-  .page {
-    left: 60px;
-  }
-  .headinghover:hover {
-    color: lightgray;
-  }
-  .orghea {
-    font-size: medium;
-    right: 50px;
-    position: absolute;
-    margin-top: -4%;
-  }
-  .edithea {
-    background-color: #095a4a;
-    margin-right: 60px;
-  }
-  .editcl {
-    margin-right: 50px;
-  }
-  .save:hover {
-    background-color: #095a4a;
-  }
-  .nvbar {
-    margin-right: 15px;
-  }
-  .table-responsive {
-    width: 100%;
-  }
-  .table {
-    display: block;
-  }
-
-  .tenantfilter {
-    display: flex;
-
-    /* width: 100%; */
-    /* position: absolute; */
-    /* flex-flow: row; */
-  }
-}
 
 .positioning {
   position: absolute;
@@ -1619,6 +1512,7 @@ input[type="radio"].error {
     display: none;
   }
 }
+
 .top-level-menu {
   list-style: none;
   padding: 0;
@@ -1648,7 +1542,7 @@ input[type="radio"].error {
 }
 
 .second-level-menu a {
-  background: #ffffff;
+  background-color: transparent;
   padding: 3px 20px;
   clear: both;
   font-weight: 400;
@@ -1656,6 +1550,7 @@ input[type="radio"].error {
   line-height: 1.42857143;
   white-space: nowrap;
 }
+
 
 
 .second-level-menu {
@@ -1666,7 +1561,7 @@ input[type="radio"].error {
   display: none;
   padding: 0;
   margin: 0 0 0 -20px;
-  background: #fff;
+  background-color:white;
 }
 
 .second-level-menu2 {
@@ -2435,7 +2330,123 @@ div.page-footer {
 .checkbx {
   margin-left: 5px;
 }
+.li:hover{
+  color: red
+  ;
+
+}
 
 div {
-  border: 3px solid transparent;
+  border: 1px solid transparent;
+}
+@media screen and (max-width: 420px) {
+  .tenant_filter {
+    width: 200%;
+    height: fit-content;
+  }
+  .second-level-menu{
+    background-color: red;
+  }
+
+  .btn.btn_more {
+    border-radius: 0px;
+    width: 68px;
+    height: 35px;
+    margin-left: 0px;
+    margin-right: 3px;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    background-color: #ffffff;
+  }
+  .mainpageimg {
+  }
+
+  .log_size {
+    margin-left: 100%;
+  }
+  .heading_color {
+    position: relative;
+    font-size: larger;
+    font-weight: 500;
+    margin-top: -10%;
+    left: 20px;
+  }
+  #datatable2 {
+    position: relative;
+    margin-top: -10%;
+  }
+
+  .locadds {
+    left: 10px;
+  }
+  .link_to_org {
+    margin-top: -35%;
+    margin-left: 90%;
+  }
+  .dropdown {
+    width: 170px;
+  }
+  .modhead {
+    right: 50px;
+  }
+
+
+  .space {
+    margin-bottom: 200px;
+  }
+
+  .plusicon {
+    background-color: transparent;
+    position: relative;
+    top: 150%;
+    right: 100%;
+  }
+  .refreshbtn {
+    position: relative;
+    top: -10px;
+    height: 20px;
+    right: 20px;
+  }
+  .count {
+    right: 80px;
+  }
+  .page {
+    left: 60px;
+  }
+  .headinghover:hover {
+    color: lightgray;
+  }
+  .orghea {
+    font-size: medium;
+    right: 50px;
+    position: absolute;
+    margin-top: -4%;
+  }
+  .edithea {
+    background-color: #095a4a;
+    margin-right: 60px;
+  }
+  .editcl {
+    margin-right: 50px;
+  }
+  .save:hover {
+    background-color: #095a4a;
+  }
+  .nvbar {
+    margin-right: 15px;
+  }
+  .table-responsive {
+    width: 100%;
+  }
+  .table {
+    display: block;
+  }
+
+  .tenantfilter {
+    display: flex;
+
+    /* width: 100%; */
+    /* position: absolute; */
+    /* flex-flow: row; */
+  }
 }

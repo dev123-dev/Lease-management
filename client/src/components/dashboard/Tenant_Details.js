@@ -130,7 +130,7 @@ const Tenant_Details = ({
 
   const onDeactivate = (e) => {
     e.preventDefault();
-    SetDoornumber(true);
+    SetDoornumber(false);
     const reason = {
       OrganizationId: user && user.OrganizationId,
       Dno: checkData.length !== 0 ? checkData : dno,
@@ -468,7 +468,7 @@ const Tenant_Details = ({
 
             <div className="checkbox mx-5">
               {dno.map((ele, index) => {
-                if (ele.status == "Acquired" || ele.status == "Avaiable") {
+                if (ele.status == "Acquired" || ele.status === "Avaiable") {
                   return (
                     <>
                       <input
