@@ -86,10 +86,6 @@ const SuperUserDashboard = ({
     setCurrentData(nmbr);
   };
   //refresh
-  const refreshbtn = () => {
-    setrefresh(!refresh);
-    // window.location.reload(true);
-  };
 
   return (
     <div>
@@ -125,14 +121,6 @@ const SuperUserDashboard = ({
                       src={require("../../static/images/add-icon.png")}
                       alt="Add User"
                       title="Add User"
-                    />
-                    <img
-                      className="ml-2"
-                      height="20px"
-                      onClick={() => refreshbtn()}
-                      src={require("../../static/images/refresh-icon.png")}
-                      alt="Add User"
-                      title="Refresh User"
                     />
                   </div>
 
@@ -189,7 +177,7 @@ const SuperUserDashboard = ({
                                     </td>
                                   ) : (
                                     <td className="blank text-center">
-                                      Deactive
+                                      Deactivated
                                     </td>
                                   )}
                                 </tr>
@@ -217,7 +205,7 @@ const SuperUserDashboard = ({
                     <div className="col-lg-6  ">
                       <p className="text-end h6">
                         {" "}
-                        No of Property : {allsuperuser.length}
+                        No of User : {allsuperuser.length}
                       </p>
                     </div>
                   </div>

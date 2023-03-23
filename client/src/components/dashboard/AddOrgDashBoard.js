@@ -95,10 +95,6 @@ const AddOrgDashBoard = ({
     };
     deleteOrganization(reason);
   };
-  const refreshbtn = () => {
-    // window.location.reload(true);
-    getAllOrganization("");
-  };
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
@@ -139,14 +135,6 @@ const AddOrgDashBoard = ({
                   alt="Add org"
                   title="Add org"
                 />
-                <img
-                  className="ml-2"
-                  height="20px"
-                  onClick={() => refreshbtn()}
-                  src={require("../../static/images/refresh-icon.png")}
-                  alt="refresh org"
-                  title="Refresh org"
-                />
               </div>
 
               <div className="row ">
@@ -179,6 +167,12 @@ const AddOrgDashBoard = ({
                             ED && ED[1],
                             ED && ED[0],
                           ].join("-");
+                          var SD = orgVal.date && orgVal.date.split(/\D/g);
+                          var StartDate = [
+                            SD && SD[2],
+                            SD && SD[1],
+                            SD && SD[0],
+                          ].join("-");
                           return (
                             <tr key={idx}>
                               <td>{orgVal.OrganizationName}</td>
@@ -186,7 +180,7 @@ const AddOrgDashBoard = ({
                               <td>{orgVal.OrganizationNumber}</td>
                               <td>{orgVal.OrganizationAddress}</td>
                               <td>{orgVal.Location + ","}</td>
-                              <td>{orgVal.date}</td>
+                              <td>{StartDate}</td>
                               <td>{Enddate}</td>
                               {orgVal.org_status === "Active" ||
                               orgVal.org_status === "Renewed" ? (
@@ -208,7 +202,7 @@ const AddOrgDashBoard = ({
                                   />
                                 </td>
                               ) : (
-                                <td className="blank">Deactive</td>
+                                <td className="blank">Deactivated</td>
                               )}
                             </tr>
                           );

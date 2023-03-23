@@ -92,6 +92,7 @@
   width: 35px;
   border-radius: 50% !important;
   font-size: 10px;
+  
   font-weight: 500;
 
   background: transparent;
@@ -2039,6 +2040,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .tenantfil:hover {
+ 
   background-color: grey;
   transform: scale(1.05);
 }
@@ -2286,6 +2288,11 @@ div.page-footer {
 div {
   border: 1px solid transparent;
 }
+.top_menu{
+  background-color: #095a4a;
+  margin-left: -2px;
+}
+
 @media screen and (max-width: 420px) {
   .tenant_filter {
     width: 200%;
@@ -2384,6 +2391,7 @@ div {
   }
 
   .tenantfilter {
+    
     display: flex;
   }
 }

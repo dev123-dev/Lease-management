@@ -96,6 +96,18 @@ const MainSuperPage = ({
                     {currentDatas &&
                       currentDatas[0] &&
                       currentDatas.map((org, index) => {
+                        var ED = org.enddate && org.enddate.split(/\D/g);
+                        var Enddate = [
+                          ED && ED[2],
+                          ED && ED[1],
+                          ED && ED[0],
+                        ].join("-");
+                        var SD = org.date && org.date.split(/\D/g);
+                        var StartDate = [
+                          SD && SD[2],
+                          SD && SD[1],
+                          SD && SD[0],
+                        ].join("-");
                         return (
                           <tr key={index}>
                             <td>{org.OrganizationName}</td>
@@ -104,8 +116,8 @@ const MainSuperPage = ({
                             <td>{org.OrganizationAddress}</td>
                             <td>{org.org_status}</td>
                             <td>{org.AgreementStatus}</td>
-                            <td>{org.date}</td>
-                            <td>{org.enddate}</td>
+                            <td>{StartDate}</td>
+                            <td>{Enddate}</td>
                             <td>
                               {org.AgreementStatus === "Expired" ? (
                                 <button
