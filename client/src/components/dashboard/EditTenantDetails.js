@@ -52,9 +52,24 @@ const EditTenantDetails = ({
     })
   );
 
-  const [orgname, setOrgname] = useState(
-    tenantsdetails ? tenantsdetails.BuildingName : ""
-  );
+  const [orgname, setOrgname] = useState();
+  if (
+    !orgname &&
+    tenantsdetails &&
+    tenantsdetails.BuildingName &&
+    allBuildingNames.length > 0
+  ) {
+    setOrgname(
+      tenantsdetails
+        ? allBuildingNames &&
+            allBuildingNames.filter(
+              (x) => x.label === tenantsdetails.BuildingName
+            )[0]
+        : ""
+    );
+  }
+  console.log(orgname, "orgname");
+
   const [testdno, settestdno] = useState(
     tenantsdetails
       ? tenantsdetails.shopDoorNo.filter((ele) => {
@@ -340,8 +355,8 @@ const EditTenantDetails = ({
               <Select
                 name="Property name"
                 options={allBuildingNames}
-                value={buildingData}
-                placeholder={<p>{orgname}</p>}
+                value={orgname}
+                // placeholder={<p>{orgname}</p>}
                 onChange={(e) => onBuildingChange(e)}
                 required
               ></Select>
