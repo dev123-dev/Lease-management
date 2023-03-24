@@ -92,7 +92,6 @@
   width: 35px;
   border-radius: 50% !important;
   font-size: 10px;
-
   font-weight: 500;
 
   background: transparent;
@@ -1157,6 +1156,7 @@ label {
     position: absolute;
   }
   .filter_bg {
+    background-color: red;
     margin-left: -30px;
   }
 }
@@ -1866,8 +1866,7 @@ input[type="number"]::-webkit-outer-spin-button {
   .responsiveDiv {
     overflow: scroll;
     overflow-y: auto;
-    margin-top: -17px;
-    background-color: #0e643d;
+    background-color: #095a4a;
   }
 
   .smallscreen {
@@ -2280,25 +2279,16 @@ div.page-footer {
 div {
   border: 3px solid transparent;
 }
-.top_menu {
-  background-color: #095a4a;
-  margin-left: -10px;
-}
-
+/* .bck {
+  background-color: rgb(231, 231, 231);
+} */
 @media screen and (max-width: 420px) {
-  .filter_bg {
-    margin-left: 2px;
-  }
   .tenant_filter {
     width: 200%;
     height: fit-content;
   }
-
   .second-level-menu {
     background-color: red;
-  }
-  .filter_bg {
-    margin-left: 2px;
   }
 
   .btn.btn_more {
