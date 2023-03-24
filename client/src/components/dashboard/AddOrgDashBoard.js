@@ -191,8 +191,8 @@ const AddOrgDashBoard = ({
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
                                     title="Edit User"
-                                  />&nbsp;
-
+                                  />
+                                  &nbsp;
                                   <img
                                     className="Cursor"
                                     onClick={() => onDelete(orgVal._id)}
@@ -238,7 +238,7 @@ const AddOrgDashBoard = ({
         </div>
       </div>
 
-    {/* Add model */}
+      {/* Add model */}
       <Modal
         show={showadd}
         backdrop="static"
@@ -248,7 +248,7 @@ const AddOrgDashBoard = ({
       >
         <AddOrgModal setShowadd={setShowadd} />
       </Modal>
-     {/* end add model */}
+      {/* end add model */}
 
       {/* edit org  starting */}
       <Modal
@@ -282,7 +282,7 @@ const AddOrgDashBoard = ({
       </Modal>
       {/* edit org  ending */}
 
-    {/* deactivating the Super User */}
+      {/* deactivating the Super User */}
 
       <Modal show={showDeactivate} centered>
         <form onSubmit={onDeactivate}>
@@ -334,7 +334,7 @@ const AddOrgDashBoard = ({
         </form>
       </Modal>
 
-    {/*  End Deactivating the user  */}
+      {/*  End Deactivating the user  */}
     </>
   );
 };

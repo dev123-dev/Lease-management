@@ -118,7 +118,6 @@ const Tenant_Details = ({
     } else {
       updatedlist.splice(checkData.indexOf(e.target.value), 1);
     }
-    console.log("updated", updatedlist);
     setCheckData(updatedlist);
   };
 
@@ -161,11 +160,11 @@ const Tenant_Details = ({
     setCurrentData(nmbr);
   };
   const refresh = () => {
-    // window.location.reload(true);
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
+    setselLoction(null);
   };
 
   const tenantCount = currentDatas.filter((ele) => {
@@ -408,62 +407,60 @@ const Tenant_Details = ({
           </Modal.Body>
         </Modal>
         {/* Edit end*/}
-        
       </Fragment>
       {/* deactivate start */}
       <Modal show={show} centered>
-          <form onSubmit={onDeactivate}>
-            <Modal.Header>
-              <div className="col-lg-11 ">
-                <div className="modal-title">
-                  <b className="text-center h3">DEACTIVATE</b>
-                </div>
+        <form onSubmit={onDeactivate}>
+          <Modal.Header>
+            <div className="col-lg-11 ">
+              <div className="modal-title">
+                <b className="text-center h3">DEACTIVATE</b>
               </div>
-              <div className="col-lg-1 closeicon">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                  onClick={handleClose}
-                />
-              </div>
-            </Modal.Header>
+            </div>
+            <div className="col-lg-1 closeicon">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+                onClick={handleClose}
+              />
+            </div>
+          </Modal.Header>
 
-            <Modal.Body>
-              {/* <Form>
+          <Modal.Body>
+            {/* <Form>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               > */}
-              <div className="h5 despace">Reason For Deactivating</div>
-              <textarea
-                rows="2"
-                name="deactive_reason"
-                value={deactive_reason}
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                id="org_reason"
-                className="form-control "
-                required
-              ></textarea>
-              <div>Are you sure You Want To Deactivate..?</div>
-              {/* </Form.Group>
+            <div className="h5 despace">Reason For Deactivating</div>
+            <textarea
+              rows="2"
+              name="deactive_reason"
+              value={deactive_reason}
+              onChange={(e) => onInputChange(e)}
+              style={{ width: "100%" }}
+              id="org_reason"
+              className="form-control "
+              required
+            ></textarea>
+            <div>Are you sure You Want To Deactivate..?</div>
+            {/* </Form.Group>
             </Form> */}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="primary" type="submit" id="deactivebtn">
-                <b>Deactive</b>
-              </Button>
-            </Modal.Footer>
-          </form>
-        </Modal>
-
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" type="submit" id="deactivebtn">
+              <b>Deactive</b>
+            </Button>
+          </Modal.Footer>
+        </form>
+      </Modal>
       <Modal show={selectDno} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header>
             <div className="col-lg-11 ">
               <div className="modal-title ">
-                <b  className="text-center h3 ">DEACTIVATE</b>
+                <b className="text-center h3 ">DEACTIVATE</b>
               </div>
             </div>
             <div className="col-lg-1 closeicon">
@@ -521,7 +518,7 @@ const Tenant_Details = ({
           </Modal.Footer>
         </form>
       </Modal>
-       {/* deactivate end */}
+      {/* deactivate end */}
     </>
   );
 };

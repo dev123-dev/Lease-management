@@ -228,22 +228,24 @@ router.post("/update-Property", async (req, res) => {
     };
   });
   try {
-    const updateorg = await property.updateOne(
-      { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
-      {
-        $set: {
-          buildingName: data.buildingName,
-          shopDoorNo: doornumber,
-          shopAddress: data.shopAddress,
-          hikePercentage: data.hikePercentage,
-          stampDuty: data.stampDuty,
-          leaseTimePeriod: data.leaseTimePeriod,
-          OrganizationName: data.OrganizationName,
-          Organization_id: data.OrganizationId,
-          shopStatus: "Acquired",
-        },
-      }
-    );
+    const updateorg = await property
+      .updateOne(
+        { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
+        {
+          $set: {
+            buildingName: data.buildingName,
+            shopDoorNo: doornumber,
+            shopAddress: data.shopAddress,
+            hikePercentage: data.hikePercentage,
+            stampDuty: data.stampDuty,
+            leaseTimePeriod: data.leaseTimePeriod,
+            OrganizationName: data.OrganizationName,
+            Organization_id: data.OrganizationId,
+            shopStatus: "Acquired",
+          },
+        }
+      )
+      .then((data) => console.log(data));
     res.json(updateorg);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
@@ -406,7 +408,7 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-
+  console.log(data.Dno.length);
   try {
     if (data.Dno.length === 0) {
       property.updateOne(
@@ -423,19 +425,21 @@ router.post("/deactive-property", async (req, res) => {
       );
     } else {
       data.Dno.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.PropertyId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Deleted the Door Number",
-              deactive_reason: data.deactive_reason,
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.PropertyId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
             },
-          }
-        ).then((data) => console.log(data));;
+            {
+              $set: {
+                "shopDoorNo.$.status": "Deleted the Door Number",
+                deactive_reason: data.deactive_reason,
+              },
+            }
+          )
+          .then((data) => console.log(data));
       });
     }
 

@@ -57,6 +57,7 @@ const PropertyDetail = ({
   const onEdit = (ele) => {
     let propertydata = {
       OrganizationId: ele.OrganizationId,
+      PropertyId: ele._id,
       OrganizationName: ele.OrganizationName,
       buildingName: ele.buildingName,
       hikePercentage: ele.hikePercentage,
@@ -127,10 +128,8 @@ const PropertyDetail = ({
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    // console.log(reason);
     deactiveProperty(reason);
     handleShowDno();
-
   };
 
   const [showadd, setShowadd] = useState(false);
@@ -154,6 +153,7 @@ const PropertyDetail = ({
       OrganizationId: user && user.OrganizationId,
     };
     getParticularOrg(OrganizationId);
+    SetLocation(null);
   };
   return (
     <>
@@ -243,6 +243,7 @@ const PropertyDetail = ({
                     <tbody>
                       {output &&
                         output.map((Val, idx) => {
+                          // console.log("output", output);
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -318,7 +319,6 @@ const PropertyDetail = ({
         </div>
       </div>
 
-      
       {/* add model start */}
       <Modal
         show={showadd}
@@ -331,8 +331,8 @@ const PropertyDetail = ({
       </Modal>
       {/* add model end */}
 
-       {/* Modal edit start*/}
-       <Modal
+      {/* Modal edit start*/}
+      <Modal
         show={showUpdateModal}
         backdrop="static"
         keyboard={false}
@@ -385,7 +385,6 @@ const PropertyDetail = ({
           </Modal.Header>
 
           <Modal.Body>
-           
             <div className="h5 despace">Reason For Deactivating</div>
             <textarea
               rows="2"
@@ -399,7 +398,6 @@ const PropertyDetail = ({
               required
             ></textarea>
             <div>Are you sure You Want To Deactivate..?</div>
-          
           </Modal.Body>
           <Modal.Footer>
             <Button id="deactivebtn" type="submit">
@@ -414,7 +412,7 @@ const PropertyDetail = ({
           <Modal.Header>
             <div className="col-lg-11 ">
               <div className="modal-title ">
-                <b  className="text-center h3 ">DEACTIVATE</b>
+                <b className="text-center h3 ">DEACTIVATE</b>
               </div>
             </div>
             <div className="col-lg-1 closeicon">
@@ -476,10 +474,6 @@ const PropertyDetail = ({
         </form>
       </Modal>
       {/* modal for Deactivating the single Property ending */}
-
-
-     
-
     </>
   );
 };

@@ -92,7 +92,6 @@
   width: 35px;
   border-radius: 50% !important;
   font-size: 10px;
-  
   font-weight: 500;
 
   background: transparent;
@@ -290,7 +289,6 @@ footer.footer .top_top {
   background-color: #166151;
   /* padding: 2.5rem; */
 
-  
   /* #4b748f;#0086dc */
   /* #429f8c; */
 }
@@ -554,8 +552,6 @@ p {
   color: #ffffff;
 }
 
-
-
 .positioning {
   position: absolute;
   top: 27px;
@@ -770,10 +766,8 @@ label {
 }
 
 #datatable2 th {
-  background-color: #095a4a;
-  /* opacity: 0.5; */
-  /* background:transparent; */
-   color: #fff;
+  background: #095a4a;
+  color: #fff;
   padding: 8px;
   text-align: center;
   position: sticky;
@@ -944,7 +938,6 @@ label {
   .top_radio .checkbox-inline + .checkbox-inline,
   .radio-inline + .radio-inline {
     margin-left: 0px;
-    
   }
 }
 
@@ -1159,40 +1152,25 @@ label {
 }
 
 @media screen and (min-width: 1200px) {
-     .yearpicker{
-    margin-left: -40%;
-   width: 250%;
-  
-  }
-  .year{
-    padding: 5%;
-    width: fit-content;
-  }
-  .btn_more {
-    background-color: white;
-    margin-top:50%;
-    margin-left:-35%;
-  width:250%;
-  padding:10%;
-  
-} 
-.btn_more .all{
-  font-size: larger;
-  
-  margin-left: 25%;
-}
-.back_fill{
-  background-color:#095a4a;
-}
   #pass_help {
     margin-left: 6em;
     margin-top: -4.5em;
     position: absolute;
   }
   .filter_bg {
-    margin-left:-30px;
-    width:200%;
-    
+    margin-left: -20px;
+    width: 200%;
+  }
+  .back_fill {
+    background-color: #166151;
+  }
+  .yearpicker {
+    /* text-align: center;
+    font-weight: bold;
+    border-radius: 10px; */
+    width: 250%;
+    margin-left: -60%;
+    text-align: center;
   }
 }
 
@@ -1479,44 +1457,36 @@ input[type="radio"].error {
 
 /***********Pagination Styles********/
 .pagination {
-  
   border: 1px solid #fff;
-
 }
 .pagination a {
   color: #000;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
- 
+
   font-weight: 100;
 }
 .pagination a.active {
   background: #fff;
   color: #095a4a;
   font-weight: 500;
-
 }
 .pagination a:hover {
   background: #fff;
   color: #0e0e0e;
-
 }
 .top-level-menu li:hover .second-level-menu {
   display: inline-block;
-  
 }
 .drophover:hover {
   background-color: rgb(220, 220, 220);
-  
 }
 .refreshbtn {
   margin-left: 95%;
   position: absolute;
   cursor: pointer;
 }
-
-
 
 .second-level-menu2 {
   display: none;
@@ -1569,8 +1539,6 @@ input[type="radio"].error {
   white-space: nowrap;
 }
 
-
-
 .second-level-menu {
   position: absolute;
   top: 30px;
@@ -1579,7 +1547,7 @@ input[type="radio"].error {
   display: none;
   padding: 0;
   margin: 0 0 0 -20px;
-  background-color:white;
+  background-color: white;
 }
 
 .second-level-menu2 {
@@ -1716,7 +1684,7 @@ input[type="radio"].error {
   .autoDivD {
     padding-left: 20px;
     border-left: none;
-     }
+  }
   .top_total2 {
     display: none;
   }
@@ -1759,7 +1727,6 @@ button.swap-btn {
 }
 
 .react-datepicker-wrapper {
-
   padding: 0 !important;
   border: 0 !important;
 }
@@ -1908,14 +1875,11 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 .responsiveDiv {
-     
-    overflow-y: auto;
-    background-color:#095a4a;
-    }
+  overflow-y: auto;
+  background-color: #095a4a;
+}
 
 @media (max-height: 1300px) {
-  
-
   .smallscreen {
     display: none;
   }
@@ -1928,7 +1892,7 @@ input[type="number"]::-webkit-outer-spin-button {
   /*small screen*/
   .responsiveDiv {
     /* width: 100%; */
- 
+
     padding-top: 5%;
   }
   ::-webkit-scrollbar-track {
@@ -1999,7 +1963,7 @@ input[type="number"]::-webkit-outer-spin-button {
   color: white;
   font-size: large;
 
-  font-weight:500;
+  font-weight: 500;
   height: 30px;
 }
 #hea:hover {
@@ -2081,7 +2045,6 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .tenantfil:hover {
- 
   background-color: grey;
   transform: scale(1.05);
 }
@@ -2239,7 +2202,7 @@ button {
 .refreshbtnad {
   margin-left: 4000%;
   cursor: pointer;
- }
+}
 
 .deactive {
   position: absolute;
@@ -2251,6 +2214,9 @@ button {
 }
 .closeicon {
   cursor: pointer;
+}
+.loc {
+  height: 20%;
 }
 .closeicon:hover {
   background-color: lightgray;
@@ -2296,7 +2262,7 @@ div.page-footer {
 .load {
   size: 64;
   color: green;
- }
+}
 @media print {
   @page {
     size: A4;
@@ -2322,16 +2288,14 @@ div.page-footer {
 .checkbx {
   margin-left: 5px;
 }
-.li:hover{
-  color: red ;
+.li:hover {
+  color: red;
 }
 
 div {
-  border: 1px solid transparent;
+  border: 3px solid transparent;
 }
-
-.top_menu{
-  background-color: #095a4a;
+.top_menu {
   /* margin-left: -2px; */
 }
 .dropdown{
@@ -2346,26 +2310,18 @@ div {
   background-size: cover;
 } 
 @media screen and (max-width: 420px) {
-  .filter_bg {
-    margin-left: 2px;
-  }
-  /* .yearpicker{
-    width:250%;
-    margin-left: -60;
-
-  } */
-  .back_fill{
-    background-color: #095a4a;
-    margin-bottom: -5%;
-  }
   .tenant_filter {
     width: 200%;
     height: fit-content;
   }
-  .second-level-menu{
+  .back_fill {
+    background-color: #166151;
+    margin-bottom: -10%;
+  }
+  .second-level-menu {
     background-color: red;
   }
-  .closeicon{
+  .closeicon {
     margin-right: -80px;
   }
 
@@ -2458,11 +2414,10 @@ div {
   }
 
   .tenantfilter {
-    
     display: flex;
   }
 }
-.hwhite{
+.hwhite {
   background-color: white;
   height: 20px;
   width: 160px;

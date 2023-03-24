@@ -49,7 +49,7 @@ const EditTenantDetails = ({
   );
 
   // building name start
- 
+
   const [buildingName, setBuildingName] = useState("");
   if (
     !buildingName &&
@@ -66,27 +66,15 @@ const EditTenantDetails = ({
         : ""
     );
   }
-  let newRoom =
-  AvaiableRoomBuilding &&
-  AvaiableRoomBuilding.map((ele) => {
-    return ele.shopDoorNo;
-  });
-let oldRoom =
-  tenantsdetails &&
-  tenantsdetails.shopDoorNo &&
-  tenantsdetails.shopDoorNo.map((ele) => {
-    return { label: ele.label };
-  });
- 
 
   const [orgname, setOrgname] = useState();
   if (
-    !orgname &&
+    !buildingName &&
     tenantsdetails &&
     tenantsdetails.BuildingName &&
     allBuildingNames.length > 0
   ) {
-    setOrgname(
+    setBuildingName(
       tenantsdetails
         ? allBuildingNames &&
             allBuildingNames.filter(
@@ -95,7 +83,6 @@ let oldRoom =
         : ""
     );
   }
-  console.log(orgname, "orgname");
 
   const [testdno, settestdno] = useState();
   const [Dno, setDno] = useState([]);
@@ -135,6 +122,7 @@ let oldRoom =
           setDno(temp);
         }
       });
+
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.label ? e : "");
@@ -155,7 +143,7 @@ let oldRoom =
       setdno(doorNos);
     }
   };
-
+  console.log("gk2", buildingName);
   // location listing end
 
   const PaymentMethods = [
@@ -376,11 +364,10 @@ let oldRoom =
                 options={allBuildingNames}
                 value={buildingName}
                 onChange={(e) => onBuildingChange(e)}
-                required
               ></Select>
             </div>
             <div className="col-lg-4">
-              <label >Door No*: </label>
+              <label>Door No*: </label>
               <Select
                 name="doorno"
                 options={Dno}
@@ -389,7 +376,6 @@ let oldRoom =
                 isMulti={true}
                 required
               ></Select>
-            
             </div>
             <div className="col-lg-4">
               <label>Location*: </label>
@@ -553,7 +539,6 @@ let oldRoom =
                 className="form-control cpp-input datevalidation"
                 name="tenantLeaseStartDate"
                 value={entryDate}
-                placeholder={tenantLeaseStartDate}
                 onChange={(e) => onDateChangeEntry(e)}
                 style={{
                   width: "100%",

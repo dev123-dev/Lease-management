@@ -17,23 +17,21 @@ const EditProperty = ({
   }, []);
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
-
   const [Sellocation, SetselLoction] = useState([]);
   const [orgLoc, setLoc] = useState();
-  if (
-    !orgLoc &&
-    Propertydata &&
-    Propertydata.Location &&
-    Sellocation.length > 0
-  ) {
-    setLoc(
-      Propertydata
-        ? Sellocation &&
-            Sellocation.filter((x) => x.label === Propertydata.Location)[0]
-        : ""
-    );
-  }
-  console.log(orgLoc, "orgloc");
+  // if (
+  //   !orgLoc &&
+  //   Propertydata &&
+  //   Propertydata.Location &&
+  //   Sellocation.length > 0
+  // ) {
+  //   setLoc(
+  //     Propertydata
+  //       ? Sellocation &&
+  //           Sellocation.filter((x) => x.label === Propertydata.Location)[0]
+  //       : ""
+  //   );
+  // }
 
   //adding multiple location start
   const [inputdata, setinput] = useState("");
@@ -106,10 +104,11 @@ const EditProperty = ({
   const onUpdate = (e) => {
     e.preventDefault();
     setShowUpdateModal(false);
+
     const update = {
       OrganizationName: user.OrganizationName,
       Orgainzation_id: user.OrganizationId,
-      Property_id: Propertydata._id,
+      Property_id: Propertydata.PropertyId,
       buildingName: buildingName,
       shopDoorNo: dno,
       shopAddress: shopAddress,
@@ -151,7 +150,8 @@ const EditProperty = ({
                 placeholder={stampDuty}
                 className="form-control  input"
                 readOnly
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>
@@ -163,7 +163,8 @@ const EditProperty = ({
                 value={hikePercentage}
                 className="form-control  input"
                 readOnly
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Lease Time Period*: </label>
@@ -173,7 +174,8 @@ const EditProperty = ({
                 value={LeaseTime}
                 className="form-control  input"
                 readOnly
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Address*:</label>
@@ -193,7 +195,6 @@ const EditProperty = ({
 
               <label>Location*:</label>
               <Select
-                
                 name="orgLoc"
                 options={Sellocation}
                 value={orgLoc}
@@ -209,7 +210,8 @@ const EditProperty = ({
                     primary: "black",
                   },
                 })}
-              /><br></br>
+              />
+              <br></br>
             </div>
 
             <div className="  col-lg-6 ">
@@ -245,6 +247,7 @@ const EditProperty = ({
                         <div className="eachItem" key={index1}>
                           <span>{ele.doorNo}</span>{" "}
                           <button
+                            type="button"
                             onClick={() => handleDoorNumclose(ele, index1)}
                             className="btndrp"
                           >

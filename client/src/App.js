@@ -16,6 +16,7 @@ import setAuthToken from "./utils/setAuthToken";
 //import './App.css';
 import "./styles/bootstrap/css/bootstrap.min.css";
 import "./styles/CustomisedStyle.css";
+// import "./static/images";
 
 import Login from "./components/auth/Login";
 // import Alert from "./components/layout/Alert";
@@ -35,11 +36,10 @@ const App = () => {
         <Fragment>
           <Header />
 
-          <div className="row background_image ">
-            <div className="col-lg-1 col-md-12 col-sm-12 no_padding back_fill  ">
+          <div className="row ">
+            <div className="col-lg-1 col-md-12 col-sm-12 no_padding back_fill">
               <TenantFilters />
             </div>
-            {/* <Alert /> */}
             <div className="col-lg-10 col-md-12 col-sm-12 no_padding">
               <Switch>
                 <Route exact path="/" component={HomePage} />
@@ -47,12 +47,11 @@ const App = () => {
                 <Route component={RoutesFile} />
               </Switch>
             </div>{" "}
+            <footer className="footer">
+              <Footer />
+              <br />
+            </footer>
           </div>
-
-          <footer className="footer">
-            <Footer />
-            <br />
-          </footer>
         </Fragment>
       </Router>
     </Provider>

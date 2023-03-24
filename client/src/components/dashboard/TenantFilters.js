@@ -183,14 +183,16 @@ const TenantFilters = ({
                 </Link></div>
 
                 <div className="yearpicker">
-                <DatePicker
-                  onChange={(date) => OrgainzationmonthYearChange(date)}
-                  dateFormat="yyyy"
-                  selected={startMonthDate}
-                       className="year"
-                  showYearPicker
-                />
-              </div>
+                  <DatePicker
+                    className="form-control "
+                    placeholder="yyyy"
+                    onChange={(date) => OrgainzationmonthYearChange(date)}
+                    dateFormat="yyyy"
+                    selected={startMonthDate}
+                    style={{ textAlign: "center" }}
+                    showYearPicker
+                  />
+                </div>
               </div>
 
               {optName &&
@@ -208,7 +210,7 @@ const TenantFilters = ({
                     });
                   return (
                     <div
-                      className="  filter_bg"
+                      className="  filter_bg  "
                       key={idx}
                       // style={{ border: "5px soild blue" }}
                     >
@@ -310,7 +312,7 @@ const TenantFilters = ({
                       });
                       return (
                         <div
-                          className="py-2  "
+                          className=" "
                           key={idx}
                           style={{ border: "5px soild blue" }}
                         >
