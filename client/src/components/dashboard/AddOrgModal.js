@@ -129,9 +129,9 @@ const AddOrgModal = ({
       <Fragment>
         <Modal.Header>
           <div className="col-lg-10 ">
-            <h3>
-              <b className="text-center ">Add Organization Details </b>
-            </h3>
+            <div className=" ml-5">
+              <b className="text-center h3 ml-4">ADD ORGANIZATION DETAILS </b>
+            </div>
           </div>
           <div className="col-lg-2 ">
             <button onClick={() => setShowadd(false)} className="close">
@@ -159,9 +159,9 @@ const AddOrgModal = ({
                     className="form-control    "
                     placeholder="Organization Name"
                     required
-                  />
+                  /> <br></br>
                 </div>
-                <br></br>
+               
                 <div className="col-lg-6">
                   <label>Email*:</label>
                   <input
@@ -172,11 +172,11 @@ const AddOrgModal = ({
                     className="form-control"
                     placeholder="Email"
                     required
-                  />{" "}
+                  /><br></br>
                 </div>{" "}
-                <br></br>
+                
                 <div className="col-lg-6">
-                  Phone No
+                  <label>Phone No:</label>
                   <input
                     type="number"
                     name="OrganizationNumber"
@@ -184,16 +184,9 @@ const AddOrgModal = ({
                     onChange={(e) => onORGchange(e)}
                     className="form-control"
                     placeholder="Phone Number"
-                  />
+                  /><br></br>
                 </div>
-                {/* <div className="col-lg-6">
-                <label>No of User</label>
-                <input
-                  type="number"
-                  className="form-control"
-                  placeholder="Number Of User"
-                />
-              </div> */}
+               
                 <div className="col-lg-6">
                   <label>Lease Start Date*:</label>
                   <input
@@ -221,7 +214,7 @@ const AddOrgModal = ({
                       width: "100%",
                     }}
                     readOnly
-                  />
+                  /><br></br>
 
                   <label className="ml-2">Location*:</label>
 

@@ -33,6 +33,8 @@ const EditProperty = ({
         : ""
     );
   }
+  console.log(orgLoc, "orgloc");
+
   //adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState([]);
@@ -150,6 +152,7 @@ const EditProperty = ({
                 className="form-control  input"
                 readOnly
               />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>
@@ -162,6 +165,7 @@ const EditProperty = ({
                 className="form-control  input"
                 readOnly
               />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Lease Time Period*: </label>
@@ -172,6 +176,7 @@ const EditProperty = ({
                 className="form-control  input"
                 readOnly
               />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Address*:</label>
@@ -189,9 +194,8 @@ const EditProperty = ({
               ></textarea>
               <br></br>
 
-              <label className="">Location*:</label>
+              <label>Location*:</label>
               <Select
-                className="loc"
                 name="orgLoc"
                 options={Sellocation}
                 value={orgLoc}
@@ -208,6 +212,7 @@ const EditProperty = ({
                   },
                 })}
               />
+              <br></br>
             </div>
 
             <div className="  col-lg-6 ">

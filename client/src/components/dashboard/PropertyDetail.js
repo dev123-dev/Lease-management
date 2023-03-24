@@ -306,14 +306,61 @@ const PropertyDetail = ({
           </div>
         </div>
       </div>
+
+      {/* add model start */}
+      <Modal
+        show={showadd}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <AddShopDetails setShowadd={setShowadd} />
+      </Modal>
+      {/* add model end */}
+
+      {/* Modal edit start*/}
+      <Modal
+        show={showUpdateModal}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header>
+          <div className="col-lg-10">
+            <div className="ml-4">
+              <b className="text-center h3 ml-4">Edit Property Details</b>{" "}
+            </div>
+          </div>
+          <div className="col-lg-2">
+            <button onClick={handleUpdateModalOpen} className="close ml-5">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <EditProperty
+            Propertydata={property}
+            setShowUpdateModal={setShowUpdateModal}
+          />
+        </Modal.Body>
+      </Modal>
+      {/* Model edit end */}
+
       {/* modal for Deactivating the single Property starting */}
       <Modal show={show} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h3 className="modal-title text-center">
-                <b>DEACTIVATE</b>
-              </h3>
+              <div className="modal-title ">
+                <b className="text-center h3 ">DEACTIVATE</b>
+              </div>
             </div>
             <div className="col-lg-1 closeicon">
               <img
@@ -326,8 +373,6 @@ const PropertyDetail = ({
           </Modal.Header>
 
           <Modal.Body>
-            {/* <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
             <div className="h5 despace">Reason For Deactivating</div>
             <textarea
               rows="2"
@@ -341,8 +386,6 @@ const PropertyDetail = ({
               required
             ></textarea>
             <div>Are you sure You Want To Deactivate..?</div>
-            {/* </Form.Group>
-          </Form> */}
           </Modal.Body>
           <Modal.Footer>
             <Button id="deactivebtn" type="submit">
@@ -356,9 +399,9 @@ const PropertyDetail = ({
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h3 className="modal-title text-center">
-                <b>DEACTIVATE</b>
-              </h3>
+              <div className="modal-title ">
+                <b className="text-center h3 ">DEACTIVATE</b>
+              </div>
             </div>
             <div className="col-lg-1 closeicon">
               <img
@@ -418,50 +461,7 @@ const PropertyDetail = ({
           </Modal.Footer>
         </form>
       </Modal>
-
-      {/* Modal edit */}
-      <Modal
-        show={showUpdateModal}
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header>
-          <div className="col-lg-10">
-            <h3>
-              <b className="text-center">Edit Property Details</b>{" "}
-            </h3>
-          </div>
-          <div className="col-lg-2">
-            <button onClick={handleUpdateModalOpen} className="close ml-5">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <EditProperty
-            Propertydata={property}
-            setShowUpdateModal={setShowUpdateModal}
-          />
-        </Modal.Body>
-      </Modal>
-
-      {/* add model */}
-      <Modal
-        show={showadd}
-        backdrop="static"
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <AddShopDetails setShowadd={setShowadd} />
-      </Modal>
+      {/* modal for Deactivating the single Property ending */}
     </>
   );
 };

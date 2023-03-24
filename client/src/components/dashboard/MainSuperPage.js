@@ -66,7 +66,7 @@ const MainSuperPage = ({
       <div className="col"></div>
       <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
         <div>
-          <h2 className="col h2 ml-2">DashBaord</h2>
+          <h2 className="col h2 ml-2">DashBoard</h2>
           <hr className="line"></hr>
         </div>
         <div className="container-fluid d-flex align-items-center justify-content-center ">

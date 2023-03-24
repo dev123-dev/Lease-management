@@ -29,8 +29,6 @@ const EditTenantDetails = ({
     });
     getAllTenants();
   }, []);
-
-  // building name start
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data.filter(
@@ -39,7 +37,6 @@ const EditTenantDetails = ({
     );
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
-
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
   const allBuildingNames = [];
@@ -50,6 +47,9 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
+
+  // building name start
+
   const [buildingName, setBuildingName] = useState("");
   if (
     !buildingName &&
@@ -67,18 +67,23 @@ const EditTenantDetails = ({
     );
   }
 
-  let newRoom =
-    AvaiableRoomBuilding &&
-    AvaiableRoomBuilding.map((ele) => {
-      return ele.shopDoorNo;
-    });
-  let oldRoom =
+  const [orgname, setOrgname] = useState();
+  if (
+    !buildingName &&
     tenantsdetails &&
-    tenantsdetails.shopDoorNo &&
-    tenantsdetails.shopDoorNo.map((ele) => {
-      return { label: ele.label };
-    });
-  console.log("new", newRoom.flat());
+    tenantsdetails.BuildingName &&
+    allBuildingNames.length > 0
+  ) {
+    setBuildingName(
+      tenantsdetails
+        ? allBuildingNames &&
+            allBuildingNames.filter(
+              (x) => x.label === tenantsdetails.BuildingName
+            )[0]
+        : ""
+    );
+  }
+
   const [testdno, settestdno] = useState();
   const [Dno, setDno] = useState([]);
 
@@ -99,8 +104,6 @@ const EditTenantDetails = ({
   let temp = [];
   const onBuildingChange = (e) => {
     setBuildingID(e.value);
-
-    console.log("bul ", e);
     setBuildingName(e);
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     AvaiableRoomBuilding &&
@@ -355,7 +358,7 @@ const EditTenantDetails = ({
         <div className="conatiner-fluid ">
           <div className="row">
             <div className="col-lg-4">
-              <label className="ml-2">Property Name*:</label>
+              <label>Property Name*:</label>
               <Select
                 name="buildingName"
                 options={allBuildingNames}
@@ -364,8 +367,7 @@ const EditTenantDetails = ({
               ></Select>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">Door No*: </label>
-
+              <label>Door No*: </label>
               <Select
                 name="doorno"
                 options={Dno}
@@ -374,10 +376,9 @@ const EditTenantDetails = ({
                 isMulti={true}
                 required
               ></Select>
-              <br></br>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">Location*: </label>
+              <label>Location*: </label>
               <input
                 type="text"
                 placeholder={tenantLocation}

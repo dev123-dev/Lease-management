@@ -116,7 +116,7 @@ const EditOrganization = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Email*: </label>
@@ -127,7 +127,7 @@ const EditOrganization = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />{" "}
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Phone No:</label>
@@ -138,18 +138,9 @@ const EditOrganization = ({
                 value={OrganizationNumber}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
-              />
+              /><br></br>
             </div>
-            {/* <div className="col-lg-6">
-            <label>Number of User</label>
-            <input
-              placeholder="Number of User"
-              type="number"
-              readOnly={true}
-              className="form-control"
-              //onChange={(e) => onInputChange(e)}
-            />{" "}
-          </div> */}
+            
             <div className="col-lg-6">
               <label>Lease Start Date*:</label>
               <input
@@ -160,7 +151,7 @@ const EditOrganization = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />{" "}
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Lease End Date*:</label>
@@ -172,7 +163,7 @@ const EditOrganization = ({
                 placeholder={enddate}
                 onChange={(e) => onInputChange(e)}
                 required
-              />{" "}
+              /><br></br>
               <label className="ml-2">Location*:</label>
               <input
                 className="form-control"

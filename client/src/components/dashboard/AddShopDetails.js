@@ -156,16 +156,16 @@ const AddShopDetails = ({
     <>
       <Modal.Header>
         <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead">
-          <h3>
-            <b className="text-center ">ADD PROPERTY DETAILS</b>
-          </h3>
+          <div className="ml-5">
+            <b className="text-center h3 ml-4 ">ADD PROPERTY DETAILS</b>
+          </div>
         </div>
         <div className="col-lg-2">
           <button
             onClick={() => {
               setShowadd(false);
             }}
-            className="close"
+            className="close "
           >
             <img
               className="mr-5"
@@ -183,7 +183,6 @@ const AddShopDetails = ({
             <div className="row">
               <div className="col-lg-6">
                 <label>Building Name*:</label>
-
                 <input
                   type="text"
                   placeholder="Building Name"
@@ -225,7 +224,7 @@ const AddShopDetails = ({
                   name="stamp Duty"
                   className="form-control  input"
                   readOnly
-                />
+                /><br></br>
               </div>
               <div className="col-lg-6">
                 <label>

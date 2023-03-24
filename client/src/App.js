@@ -35,19 +35,10 @@ const App = () => {
       <Router>
         <Fragment>
           <Header />
-          <div>
-            <div className="row ">
-              <div className="col-lg-1 col-md-12 col-sm-12 no_padding ">
-                <TenantFilters />
-              </div>
-              {/* <Alert /> */}
-              <div className="col-lg-10 col-md-12 col-sm-12 no_padding">
-                <Switch>
-                  <Route exact path="/" component={HomePage} />
-                  <Route exact path="/login" component={Login} />
-                  <Route component={RoutesFile} />
-                </Switch>
-              </div>{" "}
+
+          <div className="row ">
+            <div className="col-lg-1 col-md-12 col-sm-12 no_padding  bg-danger">
+              <TenantFilters />
             </div>
 
             <footer className="footer">
