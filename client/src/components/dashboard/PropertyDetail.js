@@ -57,6 +57,7 @@ const PropertyDetail = ({
   const onEdit = (ele) => {
     let propertydata = {
       OrganizationId: ele.OrganizationId,
+      PropertyId: ele._id,
       OrganizationName: ele.OrganizationName,
       buildingName: ele.buildingName,
       hikePercentage: ele.hikePercentage,
@@ -232,6 +233,7 @@ const PropertyDetail = ({
                     <tbody>
                       {output &&
                         output.map((Val, idx) => {
+                          // console.log("output", output);
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">

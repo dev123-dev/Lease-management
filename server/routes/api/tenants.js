@@ -227,22 +227,24 @@ router.post("/update-Property", async (req, res) => {
     };
   });
   try {
-    const updateorg = await property.updateOne(
-      { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
-      {
-        $set: {
-          buildingName: data.buildingName,
-          shopDoorNo: doornumber,
-          shopAddress: data.shopAddress,
-          hikePercentage: data.hikePercentage,
-          stampDuty: data.stampDuty,
-          leaseTimePeriod: data.leaseTimePeriod,
-          OrganizationName: data.OrganizationName,
-          Organization_id: data.OrganizationId,
-          shopStatus: "Acquired",
-        },
-      }
-    );
+    const updateorg = await property
+      .updateOne(
+        { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
+        {
+          $set: {
+            buildingName: data.buildingName,
+            shopDoorNo: doornumber,
+            shopAddress: data.shopAddress,
+            hikePercentage: data.hikePercentage,
+            stampDuty: data.stampDuty,
+            leaseTimePeriod: data.leaseTimePeriod,
+            OrganizationName: data.OrganizationName,
+            Organization_id: data.OrganizationId,
+            shopStatus: "Acquired",
+          },
+        }
+      )
+      .then((data) => console.log(data));
     res.json(updateorg);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
