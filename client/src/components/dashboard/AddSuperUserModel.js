@@ -241,9 +241,9 @@ const AddSuperUserModel = ({
     <Fragment>
       <Modal.Header>
         <div className="col-lg-10 ">
-          <h3>
-            <b className="text-center ">Add User Details </b>
-          </h3>
+          <div className="ml-5">
+            <b className="text-center h3 ml-4 ">Add User Details </b>
+          </div>
         </div>
         <div className="col-lg-2 ">
           <button onClick={() => setShowadd(false)} className="close">
@@ -271,7 +271,7 @@ const AddSuperUserModel = ({
                   placeholder="Name"
                   onChange={(e) => onuserchange(e)}
                   required
-                />
+                /><br></br>
               </div>
               <div className="col-lg-6">
                 <label>Email*:</label>{" "}
@@ -286,7 +286,7 @@ const AddSuperUserModel = ({
                 />
               </div>
               <div className="col-lg-6">
-                Phone No:
+                <label>Phone No:</label>
                 <input
                   type="number"
                   name="phone"
@@ -294,7 +294,7 @@ const AddSuperUserModel = ({
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
-                />
+                /><br></br>
               </div>
               <div className="col-lg-6">
                 {" "}
@@ -367,7 +367,7 @@ const AddSuperUserModel = ({
               </div>
 
               <div className="col-lg-6">
-                Address:
+                <label>Address:</label>
                 <textarea
                   name="address"
                   value={address}

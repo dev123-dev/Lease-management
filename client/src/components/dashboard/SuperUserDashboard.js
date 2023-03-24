@@ -163,7 +163,7 @@ const SuperUserDashboard = ({
                                         src={require("../../static/images/edit_icon.png")}
                                         alt="Edit"
                                         title="Edit"
-                                      />
+                                      />&nbsp;
 
                                       <img
                                         className="Cursor "
@@ -214,14 +214,60 @@ const SuperUserDashboard = ({
             </div>
           </div>
 
+          {/* add model starting */}
+          <Modal
+            show={showadd}
+            backdrop="static"
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <AddSuperUserModal setShowadd={setShowadd} />
+          </Modal>
+          {/* add model ending */}
+
+          {/* Modal for Editing the Super user */}
+          <Modal
+            show={showEditModal}
+            backdrop="static"
+            keyboard={false}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header>
+              <div className="col-lg-10">
+                <div className="ml-4">
+                  <b className="text-center  h3 ml-4 ">Edit User Details</b>
+                </div>
+              </div>
+              <div className="col-lg-2">
+                <button
+                  onClick={() => setShowEditModal(false)}
+                  className="close"
+                >
+                  <img
+                    src={require("../../static/images/close.png")}
+                    alt="X"
+                    style={{ height: "20px", width: "20px" }}
+                  />
+                </button>
+              </div>
+            </Modal.Header>
+            <Modal.Body>
+              <Edituser superuser={userdata} EditModal={setShowEditModal} />
+            </Modal.Body>
+          </Modal>
+          {/* Modal Edit Ending */}
+
           {/* this id for Deactivating the Super user starting */}
-          <Modal show={Deactiveshow} centered>
+            <Modal show={Deactiveshow} centered>
             <form onSubmit={onDeactive}>
               <Modal.Header>
                 <div className="col-lg-11 ">
-                  <h3 className="modal-title text-center">
-                    <b>DEACTIVATE </b>
-                  </h3>
+                  <div className="modal-title">
+                    <b className="text-center h3 ">DEACTIVATE </b>
+                  </div>
                 </div>
                 <div className="col-lg-1 closeicon">
                   <img
@@ -265,49 +311,6 @@ const SuperUserDashboard = ({
           </Modal>
           {/* Modal Ending */}
 
-          {/* Modal for Editing the Super user */}
-          <Modal
-            show={showEditModal}
-            backdrop="static"
-            keyboard={false}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <Modal.Header>
-              <div className="col-lg-10">
-                <h3>
-                  <b className="text-center ">Edit User Details</b>
-                </h3>
-              </div>
-              <div className="col-lg-2">
-                <button
-                  onClick={() => setShowEditModal(false)}
-                  className="close"
-                >
-                  <img
-                    src={require("../../static/images/close.png")}
-                    alt="X"
-                    style={{ height: "20px", width: "20px" }}
-                  />
-                </button>
-              </div>
-            </Modal.Header>
-            <Modal.Body>
-              <Edituser superuser={userdata} EditModal={setShowEditModal} />
-            </Modal.Body>
-          </Modal>
-          {/* Modal Edit Ending */}
-
-          <Modal
-            show={showadd}
-            backdrop="static"
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-          >
-            <AddSuperUserModal setShowadd={setShowadd} />
-          </Modal>
         </>
       ) : (
         <></>

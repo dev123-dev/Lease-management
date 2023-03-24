@@ -345,15 +345,68 @@ const Tenant_Details = ({
             </div>
           </div>
         </div>
+        {/* add model start*/}
+        <Modal
+          show={showadd}
+          backdrop="static"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <AddTenantDetails
+            setShowadd={setShowadd}
+            setFreshPage={setFreshPage}
+            freshpage={freshpage}
+          />
+        </Modal>
+        {/* add model end */}
 
-        {/* Deactivating the tenant start*/}
-        <Modal show={show} centered>
+        {/* Edit start */}
+        <Modal
+          show={showEditModal}
+          backdrop="static"
+          keyboard={false}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header>
+            <div className="col-lg-10">
+              <div className="ml-4">
+                <b className="text-center h3 ml-4">Edit Tenant Details </b>
+              </div>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={() => handleEditModalClose()} className="close">
+                <img
+                  className="editcl"
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <EditTenantDetails
+              tenantsdetails={EditTenant}
+              setFreshPage={setFreshPage}
+              freshpage={freshpage}
+              setShowEditModal={setShowEditModal}
+            />
+          </Modal.Body>
+        </Modal>
+        {/* Edit end*/}
+        
+      </Fragment>
+      {/* deactivate start */}
+      <Modal show={show} centered>
           <form onSubmit={onDeactivate}>
             <Modal.Header>
               <div className="col-lg-11 ">
-                <h3 className="modal-title text-center">
-                  <b>DEACTIVATE</b>
-                </h3>
+                <div className="modal-title">
+                  <b className="text-center h3">DEACTIVATE</b>
+                </div>
               </div>
               <div className="col-lg-1 closeicon">
                 <img
@@ -394,65 +447,13 @@ const Tenant_Details = ({
           </form>
         </Modal>
 
-        {/* Deactivation End */}
-
-        {/* Edit start */}
-        <Modal
-          show={showEditModal}
-          backdrop="static"
-          keyboard={false}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header>
-            <div className="col-lg-10">
-              <h3>
-                <b className="text-center">Edit Tenant Details </b>
-              </h3>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={() => handleEditModalClose()} className="close">
-                <img
-                  className="editcl"
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <EditTenantDetails
-              tenantsdetails={EditTenant}
-              setFreshPage={setFreshPage}
-              freshpage={freshpage}
-              setShowEditModal={setShowEditModal}
-            />
-          </Modal.Body>
-        </Modal>
-        {/* add model */}
-        <Modal
-          show={showadd}
-          backdrop="static"
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <AddTenantDetails
-            setShowadd={setShowadd}
-            setFreshPage={setFreshPage}
-            freshpage={freshpage}
-          />
-        </Modal>
-      </Fragment>
       <Modal show={selectDno} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h3 className="modal-title text-center">
-                <b>DEACTIVATE</b>
-              </h3>
+              <div className="modal-title ">
+                <b  className="text-center h3 ">DEACTIVATE</b>
+              </div>
             </div>
             <div className="col-lg-1 closeicon">
               <img
@@ -509,6 +510,7 @@ const Tenant_Details = ({
           </Modal.Footer>
         </form>
       </Modal>
+       {/* deactivate end */}
     </>
   );
 };

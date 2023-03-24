@@ -19,9 +19,20 @@ const EditProperty = ({
   const handleEditModalClose = () => setShowEditModal(false);
 
   const [Sellocation, SetselLoction] = useState([]);
-  const [orgLoc, setLoc] = useState(
-    Propertydata ? Propertydata.Location : "xxx"
-  );
+  const [orgLoc, setLoc] = useState();
+  if (
+    !orgLoc &&
+    Propertydata &&
+    Propertydata.Location &&
+    Sellocation.length > 0
+  ) {
+    setLoc(
+      Propertydata
+        ? Sellocation &&
+            Sellocation.filter((x) => x.label === Propertydata.Location)[0]
+        : ""
+    );
+  }
   console.log(orgLoc, "orgloc");
 
   //adding multiple location start
@@ -140,7 +151,7 @@ const EditProperty = ({
                 placeholder={stampDuty}
                 className="form-control  input"
                 readOnly
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>
@@ -152,7 +163,7 @@ const EditProperty = ({
                 value={hikePercentage}
                 className="form-control  input"
                 readOnly
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Lease Time Period*: </label>
@@ -162,7 +173,7 @@ const EditProperty = ({
                 value={LeaseTime}
                 className="form-control  input"
                 readOnly
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Address*:</label>
@@ -180,13 +191,12 @@ const EditProperty = ({
               ></textarea>
               <br></br>
 
-              <label className="">Location*:</label>
+              <label>Location*:</label>
               <Select
-                className="loc"
+                
                 name="orgLoc"
                 options={Sellocation}
                 value={orgLoc}
-                placeholder={<p>{orgLoc}</p>}
                 readOnly={true}
                 onChange={(e) => onchangeLoc(e)}
                 theme={(theme) => ({
@@ -199,7 +209,7 @@ const EditProperty = ({
                     primary: "black",
                   },
                 })}
-              />
+              /><br></br>
             </div>
 
             <div className="  col-lg-6 ">

@@ -119,7 +119,7 @@ const AddOrgDashBoard = ({
         <div className="col"></div>
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
           <div>
-            <h2 className="col h2 ml-2">Organistration Details</h2>
+            <h2 className="col h2 ml-2 ">Organistration Details</h2>
             <hr className="line"></hr>
           </div>
           <div className="text-end"> </div>
@@ -191,7 +191,7 @@ const AddOrgDashBoard = ({
                                     src={require("../../static/images/edit_icon.png")}
                                     alt="Edit"
                                     title="Edit User"
-                                  />
+                                  />&nbsp;
 
                                   <img
                                     className="Cursor"
@@ -238,14 +238,59 @@ const AddOrgDashBoard = ({
         </div>
       </div>
 
-      {/* deactivating the Super User */}
+    {/* Add model */}
+      <Modal
+        show={showadd}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <AddOrgModal setShowadd={setShowadd} />
+      </Modal>
+     {/* end add model */}
+
+      {/* edit org  starting */}
+      <Modal
+        show={showEditModal}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header>
+          <div className="col-lg-10 ">
+            <div className="ml-4">
+              <b className="text-center h3 ml-4 ">Edit Organization Details </b>
+            </div>
+          </div>
+          <div className="col-lg-2 ">
+            <button onClick={editclose} className="close">
+              <img
+                className="editcl"
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <EditOrganization org={orgdata} EditModal={setShowEditModal} />
+        </Modal.Body>
+      </Modal>
+      {/* edit org  ending */}
+
+    {/* deactivating the Super User */}
+
       <Modal show={showDeactivate} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h3 className="modal-title text-center">
-                <b>DEACTIVATE</b>
-              </h3>
+              <div className="modal-title">
+                <b className="text-center h3 ">DEACTIVATE</b>
+              </div>
             </div>
             <div
               className="col-lg-1 closeicon"
@@ -288,50 +333,8 @@ const AddOrgDashBoard = ({
           </Modal.Footer>
         </form>
       </Modal>
-      {/*  End Deactivating the user  */}
 
-      {/* edit org old code starting */}
-      <Modal
-        show={showEditModal}
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header>
-          <div className="col-lg-10 ">
-            <h3>
-              <b className="text-center ">Edit Organization Details </b>
-            </h3>
-          </div>
-          <div className="col-lg-2 ">
-            <button onClick={editclose} className="close">
-              <img
-                className="editcl"
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <EditOrganization org={orgdata} EditModal={setShowEditModal} />
-        </Modal.Body>
-      </Modal>
-
-      {/* Add model */}
-
-      <Modal
-        show={showadd}
-        backdrop="static"
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <AddOrgModal setShowadd={setShowadd} />
-      </Modal>
+    {/*  End Deactivating the user  */}
     </>
   );
 };

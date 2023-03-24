@@ -434,7 +434,7 @@ router.post("/deactive-property", async (req, res) => {
               deactive_reason: data.deactive_reason,
             },
           }
-        );
+        ).then((data) => console.log(data));;
       });
     }
 

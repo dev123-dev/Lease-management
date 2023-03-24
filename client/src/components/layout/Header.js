@@ -113,17 +113,17 @@ const Header = ({
                     user.usergroup === "Super Admin" ? (
                       <>
                         {/* Organization details */}
+                        &nbsp; &nbsp;
                         <NavLink
-                          className="p-3 headinghover"
+                          className="p-1 ml-4 headinghover"
                           id="hea"
                           to="/Super"
                         >
                           OrganisationDetails
                         </NavLink>
-
                         {/* user details */}
                         <NavLink
-                          className="p-3 headinghover"
+                          className="p-1 ml-4 headinghover"
                           id="hea"
                           to="/SuperUser"
                         >
@@ -137,7 +137,7 @@ const Header = ({
                         </Navbar.Brand>
                         {/* PROPERTY DEtails */}
                         <NavLink
-                          className="p-3"
+                          className="p-3 ml-4 headinghover"
                           id="hea"
                           // id="head"
                           to="/PropertyDetail"
@@ -146,12 +146,20 @@ const Header = ({
                         </NavLink>
 
                         {/* tenant details */}
-                        <NavLink className="p-3" id="hea" to="/tenant-detail">
+                        <NavLink
+                          className="p-3 ml-4 headinghover"
+                          id="hea"
+                          to="/tenant-detail"
+                        >
                           Tenant
                         </NavLink>
 
                         {/* adding admin side user page */}
-                        <NavLink className="p-3" id="hea" to="/AdminUser">
+                        <NavLink
+                          className="p-3 ml-4 headinghover"
+                          id="hea"
+                          to="/AdminUser"
+                        >
                           User
                         </NavLink>
                       </>
@@ -175,8 +183,9 @@ const Header = ({
                           onClick={() => handleLogoutModalShow()}
                           className="navbar-right "
                         >
-                          <div className="p-3">
+                          <div className="text-light mt-3 ml-2">
                             {user.usergroup}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           </div>
                         </Link>

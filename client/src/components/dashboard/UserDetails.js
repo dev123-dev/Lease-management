@@ -70,12 +70,7 @@ const UserDetails = ({
 
   const [showadd, setShowadd] = useState(false);
 
-  const refresh = () => {
-    // window.location.reload(true);
-    get_particular_org_user({
-      OrganizationId: user && user.OrganizationId,
-    });
-  };
+ 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(7);
@@ -118,14 +113,7 @@ const UserDetails = ({
                     alt="Add User"
                     title="Add User"
                   />
-                  <img
-                    className="ml-2"
-                    height="20px"
-                    onClick={() => refresh()}
-                    src={require("../../static/images/refresh-icon.png")}
-                    alt="refresh"
-                    title="refresh"
-                  />
+                 
                 </div>
               </div>
               {/* <AddAdminUserModal /> */}
@@ -216,14 +204,57 @@ const UserDetails = ({
           </div>
         </div>
       </div>
+        {/* add model start */}
+       <Modal
+        show={showadd}
+        backdrop="static"
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <AddAdminUserModal setShowadd={setShowadd} />
+      </Modal>
+       {/* add model end */}
+
+        {/* Modal for Editing the Super user */}
+        <Modal
+        show={showSuperModal}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header>
+          <div className="col-lg-10">
+            <div className="ml-4">
+              <b className=" text-center  h3 ml-4 ">EDIT USER DETAILS </b>
+            </div>
+          </div>
+          <div className="col-lg-2">
+            <button onClick={SuperUpdateModalClose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <EditAdminUser org={Admindata} />
+        </Modal.Body>
+      </Modal>
+      {/* Modal Edit Ending */}
+
       {/* this id for Deactivating the Super user starting */}
       <Modal show={Deactiveshow} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header>
             <div className="col-lg-11 ">
-              <h3 className="modal-title text-center">
-                <b>DEACTIVATE</b>
-              </h3>
+              <div className="modal-title">
+                <b className="text-center h3">DEACTIVATE</b>
+              </div>
             </div>
             <div className="col-lg-1 closeicon">
               <img
@@ -259,47 +290,9 @@ const UserDetails = ({
           </Modal.Footer>
         </form>
       </Modal>
-      {/* Modal Ending */}
+      {/*  deactivate Modal Ending */}
 
-      {/* Modal for Editing the Super user */}
-      <Modal
-        show={showSuperModal}
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header>
-          <div className="col-lg-10">
-            <h3>
-              <b className=" text-center ">Edit User Details </b>
-            </h3>
-          </div>
-          <div className="col-lg-2">
-            <button onClick={SuperUpdateModalClose} className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <EditAdminUser org={Admindata} />
-        </Modal.Body>
-      </Modal>
-      {/* Modal Edit Ending */}
-      <Modal
-        show={showadd}
-        backdrop="static"
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <AddAdminUserModal setShowadd={setShowadd} />
-      </Modal>
+   
     </>
   );
 };

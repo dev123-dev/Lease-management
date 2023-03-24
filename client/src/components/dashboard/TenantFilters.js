@@ -161,110 +161,111 @@ const TenantFilters = ({
       {logUser.usergroup === "Super Admin" ? (
         //super admin filterrr
         <Fragment>
-          <div className="container_align top_menu col-sm-12 ">
-            <div className="row pb-2  ml-2 responsiveDiv  ">
-              <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter">
-                {/* this is for textbox below image for showing the total count of Renewal */}
-                <div>
-                  <Link
-                    title="Total Renewal Count"
-                    to="/Organization-report"
-                    className="btn btn_more  "
-                    onClick={() => oldExpCountFetch()}
-                  >
-                    {" "}
-                    {ext_year_count_org &&
-                    ext_year_count_org[0] &&
-                    ext_year_count_org[0].count > 0
-                      ? ext_year_count_org[0].count
-                      : 0}
-                  </Link>
+          <div className="container_align top_menu col-sm-12 responsiveDiv  ">
+            {/* <div className="row pb-2  ml-2 responsiveDiv  bg-success "> */}
+            <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter bg-dark ">
+              {/* this is for textbox below image for showing the total count of Renewal */}
+              <div>
+                <Link
+                  title="Total Renewal Count"
+                  to="/Organization-report"
+                  style={{ width: "100px" }}
+                  className="btn btn_more   "
+                  onClick={() => oldExpCountFetch()}
+                >
+                  {" "}
+                  {ext_year_count_org &&
+                  ext_year_count_org[0] &&
+                  ext_year_count_org[0].count > 0
+                    ? ext_year_count_org[0].count
+                    : 0}
+                </Link>
 
-                  {/* <div className="py-2 "> */}
-                  <DatePicker
-                    className="form-control yearpicker "
-                    placeholder="yyyy"
-                    onChange={(date) => OrgainzationmonthYearChange(date)}
-                    dateFormat="yyyy"
-                    selected={startMonthDate}
-                    style={{ textAlign: "center" }}
-                    showYearPicker
-                  />
-                </div>
-
-                {/* </div> */}
-
-                {optName &&
-                  optName.map((optFiltr, idx) => {
-                    let countVal = 0;
-                    exp_org_count &&
-                      exp_org_count.map((monthExpCntVal) => {
-                        if (
-                          Number(monthExpCntVal._id.month) ===
-                          Number(optFiltr.value)
-                        ) {
-                          countVal = monthExpCntVal.count;
-                        }
-                        return <></>;
-                      });
-                    return (
-                      <div
-                        className="  filter_bg "
-                        key={idx}
-                        style={{ border: "5px soild blue" }}
-                      >
-                        <div
-                          className="tenantfil  "
-                          style={{ color: "#fff", padding: "0px 0px 0px 5px" }}
-                        >
-                          {" "}
-                          <Link
-                            to="/Organization-report"
-                            name="alphaSearch"
-                            // className="bg-danger"
-                            onClick={() => onSelectOrgChange(optFiltr.value)}
-                            style={
-                              Number(monthSearch) === Number(optFiltr.value)
-                                ? {
-                                    fontWeight: "200",
-                                    color: "black",
-                                    fontSize: "115%",
-                                  }
-                                : { fontWeight: "", fontSize: "115%" }
-                            }
-                          >
-                            {optFiltr.label}
-                          </Link>{" "}
-                          &nbsp;
-                          <label
-                            className="btn-roun "
-                            style={
-                              countVal !== 0
-                                ? {
-                                    fontSize: "80%",
-                                    color: "#000",
-                                    background: "#fff",
-                                  }
-                                : {
-                                    fontSize: "80%",
-                                    color: "#429f8c",
-                                    background: "#fff",
-                                  }
-                            }
-                          >
-                            {countVal}
-                          </label>
-                        </div>
-                      </div>
-                    );
-                  })}
-                {/* </form> */}
+                {/* <div className="py-2 "> */}
+                <DatePicker
+                  className="form-control yearpicker "
+                  placeholder="yyyy"
+                  onChange={(date) => OrgainzationmonthYearChange(date)}
+                  dateFormat="yyyy"
+                  selected={startMonthDate}
+                  style={{ textAlign: "center" }}
+                  showYearPicker
+                />
               </div>
 
-              {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
+              {/* </div> */}
+
+              {optName &&
+                optName.map((optFiltr, idx) => {
+                  let countVal = 0;
+                  exp_org_count &&
+                    exp_org_count.map((monthExpCntVal) => {
+                      if (
+                        Number(monthExpCntVal._id.month) ===
+                        Number(optFiltr.value)
+                      ) {
+                        countVal = monthExpCntVal.count;
+                      }
+                      return <></>;
+                    });
+                  return (
+                    <div
+                      className="  filter_bg bg-success  "
+                      key={idx}
+                      // style={{ border: "5px soild blue" }}
+                    >
+                      <div
+                        className="tenantfil  "
+                        style={{ color: "#fff", padding: "0px 0px 0px 5px" }}
+                      >
+                        {" "}
+                        <Link
+                          to="/Organization-report"
+                          name="alphaSearch"
+                          // className="bg-dark"
+                          onClick={() => onSelectOrgChange(optFiltr.value)}
+                          style={
+                            Number(monthSearch) === Number(optFiltr.value)
+                              ? {
+                                  fontWeight: "200",
+                                  color: "black",
+                                  fontSize: "115%",
+                                }
+                              : { fontWeight: "", fontSize: "115%" }
+                          }
+                        >
+                          {optFiltr.label}
+                        </Link>{" "}
+                        &nbsp;
+                        <label
+                          className="btn-roun "
+                          style={
+                            countVal !== 0
+                              ? {
+                                  fontSize: "80%",
+                                  color: "#000",
+                                  background: "#fff",
+                                }
+                              : {
+                                  fontSize: "80%",
+                                  color: "#429f8c",
+                                  background: "#fff",
+                                }
+                          }
+                        >
+                          {countVal}
+                        </label>
+                      </div>
+                    </div>
+                  );
+                })}
+              {/* </form> */}
+            </div>
+
+            {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
                 <TenantReport />
               </div> */}
-            </div>
+            {/* </div> */}
           </div>
         </Fragment>
       ) : (

@@ -134,7 +134,7 @@ const EditAdminUser = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label> Email*: </label>
@@ -145,7 +145,7 @@ const EditAdminUser = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              />{" "}
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Phone No:</label>
@@ -156,7 +156,7 @@ const EditAdminUser = ({
                 value={userphone}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>Organization belongs to*: </label>
@@ -166,7 +166,7 @@ const EditAdminUser = ({
                 value={OrganizationName}
                 className="form-control"
                 onChange={(e) => onuserchange(e)}
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
               <label>User Group*:</label>
@@ -187,10 +187,10 @@ const EditAdminUser = ({
                     primary: "black",
                   },
                 })}
-              />
+              /><br></br>
             </div>
             <div className="col-lg-6">
-              <label> Address</label>
+              <label> Address:</label>
               <textarea
                 name="useraddress"
                 value={useraddress}
@@ -200,7 +200,7 @@ const EditAdminUser = ({
                 placeholder="Address"
                 onChange={(e) => onInputChange(e)}
                 style={{ width: "100%" }}
-              ></textarea>{" "}
+              ></textarea><br></br>
             </div>
           </div>
         </div>

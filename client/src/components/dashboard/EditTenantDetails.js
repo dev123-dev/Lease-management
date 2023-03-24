@@ -29,11 +29,6 @@ const EditTenantDetails = ({
     });
     getAllTenants();
   }, []);
-
-  // building name start
-  const [buildingData, getbuildingData] = useState();
-  const [buildingId, setBuildingID] = useState();
-  const [buildingName, setBuildingName] = useState();
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data.filter(
@@ -42,7 +37,8 @@ const EditTenantDetails = ({
     );
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
-
+  const [buildingData, getbuildingData] = useState();
+  const [buildingId, setBuildingID] = useState();
   const allBuildingNames = [];
   AvaiableRoomBuilding.map((buildingData) =>
     allBuildingNames.push({
@@ -51,6 +47,37 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
+
+  // building name start
+ 
+  const [buildingName, setBuildingName] = useState("");
+  if (
+    !buildingName &&
+    tenantsdetails &&
+    tenantsdetails.BuildingName &&
+    allBuildingNames.length > 0
+  ) {
+    setBuildingName(
+      tenantsdetails
+        ? allBuildingNames &&
+            allBuildingNames.filter(
+              (x) => x.label === tenantsdetails.BuildingName
+            )[0]
+        : ""
+    );
+  }
+  let newRoom =
+  AvaiableRoomBuilding &&
+  AvaiableRoomBuilding.map((ele) => {
+    return ele.shopDoorNo;
+  });
+let oldRoom =
+  tenantsdetails &&
+  tenantsdetails.shopDoorNo &&
+  tenantsdetails.shopDoorNo.map((ele) => {
+    return { label: ele.label };
+  });
+ 
 
   const [orgname, setOrgname] = useState();
   if (
@@ -70,15 +97,7 @@ const EditTenantDetails = ({
   }
   console.log(orgname, "orgname");
 
-  const [testdno, settestdno] = useState(
-    tenantsdetails
-      ? tenantsdetails.shopDoorNo.filter((ele) => {
-          if (ele.status !== "Deleted the Door Number") {
-            return ele;
-          }
-        })
-      : "No data"
-  );
+  const [testdno, settestdno] = useState();
   const [Dno, setDno] = useState([]);
 
   const [LocList, SetLocList] = useState([]);
@@ -98,8 +117,8 @@ const EditTenantDetails = ({
   let temp = [];
   const onBuildingChange = (e) => {
     setBuildingID(e.value);
-    setBuildingName(e.label);
-    //let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
+    setBuildingName(e);
+    let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     AvaiableRoomBuilding &&
       AvaiableRoomBuilding.map((ele) => {
         if (e.buildingId === ele._id) {
@@ -118,7 +137,7 @@ const EditTenantDetails = ({
       });
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
-    setBuildingName(e.label ? e.label : "");
+    setBuildingName(e.label ? e : "");
 
     if (
       doorno.length < 1 &&
@@ -351,18 +370,17 @@ const EditTenantDetails = ({
         <div className="conatiner-fluid ">
           <div className="row">
             <div className="col-lg-4">
-              <label className="ml-2">Property Name*:</label>
+              <label>Property Name*:</label>
               <Select
-                name="Property name"
+                name="buildingName"
                 options={allBuildingNames}
-                value={orgname}
-                // placeholder={<p>{orgname}</p>}
+                value={buildingName}
                 onChange={(e) => onBuildingChange(e)}
                 required
               ></Select>
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">Door No*: </label>
+              <label >Door No*: </label>
               <Select
                 name="doorno"
                 options={Dno}
@@ -371,10 +389,10 @@ const EditTenantDetails = ({
                 isMulti={true}
                 required
               ></Select>
-              <br></br>
+            
             </div>
             <div className="col-lg-4">
-              <label className="ml-2">Location*: </label>
+              <label>Location*: </label>
               <input
                 type="text"
                 placeholder={tenantLocation}

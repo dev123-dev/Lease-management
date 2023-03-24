@@ -211,9 +211,9 @@ const AddAdminUserModal = ({
 
       <Modal.Header>
         <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
-          <h3>
-            <b className=" text-center ml-5">ADD USER DETAILS</b>{" "}
-          </h3>
+          <div>
+            <b className=" text-center  h3 ml-4">ADD USER DETAILS</b>{" "}
+          </div>
         </div>
         <div className="  col-lg-2 ">
           <button
@@ -246,7 +246,7 @@ const AddAdminUserModal = ({
                   placeholder="Name"
                   onChange={(e) => onuserchange(e)}
                   required
-                />
+                /><br></br>
               </div>
               <div className="col-lg-6">
                 <label>Email*:</label>{" "}
@@ -258,11 +258,11 @@ const AddAdminUserModal = ({
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                   required
-                />
+                /><br></br>
               </div>
 
               <div className="col-lg-6">
-                Phone No:
+                <label>Phone No:</label>
                 <input
                   type="number"
                   name="phone"
@@ -270,7 +270,7 @@ const AddAdminUserModal = ({
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
-                />
+                /><br></br>
               </div>
               <div className="col-lg-6">
                 {" "}
@@ -282,7 +282,7 @@ const AddAdminUserModal = ({
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                   required
-                />
+                /><br></br>
               </div>
 
               <div className="col-lg-6">
@@ -302,7 +302,7 @@ const AddAdminUserModal = ({
                   <span className="form-input-info" style={passwordValStyle}>
                     {passwordValResult}
                   </span>
-                )}
+                )}<br></br>
               </div>
               <div className="col-lg-6">
                 {" "}
@@ -324,7 +324,7 @@ const AddAdminUserModal = ({
                       {repwdValResult}
                     </span>
                   </Fragment>
-                )}
+                )}<br></br>
               </div>
               <div className="col-lg-6">
                 Address:
@@ -337,7 +337,7 @@ const AddAdminUserModal = ({
                   cols="20"
                   placeholder="Address"
                   style={{ width: "100%" }}
-                ></textarea>{" "}
+                ></textarea><br></br>
               </div>
 
               <div className="col-lg-6">
@@ -359,7 +359,7 @@ const AddAdminUserModal = ({
                     },
                   })}
                   required
-                />
+                /><br></br>
               </div>
             </div>
           </div>
