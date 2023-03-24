@@ -133,7 +133,7 @@ const AddShopDetails = ({
       Location: orgLoc.value,
       shopStatus: "Avaiable",
     };
-
+    console.log("door", items);
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,

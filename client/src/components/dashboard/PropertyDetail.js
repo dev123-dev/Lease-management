@@ -127,8 +127,8 @@ const PropertyDetail = ({
       shopStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
-    // console.log(reason);
     deactiveProperty(reason);
+    handleShowDno();
   };
 
   const [showadd, setShowadd] = useState(false);
@@ -152,6 +152,7 @@ const PropertyDetail = ({
       OrganizationId: user && user.OrganizationId,
     };
     getParticularOrg(OrganizationId);
+    SetLocation(null);
   };
   return (
     <>

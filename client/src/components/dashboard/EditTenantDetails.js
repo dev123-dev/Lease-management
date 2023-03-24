@@ -31,9 +31,6 @@ const EditTenantDetails = ({
   }, []);
 
   // building name start
-  const [buildingData, getbuildingData] = useState();
-  const [buildingId, setBuildingID] = useState();
-  const [buildingName, setBuildingName] = useState();
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data.filter(
@@ -43,6 +40,8 @@ const EditTenantDetails = ({
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
 
+  const [buildingData, getbuildingData] = useState();
+  const [buildingId, setBuildingID] = useState();
   const allBuildingNames = [];
   AvaiableRoomBuilding.map((buildingData) =>
     allBuildingNames.push({
@@ -51,15 +50,14 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
-
-  const [orgname, setOrgname] = useState();
+  const [buildingName, setBuildingName] = useState("");
   if (
-    !orgname &&
+    !buildingName &&
     tenantsdetails &&
     tenantsdetails.BuildingName &&
     allBuildingNames.length > 0
   ) {
-    setOrgname(
+    setBuildingName(
       tenantsdetails
         ? allBuildingNames &&
             allBuildingNames.filter(
@@ -68,17 +66,20 @@ const EditTenantDetails = ({
         : ""
     );
   }
-  console.log(orgname, "orgname");
 
-  const [testdno, settestdno] = useState(
-    tenantsdetails
-      ? tenantsdetails.shopDoorNo.filter((ele) => {
-          if (ele.status !== "Deleted the Door Number") {
-            return ele;
-          }
-        })
-      : "No data"
-  );
+  let newRoom =
+    AvaiableRoomBuilding &&
+    AvaiableRoomBuilding.map((ele) => {
+      return ele.shopDoorNo;
+    });
+  let oldRoom =
+    tenantsdetails &&
+    tenantsdetails.shopDoorNo &&
+    tenantsdetails.shopDoorNo.map((ele) => {
+      return { label: ele.label };
+    });
+  console.log("new", newRoom.flat());
+  const [testdno, settestdno] = useState();
   const [Dno, setDno] = useState([]);
 
   const [LocList, SetLocList] = useState([]);
@@ -98,8 +99,10 @@ const EditTenantDetails = ({
   let temp = [];
   const onBuildingChange = (e) => {
     setBuildingID(e.value);
-    setBuildingName(e.label);
-    //let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
+
+    console.log("bul ", e);
+    setBuildingName(e);
+    let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
     AvaiableRoomBuilding &&
       AvaiableRoomBuilding.map((ele) => {
         if (e.buildingId === ele._id) {
@@ -116,9 +119,10 @@ const EditTenantDetails = ({
           setDno(temp);
         }
       });
+
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
-    setBuildingName(e.label ? e.label : "");
+    setBuildingName(e.label ? e : "");
 
     if (
       doorno.length < 1 &&
@@ -136,7 +140,7 @@ const EditTenantDetails = ({
       setdno(doorNos);
     }
   };
-
+  console.log("gk2", buildingName);
   // location listing end
 
   const PaymentMethods = [
@@ -353,16 +357,15 @@ const EditTenantDetails = ({
             <div className="col-lg-4">
               <label className="ml-2">Property Name*:</label>
               <Select
-                name="Property name"
+                name="buildingName"
                 options={allBuildingNames}
-                value={orgname}
-                // placeholder={<p>{orgname}</p>}
+                value={buildingName}
                 onChange={(e) => onBuildingChange(e)}
-                required
               ></Select>
             </div>
             <div className="col-lg-4">
               <label className="ml-2">Door No*: </label>
+
               <Select
                 name="doorno"
                 options={Dno}
