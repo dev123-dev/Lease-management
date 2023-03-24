@@ -163,7 +163,7 @@ const TenantFilters = ({
         <Fragment>
           <div className="container_align top_menu col-sm-12 responsiveDiv  ">
             {/* <div className="row pb-2  ml-2 responsiveDiv  bg-success "> */}
-            <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter bg-dark ">
+            <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
                 <Link
@@ -181,19 +181,18 @@ const TenantFilters = ({
                     : 0}
                 </Link>
 
-                {/* <div className="py-2 "> */}
-                <DatePicker
-                  className="form-control yearpicker "
-                  placeholder="yyyy"
-                  onChange={(date) => OrgainzationmonthYearChange(date)}
-                  dateFormat="yyyy"
-                  selected={startMonthDate}
-                  style={{ textAlign: "center" }}
-                  showYearPicker
-                />
+                <div className="yearpicker">
+                  <DatePicker
+                    className="form-control "
+                    placeholder="yyyy"
+                    onChange={(date) => OrgainzationmonthYearChange(date)}
+                    dateFormat="yyyy"
+                    selected={startMonthDate}
+                    style={{ textAlign: "center" }}
+                    showYearPicker
+                  />
+                </div>
               </div>
-
-              {/* </div> */}
 
               {optName &&
                 optName.map((optFiltr, idx) => {
@@ -210,7 +209,7 @@ const TenantFilters = ({
                     });
                   return (
                     <div
-                      className="  filter_bg bg-success  "
+                      className="  filter_bg  "
                       key={idx}
                       // style={{ border: "5px soild blue" }}
                     >
@@ -311,7 +310,7 @@ const TenantFilters = ({
                       });
                       return (
                         <div
-                          className="py-2  "
+                          className=" "
                           key={idx}
                           style={{ border: "5px soild blue" }}
                         >

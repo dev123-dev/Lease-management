@@ -539,7 +539,6 @@ const EditTenantDetails = ({
                 className="form-control cpp-input datevalidation"
                 name="tenantLeaseStartDate"
                 value={entryDate}
-                placeholder={tenantLeaseStartDate}
                 onChange={(e) => onDateChangeEntry(e)}
                 style={{
                   width: "100%",

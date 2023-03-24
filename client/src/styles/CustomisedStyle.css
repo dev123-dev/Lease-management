@@ -1158,7 +1158,19 @@ label {
     position: absolute;
   }
   .filter_bg {
-    margin-left: -30px;
+    margin-left: -20px;
+    width: 200%;
+  }
+  .back_fill {
+    background-color: #166151;
+  }
+  .yearpicker {
+    /* text-align: center;
+    font-weight: bold;
+    border-radius: 10px; */
+    width: 250%;
+    margin-left: -60%;
+    text-align: center;
   }
 }
 
@@ -2284,7 +2296,6 @@ div {
   border: 3px solid transparent;
 }
 .top_menu {
-  background-color: #095a4a;
   /* margin-left: -2px; */
 }
 
@@ -2292,6 +2303,10 @@ div {
   .tenant_filter {
     width: 200%;
     height: fit-content;
+  }
+  .back_fill {
+    background-color: #166151;
+    margin-bottom: -10%;
   }
   .second-level-menu {
     background-color: red;
