@@ -47,7 +47,7 @@ const PropertyDetail = ({
   let output = particular_org_data.filter(
     (item) =>
       item.shopDoorNo &&
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   );
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -243,7 +243,8 @@ const PropertyDetail = ({
                     <tbody>
                       {output &&
                         output.map((Val, idx) => {
-                          // console.log("output", output);
+                          console.log(output)
+                          
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">

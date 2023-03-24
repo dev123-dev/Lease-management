@@ -213,7 +213,7 @@ router.post("/update-Organization", async (req, res) => {
           Location: data.Location,
         },
       }
-    );
+    ).then((data)=>console.log(data));
     res.json(updateorg);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });

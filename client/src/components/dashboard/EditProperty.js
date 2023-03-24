@@ -119,6 +119,7 @@ const EditProperty = ({
       isSubmitted: true,
       shopStatus: "Acquired",
     };
+    console.log(update)
     updateProperty(update);
     handleEditModalClose();
   };

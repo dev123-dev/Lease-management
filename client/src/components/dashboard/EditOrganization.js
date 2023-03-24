@@ -84,6 +84,7 @@ const EditOrganization = ({
   };
 
   const onUpdate = (e) => {
+    // console.log(e)
     e.preventDefault();
     EditModal(false);
     const updateData = {
@@ -104,7 +105,7 @@ const EditOrganization = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <form onclick={(e) => onUpdate(e)}>
+      <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6">
@@ -198,7 +199,7 @@ const EditOrganization = ({
                         <span>{ele}</span>{" "}
                         <button
                         type="button"
-                          onClick={(e) => handleLocationclose(e,ele, index1)}
+                          onClick={(e) => handleLocationclose(ele, index1)}
                           className="btndrp"
                         >
                           X
