@@ -13,6 +13,7 @@ const EditOrganization = ({
   const [items, setitem] = useState(org.Location);
 
   const handleLocationclose = (ele1, index) => {
+    
     const delitem = items.filter((ele, ind) => {
       return ele1 !== ele;
     });
@@ -84,7 +85,7 @@ const EditOrganization = ({
 
   const onUpdate = (e) => {
     e.preventDefault();
-
+    EditModal(false);
     const updateData = {
       OrganizationId: org._id,
       OrganizationName: OrganizationName,
@@ -96,14 +97,14 @@ const EditOrganization = ({
       Location: items,
     };
     updateOrganization(updateData);
-    EditModal(false);
+   
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <form onSubmit={(e) => onUpdate(e)}>
+      <form onclick={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6">
@@ -196,7 +197,8 @@ const EditOrganization = ({
                       <div className="eachItem" key={index1}>
                         <span>{ele}</span>{" "}
                         <button
-                          onClick={() => handleLocationclose(ele, index1)}
+                        type="button"
+                          onClick={(e) => handleLocationclose(e,ele, index1)}
                           className="btndrp"
                         >
                           X

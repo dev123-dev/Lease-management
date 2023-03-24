@@ -163,14 +163,15 @@ const TenantFilters = ({
         <Fragment>
           <div className="container_align top_menu col-sm-12 responsiveDiv  ">
             {/* <div className="row pb-2  ml-2 responsiveDiv  bg-success "> */}
-            <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter bg-dark ">
+            <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
+                <div className="btn_more text-left">
                 <Link
                   title="Total Renewal Count"
                   to="/Organization-report"
                   style={{ width: "100px" }}
-                  className="btn btn_more   "
+                  className="all  "
                   onClick={() => oldExpCountFetch()}
                 >
                   {" "}
@@ -179,21 +180,18 @@ const TenantFilters = ({
                   ext_year_count_org[0].count > 0
                     ? ext_year_count_org[0].count
                     : 0}
-                </Link>
+                </Link></div>
 
-                {/* <div className="py-2 "> */}
+                <div className="yearpicker">
                 <DatePicker
-                  className="form-control yearpicker "
-                  placeholder="yyyy"
                   onChange={(date) => OrgainzationmonthYearChange(date)}
                   dateFormat="yyyy"
                   selected={startMonthDate}
-                  style={{ textAlign: "center" }}
+                       className="year"
                   showYearPicker
                 />
               </div>
-
-              {/* </div> */}
+              </div>
 
               {optName &&
                 optName.map((optFiltr, idx) => {
@@ -210,7 +208,7 @@ const TenantFilters = ({
                     });
                   return (
                     <div
-                      className="  filter_bg bg-success  "
+                      className="  filter_bg"
                       key={idx}
                       // style={{ border: "5px soild blue" }}
                     >
@@ -287,7 +285,7 @@ const TenantFilters = ({
                     </Link>
 
                     <DatePicker
-                      className="form-control yearpicker  "
+                      className="form-control  "
                       placeholder="yyyy"
                       onChange={(date) => monthYearChange(date)}
                       dateFormat="yyyy"
@@ -295,6 +293,7 @@ const TenantFilters = ({
                       style={{ textAlign: "center" }}
                       showYearPicker
                     />
+                    
                   </div>
 
                   {optName &&

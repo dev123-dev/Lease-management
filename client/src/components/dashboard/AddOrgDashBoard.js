@@ -119,7 +119,7 @@ const AddOrgDashBoard = ({
         <div className="col"></div>
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
           <div>
-            <h2 className="col h2 ml-2 ">Organistration Details</h2>
+            <h2 className="col h2 ml-2 ">Organization Details</h2>
             <hr className="line"></hr>
           </div>
           <div className="text-end"> </div>

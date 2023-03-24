@@ -188,25 +188,36 @@ const Tenant_Details = ({
           <div className="col smallscreen"></div>
 
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
-            <h2 className="col mt-sm-4 h2 ml-3">Tenant Details </h2>
+           
             <div>
+            <h2 className="col mt-sm-4 h2 ml-2">Tenant Details </h2>
               <hr className="line"></hr>
             </div>
 
             <div className="text-end"> </div>
 
-            <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-3 ">
+            <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
               <div className="col">
                 <div className=" row text-end">
                   <div className="col-lg-4">
                     {" "}
                     <Select
-                      className="dropdown text-center"
+                      className="dropdown text-left"
                       placeholder="Search-Location"
                       name="location"
                       options={location}
                       value={sellocation}
                       onChange={(e) => onchangeLocation(e)}
+                      theme={(theme) => ({
+                        ...theme,
+                        height: 26,
+                        minHeight: 26,
+                        borderRadius: 1,
+                        colors: {
+                          ...theme.colors,
+                          primary: "gray",
+                        },
+                      })}
                     ></Select>
                   </div>
                   <div className="col-lg-4"></div>

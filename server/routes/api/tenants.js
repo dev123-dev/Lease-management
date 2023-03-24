@@ -198,6 +198,7 @@ router.post("/get-particular-user", async (req, res) => {
 //update all organization
 router.post("/update-Organization", async (req, res) => {
   let data = req.body;
+  console.log(data)
   try {
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },

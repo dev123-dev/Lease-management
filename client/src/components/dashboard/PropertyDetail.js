@@ -171,18 +171,28 @@ const PropertyDetail = ({
 
           <div className="text-end"></div>
 
-          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-3 ">
+          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
               <div className="row text-end ">
                 <div className="col-lg-4">
                   {" "}
                   <Select
-                    className="dropdown text-center"
+                    className="dropdown text-left"
                     placeholder="Search-Location"
                     name="location"
                     options={Sellocation}
                     value={LOCATION}
                     onChange={(e) => onchangeLocation(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary: "gray",
+                      },
+                    })}
                   ></Select>
                 </div>
                 <div className="col-lg-4"></div>
