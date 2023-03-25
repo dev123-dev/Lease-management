@@ -44,7 +44,7 @@ const Edituser = ({
   //multiple location end
 
   const [userData, setuserData] = useState({
-    //  userid : superuser[0]._id,
+      userid : superuser._id,
     username: superuser.username,
     useremail: superuser.useremail,
     usergroup: superuser.usergroup,
@@ -81,9 +81,10 @@ const Edituser = ({
       useraddress: useraddress,
       useremail: useremail,
       usergroup: us,
-      OrganizationName: superuser.OrganizationName,
-      OrganizationId: superuser.OrganizationId,
+      OrganizationName:  orgname,
+      OrganizationId: user.OrganizationId,
     };
+    console.log(updateUSER)
     UpdateUser(updateUSER);
     handleClose(true);
   };

@@ -20,10 +20,10 @@ const SuperUserDashboard = ({
   const [refresh, setrefresh] = useState(false);
   useEffect(() => {
     getalluser();
-    getParticularUser({
-      OrganizationName: user && user.OrganizationName,
-      OrganizationId: user && user.OrganizationId,
-    });
+    // getParticularUser({
+    //   OrganizationName: user && user.OrganizationName,
+    //   OrganizationId: user && user.OrganizationId,
+    // });
     deactivateUser();
   }, [refresh]);
 
@@ -57,6 +57,7 @@ const SuperUserDashboard = ({
   };
 
   const onEdit = (allsuperuse, id) => {
+    
     setId(id);
     setuser(allsuperuse);
     setShowEditModal(true);
@@ -86,7 +87,6 @@ const SuperUserDashboard = ({
     setCurrentData(nmbr);
   };
   //refresh
-
   return (
     <div>
       {!loading &&
@@ -146,7 +146,7 @@ const SuperUserDashboard = ({
                         <tbody>
                           {currentDatas &&
                             currentDatas[0] &&
-                            currentDatas.map((allsuperuse, idx) => {
+                            currentDatas.map((allsuperuse, idx) => {console.log(allsuperuse)
                               return (
                                 <tr key={idx}>
                                   <td>{allsuperuse.username}</td>
