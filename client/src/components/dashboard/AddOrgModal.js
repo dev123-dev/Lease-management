@@ -159,9 +159,9 @@ const AddOrgModal = ({
                     className="form-control    "
                     placeholder="Organization Name"
                     required
-                  /> <br></br>
+                  />{" "}
+                  <br></br>
                 </div>
-               
                 <div className="col-lg-6">
                   <label>Email*:</label>
                   <input
@@ -172,9 +172,9 @@ const AddOrgModal = ({
                     className="form-control"
                     placeholder="Email"
                     required
-                  /><br></br>
+                  />
+                  <br></br>
                 </div>{" "}
-                
                 <div className="col-lg-6">
                   <label>Phone No:</label>
                   <input
@@ -184,9 +184,9 @@ const AddOrgModal = ({
                     onChange={(e) => onORGchange(e)}
                     className="form-control"
                     placeholder="Phone Number"
-                  /><br></br>
+                  />
+                  <br></br>
                 </div>
-               
                 <div className="col-lg-6">
                   <label>Lease Start Date*:</label>
                   <input
@@ -214,7 +214,8 @@ const AddOrgModal = ({
                       width: "100%",
                     }}
                     readOnly
-                  /><br></br>
+                  />
+                  <br></br>
 
                   <label className="ml-2">Location*:</label>
 
@@ -251,6 +252,7 @@ const AddOrgModal = ({
                           <div className="eachItem" key={index}>
                             <span>{ele}</span>
                             <button
+                              type="button"
                               onClick={() => handleLocationclose(index)}
                               className="btndrp "
                             >

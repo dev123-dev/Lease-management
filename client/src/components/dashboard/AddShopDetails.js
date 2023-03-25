@@ -224,7 +224,8 @@ const AddShopDetails = ({
                   name="stamp Duty"
                   className="form-control  input"
                   readOnly
-                /><br></br>
+                />
+                <br></br>
               </div>
               <div className="col-lg-6">
                 <label>
@@ -286,6 +287,7 @@ const AddShopDetails = ({
                         <div className="eachItem" key={index}>
                           <span>{ele.doorNo}</span>
                           <button
+                            type="button"
                             onClick={() => handleLocationclose(index)}
                             className="btndrp "
                           >

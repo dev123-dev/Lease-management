@@ -198,7 +198,7 @@ router.post("/get-particular-user", async (req, res) => {
 //update all organization
 router.post("/update-Organization", async (req, res) => {
   let data = req.body;
-  console.log(data)
+  console.log(data);
   try {
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
@@ -213,7 +213,7 @@ router.post("/update-Organization", async (req, res) => {
           Location: data.Location,
         },
       }
-    ).then((data)=>console.log(data));
+    ).then((data) => console.log(data));
     res.json(updateorg);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });

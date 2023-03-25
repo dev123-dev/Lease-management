@@ -44,7 +44,7 @@ const Edituser = ({
   //multiple location end
 
   const [userData, setuserData] = useState({
-      userid : superuser._id,
+    userid: superuser._id,
     username: superuser.username,
     useremail: superuser.useremail,
     usergroup: superuser.usergroup,
@@ -81,10 +81,9 @@ const Edituser = ({
       useraddress: useraddress,
       useremail: useremail,
       usergroup: us,
-      OrganizationName:  orgname,
+      OrganizationName: orgname.label,
       OrganizationId: user.OrganizationId,
     };
-    console.log(updateUSER)
     UpdateUser(updateUSER);
     handleClose(true);
   };
@@ -107,7 +106,8 @@ const Edituser = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label> Email*: </label>
@@ -118,7 +118,8 @@ const Edituser = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Phone No:</label>
@@ -129,7 +130,8 @@ const Edituser = ({
                 value={userphone}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Organization belongs to*: </label>
@@ -156,7 +158,8 @@ const Edituser = ({
                 placeholder="Address"
                 onChange={(e) => onInputChange(e)}
                 style={{ width: "100%" }}
-              ></textarea><br></br>
+              ></textarea>
+              <br></br>
             </div>
 
             <div className="col-lg-6">
@@ -177,7 +180,8 @@ const Edituser = ({
                     primary: "black",
                   },
                 })}
-              /><br></br>
+              />
+              <br></br>
             </div>
           </div>
           <div className="col-lg-9 text-danger">
