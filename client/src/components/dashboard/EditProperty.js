@@ -18,7 +18,7 @@ const EditProperty = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [Sellocation, SetselLoction] = useState([]);
-  const [orgLoc, setLoc] = useState();
+  const [orgLoc, setLoc] = useState(Propertydata.Location);
   // if (
   //   !orgLoc &&
   //   Propertydata &&

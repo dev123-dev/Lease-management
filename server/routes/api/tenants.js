@@ -221,7 +221,7 @@ router.post("/update-Organization", async (req, res) => {
 });
 router.post("/update-Property", async (req, res) => {
   let data = req.body;
-  //console.log(data);
+  // console.log(data);
   // let doornumber = data.shopDoorNo.map((ele) => {
   //   return {
   //     label: ele,
