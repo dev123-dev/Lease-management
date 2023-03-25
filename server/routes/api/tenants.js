@@ -412,21 +412,28 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-  console.log(data.Dno.length);
+  let AvaiableRoom = data.Dno.filter(
+    (item) =>
+      item.shopDoorNo &&
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  );
+
   try {
-    if (data.Dno.length === 0) {
-      property.updateOne(
-        {
-          OrganizationId: data.OrganizationId,
-          _id: data.PropertyId,
-        },
-        {
-          $set: {
-            shopStatus: "Deactive",
-            deactive_reason: data.deactive_reason,
+    if (AvaiableRoom.length === 0) {
+      property
+        .updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.PropertyId,
           },
-        }
-      );
+          {
+            $set: {
+              shopStatus: "Deactive",
+              deactive_reason: data.deactive_reason,
+            },
+          }
+        )
+        .then((data) => console.log(data));
     } else {
       data.Dno.map((eleDoor) => {
         property

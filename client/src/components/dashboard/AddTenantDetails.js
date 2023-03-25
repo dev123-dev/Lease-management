@@ -359,6 +359,7 @@ const AddTenantDetails = ({
               <div className="col-lg-4">
                 <label>Door No*:</label>
                 <Select
+                  className="select"
                   name="doorno"
                   options={DnoList}
                   value={doorno}
@@ -369,18 +370,18 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-4">
-               <label> Location*:</label>
+                <label> Location*:</label>
                 <input
                   type="text"
                   value={LocList}
                   placeholder="Location"
-                  className="form-control"
+                  className="form-control bg-dark"
                   readOnly
                 ></input>
                 <br></br>
               </div>
               <div className="col-lg-4">
-               <label> File No*:</label>
+                <label> File No*:</label>
                 <input
                   type="text"
                   name="tenantFileNo"
@@ -485,7 +486,7 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-4">
-               <label>Generator Deposit Amount :</label>
+                <label>Generator Deposit Amount :</label>
                 <input
                   type="number"
                   name="generatordepoAmt"
@@ -551,7 +552,7 @@ const AddTenantDetails = ({
                   <>
                     <div className="row">
                       <div className="  col-lg-4 ">
-                       <label> Cheque No/DD No:</label>
+                        <label> Cheque No/DD No:</label>
                         <input
                           type="text"
                           name="tenantChequenoOrDdno"

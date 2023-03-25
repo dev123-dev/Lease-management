@@ -44,11 +44,11 @@ const PropertyDetail = ({
       });
   };
 
-  let output = particular_org_data.filter(
-    (item) =>
-      item.shopDoorNo &&
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
-  );
+  // let output = particular_org_data.filter(
+  //   (item) =>
+  //     item.shopDoorNo &&
+  //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  // );
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
@@ -129,6 +129,8 @@ const PropertyDetail = ({
       deactive_reason: deactive_reason,
     };
     deactiveProperty(reason);
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
+
     handleShowDno();
   };
 
@@ -241,8 +243,8 @@ const PropertyDetail = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {output &&
-                        output.map((Val, idx) => {
+                      {particular_org_data &&
+                        particular_org_data.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -268,24 +270,31 @@ const PropertyDetail = ({
                               <td>{Val.stampDuty}</td>
                               <td>{Val.leaseTimePeriod}</td>
                               <td>{Val.shopAddress}</td>
+
                               <td className=" text-center">
-                                <img
-                                  className="Cursor"
-                                  onClick={() => onEdit(Val)}
-                                  src={require("../../static/images/edit_icon.png")}
-                                  alt="Edit Property"
-                                  title="Edit Property"
-                                />
-                                &nbsp;
-                                <img
-                                  className=" Cursor"
-                                  onClick={() =>
-                                    onDelete(Val._id, Val.shopDoorNo)
-                                  }
-                                  src={require("../../static/images/delete.png")}
-                                  alt="Delete Property "
-                                  title="Delete Property"
-                                />
+                                {Val.shopStatus === "Active" ? (
+                                  <>
+                                    <img
+                                      className="Cursor"
+                                      onClick={() => onEdit(Val)}
+                                      src={require("../../static/images/edit_icon.png")}
+                                      alt="Edit Property"
+                                      title="Edit Property"
+                                    />
+                                    &nbsp;
+                                    <img
+                                      className=" Cursor"
+                                      onClick={() =>
+                                        onDelete(Val._id, Val.shopDoorNo)
+                                      }
+                                      src={require("../../static/images/delete.png")}
+                                      alt="Delete Property "
+                                      title="Delete Property"
+                                    />
+                                  </>
+                                ) : (
+                                  <p></p>
+                                )}
                               </td>
                             </tr>
                           );

@@ -17,7 +17,6 @@ const TenantSettings = ({
   onAddSettingModalChange,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-  console.log("xxxx", myuser);
   useEffect(() => {
     if (myuser) {
       getAllSettings({
@@ -84,7 +83,6 @@ const TenantSettings = ({
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
     };
-    console.log(finalData);
     UpdateTenantSettingform(finalData);
     onAddSettingModalChange(true);
   };
