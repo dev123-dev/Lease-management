@@ -166,21 +166,22 @@ const TenantFilters = ({
             <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
-                <div className="btn_more text-left">
-                <Link
-                  title="Total Renewal Count"
-                  to="/Organization-report"
-                  style={{ width: "100px" }}
-                  className="all  "
-                  onClick={() => oldExpCountFetch()}
-                >
-                  {" "}
-                  {ext_year_count_org &&
-                  ext_year_count_org[0] &&
-                  ext_year_count_org[0].count > 0
-                    ? ext_year_count_org[0].count
-                    : 0}
-                </Link></div>
+                <div className="btn_more  text-left">
+                  <Link
+                    title="Total Renewal Count"
+                    to="/Organization-report"
+                    style={{ width: "100px" }}
+                    className="top_box"
+                    onClick={() => oldExpCountFetch()}
+                  >
+                    {" "}
+                    {ext_year_count_org &&
+                    ext_year_count_org[0] &&
+                    ext_year_count_org[0].count > 0
+                      ? ext_year_count_org[0].count
+                      : 0}
+                  </Link>
+                </div>
 
                 <div className="yearpicker">
                   <DatePicker
@@ -276,26 +277,28 @@ const TenantFilters = ({
               <div className="row pb-2 ml-2 responsiveDiv  ">
                 <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
                   <div>
-                    <Link
-                      to="/tenant-report"
-                      className="btn btn_more"
-                      onClick={() => oldExpCountFetch()}
-                    >
-                      {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
-                        ? yearExpCnt[0].count
-                        : 0}
-                    </Link>
-
-                    <DatePicker
-                      className="form-control  "
-                      placeholder="yyyy"
-                      onChange={(date) => monthYearChange(date)}
-                      dateFormat="yyyy"
-                      selected={startMonthDate}
-                      style={{ textAlign: "center" }}
-                      showYearPicker
-                    />
-                    
+                    <div className="btn_more text-left">
+                      <Link
+                        to="/tenant-report"
+                        className="top_box "
+                        onClick={() => oldExpCountFetch()}
+                      >
+                        {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
+                          ? yearExpCnt[0].count
+                          : 0}
+                      </Link>
+                    </div>
+                    <div className="yearpicker">
+                      <DatePicker
+                        className="form-control  "
+                        placeholder="yyyy"
+                        onChange={(date) => monthYearChange(date)}
+                        dateFormat="yyyy"
+                        selected={startMonthDate}
+                        style={{ textAlign: "center" }}
+                        showYearPicker
+                      />
+                    </div>
                   </div>
 
                   {optName &&
@@ -312,9 +315,9 @@ const TenantFilters = ({
                       });
                       return (
                         <div
-                          className=" "
+                          className=" filter_bg  "
                           key={idx}
-                          style={{ border: "5px soild blue" }}
+                          // style={{ border: "5px soild blue" }}
                         >
                           <div
                             className="tenantfil  "

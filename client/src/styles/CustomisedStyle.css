@@ -93,7 +93,6 @@
   border-radius: 50% !important;
   font-size: 10px;
   font-weight: 500;
-
   background: transparent;
   border: transparent;
 }
@@ -286,8 +285,8 @@ footer.footer .top_top {
 }
 
 .top_menu {
-  background-color: #166151;
-  /* padding: 2.5rem; */
+  background-color: #095a4a;
+  padding: 0.5rem;
 
   /* #4b748f;#0086dc */
   /* #429f8c; */
@@ -1157,12 +1156,22 @@ label {
     margin-top: -4.5em;
     position: absolute;
   }
+  .btn_more {
+    background-color: white;
+    margin-top: 50%;
+    margin-left: -45%;
+    width: 250%;
+    padding: 5%;
+  }
+  .top_box {
+    margin-left: 20%;
+  }
   .filter_bg {
-    margin-left: -20px;
+    margin-left: -27px;
     width: 200%;
   }
   .back_fill {
-    background-color: #166151;
+    background-color: #095a4a;
   }
   .yearpicker {
     /* text-align: center;
