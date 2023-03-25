@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   ParticularTenant,
@@ -187,9 +188,8 @@ const Tenant_Details = ({
           <div className="col smallscreen"></div>
 
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
-           
             <div>
-            <h2 className="col mt-sm-4 h2 ml-2">Tenant Details </h2>
+              <h2 className="col mt-sm-4 h2 ml-2">Tenant Details </h2>
               <hr className="line"></hr>
             </div>
 
@@ -222,13 +222,15 @@ const Tenant_Details = ({
                   <div className="col-lg-4"></div>
                   <div className="col-lg-4 refresh">
                     {" "}
-                    <img
-                      height="20px"
-                      onClick={() => setShowadd(true)}
-                      src={require("../../static/images/add-icon.png")}
-                      alt="Add Tenant"
-                      title="Add Tenant"
-                    />
+                    <Link to="/add-tenant-details">
+                      <img
+                        height="20px"
+                        // onClick={() => setShowadd(true)}
+                        src={require("../../static/images/add-icon.png")}
+                        alt="Add Tenant"
+                        title="Add Tenant"
+                      />
+                    </Link>
                     <img
                       className="ml-2"
                       height="20px"

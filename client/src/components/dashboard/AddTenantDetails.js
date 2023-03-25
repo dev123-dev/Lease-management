@@ -343,9 +343,9 @@ const AddTenantDetails = ({
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={(e) => onSubmit(e)}>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-lg-4">
+          <div className="container-fluid ">
+            <div className="row card-new pb-3">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
                 <label>Property Name*:</label>
                 <Select
                   name="Property name"
@@ -356,7 +356,7 @@ const AddTenantDetails = ({
                 ></Select>
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              {/* <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Door No*:</label>
                 <Select
                   className="select"
@@ -368,8 +368,8 @@ const AddTenantDetails = ({
                   required
                 ></Select>
                 <br></br>
-              </div>
-              <div className="col-lg-4">
+              </div> */}
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label> Location*:</label>
                 <input
                   type="text"
@@ -380,7 +380,7 @@ const AddTenantDetails = ({
                 ></input>
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label> File No*:</label>
                 <input
                   type="text"
@@ -393,7 +393,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Tenant Name*:</label>
                 <input
                   type="text"
@@ -406,7 +406,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Phone No:</label>
                 <input
                   type="number"
@@ -419,7 +419,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Firm Name:</label>
                 <input
                   type="text"
@@ -431,7 +431,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Aadhaar No:</label>
                 <input
                   type="number"
@@ -444,7 +444,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Pan Number:</label>
                 <input
                   type="text"
@@ -457,7 +457,7 @@ const AddTenantDetails = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Rent Amount*:</label>
                 <input
                   type="number"
@@ -471,7 +471,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Deposit Amount*:</label>
                 <input
                   type="number"
@@ -485,7 +485,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Generator Deposit Amount :</label>
                 <input
                   type="number"
@@ -498,7 +498,7 @@ const AddTenantDetails = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-4">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Mode Of Payment*:</label>
                 <Select
                   name="tenantPaymentMode"
@@ -521,7 +521,53 @@ const AddTenantDetails = ({
                 />
                 <br></br>
               </div>{" "}
-              <div className="col-lg-4">
+              {showChequenoSection ? (
+                <>
+                  {/* <div className="row"> */}
+                  <div className="  col-lg-3 col-md-12 col-sm-12 col-12 ">
+                    <label> Cheque No/DD No:</label>
+                    <input
+                      type="text"
+                      name="tenantChequenoOrDdno"
+                      value={tenantChequenoOrDdno}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                    />
+                    <br></br>
+                  </div>
+
+                  <div className=" col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label>Bank Name :</label>
+                    <input
+                      type="text"
+                      name="tenantBankName"
+                      value={tenantBankName}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                    />{" "}
+                    <br></br>
+                  </div>
+                  <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label>Cheque Date:</label>
+                    <input
+                      type="date"
+                      placeholder="dd/mm/yyyy"
+                      className="form-control cpp-input datevalidation"
+                      name="tenantchequeDate"
+                      value={startSelectedDate}
+                      onChange={(e) => onDateChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />{" "}
+                    <br></br>
+                  </div>
+                  {/* </div> */}
+                </>
+              ) : (
+                <></>
+              )}
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Lease Start Date*:</label>
                 <input
                   type="date"
@@ -537,7 +583,240 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>{" "}
-              <div className="col-lg-4 ">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label>Lease End Date*:</label>
+                <input
+                  placeholder="dd-mm-yyyy"
+                  className="form-control cpp-input datevalidation"
+                  value={leaseEndDate}
+                  required
+                ></input>
+                <br></br>
+              </div>{" "}
+              <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <label>Tenant's Address*:</label>
+                <textarea
+                  name="tenantAddr"
+                  value={tenantAddr}
+                  id="tenantAddr"
+                  className="textarea form-control"
+                  rows="4"
+                  placeholder="Address"
+                  onChange={(e) => onInputChange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-9 text-danger">
+                * Indicates mandatory fields, Please fill mandatory fields
+                before Submit
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <button
+                  variant="success"
+                  className="btn sub_form btn_continue Save float-right"
+                  id="savebtn"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+            {/* <div className="row ">
+
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label>Property Name*:</label>
+                <Select
+                  name="Property name"
+                  options={allBuildingNames}
+                  value={buildingData}
+                  onChange={(e) => onBuildingChange(e)}
+                  required
+                ></Select>
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Door No*:</label>
+                <Select
+                  className="select"
+                  name="doorno"
+                  options={DnoList}
+                  value={doorno}
+                  onChange={(e) => onchangeDoor(e)}
+                  isMulti={true}
+                  required
+                ></Select>
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label> Location*:</label>
+                <input
+                  type="text"
+                  value={LocList}
+                  placeholder="Location"
+                  className="form-control bg-dark"
+                  readOnly
+                ></input>
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label> File No*:</label>
+                <input
+                  type="text"
+                  name="tenantFileNo"
+                  placeholder="File No"
+                  value={tenantFileNo}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Tenant Name*:</label>
+                <input
+                  type="text"
+                  name="tenantName"
+                  placeholder="Name"
+                  value={tenantName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Phone No:</label>
+                <input
+                  type="number"
+                  name="tenantPhone"
+                  placeholder="Phone No"
+                  value={tenantPhone}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Firm Name:</label>
+                <input
+                  type="text"
+                  name="tenantFirmName"
+                  placeholder="Firm Name"
+                  value={tenantFirmName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Aadhaar No:</label>
+                <input
+                  type="number"
+                  name="tenantAdharNo"
+                  placeholder="Aadhar No"
+                  value={tenantAdharNo}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Pan Number:</label>
+                <input
+                  type="text"
+                  name="tenantPanNo"
+                  placeholder="Pan No"
+                  value={tenantPanNo}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Rent Amount*:</label>
+                <input
+                  type="number"
+                  name="tenantRentAmount"
+                  placeholder="Rent Amount"
+                  value={tenantRentAmount}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Deposit Amount*:</label>
+                <input
+                  type="number"
+                  name="tenantDepositAmt"
+                  value={tenantDepositAmt}
+                  placeholder="Deposit Amount"
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Generator Deposit Amount :</label>
+                <input
+                  type="number"
+                  name="generatordepoAmt"
+                  placeholder="GeneratorDeposit Amount"
+                  value={generatordepoAmt}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Mode Of Payment*:</label>
+                <Select
+                  name="tenantPaymentMode"
+                  options={PaymentMethods}
+                  isSearchable={false}
+                  value={tenantPaymentMode}
+                  placeholder="Select..."
+                  onChange={(e) => onPaymentModeChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                  required
+                />
+                <br></br>
+              </div>{" "}
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Lease Start Date*:</label>
+                <input
+                  type="date"
+                  placeholder="dd-mm-yyyy"
+                  className="form-control cpp-input datevalidation"
+                  name="tenantLeaseStartDate"
+                  value={entryDate}
+                  onChange={(e) => onDateChangeEntry(e)}
+                  style={{
+                    width: "100%",
+                  }}
+                  required
+                />{" "}
+                <br></br>
+              </div>{" "}
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label>Lease End Date*:</label>
                 <input
                   placeholder="dd-mm-yyyy"
@@ -551,7 +830,7 @@ const AddTenantDetails = ({
                 {showChequenoSection ? (
                   <>
                     <div className="row">
-                      <div className="  col-lg-4 ">
+                      <div className="  col-lg-3 col-md-12 col-sm-12 col-12 ">
                         <label> Cheque No/DD No:</label>
                         <input
                           type="text"
@@ -563,7 +842,7 @@ const AddTenantDetails = ({
                         <br></br>
                       </div>
 
-                      <div className=" col-lg-4">
+                      <div className=" col-lg-3 col-md-12 col-sm-12 col-12">
                         <label>Bank Name :</label>
                         <input
                           type="text"
@@ -574,7 +853,7 @@ const AddTenantDetails = ({
                         />{" "}
                         <br></br>
                       </div>
-                      <div className="  col-lg-4">
+                      <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
                         <label>Cheque Date:</label>
                         <input
                           type="date"
@@ -614,7 +893,7 @@ const AddTenantDetails = ({
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <button
                   variant="success"
                   className="btn sub_form btn_continue Save float-right"
@@ -623,7 +902,7 @@ const AddTenantDetails = ({
                   Save
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </form>
       </Modal.Body>
