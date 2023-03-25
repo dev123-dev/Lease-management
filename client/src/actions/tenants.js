@@ -40,6 +40,60 @@ const config = {
 // var linkPath = process.env.REACT_APP_BASE_URL;
 var linkPath = "";
 
+//tenant setting
+export const AddTenantSettingform = (finalData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: TENANT_ADD_INIT,
+    });
+
+    await axios.post(
+      `${linkPath}/api/tenantSetting/add-tenant-settings`,
+      finalData,
+      config
+    );
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
+  try {
+    console.log("inside action update-tenant-settings");
+    await axios.post(
+      `${linkPath}/api/tenantSetting/update-tenant-settings`,
+      finalData,
+      config
+    );
+  } catch (err) {
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
+
+export const getAllSettings = (data) => async (dispatch) => {
+  console.log("act", data);
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenantSetting/get-all-settings`,
+      data
+    );
+    dispatch({
+      type: GET_ALL_SETTINGS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+//tenant setting end
+
 export const AddOrganization = (OrganizationData) => async (dispatch) => {
   try {
     await axios.post(
@@ -147,6 +201,7 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
 
 //update Property
 export const updateProperty = (updatedata) => async (dispatch) => {
+  console.log("updateProperty", updatedata);
   try {
     await axios.post(
       `${linkPath}/api/tenants/update-Property`,
@@ -333,45 +388,11 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
   }
 };
 
-export const AddTenantSettingsform = (finalData) => async (dispatch) => {
-  try {
-    dispatch({
-      type: TENANT_ADD_INIT,
-    });
+//tenant setting
 
-    await axios.post(
-      `${linkPath}/api/tenants/add-tenant-settings`,
-      finalData,
-      config
-    );
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
-};
-
-export const AddTenantSettingform = (finalData) => async (dispatch) => {
-  try {
-    dispatch({
-      type: TENANT_ADD_INIT,
-    });
-
-    await axios.post(
-      `${linkPath}/api/tenants/add-tenant-settings`,
-      finalData,
-      config
-    );
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
-};
-
+//setting end tenat
 export const AddShopDetailsform = (finalData) => async (dispatch) => {
   try {
-    console.log("hit");
     await axios.post(
       `${linkPath}/api/tenants/add-Property-details`,
       finalData,
@@ -468,19 +489,6 @@ export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
   }
 };
 
-export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
-  try {
-    await axios.post(
-      `${linkPath}/api/tenants/update-tenant`,
-      finalData,
-      config
-    );
-  } catch (err) {
-    dispatch({
-      type: TENANT_FEEDBACK_ERROR,
-    });
-  }
-};
 //get month exp for organization
 export const getOrgExpCount = (finaldata) => async (dispatch) => {
   try {
@@ -631,20 +639,6 @@ export const getAllTenants = () => async (dispatch) => {
     const res = await axios.get(`${linkPath}/api/tenants/get-all-tenants`);
     dispatch({
       type: GET_ALL_TENANTS,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
-};
-
-export const getAllSettings = () => async (dispatch) => {
-  try {
-    const res = await axios.get(`${linkPath}/api/tenants/get-all-settings`);
-    dispatch({
-      type: GET_ALL_SETTINGS,
       payload: res.data,
     });
   } catch (err) {

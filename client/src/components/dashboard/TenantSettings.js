@@ -10,66 +10,83 @@ import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
   AddTenantSettingform,
   UpdateTenantSettingform,
-  tenants: { get_Particular_org_Tenantsetting },
+  tenants: { get_Particular_org_Tenantsetting, allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
   getParticularTenantSetting,
   onAddSettingModalChange,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+  console.log("xxxx", myuser);
   useEffect(() => {
-    getAllSettings();
-    getParticularTenantSetting({
-      OrganizationId: user && user.OrganizationId,
-    });
-  }, [getAllSettings]);
+    if (myuser) {
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
 
+    // getParticularTenantSetting({
+    //   OrganizationId: user && user.OrganizationId,
+    // });
+  }, []);
   //formData
 
   const [formData, setFormData] = useState({
-    recordId: get_Particular_org_Tenantsetting[0]
-      ? get_Particular_org_Tenantsetting[0]._id
-      : "",
-    hikePercentage: get_Particular_org_Tenantsetting[0]
-      ? get_Particular_org_Tenantsetting[0].hikePercentage
-      : "",
-    stampDuty: get_Particular_org_Tenantsetting[0]
-      ? get_Particular_org_Tenantsetting[0].stampDuty
-      : "",
-    leaseTimePeriod: get_Particular_org_Tenantsetting[0]
-      ? get_Particular_org_Tenantsetting[0].leaseTimePeriod
-      : "",
+    hike: allTenantSetting && allTenantSetting.hike,
+    stampDuty: allTenantSetting && allTenantSetting.stampDuty,
+    leaseTimePeriod: allTenantSetting && allTenantSetting.leaseTimePeriod,
   });
 
-  const { hikePercentage, stampDuty, leaseTimePeriod } = formData;
+  const [hike, setHike] = useState(
+    allTenantSetting && allTenantSetting.hike
+      ? allTenantSetting && allTenantSetting.hike
+      : ""
+  );
+  const [stampDuty, setStampDuty] = useState(
+    allTenantSetting && allTenantSetting.stampDuty
+      ? allTenantSetting && allTenantSetting.stampDuty
+      : ""
+  );
+  const [leaseTimePeriod, setLeaseTimePeriod] = useState(
+    allTenantSetting && allTenantSetting.hike
+      ? allTenantSetting && allTenantSetting.hike
+      : ""
+  );
 
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const {  stampDuty, leaseTimePeriod } = formData;
+
+  // const onInputChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
   const onSubmit = () => {
     const finalData = {
       OrganizationId: user.OrganizationId,
+      userId: user._id,
+      userName: user.username,
       OrganizationName: user.OrganizationName,
-      hikePercentage: hikePercentage,
-      stampDuty: stampDuty,
-      leaseTimePeriod: leaseTimePeriod,
+      hike: parseInt(hike),
+      stampDuty: parseInt(stampDuty),
+      leaseTimePeriod: parseInt(leaseTimePeriod),
     };
     AddTenantSettingform(finalData);
+    onAddSettingModalChange(true);
+    getAllSettings();
   };
 
-  const onUpdate = (get_Particular_org_Tenantsetting) => {
+  const onUpdate = () => {
     const finalData = {
-      recordId: get_Particular_org_Tenantsetting
-        ? get_Particular_org_Tenantsetting[0]._id
-        : "",
-      hikePercentage: hikePercentage,
+      OrganizationId: user.OrganizationId,
+      userId: user._id,
+      userName: user.username,
+      hike: hike,
       stampDuty: stampDuty,
       leaseTimePeriod: leaseTimePeriod,
     };
-
+    console.log(finalData);
     UpdateTenantSettingform(finalData);
     onAddSettingModalChange(true);
-    getAllSettings();
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -92,10 +109,10 @@ const TenantSettings = ({
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
               type="text"
-              name="hikePercentage"
+              name="hike"
               className="form-control"
-              value={hikePercentage}
-              onChange={(e) => onInputChange(e)}
+              value={hike}
+              onChange={(e) => setHike(e.target.value)}
               required
             />
           </div>
@@ -117,7 +134,7 @@ const TenantSettings = ({
               name="stampDuty"
               className="form-control"
               value={stampDuty}
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => setStampDuty(e.target.value)}
               required
             />
           </div>
@@ -139,14 +156,13 @@ const TenantSettings = ({
               name="leaseTimePeriod"
               className="form-control"
               value={leaseTimePeriod}
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => setLeaseTimePeriod(e.target.value)}
               required
             />
           </div>
         </div>
         <div className="col-lg-12 Savebutton" size="lg">
-          {get_Particular_org_Tenantsetting &&
-          get_Particular_org_Tenantsetting.length === 0 ? (
+          {allTenantSetting == null ? (
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
@@ -158,7 +174,7 @@ const TenantSettings = ({
             <button
               variant="success"
               id="TenantSettingBtn"
-              onClick={() => onUpdate(get_Particular_org_Tenantsetting)}
+              onClick={() => onUpdate()}
             >
               Update
             </button>

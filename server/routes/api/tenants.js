@@ -221,12 +221,13 @@ router.post("/update-Organization", async (req, res) => {
 });
 router.post("/update-Property", async (req, res) => {
   let data = req.body;
-  let doornumber = data.shopDoorNo.map((ele) => {
-    return {
-      label: ele,
-      status: "Acquired",
-    };
-  });
+  //console.log(data);
+  // let doornumber = data.shopDoorNo.map((ele) => {
+  //   return {
+  //     label: ele,
+  //     status: "Acquired",
+  //   };
+  // });
   try {
     const updateorg = await property
       .updateOne(
@@ -234,18 +235,18 @@ router.post("/update-Property", async (req, res) => {
         {
           $set: {
             buildingName: data.buildingName,
-            shopDoorNo: doornumber,
+            shopDoorNo: data.shopDoorNo,
             shopAddress: data.shopAddress,
-            hikePercentage: data.hikePercentage,
+            hike: data.hike,
+            Location: data.Location.label,
             stampDuty: data.stampDuty,
             leaseTimePeriod: data.leaseTimePeriod,
             OrganizationName: data.OrganizationName,
-            Organization_id: data.OrganizationId,
-            shopStatus: "Acquired",
+            shopStatus: "Avaiable",
           },
         }
       )
-      .then((data) => console.log(data));
+      .then((data) => console.log("res", data));
     res.json(updateorg);
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
@@ -359,18 +360,21 @@ router.post("/Update-User", async (req, res) => {
   }
 });
 
-router.post("/add-tenant-settings", async (req, res) => {
-  let data = req.body;
-  try {
-    let tenantSettings = new TenantSettings(data);
-    output = await tenantSettings.save();
-    res.send(output);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
-  }
-});
+//
 
+// router.post("/add-tenant-settings", async (req, res) => {
+//   let data = req.body;
+//   try {
+//     let tenantSettings = new TenantSettings(data);
+//     output = await tenantSettings.save();
+//     res.send(output);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Internal Server Error.");
+//   }
+// });
+
+//
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
@@ -602,26 +606,26 @@ router.post("/deactive-tenant", async (req, res) => {
   }
 });
 
-router.post("/update-tenant", async (req, res) => {
-  try {
-    let data = req.body;
+// router.post("/update-tenant", async (req, res) => {
+//   try {
+//     let data = req.body;
 
-    const updateagreementdetails = await TenantSettings.updateOne(
-      { _id: data.recordId },
-      {
-        $set: {
-          hikePercentage: data.hikePercentage,
-          stampDuty: data.stampDuty,
-          leaseTimePeriod: data.leaseTimePeriod,
-        },
-      }
-    );
+//     const updateagreementdetails = await TenantSettings.updateOne(
+//       { OrganizationId: data.OrganizationId },
+//       {
+//         $set: {
+//           hikePercentage: data.hikePercentage,
+//           stampDuty: data.stampDuty,
+//           leaseTimePeriod: data.leaseTimePeriod,
+//         },
+//       }
+//     );
 
-    res.json(updateagreementdetails);
-  } catch (error) {
-    res.status(500).json({ errors: [{ msg: "Server Error" }] });
-  }
-});
+//     res.json(updateagreementdetails);
+//   } catch (error) {
+//     res.status(500).json({ errors: [{ msg: "Server Error" }] });
+//   }
+// });
 
 //get exp month count for Organization
 router.post("/get-month-exp-org", async (req, res) => {
@@ -947,28 +951,28 @@ router.post("/get-tenant-exp-report", async (req, res) => {
   }
 });
 
-router.get("/get-all-settings", async (req, res) => {
-  try {
-    const tenanatSettingData = await TenantSettings.find({});
-    res.json(tenanatSettingData);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
-  }
-});
+// router.get("/get-all-settings", async (req, res) => {
+//   try {
+//     const tenanatSettingData = await TenantSettings.find({});
+//     res.json(tenanatSettingData);
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send("Internal Server Error.");
+//   }
+// });
 
-router.post("/get-Particular-org-Tenantsetting", async (req, res) => {
-  const data = req.body;
+// router.post("/get-Particular-org-Tenantsetting", async (req, res) => {
+//   const data = req.body;
 
-  try {
-    const Tenant_SETTING = await TenantSettings.find({
-      OrganizationId: data.OrganizationId,
-    });
-    res.json(Tenant_SETTING);
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+//   try {
+//     const Tenant_SETTING = await TenantSettings.find({
+//       OrganizationId: data.OrganizationId,
+//     });
+//     res.json(Tenant_SETTING);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
 
 router.get("/get-door-nos", async (req, res) => {
   try {

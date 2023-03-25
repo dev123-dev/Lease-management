@@ -47,7 +47,7 @@ const PropertyDetail = ({
   let output = particular_org_data.filter(
     (item) =>
       item.shopDoorNo &&
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -60,7 +60,7 @@ const PropertyDetail = ({
       PropertyId: ele._id,
       OrganizationName: ele.OrganizationName,
       buildingName: ele.buildingName,
-      hikePercentage: ele.hikePercentage,
+      hike: ele.hike,
       leaseTimePeriod: ele.leaseTimePeriod,
       shopAddress: ele.shopAddress,
       shopDoorNo: ele.shopDoorNo,
@@ -243,8 +243,6 @@ const PropertyDetail = ({
                     <tbody>
                       {output &&
                         output.map((Val, idx) => {
-                          console.log(output)
-                          
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -258,13 +256,15 @@ const PropertyDetail = ({
                                       ele.status !== "Deleted the Door Number"
                                     ) {
                                       return (
-                                        <inline>{ele.doorNo + ","}</inline>
+                                        <div className="dno">
+                                          {ele.doorNo + ","}
+                                        </div>
                                       );
                                     }
                                   })}
                               </td>
                               <td>{Val.Location}</td>
-                              <td>{Val.hikePercentage}</td>
+                              <td>{Val.hike}</td>
                               <td>{Val.stampDuty}</td>
                               <td>{Val.leaseTimePeriod}</td>
                               <td>{Val.shopAddress}</td>

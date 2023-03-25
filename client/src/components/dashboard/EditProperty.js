@@ -32,17 +32,16 @@ const EditProperty = ({
   //       : ""
   //   );
   // }
-
   //adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState([]);
 
-  const handleLocationclose = (ele1, index) => {
-    const delitem = items.filter((ele, ind) => {
-      return ele1 !== ele;
-    });
-    setitem(delitem);
-  };
+  // const handleLocationclose = (ele1, index) => {
+  //   const delitem = items.filter((ele, ind) => {
+  //     return ele1 !== ele;
+  //   });
+  //   setitem(delitem);
+  // };
 
   const [dno, setdno] = useState(Propertydata.shopDoorNo);
   const handleDoorNumclose = (ele1, index) => {
@@ -51,13 +50,20 @@ const EditProperty = ({
     });
     setdno(delitem);
   };
-
   const addItem = () => {
     if (!inputdata) {
     } else {
-      setitem([...items, inputdata]);
-      setdno([...dno, inputdata]);
-      setinput("");
+      //setitem([...items, inputdata]);
+      let new_door = dno.map((ele) => ele.doorNo === inputdata);
+      console.log("new data", new_door);
+      if (new_door.every((ele) => ele === false)) {
+        setdno([...dno, { doorNo: inputdata, status: "Avaiable" }]);
+        setinput("");
+      } else {
+        alert("room number already exist");
+      }
+
+      //setdno(delitem);
     }
   };
   const onchangeLoc = (e) => {
@@ -81,7 +87,7 @@ const EditProperty = ({
     shopDoorNo: [],
     Location: Propertydata.Location,
     shopAddress: Propertydata.shopAddress,
-    hikePercentage: Propertydata.hikePercentage,
+    hike: Propertydata.hike,
     stampDuty: Propertydata.stampDuty,
     LeaseTime: Propertydata.leaseTimePeriod,
     isSubmitted: false,
@@ -91,7 +97,7 @@ const EditProperty = ({
     buildingName,
     shopDoorNo,
     shopAddress,
-    hikePercentage,
+    hike,
     stampDuty,
     LeaseTime,
     shopStatus,
@@ -112,14 +118,14 @@ const EditProperty = ({
       buildingName: buildingName,
       shopDoorNo: dno,
       shopAddress: shopAddress,
-      hikePercentage: hikePercentage,
+      hike: hike,
       stampDuty: stampDuty,
       leaseTimePeriod: LeaseTime,
       Location: orgLoc,
       isSubmitted: true,
-      shopStatus: "Acquired",
+      shopStatus: "Avaiable",
     };
-    console.log(update)
+    console.log(update);
     updateProperty(update);
     handleEditModalClose();
   };
@@ -160,8 +166,8 @@ const EditProperty = ({
               </label>
               <input
                 type="text"
-                name="hikePercentage"
-                value={hikePercentage}
+                name="hike"
+                value={hike}
                 className="form-control  input"
                 readOnly
               />
@@ -211,6 +217,7 @@ const EditProperty = ({
                     primary: "black",
                   },
                 })}
+                required
               />
               <br></br>
             </div>

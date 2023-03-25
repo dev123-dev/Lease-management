@@ -14,14 +14,14 @@ const PropertySchema = new mongoose.Schema({
   shopAddress: {
     type: String,
   },
-  hikePercentage: {
+  hike: {
     type: Number,
   },
   stampDuty: {
     type: Number,
   },
   leaseTimePeriod: {
-    type: String,
+    type: Number,
   },
   OrganizationName: {
     type: String,

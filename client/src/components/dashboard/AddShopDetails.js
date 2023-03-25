@@ -5,31 +5,32 @@ import { Modal, Button } from "react-bootstrap";
 import { getParticularProperty } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import Select from "react-select";
-import {
-  getParticularOrg,
-  getParticularTenantSetting,
-} from "../../actions/tenants";
+import { getParticularOrg, getAllSettings } from "../../actions/tenants";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
-  tenants: { particular_org_loc, get_Particular_org_Tenantsetting },
+  tenants: { particular_org_loc, allTenantSetting },
   AddShopDetailsform,
   getParticularOrg,
   setShowadd,
-  getParticularTenantSetting,
+  getAllSettings,
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const [pageRefresh, SetRefresh] = useState(false);
   useEffect(() => {
-    fun();
-    getParticularOrg({ OrganizationId: myuser && myuser.OrganizationId });
-    getParticularProperty({ OrganizationId: myuser && myuser.OrganizationId });
-    getParticularTenantSetting({
-      OrganizationId: myuser && myuser.OrganizationId,
-    });
+    if (myuser) {
+      fun();
+      getParticularOrg({ OrganizationId: myuser && myuser.OrganizationId });
+      getParticularProperty({
+        OrganizationId: myuser && myuser.OrganizationId,
+      });
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
   }, [pageRefresh]);
-
   const [orgLoc, setLoc] = useState([]);
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
@@ -54,18 +55,9 @@ const AddShopDetails = ({
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
-    hikePercentage:
-      get_Particular_org_Tenantsetting &&
-      get_Particular_org_Tenantsetting[0] &&
-      get_Particular_org_Tenantsetting[0].hikePercentage,
-    stampDuty:
-      get_Particular_org_Tenantsetting &&
-      get_Particular_org_Tenantsetting[0] &&
-      get_Particular_org_Tenantsetting[0].stampDuty,
-    LeaseTime:
-      get_Particular_org_Tenantsetting &&
-      get_Particular_org_Tenantsetting[0] &&
-      get_Particular_org_Tenantsetting[0].leaseTimePeriod,
+    hike: allTenantSetting && allTenantSetting.hike,
+    stampDuty: allTenantSetting && allTenantSetting.stampDuty,
+    LeaseTime: allTenantSetting && allTenantSetting.leaseTimePeriod,
     shopAddress: "",
     isSubmitted: false,
   });
@@ -76,7 +68,7 @@ const AddShopDetails = ({
   const {
     buildingName,
     shopDoorNo,
-    hikePercentage,
+    hike,
     stampDuty,
     LeaseTime,
     shopAddress,
@@ -97,9 +89,15 @@ const AddShopDetails = ({
   const addItem = () => {
     if (!inputdata) {
     } else {
-      setshowscroll("block");
-      setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
-      setinput("");
+      let new_door = items.map((ele) => ele.doorNo === inputdata);
+      console.log("new data", new_door);
+      if (new_door.every((ele) => ele === false)) {
+        setshowscroll("block");
+        setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
+        setinput("");
+      } else {
+        alert("room number already exist");
+      }
     }
   };
 
@@ -125,7 +123,7 @@ const AddShopDetails = ({
       OrganizationId: user.OrganizationId,
       buildingName: buildingName,
       shopDoorNo: items,
-      hikePercentage: hikePercentage,
+      hike: hike,
       stampDuty: stampDuty,
       leaseTimePeriod: LeaseTime,
       shopAddress: shopAddress,
@@ -133,13 +131,13 @@ const AddShopDetails = ({
       Location: orgLoc.value,
       shopStatus: "Avaiable",
     };
-    console.log("door", items);
+    console.log(finalData);
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,
       buildingName: "",
       inputdata: "",
-      hikePercentage: "",
+      hike: "",
       stampDuty: "",
       leaseTimePeriod: "",
       address: "",
@@ -233,8 +231,8 @@ const AddShopDetails = ({
                 </label>
                 <input
                   type="text"
-                  placeholder={hikePercentage}
-                  name="hikePercentage"
+                  placeholder={hike}
+                  name="hike"
                   className="form-control  input"
                   readOnly
                 />{" "}
@@ -346,6 +344,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddShopDetailsform,
   getParticularProperty,
-  getParticularTenantSetting,
+  getAllSettings,
   getParticularOrg,
 })(AddShopDetails);
