@@ -184,7 +184,8 @@ const Header = ({
                           className="navbar-right "
                         >
                           <div className="text-light mt-3 ml-2">
-                            {user.usergroup}
+                            {user.usergroup}&nbsp;
+                            <i className="fa fa-caret-down" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           </div>
@@ -243,7 +244,8 @@ const Header = ({
                             className="navbar-right"
                           >
                             <div className="text-light mt-3 ml-2">
-                              {user.username}
+                              {user.username}&nbsp;
+                              <i className="fa fa-caret-down" />
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>

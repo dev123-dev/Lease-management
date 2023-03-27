@@ -63,7 +63,8 @@ const SuperUserDashboard = ({
     setShowEditModal(true);
   };
 
-  const onDeactive = () => {
+  const onDeactive = (e) => {
+    e.preventDefault();
     setDeactiveShow(false);
 
     const reason = {
