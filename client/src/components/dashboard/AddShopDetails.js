@@ -129,7 +129,7 @@ const AddShopDetails = ({
       shopAddress: shopAddress,
       isSubmitted: false,
       Location: orgLoc.value,
-      shopStatus: "Avaiable",
+      shopStatus: "Active",
     };
     console.log(finalData);
     AddShopDetailsform(finalData);

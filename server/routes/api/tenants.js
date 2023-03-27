@@ -245,7 +245,7 @@ router.post("/update-Property", async (req, res) => {
             stampDuty: data.stampDuty,
             leaseTimePeriod: data.leaseTimePeriod,
             OrganizationName: data.OrganizationName,
-            shopStatus: "Avaiable",
+            shopStatus: "Active",
           },
         }
       )

@@ -123,7 +123,7 @@ const EditProperty = ({
       leaseTimePeriod: LeaseTime,
       Location: orgLoc,
       isSubmitted: true,
-      shopStatus: "Avaiable",
+      shopStatus: "Active",
     };
     console.log(update);
     updateProperty(update);
