@@ -1325,7 +1325,9 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
-    console.log(data);
+    let doornumber = data.tenantDoorNo.map((ele) => {
+      return {};
+    });
 
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
