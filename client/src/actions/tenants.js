@@ -329,6 +329,7 @@ export const deactivateUser = (id) => async (dispatch) => {
 //deleting organization details
 export const deleteOrganization = (id) => async (dispatch) => {
   try {
+    console.log(id)
     await axios.post(
       `${linkPath}/api/tenants/deactive-Organization`,
       id,
