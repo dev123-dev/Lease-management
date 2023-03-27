@@ -29,6 +29,7 @@ import {
   EXP_ORG_DETAIL,
   EXP_ORG_COUNT,
   YEAR_EXP_COUNT_ORG,
+  GET_EDIT_TENANT_DETAILS,
 } from "./types";
 
 const config = {
@@ -385,6 +386,17 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
     dispatch({
       type: AUTH_ERROR,
     });
+  }
+};
+
+export const getTenantDetails = (data) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_EDIT_TENANT_DETAILS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 
