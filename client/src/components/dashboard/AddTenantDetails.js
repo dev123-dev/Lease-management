@@ -316,7 +316,7 @@ const AddTenantDetails = ({
     };
     console.log(finalData);
     setShowInformation(true);
-    // AddTenantDetailsform(finalData);
+    AddTenantDetailsform(finalData);
 
     setFormData({
       ...formData,
