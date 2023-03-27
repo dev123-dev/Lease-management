@@ -12,6 +12,7 @@ const TenentHistories = require("../../models/TenantHistories");
 
 router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
+  console.log(data);
   try {
     let tenantDetails = {
       OrganizationName: data.OrganizationName,
@@ -62,18 +63,20 @@ router.post("/add-tenant-details", async (req, res) => {
     output2 = await tenantHistories.save();
 
     tenantdata.shopDoorNo.map((eleDoor) => {
-      property.updateOne(
-        {
-          OrganizationId: tenantdata.OrganizationId,
-          _id: tenantdata.BuildingId,
-          shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-        },
-        {
-          $set: {
-            "shopDoorNo.$.status": "Acquired",
+      property
+        .updateOne(
+          {
+            OrganizationId: tenantdata.OrganizationId,
+            _id: tenantdata.BuildingId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
           },
-        }
-      );
+          {
+            $set: {
+              "shopDoorNo.$.status": "Acquired",
+            },
+          }
+        )
+        .then((data) => console.log(data));
     });
 
     const finalData1 = {

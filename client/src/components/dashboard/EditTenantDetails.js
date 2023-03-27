@@ -25,6 +25,7 @@ const EditTenantDetails = ({
 
   useEffect(() => {
     fun();
+    checkDoorNumber();
     getParticularProperty({ OrganizationId: myuser.OrganizationId });
     getAllSettings({
       OrganizationId: myuser && myuser.OrganizationId,
@@ -86,7 +87,6 @@ const EditTenantDetails = ({
     );
   }
 
-  const [testdno, settestdno] = useState();
   const [Dno, setDno] = useState([]);
 
   const [LocList, SetLocList] = useState([]);
@@ -95,7 +95,6 @@ const EditTenantDetails = ({
   const onchangeDoor = (e) => {
     setdno(e);
   };
-
   const LocName = [];
   AvaiableRoomBuilding.map((loc) => {
     LocName.push({
@@ -113,39 +112,78 @@ const EditTenantDetails = ({
         if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
+            console.log("x", doornumber);
             if (doornumber.status === "Avaiable") {
               temp.push({
                 label: doornumber.doorNo,
                 value: doornumber.doorNo,
-                status: "Acquired",
+                status: "Avaiable",
               });
             }
           });
           setDno(temp);
         }
       });
-
     getbuildingData(e);
     setBuildingID(e.buildingId ? e.buildingId : null);
     setBuildingName(e.label ? e : "");
 
-    if (
-      doorno.length < 1 &&
-      particular_tenant_EditData &&
-      particular_tenant_EditData.shopDoorNo.length > 0 &&
-      Dno.length > 0
-    ) {
-      particular_tenant_EditData &&
-        Dno &&
-        Dno.map((x) => {
-          particular_tenant_EditData.shopDoorNo.map((ele) => {
-            if (x.value === ele) doorNos.push(x);
-          });
-        });
-      setdno(doorNos);
-    }
+    //   if (
+    //     doorno.length < 1 &&
+    //     particular_tenant_EditData &&
+    //     particular_tenant_EditData.shopDoorNo.length > 0 &&
+    //     Dno.length > 0
+    //   ) {
+    //     particular_tenant_EditData &&
+    //       Dno &&
+    //       Dno.map((x) => {
+    //         particular_tenant_EditData.shopDoorNo.map((ele) => {
+    //           if (x.value === ele) doorNos.push(x);
+    //         });
+    //       });
+    //     setdno(doorNos);
+    //   }
   };
   // location listing end
+  const [selectedDoorNumber, setSelectedDoorNumber] = useState([]);
+  const [testdno, settestdno] = useState();
+
+  const [DnoList, SetDnoList] = useState();
+  const checkDoorNumber = () => {
+    let TenantDoor =
+      particular_tenant_EditData &&
+      particular_tenant_EditData.shopDoorNo.map((ele) => {
+        return ele;
+      });
+    console.log(TenantDoor, "yy");
+    // let RoomBuilding = particular_tenant_EditData.filter(
+    //   (item) =>
+    //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+    // );
+    // setAvaiableRoomBuilding(AvaiableRoomBuilding);
+  };
+  const onSelectChange = (inputuserdata) => {
+    let temparray = [];
+    temparray.push(...selectedDoorNumber, inputuserdata);
+    setSelectedDoorNumber(temparray);
+    setDno(Dno.filter((x) => x.value !== inputuserdata.value));
+    setFormData({
+      ...formData,
+      [inputuserdata.name]: 1,
+    });
+  };
+  const onRemoveChange = (Doornumber) => {
+    let temparray2 = [];
+    temparray2.push(...DnoList, Doornumber);
+    setDno(temparray2);
+    setSelectedDoorNumber(
+      selectedDoorNumber.filter((x) => x.value !== Doornumber.value)
+    );
+    setFormData({
+      ...formData,
+      [Doornumber.name]: 0,
+    });
+  };
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -626,6 +664,54 @@ const EditTenantDetails = ({
                   onChange={(e) => onInputChange(e)}
                   required
                 ></textarea>{" "}
+              </div>
+              <div className="row ">
+                <div
+                  className=" col-lg-6 col-md-12"
+                  style={{ border: "1px solid black", minHeight: "80px" }}
+                >
+                  {selectedDoorNumber &&
+                    selectedDoorNumber.length > 0 &&
+                    selectedDoorNumber.map((Doornumber, idx) => {
+                      return (
+                        <p key={idx} className="DoorCover">
+                          <button
+                            type="button"
+                            name="selectedWorkMistake"
+                            className="DoorNumber"
+                          >
+                            {Doornumber.value}
+                            <span
+                              className="mx-2"
+                              onClick={() => onRemoveChange(Doornumber)}
+                            >
+                              X
+                            </span>
+                          </button>
+                        </p>
+                      );
+                    })}
+                </div>
+                <div
+                  className="col-lg-6 col-md-12 col-sm-12  button_Door"
+                  style={{ border: "1px solid black", minHeight: "80px" }}
+                >
+                  {Dno &&
+                    Dno.map((DoorNumber, idx) => {
+                      return (
+                        <div key={idx}>
+                          <button
+                            type="button"
+                            name="workMistake"
+                            className="btnLink"
+                            onClick={() => onSelectChange(DoorNumber)}
+                          >
+                            {DoorNumber.value}
+                          </button>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields

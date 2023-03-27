@@ -76,7 +76,6 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const getAllSettings = (data) => async (dispatch) => {
-  console.log("act", data);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenantSetting/get-all-settings`,

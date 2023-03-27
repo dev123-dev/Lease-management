@@ -251,6 +251,7 @@ const AddTenantDetails = ({
 
   var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
   const [selectedDoorNumber, setSelectedDoorNumber] = useState([]);
+
   const onSelectChange = (inputuserdata) => {
     let temparray = [];
     temparray.push(...selectedDoorNumber, inputuserdata);
@@ -308,7 +309,7 @@ const AddTenantDetails = ({
       selectedVal: dt,
     };
     console.log(finalData);
-    // AddTenantDetailsform(finalData);
+    AddTenantDetailsform(finalData);
 
     setFormData({
       ...formData,
