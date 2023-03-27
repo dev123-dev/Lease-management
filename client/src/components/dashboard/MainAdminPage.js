@@ -70,84 +70,65 @@ const MainAdminPage = ({
     <div>
       <div className="container-fluid">
         <div className="col">
-          <h2 className="heading_color mt-sm-5 pt-5 ">DashBoard </h2>
+          <h2 className="heading_color mt-sm-5 pt-5">DashBoard </h2>
           <hr></hr>
         </div>
-        <div className="row">
-          <div className="col-lg-1"></div>
-          <div className="col-lg-5">
-            <div
-              className="  row card h3 text-center pt-5  col-sm-12"
-              id="shadow-bck"
-            >
-              <div className="col-lg-1"></div>
-              <div className="col-lg-10 text-center">
-                {" "}
-                <img src={prop} alt="x" height="40%" width="20%"></img>
-                <br></br>
-                Total Property Count
-                {/* <div>{PropertyCount}</div> */}
-                <div>{particular_org_data && particular_org_data.length}</div>
+
+        {/* upper box */}
+        <div className="row text-center">
+          <div className="col-lg-6">
+
+
+            
+            <div className="col-lg-10 text-center card border border-secondary mt-3">
+              <div>
+                <img src={prop} alt="x" height="100%" width="20%" />
               </div>
-              <div className="col-lg-1"></div>
+              Total Property Count
+              <div >
+                {particular_org_data && particular_org_data.length}
+              </div>
             </div>
           </div>
-          <div className="col-lg-5">
-            {" "}
-            <div
-              className="  row card h3 text-center pt-5  col-sm-12"
-              id="shadow-bck"
-            >
-              <div className="col-lg-1"></div>
-              <div className="col-lg-10 text-center">
-                {" "}
-                <img src={unprop} alt="x" height="35%" width="15%"></img>
-                <br></br>
-                Unoccupied Property
-                <div>{ShopStatus && ShopStatus.length}</div>
+
+          <div className="col-lg-6">
+            <div className="col-lg-10 text-center card border border-secondary  mt-3">
+              <div>
+                <img
+                  src={unprop}
+                  alt="x"
+                  height="100%"
+                  width="20%"
+                  className=""
+                />
               </div>
-              <div className="col-lg-1"></div>
+              Unoccupied Property
+              <div>{ShopStatus && ShopStatus.length}</div>
             </div>
           </div>
-          <div className="col-lg-1"></div>
         </div>
-        <div className="row">
-          <div className="col-lg-1"></div>
-          <div className="col-lg-5">
-            {" "}
-            <div
-              className="  row card h3 text-center pt-5  col-sm-12"
-              id="shadow-bck"
-            >
-              <div className="col-lg-1"></div>
-              <div className="col-lg-10 text-center">
-                {" "}
-                <img src={people} alt="x" height="35%" width="15%"></img>
-                <br></br>
-                No of Tenants Count
-                <div>{tenantCount.length}</div>
+
+        {/* down boxs */}
+        <div className="row mt-2">
+          <div className="col-lg-6 col-sm-1">
+            <div className="col-lg-10 text-center card border border-secondary">
+              <div>
+                <img src={people} alt="x" height="100%" width="20%" />
               </div>
-              <div className="col-lg-1"></div>
+              No of Tenants Count
+              <div>{tenantCount.length}</div>
             </div>
           </div>
-          <div className="col-lg-5">
-            {" "}
-            <div
-              className="  row card h3 text-center pt-5  col-sm-12"
-              id="shadow-bck"
-            >
-              <div className="col-lg-1"></div>
-              <div className="col-lg-10 text-center">
-                {" "}
-                <img src={money} alt="x" height="35%" width="15%"></img>
-                <br></br>
-                Total Renewal
-                <div> {total}</div>
+
+          <div className="col-lg-6 col-sm-1">
+            <div className="col-lg-10 text-center card border border-secondary  mt-3">
+              <div>
+                <img src={money} alt="x" height="100%" width="20%" />
               </div>
-              <div className="col-lg-1"></div>
+              Total Renewal
+              <div> {total}</div>
             </div>
           </div>
-          <div className="col-lg-1"></div>
         </div>
       </div>
     </div>
