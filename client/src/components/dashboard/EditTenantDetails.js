@@ -23,6 +23,7 @@ const EditTenantDetails = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
 
+
   useEffect(() => {
     fun();
     checkDoorNumber();
@@ -32,6 +33,11 @@ const EditTenantDetails = ({
       userId: myuser && myuser._id,
     });
   }, []);
+
+
+
+
+
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data.filter(
@@ -40,6 +46,10 @@ const EditTenantDetails = ({
     );
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
+
+
+  
+
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
   const allBuildingNames = [];
@@ -50,6 +60,10 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
+
+
+//
+//console.log("edit data",particular_tenant_EditData.shopDoorNo);
 
   // building name start
 
@@ -87,9 +101,9 @@ const EditTenantDetails = ({
     );
   }
 
-  const [Dno, setDno] = useState([]);
+  const [Dno, setDno] = useState([])    //[]);
 
-  const [LocList, SetLocList] = useState([]);
+  const [LocList, SetLocList] = useState();
   const [doorno, setdno] = useState([]);
   let doorNos = [];
   const onchangeDoor = (e) => {
@@ -112,7 +126,7 @@ const EditTenantDetails = ({
         if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
-            console.log("x", doornumber);
+            //console.log("x", doornumber);
             if (doornumber.status === "Avaiable") {
               temp.push({
                 label: doornumber.doorNo,
@@ -145,7 +159,7 @@ const EditTenantDetails = ({
     //   }
   };
   // location listing end
-  const [selectedDoorNumber, setSelectedDoorNumber] = useState([]);
+  //const [selectedDoorNumber, setSelectedDoorNumber] = useState(particular_tenant_EditData.shopDoorNo);
   const [testdno, settestdno] = useState();
 
   const [DnoList, SetDnoList] = useState();
@@ -155,35 +169,56 @@ const EditTenantDetails = ({
       particular_tenant_EditData.shopDoorNo.map((ele) => {
         return ele;
       });
-    console.log(TenantDoor, "yy");
+    //console.log(TenantDoor, "yy");
     // let RoomBuilding = particular_tenant_EditData.filter(
     //   (item) =>
     //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
     // );
     // setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
+
+  const[selectedDno,setSelectedDno]=useState(particular_tenant_EditData.shopDoorNo);
+
+  const[unselectedDno, setUnselectedDno]=useState(particular_org_data[0].shopDoorNo.filter((ele)=>ele.status!=="Deleted the Door Number" && ele.status!=="Acquired"))
+  
+  console.log("selectedDno",selectedDno);
+  console.log("unselectedDno",unselectedDno);
+  
+
+
   const onSelectChange = (inputuserdata) => {
-    let temparray = [];
-    temparray.push(...selectedDoorNumber, inputuserdata);
-    setSelectedDoorNumber(temparray);
-    setDno(Dno.filter((x) => x.value !== inputuserdata.value));
-    setFormData({
-      ...formData,
-      [inputuserdata.name]: 1,
-    });
+    setUnselectedDno(unselectedDno.filter((ele)=>ele.doorNo !==inputuserdata.doorNo ));
+    console.log("one data",inputuserdata);
+    console.log("full arr",selectedDno);
+    setSelectedDno([...selectedDno,{label: inputuserdata.doorNo, value: inputuserdata.doorNo, status: inputuserdata.status}])
+    
+    
+    // let temparray = [];
+    // temparray.push(...selectedDoorNumber, inputuserdata);
+    // setSelectedDoorNumber(temparray);
+    // setDno(Dno.filter((x) => x.value !== inputuserdata.doorNo));
+    // setFormData({
+    //   ...formData,
+    //   [inputuserdata.name]: 1,
+    // });
   };
-  const onRemoveChange = (Doornumber) => {
-    let temparray2 = [];
-    temparray2.push(...DnoList, Doornumber);
-    setDno(temparray2);
-    setSelectedDoorNumber(
-      selectedDoorNumber.filter((x) => x.value !== Doornumber.value)
-    );
-    setFormData({
-      ...formData,
-      [Doornumber.name]: 0,
-    });
-  };
+   const onRemoveChange = (Doornumber) => {
+    console.log("x",Doornumber); //val labl status
+
+setSelectedDno(selectedDno.filter((ele)=>ele.label!==Doornumber.label))
+setUnselectedDno([...unselectedDno,
+  {doorNo: Doornumber.label, status: 'Avaiable'}])
+  //   let temparray2 = [];
+  //   temparray2.push(...DnoList, Doornumber);
+  //   setDno(temparray2);
+  //   setSelectedDoorNumber(
+  //     selectedDoorNumber.filter((x) => x.value !== Doornumber.value)
+  //   );
+  //   setFormData({
+  //     ...formData,
+  //     [Doornumber.name]: 0,
+  //   });
+   };
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -665,14 +700,18 @@ const EditTenantDetails = ({
                   required
                 ></textarea>{" "}
               </div>
+
+
+              {/*  switch */}
               <div className="row ">
+              
                 <div
                   className=" col-lg-6 col-md-12"
                   style={{ border: "1px solid black", minHeight: "80px" }}
-                >
-                  {selectedDoorNumber &&
-                    selectedDoorNumber.length > 0 &&
-                    selectedDoorNumber.map((Doornumber, idx) => {
+                >Seleted 
+                  {selectedDno && 
+                    selectedDno.length > 0 &&
+                    selectedDno.map((Doornumber, idx) => {
                       return (
                         <p key={idx} className="DoorCover">
                           <button
@@ -695,9 +734,9 @@ const EditTenantDetails = ({
                 <div
                   className="col-lg-6 col-md-12 col-sm-12  button_Door"
                   style={{ border: "1px solid black", minHeight: "80px" }}
-                >
-                  {Dno &&
-                    Dno.map((DoorNumber, idx) => {
+                >to Select
+                  {unselectedDno &&
+                    unselectedDno.map((DoorNumber, idx) => {
                       return (
                         <div key={idx}>
                           <button
@@ -706,13 +745,14 @@ const EditTenantDetails = ({
                             className="btnLink"
                             onClick={() => onSelectChange(DoorNumber)}
                           >
-                            {DoorNumber.value}
+                            {DoorNumber.doorNo}
                           </button>
                         </div>
                       );
                     })}
                 </div>
               </div>
+              {/* end switch */}
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
