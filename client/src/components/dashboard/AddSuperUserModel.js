@@ -281,6 +281,7 @@ const AddSuperUserModel = ({
                   placeholder="Email"
                   value={email}
                   className="form-control"
+                  autoComplete="new-password"
                   onChange={(e) => onuserchange(e)}
                   required
                 />
@@ -327,6 +328,8 @@ const AddSuperUserModel = ({
                     name="password"
                     id="user_password"
                     type="password"
+                    placeholder="Password"
+                    autoComplete="new-password"
                     value={password}
                     className="form-control"
                     style={passwordInptErrStyle}
@@ -347,9 +350,10 @@ const AddSuperUserModel = ({
                   <input
                     name="rePassword"
                     id="user_confpass"
+                    placeholder="Confirm Password"
                     type="password"
                     value={rePassword}
-                    autoComplete="off"
+                    autoComplete="new-password"
                     className="form-control"
                     style={repwdInptErrStyle}
                     onChange={(e) => onPasswordChange(e)}
