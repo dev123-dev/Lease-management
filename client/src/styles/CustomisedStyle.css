@@ -2471,3 +2471,18 @@ div {
   margin-left: 0%;
   width: 165%;
 }
+.DoorNumber {
+  margin: 30%;
+  width: 125%;
+  border: 2px solid gray;
+  border-radius: 15%;
+  padding: 7%;
+}
+.DoorCover {
+  position: relative;
+  width: fit-content;
+}
+#button_Door {
+  background-color: #095a4a;
+  width: fit-content;
+}
