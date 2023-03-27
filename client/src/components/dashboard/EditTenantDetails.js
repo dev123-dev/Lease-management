@@ -253,6 +253,7 @@ setUnselectedDno([...unselectedDno,
       });
     }
   };
+  console.log("f no", particular_tenant_EditData)
   const [formData, setFormData] = useState({
     isSubmitted: false,
     BuildingName: particular_tenant_EditData.BuildingName,
