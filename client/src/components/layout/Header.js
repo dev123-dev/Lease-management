@@ -1,9 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Container, Navbar, Nav, Modal } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
+
+import { NavItem } from "react-bootstrap";
+
+import { Link, NavLink } from "react-router-dom";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 import "react-datepicker/dist/react-datepicker.css";
 import TenantSettings from "../dashboard/TenantSettings";
@@ -36,7 +41,10 @@ const Header = ({
   const [showTenantSetting, setTenantSetting] = useState(false);
 
   const handleLogoutModalClose = () => setShowLogout(false);
-  const handleLogoutModalShow = () => setShowLogout(true);
+  const handleLogoutModalShow = () => {
+    console.log("clecked");
+    setShowLogout(true);
+  };
   const handleTenantSettingModalClose = () => setTenantSetting(false);
   const handleTenantSettingModalShow = () => setTenantSetting(true);
 
@@ -51,162 +59,392 @@ const Header = ({
     }
   };
   const openSecondLevelMenu2 = () => {
-    const menu = document.getElementById("second-level-menu2");
-    if (window.innerWidth <= 992) {
-      if (menu) {
-        if (menu.style.display === "block") {
-          menu.style.display = "none";
-        } else {
-          menu.style.display = "block";
-        }
-      } else {
-        // menu.style.display = "none";
-      }
-    }
+    // const menu = document.getElementById("second-level-menu2");
+    // if (window.innerWidth <= 992) {
+    //   if (menu) {
+    //     if (menu.style.display === "block") {
+    //       menu.style.display = "none";
+    //     } else {
+    //       menu.style.display = "block";
+    //     }
+    //   } else {
+    //     // menu.style.display = "none";
+    //   }
+    // }
   };
 
   return (
     <Fragment>
-      {/* header starting */}
       <header>
-        <Container id="header_navbar">
-          <Navbar
-            className="navbar_height top_menu"
-            expand="lg"
-            fixed="top"
-            // style={{ padding: "4px 1em" }}
-          >
+        <Navbar
+          className="navbar_height top_menu"
+          expand="lg"
+          fixed="top"
+          style={{ padding: "0px 1em" }}
+        >
+          {!loading && isAuthenticated && user && user.usergroup === "Admin" ? (
             <Navbar.Brand>
-              {!loading &&
-              isAuthenticated &&
-              user &&
-              user.usergroup === "Super Admin" ? (
-                <NavLink to="/MainSuper">
-                  <img
-                    className="log_size"
-                    alt="Pinnacle Media"
-                    src={require("../../static/images/lraLogo_wh.png")}
-                  />{" "}
-                </NavLink>
-              ) : (
-                <NavLink to="/MainAdmin">
-                  <img
-                    className="log_size"
-                    alt="Pinnacle Media"
-                    src={require("../../static/images/lraLogo_wh.png")}
-                  />{" "}
-                </NavLink>
-              )}
+              <NavLink to="/MainAdmin">
+                <img
+                  className="Icon p-2 log_size"
+                  alt="Pinnacle Media"
+                  src={require("../../static/images/lraLogo_wh.png")}
+                  title="Dashboard"
+                />
+              </NavLink>
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" className="nvbar" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              {!loading && isAuthenticated && user ? (
-                <>
-                  <Nav
-                    className="mr-auto navbar_Collapse_content"
-                    id="org_detail"
+          ) : (
+            <Navbar.Brand></Navbar.Brand>
+          )}
+          {!loading &&
+          isAuthenticated &&
+          user &&
+          user.usergroup === "Super Admin" ? (
+            <Navbar.Brand>
+              <NavLink to="/MainSuper">
+                <img
+                  className="Icon p-2 log_size"
+                  alt="Pinnacle Media"
+                  src={require("../../static/images/lraLogo_wh.png")}
+                  title="Dashboard"
+                />
+              </NavLink>
+            </Navbar.Brand>
+          ) : (
+            <Navbar.Brand></Navbar.Brand>
+          )}
+
+          <Navbar.Toggle aria-controls="basic-navbar-nav" className="nvbar" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto navbar_Collapse_content" id="org_detail">
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Super Admin" ? (
+                  <NavLink
+                    to="/Super"
+                    id="hea"
+                    className="navlink headinghover   "
+                    activeStyle={{
+                      color: "#e8a317",
+
+                      textDecoration: "none",
+                    }}
                   >
-                    {/* add property & user */}
-                    {!loading &&
-                    isAuthenticated &&
-                    user &&
-                    user.usergroup === "Super Admin" ? (
-                      <>
-                        {/* Organization details */}
-                        &nbsp; &nbsp;
-                        <NavLink
-                          className="p-1 ml-4 headinghover"
-                          id="hea"
-                          to="/Super"
-                        >
-                          OrganisationDetails
-                        </NavLink>
-                        {/* user details */}
-                        <NavLink
-                          className="p-1 ml-4 headinghover"
-                          id="hea"
-                          to="/SuperUser"
-                        >
-                          UserDetails
-                        </NavLink>
-                      </>
-                    ) : (
-                      <>
-                        <Navbar.Brand>
-                          <NavLink to="/MainAdminPage"></NavLink>
-                        </Navbar.Brand>
-                        {/* PROPERTY DEtails */}
-                        <NavLink
-                          className="p-3 ml-4 headinghover"
-                          id="hea"
-                          // id="head"
-                          to="/PropertyDetail"
-                        >
-                          Property
-                        </NavLink>
+                    OrganisationDetails
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem></NavItem>
+                )}
+              </NavItem>
 
-                        {/* tenant details */}
-                        <NavLink
-                          className="p-3 ml-4 headinghover"
-                          id="hea"
-                          to="/tenant-detail"
-                        >
-                          Tenant
-                        </NavLink>
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Super Admin" ? (
+                  <NavLink
+                    to="/SuperUser"
+                    id="hea"
+                    className="navlink"
+                    activeStyle={{
+                      color: "#e8a317",
 
-                        {/* adding admin side user page */}
-                        <NavLink
-                          className="p-3 ml-4 headinghover"
-                          id="hea"
-                          to="/AdminUser"
-                        >
-                          User
-                        </NavLink>
-                      </>
-                    )}
-                  </Nav>
-                </>
-              ) : (
-                <></>
-              )}
+                      textDecoration: "none",
+                    }}
+                  >
+                    UserDetails
+                  </NavLink>
+                ) : (
+                  <></>
+                )}
+              </NavItem>
 
-              {!loading &&
-              isAuthenticated &&
-              user &&
-              user.usergroup === "Super Admin" ? (
-                <Fragment>
-                  <Nav>
-                    <ul className="top-level-menu text-left">
-                      <li>
-                        <Link
-                          to="#"
-                          onClick={() => handleLogoutModalShow()}
-                          className="navbar-right "
+              {/* admin page */}
+              <NavItem>
+                {(!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Admin") ||
+                (!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Clerk") ? (
+                  <NavLink
+                    to="/PropertyDetail"
+                    className="navlink   headinghover"
+                    id="hea"
+                    activeStyle={{
+                      color: "#e8a317",
+
+                      textDecoration: "none",
+                    }}
+                  >
+                    Property
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem></NavItem>
+                )}
+              </NavItem>
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Admin" ? (
+                  <NavLink
+                    to="/tenant-detail"
+                    className="navlink  headinghover"
+                    id="hea"
+                    activeStyle={{
+                      color: "#e8a317",
+
+                      textDecoration: "none",
+                    }}
+                  >
+                    Tenant
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem>gg</NavItem>
+                )}
+              </NavItem>
+
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Admin" ? (
+                  <NavLink
+                    to="/AdminUser"
+                    className="navlink  headinghover navbar-right "
+                    id="hea"
+                    activeStyle={{
+                      color: "#e8a317",
+
+                      textDecoration: "none",
+                    }}
+                  >
+                    User
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem>gg</NavItem>
+                )}
+              </NavItem>
+            </Nav>
+
+            {!loading && isAuthenticated && user ? (
+              <>
+                {user.usergroup === "Super Admin" ? (
+                  <>
+                    <Nav>
+                      <ul className="top-level-menu text-left">
+                        <li>
+                          <Link
+                            to="#"
+                            // onClick={() => handleLogoutModalShow()}
+                            className="navbar-right py-2 "
+                          >
+                            {user.usergroup} &nbsp;
+                            <i className="fa fa-caret-down" />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          </Link>
+
+                          <ul className="dropdown-menu second-level-menu ">
+                            <li className="hwhite drophover">
+                              <Link
+                                to="#"
+                                className="navlinkitem"
+                                onClick={() => handleLogoutModalShow()}
+                              >
+                                Logout
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </Nav>
+                    {/* Logout Modal */}
+                    <Modal
+                      show={showLogout}
+                      backdrop="static"
+                      keyboard={false}
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                      className="logout-modal"
+                    >
+                      <Modal.Header className="confirmbox-heading">
+                        <h4 className="mt-0 mr-5 text-center">
+                          CONFIRMATION&nbsp;&nbsp;
+                        </h4>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <h5>
+                          Are you sure you want to
+                          logout?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </h5>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <button
+                          id="logoutbtn"
+                          onClick={() => LogoutModalClose()}
                         >
-                          <div className="text-light mt-3 ml-2">
+                          <b>YES</b>
+                        </button>
+                        <button
+                          id="logoutbtn"
+                          onClick={() => handleLogoutModalClose()}
+                        >
+                          <b>NO</b>
+                        </button>
+                      </Modal.Footer>
+                    </Modal>
+                  </>
+                ) : (
+                  <>
+                    <Nav>
+                      <ul className="top-level-menu text-left">
+                        <li>
+                          <Link
+                            to="#"
+                            onClick={() => openSecondLevelMenu2()}
+                            className="navbar-right py-2 "
+                          >
                             {user.usergroup}&nbsp;
                             <i className="fa fa-caret-down" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                          </div>
-                        </Link>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                          </Link>
 
-                        <ul className="dropdown-menu second-level-menu ">
-                          <li className="hwhite  drophover ">
-                            <Link
-                              to="#"
-                              className=""
-                              onClick={() => handleLogoutModalShow()}
-                            >
-                              Logout
-                            </Link>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </Nav>
+                          <ul className="dropdown-menu second-level-menu ">
+                            {!loading &&
+                            isAuthenticated &&
+                            user &&
+                            user.usergroup === "Admin" ? (
+                              <li className="hwhite">
+                                <Link
+                                  to="#"
+                                  className="navlinkitem"
+                                  onClick={() => handleTenantSettingModalShow()}
+                                >
+                                  Tenant Setting
+                                </Link>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+                            {!loading &&
+                            isAuthenticated &&
+                            user &&
+                            user.usergroup === "Admin" ? (
+                              <li className="hwhite">
+                                <Link
+                                  to="/change-password"
+                                  className="navlinkitem"
+                                >
+                                  Change Password
+                                </Link>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+
+                            <li className="hwhite">
+                              <Link
+                                to="#"
+                                className="navlinkitem"
+                                onClick={() => handleLogoutModalShow()}
+                              >
+                                Logout
+                              </Link>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </Nav>
+                    {/* Logout Modal */}
+                    <Modal
+                      show={showLogout}
+                      backdrop="static"
+                      keyboard={false}
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                      className="logout-modal"
+                    >
+                      <Modal.Header className="confirmbox-heading">
+                        <h4 className="mt-0 mr-5 text-center">
+                          CONFIRMATION&nbsp;&nbsp;
+                        </h4>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <h5>
+                          Are you sure you want to
+                          logout?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </h5>
+                      </Modal.Body>
+                      <Modal.Footer>
+                        <button
+                          id="logoutbtn"
+                          onClick={() => LogoutModalClose()}
+                        >
+                          <b>YES</b>
+                        </button>
+                        <button
+                          id="logoutbtn"
+                          onClick={() => handleLogoutModalClose()}
+                        >
+                          <b>NO</b>
+                        </button>
+                      </Modal.Footer>
+                    </Modal>
+                    {/*Tenant Settings Modal */}
+                    <Modal
+                      show={showTenantSetting}
+                      backdrop="static"
+                      keyboard={false}
+                      size="md"
+                      aria-labelledby="contained-modal-title-vcenter"
+                      centered
+                    >
+                      <Modal.Header>
+                        <div className="col-lg-10">
+                          <h3 className="modal-title text-center">
+                            Tenant Setting
+                          </h3>
+                        </div>
+                        <div className="col-lg-2">
+                          <button
+                            onClick={handleTenantSettingModalClose}
+                            className="close"
+                          >
+                            <img
+                              src={require("../../static/images/close.png")}
+                              alt="X"
+                              style={{ height: "20px", width: "20px" }}
+                            />
+                          </button>
+                        </div>
+                      </Modal.Header>
+                      <Modal.Body>
+                        <TenantSettings
+                          onAddSettingModalChange={onAddSettingModalChange}
+                        />
+                      </Modal.Body>
+                    </Modal>
+                  </>
+                )}
+              </>
+            ) : (
+              <Fragment>
+                <Nav>
+                  <NavItem></NavItem>
 
                   <Modal
+                    style={{ background: "#514968" }}
                     show={showLogin}
                     backdrop="static"
                     keyboard={false}
@@ -215,133 +453,15 @@ const Header = ({
                   >
                     <Modal.Header></Modal.Header>
                     <Modal.Body>
-                      <button
-                        onClick={() => handleLogoutModalClose()}
-                        className="close"
-                      >
-                        <img
-                          src={require("../../static/images/close.png")}
-                          alt="X"
-                        />
-                      </button>
                       <Login />
                     </Modal.Body>
                   </Modal>
-                </Fragment>
-              ) : (
-                // starting
-                <>
-                  {!loading &&
-                  isAuthenticated &&
-                  user &&
-                  user.usergroup === "Admin" ? (
-                    <Nav>
-                      <ul className="top-level-menu text-left ">
-                        <li>
-                          <Link
-                            to="#"
-                            onClick={() => openSecondLevelMenu2()}
-                            className="navbar-right"
-                          >
-                            <div className="text-light mt-3 ml-2">
-                              {user.username}&nbsp;
-                              <i className="fa fa-caret-down" />
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                          </Link>
-                          <ul className="dropdown-menu second-level-menu ">
-                            <li className=" hwhite  drophover ">
-                              <Link
-                                to="#"
-                                onClick={() => handleTenantSettingModalShow()}
-                              >
-                                Tenant Setting
-                              </Link>
-                            </li>
-
-                            <li className="hwhite drophover ">
-                              <Link to="/change-password">Change Password</Link>
-                            </li>
-                            <li className="hwhite drophover ">
-                              <Link
-                                to="#"
-                                onClick={() => handleLogoutModalShow()}
-                              >
-                                Logout{" "}
-                              </Link>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </Nav>
-                  ) : (
-                    <></>
-                  )}
-                </>
-                //ending
-              )}
-            </Navbar.Collapse>
-          </Navbar>
-        </Container>
-
-        {/*Tenant Settings Modal */}
-        <Modal
-          show={showTenantSetting}
-          backdrop="static"
-          keyboard={false}
-          size="md"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header>
-            <div className="col-lg-10">
-              <h3 className="modal-title text-center">Tenant Setting</h3>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={handleTenantSettingModalClose} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <TenantSettings onAddSettingModalChange={onAddSettingModalChange} />
-          </Modal.Body>
-        </Modal>
-
-        {/* Logout Modal */}
-        <Modal
-          show={showLogout}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal"
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0 mr-5 text-center">CONFIRMATION&nbsp;&nbsp;</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>
-              Are you sure you want to
-              logout?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <button id="logoutbtn" onClick={() => LogoutModalClose()}>
-              <b>YES</b>
-            </button>
-            <button id="logoutbtn" onClick={() => handleLogoutModalClose()}>
-              <b>NO</b>
-            </button>
-          </Modal.Footer>
-        </Modal>
+                </Nav>
+              </Fragment>
+            )}
+          </Navbar.Collapse>
+        </Navbar>
       </header>
-      {/* header ending */}
     </Fragment>
   );
 };
