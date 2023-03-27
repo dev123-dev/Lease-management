@@ -257,8 +257,8 @@ footer.footer .top_top {
 }
 
 .log_size {
-  width: 116px;
-  height: 48px;
+  width: 105px;
+  height: 45px;
   margin-top: 0px;
 }
 
@@ -1179,7 +1179,7 @@ label {
     background-color: white;
     margin-top: 50%;
     margin-left: -45%;
-    width: 250%;
+    width: 200%;
     padding: 5%;
   }
   .top_box {
@@ -1193,10 +1193,8 @@ label {
     background-color: #ffffff;
   }
   .yearpicker {
-    /* text-align: center;
-    font-weight: bold;
-    border-radius: 10px; */
-    width: 250%;
+   
+    width: 230%;
     margin-left: -60%;
     text-align: center;
   }

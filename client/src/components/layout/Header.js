@@ -74,7 +74,7 @@ const Header = ({
             className="navbar_height top_menu"
             expand="lg"
             fixed="top"
-            style={{ padding: "4px 1em" }}
+            // style={{ padding: "4px 1em" }}
           >
             <Navbar.Brand>
               {!loading &&
