@@ -65,7 +65,7 @@ const TenantReport = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color"> DashBoard </h2>
+                  <h2 className="heading_color"> Organization Report </h2>
                 </div>
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
                   <img
@@ -86,12 +86,12 @@ const TenantReport = ({
                       >
                         <thead>
                           <tr>
-                            <th>Main page Name</th>
+                            <th> Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>StartDate</th>
                             <th>End D</th>
-                            <th>Org-Status</th>
+                            <th>Status</th>
                             <th>Operation</th>
                           </tr>
                         </thead>
@@ -99,13 +99,19 @@ const TenantReport = ({
                           {exp_org_detail &&
                             exp_org_detail[0] &&
                             exp_org_detail.map((org, index) => {
+                              var ED = org.enddate && org.enddate.split(/\D/g);
+                              var EndDate = [
+                                ED && ED[2],
+                                ED && ED[1],
+                                ED && ED[0],
+                              ].join("-");
                               return (
                                 <tr>
                                   <td>{org.OrganizationName}</td>
                                   <td>{org.OrganizationEmail}</td>
                                   <td>{org.OrganizationNumber}</td>
                                   <td>{org.date}</td>
-                                  <td>{org.enddate}</td>
+                                  <td>{EndDate}</td>
                                   <td>{org.AgreementStatus}</td>
 
                                   <td>

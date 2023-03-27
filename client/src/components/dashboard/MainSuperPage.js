@@ -86,7 +86,7 @@ const MainSuperPage = ({
                       <th>Phone</th>
                       <th>Address</th>
                       <th>Org-Status</th>
-                      <th>Agreement Status</th>
+                      <th>Status</th>
                       <th>Start Date</th>
                       <th>End Date</th>
                       <th>Renewal</th>

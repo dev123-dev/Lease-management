@@ -64,74 +64,121 @@ const MainAdminPage = ({
     setPropertyCount(pCount);
   };
   return !isAuthenticated || !user || loading ? (
-    // <Roller />
+    
     <></>
   ) : (
-    <div>
-      <div className="container-fluid">
-        <div className="col">
-          <h2 className="heading_color mt-sm-5 pt-5">DashBoard </h2>
-          <hr></hr>
-        </div>
-
-        {/* upper box */}
-        <div className="row text-center">
-          <div className="col-lg-6">
-
-
-            
-            <div className="col-lg-10 text-center card border border-secondary mt-3">
-              <div>
-                <img src={prop} alt="x" height="100%" width="20%" />
-              </div>
-              Total Property Count
-              <div >
-                {particular_org_data && particular_org_data.length}
-              </div>
-            </div>
+    <>
+    <div style={{ border: "1px solid transparent" }}>
+      <div className="container container_align   ">
+        <div>
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 text-left">
+            <h1
+              style={{
+                fontFamily: "Serif",
+                color: "#095a4a",
+              }}
+              className="font-weight-bold "
+            >
+              <span
+                className="font-weight-bold "
+                style={{
+                  fontFamily: "Serif",
+                }}
+              >
+                {user && user.orgName}
+              </span>
+              <span
+                style={{ fontFamily: "Serif" }}
+                className=" text-right font-weight-bold"
+              >
+                {" "}
+                Dashboard
+              </span>
+            </h1>
+            {/* <br />
+          <br /> */}
           </div>
 
-          <div className="col-lg-6">
-            <div className="col-lg-10 text-center card border border-secondary  mt-3">
-              <div>
-                <img
-                  src={unprop}
-                  alt="x"
-                  height="100%"
-                  width="20%"
-                  className=""
-                />
+          <section
+            className="sub_reg"
+            style={{
+              backgroundColor: "transparent",
+            }}
+          >
+            <div className="row">
+              <div className="col-lg-1"></div>
+              <div
+                className="col-lg-5 card h2 text-center pt-5 "
+                id="shadow-bck"
+              >
+                <div className="text-center">
+                  <img
+                    className="img_icon_sizeDashboard log "
+                    src={prop}
+                    alt="Property"
+                  />
+                   <p align="center"><h2>Property Count<br></br>  {particular_org_data && particular_org_data.length}</h2></p>
+                </div>
+               
               </div>
-              Unoccupied Property
-              <div>{ShopStatus && ShopStatus.length}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* down boxs */}
-        <div className="row mt-2">
-          <div className="col-lg-6 col-sm-1">
-            <div className="col-lg-10 text-center card border border-secondary">
-              <div>
-                <img src={people} alt="x" height="100%" width="20%" />
+              <div
+                className="col-lg-5 card  h2 text-center pt-5"
+                id="shadow-bck"
+              >
+                <div className="text-center">
+                  <img
+                    className="img_icon_sizeDashboard log "
+                    src={unprop}
+                    alt="Unoccupied property"
+                  />
+                   <p align="center"><h2>Unoccupied Property<br></br>{ShopStatus && ShopStatus.length}</h2></p>
+                </div>
+                <div>
+                 
+                
+                </div>
               </div>
-              No of Tenants Count
-              <div>{tenantCount.length}</div>
+              <div className="col-lg-1"></div>
             </div>
-          </div>
-
-          <div className="col-lg-6 col-sm-1">
-            <div className="col-lg-10 text-center card border border-secondary  mt-3">
-              <div>
-                <img src={money} alt="x" height="100%" width="20%" />
+            <div className="row">
+              <div className="col-lg-1"></div>
+              <div
+                className="col-lg-5 card h2 text-center pt-5"
+                id="shadow-bck"
+              >
+                <div className="text-center">
+                  <img
+                    className="img_icon_sizeDashboard log "
+                    src={people} 
+                    alt="Tenant Count"
+                  />
+                   <p ><h2>No of Tenant Count<br></br>{tenantCount.length}</h2></p>
+                </div>
+                
               </div>
-              Total Renewal
-              <div> {total}</div>
+              <div
+                className="col-lg-5 card h2 text-center pt-5 "
+                id="shadow-bck"
+              >
+                <div className="text-center">
+                  <img
+                    className="img_icon_sizeDashboard log "
+                    src={money}
+                    alt="Renewal"
+                  /> 
+                   <p align="center"><h2 align="center"> Total Renewal<br></br>{total}</h2></p>
+                  
+                </div>
+               
+              </div>
+              <div className="col-lg-1"></div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
+  </>
+   
   );
 };
 const mapStateToProps = (state) => ({
