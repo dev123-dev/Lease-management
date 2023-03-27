@@ -5,6 +5,7 @@ import {
   ParticularTenant,
   getParticularOrg,
   getParticularProperty,
+  getTenantDetails,
   deactiveTenantsDetails,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
@@ -24,6 +25,7 @@ const Tenant_Details = ({
   ParticularTenant,
   getParticularOrg,
   getParticularProperty,
+  getTenantDetails,
   deactiveTenantsDetails,
 }) => {
   const [freshpage, setFreshPage] = useState(true);
@@ -87,7 +89,7 @@ const Tenant_Details = ({
 
   const [showEditModal, setShowEditModal] = useState(false);
   const onEdit = (val) => {
-    setShowEditModal(true);
+    getTenantDetails(val);
     setEditTenant(val);
   };
 
@@ -302,14 +304,16 @@ const Tenant_Details = ({
 
                                   {Val.tenantstatus === "Active" ? (
                                     <td className=" text-center">
-                                      <img
-                                        className="Cursor  "
-                                        onClick={() => onEdit(Val)}
-                                        src={require("../../static/images/edit_icon.png")}
-                                        alt="Edit"
-                                        title="Edit"
-                                      />{" "}
-                                      &nbsp;
+                                      <Link to="/edit-tenant-details">
+                                        <img
+                                          className="Cursor  "
+                                          onClick={() => onEdit(Val)}
+                                          src={require("../../static/images/edit_icon.png")}
+                                          alt="Edit"
+                                          title="Edit"
+                                        />{" "}
+                                        &nbsp;
+                                      </Link>
                                       <img
                                         className="Cursor "
                                         onClick={() =>
@@ -373,41 +377,6 @@ const Tenant_Details = ({
         </Modal>
         {/* add model end */}
 
-        {/* Edit start */}
-        <Modal
-          show={showEditModal}
-          backdrop="static"
-          keyboard={false}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-        >
-          <Modal.Header>
-            <div className="col-lg-10">
-              <div className="ml-4">
-                <b className="text-center h3 ml-4">Edit Tenant Details </b>
-              </div>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={() => handleEditModalClose()} className="close">
-                <img
-                  className="editcl"
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-          <Modal.Body>
-            <EditTenantDetails
-              tenantsdetails={EditTenant}
-              setFreshPage={setFreshPage}
-              freshpage={freshpage}
-              setShowEditModal={setShowEditModal}
-            />
-          </Modal.Body>
-        </Modal>
         {/* Edit end*/}
       </Fragment>
       {/* deactivate start */}
@@ -534,5 +503,6 @@ export default connect(mapStateToProps, {
   ParticularTenant,
   getParticularOrg,
   getParticularProperty,
+  getTenantDetails,
   deactiveTenantsDetails,
 })(Tenant_Details);

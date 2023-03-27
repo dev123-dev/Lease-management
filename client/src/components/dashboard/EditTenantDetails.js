@@ -3,31 +3,33 @@ import { connect } from "react-redux";
 import {
   getAllTenants,
   getParticularProperty,
-  getParticularTenantSetting,
   tenantsDetailsHistory,
+  getAllSettings,
   UpdateTenantsDetails,
 } from "../../actions/tenants";
+import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import tenants from "../../reducers/tenants";
 const EditTenantDetails = ({
   auth: { isAuthenticated, user, users },
-  tenants: { particular_org_data, get_Particular_org_Tenantsetting },
-  tenantsdetails,
+  tenants: {
+    particular_org_data,
+    allTenantSetting,
+    particular_tenant_EditData,
+  },
   UpdateTenantsDetails,
-  setShowEditModal,
-  setFreshPage,
-  freshpage,
-  getAllTenants,
-  getParticularTenantSetting,
+  getAllSettings,
   getParticularProperty,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     fun();
-    getParticularProperty({ OrganizationId: user.OrganizationId });
-    getParticularTenantSetting({
-      OrganizationId: user && user.OrganizationId,
+    getParticularProperty({ OrganizationId: myuser.OrganizationId });
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
     });
-    getAllTenants();
   }, []);
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
@@ -53,15 +55,15 @@ const EditTenantDetails = ({
   const [buildingName, setBuildingName] = useState("");
   if (
     !buildingName &&
-    tenantsdetails &&
-    tenantsdetails.BuildingName &&
+    particular_tenant_EditData &&
+    particular_tenant_EditData.BuildingName &&
     allBuildingNames.length > 0
   ) {
     setBuildingName(
-      tenantsdetails
+      particular_tenant_EditData
         ? allBuildingNames &&
             allBuildingNames.filter(
-              (x) => x.label === tenantsdetails.BuildingName
+              (x) => x.label === particular_tenant_EditData.BuildingName
             )[0]
         : ""
     );
@@ -70,15 +72,15 @@ const EditTenantDetails = ({
   const [orgname, setOrgname] = useState();
   if (
     !buildingName &&
-    tenantsdetails &&
-    tenantsdetails.BuildingName &&
+    particular_tenant_EditData &&
+    particular_tenant_EditData.BuildingName &&
     allBuildingNames.length > 0
   ) {
     setBuildingName(
-      tenantsdetails
+      particular_tenant_EditData
         ? allBuildingNames &&
             allBuildingNames.filter(
-              (x) => x.label === tenantsdetails.BuildingName
+              (x) => x.label === particular_tenant_EditData.BuildingName
             )[0]
         : ""
     );
@@ -129,21 +131,20 @@ const EditTenantDetails = ({
 
     if (
       doorno.length < 1 &&
-      tenantsdetails &&
-      tenantsdetails.shopDoorNo.length > 0 &&
+      particular_tenant_EditData &&
+      particular_tenant_EditData.shopDoorNo.length > 0 &&
       Dno.length > 0
     ) {
-      tenantsdetails &&
+      particular_tenant_EditData &&
         Dno &&
         Dno.map((x) => {
-          tenantsdetails.shopDoorNo.map((ele) => {
+          particular_tenant_EditData.shopDoorNo.map((ele) => {
             if (x.value === ele) doorNos.push(x);
           });
         });
       setdno(doorNos);
     }
   };
-  console.log("gk2", buildingName);
   // location listing end
 
   const PaymentMethods = [
@@ -181,34 +182,36 @@ const EditTenantDetails = ({
   };
   const [formData, setFormData] = useState({
     isSubmitted: false,
-    BuildingName: tenantsdetails.BuildingName,
-    BuildingId: tenantsdetails.BuildingId,
-    tenantId: tenantsdetails._id,
-    tenantLocation: tenantsdetails.Location,
-    tenantDoorNo: tenantsdetails.shopDoorNo,
-    tenantFileNo: tenantsdetails.tenantFileNo,
-    tenantRentAmount: tenantsdetails.tenantRentAmount,
-    tenantName: tenantsdetails.tenantName,
-    tenantPhone: tenantsdetails.tenantPhone,
-    tenantFirmName: tenantsdetails.tenantFirmName,
-    tenantAddr: tenantsdetails.tenantAddr,
-    tenantAdharNo: tenantsdetails.tenantAdharNo,
-    tenantPanNo: tenantsdetails.tenantPanNo,
-    tenantDepositAmt: tenantsdetails.tenantDepositAmt,
-    tenantBankName: tenantsdetails.tenantBankName,
-    tenantChequenoOrDdno: tenantsdetails.tenantChequenoOrDdno
-      ? tenantsdetails.tenantChequenoOrDdno
+    BuildingName: particular_tenant_EditData.BuildingName,
+    BuildingId: particular_tenant_EditData.BuildingId,
+    tenantId: particular_tenant_EditData._id,
+    tenantLocation: particular_tenant_EditData.Location,
+    tenantDoorNo: particular_tenant_EditData.shopDoorNo,
+    tenantFileNo: particular_tenant_EditData.tenantFileNo,
+    tenantRentAmount: particular_tenant_EditData.tenantRentAmount,
+    tenantName: particular_tenant_EditData.tenantName,
+    tenantPhone: particular_tenant_EditData.tenantPhone,
+    tenantFirmName: particular_tenant_EditData.tenantFirmName,
+    tenantAddr: particular_tenant_EditData.tenantAddr,
+    tenantAdharNo: particular_tenant_EditData.tenantAdharNo,
+    tenantPanNo: particular_tenant_EditData.tenantPanNo,
+    tenantDepositAmt: particular_tenant_EditData.tenantDepositAmt,
+    tenantBankName: particular_tenant_EditData.tenantBankName,
+    tenantChequenoOrDdno: particular_tenant_EditData.tenantChequenoOrDdno
+      ? particular_tenant_EditData.tenantChequenoOrDdno
       : "null",
-    startSelectedDate: tenantsdetails.tenantchequeDate,
-    tenantLeaseStartDate: new Date(tenantsdetails.tenantLeaseStartDate),
-    tenantLeaseEndDate: new Date(tenantsdetails.tenantLeaseEndDate),
-    AgreementStatus: tenantsdetails.AgreementStatus,
-    generatordepoAmt: tenantsdetails.generatordepoAmt,
+    startSelectedDate: particular_tenant_EditData.tenantchequeDate,
+    tenantLeaseStartDate: new Date(
+      particular_tenant_EditData.tenantLeaseStartDate
+    ),
+    tenantLeaseEndDate: new Date(particular_tenant_EditData.tenantLeaseEndDate),
+    AgreementStatus: particular_tenant_EditData.AgreementStatus,
+    generatordepoAmt: particular_tenant_EditData.generatordepoAmt,
     tenantPaymentMode:
-      tenantsdetails && tenantsdetails.tenantPaymentMode
+      particular_tenant_EditData && particular_tenant_EditData.tenantPaymentMode
         ? {
-            value: tenantsdetails.tenantPaymentMode,
-            label: tenantsdetails.tenantPaymentMode,
+            value: particular_tenant_EditData.tenantPaymentMode,
+            label: particular_tenant_EditData.tenantPaymentMode,
           }
         : "null",
   });
@@ -244,7 +247,7 @@ const EditTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = get_Particular_org_Tenantsetting[0].leaseTimePeriod;
+    var leaseMonth = allTenantSetting.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -313,9 +316,7 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
     };
-    console.log(finalData);
-    // UpdateTenantsDetails(finalData);
-    setFreshPage(!freshpage);
+    UpdateTenantsDetails(finalData);
 
     // const historyData = {
     //   tdId: tenantId,
@@ -348,219 +349,206 @@ const EditTenantDetails = ({
     // };
 
     // tenantsDetailsHistory(historyData);
-    setShowEditModal(false);
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <form onSubmit={(e) => onUpdate(e)}>
-        <div className="conatiner-fluid ">
-          <div className="row">
-            <div className="col-lg-4">
-              <label>Property Name*:</label>
-              <Select
-                name="buildingName"
-                options={allBuildingNames}
-                value={buildingName}
-                onChange={(e) => onBuildingChange(e)}
-              ></Select>
-            </div>
-            <div className="col-lg-4">
-              <label>Door No*: </label>
-              <Select
-                name="doorno"
-                options={Dno}
-                value={testdno}
-                onChange={(e) => onchangeDoor(e)}
-                isMulti={true}
-                required
-              ></Select>
-            </div>
-            <div className="col-lg-4">
-              <label>Location*: </label>
-              <input
-                type="text"
-                placeholder={tenantLocation}
-                className="form-control"
-                readOnly
-              ></input>
-              <br></br>
-            </div>
-            <div className="col-lg-4">
-              <label className="ml-2">File No*: </label>
-              <input
-                type="text"
-                name="tenantFileNo"
-                placeholder="FileNo"
-                value={tenantFileNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-            <div className="col-lg-4">
-              <label className="ml-2">Tenant Name*: </label>
-              <input
-                type="text"
-                name="tenantName"
-                placeholder="Name"
-                value={tenantName}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-
-            <div className="col-lg-4 ">
-              <label>Phone No:</label>
-              <input
-                type="number"
-                name="tenantPhone"
-                value={tenantPhone}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-              />
-              <br></br>
-            </div>
-            <div className="col-lg-4">
-              <label>Firm Name: </label>
-              <input
-                type="text"
-                name="tenantFirmName"
-                value={tenantFirmName}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div className="col-lg-4 ">
-              <label>Adhaar No:</label>
-              <input
-                type="number"
-                name="tenantAdharNo"
-                value={tenantAdharNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-              />
-            </div>
-
-            <div className="col-lg-4">
-              <label className="ml-2"> Pan Number: </label>
-              <input
-                type="text"
-                name="tenantPanNo"
-                placeholder="PanNo"
-                value={tenantPanNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-              />{" "}
-              <br></br>
-            </div>
-            <div className="col-lg-4">
-              <label className="ml-2">Rent Amount*: </label>
-              <input
-                type="number"
-                name="tenantRentAmount"
-                placeholder="RentAmount"
-                value={tenantRentAmount}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-            <div className="col-lg-4">
-              <label className="ml-2">Deposit Amount*: </label>
-              <input
-                type="number"
-                name="tenantDepositAmt"
-                value={tenantDepositAmt}
-                placeholder="DepositAmount"
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-            <div className="col-lg-4">
-              <label className="ml-2">Generator Deposit Amount :</label>
-              <input
-                type="number"
-                name="generatordepoAmt"
-                placeholder="GeneratorDepositAmount"
-                value={generatordepoAmt}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-              />
-              <br></br>
-            </div>
-            <div className="col-lg-4">
-              Mode Of Payment*:
-              <Select
-                name="tenantPaymentMode"
-                options={PaymentMethods}
-                isSearchable={false}
-                value={tenantPaymentMode}
-                placeholder="Select..."
-                onChange={(e) => onPaymentModeChange(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
-              />
-            </div>
-            <div className="col-lg-4">
-              Lease Start Date*:
-              <input
-                type="date"
-                className="form-control cpp-input datevalidation"
-                name="tenantLeaseStartDate"
-                value={entryDate}
-                onChange={(e) => onDateChangeEntry(e)}
-                style={{
-                  width: "100%",
-                }}
-              />
-            </div>
-            <div className="col-lg-4 ">
-              Lease End Date*:
-              <input
-                placeholder="dd-mm-yyyy"
-                className="form-control cpp-input datevalidation"
-                value={leaseEndDate}
-                required
-              ></input>
-              <br></br>
-            </div>
-
-            <div className="col-lg-12">
+      <Modal.Header>
+        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead ">
+          <div className="ml-5">
+            <b className="text-center h3 ml-4 ">EDIT TENANT DETAILS</b>
+          </div>
+        </div>
+        <div className=" col-lg-2"></div>
+      </Modal.Header>{" "}
+      <Modal.Body>
+        <form onSubmit={(e) => onUpdate(e)}>
+          <div className="conatiner-fluid ">
+            <div className="row card-new pb-3">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Property Name*:</label>
+                <Select
+                  name="buildingName"
+                  options={allBuildingNames}
+                  value={buildingName}
+                  onChange={(e) => onBuildingChange(e)}
+                ></Select>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Door No*: </label>
+                <Select
+                  name="doorno"
+                  options={Dno}
+                  value={testdno}
+                  onChange={(e) => onchangeDoor(e)}
+                  isMulti={true}
+                  required
+                ></Select>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Location*: </label>
+                <input
+                  type="text"
+                  placeholder={tenantLocation}
+                  className="form-control"
+                  readOnly
+                ></input>
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2">File No*: </label>
+                <input
+                  type="text"
+                  name="tenantFileNo"
+                  placeholder="FileNo"
+                  value={tenantFileNo}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2">Tenant Name*: </label>
+                <input
+                  type="text"
+                  name="tenantName"
+                  placeholder="Name"
+                  value={tenantName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label>Phone No:</label>
+                <input
+                  type="number"
+                  name="tenantPhone"
+                  value={tenantPhone}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) =>
+                    (e.keyCode === 69 || e.keyCode === 190) &&
+                    e.preventDefault()
+                  }
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Firm Name: </label>
+                <input
+                  type="text"
+                  name="tenantFirmName"
+                  value={tenantFirmName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label>Adhaar No:</label>
+                <input
+                  type="number"
+                  name="tenantAdharNo"
+                  value={tenantAdharNo}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) =>
+                    (e.keyCode === 69 || e.keyCode === 190) &&
+                    e.preventDefault()
+                  }
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2"> Pan Number: </label>
+                <input
+                  type="text"
+                  name="tenantPanNo"
+                  placeholder="PanNo"
+                  value={tenantPanNo}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) =>
+                    (e.keyCode === 69 || e.keyCode === 190) &&
+                    e.preventDefault()
+                  }
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2">Rent Amount*: </label>
+                <input
+                  type="number"
+                  name="tenantRentAmount"
+                  placeholder="RentAmount"
+                  value={tenantRentAmount}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) =>
+                    (e.keyCode === 69 || e.keyCode === 190) &&
+                    e.preventDefault()
+                  }
+                  required
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2">Deposit Amount*: </label>
+                <input
+                  type="number"
+                  name="tenantDepositAmt"
+                  value={tenantDepositAmt}
+                  placeholder="DepositAmount"
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) =>
+                    (e.keyCode === 69 || e.keyCode === 190) &&
+                    e.preventDefault()
+                  }
+                  required
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2">Generator Deposit Amount :</label>
+                <input
+                  type="number"
+                  name="generatordepoAmt"
+                  placeholder="GeneratorDepositAmount"
+                  value={generatordepoAmt}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) =>
+                    (e.keyCode === 69 || e.keyCode === 190) &&
+                    e.preventDefault()
+                  }
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label> Mode Of Payment*:</label>
+                <Select
+                  name="tenantPaymentMode"
+                  options={PaymentMethods}
+                  isSearchable={false}
+                  value={tenantPaymentMode}
+                  placeholder="Select..."
+                  onChange={(e) => onPaymentModeChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary: "black",
+                    },
+                  })}
+                />
+                <br></br>
+              </div>{" "}
               {showChequenoSection ? (
                 <>
                   <div className="row">
-                    <div className="  col-lg-4">
+                    <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
                       <label>Cheque No/DD No:</label>
                       <input
                         placeholder="Cheque Date"
@@ -573,7 +561,7 @@ const EditTenantDetails = ({
                       <br></br>
                     </div>
 
-                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                    <div className="col-lg-3 col-md-12 col-sm-12 col-12  col-md-4 col-sm-4 col-12">
                       <label>Bank Name :</label>
                       <input
                         type="text"
@@ -584,7 +572,7 @@ const EditTenantDetails = ({
                       />
                     </div>
 
-                    <div className="col-lg-4  col-md-4 col-sm-4 col-12">
+                    <div className="col-lg-3 col-md-12 col-sm-12 col-12  col-md-4 col-sm-4 col-12">
                       <label>Cheque Date:</label>
                       <input
                         type="date"
@@ -603,39 +591,60 @@ const EditTenantDetails = ({
               ) : (
                 <></>
               )}
-            </div>
-
-            <div className="col-lg-8  col-md-4 col-sm-4 col-12">
-              <label>Tenant's Address *:</label>
-              <textarea
-                name="tenantAddr"
-                value={tenantAddr}
-                id="tenantAddr"
-                className="textarea form-control"
-                rows="4"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>{" "}
-            </div>
-            <div className="col-lg-9 text-danger">
-              * Indicates mandatory fields, Please fill mandatory fields before
-              Submit
-            </div>
-            <div className="col-lg-3">
-              <button
-                type="submit"
-                variant="success"
-                className="btn sub_form btn_continue Save float-right"
-                id="savebtn"
-              >
-                Save
-              </button>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Lease Start Date*: </label>
+                <input
+                  type="date"
+                  className="form-control cpp-input datevalidation"
+                  name="tenantLeaseStartDate"
+                  value={entryDate}
+                  onChange={(e) => onDateChangeEntry(e)}
+                  style={{
+                    width: "100%",
+                  }}
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label>Lease End Date*: </label>
+                <input
+                  placeholder="dd-mm-yyyy"
+                  className="form-control cpp-input datevalidation"
+                  value={leaseEndDate}
+                  required
+                ></input>
+                <br></br>
+              </div>
+              <div className="col-lg-2  col-md-12 col-sm-12 col-12">
+                <label>Tenant's Address *:</label>
+                <textarea
+                  name="tenantAddr"
+                  value={tenantAddr}
+                  id="tenantAddr"
+                  className="textarea form-control"
+                  rows="4"
+                  placeholder="Address"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                ></textarea>{" "}
+              </div>
+              <div className="col-lg-9 text-danger">
+                * Indicates mandatory fields, Please fill mandatory fields
+                before Submit
+              </div>
+              <div className="col-lg-3">
+                <button
+                  type="submit"
+                  variant="success"
+                  className="btn sub_form btn_continue Save float-right"
+                  id="savebtn"
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </Modal.Body>
     </Fragment>
   );
 };
@@ -650,6 +659,6 @@ export default connect(mapStateToProps, {
   UpdateTenantsDetails,
   getAllTenants,
   getParticularProperty,
+  getAllSettings,
   tenantsDetailsHistory,
-  getParticularTenantSetting,
 })(EditTenantDetails);

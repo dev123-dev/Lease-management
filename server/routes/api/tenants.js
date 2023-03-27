@@ -1322,7 +1322,6 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
-    let doonum = data.tenantDoorNo.map((ele) => ele.value);
 
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
@@ -1332,7 +1331,7 @@ router.post("/update-tenant-details", async (req, res) => {
           OrganizationName: data.OrganizationName,
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
-          shopDoorNo: doonum,
+          shopDoorNo: data.doonum,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,

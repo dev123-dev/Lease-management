@@ -5,7 +5,6 @@ import {
   getParticularProperty,
   getAllDoorNos,
   getAllTenants,
-  getParticularTenantSetting,
   getAllSettings,
 } from "../../actions/tenants";
 import Select from "react-select";
@@ -16,29 +15,27 @@ const AddTenantDetails = ({
   setFreshPage,
   freshpage,
   auth: { isAuthenticated, user, users, finalDataRep },
-  tenants: {
-    allDoorNos,
-    particular_org_data,
-    get_Particular_org_Tenantsetting,
-  },
+  tenants: { allDoorNos, particular_org_data, allTenantSetting },
   setShowadd,
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
-  getParticularTenantSetting,
   getAllSettings,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
-    getParticularProperty({ OrganizationId: user.OrganizationId });
-    getParticularTenantSetting({ OrganizationId: user.OrganizationId });
+    getParticularProperty({ OrganizationId: myuser.OrganizationId });
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
+    });
   }, []);
 
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
-  useEffect(() => {
-    getAllSettings();
-  }, [getAllSettings]);
+  useEffect(() => {}, [getAllSettings]);
   const [doorno, setdno] = useState([]);
 
   const onchangeDoor = (e) => {
@@ -183,7 +180,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = get_Particular_org_Tenantsetting[0].leaseTimePeriod;
+    var leaseMonth = allTenantSetting.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -340,7 +337,7 @@ const AddTenantDetails = ({
             />
           </button>
         </div>
-      </Modal.Header>
+      </Modal.Header>{" "}
       <Modal.Body>
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid ">
@@ -356,7 +353,7 @@ const AddTenantDetails = ({
                 ></Select>
                 <br></br>
               </div>
-              {/* <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Door No*:</label>
                 <Select
                   className="select"
@@ -368,7 +365,7 @@ const AddTenantDetails = ({
                   required
                 ></Select>
                 <br></br>
-              </div> */}
+              </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label> Location*:</label>
                 <input
@@ -593,7 +590,7 @@ const AddTenantDetails = ({
                 ></input>
                 <br></br>
               </div>{" "}
-              <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+              <div className="col-lg-2 col-md-12 col-sm-12 col-12">
                 <label>Tenant's Address*:</label>
                 <textarea
                   name="tenantAddr"
@@ -603,7 +600,6 @@ const AddTenantDetails = ({
                   rows="4"
                   placeholder="Address"
                   onChange={(e) => onInputChange(e)}
-                  style={{ width: "100%" }}
                   required
                 ></textarea>{" "}
                 <br></br>
@@ -905,7 +901,7 @@ const AddTenantDetails = ({
             </div> */}
           </div>
         </form>
-      </Modal.Body>
+      </Modal.Body>{" "}
     </>
   );
 };
@@ -920,6 +916,5 @@ export default connect(mapStateToProps, {
   getAllDoorNos,
   getAllSettings,
   getAllTenants,
-  getParticularTenantSetting,
   getParticularProperty,
 })(AddTenantDetails);

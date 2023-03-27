@@ -2467,3 +2467,7 @@ div {
   display: grid;
   grid-template-columns: auto auto auto;
 }
+#tenantAddr {
+  margin-left: 0%;
+  width: 165%;
+}

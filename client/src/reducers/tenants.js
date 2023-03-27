@@ -21,6 +21,7 @@ import {
   EXP_ORG_REPORT,
   EXP_ORG_COUNT,
   YEAR_EXP_COUNT_ORG,
+  GET_EDIT_TENANT_DETAILS,
 } from "../actions/types";
 
 const initialState = {
@@ -79,7 +80,11 @@ const tenants = (state = initialState, action) => {
         ...state,
         allShopDetails: payload,
       };
-
+    case GET_EDIT_TENANT_DETAILS:
+      return {
+        ...state,
+        particular_tenant_EditData: payload,
+      };
     case GET_ALL_TENANTS:
       return {
         ...state,
