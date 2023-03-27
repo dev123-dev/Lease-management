@@ -166,7 +166,7 @@ const TenantFilters = ({
             <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
-                <div className="btn_more  text-left">
+                <div className="btn_more text-left">
                   <Link
                     title="Total Renewal Count"
                     to="/Organization-report"
@@ -273,8 +273,8 @@ const TenantFilters = ({
         <>
           {/* TENANT FILTER */}
           <Fragment>
-            <div className="container_align top_menu col-sm-12  ">
-              <div className="row pb-2 ml-2 responsiveDiv  ">
+            <div className="container_align top_menu col-sm-12 responsiveDiv ">
+              {/* <div className="row pb-2 ml-2   "> */}
                 <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
                   <div>
                     <div className="btn_more text-left">
@@ -368,7 +368,7 @@ const TenantFilters = ({
                       );
                     })}
                 </div>
-              </div>
+              {/* </div> */}
             </div>
           </Fragment>
         </>
