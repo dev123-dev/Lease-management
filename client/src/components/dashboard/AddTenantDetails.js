@@ -10,6 +10,7 @@ import {
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
+import { Link } from "react-router-dom";
 
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
@@ -29,7 +30,12 @@ const AddTenantDetails = ({
       userId: myuser && myuser._id,
     });
   }, []);
+  const [showInformationModal, setShowInformation] = useState(false);
 
+  const handleInformationModalClose = () => setShowInformation(false);
+  const LogoutModalClose = () => {
+    handleInformationModalClose();
+  };
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
@@ -309,7 +315,8 @@ const AddTenantDetails = ({
       selectedVal: dt,
     };
     console.log(finalData);
-    AddTenantDetailsform(finalData);
+    setShowInformation(true);
+    // AddTenantDetailsform(finalData);
 
     setFormData({
       ...formData,
@@ -690,11 +697,35 @@ const AddTenantDetails = ({
               </div>
             </div>
           </div>
-          {/* addituionla  start*/}
-
-          {/* additional end */}
         </form>
+        <Modal
+          show={showInformationModal}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          className="logout-modal"
+        >
+          <Modal.Header className="confirmbox-heading">
+            <h4 className="mt-0">Information</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <h5>Shop Details Added!!</h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <Link to="/tenant-detail">
+              <button
+                className="btn btn_green_bg"
+                onClick={() => LogoutModalClose()}
+              >
+                OK
+              </button>
+            </Link>
+          </Modal.Footer>
+        </Modal>
       </Modal.Body>{" "}
+      {/*  modal start */}
+      {/* modal ending */}
     </>
   );
 };
