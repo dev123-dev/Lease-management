@@ -127,6 +127,7 @@ const Header = ({
                     id="hea"
                     className="navlink headinghover   "
                     activeStyle={{
+                      fontFamily: "Serif",
                       color: "#e8a317",
 
                       textDecoration: "none",
@@ -151,7 +152,7 @@ const Header = ({
                     className="navlink"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontFamily: "Serif",
                       textDecoration: "none",
                     }}
                   >
