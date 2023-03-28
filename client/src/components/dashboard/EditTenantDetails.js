@@ -384,6 +384,7 @@ const EditTenantDetails = ({
       tenantDate: todayDateymd,
     };
     UpdateTenantsDetails(finalData);
+    setShowInformation(true);
 
     // const historyData = {
     //   tdId: tenantId,
