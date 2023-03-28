@@ -30,12 +30,7 @@ const AddTenantDetails = ({
       userId: myuser && myuser._id,
     });
   }, []);
-  const [showInformationModal, setShowInformation] = useState(false);
 
-  const handleInformationModalClose = () => setShowInformation(false);
-  const LogoutModalClose = () => {
-    handleInformationModalClose();
-  };
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
@@ -126,7 +121,7 @@ const AddTenantDetails = ({
 
   //this code is used to filter out only those building whose room number is avaiable if not avaiable it will not display the building name
   let AvaiableRoomBuilding = particular_org_data;
-  let isavail=particular_org_data.filter(
+  let isavail = particular_org_data.filter(
     (item) =>
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
@@ -315,7 +310,6 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    setShowInformation(true);
     AddTenantDetailsform(finalData);
 
     setFormData({
@@ -383,7 +377,6 @@ const AddTenantDetails = ({
                 ></Select>
                 <br></br>
               </div>
-              
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label> Location*:</label>
                 <input
@@ -623,105 +616,78 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="row ">
-                
-{ isavail && isavail.length !==0 ? (<><div
-                  className=" col-lg-6 col-md-12"
-                  style={{ border: "1px solid black", minHeight: "80px" }}
-                >
-                  {selectedDoorNumber &&
-                    selectedDoorNumber.length > 0 && 
-                    selectedDoorNumber.map((Doornumber, idx) => {
-                      return (
-                        <p key={idx} className="DoorCover">
-                          <button
-                            type="button"
-                            name="selectedWorkMistake"
-                            className="DoorNumber"
-                          >
-                            {Doornumber.value}
-                            <span
-                              className="mx-2"
-                              onClick={() => onRemoveChange(Doornumber)}
-                            >
-                              X
-                            </span>
-                          </button>
-                        </p>
-                      );
-                    })
-                    
-                    }
-                </div>
+                {isavail && isavail.length !== 0 ? (
+                  <>
+                    <div
+                      className=" col-lg-6 col-md-12"
+                      style={{ border: "1px solid black", minHeight: "80px" }}
+                    >
+                      {selectedDoorNumber &&
+                        selectedDoorNumber.length > 0 &&
+                        selectedDoorNumber.map((Doornumber, idx) => {
+                          return (
+                            <p key={idx} className="DoorCover">
+                              <button
+                                type="button"
+                                name="selectedWorkMistake"
+                                className="DoorNumber"
+                              >
+                                {Doornumber.value}
+                                <span
+                                  className="mx-2"
+                                  onClick={() => onRemoveChange(Doornumber)}
+                                >
+                                  X
+                                </span>
+                              </button>
+                            </p>
+                          );
+                        })}
+                    </div>
 
-
-                <div
-                  className="col-lg-6 col-md-12 col-sm-12  button_Door"
-                  style={{ border: "1px solid black", minHeight: "80px" }}
-                >
-                  {DnoList &&
-                    DnoList.map((DoorNumber, idx) => {
-                      return (
-                        <div key={idx}>
-                          <button
-                            type="button"
-                            name="workMistake"
-                            className="btnLink"
-                            onClick={() => onSelectChange(DoorNumber)}
-                          >
-                            {DoorNumber.value}
-                          </button>
-                        </div>
-                      );
-                    })}
-                </div>
-
-</>):(<>NODATA</>)}
-                
-
-
-
+                    <div
+                      className="col-lg-6 col-md-12 col-sm-12  button_Door"
+                      style={{ border: "1px solid black", minHeight: "80px" }}
+                    >
+                      {DnoList &&
+                        DnoList.map((DoorNumber, idx) => {
+                          return (
+                            <div key={idx}>
+                              <button
+                                type="button"
+                                name="workMistake"
+                                className="btnLink"
+                                onClick={() => onSelectChange(DoorNumber)}
+                              >
+                                {DoorNumber.value}
+                              </button>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  </>
+                ) : (
+                  <>NODATA</>
+                )}
               </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <button
-                  variant="success"
-                  className="btn sub_form btn_continue Save float-right"
-                  id="savebtn"
-                >
-                  Save
-                </button>
+                <Link to="/tenant-detail">
+                  <button
+                    variant="success"
+                    className="btn sub_form btn_continue Save float-right"
+                    id="savebtn"
+                  >
+                    Save
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </form>
-        <Modal
-          show={showInformationModal}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal"
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Information</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Shop Details Added!!</h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <Link to="/tenant-detail">
-              <button
-                className="btn btn_green_bg"
-                onClick={() => LogoutModalClose()}
-              >
-                OK
-              </button>
-            </Link>
-          </Modal.Footer>
-        </Modal>
       </Modal.Body>{" "}
       {/*  modal start */}
       {/* modal ending */}

@@ -34,16 +34,9 @@ const EditTenantDetails = ({
     });
   }, []);
 
-  const [showInformationModal, setShowInformation] = useState(false);
-
-  const handleInformationModalClose = () => setShowInformation(false);
-  const LogoutModalClose = () => {
-    handleInformationModalClose();
-  };
-
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
-     let AvaiableRoomBuilding = particular_org_data;
+    let AvaiableRoomBuilding = particular_org_data;
     //filter(
     //   (item) =>
     //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
@@ -61,7 +54,7 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
-//console.log("aLL",allBuildingNames)
+  //console.log("aLL",allBuildingNames)
   //
   //console.log("edit data",particular_tenant_EditData.shopDoorNo);
 
@@ -118,7 +111,7 @@ const EditTenantDetails = ({
   });
   let temp = [];
   const onBuildingChange = (e) => {
-    setSelectedDno([])
+    setSelectedDno([]);
     setBuildingID(e.value);
     setBuildingName(e);
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
@@ -136,7 +129,7 @@ const EditTenantDetails = ({
             }
           });
           setDno(temp);
-          setUnselectedDno(temp)
+          setUnselectedDno(temp);
         }
       });
     getbuildingData(e);
@@ -191,7 +184,7 @@ const EditTenantDetails = ({
     editSelectedProperty[0].shopDoorNo.filter(
       (ele) =>
         ///ele.status !== "Deleted the Door Number" && ele.status !== "Acquired"
-        ele.status==="Avaiable"
+        ele.status === "Avaiable"
     )
   );
 
@@ -363,12 +356,11 @@ const EditTenantDetails = ({
   const onUpdate = (e) => {
     e.preventDefault();
     const finalData = {
-
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
       OrganizationName: user && user.OrganizationName,
       BuildingName: buildingName,
-      tenantDoorNo: selectedDno,//doorno,
+      tenantDoorNo: selectedDno, //doorno,
       tenantFileNo: tenantFileNo,
       tenantRentAmount: tenantRentAmount,
       tenantName: tenantName,
@@ -387,11 +379,9 @@ const EditTenantDetails = ({
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
-  unseletedDoorno:unselectedDno,
-
+      unseletedDoorno: unselectedDno,
     };
-   UpdateTenantsDetails(finalData);
-    setShowInformation(true);
+    UpdateTenantsDetails(finalData);
 
     // const historyData = {
     //   tdId: tenantId,
@@ -425,7 +415,7 @@ const EditTenantDetails = ({
 
     // tenantsDetailsHistory(historyData);
   };
-  
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -724,7 +714,6 @@ const EditTenantDetails = ({
                             {DoorNumber.doorNo}
                           </button>
                         </div>
-
                       );
                     })}
                 </div>
@@ -739,24 +728,23 @@ const EditTenantDetails = ({
                     selectedDno.map((Doornumber, idx) => {
                       return (
                         // <p key={idx} className="DoorCover">
-                          <button
-                            type="button"
-                            name="selectedWorkMistake"
-                            className="btn btn-success"
+                        <button
+                          type="button"
+                          name="selectedWorkMistake"
+                          className="btn btn-success"
+                        >
+                          {Doornumber.value}
+                          <span
+                            className="mx-2"
+                            onClick={() => onRemoveChange(Doornumber)}
                           >
-                            {Doornumber.value}
-                            <span
-                              className="mx-2"
-                              onClick={() => onRemoveChange(Doornumber)}
-                            >
-                              X
-                            </span>
-                          </button>
+                            X
+                          </span>
+                        </button>
                         // </p>
                       );
                     })}
                 </div>
-                
               </div>
               {/* end switch */}
               <div className="col-lg-9 text-danger">
@@ -764,43 +752,20 @@ const EditTenantDetails = ({
                 before Submit
               </div>
               <div className="col-lg-3">
-                <button
-                  type="submit"
-                  variant="success"
-                  className="btn sub_form btn_continue Save float-right"
-                  id="savebtn"
-                >
-                  Save
-                </button>
+                <Link to="/tenant-detail">
+                  <button
+                    type="submit"
+                    variant="success"
+                    className="btn sub_form btn_continue Save float-right"
+                    id="savebtn"
+                  >
+                    Save
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
         </form>
-        <Modal
-          show={showInformationModal}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal"
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Information</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5> Details Edited!!</h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <Link to="/tenant-detail">
-              <button
-                className="btn btn_green_bg"
-                onClick={() => LogoutModalClose()}
-              >
-                OK
-              </button>
-            </Link>
-          </Modal.Footer>
-        </Modal>
       </Modal.Body>
     </Fragment>
   );
