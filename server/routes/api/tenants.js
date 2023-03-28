@@ -598,11 +598,12 @@ router.post("/deactive-tenant", async (req, res) => {
           }
         ).then((data) => console.log("else part", data));
       });
+console
       data.Dno.map((ele) => {
         property
           .updateOne(
             {
-              tdId: data.tid,
+              _id: data.BiuldingID,
               shopDoorNo: {
                 $elemMatch: {
                   doorNo: ele.label,
@@ -615,7 +616,7 @@ router.post("/deactive-tenant", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log(data));
+          .then((data) => console.log("xtz",data));
       });
     }
   } catch (error) {
