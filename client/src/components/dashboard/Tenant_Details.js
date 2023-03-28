@@ -66,6 +66,7 @@ const Tenant_Details = ({
   const handleShow = () => setShow(true);
   const [selectDno, SetDoornumber] = useState();
   const handleShowDno = () => SetDoornumber(false);
+  const [DeactiveThisBiuldingID,setDeactiveThisBiuldingID]=useState("")
   const handleCloseDno = () => {
     SetDoornumber(false);
     setCheckData([]);
@@ -73,9 +74,10 @@ const Tenant_Details = ({
 
   const [tId, setId] = useState("");
   const [dno, SetDno] = useState([]);
-  const onDelete = (id, Dno) => {
+  const onDelete = (id, Dno, Val) => {
     setId(id);
-
+console.log("whole find cil",Val.BuildingId);
+setDeactiveThisBiuldingID(Val.BuildingId)
     if (Dno.length >= 1) {
       SetDno(Dno);
       SetDoornumber(true);
@@ -141,6 +143,7 @@ const Tenant_Details = ({
       deactive_reason: deactive_reason,
       tid: tId,
       isSubmitted: "true",
+      BiuldingID:DeactiveThisBiuldingID
     };
     deactiveTenantsDetails(reason);
     handleClose();
@@ -326,7 +329,7 @@ const Tenant_Details = ({
                                       <img
                                         className="Cursor "
                                         onClick={() =>
-                                          onDelete(Val._id, Val.shopDoorNo)
+                                          onDelete(Val._id, Val.shopDoorNo, Val)
                                         }
                                         src={require("../../static/images/delete.png")}
                                         alt="Delete"
