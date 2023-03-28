@@ -232,7 +232,6 @@ router.post("/update-Property", async (req, res) => {
   //   };
   // });
 
-  
   try {
     const updateorg = await property
       .updateOne(
@@ -253,18 +252,18 @@ router.post("/update-Property", async (req, res) => {
       )
       .then((data) => console.log("res", data));
 
-      TenantDetails.updateMany(
-            { BuildingId:  data.Property_id },
-            {
-              $set: {
-                BuildingName: data.buildingName,
-            },
-        
-        }).then ((data)=>{console.log("updated", data)});
+    TenantDetails.updateMany(
+      { BuildingId: data.Property_id },
+      {
+        $set: {
+          BuildingName: data.buildingName,
+        },
+      }
+    ).then((data) => {
+      console.log("updated", data);
+    });
 
     res.json(updateorg);
-
-
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -369,9 +368,10 @@ router.post("/Update-User", async (req, res) => {
           usergroup: data.usergroup.label,
           useraddress: data.useraddress,
           OrganizationName: data.OrganizationName,
+          OrganizationId: data.OrganizationId,
         },
       }
-    );
+    ).then((data) => console.log(data));
   } catch (err) {
     console.error(err.message);
   }
