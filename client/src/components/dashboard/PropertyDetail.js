@@ -160,11 +160,7 @@ const PropertyDetail = ({
   return (
     <>
       <div className="col mt-sm-4 space  ">
-        <div className="col smallscreen"></div>
-        <div className="col smallscreen"></div>
-        <div className="col smallscreen"></div>
-        <div className="col smallscreen"></div>
-        <div className="col smallscreen"></div>
+       
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
           <div>
             <h1
@@ -172,7 +168,7 @@ const PropertyDetail = ({
                 fontFamily: "Serif",
                 color: "#095a4a",
               }}
-              className="font-weight-bold "
+              className="font-weight-bold headsize "
             >
               <span
                 style={{ fontFamily: "Serif" }}
