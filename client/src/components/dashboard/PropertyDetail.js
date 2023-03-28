@@ -32,7 +32,7 @@ const PropertyDetail = ({
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
 
-  const { Location } = particular_org_loc[0];
+  const { Location } =particular_org_loc && particular_org_loc[0];
   const fun = () => {
     particular_org_loc[0] &&
       Location.map((ele) => {
@@ -334,7 +334,7 @@ const PropertyDetail = ({
                 </div>
                 <div className="col-lg-6">
                   <p className="text-end h6">
-                    No of Property : {particular_org_data.length}
+                    No.of Property : {particular_org_data.length}
                   </p>
                 </div>
               </div>

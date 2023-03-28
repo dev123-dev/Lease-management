@@ -5,6 +5,10 @@ const TenantDetails = new mongoose.Schema({
   tenantName: {
     type: String,
   },
+  tenantFileNo: {
+    type : String
+  },
+  
   OrganizationName: {
     type: String,
   },
