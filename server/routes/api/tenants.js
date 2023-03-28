@@ -355,9 +355,10 @@ router.post("/Update-User", async (req, res) => {
           usergroup: data.usergroup.label,
           useraddress: data.useraddress,
           OrganizationName: data.OrganizationName,
+          OrganizationId: data.OrganizationId,
         },
       }
-    );
+    ).then((data) => console.log(data));
   } catch (err) {
     console.error(err.message);
   }
