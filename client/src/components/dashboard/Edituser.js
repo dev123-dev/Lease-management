@@ -13,6 +13,8 @@ const Edituser = ({
   getalluser,
   EditModal,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
@@ -82,8 +84,9 @@ const Edituser = ({
       useremail: useremail,
       usergroup: us,
       OrganizationName: orgname.label,
-      OrganizationId: user.OrganizationId,
+      OrganizationId: orgname.value,
     };
+    console.log(updateUSER);
     UpdateUser(updateUSER);
     handleClose(true);
   };
