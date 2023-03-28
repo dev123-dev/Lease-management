@@ -311,7 +311,7 @@ const AddSuperUserModel = ({
                             colors: {
                               ...theme.colors,
                               // primary25: "#e88504",
-                              // primary: "#514968",
+                               primary: "#095a4a",
                             },
                           })}
                           isSearchable={true}

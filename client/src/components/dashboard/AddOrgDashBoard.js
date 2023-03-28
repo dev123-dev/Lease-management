@@ -120,7 +120,21 @@ const AddOrgDashBoard = ({
         <div className="col"></div>
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
           <div>
-            <h2 className="col h2 ml-2 ">Organization Details</h2>
+          <h1
+            style={{
+              fontFamily: "Serif",
+              color: "#095a4a",
+            }}
+            className="font-weight-bold "
+          >
+            <span
+              style={{ fontFamily: "Serif" }}
+              className=" text-right font-weight-bold ml-4"
+            >
+              {" "}
+              Organization Details
+            </span>
+          </h1>
             <hr className="line"></hr>
           </div>
           <div className="text-end"> </div>
@@ -287,10 +301,10 @@ const AddOrgDashBoard = ({
 
       <Modal show={showDeactivate} centered>
         <form onSubmit={onDeactivate}>
-          <Modal.Header>
+          <Modal.Header >
             <div className="col-lg-11 ">
               <div className="modal-title">
-                <b className="text-center h3 ">DEACTIVATE</b>
+                <b className="text-center h3  ">DEACTIVATE</b>
               </div>
             </div>
             <div

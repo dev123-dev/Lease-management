@@ -77,7 +77,7 @@ const Header = ({
     <Fragment>
       <header>
         <Navbar
-          className="navbar_height top_menu"
+          className="navbar_height top_menu py-1"
           expand="lg"
           fixed="top"
           style={{ padding: "0px 1em" }}
@@ -86,7 +86,7 @@ const Header = ({
             <Navbar.Brand>
               <NavLink to="/MainAdmin">
                 <img
-                  className="Icon p-2 log_size"
+                  className=" log_size"
                   alt="Pinnacle Media"
                   src={require("../../static/images/lraLogo_wh.png")}
                   title="Dashboard"
@@ -94,7 +94,7 @@ const Header = ({
               </NavLink>
             </Navbar.Brand>
           ) : (
-            <Navbar.Brand></Navbar.Brand>
+            <></>
           )}
           {!loading &&
           isAuthenticated &&
@@ -103,7 +103,7 @@ const Header = ({
             <Navbar.Brand>
               <NavLink to="/MainSuper">
                 <img
-                  className="Icon p-2 log_size"
+                  className="log_size"
                   alt="Pinnacle Media"
                   src={require("../../static/images/lraLogo_wh.png")}
                   title="Dashboard"
