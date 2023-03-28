@@ -159,29 +159,28 @@ const PropertyDetail = ({
   };
   return (
     <>
-      <div className="col mt-sm-4 space  ">
-       
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
-          <div>
+      <div className="col mt-sm-5   ">
+
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
+          <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
             <h1
               style={{
                 fontFamily: "Serif",
                 color: "#095a4a",
+                position:"relative",
+                right:"70px"
               }}
               className="font-weight-bold headsize "
             >
-              <span
-                style={{ fontFamily: "Serif" }}
-                className=" text-right font-weight-bold ml-4"
-              >
-                {" "}
-                Property Details
-              </span>
-            </h1>
-            <hr className="line"></hr>
-          </div>
 
-          <div className="text-end"></div>
+              Property Details
+
+            </h1>
+
+          </div>
+          <hr className="line"></hr>
+
+
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">

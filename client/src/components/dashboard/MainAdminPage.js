@@ -68,10 +68,11 @@ const MainAdminPage = ({
     <></>
   ) : (
     <>
-    <div style={{ border: "1px solid transparent" }}>
-      <div className="container container_align   ">
-        <div>
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 text-left">
+  
+      <div className="col mt-sm-5 ">
+      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
+          
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h1
               style={{
                 fontFamily: "Serif",
@@ -97,6 +98,7 @@ const MainAdminPage = ({
             </h1>
             {/* <br />
           <br /> */}
+          </div>
           </div>
 
           <section
@@ -174,9 +176,9 @@ const MainAdminPage = ({
               <div className="col-lg-1"></div>
             </div>
           </section>
-        </div>
+        
       </div>
-    </div>
+    
   </>
    
   );

@@ -644,7 +644,6 @@ p {
   width: 93%;
 }
 
-
 .welcome-box {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -2405,7 +2404,7 @@ div {
 
   .btn_more {
     border-radius: 0px;
-    width: 70px;
+    width: 58px;
     height: 35px;
     margin-left: 0px;
     margin-right: 3px;
@@ -2558,8 +2557,7 @@ div {
     margin-top: 0px;
   }
   .headsize{
-
-   
     font-size: 27px;
   }
+  
 }

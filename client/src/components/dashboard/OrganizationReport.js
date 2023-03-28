@@ -92,11 +92,11 @@ const TenantReport = ({
                       >
                         <thead>
                           <tr>
-                            <th> Name</th>
+                            <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>StartDate</th>
-                            <th>End D</th>
+                            <th>EndDate</th>
                             <th>Status</th>
                             <th>Operation</th>
                           </tr>

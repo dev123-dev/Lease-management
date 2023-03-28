@@ -180,7 +180,7 @@ const TenantFilters = ({
                   </Link>
                 </div>
 
-                <div className="yearpicker ">
+                <div className="yearpicker">
                   <DatePicker
                     className="form-control text-center"
                     placeholder="yyyy"
@@ -274,7 +274,7 @@ const TenantFilters = ({
               {/* <div className="row pb-2 ml-2   "> */}
               <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter  ">
                 <div>
-                  <div className="btn_more text-left">
+                  <div className="btn_more text-center">
                     <Link
                       to="/tenant-report"
                       className="top_box "
@@ -287,7 +287,7 @@ const TenantFilters = ({
                   </div>
                   <div className="yearpicker ">
                     <DatePicker
-                      className="form-control  "
+                      className="form-control text-center  "
                       placeholder="yyyy"
                       onChange={(date) => monthYearChange(date)}
                       dateFormat="yyyy"
