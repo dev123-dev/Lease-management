@@ -314,7 +314,6 @@ const AddTenantDetails = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log(finalData);
     setShowInformation(true);
     AddTenantDetailsform(finalData);
 

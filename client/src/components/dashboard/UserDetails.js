@@ -70,7 +70,6 @@ const UserDetails = ({
 
   const [showadd, setShowadd] = useState(false);
 
- 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(7);
@@ -84,7 +83,7 @@ const UserDetails = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-
+  console.log("user", get_particularOrg_user);
   return (
     <>
       <div className="col mt-sm-4 space">
@@ -113,7 +112,6 @@ const UserDetails = ({
                     alt="Add User"
                     title="Add User"
                   />
-                 
                 </div>
               </div>
               {/* <AddAdminUserModal /> */}
@@ -204,8 +202,8 @@ const UserDetails = ({
           </div>
         </div>
       </div>
-        {/* add model start */}
-       <Modal
+      {/* add model start */}
+      <Modal
         show={showadd}
         backdrop="static"
         size="lg"
@@ -214,10 +212,10 @@ const UserDetails = ({
       >
         <AddAdminUserModal setShowadd={setShowadd} />
       </Modal>
-       {/* add model end */}
+      {/* add model end */}
 
-        {/* Modal for Editing the Super user */}
-        <Modal
+      {/* Modal for Editing the Super user */}
+      <Modal
         show={showSuperModal}
         backdrop="static"
         keyboard={false}
@@ -291,8 +289,6 @@ const UserDetails = ({
         </form>
       </Modal>
       {/*  deactivate Modal Ending */}
-
-   
     </>
   );
 };
