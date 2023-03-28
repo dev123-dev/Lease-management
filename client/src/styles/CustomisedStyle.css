@@ -2561,3 +2561,6 @@ div {
   }
   
 }
+.sizeinput{
+  min-height: 47px;
+}

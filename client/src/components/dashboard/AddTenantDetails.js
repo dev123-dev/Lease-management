@@ -369,6 +369,7 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
                 <label>Property Name*:</label>
                 <Select
+               
                   name="Property name"
                   options={allBuildingNames}
                   value={buildingData}
@@ -383,7 +384,7 @@ const AddTenantDetails = ({
                   type="text"
                   value={LocList}
                   placeholder="Location"
-                  className="form-control bg-dark"
+                  className="form-control sizeinput"
                   readOnly
                 ></input>
                 <br></br>
@@ -515,16 +516,15 @@ const AddTenantDetails = ({
                   value={tenantPaymentMode}
                   placeholder="Select..."
                   onChange={(e) => onPaymentModeChange(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
-                    colors: {
-                      ...theme.colors,
-                      primary: "black",
-                    },
-                  })}
+                  // theme={(theme) => ({
+                  //   ...theme,
+                   
+                  //   borderRadius: 0,
+                  //   colors: {
+                  //     ...theme.colors,
+                  //     primary: "black",
+                  //   },
+                  // })}
                   required
                 />
                 <br></br>
