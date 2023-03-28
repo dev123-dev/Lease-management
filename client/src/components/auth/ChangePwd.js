@@ -178,7 +178,21 @@ const ChangePwd = ({
         <section className="sub_reg">
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-              <h2 className=" heading_color h2">Reset Password</h2>
+            <h1
+            style={{
+              fontFamily: "Serif",
+              color: "#095a4a",
+            }}
+            className="font-weight-bold "
+          >
+            <span
+              style={{ fontFamily: "Serif" }}
+              className=" text-right font-weight-bold ml-4"
+            >
+              {" "}
+              Reset Password
+            </span>
+          </h1>
             </div>
 
             <hr size="10"></hr>
@@ -186,7 +200,7 @@ const ChangePwd = ({
             <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label className="label-control ">
-                  Password{" "}
+                   New Password{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
