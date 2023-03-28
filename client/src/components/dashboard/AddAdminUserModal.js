@@ -246,7 +246,8 @@ const AddAdminUserModal = ({
                   placeholder="Name"
                   onChange={(e) => onuserchange(e)}
                   required
-                /><br></br>
+                />
+                <br></br>
               </div>
               <div className="col-lg-6">
                 <label>Email*:</label>{" "}
@@ -254,11 +255,13 @@ const AddAdminUserModal = ({
                   type="email"
                   name="email"
                   placeholder="Email"
+                  autoComplete="new-password"
                   value={email}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                   required
-                /><br></br>
+                />
+                <br></br>
               </div>
 
               <div className="col-lg-6">
@@ -270,7 +273,8 @@ const AddAdminUserModal = ({
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
-                /><br></br>
+                />
+                <br></br>
               </div>
               <div className="col-lg-6">
                 {" "}
@@ -282,7 +286,8 @@ const AddAdminUserModal = ({
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                   required
-                /><br></br>
+                />
+                <br></br>
               </div>
 
               <div className="col-lg-6">
@@ -292,6 +297,7 @@ const AddAdminUserModal = ({
                   type="password"
                   name="password"
                   placeholder="Password"
+                  autoComplete="new-password"
                   value={password}
                   className="form-control"
                   style={passwordInptErrStyle}
@@ -302,7 +308,8 @@ const AddAdminUserModal = ({
                   <span className="form-input-info" style={passwordValStyle}>
                     {passwordValResult}
                   </span>
-                )}<br></br>
+                )}
+                <br></br>
               </div>
               <div className="col-lg-6">
                 {" "}
@@ -312,7 +319,8 @@ const AddAdminUserModal = ({
                   type="password"
                   name="rePassword"
                   value={rePassword}
-                  autoComplete="off"
+                  autoComplete="new-password"
+                  // autoComplete="off"
                   className="form-control"
                   style={repwdInptErrStyle}
                   onChange={(e) => onPasswordChange(e)}
@@ -324,7 +332,8 @@ const AddAdminUserModal = ({
                       {repwdValResult}
                     </span>
                   </Fragment>
-                )}<br></br>
+                )}
+                <br></br>
               </div>
               <div className="col-lg-6">
                 Address:
@@ -337,7 +346,8 @@ const AddAdminUserModal = ({
                   cols="20"
                   placeholder="Address"
                   style={{ width: "100%" }}
-                ></textarea><br></br>
+                ></textarea>
+                <br></br>
               </div>
 
               <div className="col-lg-6">
@@ -359,7 +369,8 @@ const AddAdminUserModal = ({
                     },
                   })}
                   required
-                /><br></br>
+                />
+                <br></br>
               </div>
             </div>
           </div>
