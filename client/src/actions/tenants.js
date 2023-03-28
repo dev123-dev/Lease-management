@@ -216,8 +216,13 @@ export const updateProperty = (updatedata) => async (dispatch) => {
 //update Super User Form
 export const UpdateUser = (userdata) => async (dispatch) => {
   try {
-    await axios.post(`${linkPath}/api/tenants/Update-User`, userdata, config);
-    dispatch(getalluser());
+    const res = await axios.post(
+      `${linkPath}/api/tenants/Update-User`,
+      userdata,
+      config
+    );
+
+    get_particular_org_user({ OrganizationId: userdata.OrganizationId });
   } catch (error) {
     console.error(error.message);
   }

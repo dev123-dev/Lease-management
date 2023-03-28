@@ -19,11 +19,12 @@ const UserDetails = ({
   get_particular_org_user,
   deactivateUser, //this is a action function to call
 }) => {
+  const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     get_particular_org_user({
       OrganizationId: user && user.OrganizationId,
     });
-  }, []);
+  }, [refresh]);
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -87,7 +88,6 @@ const UserDetails = ({
   return (
     <>
       <div className="col mt-sm-4 space">
-        
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
           <h1
             style={{
@@ -188,7 +188,7 @@ const UserDetails = ({
                 <div className="row">
                   <div className="col-lg-6">
                     {get_particularOrg_user &&
-                      get_particularOrg_user.length !== 0 ? (
+                    get_particularOrg_user.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
                         totalData={get_particularOrg_user.length}
@@ -235,10 +235,15 @@ const UserDetails = ({
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
             <div className="ml-4">
-              <h3 style={{
-                fontFamily: "Sans-serif",
-                color: "white",
-              }} className=" text-center   ml-4 ">EDIT USER DETAILS </h3>
+              <h3
+                style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }}
+                className=" text-center   ml-4 "
+              >
+                EDIT USER DETAILS{" "}
+              </h3>
             </div>
           </div>
           <div className="col-lg-2">
@@ -252,7 +257,12 @@ const UserDetails = ({
           </div>
         </Modal.Header>
         <Modal.Body>
-          <EditAdminUser org={Admindata} />
+          <EditAdminUser
+            org={Admindata}
+            setSuperModal={setSuperModal}
+            setRefresh={setRefresh}
+            refresh={refresh}
+          />
         </Modal.Body>
       </Modal>
       {/* Modal Edit Ending */}
@@ -263,10 +273,15 @@ const UserDetails = ({
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title">
-                <h3 style={{
-                  fontFamily: "Sans-serif",
-                  color: "white",
-                }} className="text-center mr-3 ">DEACTIVATE</h3>
+                <h3
+                  style={{
+                    fontFamily: "Sans-serif",
+                    color: "white",
+                  }}
+                  className="text-center mr-3 "
+                >
+                  DEACTIVATE
+                </h3>
               </div>
             </div>
             <div className="close">

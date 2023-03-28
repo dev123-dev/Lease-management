@@ -358,7 +358,7 @@ router.post("/get-particular-org-user", async (req, res) => {
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
   try {
-    await UserDetails.updateOne(
+    const r = await UserDetails.updateOne(
       { _id: data.userid },
       {
         $set: {
@@ -372,6 +372,7 @@ router.post("/Update-User", async (req, res) => {
         },
       }
     ).then((data) => console.log(data));
+    res.json(r);
   } catch (err) {
     console.error(err.message);
   }
@@ -598,7 +599,7 @@ router.post("/deactive-tenant", async (req, res) => {
           }
         ).then((data) => console.log("else part", data));
       });
-console
+
       data.Dno.map((ele) => {
         property
           .updateOne(
@@ -616,7 +617,7 @@ console
               },
             }
           )
-          .then((data) => console.log("xtz",data));
+          .then((data) => console.log("xtz", data));
       });
     }
   } catch (error) {

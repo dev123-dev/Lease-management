@@ -1,8 +1,8 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { UpdateUser } from "../../actions/tenants";
+import { UpdateUser, get_particular_org_user } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
 const EditAdminUser = ({
@@ -10,8 +10,17 @@ const EditAdminUser = ({
   tenants: { allorg },
   org,
   UpdateUser,
+  setRefresh,
+  refresh,
+  setSuperModal,
+  get_particular_org_user,
   getalluser,
 }) => {
+  useEffect(() => {
+    get_particular_org_user({
+      OrganizationId: user && user.OrganizationId,
+    });
+  }, []);
   const UserGroups = [
     { value: "Admin", label: "Admin" },
     { value: "Super Admin", label: "Super Admin" },
@@ -113,9 +122,10 @@ const EditAdminUser = ({
       OrganizationName: org.OrganizationName,
       OrganizationId: org.OrganizationId,
     };
-    console.log(updateUSER);
-    // UpdateUser(updateUSER);
+    UpdateUser(updateUSER);
     getalluser();
+    setRefresh(!refresh);
+    setSuperModal(false);
   };
   const onuserchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -238,4 +248,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   UpdateUser,
   getalluser,
+  get_particular_org_user,
 })(EditAdminUser);
