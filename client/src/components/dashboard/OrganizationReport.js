@@ -6,13 +6,12 @@ import { getAllOrganization } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { isAuthenticated, user, users },
-  tenants: { exp_org_detail, exp_org_report },
+  tenants: { exp_org_detail, exp_org_report, ext_year_count_org },
   getAllOrganization,
 }) => {
   useEffect(() => {
     getAllOrganization();
   }, []);
-
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -82,7 +81,6 @@ const TenantReport = ({
                   </h1>
                   <hr className="line"></hr>
                 </div>
-
               </div>
               <div className="row">
                 <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
@@ -104,9 +102,9 @@ const TenantReport = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {exp_org_detail &&
-                            exp_org_detail[0] &&
-                            exp_org_detail.map((org, index) => {
+                          {ext_year_count_org &&
+                            ext_year_count_org[0] &&
+                            ext_year_count_org.map((org, index) => {
                               var ED = org.enddate && org.enddate.split(/\D/g);
                               var EndDate = [
                                 ED && ED[2],
