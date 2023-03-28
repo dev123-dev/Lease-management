@@ -45,7 +45,7 @@ const RenewalOrg_mainPage = ({
     if (mm2 < 10) {
       mm2 = "0" + mm2;
     }
-    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+    var leaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setLeaseEndDate(leaseEndDate);
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);

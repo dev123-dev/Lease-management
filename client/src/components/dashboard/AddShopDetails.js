@@ -90,7 +90,6 @@ const AddShopDetails = ({
     if (!inputdata) {
     } else {
       let new_door = items.map((ele) => ele.doorNo === inputdata);
-      console.log("new data", new_door);
       if (new_door.every((ele) => ele === false)) {
         setshowscroll("block");
         setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
@@ -131,7 +130,6 @@ const AddShopDetails = ({
       Location: orgLoc.value,
       shopStatus: "Active",
     };
-    console.log(finalData);
     AddShopDetailsform(finalData);
     setFormData({
       ...formData,

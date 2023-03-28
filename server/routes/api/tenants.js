@@ -415,14 +415,9 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-  let AvaiableRoom = data.Dno.filter(
-    (item) =>
-      item.shopDoorNo &&
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
-  );
 
   try {
-    if (AvaiableRoom.length === 0) {
+    if (data.Dno.length === 0) {
       property
         .updateOne(
           {
@@ -436,7 +431,7 @@ router.post("/deactive-property", async (req, res) => {
             },
           }
         )
-        .then((data) => console.log(data));
+        .then((data) => console.log("single", data));
     } else {
       data.Dno.map((eleDoor) => {
         property
@@ -453,7 +448,7 @@ router.post("/deactive-property", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log(data));
+          .then((data) => console.log("multi", data));
       });
     }
 

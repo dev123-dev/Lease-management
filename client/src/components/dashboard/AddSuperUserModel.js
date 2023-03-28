@@ -271,7 +271,8 @@ const AddSuperUserModel = ({
                   placeholder="Name"
                   onChange={(e) => onuserchange(e)}
                   required
-                /><br></br>
+                />
+                <br></br>
               </div>
               <div className="col-lg-6">
                 <label>Email*:</label>{" "}
@@ -295,35 +296,35 @@ const AddSuperUserModel = ({
                   value={phone}
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
-                /><br></br>
+                />
+                <br></br>
               </div>
               <div className="control-group col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                      <label className="control-label">
-                        Organization Belongs<span>*</span>
-                      </label>
-                      <div className="controls">
-                        <Select
-                          name="orgname"
-                          options={orglist}
-                          theme={(theme) => ({
-                            ...theme,
-                            borderRadius: 0,
-                            colors: {
-                              ...theme.colors,
-                              // primary25: "#e88504",
-                               primary: "#095a4a",
-                            },
-                          })}
-                          isSearchable={true}
-                          value={orgname}
-                          placeholder="Select Organization"
-                          onChange={(e) => onchangeOrg(e)}
-                        />
+                <label className="control-label">
+                  Organization Belongs<span>*</span>
+                </label>
+                <div className="controls">
+                  <Select
+                    name="orgname"
+                    options={orglist}
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: {
+                        ...theme.colors,
+                        // primary25: "#e88504",
+                        primary: "#095a4a",
+                      },
+                    })}
+                    isSearchable={true}
+                    value={orgname}
+                    placeholder="Select Organization"
+                    onChange={(e) => onchangeOrg(e)}
+                  />
 
-
-                        <span className="form-input-info"></span>
-                      </div>
-                    </div>
+                  <span className="form-input-info"></span>
+                </div>
+              </div>
               {/* <div className="col-lg-6 controls">
                 {" "}
                 <label>Organization belongs torrr*:</label>{" "}
