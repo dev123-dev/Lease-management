@@ -239,7 +239,7 @@ const AddSuperUserModel = ({
     user.usergroup === "Super Admin" ? (
     //for super admin
     <Fragment>
-      <Modal.Header>
+      <Modal.Header className="confirmbox-heading">
         <div className="col-lg-10 ">
           <div className="ml-5">
             <b className="text-center h3 ml-4 ">Add User Details </b>

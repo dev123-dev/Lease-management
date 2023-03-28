@@ -150,7 +150,7 @@ const AddShopDetails = ({
     <Fragment></Fragment>
   ) : (
     <>
-      <Modal.Header>
+      <Modal.Header className="confirmbox-heading">
         <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead">
           <div className="ml-5">
             <b className="text-center h3 ml-4 ">ADD PROPERTY DETAILS</b>

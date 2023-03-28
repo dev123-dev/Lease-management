@@ -274,7 +274,7 @@ const AddOrgDashBoard = ({
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header>
+        <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10 ">
             <div className="ml-4">
               <b className="text-center h3 ml-4 ">Edit Organization Details </b>
@@ -301,14 +301,14 @@ const AddOrgDashBoard = ({
 
       <Modal show={showDeactivate} centered>
         <form onSubmit={onDeactivate}>
-          <Modal.Header >
+          <Modal.Header className="confirmbox-heading" >
             <div className="col-lg-11 ">
               <div className="modal-title">
                 <b className="text-center h3  ">DEACTIVATE</b>
               </div>
             </div>
             <div
-              className="col-lg-1 closeicon"
+              className="close"
               onClick={() => setShowDeactivate(false)}
             >
               <img
