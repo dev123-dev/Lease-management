@@ -19,8 +19,10 @@
 }
 
 .container_align {
-  margin-top: 55px;
+  margin-top: 42px;
   margin-bottom: 55px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .btnLink,
@@ -1899,11 +1901,24 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.responsiveDiv {
-  overflow-y: auto;
-  background-color: #095a4a;
-  position: absolute;
-  right: 8px;
+
+@media (min-width: 551px) {
+  .responsiveDiv {
+    overflow-y: auto;
+    background-color: #095a4a;
+    position: absolute;
+    right: 8px;
+    /* left: 8px; */
+  }
+}
+@media (max-width: 550px) {
+  .responsiveDiv {
+    overflow-y: auto;
+    background-color: #095a4a;
+    position: absolute;
+    /* right: 8px;
+    left: 8px; */
+  }
 }
 
 @media (max-height: 1300px) {

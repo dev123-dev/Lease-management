@@ -217,7 +217,11 @@ const TenantFilters = ({
                     >
                       <div
                         className="tenantfil  "
-                        style={{  fontWeight:"bold", color: "#fff", padding: "0px 0px 0px 5px" }}
+                        style={{
+                          fontWeight: "bold",
+                          color: "#fff",
+                          padding: "0px 0px 0px 5px",
+                        }}
                       >
                         {" "}
                         <Link
@@ -228,7 +232,7 @@ const TenantFilters = ({
                           style={
                             Number(monthSearch) === Number(optFiltr.value)
                               ? {
-                                  fontWeight:"bold",
+                                  fontWeight: "bold",
                                   color: "#e8a317",
                                   fontSize: "115%",
                                 }
@@ -275,100 +279,100 @@ const TenantFilters = ({
           <Fragment>
             <div className="container_align top_menu col-sm-12 responsiveDiv ">
               {/* <div className="row pb-2 ml-2   "> */}
-                <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter  ">
-                  <div>
-                    <div className="btn_more text-left">
-                      <Link
-                        to="/tenant-report"
-                        className="top_box "
-                        onClick={() => oldExpCountFetch()}
-                      >
-                        {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
-                          ? yearExpCnt[0].count
-                          : 0}
-                      </Link>
-                    </div>
-                    <div className="yearpicker">
-                      <DatePicker
-                        className="form-control  "
-                        placeholder="yyyy"
-                        onChange={(date) => monthYearChange(date)}
-                        dateFormat="yyyy"
-                        selected={startMonthDate}
-                        style={{ textAlign: "center" }}
-                        showYearPicker
-                      />
-                    </div>
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter  ">
+                <div>
+                  <div className="btn_more text-left">
+                    <Link
+                      to="/tenant-report"
+                      className="top_box "
+                      onClick={() => oldExpCountFetch()}
+                    >
+                      {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
+                        ? yearExpCnt[0].count
+                        : 0}
+                    </Link>
                   </div>
-
-                  {optName &&
-                    optName.map((optFiltr, idx) => {
-                      let countVal = 0;
-                      monthExpCnt.map((monthExpCntVal) => {
-                        if (
-                          Number(monthExpCntVal._id.month) ===
-                          Number(optFiltr.value)
-                        ) {
-                          countVal = monthExpCntVal.count;
-                        }
-                        return <></>;
-                      });
-                      return (
-                        <div
-                          className=" filter_bg  "
-                          key={idx}
-                          // style={{ border: "5px soild blue" }}
-                        >
-                          <div
-                            className="tenantfil  "
-                            style={{
-                              fontWeight:"bold",
-                              color: "#fff",
-                              padding: "0px 0px 0px 5px",
-                            }}
-                          >
-                            {" "}
-                            <Link
-                              to="/tenant-report"
-                              name="alphaSearch"
-                              onClick={() => onSelectChange(optFiltr.value)}
-                              style={
-                                Number(monthSearch) === Number(optFiltr.value)
-                                  ? {
-                                    fontWeight:"bold",
-                                    color: "#e8a317",
-                                      fontSize: "115%",
-                                    }
-                                  : { fontWeight: "", fontSize: "115%" }
-                              }
-                            >
-                              {optFiltr.label}
-                            </Link>{" "}
-                            &nbsp;
-                            <label
-                              className="btn-roun "
-                              style={
-                                countVal !== 0
-                                  ? {
-                                      fontSize: "80%",
-                                      color: "#000",
-                                      background: "#fff",
-                                    }
-                                  : {
-                                      fontSize: "80%",
-                                      color: "#429f8c",
-                                      background: "#fff",
-                                    }
-                              }
-                            >
-                              {countVal}
-                            </label>
-                          </div>
-                          <div> </div>
-                        </div>
-                      );
-                    })}
+                  <div className="yearpicker">
+                    <DatePicker
+                      className="form-control  "
+                      placeholder="yyyy"
+                      onChange={(date) => monthYearChange(date)}
+                      dateFormat="yyyy"
+                      selected={startMonthDate}
+                      style={{ textAlign: "center" }}
+                      showYearPicker
+                    />
+                  </div>
                 </div>
+
+                {optName &&
+                  optName.map((optFiltr, idx) => {
+                    let countVal = 0;
+                    monthExpCnt.map((monthExpCntVal) => {
+                      if (
+                        Number(monthExpCntVal._id.month) ===
+                        Number(optFiltr.value)
+                      ) {
+                        countVal = monthExpCntVal.count;
+                      }
+                      return <></>;
+                    });
+                    return (
+                      <div
+                        className=" filter_bg  "
+                        key={idx}
+                        // style={{ border: "5px soild blue" }}
+                      >
+                        <div
+                          className="tenantfil  "
+                          style={{
+                            fontWeight: "bold",
+                            color: "#fff",
+                            padding: "0px 0px 0px 5px",
+                          }}
+                        >
+                          {" "}
+                          <Link
+                            to="/tenant-report"
+                            name="alphaSearch"
+                            onClick={() => onSelectChange(optFiltr.value)}
+                            style={
+                              Number(monthSearch) === Number(optFiltr.value)
+                                ? {
+                                    fontWeight: "bold",
+                                    color: "#e8a317",
+                                    fontSize: "115%",
+                                  }
+                                : { fontWeight: "", fontSize: "115%" }
+                            }
+                          >
+                            {optFiltr.label}
+                          </Link>{" "}
+                          &nbsp;
+                          <label
+                            className="btn-roun "
+                            style={
+                              countVal !== 0
+                                ? {
+                                    fontSize: "80%",
+                                    color: "#000",
+                                    background: "#fff",
+                                  }
+                                : {
+                                    fontSize: "80%",
+                                    color: "#429f8c",
+                                    background: "#fff",
+                                  }
+                            }
+                          >
+                            {countVal}
+                          </label>
+                        </div>
+                        <div> </div>
+                      </div>
+                    );
+                  })}
+              </div>
               {/* </div> */}
             </div>
           </Fragment>
