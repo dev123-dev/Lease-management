@@ -32,6 +32,7 @@ const EditTenantDetails = ({
       userId: myuser && myuser._id,
     });
   }, []);
+
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data.filter(
@@ -40,6 +41,7 @@ const EditTenantDetails = ({
     );
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
+
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
   const allBuildingNames = [];
@@ -50,6 +52,9 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
+
+  //
+  //console.log("edit data",particular_tenant_EditData.shopDoorNo);
 
   // building name start
 
@@ -87,9 +92,9 @@ const EditTenantDetails = ({
     );
   }
 
-  const [Dno, setDno] = useState([]);
+  const [Dno, setDno] = useState([]); //[]);
 
-  const [LocList, SetLocList] = useState([]);
+  const [LocList, SetLocList] = useState();
   const [doorno, setdno] = useState([]);
   let doorNos = [];
   const onchangeDoor = (e) => {
@@ -144,7 +149,7 @@ const EditTenantDetails = ({
     //   }
   };
   // location listing end
-  const [selectedDoorNumber, setSelectedDoorNumber] = useState([]);
+  //const [selectedDoorNumber, setSelectedDoorNumber] = useState(particular_tenant_EditData.shopDoorNo);
   const [testdno, settestdno] = useState();
 
   const [DnoList, SetDnoList] = useState();
@@ -160,27 +165,44 @@ const EditTenantDetails = ({
     // );
     // setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
+
+  console.log("pert", particular_tenant_EditData);
+
+  const editSelectedProperty = particular_org_data.filter(
+    (ele) => ele._id === particular_tenant_EditData.BuildingId
+  );
+  console.log("should be 1 2 3", editSelectedProperty);
+
+  const [selectedDno, setSelectedDno] = useState(
+    particular_tenant_EditData.shopDoorNo
+  );
+  const [unselectedDno, setUnselectedDno] = useState(
+    editSelectedProperty[0].shopDoorNo.filter(
+      (ele) =>
+        ele.status !== "Deleted the Door Number" && ele.status !== "Acquired"
+    )
+  );
+
   const onSelectChange = (inputuserdata) => {
-    let temparray = [];
-    temparray.push(...selectedDoorNumber, inputuserdata);
-    setSelectedDoorNumber(temparray);
-    setDno(Dno.filter((x) => x.value !== inputuserdata.value));
-    setFormData({
-      ...formData,
-      [inputuserdata.name]: 1,
-    });
-  };
-  const onRemoveChange = (Doornumber) => {
-    let temparray2 = [];
-    temparray2.push(...DnoList, Doornumber);
-    setDno(temparray2);
-    setSelectedDoorNumber(
-      selectedDoorNumber.filter((x) => x.value !== Doornumber.value)
+    setUnselectedDno(
+      unselectedDno.filter((ele) => ele.doorNo !== inputuserdata.doorNo)
     );
-    setFormData({
-      ...formData,
-      [Doornumber.name]: 0,
-    });
+    setSelectedDno([
+      ...selectedDno,
+      {
+        label: inputuserdata.doorNo,
+        value: inputuserdata.doorNo,
+        status: inputuserdata.status,
+      },
+    ]);
+  };
+
+  const onRemoveChange = (Doornumber) => {
+    setSelectedDno(selectedDno.filter((ele) => ele.label !== Doornumber.label));
+    setUnselectedDno([
+      ...unselectedDno,
+      { doorNo: Doornumber.label, status: "Avaiable" },
+    ]);
   };
 
   const PaymentMethods = [
@@ -216,6 +238,7 @@ const EditTenantDetails = ({
       });
     }
   };
+  //console.log("f no", particular_tenant_EditData)
   const [formData, setFormData] = useState({
     isSubmitted: false,
     BuildingName: particular_tenant_EditData.BuildingName,
@@ -663,14 +686,16 @@ const EditTenantDetails = ({
                   required
                 ></textarea>{" "}
               </div>
+              {/*  switch */}
               <div className="row ">
                 <div
                   className=" col-lg-6 col-md-12"
                   style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                  {selectedDoorNumber &&
-                    selectedDoorNumber.length > 0 &&
-                    selectedDoorNumber.map((Doornumber, idx) => {
+                  Seleted
+                  {selectedDno &&
+                    selectedDno.length > 0 &&
+                    selectedDno.map((Doornumber, idx) => {
                       return (
                         <p key={idx} className="DoorCover">
                           <button
@@ -694,8 +719,9 @@ const EditTenantDetails = ({
                   className="col-lg-6 col-md-12 col-sm-12  button_Door"
                   style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                  {Dno &&
-                    Dno.map((DoorNumber, idx) => {
+                  to Select
+                  {unselectedDno &&
+                    unselectedDno.map((DoorNumber, idx) => {
                       return (
                         <div key={idx}>
                           <button
@@ -704,13 +730,14 @@ const EditTenantDetails = ({
                             className="btnLink"
                             onClick={() => onSelectChange(DoorNumber)}
                           >
-                            {DoorNumber.value}
+                            {DoorNumber.doorNo}
                           </button>
                         </div>
                       );
                     })}
                 </div>
               </div>
+              {/* end switch */}
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit

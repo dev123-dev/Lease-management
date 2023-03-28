@@ -32,7 +32,7 @@ const PropertyDetail = ({
   const [Sellocation, SetselLoction] = useState([]);
   const Loc = [];
 
-  const { Location } = particular_org_loc[0];
+  const { Location } =particular_org_loc && particular_org_loc[0];
   const fun = () => {
     particular_org_loc[0] &&
       Location.map((ele) => {
