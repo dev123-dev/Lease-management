@@ -190,21 +190,21 @@ const Tenant_Details = ({
 
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
             <div>
-            <h1
-                    style={{
-                      fontFamily: "Serif",
-                      color: "#095a4a",
-                    }}
-                    className="font-weight-bold "
-                  >
-                    <span
-                      style={{ fontFamily: "Serif" }}
-                      className=" text-right font-weight-bold ml-4"
-                    >
-                      {" "}
-                      Tenant Details
-                    </span>
-                  </h1>
+              <h1
+                style={{
+                  fontFamily: "Serif",
+                  color: "#095a4a",
+                }}
+                className="font-weight-bold "
+              >
+                <span
+                  style={{ fontFamily: "Serif" }}
+                  className=" text-right font-weight-bold ml-4"
+                >
+                  {" "}
+                  Tenant Details
+                </span>
+              </h1>
               <hr className="line"></hr>
             </div>
 
@@ -355,7 +355,7 @@ const Tenant_Details = ({
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
                     {get_particular_org_tenant &&
-                    get_particular_org_tenant.length !== 0 ? (
+                      get_particular_org_tenant.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
                         totalData={currentDatas.length}
@@ -398,7 +398,10 @@ const Tenant_Details = ({
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title">
-                <b className="text-center h3">DEACTIVATE</b>
+                <h3 style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }} className="text-center mr-3 ">DEACTIVATE</h3>
               </div>
             </div>
             <div className="close">
@@ -444,7 +447,10 @@ const Tenant_Details = ({
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title ">
-                <b className="text-center h3 ">DEACTIVATE</b>
+                <h3 style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }} className="text-center mr-3 ">DEACTIVATE</h3>
               </div>
             </div>
             <div className="close">
