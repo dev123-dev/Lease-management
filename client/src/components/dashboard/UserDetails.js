@@ -66,7 +66,7 @@ const UserDetails = ({
       deactive_reason: deactive_reason,
     };
     deactivateUser(reason);
-    // get_particular_org_user({ orgid: user.OrganizationId });
+    get_particular_org_user({ orgid: user.OrganizationId });
   };
 
   const [showadd, setShowadd] = useState(false);
@@ -84,7 +84,6 @@ const UserDetails = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-  console.log("user", get_particularOrg_user);
   return (
     <>
       <div className="col mt-sm-4 space">

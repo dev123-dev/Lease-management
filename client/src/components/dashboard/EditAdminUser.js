@@ -23,7 +23,7 @@ const EditAdminUser = ({
   }, []);
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "Super Admin", label: "Super Admin" },
+    { value: "Clerk", label: "Clerk" },
   ];
   const [group, setgroup] = useState(
     org
@@ -53,20 +53,10 @@ const EditAdminUser = ({
     password: "",
   });
 
-  const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-  const onAddStaffModalChange = (e) => {
-    if (e) {
-      handleEditModalClose();
-    }
-  };
-
   const [userid, setId] = useState("");
 
   const onedit = (id) => {
     setId(id);
-    handleOpen();
   };
 
   // adding multiple location start
