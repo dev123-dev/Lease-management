@@ -153,7 +153,6 @@ const TenantFilters = ({
     getTenantReportOldExp(finalDataReportOld);
     getOrganizationExpiryReport(finalDataReportOld);
   };
-
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -175,10 +174,8 @@ const TenantFilters = ({
                     onClick={() => oldExpCountFetch()}
                   >
                     {" "}
-                    {ext_year_count_org &&
-                    ext_year_count_org[0] &&
-                    ext_year_count_org[0].count > 0
-                      ? ext_year_count_org[0].count
+                    {ext_year_count_org && ext_year_count_org.length > 0
+                      ? ext_year_count_org.length
                       : 0}
                   </Link>
                 </div>

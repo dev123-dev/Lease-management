@@ -328,7 +328,7 @@ export const deactivateUser = (id) => async (dispatch) => {
 //deleting organization details
 export const deleteOrganization = (id) => async (dispatch) => {
   try {
-    console.log(id)
+    console.log(id);
     await axios.post(
       `${linkPath}/api/tenants/deactive-Organization`,
       id,
@@ -581,6 +581,7 @@ export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
       data,
       config
     );
+    console.log("res", res.data);
     dispatch({
       type: YEAR_EXP_COUNT_ORG,
       payload: res.data,
