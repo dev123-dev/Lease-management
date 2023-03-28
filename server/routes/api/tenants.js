@@ -1365,7 +1365,7 @@ console.log(data)
          
         },
       }
-    ).then((data)=>console.log(data));
+    ).then((data)=>console.log("norml ",data));
 
     data.tenantDoorNo.map((eleDoor) => {
       property
