@@ -179,7 +179,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontFamily: "Serif",
                       textDecoration: "none",
                     }}
                   >
@@ -201,7 +201,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontFamily: "Serif",
                       textDecoration: "none",
                     }}
                   >
@@ -224,7 +224,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontFamily: "Serif",
                       textDecoration: "none",
                     }}
                   >

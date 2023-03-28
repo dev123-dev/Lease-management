@@ -65,7 +65,7 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
 
-        errorResponse: "Invalid UserName or Password",
+        errorResponse: "Invalid Email or Password",
       };
     case AUTH_ERROR:
     case LOGOUT:
