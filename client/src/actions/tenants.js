@@ -62,7 +62,6 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
   try {
-    console.log("inside action update-tenant-settings");
     await axios.post(
       `${linkPath}/api/tenantSetting/update-tenant-settings`,
       finalData,
@@ -128,16 +127,16 @@ export const getParticularProperty = (data) => async (dispatch) => {
   }
 };
 
-export const getAllRenewalAmount = (data) => async (dispatch) => {
-  try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/get-renewal-amount`,
-      data
-    );
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// export const getAllRenewalAmount = (data) => async (dispatc) => {
+//   try {
+//    await axios.post(
+//       `${linkPath}/api/tenants/get-renewal-amount`,
+//       data
+//     );
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 export const getParticularOrg = (data) => async (dispatch) => {
   try {
