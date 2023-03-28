@@ -246,7 +246,7 @@ const Header = ({
                           <Link
                             to="#"
                             // onClick={() => handleLogoutModalShow()}
-                            className="navbar-right py-2 "
+                            className="navbar-right pt-3 "
                           >
                             {user.usergroup} &nbsp;
                             <i className="fa fa-caret-down" />
@@ -254,7 +254,7 @@ const Header = ({
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                           </Link>
 
-                          <ul className="dropdown-menu second-level-menu ">
+                          <ul className="dropdown-menu second-level-menu mb-3 ">
                             <li className="hwhite drophover">
                               <Link
                                 to="#"
@@ -312,7 +312,7 @@ const Header = ({
                           <Link
                             to="#"
                             onClick={() => openSecondLevelMenu2()}
-                            className="navbar-right py-2 "
+                            className="navbar-right pt-3 pb-1"
                           >
                             {user.usergroup}&nbsp;
                             <i className="fa fa-caret-down" />
@@ -346,7 +346,7 @@ const Header = ({
                                   to="/change-password"
                                   className="navlinkitem"
                                 >
-                                  Change Password
+                                  Reset Password
                                 </Link>
                               </li>
                             ) : (

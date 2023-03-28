@@ -13,7 +13,6 @@ const EditOrganization = ({
   const [items, setitem] = useState(org.Location);
 
   const handleLocationclose = (ele1, index) => {
-    
     const delitem = items.filter((ele, ind) => {
       return ele1 !== ele;
     });
@@ -77,14 +76,13 @@ const EditOrganization = ({
       if (mm2 < 10) {
         mm2 = "0" + mm2;
       }
-      var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+      var leaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
       setShowEnddate(leaseEndDate);
     }
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
 
   const onUpdate = (e) => {
-    // console.log(e)
     e.preventDefault();
     EditModal(false);
     const updateData = {
@@ -98,7 +96,6 @@ const EditOrganization = ({
       Location: items,
     };
     updateOrganization(updateData);
-   
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -118,7 +115,8 @@ const EditOrganization = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Email*: </label>
@@ -129,7 +127,8 @@ const EditOrganization = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Phone No:</label>
@@ -140,9 +139,10 @@ const EditOrganization = ({
                 value={OrganizationNumber}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
-              /><br></br>
+              />
+              <br></br>
             </div>
-            
+
             <div className="col-lg-6">
               <label>Lease Start Date*:</label>
               <input
@@ -153,7 +153,8 @@ const EditOrganization = ({
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
-              /><br></br>
+              />
+              <br></br>
             </div>
             <div className="col-lg-6">
               <label>Lease End Date*:</label>
@@ -165,7 +166,8 @@ const EditOrganization = ({
                 placeholder={enddate}
                 onChange={(e) => onInputChange(e)}
                 required
-              /><br></br>
+              />
+              <br></br>
               <label className="ml-2">Location*:</label>
               <input
                 className="form-control"
@@ -198,7 +200,7 @@ const EditOrganization = ({
                       <div className="eachItem" key={index1}>
                         <span>{ele}</span>{" "}
                         <button
-                        type="button"
+                          type="button"
                           onClick={(e) => handleLocationclose(ele, index1)}
                           className="btndrp"
                         >

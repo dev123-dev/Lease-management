@@ -44,11 +44,11 @@ const PropertyDetail = ({
       });
   };
 
-  // let output = particular_org_data.filter(
-  //   (item) =>
-  //     item.shopDoorNo &&
-  //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
-  // );
+  let output = particular_org_data.filter(
+    (item) =>
+      item.shopDoorNo &&
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  );
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
@@ -257,8 +257,8 @@ const PropertyDetail = ({
                       </tr>
                     </thead>
                     <tbody>
-                      {particular_org_data &&
-                        particular_org_data.map((Val, idx) => {
+                      {output &&
+                        output.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
