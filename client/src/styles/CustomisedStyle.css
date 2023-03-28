@@ -2386,9 +2386,8 @@ div {
     width: 200%;
     height: fit-content;
   }
-  /* .Dno {
-    background-color: red;
-  } */
+
+ 
   .back_fill {
     background-color: #ffffff;
     margin-bottom: -10%;
@@ -2552,5 +2551,10 @@ div {
     height: 43px;
     /* margin-right: 70px; */
     margin-top: 0px;
+  }
+  .headsize{
+
+   
+    font-size: 27px;
   }
 }

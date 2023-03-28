@@ -77,7 +77,7 @@ const MainAdminPage = ({
                 fontFamily: "Serif",
                 color: "#095a4a",
               }}
-              className="font-weight-bold "
+              className="font-weight-bold headsize"
             >
               <span
                 className="font-weight-bold "
