@@ -207,10 +207,10 @@ const AddAdminUserModal = ({
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
     <>
-      <div className=""></div>
+      {/* <div className=""></div> */}
 
-      <Modal.Header>
-        <div className="col-lg-12 col-md-12 col-sm-12 col-12 ">
+      <Modal.Header className="confirmbox-heading">
+        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead ">
           <div>
             <b className=" text-center  h3 ml-4">ADD USER DETAILS</b>{" "}
           </div>

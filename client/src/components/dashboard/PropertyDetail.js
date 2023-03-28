@@ -364,7 +364,7 @@ const PropertyDetail = ({
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header>
+        <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
             <div className="ml-4">
               <b className="text-center h3 ml-4">Edit Property Details</b>{" "}
@@ -392,13 +392,13 @@ const PropertyDetail = ({
       {/* modal for Deactivating the single Property starting */}
       <Modal show={show} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
-          <Modal.Header>
+          <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title ">
                 <b className="text-center h3 ">DEACTIVATE</b>
               </div>
             </div>
-            <div className="col-lg-1 closeicon">
+            <div className="close">
               <img
                 src={require("../../static/images/close.png")}
                 alt="X"
@@ -433,13 +433,13 @@ const PropertyDetail = ({
 
       <Modal show={selectDno} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
-          <Modal.Header>
+          <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title ">
                 <b className="text-center h3 ">DEACTIVATE</b>
               </div>
             </div>
-            <div className="col-lg-1 closeicon">
+            <div className="close">
               <img
                 src={require("../../static/images/close.png")}
                 alt="X"

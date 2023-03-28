@@ -249,7 +249,7 @@ const SuperUserDashboard = ({
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
-            <Modal.Header>
+            <Modal.Header className="confirmbox-heading">
               <div className="col-lg-10">
                 <div className="ml-4">
                   <b className="text-center  h3 ml-4 ">Edit User Details</b>
@@ -277,13 +277,13 @@ const SuperUserDashboard = ({
           {/* this id for Deactivating the Super user starting */}
           <Modal show={Deactiveshow} centered>
             <form onSubmit={onDeactive}>
-              <Modal.Header>
+              <Modal.Header className="confirmbox-heading">
                 <div className="col-lg-11 ">
                   <div className="modal-title">
                     <b className="text-center h3 ">DEACTIVATE </b>
                   </div>
                 </div>
-                <div className="col-lg-1 closeicon">
+                <div className="close">
                   <img
                     src={require("../../static/images/close.png")}
                     alt="X"

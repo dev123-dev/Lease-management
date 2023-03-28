@@ -341,7 +341,7 @@ const TenantFilters = ({
                           >
                             {optFiltr.label}
                           </Link>{" "}
-                          &nbsp;
+                          {/* &nbsp; */}
                           <label
                             className="btn-roun "
                             style={
