@@ -299,7 +299,7 @@ const AddSuperUserModel = ({
               </div>
               <div className="control-group col-md-6 col-lg-6 col-sm-6 col-xs-6">
                       <label className="control-label">
-                        Organization Belongs<span>*</span>
+                        Organization Belong<span>*</span>
                       </label>
                       <div className="controls">
                         <Select

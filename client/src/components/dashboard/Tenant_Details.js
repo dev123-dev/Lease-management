@@ -191,7 +191,21 @@ const Tenant_Details = ({
 
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
             <div>
-              <h2 className="col mt-sm-4 h2 ml-2">Tenant Details </h2>
+            <h1
+                    style={{
+                      fontFamily: "Serif",
+                      color: "#095a4a",
+                    }}
+                    className="font-weight-bold "
+                  >
+                    <span
+                      style={{ fontFamily: "Serif" }}
+                      className=" text-right font-weight-bold ml-4"
+                    >
+                      {" "}
+                      Tenant Details
+                    </span>
+                  </h1>
               <hr className="line"></hr>
             </div>
 

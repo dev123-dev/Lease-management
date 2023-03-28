@@ -64,24 +64,32 @@ const TenantReport = ({
           <div className="container container_align ">
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color"> Organization Report </h2>
+                <div className="col-lg-12 col-md-11 col-sm-11 col-11  ">
+                  <h1
+                    style={{
+                      fontFamily: "Serif",
+                      color: "#095a4a",
+                    }}
+                    className="font-weight-bold "
+                  >
+                    <span
+                      style={{ fontFamily: "Serif" }}
+                      className=" text-right font-weight-bold ml-4"
+                    >
+                      {" "}
+                      Organization Report
+                    </span>
+                  </h1>
+                  <hr className="line"></hr>
                 </div>
-                <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-                  <img
-                    className="img_icon_size log"
-                    src={require("../../static/images/print.png")}
-                    alt="Add User"
-                    title="Add User"
-                  />
-                </div>
+
               </div>
               <div className="row">
                 <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
                   <section className="body">
                     <div className="body-inner no-padding  table-responsive fixTableHead">
                       <table
-                        className="table table-bordered table-striped table-hover"
+                        className="table table-bordered table-striped table-hover ml-4"
                         id="datatable2"
                       >
                         <thead>

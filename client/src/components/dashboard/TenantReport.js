@@ -152,8 +152,23 @@ const TenantReport = ({
           <div className="container container_align ">
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color">Tenant Reports </h2>
+                <div className="col-lg-10 col-md-11 col-sm-11 col-11">
+                <h1
+                    style={{
+                      fontFamily: "Serif",
+                      color: "#095a4a",
+                    }}
+                    className="font-weight-bold "
+                  >
+                    <span
+                      style={{ fontFamily: "Serif" }}
+                      className=" text-right font-weight-bold "
+                    >
+                      {" "}
+                      Tenant Report
+                      
+                    </span>
+                  </h1>
                 </div>
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
                   <button onClick={handlePrint}>

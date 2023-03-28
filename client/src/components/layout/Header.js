@@ -42,7 +42,7 @@ const Header = ({
 
   const handleLogoutModalClose = () => setShowLogout(false);
   const handleLogoutModalShow = () => {
-    console.log("clecked");
+ 
     setShowLogout(true);
   };
   const handleTenantSettingModalClose = () => setTenantSetting(false);
@@ -77,7 +77,7 @@ const Header = ({
     <Fragment>
       <header>
         <Navbar
-          className="navbar_height top_menu py-1"
+          className="navbar_height top_menu "
           expand="lg"
           fixed="top"
           style={{ padding: "0px 1em" }}
@@ -132,7 +132,7 @@ const Header = ({
                       textDecoration: "none",
                     }}
                   >
-                    OrganisationDetails
+                    OrganizationDetails
                   </NavLink>
                 ) : (
                   <></>
