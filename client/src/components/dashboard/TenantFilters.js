@@ -217,7 +217,7 @@ const TenantFilters = ({
                     >
                       <div
                         className="tenantfil  "
-                        style={{ color: "#fff", padding: "0px 0px 0px 5px" }}
+                        style={{  fontWeight:"bold", color: "#fff", padding: "0px 0px 0px 5px" }}
                       >
                         {" "}
                         <Link
@@ -228,8 +228,8 @@ const TenantFilters = ({
                           style={
                             Number(monthSearch) === Number(optFiltr.value)
                               ? {
-                                  fontWeight: "200",
-                                  color: "black",
+                                  fontWeight:"bold",
+                                  color: "#e8a317",
                                   fontSize: "115%",
                                 }
                               : { fontWeight: "", fontSize: "115%" }
@@ -322,6 +322,7 @@ const TenantFilters = ({
                           <div
                             className="tenantfil  "
                             style={{
+                              fontWeight:"bold",
                               color: "#fff",
                               padding: "0px 0px 0px 5px",
                             }}
@@ -334,8 +335,8 @@ const TenantFilters = ({
                               style={
                                 Number(monthSearch) === Number(optFiltr.value)
                                   ? {
-                                      fontWeight: "200",
-                                      color: "black",
+                                    fontWeight:"bold",
+                                    color: "#e8a317",
                                       fontSize: "115%",
                                     }
                                   : { fontWeight: "", fontSize: "115%" }
