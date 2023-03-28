@@ -599,7 +599,6 @@ router.post("/deactive-tenant", async (req, res) => {
           }
         ).then((data) => console.log("else part", data));
       });
-
       data.Dno.map((ele) => {
         property
           .updateOne(

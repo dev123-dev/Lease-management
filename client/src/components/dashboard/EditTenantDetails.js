@@ -697,50 +697,51 @@ const EditTenantDetails = ({
               <div className="row ">
                 {/* to sel */}
                 <div
-                  className="col-lg-6 col-md-12 col-sm-12  button_Door"
-                  style={{ border: "1px solid black", minHeight: "80px" }}
+                  className="col-lg-6 col-md-12 col-sm-12 button_Door border "
+                  // style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                  to Select
+                  <span>Avaiable Door Number :</span>
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
-                        <div key={idx}>
                           <button
+                          key={idx}
                             type="button"
                             name="workMistake"
-                            className="btn btn-success"
+                            className="m-2"
+                            id="savebtn"
                             onClick={() => onSelectChange(DoorNumber)}
                           >
-                            {DoorNumber.doorNo}
+                            {DoorNumber.doorNo} 
                           </button>
-                        </div>
                       );
                     })}
                 </div>
                 {/* end to sel */}
                 <div
-                  className=" col-lg-6 col-md-12"
-                  style={{ border: "1px solid black", minHeight: "80px" }}
+                  className=" col-lg-6 col-md-12 border"
+                  // style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                  Seleted
+                 <span>Occupied Door Number : </span>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
                       return (
                         // <p key={idx} className="DoorCover">
-                        <button
-                          type="button"
-                          name="selectedWorkMistake"
-                          className="btn btn-success"
-                        >
-                          {Doornumber.value}
-                          <span
-                            className="mx-2"
-                            onClick={() => onRemoveChange(Doornumber)}
+                          <button
+                            type="button"
+                            name="selectedWorkMistake"
+                           className="m-2"
+                            id="savebtn"
                           >
-                            X
-                          </span>
-                        </button>
+                            {Doornumber.value}
+                            <span
+                              className="mx-2 "
+                              onClick={() => onRemoveChange(Doornumber)}
+                            >
+                              X
+                            </span>
+                          </button>
                         // </p>
                       );
                     })}
