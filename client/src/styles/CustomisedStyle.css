@@ -639,10 +639,11 @@ p {
 }
 
 .line {
-  border-top: 1px solid rgb(195, 168, 168);
-  margin-left: 19px;
-  width: 97.5%;
+  border-top: 1px solid rgb(156, 151, 151);
+  margin-left: 40px;
+  width: 93%;
 }
+
 
 .welcome-box {
   padding-top: 50px;
@@ -2093,13 +2094,14 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .locadds {
   background-color: transparent;
-  margin-left: 83%;
-  margin-top: -9.5%;
+  margin-left: 81%;
+  margin-top: -10%;
   height: 30%;
   width: 9%;
   border-radius: 0;
   border: transparent;
   position: absolute;
+  
 }
 
 .tenantfil:hover {
@@ -2386,7 +2388,9 @@ div {
     width: 200%;
     height: fit-content;
   }
-
+.line{
+  width: 220px;
+}
  
   .back_fill {
     background-color: #ffffff;
@@ -2428,7 +2432,8 @@ div {
   }
 
   .locadds {
-    left: 10px;
+    left: 0px;
+    bottom: 5px;
   }
   .link_to_org {
     margin-top: -35%;
