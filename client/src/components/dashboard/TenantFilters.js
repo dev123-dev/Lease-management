@@ -165,7 +165,7 @@ const TenantFilters = ({
             <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
-                <div className="btn_more text-left">
+                <div className="btn_more text-center">
                   <Link
                     title="Total Renewal Count"
                     to="/Organization-report"
@@ -180,9 +180,9 @@ const TenantFilters = ({
                   </Link>
                 </div>
 
-                <div className="yearpicker">
+                <div className="yearpicker ">
                   <DatePicker
-                    className="form-control "
+                    className="form-control text-center"
                     placeholder="yyyy"
                     onChange={(date) => OrgainzationmonthYearChange(date)}
                     dateFormat="yyyy"
