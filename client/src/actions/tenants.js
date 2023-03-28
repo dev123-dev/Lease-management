@@ -62,7 +62,6 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
   try {
-    console.log("inside action update-tenant-settings");
     await axios.post(
       `${linkPath}/api/tenantSetting/update-tenant-settings`,
       finalData,
@@ -128,16 +127,16 @@ export const getParticularProperty = (data) => async (dispatch) => {
   }
 };
 
-export const getAllRenewalAmount = (data) => async (dispatch) => {
-  try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/get-renewal-amount`,
-      data
-    );
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// export const getAllRenewalAmount = (data) => async (dispatc) => {
+//   try {
+//    await axios.post(
+//       `${linkPath}/api/tenants/get-renewal-amount`,
+//       data
+//     );
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 export const getParticularOrg = (data) => async (dispatch) => {
   try {
@@ -217,8 +216,13 @@ export const updateProperty = (updatedata) => async (dispatch) => {
 //update Super User Form
 export const UpdateUser = (userdata) => async (dispatch) => {
   try {
-    await axios.post(`${linkPath}/api/tenants/Update-User`, userdata, config);
-    dispatch(getalluser());
+    const res = await axios.post(
+      `${linkPath}/api/tenants/Update-User`,
+      userdata,
+      config
+    );
+
+    get_particular_org_user({ OrganizationId: userdata.OrganizationId });
   } catch (error) {
     console.error(error.message);
   }
