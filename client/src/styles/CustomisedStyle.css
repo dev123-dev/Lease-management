@@ -94,19 +94,35 @@
   background: rgba(0, 0, 0, 0.45);
   color: #fff;
 }
-.btn-roun {
-  height: 25px;
-  width: 35px;
-  border-radius: 50% !important;
-  font-size: 10px;
-  font-weight: 500;
-  background: transparent;
-  border: transparent;
+
+@media (min-width: 551px) {
+  .btn-roun {
+    height: 25px;
+    width: 35px;
+    border-radius: 50% !important;
+    font-size: 10px;
+    font-weight: 500;
+    background: transparent;
+    border: transparent;
+    margin-left: 5px;
+  }
+}
+@media (max-width: 550px) {
+  .btn-roun {
+    height: 25px;
+    width: 35px;
+    border-radius: 50% !important;
+    font-size: 10px;
+    font-weight: 500;
+    background: transparent;
+    border: transparent;
+    margin-top: 27px;
+  }
 }
 
-.btn-roun {
+/* .btn-roun {
   transform: scale(1);
-}
+} */
 .btn-rou {
   height: 200px;
   width: 100px;
@@ -1918,6 +1934,7 @@ input[type="number"]::-webkit-outer-spin-button {
     position: absolute;
     /* right: 8px;
     left: 8px; */
+    left: 3px;
   }
 }
 
@@ -2212,10 +2229,10 @@ button {
 #buttonchanges {
   border-color: black;
   border-radius: 0%;
-  width:100px;
+  width: 100px;
   height: 50px;
   padding: 5px;
-  margin-left:25px;
+  margin-left: 25px;
   background-color: transparent;
 }
 #buttonchanges:hover {
@@ -2225,10 +2242,10 @@ button {
 #buttonchanges1 {
   border-color: black;
   border-radius: 0%;
-  width:100px;
+  width: 100px;
   height: 50px;
   padding: 5px;
- 
+
   background-color: transparent;
 }
 #buttonchanges1:hover {
