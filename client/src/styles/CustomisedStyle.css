@@ -263,7 +263,8 @@ footer.footer .top_top {
 
 .log_size {
   width: 105px;
-  height: 45px;
+  height: 55px;
+  /* margin-right: 70px; */
   margin-top: 0px;
 }
 
