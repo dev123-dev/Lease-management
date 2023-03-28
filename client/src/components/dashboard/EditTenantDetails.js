@@ -43,10 +43,11 @@ const EditTenantDetails = ({
 
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
-    let AvaiableRoomBuilding = particular_org_data.filter(
-      (item) =>
-        !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
-    );
+     let AvaiableRoomBuilding = particular_org_data;
+    //filter(
+    //   (item) =>
+    //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+    // );
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
 
@@ -60,7 +61,7 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
-
+//console.log("aLL",allBuildingNames)
   //
   //console.log("edit data",particular_tenant_EditData.shopDoorNo);
 

@@ -125,7 +125,8 @@ const AddTenantDetails = ({
   const [buildingName, setBuildingName] = useState();
 
   //this code is used to filter out only those building whose room number is avaiable if not avaiable it will not display the building name
-  let AvaiableRoomBuilding = particular_org_data.filter(
+  let AvaiableRoomBuilding = particular_org_data;
+  let isavail=particular_org_data.filter(
     (item) =>
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
@@ -382,19 +383,7 @@ const AddTenantDetails = ({
                 ></Select>
                 <br></br>
               </div>
-              {/* <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Door No*:</label>
-                <Select
-                  className="select"
-                  name="doorno"
-                  options={DnoList}
-                  value={doorno}
-                  onChange={(e) => onchangeDoor(e)}
-                  isMulti={true}
-                  required
-                ></Select>
-                <br></br>
-              </div> */}
+              
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label> Location*:</label>
                 <input
@@ -634,12 +623,13 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="row ">
-                <div
+                
+{ isavail && isavail.length !==0 ? (<><div
                   className=" col-lg-6 col-md-12"
                   style={{ border: "1px solid black", minHeight: "80px" }}
                 >
                   {selectedDoorNumber &&
-                    selectedDoorNumber.length > 0 &&
+                    selectedDoorNumber.length > 0 && 
                     selectedDoorNumber.map((Doornumber, idx) => {
                       return (
                         <p key={idx} className="DoorCover">
@@ -658,8 +648,12 @@ const AddTenantDetails = ({
                           </button>
                         </p>
                       );
-                    })}
+                    })
+                    
+                    }
                 </div>
+
+
                 <div
                   className="col-lg-6 col-md-12 col-sm-12  button_Door"
                   style={{ border: "1px solid black", minHeight: "80px" }}
@@ -680,6 +674,12 @@ const AddTenantDetails = ({
                       );
                     })}
                 </div>
+
+</>):(<>NODATA</>)}
+                
+
+
+
               </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
