@@ -42,7 +42,7 @@ const Header = ({
 
   const handleLogoutModalClose = () => setShowLogout(false);
   const handleLogoutModalShow = () => {
-    console.log("clecked");
+ 
     setShowLogout(true);
   };
   const handleTenantSettingModalClose = () => setTenantSetting(false);
@@ -132,7 +132,7 @@ const Header = ({
                       textDecoration: "none",
                     }}
                   >
-                    OrganisationDetails
+                    OrganizationDetails
                   </NavLink>
                 ) : (
                   <></>
