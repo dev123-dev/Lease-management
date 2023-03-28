@@ -826,7 +826,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
           count: { $sum: 1 },
         },
       },
-    ]);
+    ]).then((data) => console.log("pre", data));
 
     res.json(yeardata);
   } catch (err) {

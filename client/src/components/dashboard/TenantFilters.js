@@ -153,7 +153,6 @@ const TenantFilters = ({
     getTenantReportOldExp(finalDataReportOld);
     getOrganizationExpiryReport(finalDataReportOld);
   };
-
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
