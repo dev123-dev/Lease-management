@@ -244,7 +244,7 @@ const AddOrgDashBoard = ({
 
                 <div className="col-lg-6  ">
                   <p className="text-end h6  ">
-                    No of Organization : {allorg.length}
+                    No.of Organization : {allorg.length}
                   </p>
                 </div>
               </div>
