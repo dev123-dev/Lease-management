@@ -123,11 +123,10 @@ const AddOrgModal = ({
     });
   };
   return !isAuthenticated || !user || !users ? (
-    <Fragment></Fragment>
+<></>
   ) : (
-    <div>
-      <Fragment>
-        <Modal.Header>
+    <>
+        <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10 ">
             <div className=" ml-5">
               <b className="text-center h3 ml-4">ADD ORGANIZATION DETAILS </b>
@@ -299,8 +298,8 @@ const AddOrgModal = ({
             </div>
           </form>
         </Modal.Body>
-      </Fragment>
-    </div>
+      
+    </>
   );
 };
 const mapStateToProps = (state) => ({
