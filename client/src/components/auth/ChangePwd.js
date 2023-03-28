@@ -179,23 +179,26 @@ const ChangePwd = ({
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
             <h1
+            
+            
             style={{
               fontFamily: "Serif",
               color: "#095a4a",
+            position:"relative",
+            right:"80px"
+              
             }}
             className="font-weight-bold "
           >
             <span
               style={{ fontFamily: "Serif" }}
-              className=" text-right font-weight-bold ml-4"
+              className="  font-weight-bold  "
             >
               {" "}
               Reset Password
             </span>
           </h1>
             </div>
-
-            <hr size="10"></hr>
 
             <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
@@ -288,7 +291,7 @@ const ChangePwd = ({
                     type="submit"
                     name="Submit"
                     value="CANCEL"
-                    id="buttonchanges"
+                    id="buttonchanges1"
                   />
                 </Link>
               </div>
