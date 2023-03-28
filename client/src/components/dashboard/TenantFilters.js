@@ -210,11 +210,7 @@ const TenantFilters = ({
                       return <></>;
                     });
                   return (
-                    <div
-                      className="filter_bg  "
-                      key={idx}
-                      // style={{ border: "5px soild blue" }}
-                    >
+                    <div className="filter_bg  " key={idx}>
                       <div
                         className="tenantfil  "
                         style={{
@@ -241,9 +237,9 @@ const TenantFilters = ({
                         >
                           {optFiltr.label}
                         </Link>{" "}
-                        &nbsp;
+                        {/* &nbsp; */}
                         <label
-                          className="btn-roun "
+                          className="btn-roun  "
                           style={
                             countVal !== 0
                               ? {
