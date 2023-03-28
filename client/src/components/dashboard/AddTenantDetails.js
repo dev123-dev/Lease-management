@@ -675,15 +675,30 @@ const AddTenantDetails = ({
                 before Submit
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <Link to="/tenant-detail">
-                  <button
-                    variant="success"
-                    className="btn sub_form btn_continue Save float-right"
-                    id="savebtn"
-                  >
-                    Save
-                  </button>
-                </Link>
+                <div className="row ">
+                  <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Link to="/tenant-detail">
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right mx-5"
+                        id="savebtn"
+                      >
+                        Back
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Link to="/tenant-detail">
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right"
+                        id="savebtn"
+                      >
+                        Save
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
