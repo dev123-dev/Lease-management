@@ -57,7 +57,6 @@ const SuperUserDashboard = ({
   };
 
   const onEdit = (allsuperuse, id) => {
-    
     setId(id);
     setuser(allsuperuse);
     setShowEditModal(true);
@@ -105,21 +104,21 @@ const SuperUserDashboard = ({
             <div className="col"></div>
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
               <div>
-              <h1
-            style={{
-              fontFamily: "Serif",
-              color: "#095a4a",
-            }}
-            className="font-weight-bold "
-          >
-            <span
-              style={{ fontFamily: "Serif" }}
-              className=" text-right font-weight-bold ml-4"
-            >
-              {" "}
-              User Details
-            </span>
-          </h1>
+                <h1
+                  style={{
+                    fontFamily: "Serif",
+                    color: "#095a4a",
+                  }}
+                  className="font-weight-bold "
+                >
+                  <span
+                    style={{ fontFamily: "Serif" }}
+                    className=" text-right font-weight-bold ml-4"
+                  >
+                    {" "}
+                    User Details
+                  </span>
+                </h1>
                 <hr className="line"></hr>
               </div>
               <div className="text-end"> </div>
@@ -161,7 +160,7 @@ const SuperUserDashboard = ({
                         <tbody>
                           {currentDatas &&
                             currentDatas[0] &&
-                            currentDatas.map((allsuperuse, idx) => {console.log(allsuperuse)
+                            currentDatas.map((allsuperuse, idx) => {
                               return (
                                 <tr key={idx}>
                                   <td>{allsuperuse.username}</td>
@@ -178,8 +177,8 @@ const SuperUserDashboard = ({
                                         src={require("../../static/images/edit_icon.png")}
                                         alt="Edit"
                                         title="Edit"
-                                      />&nbsp;
-
+                                      />
+                                      &nbsp;
                                       <img
                                         className="Cursor "
                                         onClick={() =>
@@ -276,7 +275,7 @@ const SuperUserDashboard = ({
           {/* Modal Edit Ending */}
 
           {/* this id for Deactivating the Super user starting */}
-            <Modal show={Deactiveshow} centered>
+          <Modal show={Deactiveshow} centered>
             <form onSubmit={onDeactive}>
               <Modal.Header>
                 <div className="col-lg-11 ">
@@ -325,7 +324,6 @@ const SuperUserDashboard = ({
             </form>
           </Modal>
           {/* Modal Ending */}
-
         </>
       ) : (
         <></>

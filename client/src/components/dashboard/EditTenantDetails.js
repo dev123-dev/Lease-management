@@ -117,7 +117,6 @@ const EditTenantDetails = ({
         if (e.buildingId === ele._id) {
           SetLocList(ele.Location);
           ele.shopDoorNo.map((doornumber) => {
-            //console.log("x", doornumber);
             if (doornumber.status === "Avaiable") {
               temp.push({
                 label: doornumber.doorNo,
@@ -160,7 +159,6 @@ const EditTenantDetails = ({
       particular_tenant_EditData.shopDoorNo.map((ele) => {
         return ele;
       });
-    //console.log(TenantDoor, "yy");
     // let RoomBuilding = particular_tenant_EditData.filter(
     //   (item) =>
     //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")

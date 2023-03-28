@@ -55,7 +55,6 @@ const EditProperty = ({
     } else {
       //setitem([...items, inputdata]);
       let new_door = dno.map((ele) => ele.doorNo === inputdata);
-      console.log("new data", new_door);
       if (new_door.every((ele) => ele === false)) {
         setdno([...dno, { doorNo: inputdata, status: "Avaiable" }]);
         setinput("");
@@ -125,7 +124,6 @@ const EditProperty = ({
       isSubmitted: true,
       shopStatus: "Active",
     };
-    console.log(update);
     updateProperty(update);
     handleEditModalClose();
   };
