@@ -367,7 +367,7 @@ const Tenant_Details = ({
                     )}
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
-                    <label>No of Tenants: {tenantCount.length}</label>
+                    <label>No.of Tenants: {tenantCount.length}</label>
                   </div>
                 </div>
               </div>
