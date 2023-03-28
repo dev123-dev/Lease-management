@@ -358,7 +358,7 @@ router.post("/get-particular-org-user", async (req, res) => {
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
   try {
-    await UserDetails.updateOne(
+    const r = await UserDetails.updateOne(
       { _id: data.userid },
       {
         $set: {
@@ -372,6 +372,7 @@ router.post("/Update-User", async (req, res) => {
         },
       }
     ).then((data) => console.log(data));
+    res.json(r);
   } catch (err) {
     console.error(err.message);
   }
@@ -615,11 +616,9 @@ router.post("/deactive-tenant", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log("xtz",data));
+          .then((data) => console.log("xtz", data));
       });
     }
-
-    // }
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -860,12 +859,12 @@ router.post("/get-previous-years-exp", async (req, res) => {
         },
       },
 
-      {
-        $group: {
-          _id: null,
-          count: { $sum: 1 },
-        },
-      },
+      // {
+      //   $group: {
+      //     _id: null,
+      //     count: { $sum: 1 },
+      //   },
+      // },
     ]);
     res.json(MonthExpCntData);
   } catch (err) {
@@ -1337,7 +1336,7 @@ router.post("/update-tenant-details", async (req, res) => {
     // let doornumber = data.tenantDoorNo.map((ele) => {
     //   return {};
     // });
-console.log(data)
+    console.log(data);
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
       {
@@ -1346,7 +1345,7 @@ console.log(data)
           OrganizationName: data.OrganizationName,
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
-           shopDoorNo:data.tenantDoorNo,
+          shopDoorNo: data.tenantDoorNo,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,
@@ -1360,12 +1359,11 @@ console.log(data)
           tenantchequeDate: data.tenantchequeDate,
           tenantChequenoOrDdno: data.tenantChequenoOrDdno,
           generatordepoAmt: data.generatordepoAmt,
-           BuildingName:data.BuildingName.label,
-          BuildingId:data.BuildingName.buildingId,
-         
+          BuildingName: data.BuildingName.label,
+          BuildingId: data.BuildingName.buildingId,
         },
       }
-    ).then((data)=>console.log("norml ",data));
+    ).then((data) => console.log("norml ", data));
 
     data.tenantDoorNo.map((eleDoor) => {
       property
@@ -1381,7 +1379,7 @@ console.log(data)
             },
           }
         )
-        .then((data) => console.log("sel",data));
+        .then((data) => console.log("sel", data));
     });
 
     data.unseletedDoorno.map((eleDoor) => {
@@ -1398,7 +1396,7 @@ console.log(data)
             },
           }
         )
-        .then((data) => console.log("un sel",data));
+        .then((data) => console.log("un sel", data));
     });
     res.json(updatetenantdetails);
 
@@ -1413,8 +1411,7 @@ console.log(data)
       }
     );
 
-
-   // res.json(AgreementUpdate);
+    // res.json(AgreementUpdate);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });

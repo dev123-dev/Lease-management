@@ -153,7 +153,7 @@ const TenantReport = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11">
-                <h1
+                  <h1
                     style={{
                       fontFamily: "Serif",
                       color: "#095a4a",
@@ -166,7 +166,6 @@ const TenantReport = ({
                     >
                       {" "}
                       Tenant Report
-                      
                     </span>
                   </h1>
                 </div>
