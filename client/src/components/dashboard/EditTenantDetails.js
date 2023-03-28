@@ -355,7 +355,7 @@ const EditTenantDetails = ({
       OrganizationId: user && user.OrganizationId,
       OrganizationName: user && user.OrganizationName,
       BuildingName: buildingName,
-      tenantDoorNo: doorno,
+      tenantDoorNo: selectedDno,//doorno,
       tenantFileNo: tenantFileNo,
       tenantRentAmount: tenantRentAmount,
       tenantName: tenantName,
