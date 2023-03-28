@@ -94,21 +94,21 @@ const UserDetails = ({
         <div className="col smallscreen"></div>
         <div className="col smallscreen"></div>
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
-        <h1
-                    style={{
-                      fontFamily: "Serif",
-                      color: "#095a4a",
-                    }}
-                    className="font-weight-bold "
-                  >
-                    <span
-                      style={{ fontFamily: "Serif" }}
-                      className=" text-right font-weight-bold ml-4"
-                    >
-                      {" "}
-                      User Details
-                    </span>
-                  </h1>
+          <h1
+            style={{
+              fontFamily: "Serif",
+              color: "#095a4a",
+            }}
+            className="font-weight-bold "
+          >
+            <span
+              style={{ fontFamily: "Serif" }}
+              className=" text-right font-weight-bold ml-4"
+            >
+              {" "}
+              User Details
+            </span>
+          </h1>
           <div>
             <hr className="line"></hr>
           </div>
@@ -193,7 +193,7 @@ const UserDetails = ({
                 <div className="row">
                   <div className="col-lg-6">
                     {get_particularOrg_user &&
-                    get_particularOrg_user.length !== 0 ? (
+                      get_particularOrg_user.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
                         totalData={get_particularOrg_user.length}
@@ -240,7 +240,10 @@ const UserDetails = ({
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
             <div className="ml-4">
-              <b className=" text-center  h3 ml-4 ">EDIT USER DETAILS </b>
+              <h3 style={{
+                fontFamily: "Sans-serif",
+                color: "white",
+              }} className=" text-center   ml-4 ">EDIT USER DETAILS </h3>
             </div>
           </div>
           <div className="col-lg-2">
@@ -265,7 +268,10 @@ const UserDetails = ({
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title">
-                <b className="text-center h3">DEACTIVATE</b>
+                <h3 style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }} className="text-center mr-3 ">DEACTIVATE</h3>
               </div>
             </div>
             <div className="close">

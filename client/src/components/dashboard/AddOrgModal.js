@@ -129,7 +129,14 @@ const AddOrgModal = ({
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10 ">
             <div className=" ml-5">
-              <b className="text-center h3 ml-4">ADD ORGANIZATION DETAILS </b>
+            <h3  style={{
+              fontFamily:"Sans-serif",
+              color: "white",
+            }}>
+            
+               Add Organization Details
+            
+          </h3>
             </div>
           </div>
           <div className="col-lg-2 ">
