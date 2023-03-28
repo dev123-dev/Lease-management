@@ -231,6 +231,8 @@ router.post("/update-Property", async (req, res) => {
   //     status: "Acquired",
   //   };
   // });
+
+  
   try {
     const updateorg = await property
       .updateOne(
@@ -250,7 +252,19 @@ router.post("/update-Property", async (req, res) => {
         }
       )
       .then((data) => console.log("res", data));
+
+      TenantDetails.updateMany(
+            { BuildingId:  data.Property_id },
+            {
+              $set: {
+                BuildingName: data.buildingName,
+            },
+        
+        }).then ((data)=>{console.log("updated", data)});
+
     res.json(updateorg);
+
+
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
