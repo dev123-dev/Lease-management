@@ -7,6 +7,7 @@ import {
   getAllSettings,
   UpdateTenantsDetails,
 } from "../../actions/tenants";
+import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import tenants from "../../reducers/tenants";
@@ -32,6 +33,13 @@ const EditTenantDetails = ({
       userId: myuser && myuser._id,
     });
   }, []);
+
+  const [showInformationModal, setShowInformation] = useState(false);
+
+  const handleInformationModalClose = () => setShowInformation(false);
+  const LogoutModalClose = () => {
+    handleInformationModalClose();
+  };
 
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
@@ -755,6 +763,31 @@ const EditTenantDetails = ({
             </div>
           </div>
         </form>
+        <Modal
+          show={showInformationModal}
+          backdrop="static"
+          keyboard={false}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          className="logout-modal"
+        >
+          <Modal.Header className="confirmbox-heading">
+            <h4 className="mt-0">Information</h4>
+          </Modal.Header>
+          <Modal.Body>
+            <h5> Details Edited!!</h5>
+          </Modal.Body>
+          <Modal.Footer>
+            <Link to="/tenant-detail">
+              <button
+                className="btn btn_green_bg"
+                onClick={() => LogoutModalClose()}
+              >
+                OK
+              </button>
+            </Link>
+          </Modal.Footer>
+        </Modal>
       </Modal.Body>
     </Fragment>
   );
