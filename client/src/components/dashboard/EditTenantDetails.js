@@ -704,16 +704,16 @@ const EditTenantDetails = ({
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
-                          <button
+                        <button
                           key={idx}
-                            type="button"
-                            name="workMistake"
-                            className="m-2"
-                            id="savebtn"
-                            onClick={() => onSelectChange(DoorNumber)}
-                          >
-                            {DoorNumber.doorNo} 
-                          </button>
+                          type="button"
+                          name="workMistake"
+                          className="m-2"
+                          id="savebtn"
+                          onClick={() => onSelectChange(DoorNumber)}
+                        >
+                          {DoorNumber.doorNo}
+                        </button>
                       );
                     })}
                 </div>
@@ -722,26 +722,26 @@ const EditTenantDetails = ({
                   className=" col-lg-6 col-md-12 border"
                   // style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                 <span>Occupied Door Number : </span>
+                  <span>Occupied Door Number : </span>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
                       return (
                         // <p key={idx} className="DoorCover">
-                          <button
-                            type="button"
-                            name="selectedWorkMistake"
-                           className="m-2"
-                            id="savebtn"
+                        <button
+                          type="button"
+                          name="selectedWorkMistake"
+                          className="m-2"
+                          id="savebtn"
+                        >
+                          {Doornumber.value}
+                          <span
+                            className="mx-2 "
+                            onClick={() => onRemoveChange(Doornumber)}
                           >
-                            {Doornumber.value}
-                            <span
-                              className="mx-2 "
-                              onClick={() => onRemoveChange(Doornumber)}
-                            >
-                              X
-                            </span>
-                          </button>
+                            X
+                          </span>
+                        </button>
                         // </p>
                       );
                     })}
@@ -753,16 +753,32 @@ const EditTenantDetails = ({
                 before Submit
               </div>
               <div className="col-lg-3">
-                <Link to="/tenant-detail">
-                  <button
-                    type="submit"
-                    variant="success"
-                    className="btn sub_form btn_continue Save float-right"
-                    id="savebtn"
-                  >
-                    Save
-                  </button>
-                </Link>
+                <div className="row">
+                  <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Link to="/tenant-detail">
+                      <button
+                        type="submit"
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right mx-5"
+                        id="savebtn"
+                      >
+                        Back
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Link to="/tenant-detail">
+                      <button
+                        type="submit"
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right"
+                        id="savebtn"
+                      >
+                        Save
+                      </button>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
