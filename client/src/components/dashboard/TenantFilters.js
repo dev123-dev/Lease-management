@@ -280,8 +280,8 @@ const TenantFilters = ({
                       className="top_box "
                       onClick={() => oldExpCountFetch()}
                     >
-                      {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
-                        ? yearExpCnt[0].count
+                      {yearExpCnt && yearExpCnt.length > 0
+                        ? yearExpCnt.length
                         : 0}
                     </Link>
                   </div>

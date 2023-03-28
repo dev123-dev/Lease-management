@@ -860,12 +860,12 @@ router.post("/get-previous-years-exp", async (req, res) => {
         },
       },
 
-      {
-        $group: {
-          _id: null,
-          count: { $sum: 1 },
-        },
-      },
+      // {
+      //   $group: {
+      //     _id: null,
+      //     count: { $sum: 1 },
+      //   },
+      // },
     ]);
     res.json(MonthExpCntData);
   } catch (err) {
