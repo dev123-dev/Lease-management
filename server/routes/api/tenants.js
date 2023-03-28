@@ -1334,10 +1334,10 @@ router.post("/update-tenant", async (req, res) => {
 router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
-    let doornumber = data.tenantDoorNo.map((ele) => {
-      return {};
-    });
-
+    // let doornumber = data.tenantDoorNo.map((ele) => {
+    //   return {};
+    // });
+console.log(data)
     const updatetenantdetails = await TenantDetails.updateOne(
       { _id: data.recordId },
       {
@@ -1346,7 +1346,7 @@ router.post("/update-tenant-details", async (req, res) => {
           OrganizationName: data.OrganizationName,
           tenantName: data.tenantName,
           tenantPhone: data.tenantPhone,
-          // shopDoorNo: data,
+           shopDoorNo:data.tenantDoorNo,
           tenantRentAmount: data.tenantRentAmount,
           tenantLeaseEndDate: data.tenantLeaseEndDate,
           tenantLeaseStartDate: data.tenantLeaseStartDate,
@@ -1360,15 +1360,50 @@ router.post("/update-tenant-details", async (req, res) => {
           tenantchequeDate: data.tenantchequeDate,
           tenantChequenoOrDdno: data.tenantChequenoOrDdno,
           generatordepoAmt: data.generatordepoAmt,
+           BuildingName:data.BuildingName.label,
+          BuildingId:data.BuildingName.buildingId,
+         
         },
       }
-    );
+    ).then((data)=>console.log(data));
 
+    data.tenantDoorNo.map((eleDoor) => {
+      property
+        .updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.BuildingName.buildingId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Acquired",
+            },
+          }
+        )
+        .then((data) => console.log("sel",data));
+    });
+
+    data.unseletedDoorno.map((eleDoor) => {
+      property
+        .updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.BuildingName.buildingId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Avaiable",
+            },
+          }
+        )
+        .then((data) => console.log("un sel",data));
+    });
     res.json(updatetenantdetails);
 
     await TenentAgreement.updateOne(
       { tdId: data.recordId },
-
       {
         $set: {
           tenantRentAmount: data.tenantRentAmount,
@@ -1377,7 +1412,9 @@ router.post("/update-tenant-details", async (req, res) => {
         },
       }
     );
-    //res.json(AgreementUpdate);
+
+
+   // res.json(AgreementUpdate);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });

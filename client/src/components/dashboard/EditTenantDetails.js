@@ -117,6 +117,7 @@ const EditTenantDetails = ({
   });
   let temp = [];
   const onBuildingChange = (e) => {
+    setSelectedDno([])
     setBuildingID(e.value);
     setBuildingName(e);
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
@@ -127,13 +128,14 @@ const EditTenantDetails = ({
           ele.shopDoorNo.map((doornumber) => {
             if (doornumber.status === "Avaiable") {
               temp.push({
-                label: doornumber.doorNo,
-                value: doornumber.doorNo,
+                doorNo: doornumber.doorNo,
+                //value: doornumber.doorNo,
                 status: "Avaiable",
               });
             }
           });
           setDno(temp);
+          setUnselectedDno(temp)
         }
       });
     getbuildingData(e);
@@ -174,7 +176,7 @@ const EditTenantDetails = ({
     // setAvaiableRoomBuilding(AvaiableRoomBuilding);
   };
 
-  console.log("pert", particular_tenant_EditData);
+  //console.log("pert", particular_tenant_EditData);
 
   const editSelectedProperty = particular_org_data.filter(
     (ele) => ele._id === particular_tenant_EditData.BuildingId
@@ -187,7 +189,8 @@ const EditTenantDetails = ({
   const [unselectedDno, setUnselectedDno] = useState(
     editSelectedProperty[0].shopDoorNo.filter(
       (ele) =>
-        ele.status !== "Deleted the Door Number" && ele.status !== "Acquired"
+        ///ele.status !== "Deleted the Door Number" && ele.status !== "Acquired"
+        ele.status==="Avaiable"
     )
   );
 
@@ -200,7 +203,7 @@ const EditTenantDetails = ({
       {
         label: inputuserdata.doorNo,
         value: inputuserdata.doorNo,
-        status: inputuserdata.status,
+        status: "Acquired",
       },
     ]);
   };
@@ -359,11 +362,12 @@ const EditTenantDetails = ({
   const onUpdate = (e) => {
     e.preventDefault();
     const finalData = {
+
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
       OrganizationName: user && user.OrganizationName,
       BuildingName: buildingName,
-      tenantDoorNo: doorno,
+      tenantDoorNo: selectedDno,//doorno,
       tenantFileNo: tenantFileNo,
       tenantRentAmount: tenantRentAmount,
       tenantName: tenantName,
@@ -382,8 +386,10 @@ const EditTenantDetails = ({
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
+  unseletedDoorno:unselectedDno,
+
     };
-    UpdateTenantsDetails(finalData);
+   UpdateTenantsDetails(finalData);
     setShowInformation(true);
 
     // const historyData = {
@@ -418,6 +424,7 @@ const EditTenantDetails = ({
 
     // tenantsDetailsHistory(historyData);
   };
+  
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -697,33 +704,7 @@ const EditTenantDetails = ({
               </div>
               {/*  switch */}
               <div className="row ">
-                <div
-                  className=" col-lg-6 col-md-12"
-                  style={{ border: "1px solid black", minHeight: "80px" }}
-                >
-                  Seleted
-                  {selectedDno &&
-                    selectedDno.length > 0 &&
-                    selectedDno.map((Doornumber, idx) => {
-                      return (
-                        <p key={idx} className="DoorCover">
-                          <button
-                            type="button"
-                            name="selectedWorkMistake"
-                            className="DoorNumber"
-                          >
-                            {Doornumber.value}
-                            <span
-                              className="mx-2"
-                              onClick={() => onRemoveChange(Doornumber)}
-                            >
-                              X
-                            </span>
-                          </button>
-                        </p>
-                      );
-                    })}
-                </div>
+                {/* to sel */}
                 <div
                   className="col-lg-6 col-md-12 col-sm-12  button_Door"
                   style={{ border: "1px solid black", minHeight: "80px" }}
@@ -736,15 +717,45 @@ const EditTenantDetails = ({
                           <button
                             type="button"
                             name="workMistake"
-                            className="btnLink"
+                            className="btn btn-success"
                             onClick={() => onSelectChange(DoorNumber)}
                           >
                             {DoorNumber.doorNo}
                           </button>
                         </div>
+
                       );
                     })}
                 </div>
+                {/* end to sel */}
+                <div
+                  className=" col-lg-6 col-md-12"
+                  style={{ border: "1px solid black", minHeight: "80px" }}
+                >
+                  Seleted
+                  {selectedDno &&
+                    selectedDno.length > 0 &&
+                    selectedDno.map((Doornumber, idx) => {
+                      return (
+                        // <p key={idx} className="DoorCover">
+                          <button
+                            type="button"
+                            name="selectedWorkMistake"
+                            className="btn btn-success"
+                          >
+                            {Doornumber.value}
+                            <span
+                              className="mx-2"
+                              onClick={() => onRemoveChange(Doornumber)}
+                            >
+                              X
+                            </span>
+                          </button>
+                        // </p>
+                      );
+                    })}
+                </div>
+                
               </div>
               {/* end switch */}
               <div className="col-lg-9 text-danger">
