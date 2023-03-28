@@ -1360,16 +1360,19 @@ console.log(data)
           tenantchequeDate: data.tenantchequeDate,
           tenantChequenoOrDdno: data.tenantChequenoOrDdno,
           generatordepoAmt: data.generatordepoAmt,
+           BuildingName:data.BuildingName.label,
+          BuildingId:data.BuildingName.buildingId,
+         
         },
       }
-    );
+    ).then((data)=>console.log(data));
 
     data.tenantDoorNo.map((eleDoor) => {
       property
         .updateOne(
           {
-            OrganizationId: tenantdata.OrganizationId,
-            _id: tenantdata.BuildingId,
+            OrganizationId: data.OrganizationId,
+            _id: data.BuildingName.buildingId,
             shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
           },
           {
@@ -1378,10 +1381,25 @@ console.log(data)
             },
           }
         )
-        .then((data) => console.log(data));
+        .then((data) => console.log("sel",data));
     });
 
-
+    data.unseletedDoorno.map((eleDoor) => {
+      property
+        .updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.BuildingName.buildingId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Avaiable",
+            },
+          }
+        )
+        .then((data) => console.log("un sel",data));
+    });
     res.json(updatetenantdetails);
 
     await TenentAgreement.updateOne(

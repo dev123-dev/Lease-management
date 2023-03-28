@@ -386,8 +386,10 @@ const EditTenantDetails = ({
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
+  unseletedDoorno:unselectedDno,
+
     };
-    UpdateTenantsDetails(finalData);
+   UpdateTenantsDetails(finalData);
     setShowInformation(true);
 
     // const historyData = {
@@ -422,6 +424,7 @@ const EditTenantDetails = ({
 
     // tenantsDetailsHistory(historyData);
   };
+  
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
