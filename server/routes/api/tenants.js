@@ -1364,6 +1364,24 @@ console.log(data)
       }
     );
 
+    data.tenantDoorNo.map((eleDoor) => {
+      property
+        .updateOne(
+          {
+            OrganizationId: tenantdata.OrganizationId,
+            _id: tenantdata.BuildingId,
+            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+          },
+          {
+            $set: {
+              "shopDoorNo.$.status": "Acquired",
+            },
+          }
+        )
+        .then((data) => console.log(data));
+    });
+
+
     res.json(updatetenantdetails);
 
     await TenentAgreement.updateOne(
@@ -1376,6 +1394,8 @@ console.log(data)
         },
       }
     );
+
+
    // res.json(AgreementUpdate);
   } catch (error) {
     console.log(error.message);
