@@ -90,7 +90,7 @@ const TenantReport = ({
                
                   
                     <table
-                      className="table table-bordered table-striped table-hovertable-active mt-5 "
+                     className="table table-bordered table-striped table-hover table1 mt-5"
                       id="datatable2"
                     >
                       <thead>
