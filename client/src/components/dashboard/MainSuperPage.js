@@ -2,7 +2,6 @@ import React, { useState, Fragment, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
-
 import { useReactToPrint } from "react-to-print";
 import { getAllOrganization } from "../../actions/tenants";
 import RenewalOrg_mainPage from "./RenewalOrg_model";
@@ -16,6 +15,14 @@ const MainSuperPage = ({
   useEffect(() => {
     getAllOrganization();
   }, []);
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -59,7 +66,6 @@ const MainSuperPage = ({
     <></>
   ) : (
     <div className="col mt-sm-5 DashBoard">
-      
       <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
         <div>
           <h1
@@ -118,6 +124,7 @@ const MainSuperPage = ({
                           SD && SD[1],
                           SD && SD[0],
                         ].join("-");
+
                         return (
                           <tr key={index}>
                             <td>{org.OrganizationName}</td>
@@ -183,7 +190,7 @@ const MainSuperPage = ({
       >
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
-          <h3
+            <h3
               style={{
                 fontFamily: "Sans-serif",
                 color: "white",
