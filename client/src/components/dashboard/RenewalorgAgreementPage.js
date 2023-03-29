@@ -86,9 +86,31 @@ const ReneworgAggreement = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <section className="sub_reg mt-5 p-5">
-        <div className="h2">Renewal Agreement</div>
-        <div className="row">
+      <div className="mt-5  ">
+        {/* <div className="conatiner-fluid bg-dark"> */}
+
+        <div className="row card-new1 ">
+         
+          <div className="col">
+          <h2
+            style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
+            className="font-weight-bold headsize"
+          >
+            Renewal Agreement
+          </h2>
+          </div>
+          </div>
+
+        <div className="col-lg-12 col-md-12 col-sm-12 col-12   ">
+          {/* <h2
+                  style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
+                  className="font-weight-bold headsize"
+                >
+                  Renewal Agreement
+                </h2> */}
+        </div>
+        <div>
+        <div className="row   ">
           <div
             className="col-lg-2 col-md-2 col-sm-4 col-12 "
             style={{ paddingRight: "0px" }}
@@ -150,6 +172,7 @@ const ReneworgAggreement = ({
             &nbsp;
             {/* <Link to="/Organization-report"> */}
             <button
+            type="submit"
               variant="success"
               id="buttonchanges"
               onClick={() => onSubmit()}
@@ -158,8 +181,10 @@ const ReneworgAggreement = ({
             </button>
             {/* </Link> */}
           </div>
+          </div>
         </div>
-      </section>
+        {/* </div> */}
+      </div>
     </Fragment>
   );
 };

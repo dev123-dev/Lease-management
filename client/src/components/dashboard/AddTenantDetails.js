@@ -672,8 +672,8 @@ const AddTenantDetails = ({
                   <>
 
                     <div className="col-lg-6 col-md-12 col-sm-12 card-new button_Door"
-                      style={{ border: "transparent", minHeight: "80px" }}
-                    > <span className="h4 " style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door No:</span>
+                      style={{ border: "transparent", minHeight: "90px" }}
+                    > <span className="h4 " style={{ fontFamily: "Serif", color: "#095a4a" }}>Available Door No:</span>
 
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
@@ -685,7 +685,8 @@ const AddTenantDetails = ({
                               key={idx}
                               type="button"
                               // name="workMistake"
-                              className="btn btn-success"
+                             
+                              className="btn btn-success doorbtn"
                               onClick={() => onSelectChange(DoorNumber)}
                             >
                               {DoorNumber.value}
@@ -693,7 +694,7 @@ const AddTenantDetails = ({
                                 id="savebtn"
                                 className="mx-2"
                               >
-                                X
+                                +
                               </span>
                             </button>
 
@@ -703,9 +704,9 @@ const AddTenantDetails = ({
                     </div>
 
                     <div
-                      className=" col-lg-6 col-md-12"
-                      style={{ border: "1px solid black", minHeight: "80px" }}
-                    ><span className="h4">selected Door No : </span>
+                      className=" col-lg-6 col-md-12  card-new "
+                      style={{ border: "transparent", minHeight: "80px" }}
+                    ><span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Selected Door No : </span>
                       {selectedDoorNumber &&
                         selectedDoorNumber.length > 0 &&
                         selectedDoorNumber.map((Doornumber, idx) => {
@@ -714,7 +715,7 @@ const AddTenantDetails = ({
                             <button
                               key={idx}
                               type="button"
-                              className="btn btn-danger mx-2"
+                              className="btn  doorbtn"
                               onClick={() => onRemoveChange(Doornumber)}
                             >
                               {Doornumber.value}
@@ -722,7 +723,7 @@ const AddTenantDetails = ({
                                 id="savebtn"
                                 className="mx-2"
                               >
-                                X
+                                -
                               </span>
                             </button>
 
@@ -733,7 +734,7 @@ const AddTenantDetails = ({
 
                   </>
                 ) : (
-                  <div>No Rooms in the Property</div>
+                  <div style={{ fontFamily: "Serif", color: "#095a4a" }} className="card-new"  ><marquee>No Doors in the Property</marquee></div>
                 )}
               </div>
               <div className="col-lg-9 text-danger">

@@ -181,11 +181,16 @@ const MainSuperPage = ({
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <Modal.Header>
+        <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
-            <h4 className=" text-center">
-              <b>Renewal Agreement</b>
-            </h4>
+          <h3
+              style={{
+                fontFamily: "Sans-serif",
+                color: "white",
+              }}
+            >
+              Renewal Agreement
+            </h3>
           </div>
           <div className="col-lg-2">
             <button onClick={handleEditModalClose} className="close">

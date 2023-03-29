@@ -119,7 +119,10 @@ const MainAdminPage = ({
                     src={prop}
                     alt="Property"
                   />
-                   <p align="center"><h2>Property Count<br></br>  {particular_org_data && particular_org_data.length}</h2></p>
+                   <p align="center"><h2  style={{
+                fontFamily: "Serif",
+                color: "black",
+              }}>Property Count<br></br>  {particular_org_data && particular_org_data.length}</h2></p>
                 </div>
                
               </div>
@@ -133,7 +136,10 @@ const MainAdminPage = ({
                     src={unprop}
                     alt="Unoccupied property"
                   />
-                   <p align="center"><h2>Unoccupied Property<br></br>{ShopStatus && ShopStatus.length}</h2></p>
+                   <p align="center"><h2  style={{
+                fontFamily: "Serif",
+                color: "black",
+              }}>Unoccupied Property<br></br>{ShopStatus && ShopStatus.length}</h2></p>
                 </div>
                 <div>
                  
@@ -154,7 +160,10 @@ const MainAdminPage = ({
                     src={people} 
                     alt="Tenant Count"
                   />
-                   <p ><h2>No of Tenant Count<br></br>{tenantCount.length}</h2></p>
+                   <p ><h2  style={{
+                fontFamily: "Serif",
+                color: "black",
+              }}>No of Tenant Count<br></br>{tenantCount.length}</h2></p>
                 </div>
                 
               </div>
@@ -168,7 +177,10 @@ const MainAdminPage = ({
                     src={money}
                     alt="Renewal"
                   /> 
-                   <p align="center"><h2 align="center"> Total Renewal<br></br>{total}</h2></p>
+                   <p align="center"><h2 align="center"  style={{
+                fontFamily: "Serif",
+                color: "black",
+              }}> Total Renewal<br></br>{total}</h2></p>
                   
                 </div>
                

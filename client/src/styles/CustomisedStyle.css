@@ -340,6 +340,18 @@ footer.footer .top_top {
   box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
   border-radius: 0.25rem;
 }
+.card-new1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  border-radius: 0.25rem;
+}
 
 .fill {
   width: 100%;
@@ -2564,4 +2576,13 @@ div {
 }
 .sizeinput{
   min-height: 47px;
+}
+.doorbtn{
+  width:80px;
+  height:40px;
+  margin-top: 20px;
+  margin-left: 5px;
+  font-size:larger;
+  background-color: rgb(188, 45, 45);
+  color:white;
 }
