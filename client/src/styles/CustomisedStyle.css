@@ -651,7 +651,7 @@ p {
 }
 
 .line {
-  border-top: 1px solid rgb(156, 151, 151);
+  border-top: 1px solid rgb(158, 157, 157);
   margin-left: 40px;
   width: 93%;
 }
@@ -817,6 +817,7 @@ label {
   text-align: center;
   position: sticky;
   top: 0;
+ 
 }
 .fixTableHead {
   overflow-y: auto;
@@ -2115,6 +2116,18 @@ input[type="number"]::-webkit-outer-spin-button {
   position: absolute;
   
 }
+.locaddedit{
+  background-color: transparent;
+  margin-left: 81%;
+  margin-top: -10%;
+  height: 30%;
+  width: 9%;
+  border-radius: 0;
+  border: transparent;
+  position: absolute;
+
+}
+
 
 .tenantfil:hover {
   background-color: grey;
@@ -2333,6 +2346,7 @@ div.page-footer p {
 .table.report-container {
   page-break-after: always;
   width: 100%;
+  
 }
 thead.report-header {
   display: table-header-group;
@@ -2403,7 +2417,10 @@ div {
 .line{
   width: 220px;
 }
- 
+.locaddedit{
+  left: 5px;
+    bottom: 37px;
+}
   .back_fill {
     background-color: #ffffff;
     margin-bottom: -10%;
@@ -2444,8 +2461,9 @@ div {
   }
 
   .locadds {
-    left: 0px;
-    bottom: 5px;
+    position:relative;
+    left: 10px;
+    bottom: 10px;
   }
   .link_to_org {
     margin-top: -35%;
@@ -2505,6 +2523,7 @@ div {
   }
   .table {
     display: block;
+  
   }
 
   .tenantfilter {
@@ -2585,4 +2604,13 @@ div {
   font-size:larger;
   background-color: rgb(188, 45, 45);
   color:white;
+}
+.table1{
+  background-color: rgba(236, 6, 6, 0.333);
+}
+.plusiconbck{
+  /* background-color:#f2f2f2; */
+  /* background-image:url('../static/images/bg1.jpg');  */
+  /* #f0f0f05f; */
+ 
 }
