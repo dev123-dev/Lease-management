@@ -33,9 +33,10 @@ async function updateExpiryStatus() {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
-    await TenentAgreement.updateMany(
+    await TenantDetails.updateMany(
       {
         tenantLeaseEndDate: { $lte: todayDateymd },
+        tenantstatus: "Active",
       },
       {
         $set: {
