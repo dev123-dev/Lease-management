@@ -6,12 +6,14 @@ import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
+import { useHistory } from "react-router-dom";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allTenants, ext_year_count_org },
   getAllTenants,
   deactiveTenantsDetails,
 }) => {
+  let history = useHistory();
   useEffect(() => {
     getAllTenants();
   });
@@ -46,10 +48,17 @@ const TenantReport = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const onRenewalOrganization = (org) => {
+    setShowEditModal(true);
+    setUserData(org);
+    history.push("/Renewal-Org", org);
+  };
   const onRenewal = (tenants) => {
     setShowEditModal(true);
     setUserData(tenants);
+    //history.push("");
   };
+
   const onReportModalChange = (e) => {
     if (e) {
       handleEditModalClose();
@@ -119,7 +128,12 @@ const TenantReport = ({
                                   <td>{org.enddate}</td>
                                   <td>
                                     {org.AgreementStatus === "Expired" ? (
-                                      <button className="rewbtn">
+                                      <button
+                                        className="rewbtn"
+                                        onClick={() =>
+                                          onRenewalOrganization(org)
+                                        }
+                                      >
                                         Renewal
                                       </button>
                                     ) : (
