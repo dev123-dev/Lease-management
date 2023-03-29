@@ -618,56 +618,66 @@ const AddTenantDetails = ({
               <div className="row ">
                 {isavail && isavail.length !== 0 ? (
                   <>
-                    <div
-                      className=" col-lg-6 col-md-12"
+
+<div className="col-lg-6 col-md-12 col-sm-12  button_Door"
                       style={{ border: "1px solid black", minHeight: "80px" }}
-                    >
-                      {selectedDoorNumber &&
-                        selectedDoorNumber.length > 0 &&
-                        selectedDoorNumber.map((Doornumber, idx) => {
+                    > <span className="h4">Avaiable Door No:</span> 
+                      {DnoList &&
+                        DnoList.map((DoorNumber, idx) => {
                           return (
-                            <p key={idx} className="DoorCover">
+                          
                               <button
+                              key={idx}
                                 type="button"
-                                name="selectedWorkMistake"
-                                className="DoorNumber"
+                                // name="workMistake"
+                                className="btn btn-success"
+                                onClick={() => onSelectChange(DoorNumber)}
                               >
-                                {Doornumber.value}
+                                {DoorNumber.value}
                                 <span
-                                  className="mx-2"
-                                  onClick={() => onRemoveChange(Doornumber)}
-                                >
-                                  X
-                                </span>
+                           id="savebtn"
+                           className="mx-2"
+                          >
+                            X
+                          </span>
                               </button>
-                            </p>
+                            
                           );
                         })}
                     </div>
 
                     <div
-                      className="col-lg-6 col-md-12 col-sm-12  button_Door"
+                      className=" col-lg-6 col-md-12"
                       style={{ border: "1px solid black", minHeight: "80px" }}
-                    >
-                      {DnoList &&
-                        DnoList.map((DoorNumber, idx) => {
+                    ><span className="h4">selected Door No : </span> 
+                      {selectedDoorNumber &&
+                        selectedDoorNumber.length > 0 &&
+                        selectedDoorNumber.map((Doornumber, idx) => {
                           return (
-                            <div key={idx}>
+                           
                               <button
+                              key={idx} 
                                 type="button"
-                                name="workMistake"
-                                className="btnLink"
-                                onClick={() => onSelectChange(DoorNumber)}
+                                className="btn btn-danger mx-2"
+                                onClick={() => onRemoveChange(Doornumber)}
                               >
-                                {DoorNumber.value}
+                                {Doornumber.value}
+                                <span
+                           id="savebtn"
+                           className="mx-2"
+                          >
+                            X
+                          </span>
                               </button>
-                            </div>
+                            
                           );
                         })}
                     </div>
+
+                    
                   </>
                 ) : (
-                  <>NODATA</>
+                  <div>No Rooms in the Property</div>
                 )}
               </div>
               <div className="col-lg-9 text-danger">
