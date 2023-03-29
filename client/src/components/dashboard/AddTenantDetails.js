@@ -22,7 +22,7 @@ const AddTenantDetails = ({
   getAllSettings,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
- const history= useHistory();
+  const history = useHistory();
   useEffect(() => {
     getParticularProperty({ OrganizationId: myuser.OrganizationId });
     getAllSettings({
@@ -34,7 +34,7 @@ const AddTenantDetails = ({
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
-  useEffect(() => {}, [getAllSettings]);
+  useEffect(() => { }, [getAllSettings]);
   const [doorno, setdno] = useState([]);
 
   const onchangeDoor = (e) => {
@@ -145,6 +145,12 @@ const AddTenantDetails = ({
     });
   });
   const onBuildingChange = (e) => {
+    setErrors({
+      ...errors,
+      PropertyChecker: true,
+      PropertyErrorStyle: { color: "#000" },
+    });
+
     setBuildingID(e.value);
     setBuildingName(e.label);
     let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
@@ -159,11 +165,11 @@ const AddTenantDetails = ({
                 value: doornumber.doorNo,
                 status: "Acquired",
               });
-            // } else {
-            //   temp.push({
-            //     label: "Blank",
-            //   });
-             }
+              // } else {
+              //   temp.push({
+              //     label: "Blank",
+              //   });
+            }
           });
         }
 
@@ -233,6 +239,11 @@ const AddTenantDetails = ({
   };
 
   const onPaymentModeChange = (e) => {
+    setErrors({
+      ...errors,
+      PaymentChecker: true,
+      PaymentErrorStyle: { color: "#000" },
+    });
     if (e) {
       setFormData({
         ...formData,
@@ -281,100 +292,128 @@ const AddTenantDetails = ({
     });
   };
 
- 
+  const [errors, setErrors] = useState({
+    PropertyChecker: false,
+    PropertyErrorStyle: {},
+    PaymentChecker: false,
+    PaymentErrorStyle: {},
+
+  });
+  const {
+    PropertyChecker,
+    PropertyErrorStyle,
+    PaymentChecker,
+    PaymentErrorStyle,
+
+  } = errors;
+  const checkError = () => {
+    if (!PaymentChecker) {
+      setErrors({
+        ...errors,
+        PaymentErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!PropertyChecker) {
+      setErrors({
+        ...errors,
+        PropertyErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+
+
+    return true;
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-  
-    const finalData = {
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
-      BuildingName: buildingName,
-      BuildingId: buildingId,
-      Location: LocList,
-      tenantFileNo: tenantFileNo,
-      tenantDoorNo: selectedDoorNumber,
-      tenantName: tenantName,
-      tenantPhone: tenantPhone,
-      tenantFirmName: tenantFirmName,
-      tenantAddr: tenantAddr,
-      tenantAdharNo: tenantAdharNo,
-      tenantPanNo: tenantPanNo,
-      tenantDepositAmt: tenantDepositAmt,
-      tenantPaymentMode: tenantPaymentMode.value,
-      tenantChequenoOrDdno: tenantChequenoOrDdno,
-      tenantBankName: tenantBankName,
-      tenantchequeDate: startSelectedDate,
-      tenantRentAmount: tenantRentAmount,
-      tenantLeaseStartDate: entryDate,
-      tenantLeaseEndDate: newLeaseEndDate,
-      generatordepoAmt: generatordepoAmt,
-      tenantEnteredBy: user && user._id,
-      tenantDate: todayDateymd,
-      selectedY: finalDataRep.yearSearch,
-      selectedVal: dt,
-    };
-    AddTenantDetailsform(finalData);
+    if (checkError()) {
+      const finalData = {
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+        BuildingName: buildingName,
+        BuildingId: buildingId,
+        Location: LocList,
+        tenantFileNo: tenantFileNo,
+        tenantDoorNo: selectedDoorNumber,
+        tenantName: tenantName,
+        tenantPhone: tenantPhone,
+        tenantFirmName: tenantFirmName,
+        tenantAddr: tenantAddr,
+        tenantAdharNo: tenantAdharNo,
+        tenantPanNo: tenantPanNo,
+        tenantDepositAmt: tenantDepositAmt,
+        tenantPaymentMode: tenantPaymentMode.value,
+        tenantChequenoOrDdno: tenantChequenoOrDdno,
+        tenantBankName: tenantBankName,
+        tenantchequeDate: startSelectedDate,
+        tenantRentAmount: tenantRentAmount,
+        tenantLeaseStartDate: entryDate,
+        tenantLeaseEndDate: newLeaseEndDate,
+        generatordepoAmt: generatordepoAmt,
+        tenantEnteredBy: user && user._id,
+        tenantDate: todayDateymd,
+        selectedY: finalDataRep.yearSearch,
+        selectedVal: dt,
+      };
+      AddTenantDetailsform(finalData);
 
-    setFormData({
-      ...formData,
-      tenantFileNo: "",
-      tenantDoorNo: "",
-      tenantName: "",
-      tenantPhone: "",
-      tenantFirmName: "",
-      tenantAddr: "",
-      tenantAdharNo: "",
-      tenantPanNo: "",
-      tenantDepositAmt: "",
-      tenantPaymentMode: "",
-      tenantBankName: "",
-      tenantchequeDate: "",
-      tenantRentAmount: "",
-      tenantLeaseEndDate: "",
-      tenantChequenoOrDdno: "",
-      generatordepoAmt: "",
-    });
+      setFormData({
+        ...formData,
+        tenantFileNo: "",
+        tenantDoorNo: "",
+        tenantName: "",
+        tenantPhone: "",
+        tenantFirmName: "",
+        tenantAddr: "",
+        tenantAdharNo: "",
+        tenantPanNo: "",
+        tenantDepositAmt: "",
+        tenantPaymentMode: "",
+        tenantBankName: "",
+        tenantchequeDate: "",
+        tenantRentAmount: "",
+        tenantLeaseEndDate: "",
+        tenantChequenoOrDdno: "",
+        generatordepoAmt: "",
+      });
 
-    setEntryDate("");
-    getDoorNoData("");
-    setLeaseEndDate("");
-    setNewLeaseEndDate("");
-    setChequeDate("");
-    setFileNoData("");
-  
-    // setShowadd(false);
+      setEntryDate("");
+      getDoorNoData("");
+      setLeaseEndDate("");
+      setNewLeaseEndDate("");
+      setChequeDate("");
+      setFileNoData("");
 
-    history.push("/tenant-detail")
+      // setShowadd(false);
 
+      history.push("/tenant-detail")
+    }
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <>
-      <Modal.Header>
-        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead ">
-          <div className="ml-5">
-            <b className="text-center h3 ml-4 ">ADD TENANT DETAILS</b>
-          </div>
-        </div>
-        <div className=" col-lg-2">
-          <button className="close" onClick={() => setShowadd(false)}>
-            <img
-              className="mr-5"
-              src={require("../../static/images/close.png")}
-              alt="X"
-              style={{ height: "20px", width: "20px" }}
-            />
-          </button>
-        </div>
+      <Modal.Header className="mt-sm-5">
+
       </Modal.Header>{" "}
       <Modal.Body>
+
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid ">
             <div className="row card-new pb-3">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+                <h2
+                  style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
+                  className="font-weight-bold headsize"
+                >
+                  Add Tenant Details
+                </h2>
+              </div>
 
-            <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Tenant Name*:</label>
                 <input
                   type="text"
@@ -389,9 +428,9 @@ const AddTenantDetails = ({
               </div>
 
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
-                <label >Property Name*:</label>
+                <label style={PropertyErrorStyle}>Property Name*:</label>
                 <Select
-              className="py-0"
+                  className="py-0"
                   name="Property name"
                   options={allBuildingNames}
                   value={buildingData}
@@ -424,7 +463,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              
+
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Phone No:</label>
                 <input
@@ -518,7 +557,7 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label >Mode Of Payment*:</label>
+                <label style={PaymentErrorStyle}>Mode Of Payment*:</label>
                 <Select
                   name="tenantPaymentMode"
                   options={PaymentMethods}
@@ -528,7 +567,7 @@ const AddTenantDetails = ({
                   onChange={(e) => onPaymentModeChange(e)}
                   // theme={(theme) => ({
                   //   ...theme,
-                   
+
                   //   borderRadius: 0,
                   //   colors: {
                   //     ...theme.colors,
@@ -550,6 +589,7 @@ const AddTenantDetails = ({
                       value={tenantChequenoOrDdno}
                       className="form-control"
                       onChange={(e) => onInputChange(e)}
+                      required
                     />
                     <br></br>
                   </div>
@@ -562,7 +602,8 @@ const AddTenantDetails = ({
                       value={tenantBankName}
                       className="form-control"
                       onChange={(e) => onInputChange(e)}
-                    />{" "}
+                      required
+                    />
                     <br></br>
                   </div>
                   <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
@@ -577,7 +618,8 @@ const AddTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
-                    />{" "}
+                      required
+                    />
                     <br></br>
                   </div>
                   {/* </div> */}
@@ -629,65 +671,66 @@ const AddTenantDetails = ({
                 {isavail && isavail.length !== 0 ? (
                   <>
 
-<div className="col-lg-6 col-md-12 col-sm-12  button_Door"
-                      style={{ border: "1px solid black", minHeight: "80px" }}
-                    > <span className="h4">Avaiable Door No:</span> 
+                    <div className="col-lg-6 col-md-12 col-sm-12 card-new button_Door"
+                      style={{ border: "transparent", minHeight: "80px" }}
+                    > <span className="h4 " style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door No:</span>
+
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
                           // if(DoorNumber.status==="Avaiable")
-                          
+
                           return (
-                          
-                              <button
+
+                            <button
                               key={idx}
-                                type="button"
-                                // name="workMistake"
-                                className="btn btn-success"
-                                onClick={() => onSelectChange(DoorNumber)}
+                              type="button"
+                              // name="workMistake"
+                              className="btn btn-success"
+                              onClick={() => onSelectChange(DoorNumber)}
+                            >
+                              {DoorNumber.value}
+                              <span
+                                id="savebtn"
+                                className="mx-2"
                               >
-                                {DoorNumber.value}
-                                <span
-                           id="savebtn"
-                           className="mx-2"
-                          >
-                            X
-                          </span>
-                              </button>
-                            
+                                X
+                              </span>
+                            </button>
+
                           );
-                          
+
                         })}
                     </div>
 
                     <div
                       className=" col-lg-6 col-md-12"
                       style={{ border: "1px solid black", minHeight: "80px" }}
-                    ><span className="h4">selected Door No : </span> 
+                    ><span className="h4">selected Door No : </span>
                       {selectedDoorNumber &&
                         selectedDoorNumber.length > 0 &&
                         selectedDoorNumber.map((Doornumber, idx) => {
                           return (
-                           
-                              <button
-                              key={idx} 
-                                type="button"
-                                className="btn btn-danger mx-2"
-                                onClick={() => onRemoveChange(Doornumber)}
+
+                            <button
+                              key={idx}
+                              type="button"
+                              className="btn btn-danger mx-2"
+                              onClick={() => onRemoveChange(Doornumber)}
+                            >
+                              {Doornumber.value}
+                              <span
+                                id="savebtn"
+                                className="mx-2"
                               >
-                                {Doornumber.value}
-                                <span
-                           id="savebtn"
-                           className="mx-2"
-                          >
-                            X
-                          </span>
-                              </button>
-                            
+                                X
+                              </span>
+                            </button>
+
                           );
                         })}
                     </div>
 
-                    
+
                   </>
                 ) : (
                   <div>No Rooms in the Property</div>
@@ -700,7 +743,7 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <div className="row ">
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail"> 
+                    <Link to="/tenant-detail">
                       <button
                         variant="success"
                         className="btn sub_form btn_continue Save float-right mx-5"
@@ -713,14 +756,14 @@ const AddTenantDetails = ({
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
                     {/* <Link to="/tenant-detail"> */}
-                      <button
-                        variant="success"
-                        className="btn sub_form btn_continue Save float-right"
-                        id="savebtn"
-                        type="submit"
-                      >
-                        Save
-                      </button>
+                    <button
+                      variant="success"
+                      className="btn sub_form btn_continue Save float-right"
+                      id="savebtn"
+                      type="submit"
+                    >
+                      Save
+                    </button>
                     {/* </Link> */}
                   </div>
                 </div>

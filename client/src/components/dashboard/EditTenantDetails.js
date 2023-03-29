@@ -423,19 +423,22 @@ const EditTenantDetails = ({
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
-      <Modal.Header>
-        <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead ">
-          <div className="ml-5">
-            <b className="text-center h3 ml-4 ">EDIT TENANT DETAILS</b>
-          </div>
-        </div>
-        <div className=" col-lg-2"></div>
-      </Modal.Header>{" "}
+    <>
+      <Modal.Header className="mt-sm-5">
+        
+      </Modal.Header>
       <Modal.Body>
         <form onSubmit={(e) => onUpdate(e)}>
           <div className="conatiner-fluid ">
             <div className="row card-new pb-3">
+            <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+              <h2
+                style={{ fontFamily: "Serif", color: "#095a4a",marginLeft:"10px"}}
+                className="font-weight-bold headsize"
+              >
+                Edit Tenant Details
+              </h2>
+            </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Property Name*:</label>
                 <Select
@@ -692,7 +695,8 @@ const EditTenantDetails = ({
                   value={tenantAddr}
                   id="tenantAddr"
                   className="textarea form-control"
-                  rows="4"
+                  rows="3"
+              
                   placeholder="Address"
                   onChange={(e) => onInputChange(e)}
                   required
@@ -804,7 +808,7 @@ const EditTenantDetails = ({
           </div>
         </form>
       </Modal.Body>
-    </Fragment>
+      </>
   );
 };
 
