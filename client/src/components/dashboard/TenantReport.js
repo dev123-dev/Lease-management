@@ -22,7 +22,7 @@ const TenantReport = ({
     let total = expReport.reduce((acc, obj) => acc + obj.chargesCal, 0);
     localStorage.setItem("total", total);
   }, []);
-
+  console.log(expReport);
   const componentRef = useRef();
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -220,7 +220,11 @@ const TenantReport = ({
                                 <tr key={idx}>
                                   <td>{Val.tenantName}</td>
                                   <td>{Val.BuildingName}</td>
-                                  <td>{Val.tenantDoorNo}</td>
+                                  <td>
+                                    {Val.tenantDoorNo.map((ele) => {
+                                      return ele.label;
+                                    })}
+                                  </td>
                                   <td>{Val.tenantFileNo}</td>
                                   <td>{Val.Location}</td>
                                   <td>{Val.stampDuty}</td>

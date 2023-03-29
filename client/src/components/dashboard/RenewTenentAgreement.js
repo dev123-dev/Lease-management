@@ -10,14 +10,27 @@ const RenewTenentAgreement = ({
   getAllSettings,
   onReportModalChange,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
+  const [door, SetDoornumber] = useState([]);
   useEffect(() => {
-    getAllSettings();
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
+    });
+    const doornumber =
+      tenantsData &&
+      tenantsData.tenantDoorNo &&
+      tenantsData.tenantDoorNo.map((ele) => {
+        return ele.label;
+      });
+    SetDoornumber(doornumber);
   }, [getAllSettings]);
 
   //formData
   const [formData, setFormData] = useState({
     isSubmitted: false,
-    tenantDoorNo: tenantsData.tenantDoorNo,
+    tenantDoorNo: door,
     tenantFileNo: tenantsData.tenantFileNo,
     tenantRentAmount: tenantsData.chargesCal,
   });
@@ -54,7 +67,7 @@ const RenewTenentAgreement = ({
     const finalData = {
       tenantRentAmount: tenantRentAmount,
       tenantFileNo: tenantFileNo,
-      tenantDoorNo: tenantDoorNo,
+      tenantDoorNo: door,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
@@ -79,7 +92,7 @@ const RenewTenentAgreement = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+    var leaseMonth = allTenantSetting.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -130,7 +143,7 @@ const RenewTenentAgreement = ({
               type="text"
               name="tenantDoorNo"
               className="form-control"
-              value={tenantDoorNo}
+              value={door.map((ele) => ele)}
               onChange={(e) => onInputChange(e)}
               required
               style={{
