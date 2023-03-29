@@ -36,7 +36,9 @@ async function updateExpiryStatus() {
     await TenantDetails.updateMany(
       {
         tenantLeaseEndDate: { $lte: todayDateymd },
-        tenantstatus: "Active",
+      },
+      {
+        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
       },
       {
         $set: {
@@ -45,7 +47,10 @@ async function updateExpiryStatus() {
       }
     );
     await TenentAgreement.updateMany(
-      { tenantLeaseEndDate: { $lte: todayDateymd }, AgreementStatus: "Active" },
+      { tenantLeaseEndDate: { $lte: todayDateymd } },
+      {
+        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
+      },
       {
         $set: {
           AgreementStatus: "Expired",
@@ -59,10 +64,6 @@ async function updateExpiryStatus() {
       {
         $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
       },
-
-      // AgreementStatus: "Active",
-      // org_status: "Active",
-
       {
         $set: { AgreementStatus: "Expired" },
       }

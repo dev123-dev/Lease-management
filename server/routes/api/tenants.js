@@ -1394,124 +1394,290 @@ router.post("/Renew-Organization", async (req, res) => {
 });
 
 router.post("/renew-tenant-details", async (req, res) => {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  const finalDataTA = {
-    tdId: data.tdId,
-    tenantFileNo: data.tenantFileNo,
-    tenantDoorNo: data.tenantDoorNo,
-    tenantRentAmount: data.tenantRentAmount,
-    tenantLeaseStartDate: data.tenantLeaseStartDate,
-    tenantLeaseEndDate: data.tenantLeaseEndDate,
-    AgreementStatus: data.AgreementStatus,
-    tenantAgreementEntredBy: data.tenantEnteredBy,
-    tenantAgreementDate: data.tenantDate,
-  };
-  try {
-    let tenantAgreementDetails = new TenentAgreement(finalDataTA);
-    output = await tenantAgreementDetails.save();
-    await TenantDetails.updateOne(
-      { _id: data.tdId },
-      {
-        $set: {
-          AgreementStatus: "Renewed",
-        },
-      }
-    );
-    const updateStatus = await TenentAgreement.updateOne(
-      { _id: data.agreementId },
-      {
-        $set: {
-          AgreementStatus: "Renewed",
-        },
-      }
-    );
-    res.json(updateStatus);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
+  console.log(data);
+  if (data.tenantLeaseEndDate < todayDateymd) {
+    const finalDataTA = {
+      tdId: data.tdId,
+      tenantFileNo: data.tenantFileNo,
+      tenantDoorNo: data.tenantDoorNo,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+      AgreementStatus: "Expired",
+      tenantAgreementEntredBy: data.tenantEnteredBy,
+      tenantAgreementDate: data.tenantDate,
+    };
+    try {
+      let tenantAgreementDetails = new TenentAgreement(finalDataTA);
+      output = await tenantAgreementDetails.save();
+      await TenantDetails.updateOne(
+        { _id: data.tdId },
+        {
+          $set: {
+            AgreementStatus: "Expired",
+          },
+        }
+      );
+      const updateStatus = await TenentAgreement.updateOne(
+        { _id: data.agreementId },
+        {
+          $set: {
+            AgreementStatus: "Expired",
+          },
+        }
+      );
+      res.json(updateStatus);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Internal Server Error.");
+    }
+  } else {
+    const finalDataTA = {
+      tdId: data.tdId,
+      tenantFileNo: data.tenantFileNo,
+      tenantDoorNo: data.tenantDoorNo,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+      AgreementStatus: "Renewed",
+      tenantAgreementEntredBy: data.tenantEnteredBy,
+      tenantAgreementDate: data.tenantDate,
+    };
+    try {
+      let tenantAgreementDetails = new TenentAgreement(finalDataTA);
+      output = await tenantAgreementDetails.save();
+      await TenantDetails.updateOne(
+        { _id: data.tdId },
+        {
+          $set: {
+            AgreementStatus: "Renewed",
+          },
+        }
+      );
+      const updateStatus = await TenentAgreement.updateOne(
+        { _id: data.agreementId },
+        {
+          $set: {
+            AgreementStatus: "Renewed",
+          },
+        }
+      );
+      res.json(updateStatus);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Internal Server Error.");
+    }
   }
+  // const finalDataTA = {
+  //   tdId: data.tdId,
+  //   tenantFileNo: data.tenantFileNo,
+  //   tenantDoorNo: data.tenantDoorNo,
+  //   tenantRentAmount: data.tenantRentAmount,
+  //   tenantLeaseStartDate: data.tenantLeaseStartDate,
+  //   tenantLeaseEndDate: data.tenantLeaseEndDate,
+  //   AgreementStatus: data.AgreementStatus,
+  //   tenantAgreementEntredBy: data.tenantEnteredBy,
+  //   tenantAgreementDate: data.tenantDate,
+  // };
+  // try {
+  //   let tenantAgreementDetails = new TenentAgreement(finalDataTA);
+  //   output = await tenantAgreementDetails.save();
+  //   await TenantDetails.updateOne(
+  //     { _id: data.tdId },
+  //     {
+  //       $set: {
+  //         AgreementStatus: "Renewed",
+  //       },
+  //     }
+  //   );
+  //   const updateStatus = await TenentAgreement.updateOne(
+  //     { _id: data.agreementId },
+  //     {
+  //       $set: {
+  //         AgreementStatus: "Renewed",
+  //       },
+  //     }
+  //   );
+  //   res.json(updateStatus);
+  // } catch (err) {
+  //   console.error(err.message);
+  //   res.status(500).send("Internal Server Error.");
+  // }
 });
 
 router.post("/update-tenant-details", async (req, res) => {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     let data = req.body;
-    // let doornumber = data.tenantDoorNo.map((ele) => {
-    //   return {};
-    // });
+
     console.log(data);
-    const updatetenantdetails = await TenantDetails.updateOne(
-      { _id: data.recordId },
-      {
-        $set: {
-          OrganizationId: data.OrganizationId,
-          OrganizationName: data.OrganizationName,
-          tenantName: data.tenantName,
-          tenantPhone: data.tenantPhone,
-          shopDoorNo: data.tenantDoorNo,
-          tenantRentAmount: data.tenantRentAmount,
-          tenantLeaseEndDate: data.tenantLeaseEndDate,
-          tenantLeaseStartDate: data.tenantLeaseStartDate,
-          tenantFirmName: data.tenantFirmName,
-          tenantAddr: data.tenantAddr,
-          tenantAdharNo: data.tenantAdharNo,
-          tenantPanNo: data.tenantPanNo,
-          tenantDepositAmt: data.tenantDepositAmt,
-          tenantPaymentMode: data.tenantPaymentMode,
-          tenantBankName: data.tenantBankName,
-          tenantchequeDate: data.tenantchequeDate,
-          tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-          generatordepoAmt: data.generatordepoAmt,
-          BuildingName: data.BuildingName.label,
-          BuildingId: data.BuildingName.buildingId,
-        },
-      }
-    ).then((data) => console.log("norml ", data));
-
-    data.tenantDoorNo.map((eleDoor) => {
-      property
-        .updateOne(
-          {
+    if (data.tenantLeaseEndDate < todayDateymd) {
+      const updatetenantdetails = await TenantDetails.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
             OrganizationId: data.OrganizationId,
-            _id: data.BuildingName.buildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+            OrganizationName: data.OrganizationName,
+            tenantName: data.tenantName,
+            AgreementStatus: "Expired",
+            tenantPhone: data.tenantPhone,
+            shopDoorNo: data.tenantDoorNo,
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantFirmName: data.tenantFirmName,
+            tenantAddr: data.tenantAddr,
+            tenantAdharNo: data.tenantAdharNo,
+            tenantPanNo: data.tenantPanNo,
+            tenantDepositAmt: data.tenantDepositAmt,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            generatordepoAmt: data.generatordepoAmt,
+            BuildingName: data.BuildingName.label,
+            BuildingId: data.BuildingName.buildingId,
           },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Acquired",
-            },
-          }
-        )
-        .then((data) => console.log("sel", data));
-    });
+        }
+      ).then((data) => console.log("norml ", data));
 
-    data.unseletedDoorno.map((eleDoor) => {
-      property
-        .updateOne(
-          {
+      data.tenantDoorNo.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then((data) => console.log("sel", data));
+      });
+
+      data.unseletedDoorno.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then((data) => console.log("un sel", data));
+      });
+      res.json(updatetenantdetails);
+
+      await TenentAgreement.updateOne(
+        { tdId: data.recordId },
+        {
+          $set: {
+            AgreementStatus: "Expired",
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+          },
+        }
+      );
+    } else {
+      const updatetenantdetails = await TenantDetails.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
             OrganizationId: data.OrganizationId,
-            _id: data.BuildingName.buildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+            OrganizationName: data.OrganizationName,
+            tenantName: data.tenantName,
+            AgreementStatus: "Active",
+            tenantPhone: data.tenantPhone,
+            shopDoorNo: data.tenantDoorNo,
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantFirmName: data.tenantFirmName,
+            tenantAddr: data.tenantAddr,
+            tenantAdharNo: data.tenantAdharNo,
+            tenantPanNo: data.tenantPanNo,
+            tenantDepositAmt: data.tenantDepositAmt,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            generatordepoAmt: data.generatordepoAmt,
+            BuildingName: data.BuildingName.label,
+            BuildingId: data.BuildingName.buildingId,
           },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Avaiable",
-            },
-          }
-        )
-        .then((data) => console.log("un sel", data));
-    });
-    res.json(updatetenantdetails);
+        }
+      ).then((data) => console.log("norml ", data));
 
-    await TenentAgreement.updateOne(
-      { tdId: data.recordId },
-      {
-        $set: {
-          tenantRentAmount: data.tenantRentAmount,
-          tenantLeaseStartDate: data.tenantLeaseStartDate,
-          tenantLeaseEndDate: data.tenantLeaseEndDate,
-        },
-      }
-    );
+      data.tenantDoorNo.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then((data) => console.log("sel", data));
+      });
+
+      data.unseletedDoorno.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then((data) => console.log("un sel", data));
+      });
+      res.json(updatetenantdetails);
+
+      await TenentAgreement.updateOne(
+        { tdId: data.recordId },
+        {
+          $set: {
+            AgreementStatus: "Active",
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+          },
+        }
+      );
+    }
 
     // res.json(AgreementUpdate);
   } catch (error) {
