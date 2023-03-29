@@ -178,31 +178,12 @@ const AddAdminUserModal = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [errors, setErrors] = useState({
-    UserGrpChecker: false,
-    UserGrpErrorStyle: {},
-   
-  });
-  const {
-    UserGrpChecker,
-    UserGrpErrorStyle,
-   
-  } = errors;
-  const checkError = () => {
-    if (!UserGrpChecker) {
-      setErrors({
-        ...errors,
-        UserGrpErrorStyle: { color: "#F00" },
-      });
-      return false;
-    }
-   
-    return true;
-  };
+  
+  
 
   const onsubmitUserData = (e) => {
     e.preventDefault();
-    if (checkError()) {
+   
     const finalUserData = {
       username: name,
       useremail: email,
@@ -226,7 +207,7 @@ const AddAdminUserModal = ({
       OrganizationName: "",
       password: "",
     });
-  }
+  
   };
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
@@ -378,7 +359,7 @@ const AddAdminUserModal = ({
               </div>
 
               <div className="col-lg-6">
-                <label style={UserGrpErrorStyle}>UserGroup*:</label>
+                <label >UserGroup*:</label>
                 <Select
                   name="usergroup"
                   options={UserGroups}

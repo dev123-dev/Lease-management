@@ -281,41 +281,10 @@ const AddTenantDetails = ({
     });
   };
 
-  const [errors, setErrors] = useState({
-    PropertyChecker: false,
-    PropertyErrorStyle: {},
-    PaymentChecker: false,
-    PaymentErrorStyle: {},
-   
-  });
-  const {
-    PropertyChecker,
-    PropertyErrorStyle,
-    PaymentChecker,
-    PaymentErrorStyle,
-
-  } = errors;
-  const checkError = () => {
-    if (!PropertyChecker) {
-      setErrors({
-        ...errors,
-        PropertyErrorStyle: { color: "#F00" },
-      });
-      return false;
-    }
-    if (!PaymentChecker) {
-      setErrors({
-        ...errors,
-        PaymentErrorStyle: { color: "#F00" },
-      });
-      return false;
-    }
-   
-    return true;
-  };
+ 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (checkError()) {
+  
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
@@ -372,7 +341,7 @@ const AddTenantDetails = ({
     setNewLeaseEndDate("");
     setChequeDate("");
     setFileNoData("");
-  }
+  
     // setShowadd(false);
 
     history.push("/tenant-detail")
@@ -420,7 +389,7 @@ const AddTenantDetails = ({
               </div>
 
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
-                <label style={PropertyErrorStyle}>Property Name*:</label>
+                <label >Property Name*:</label>
                 <Select
               className="py-0"
                   name="Property name"
@@ -549,7 +518,7 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label style={PaymentErrorStyle}>Mode Of Payment*:</label>
+                <label >Mode Of Payment*:</label>
                 <Select
                   name="tenantPaymentMode"
                   options={PaymentMethods}
