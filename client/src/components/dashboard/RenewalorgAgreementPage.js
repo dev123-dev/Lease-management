@@ -55,19 +55,20 @@ const ReneworgAggreement = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  useState({
-    isSubmitted: false,
-    OrganizationId: orgData._id,
-    Orgname: orgData.OrganizationName,
-    Orgemail: orgData.OrganizationEmail,
-    Orgphone: orgData.OrganizationNumber,
-    Location: orgData.Location,
-    OrganizationAddress: orgData.OrganizationAddress,
-    date: entryDate,
-    enddate: leaseEndDate,
-  });
-
+  // useState({
+  //   isSubmitted: false,
+  //   OrganizationId: orgData._id,
+  //   Orgname: orgData.OrganizationName,
+  //   Orgemail: orgData.OrganizationEmail,
+  //   Orgphone: orgData.OrganizationNumber,
+  //   Location: orgData.Location,
+  //   OrganizationAddress: orgData.OrganizationAddress,
+  //   date: entryDate,
+  //   enddate: leaseEndDate,
+  // });
+console.log(orgData)
   const onSubmit = () => {
+    alert()
     const finalData = {
       isSubmitted: true,
       OrganizationId: orgData._id,
@@ -119,7 +120,7 @@ const ReneworgAggreement = ({
           </div>
           <div className="col-lg-10  col-md-4 col-sm-4 col-12">
             <label>
-              <b>{orgData.OrganizationName}</b>
+              <b>{orgData && orgData.OrganizationName}</b>
             </label>
           </div>
         </div>
@@ -175,7 +176,7 @@ const ReneworgAggreement = ({
             type="submit"
               variant="success"
               id="buttonchanges"
-              onClick={() => onSubmit()}
+              // onClick={() => onSubmit()}
             >
               <b>Cancel</b>
             </button>
