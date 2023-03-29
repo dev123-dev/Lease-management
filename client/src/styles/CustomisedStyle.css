@@ -1986,9 +1986,9 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 .close {
   border-color: transparent;
-  border: transparent;
+  /* border: transparent; */
   color: #095a4a;
-  margin-left: 200px;
+  margin-left: 100px;
   cursor: pointer;
 }
 

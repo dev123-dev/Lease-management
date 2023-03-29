@@ -296,16 +296,16 @@ const AddOrgDashBoard = ({
       <Modal show={showDeactivate} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading" >
-            <div className="col-lg-11 ">
+            <div className="col-lg-10">
               <div className="modal-title">
                 <h3 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
-                }} className="text-center mr-3">DEACTIVATE</h3>
+                }} className="text-center">DEACTIVATE</h3>
               </div>
             </div>
             <div
-              className="close"
+              className="close col-lg-2"
               onClick={() => setShowDeactivate(false)}
             >
               <img

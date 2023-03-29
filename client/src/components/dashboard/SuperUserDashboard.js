@@ -282,7 +282,7 @@ const SuperUserDashboard = ({
                     <h3 style={{
                       fontFamily: "Sans-serif",
                       color: "white",
-                    }} className="text-center mr-3 ">DEACTIVATE </h3>
+                    }} className="text-center">DEACTIVATE </h3>
                   </div>
                 </div>
                 <div className="close">
