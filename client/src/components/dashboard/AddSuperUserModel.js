@@ -22,9 +22,7 @@ const AddSuperUserModel = ({
   });
 
   const [orgname, setOrgname] = useState({});
-  const onchangeOrg = (e) => {
-    setOrgname(e);
-  };
+
 
   const [formData, setFormData] = useState({
     username: "",
@@ -50,9 +48,6 @@ const AddSuperUserModel = ({
 
   const [us, setus] = useState("");
 
-  const onuser = (e) => {
-    setus(e);
-  };
 
   // password validation starting
   const [error, setError] = useState({
@@ -200,12 +195,63 @@ const AddSuperUserModel = ({
       [e.target.name]: e.target.value,
     });
   };
+   //Required Validation Starts
+   const [errors, setErrors] = useState({
+    orgChecker: false,
+    orgErrorStyle: {},
+    userGroupChecker: false,
+    userGroupErrorStyle: {},
+  });
+  const {
+    orgChecker,
+    orgErrorStyle,
+    userGroupChecker,
+    userGroupErrorStyle,
+  } = error;
+
+  const checkError = () => {
+    if (!orgChecker) {
+      setError({
+        ...error,
+        orgErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!userGroupChecker) {
+      setError({
+        ...error,
+        userGroupErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    
+    return true;
+  };
+
+  const onchangeOrg = (e) => {
+    setError({
+      ...error,
+      orgChecker: true,
+      orgErrorStyle: { color: "#000" },
+    });
+    setOrgname(e);
+  };
+
+  const onuser = (e) => {
+    setError({
+      ...error,
+      userGroupChecker: true,
+      userGroupErrorStyle: { color: "#000" },
+    });
+    setus(e);
+  };
+
 
   //fill all field state
 
   const onsubmitUserData = (e) => {
     e.preventDefault();
-
+    if (checkError()) {
     const finalUserData = {
       username: name,
       useremail: email,
@@ -229,6 +275,7 @@ const AddSuperUserModel = ({
       password: "",
       password: "",
     });
+  }
   };
 
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
@@ -303,7 +350,7 @@ const AddSuperUserModel = ({
                 <br></br>
               </div>
               <div className="control-group col-md-6 col-lg-6 col-sm-6 col-xs-6">
-                <label className="control-label">
+                <label className="control-label" style={orgErrorStyle}>
                   Organization Belong<span>*</span>
                 </label>
                 <div className="controls">
@@ -415,7 +462,7 @@ const AddSuperUserModel = ({
                 ></textarea>{" "}
               </div>
               <div className="col-lg-6">
-                <label>UserGroup*:</label>
+                <label style={userGroupErrorStyle}>UserGroup*:</label>
                 <Select
                   name="usergroup"
                   className=""

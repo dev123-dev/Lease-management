@@ -47,6 +47,11 @@ const AddShopDetails = ({
       });
   };
   const onchangeLoc = (e) => {
+    setErrors({
+      ...errors,
+      LocChecker: true,
+      LocErrorStyle: { color: "#000" },
+    });
     setLoc(e);
   };
 
@@ -114,9 +119,32 @@ const AddShopDetails = ({
     handleInformationModalClose();
   };
 
+  const [errors, setErrors] = useState({
+    LocChecker: false,
+    LocErrorStyle: {},
+   
+  });
+  const {
+    LocChecker,
+    LocErrorStyle,
+   
+  } = errors;
+
+  const checkError = () => {
+    if (!LocChecker) {
+      setErrors({
+        ...errors,
+        LocErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+   
+    return true;
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    // setShow(false);
+    if (checkError()) {
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
@@ -142,8 +170,9 @@ const AddShopDetails = ({
       shopStatus: "",
       isSubmitted: true,
     });
-    // handleInformationModalopen();
+
     setShowadd(false);
+  }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -194,7 +223,7 @@ const AddShopDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-6">
-                <label>Location*:</label>
+                <label style={LocErrorStyle}>Location*:</label>
                 <Select
                   name="orgLoc"
                   options={Sellocation}
