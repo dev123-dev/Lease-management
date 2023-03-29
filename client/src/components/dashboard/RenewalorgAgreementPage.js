@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 const ReneworgAggreement = ({
   auth: { isAuthenticated, user, users },
   RenewOrgDetailsform,
 }) => {
   const Location = new useLocation();
   const orgData = Location.state;
-
+  const histroy=useHistory();
   //formData
 
   var today = new Date();
@@ -69,8 +69,11 @@ const ReneworgAggreement = ({
   // });
 
 //console.log(orgData)
-  const onSubmit = () => {
-    alert()
+  const onSubmit = (e) => {
+   
+   e.preventDefault();
+
+   
     const finalData = {
       isSubmitted: true,
       OrganizationId: orgData._id,
@@ -83,6 +86,7 @@ const ReneworgAggreement = ({
       enddate: leaseEndDate,
     };
     RenewOrgDetailsform(finalData);
+
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -92,6 +96,7 @@ const ReneworgAggreement = ({
       <div className="mt-5  ">
        {/* ////////////////////////////////////////////////////////// */}
 <div className="container-fluid mt-5 cardAgreement ">
+  <form onSubmit={(e) => onSubmit(e)}>
 <div className="col ">
 <span
             style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
@@ -135,6 +140,7 @@ const ReneworgAggreement = ({
               style={{
                 width: "60%",
               }}
+              required
             />
   </div>
 
@@ -153,7 +159,7 @@ const ReneworgAggreement = ({
               value={leaseEndDate}
               style={{
                 width: "60%",
-              }}
+              }} required
             ></input>
   </div>
 
@@ -166,17 +172,18 @@ const ReneworgAggreement = ({
             <button
               variant="success"
               id="buttonchanges"
-              onClick={() => onSubmit()}
+              
+              type="submit"
             >
               <b>Renew</b>
             </button>
             &nbsp;
             {/* <Link to="/Organization-report"> */}
             <button
-            type="submit"
+            type="button"
               variant="success"
               id="buttonchanges"
-              // onClick={() => onSubmit()}
+               onClick={()=>{histroy.push('/SuperUser')}}
             >
               <b>Cancel</b>
             </button>
@@ -199,7 +206,7 @@ const ReneworgAggreement = ({
 
 
 </div>
-
+</form>
 </div>
 
 {/* ////////////////////////////////// */}
