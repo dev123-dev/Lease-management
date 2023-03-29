@@ -129,7 +129,7 @@ const UserDetails = ({
 
                 <div className="body-inner no-padding table-responsive ">
                   <table
-                    className="table table-bordered table-striped table-hover  table-active mt-1"
+                    className="table table-bordered table-striped table-hover   mt-1"
                     id="datatable2"
                   >
                     <thead>

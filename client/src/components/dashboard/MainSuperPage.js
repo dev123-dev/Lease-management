@@ -92,7 +92,7 @@ const MainSuperPage = ({
 
               <div className="body-inner no-padding table-responsive">
                 <table
-                  className="table table-bordered table-striped table-hover  table-active mt-5"
+                   className="table table-bordered table-striped table-hover table1 mt-5"
                   id="datatable2"
                 >
                   <thead>
