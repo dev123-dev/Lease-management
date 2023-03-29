@@ -119,7 +119,7 @@ const AddOrgDashBoard = ({
           <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
               <h1
                 style={{ fontFamily: "Serif", color: "#095a4a",marginLeft:"10px"}}
-                className="font-weight-bold headsize"
+                className="font-weight-bold headsize ml-3"
               >
                 Organization Details
               </h1>
@@ -146,8 +146,9 @@ const AddOrgDashBoard = ({
                 <div className="col-lg-1"></div>
                 <div className="body-inner no-padding table-responsive">
                   <table
-                    className="table table-bordered table-striped table-hover  table-active mt-5"
+                    className="table table-bordered  table-hover table1 mt-5"
                     id="datatable2"
+
                   >
                     <thead>
                       <tr>

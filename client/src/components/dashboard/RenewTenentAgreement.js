@@ -221,7 +221,8 @@ const RenewTenentAgreement = ({
           <div className="col-lg-12 Savebutton" size="lg">
             <button
               variant="success"
-              className="btn sub_form btn_continue Save float-right"
+              className="btn sub_form "
+              id="savebtn"
               onClick={() => onSubmit()}
               style={
                 leaseEndDate !== ""

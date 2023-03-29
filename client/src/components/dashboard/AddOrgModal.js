@@ -243,7 +243,7 @@ const [locationError,setLocationError]=useState("black")
                   id="Location"
                 ></input>
 
-                <div>
+                <div >
                   <div className="locadds " onClick={addItem}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +260,7 @@ const [locationError,setLocationError]=useState("black")
                     </svg>
                   </div>
                   <br></br>
-                  <div className="showItemcl" style={{ display: showscroll }}>
+                  <div className="showItemcl plusiconbck" style={{ display: showscroll }}>
                     {items.map((ele, index) => {
                       return (
                         <div className="eachItem" key={index}>

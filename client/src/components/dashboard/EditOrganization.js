@@ -183,8 +183,8 @@ const[locError,setLocError]=useState("black")
                 placeholder="Location"
                 id="Location"
               ></input>
-              <div>
-                <div className="locadds " onClick={addItem}>
+              <div className="plusiconbck">
+                <div className="locaddedit " onClick={addItem}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="30"

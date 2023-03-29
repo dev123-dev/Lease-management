@@ -84,7 +84,22 @@ const TenantReport = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color"> DashBoard </h2>
+                   <h1
+                    style={{
+                      fontFamily: "Serif",
+                      color: "#095a4a",
+                      
+                    }}
+                    className="font-weight-bold "
+                  >
+                    <span
+                      style={{ fontFamily: "Serif" }}
+                      className=" text-right font-weight-bold "
+                    >
+                      {" "}
+                      DashBoard
+                    </span>
+                  </h1>
                 </div>
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
                   <img
@@ -283,14 +298,16 @@ const TenantReport = ({
               aria-labelledby="contained-modal-title-vcenter"
               centered
             >
-              <Modal.Header>
+              <Modal.Header className="confirmbox-heading">
                 <div className="col-lg-10">
-                  <h4
-                    className="modal-title text-center"
-                    style={{ fontWeight: "bold" }}
-                  >
-                    Renewal Tenant Agreement
-                  </h4>
+                <h3
+              style={{
+                fontFamily: "Sans-serif",
+                color: "white",
+              }}
+            >
+              Renewal Agreement
+            </h3>
                 </div>
                 <div className="col-lg-2">
                   <button onClick={handleEditModalClose} className="close">
