@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { RenewOrgDetailsform } from "../../actions/tenants";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 const ReneworgAggreement = ({
-  auth: { isAuthenticated, user, users, finalDataRep },
+  auth: { isAuthenticated, user, users },
   RenewOrgDetailsform,
 }) => {
   const Location = new useLocation();
@@ -66,7 +67,8 @@ const ReneworgAggreement = ({
   //   date: entryDate,
   //   enddate: leaseEndDate,
   // });
-console.log(orgData)
+
+//console.log(orgData)
   const onSubmit = () => {
     alert()
     const finalData = {
@@ -88,9 +90,121 @@ console.log(orgData)
   ) : (
     <Fragment>
       <div className="mt-5  ">
-        {/* <div className="conatiner-fluid bg-dark"> */}
+       {/* ////////////////////////////////////////////////////////// */}
+<div className="container-fluid mt-5 cardAgreement ">
+<div className="col ">
+<span
+            style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
+            className="font-weight-bold headsize h2"
+          >
+            Renewal Agreement
+          </span>
+</div>
 
-        <div className="row card-new1 ">
+
+
+<div className="col ">
+
+<div className="row">
+
+  <div className="col-lg-6 col-md-6 col-sm-12">
+  <label> Organization Name:</label>
+  </div>
+
+  <div className="col-lg-6 col-md-6 col-sm-12">
+  <label> <b>{orgData && orgData.OrganizationName}</b> </label>
+  </div>
+
+
+</div> 
+
+<div className="row">
+
+  <div className="col-lg-6 col-md-6 col-sm-12">
+  <label>Lease Start Date* :</label>
+  </div>
+
+  <div className="col-lg-6 col-md-6 col-sm-12">
+  <input
+              type="date"
+              placeholder="dd/mm/yyyy"
+              className="form-control cpp-input datevalidation"
+              name="tenantLeaseStartDate"
+              value={entryDate}
+              onChange={(e) => onDateChangeEntry(e)}
+              style={{
+                width: "60%",
+              }}
+            />
+  </div>
+
+</div> 
+    
+<div className="row">
+
+  <div className="col-lg-6 col-md-6 col-sm-12 ">
+  <label>Lease End Date:</label>
+  </div>
+
+  <div className="col-lg-6 col-md-6 col-sm-12">
+  <input
+              className="form-control cpp-input datevalidation"
+              placeholder="dd-mm-yyyy"
+              value={leaseEndDate}
+              style={{
+                width: "60%",
+              }}
+            ></input>
+  </div>
+
+</div> 
+
+<div className="row">
+<div className="col-lg-6 col-md-6 col-sm-12"></div>
+  <div className="col-lg-6 col-md-6 col-sm-12 Savebutton ">
+  
+            <button
+              variant="success"
+              id="buttonchanges"
+              onClick={() => onSubmit()}
+            >
+              <b>Renew</b>
+            </button>
+            &nbsp;
+            {/* <Link to="/Organization-report"> */}
+            <button
+            type="submit"
+              variant="success"
+              id="buttonchanges"
+              // onClick={() => onSubmit()}
+            >
+              <b>Cancel</b>
+            </button>
+           
+  </div>
+  {/* <div className="col-lg-4 colmd-4 col-sm-12"></div> */}
+
+  {/* <div className="col-lg-6 col-md-6 col-sm-12">
+  <input
+              className="form-control cpp-input datevalidation"
+              placeholder="dd-mm-yyyy"
+              value={leaseEndDate}
+              style={{
+                width: "25%",
+              }}
+            ></input>
+  </div> */}
+
+</div> 
+
+
+</div>
+
+</div>
+
+{/* ////////////////////////////////// */}
+
+        {/* <div className="row card-new1 ">
          
           <div className="col">
           <h2
@@ -100,18 +214,13 @@ console.log(orgData)
             Renewal Agreement
           </h2>
           </div>
-          </div>
+          </div> */}
 
-        <div className="col-lg-12 col-md-12 col-sm-12 col-12   ">
-          {/* <h2
-                  style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
-                  className="font-weight-bold headsize"
-                >
-                  Renewal Agreement
-                </h2> */}
-        </div>
-        <div>
-        <div className="row   ">
+        {/* <div className="col-lg-12 col-md-12 col-sm-12 col-12   "> */}
+         
+        {/* </div>
+        <div> */}
+        {/* <div className="row   ">
           <div
             className="col-lg-2 col-md-2 col-sm-4 col-12 "
             style={{ paddingRight: "0px" }}
@@ -172,18 +281,18 @@ console.log(orgData)
             </button>
             &nbsp;
             {/* <Link to="/Organization-report"> */}
-            <button
+            {/* <button
             type="submit"
               variant="success"
               id="buttonchanges"
               // onClick={() => onSubmit()}
             >
               <b>Cancel</b>
-            </button>
-            {/* </Link> */}
+            </button> */}
+            {/* </Link> 
           </div>
-          </div>
-        </div>
+          </div> 
+       </div> 
         {/* </div> */}
       </div>
     </Fragment>

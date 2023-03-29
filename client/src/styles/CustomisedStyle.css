@@ -2586,3 +2586,9 @@ div {
   background-color: rgb(188, 45, 45);
   color:white;
 }
+
+.cardAgreement{
+  border: 2px solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 10px 15px rgb(0 0 0 / 15%);
+  border-radius: 0.25rem;
+}
