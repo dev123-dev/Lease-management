@@ -31,6 +31,7 @@ const TenantAgreementDetails = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  tenantDoorNumnber: [],
   tenantstatus: {
     type: String,
     default: "Active",

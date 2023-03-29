@@ -6,9 +6,12 @@ const TenantDetails = new mongoose.Schema({
     type: String,
   },
   tenantFileNo: {
-    type : String
+    type: String,
   },
-  
+  AgreementStatus: {
+    type: String,
+    default: "Active",
+  },
   OrganizationName: {
     type: String,
   },

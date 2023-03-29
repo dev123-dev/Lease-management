@@ -902,8 +902,9 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
           agreementId: "$output._id",
-          tenantDoorNo: "$output.tenantDoorNo",
+          tenantDoorNo: "$shopDoorNo",
           tenantFileNo: "$output.tenantFileNo",
+          Location: "$Location",
           chargesCal: {
             $add: [
               {
@@ -911,7 +912,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
                   {
                     $multiply: [
                       "$output.tenantRentAmount",
-                      tenantSettingsData[0].hikePercentage,
+                      tenantSettingsData[0].hike,
                     ],
                   },
                   100,
@@ -933,7 +934,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
                               {
                                 $multiply: [
                                   "$output.tenantRentAmount",
-                                  tenantSettingsData[0].hikePercentage,
+                                  tenantSettingsData[0].hike,
                                 ],
                               },
                               100,
@@ -962,6 +963,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         },
       },
     ]);
+    console.log("tenantExpReport-xxxx", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -1057,6 +1059,9 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           tenantDoorNo: "$output.tenantDoorNo",
           tenantFileNo: "$output.tenantFileNo",
           OrganizationId: "$OrganizationId",
+          Location: "$Location",
+          tenantDoorNo: "$shopDoorNo",
+          BuildingName: "$BuildingName",
           chargesCal: {
             $add: [
               {
@@ -1064,7 +1069,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
                   {
                     $multiply: [
                       "$output.tenantRentAmount",
-                      tenantSettingsData[0].hikePercentage,
+                      tenantSettingsData[0].hike,
                     ],
                   },
                   100,
@@ -1084,7 +1089,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
                           {
                             $multiply: [
                               "$output.tenantRentAmount",
-                              tenantSettingsData[0].hikePercentage,
+                              tenantSettingsData[0].hike,
                             ],
                           },
                           100,
@@ -1110,6 +1115,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
         },
       },
     ]);
+    console.log("get-tenant-old-exp-report", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -1293,7 +1299,14 @@ router.post("/renew-tenant-details", async (req, res) => {
   try {
     let tenantAgreementDetails = new TenentAgreement(finalDataTA);
     output = await tenantAgreementDetails.save();
-
+    await TenantDetails.updateOne(
+      { _id: data.tdId },
+      {
+        $set: {
+          AgreementStatus: "Renewed",
+        },
+      }
+    );
     const updateStatus = await TenentAgreement.updateOne(
       { _id: data.agreementId },
       {
@@ -1306,27 +1319,6 @@ router.post("/renew-tenant-details", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
-  }
-});
-
-router.post("/update-tenant", async (req, res) => {
-  try {
-    let data = req.body;
-
-    const updateagreementdetails = await TenantSettings.updateOne(
-      { _id: data.recordId },
-      {
-        $set: {
-          hikePercentage: data.hikePercentage,
-          stampDuty: data.stampDuty,
-          leaseTimePeriod: data.leaseTimePeriod,
-        },
-      }
-    );
-
-    res.json(updateagreementdetails);
-  } catch (error) {
-    res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
 
