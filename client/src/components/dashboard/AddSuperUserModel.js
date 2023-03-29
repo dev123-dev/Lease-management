@@ -23,7 +23,6 @@ const AddSuperUserModel = ({
 
   const [orgname, setOrgname] = useState({});
 
-
   const [formData, setFormData] = useState({
     username: "",
     useremail: "",
@@ -47,7 +46,6 @@ const AddSuperUserModel = ({
   } = formData;
 
   const [us, setus] = useState("");
-
 
   // password validation starting
   const [error, setError] = useState({
@@ -195,19 +193,15 @@ const AddSuperUserModel = ({
       [e.target.name]: e.target.value,
     });
   };
-   //Required Validation Starts
-   const [errors, setErrors] = useState({
+  //Required Validation Starts
+  const [errors, setErrors] = useState({
     orgChecker: false,
     orgErrorStyle: {},
     userGroupChecker: false,
     userGroupErrorStyle: {},
   });
-  const {
-    orgChecker,
-    orgErrorStyle,
-    userGroupChecker,
-    userGroupErrorStyle,
-  } = error;
+  const { orgChecker, orgErrorStyle, userGroupChecker, userGroupErrorStyle } =
+    error;
 
   const checkError = () => {
     if (!orgChecker) {
@@ -224,7 +218,7 @@ const AddSuperUserModel = ({
       });
       return false;
     }
-    
+
     return true;
   };
 
@@ -246,12 +240,11 @@ const AddSuperUserModel = ({
     setus(e);
   };
 
-
   //fill all field state
 
   const onsubmitUserData = (e) => {
     e.preventDefault();
-    if (checkError()) {
+    // if (checkError()) {
     const finalUserData = {
       username: name,
       useremail: email,
@@ -275,7 +268,7 @@ const AddSuperUserModel = ({
       password: "",
       password: "",
     });
-  }
+    // }
   };
 
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
@@ -289,10 +282,15 @@ const AddSuperUserModel = ({
       <Modal.Header className="confirmbox-heading">
         <div className="col-lg-10 ">
           <div className="ml-5">
-            <h3 style={{
-              fontFamily: "Sans-serif",
-              color: "white",
-            }} className="text-center  ml-4 ">ADD USER DETAILS </h3>
+            <h3
+              style={{
+                fontFamily: "Sans-serif",
+                color: "white",
+              }}
+              className="text-center  ml-4 "
+            >
+              ADD USER DETAILS{" "}
+            </h3>
           </div>
         </div>
         <div className="col-lg-2 ">
@@ -355,7 +353,6 @@ const AddSuperUserModel = ({
                 </label>
                 <div className="controls">
                   <Select
-
                     name="orgname"
                     options={orglist}
                     theme={(theme) => ({
