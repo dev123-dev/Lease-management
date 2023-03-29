@@ -15,6 +15,7 @@ const TenantSettings = ({
   getAllSettings,
   onAddSettingModalChange,
 }) => {
+  console.log("data", allTenantSetting.leaseTimePeriod);
   const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (myuser) {
@@ -47,8 +48,8 @@ const TenantSettings = ({
       : ""
   );
   const [leaseTimePeriod, setLeaseTimePeriod] = useState(
-    allTenantSetting && allTenantSetting.hike
-      ? allTenantSetting && allTenantSetting.hike
+    allTenantSetting && allTenantSetting.leaseTimePeriod
+      ? allTenantSetting && allTenantSetting.leaseTimePeriod
       : ""
   );
 
