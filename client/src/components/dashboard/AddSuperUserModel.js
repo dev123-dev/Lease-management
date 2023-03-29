@@ -244,31 +244,31 @@ const AddSuperUserModel = ({
 
   const onsubmitUserData = (e) => {
     e.preventDefault();
-    // if (checkError()) {
-    const finalUserData = {
-      username: name,
-      useremail: email,
-      userphone: phone,
-      useraddress: address,
-      usergroup: us,
-      password: rePassword,
-      OrganizationName: orgname,
-    };
+    if (checkError()) {
+      const finalUserData = {
+        username: name,
+        useremail: email,
+        userphone: phone,
+        useraddress: address,
+        usergroup: us,
+        password: rePassword,
+        OrganizationName: orgname,
+      };
 
-    Adduser(finalUserData);
-    setShowadd(false);
-    setFormData({
-      ...formData,
-      name: "",
-      phone: "",
-      email: "",
-      address: "",
-      group: "",
-      OrganizationName: "",
-      password: "",
-      password: "",
-    });
-    // }
+      Adduser(finalUserData);
+      setShowadd(false);
+      setFormData({
+        ...formData,
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        group: "",
+        OrganizationName: "",
+        password: "",
+        password: "",
+      });
+    }
   };
 
   //should not remove below the console statement otherwise it will cause an error saying user.usergroup is undefined.
