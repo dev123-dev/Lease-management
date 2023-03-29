@@ -11,7 +11,7 @@ import Select from "react-select";
 import { Modal } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, particular_org_data, allTenantSetting },
@@ -22,7 +22,7 @@ const AddTenantDetails = ({
   getAllSettings,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-
+ const history= useHistory();
   useEffect(() => {
     getParticularProperty({ OrganizationId: myuser.OrganizationId });
     getAllSettings({
@@ -159,13 +159,14 @@ const AddTenantDetails = ({
                 value: doornumber.doorNo,
                 status: "Acquired",
               });
-            } else {
-              temp.push({
-                label: "Blank",
-              });
-            }
+            // } else {
+            //   temp.push({
+            //     label: "Blank",
+            //   });
+             }
           });
         }
+
         setDnoList(temp);
       });
 
@@ -339,6 +340,9 @@ const AddTenantDetails = ({
     setChequeDate("");
     setFileNoData("");
     // setShowadd(false);
+
+    history.push("/tenant-detail")
+
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -366,6 +370,21 @@ const AddTenantDetails = ({
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid ">
             <div className="row card-new pb-3">
+
+            <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Tenant Name*:</label>
+                <input
+                  type="text"
+                  name="tenantName"
+                  placeholder="Name"
+                  value={tenantName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
                 <label>Property Name*:</label>
                 <Select
@@ -402,19 +421,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Tenant Name*:</label>
-                <input
-                  type="text"
-                  name="tenantName"
-                  placeholder="Name"
-                  value={tenantName}
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                />{" "}
-                <br></br>
-              </div>
+              
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Phone No:</label>
                 <input
@@ -624,6 +631,8 @@ const AddTenantDetails = ({
                     > <span className="h4">Avaiable Door No:</span> 
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
+                          // if(DoorNumber.status==="Avaiable")
+                          
                           return (
                           
                               <button
@@ -643,6 +652,7 @@ const AddTenantDetails = ({
                               </button>
                             
                           );
+                          
                         })}
                     </div>
 
@@ -687,26 +697,28 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <div className="row ">
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail">
+                    <Link to="/tenant-detail"> 
                       <button
                         variant="success"
                         className="btn sub_form btn_continue Save float-right mx-5"
                         id="savebtn"
+                        type="button"
                       >
                         Back
                       </button>
                     </Link>
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail">
+                    {/* <Link to="/tenant-detail"> */}
                       <button
                         variant="success"
                         className="btn sub_form btn_continue Save float-right"
                         id="savebtn"
+                        type="submit"
                       >
                         Save
                       </button>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>
