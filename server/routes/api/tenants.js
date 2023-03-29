@@ -200,9 +200,17 @@ router.post("/get-particular-user", async (req, res) => {
 
 //update all organization
 router.post("/update-Organization", async (req, res) => {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
+
   let data = req.body;
   console.log(data);
-  try {
+  if (data.enddate < todayDateymd) {
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
       {
@@ -211,26 +219,52 @@ router.post("/update-Organization", async (req, res) => {
           OrganizationEmail: data.OrganizationEmail,
           OrganizationNumber: data.OrganizationNumber,
           OrganizationAddress: data.OrganizationAddress,
+          AgreementStatus: "Expired",
           enddate: data.enddate,
           date: data.startdate,
           Location: data.Location,
         },
       }
     ).then((data) => console.log(data));
-    res.json(updateorg);
-  } catch (error) {
-    res.status(500).json({ errors: [{ msg: "Server Error" }] });
+  } else {
+    const updateorg = await OrganizationDetails.updateOne(
+      { _id: data.OrganizationId },
+      {
+        $set: {
+          OrganizationName: data.OrganizationName,
+          OrganizationEmail: data.OrganizationEmail,
+          OrganizationNumber: data.OrganizationNumber,
+          OrganizationAddress: data.OrganizationAddress,
+          AgreementStatus: "Active",
+          enddate: data.enddate,
+          date: data.startdate,
+          Location: data.Location,
+        },
+      }
+    ).then((data) => console.log(data));
   }
+  // try {
+  //   const updateorg = await OrganizationDetails.updateOne(
+  //     { _id: data.OrganizationId },
+  //     {
+  //       $set: {
+  //         OrganizationName: data.OrganizationName,
+  //         OrganizationEmail: data.OrganizationEmail,
+  //         OrganizationNumber: data.OrganizationNumber,
+  //         OrganizationAddress: data.OrganizationAddress,
+  //         enddate: data.enddate,
+  //         date: data.startdate,
+  //         Location: data.Location,
+  //       },
+  //     }
+  //   ).then((data) => console.log(data));
+  //   res.json(updateorg);
+  // } catch (error) {
+  //   res.status(500).json({ errors: [{ msg: "Server Error" }] });
+  // }
 });
 router.post("/update-Property", async (req, res) => {
   let data = req.body;
-  // console.log(data);
-  // let doornumber = data.shopDoorNo.map((ele) => {
-  //   return {
-  //     label: ele,
-  //     status: "Acquired",
-  //   };
-  // });
 
   try {
     const updateorg = await property
@@ -1259,12 +1293,33 @@ router.get("/get-all-users", async (req, res) => {
 
 //Renew the Organization details
 router.post("/Renew-Organization", async (req, res) => {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  try {
+  if (data.enddate < todayDateymd) {
     await OrganizationDetails.updateOne(
+      { _id: data.OrganizationId },
       {
-        _id: data.OrganizationId,
-      },
+        $set: {
+          OrganizationName: data.Orgname,
+          OrganizationEmail: data.Orgemail,
+          OrganizationNumber: data.Orgphone,
+          OrganizationAddress: data.OrganizationAddress,
+          date: data.date,
+          enddate: data.enddate,
+          AgreementStatus: "Expired",
+          org_status: "Active",
+        },
+      }
+    );
+  } else {
+    await OrganizationDetails.updateOne(
+      { _id: data.OrganizationId },
       {
         $set: {
           OrganizationName: data.Orgname,
@@ -1278,9 +1333,64 @@ router.post("/Renew-Organization", async (req, res) => {
         },
       }
     );
-  } catch (error) {
-    console.log(error.message);
   }
+  // let comapare = await OrganizationDetails.updateOne(
+  //   {
+  //     _id: data.OrganizationId,
+  //   },
+
+  //   {
+  //     $cond: {
+  //       if: { $lte: ["$enddate", todayDateymd] },
+  //       then: {
+  //         $set: {
+  //           OrganizationName: data.Orgname,
+  //           OrganizationEmail: data.Orgemail,
+  //           OrganizationNumber: data.Orgphone,
+  //           OrganizationAddress: data.OrganizationAddress,
+  //           date: data.date,
+  //           enddate: data.enddate,
+  //           AgreementStatus: "xxxxxxxxxxx",
+  //           org_status: "Active",
+  //         },
+  //       },
+  //       else: {
+  //         $set: {
+  //           OrganizationName: data.Orgname,
+  //           OrganizationEmail: data.Orgemail,
+  //           OrganizationNumber: data.Orgphone,
+  //           OrganizationAddress: data.OrganizationAddress,
+  //           date: data.date,
+  //           enddate: data.enddate,
+  //           AgreementStatus: "Renewed",
+  //           org_status: "Active",
+  //         },
+  //       },
+  //     },
+  //   }
+  // ).then((data) => console.log("done done ", data));
+
+  // try {
+  //   await OrganizationDetails.updateOne(
+  //     {
+  //       _id: data.OrganizationId,
+  //     },
+  //     {
+  //       $set: {
+  //         OrganizationName: data.Orgname,
+  //         OrganizationEmail: data.Orgemail,
+  //         OrganizationNumber: data.Orgphone,
+  //         OrganizationAddress: data.OrganizationAddress,
+  //         date: data.date,
+  //         enddate: data.enddate,
+  //         AgreementStatus: "Renewed",
+  //         org_status: "Active",
+  //       },
+  //     }
+  //   );
+  // } catch (error) {
+  //   console.log(error.message);
+  // }
 });
 
 router.post("/renew-tenant-details", async (req, res) => {

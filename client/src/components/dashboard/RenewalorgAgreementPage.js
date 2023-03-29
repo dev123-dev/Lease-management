@@ -161,7 +161,7 @@ const ReneworgAggreement = ({
 
 <div className="row">
 <div className="col-lg-6 col-md-6 col-sm-12"></div>
-  <div className="col-lg-6 col-md-6 col-sm-12 Savebutton ">
+  <div className="col-lg-6 col-md-6 col-sm-12 Savebutton">
   
             <button
               variant="success"
