@@ -175,7 +175,7 @@ const EditTenantDetails = ({
   const editSelectedProperty = particular_org_data.filter(
     (ele) => ele._id === particular_tenant_EditData.BuildingId
   );
-  console.log("should be 1 2 3", editSelectedProperty);
+  //console.log("should be 1 2 3", editSelectedProperty);
 
   const [selectedDno, setSelectedDno] = useState(
     particular_tenant_EditData.shopDoorNo
@@ -335,9 +335,13 @@ const EditTenantDetails = ({
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  const [entryDate, setEntryDate] = useState(tenants.tenantLeaseStartDate);
-  const [leaseEndDate, setLeaseEndDate] = useState(tenants.tenantLeaseEndDate);
+  const [entryDate, setEntryDate] = useState(particular_tenant_EditData.tenantLeaseStartDate);
+  const [leaseEndDate, setLeaseEndDate] = useState(particular_tenant_EditData.tenantLeaseEndDate);
   const [newLeaseEndDate, setNewLeaseEndDate] = useState("null");
+//console.log("GAK",particular_tenant_EditData.tenantLeaseStartDate);
+
+//console.log("GAi",new Date(particular_tenant_EditData.tenantLeaseEndDate));
+
 
   //For setting mindate as todays date
   var today = new Date();
@@ -441,7 +445,7 @@ const EditTenantDetails = ({
                   onChange={(e) => onBuildingChange(e)}
                 ></Select>
               </div>
-              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              {/* <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Door No*: </label>
                 <Select
                   name="doorno"
@@ -451,7 +455,7 @@ const EditTenantDetails = ({
                   isMulti={true}
                   required
                 ></Select>
-              </div>
+              </div> */}
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Location*: </label>
                 <input
@@ -660,10 +664,11 @@ const EditTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Lease Start Date*: </label>
                 <input
+                 placeholder="dd-mm-yyyy"
                   type="date"
                   className="form-control cpp-input datevalidation"
                   name="tenantLeaseStartDate"
-                  value={entryDate}
+                  value={entryDate} // entryDate
                   onChange={(e) => onDateChangeEntry(e)}
                   style={{
                     width: "100%",
@@ -700,7 +705,7 @@ const EditTenantDetails = ({
                   className="col-lg-6 col-md-12 col-sm-12 button_Door border "
                   // style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                  <span>Avaiable Door Number :</span>
+                  <span className="h4">Avaiable Door Number :</span>
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
@@ -708,11 +713,17 @@ const EditTenantDetails = ({
                           key={idx}
                           type="button"
                           name="workMistake"
-                          className="m-2"
-                          id="savebtn"
+                          className="m-2 btn btn-success"
+                          // id="savebtn"
                           onClick={() => onSelectChange(DoorNumber)}
                         >
                           {DoorNumber.doorNo}
+                          <span
+                           id="savebtn"
+                           className="mx-2"
+                          >
+                            X
+                          </span>
                         </button>
                       );
                     })}
@@ -722,25 +733,34 @@ const EditTenantDetails = ({
                   className=" col-lg-6 col-md-12 border"
                   // style={{ border: "1px solid black", minHeight: "80px" }}
                 >
-                  <span>Occupied Door Number : </span>
+                  <span  className="h4">Occupied Door Number : </span>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
                       return (
                         // <p key={idx} className="DoorCover">
                         <button
+                        key={idx}
                           type="button"
                           name="selectedWorkMistake"
-                          className="m-2"
-                          id="savebtn"
+                          className="m-2 btn btn-danger"
+                          // id="savebtn"
+                          onClick={() => onRemoveChange(Doornumber)}
                         >
                           {Doornumber.value}
+
                           <span
-                            className="mx-2 "
-                            onClick={() => onRemoveChange(Doornumber)}
+                           id="savebtn"
+                           className="mx-2"
                           >
                             X
                           </span>
+                          {/* <span
+                            className="mx-2 "
+                           
+                          >
+                            X
+                          </span> */}
                         </button>
                         // </p>
                       );

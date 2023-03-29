@@ -11,7 +11,7 @@ import Select from "react-select";
 import { Modal } from "react-bootstrap";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, particular_org_data, allTenantSetting },
@@ -22,7 +22,7 @@ const AddTenantDetails = ({
   getAllSettings,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-
+ const history= useHistory();
   useEffect(() => {
     getParticularProperty({ OrganizationId: myuser.OrganizationId });
     getAllSettings({
@@ -159,13 +159,14 @@ const AddTenantDetails = ({
                 value: doornumber.doorNo,
                 status: "Acquired",
               });
-            } else {
-              temp.push({
-                label: "Blank",
-              });
-            }
+            // } else {
+            //   temp.push({
+            //     label: "Blank",
+            //   });
+             }
           });
         }
+
         setDnoList(temp);
       });
 
@@ -373,6 +374,9 @@ const AddTenantDetails = ({
     setFileNoData("");
   }
     // setShowadd(false);
+
+    history.push("/tenant-detail")
+
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -400,6 +404,21 @@ const AddTenantDetails = ({
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid ">
             <div className="row card-new pb-3">
+
+            <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Tenant Name*:</label>
+                <input
+                  type="text"
+                  name="tenantName"
+                  placeholder="Name"
+                  value={tenantName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
                 <label style={PropertyErrorStyle}>Property Name*:</label>
                 <Select
@@ -436,19 +455,7 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Tenant Name*:</label>
-                <input
-                  type="text"
-                  name="tenantName"
-                  placeholder="Name"
-                  value={tenantName}
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                />{" "}
-                <br></br>
-              </div>
+              
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Phone No:</label>
                 <input
@@ -652,56 +659,69 @@ const AddTenantDetails = ({
               <div className="row ">
                 {isavail && isavail.length !== 0 ? (
                   <>
-                    <div
-                      className=" col-lg-6 col-md-12"
+
+<div className="col-lg-6 col-md-12 col-sm-12  button_Door"
                       style={{ border: "1px solid black", minHeight: "80px" }}
-                    >
-                      {selectedDoorNumber &&
-                        selectedDoorNumber.length > 0 &&
-                        selectedDoorNumber.map((Doornumber, idx) => {
+                    > <span className="h4">Avaiable Door No:</span> 
+                      {DnoList &&
+                        DnoList.map((DoorNumber, idx) => {
+                          // if(DoorNumber.status==="Avaiable")
+                          
                           return (
-                            <p key={idx} className="DoorCover">
+                          
                               <button
+                              key={idx}
                                 type="button"
-                                name="selectedWorkMistake"
-                                className="DoorNumber"
+                                // name="workMistake"
+                                className="btn btn-success"
+                                onClick={() => onSelectChange(DoorNumber)}
                               >
-                                {Doornumber.value}
+                                {DoorNumber.value}
                                 <span
-                                  className="mx-2"
-                                  onClick={() => onRemoveChange(Doornumber)}
-                                >
-                                  X
-                                </span>
+                           id="savebtn"
+                           className="mx-2"
+                          >
+                            X
+                          </span>
                               </button>
-                            </p>
+                            
                           );
+                          
                         })}
                     </div>
 
                     <div
-                      className="col-lg-6 col-md-12 col-sm-12  button_Door"
+                      className=" col-lg-6 col-md-12"
                       style={{ border: "1px solid black", minHeight: "80px" }}
-                    >
-                      {DnoList &&
-                        DnoList.map((DoorNumber, idx) => {
+                    ><span className="h4">selected Door No : </span> 
+                      {selectedDoorNumber &&
+                        selectedDoorNumber.length > 0 &&
+                        selectedDoorNumber.map((Doornumber, idx) => {
                           return (
-                            <div key={idx}>
+                           
                               <button
+                              key={idx} 
                                 type="button"
-                                name="workMistake"
-                                className="btnLink"
-                                onClick={() => onSelectChange(DoorNumber)}
+                                className="btn btn-danger mx-2"
+                                onClick={() => onRemoveChange(Doornumber)}
                               >
-                                {DoorNumber.value}
+                                {Doornumber.value}
+                                <span
+                           id="savebtn"
+                           className="mx-2"
+                          >
+                            X
+                          </span>
                               </button>
-                            </div>
+                            
                           );
                         })}
                     </div>
+
+                    
                   </>
                 ) : (
-                  <>NODATA</>
+                  <div>No Rooms in the Property</div>
                 )}
               </div>
               <div className="col-lg-9 text-danger">
@@ -711,26 +731,28 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <div className="row ">
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail">
+                    <Link to="/tenant-detail"> 
                       <button
                         variant="success"
                         className="btn sub_form btn_continue Save float-right mx-5"
                         id="savebtn"
+                        type="button"
                       >
                         Back
                       </button>
                     </Link>
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail">
+                    {/* <Link to="/tenant-detail"> */}
                       <button
                         variant="success"
                         className="btn sub_form btn_continue Save float-right"
                         id="savebtn"
+                        type="submit"
                       >
                         Save
                       </button>
-                    </Link>
+                    {/* </Link> */}
                   </div>
                 </div>
               </div>
