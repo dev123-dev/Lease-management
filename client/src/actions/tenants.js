@@ -362,6 +362,7 @@ export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
+  console.log("in action add-tenant-details", finalData);
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
   };
@@ -585,7 +586,6 @@ export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
       data,
       config
     );
-    console.log("res", res.data);
     dispatch({
       type: YEAR_EXP_COUNT_ORG,
       payload: res.data,

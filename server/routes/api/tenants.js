@@ -1018,14 +1018,14 @@ router.post("/get-organization-expiry-report", async (req, res) => {
     var monthVal = "0" + monthSearch;
   }
   var yearMonth = yearSearch + "-" + monthVal;
-  console.log;
   try {
-    const data = await OrganizationDetails.find({
+    OrganizationDetails.find({
       enddate: { $regex: new RegExp("^" + yearMonth, "i") },
       AgreementStatus: { $eq: "Expired" },
       org_status: "Active",
-    });
-    res.json(data);
+    })
+      .then((data) => res.json(data))
+      .catch((error) => res.status(500).send("Internal Server Error."));
   } catch (error) {
     console.log(error.message);
   }

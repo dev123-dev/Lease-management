@@ -8,13 +8,14 @@ import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
-  tenants: { allTenants, allorg },
+  tenants: { allTenants, ext_year_count_org },
   getAllTenants,
   deactiveTenantsDetails,
 }) => {
   useEffect(() => {
     getAllTenants();
   });
+
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -105,9 +106,9 @@ const TenantReport = ({
                           </tr>
                         </thead>
                         <tbody>
-                          {allorg &&
-                            allorg[0] &&
-                            allorg.map((org, index) => {
+                          {ext_year_count_org &&
+                            ext_year_count_org[0] &&
+                            ext_year_count_org.map((org, index) => {
                               return (
                                 <tr>
                                   <td>{org.OrganizationName}</td>

@@ -168,7 +168,7 @@ const TenantFilters = ({
                 <div className="btn_more text-center">
                   <Link
                     title="Total Renewal Count"
-                    to="/Organization-report"
+                    to="/Organization-filter"
                     style={{ width: "100px" }}
                     className="top_box"
                     onClick={() => oldExpCountFetch()}
