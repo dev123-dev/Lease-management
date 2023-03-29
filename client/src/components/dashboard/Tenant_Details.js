@@ -21,19 +21,26 @@ const Tenant_Details = ({
     particular_org_data,
     get_particular_org_tenant,
     particular_org_loc,
+    allTenantSetting
   },
   ParticularTenant,
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
   deactiveTenantsDetails,
+  getAllSettings
 }) => {
   const [freshpage, setFreshPage] = useState(true);
   const checkboxRef = useRef(null);
+  const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    // getAllSettings({
+    //   OrganizationId: myuser && myuser.OrganizationId,
+    //   userId: myuser && myuser._id,
+    // });
     fun();
   }, [freshpage]);
 
@@ -441,6 +448,7 @@ setDeactiveThisBiuldingID(Val.BuildingId)
           </Modal.Footer>
         </form>
       </Modal>
+
       <Modal show={selectDno} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">

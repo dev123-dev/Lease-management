@@ -95,8 +95,14 @@ const AddOrgModal = ({
   const onshow = () => setShowAdd(true);
   const onremove = () => setShowAdd(false);
 
+const [locationError,setLocationError]=useState("black")
+
   const onSubmitORGdata = (e) => {
     e.preventDefault();
+    if(items.length==0){
+      setLocationError("red")
+    }
+    else{
     const finalORGdata = {
       OrganizationName: OrganizationName,
       OrganizationEmail: OrganizationEmail,
@@ -106,6 +112,7 @@ const AddOrgModal = ({
       enddate: newLeaseEndDate,
       Location: items,
     };
+    
 
     AddOrganization(finalORGdata);
     setShowadd(false);
@@ -121,6 +128,7 @@ const AddOrgModal = ({
       enddate: "",
       Location: [],
     });
+  }
   };
   return !isAuthenticated || !user || !users ? (
     <></>
@@ -223,7 +231,7 @@ const AddOrgModal = ({
                 />
                 <br></br>
 
-                <label className="ml-2">Location*:</label>
+                <label className="ml-2" style={{color:locationError}}>Location*:</label>
 
                 <input
                   className="form-control"
@@ -269,6 +277,7 @@ const AddOrgModal = ({
                     })}
                   </div>
                 </div>
+                
               </div>
               <div className="col-lg-6">
                 <label> Address*:</label>
@@ -284,6 +293,8 @@ const AddOrgModal = ({
                   required
                 ></textarea>{" "}
               </div>
+              
+             
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit

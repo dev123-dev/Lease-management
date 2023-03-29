@@ -141,10 +141,12 @@ const AddShopDetails = ({
    
     return true;
   };
+const [locError,setLocError]=useState("black");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (checkError()) {
+    
+    if (checkError() && items.length!==0) {
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
@@ -172,6 +174,9 @@ const AddShopDetails = ({
     });
 
     setShowadd(false);
+  }
+  else{
+    setLocError("red")
   }
   };
 
@@ -280,7 +285,7 @@ const AddShopDetails = ({
                   <br></br>
                 </div>
 
-                <label className="ml-2">Door No*:</label>
+                <label className="ml-2" style={{color:locError}}>Door No*:</label>
 
                 <input
                   className="form-control"

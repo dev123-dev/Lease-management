@@ -10,10 +10,9 @@ import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
   AddTenantSettingform,
   UpdateTenantSettingform,
-  tenants: { get_Particular_org_Tenantsetting, allTenantSetting },
+  tenants: { allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
-  getParticularTenantSetting,
   onAddSettingModalChange,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));

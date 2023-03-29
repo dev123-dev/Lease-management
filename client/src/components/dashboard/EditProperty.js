@@ -108,7 +108,9 @@ const EditProperty = ({
 
   const onUpdate = (e) => {
     e.preventDefault();
-    setShowUpdateModal(false);
+
+if(dno.length!==0)
+    {
 
     const update = {
       OrganizationName: user.OrganizationName,
@@ -126,6 +128,12 @@ const EditProperty = ({
     };
     updateProperty(update);
     handleEditModalClose();
+    setShowUpdateModal(false);
+  }
+  else{
+    alert();
+  }
+
   };
 
   return (

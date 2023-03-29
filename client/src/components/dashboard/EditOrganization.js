@@ -81,10 +81,13 @@ const EditOrganization = ({
     }
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
-
+const[locError,setLocError]=useState("black")
   const onUpdate = (e) => {
     e.preventDefault();
-    EditModal(false);
+    if(items.length===0){
+      setLocError("red")
+    }else
+  {
     const updateData = {
       OrganizationId: org._id,
       OrganizationName: OrganizationName,
@@ -96,6 +99,8 @@ const EditOrganization = ({
       Location: items,
     };
     updateOrganization(updateData);
+    EditModal(false);
+  }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -168,7 +173,7 @@ const EditOrganization = ({
                 required
               />
               <br></br>
-              <label className="ml-2">Location*:</label>
+              <label className="ml-2" style={{color:locError}}>Location*:</label>
               <input
                 className="form-control"
                 type="text"
