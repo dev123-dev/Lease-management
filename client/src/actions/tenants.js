@@ -350,6 +350,7 @@ export const deleteOrganization = (id) => async (dispatch) => {
 //Renew Organization details
 export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
   try {
+    console.log("popina data",renewdata)
     await axios.post(
       `${linkPath}/api/tenants/Renew-Organization`,
       renewdata,

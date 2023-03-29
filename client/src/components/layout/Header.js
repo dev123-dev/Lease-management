@@ -41,8 +41,9 @@ const Header = ({
   const [showTenantSetting, setTenantSetting] = useState(false);
 
   const handleLogoutModalClose = () => setShowLogout(false);
+
   const handleLogoutModalShow = () => {
- 
+    
     setShowLogout(true);
   };
   const handleTenantSettingModalClose = () => setTenantSetting(false);
@@ -50,7 +51,8 @@ const Header = ({
 
   const LogoutModalClose = () => {
     handleLogoutModalClose();
-    logout();
+   
+     logout();
   };
 
   const onAddSettingModalChange = (e) => {
@@ -292,7 +294,7 @@ const Header = ({
                       <Modal.Footer>
                         <button
                           id="logoutbtn"
-                          onClick={() => LogoutModalClose()}
+                           onClick={() => LogoutModalClose()}
                         >
                           <b>YES</b>
                         </button>
