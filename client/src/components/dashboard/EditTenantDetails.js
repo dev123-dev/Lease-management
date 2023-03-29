@@ -7,6 +7,7 @@ import {
   getAllSettings,
   UpdateTenantsDetails,
 } from "../../actions/tenants";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
@@ -23,7 +24,7 @@ const EditTenantDetails = ({
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-
+const histroy=useHistory()
   useEffect(() => {
     fun();
     checkDoorNumber();
@@ -386,7 +387,7 @@ const EditTenantDetails = ({
       unseletedDoorno: unselectedDno,
     };
     UpdateTenantsDetails(finalData);
-
+    histroy.push("/tenant-detail")
     // const historyData = {
     //   tdId: tenantId,
     //   //tenantDoorNo: tenantsdetails.shopDoorNo,
@@ -779,19 +780,20 @@ const EditTenantDetails = ({
               <div className="col-lg-3">
                 <div className="row">
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail">
+                   
                       <button
-                        type="submit"
+                      onClick={()=>{histroy.push("/tenant-detail")}}
                         variant="success"
                         className="btn sub_form btn_continue Save float-right mx-5"
                         id="savebtn"
+                        type="button"
                       >
                         Back
                       </button>
-                    </Link>
+                    
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <Link to="/tenant-detail">
+                   
                       <button
                         type="submit"
                         variant="success"
@@ -800,7 +802,7 @@ const EditTenantDetails = ({
                       >
                         Save
                       </button>
-                    </Link>
+                    
                   </div>
                 </div>
               </div>
