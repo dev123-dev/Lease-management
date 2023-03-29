@@ -231,7 +231,7 @@ const PropertyDetail = ({
                 <div className="col-lg-1"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
                   <table
-                    className="table table-bordered table-striped table-hover  table-active mt-1  "
+                    className="table table-bordered table-striped table-hover   mt-1  "
                     id="datatable2"
                   >
                     <thead>

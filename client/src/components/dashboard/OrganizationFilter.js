@@ -84,16 +84,23 @@ const TenantReport = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                  <h2 className="heading_color"> DashBoard </h2>
+                <h1
+                  style={{
+                    fontFamily: "Serif",
+                    color: "#095a4a",
+                    position:"relative",
+                    right:"60px",
+                  }}
+                  className="font-weight-bold headsize "
+                >
+                  
+                    {" "}
+                    DashBoard
+                  
+                </h1>
                 </div>
-                <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
-                  <img
-                    className="img_icon_size log"
-                    src={require("../../static/images/print.png")}
-                    alt="Add User"
-                    title="Add User"
-                  />
-                </div>
+                <hr className="line"></hr>
+                
               </div>
               <div className="row">
                 <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
