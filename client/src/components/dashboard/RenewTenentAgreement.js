@@ -71,7 +71,6 @@ const RenewTenentAgreement = ({
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
-      AgreementStatus: "Active",
       agreementId: tenantsData.agreementId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
@@ -80,6 +79,7 @@ const RenewTenentAgreement = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
+    console.log(finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
