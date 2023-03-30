@@ -2604,13 +2604,12 @@ width: 100px;
   .headsize{
     font-size: 27px;
   }
-  
 }
 .sizeinput{
   min-height: 47px;
 }
 .doorbtn{
-  width:80px;
+  min-width:50px;
   height:40px;
   margin-top: 20px;
   margin-left: 5px;

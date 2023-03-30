@@ -123,7 +123,7 @@ const AddTenantDetails = ({
   let AvaiableRoomBuilding = particular_org_data;
   let isavail = particular_org_data.filter(
     (item) =>
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+    item.shopDoorNo && !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
   const allBuildingNames = [];
   AvaiableRoomBuilding.map((buildingData) =>
