@@ -35,22 +35,28 @@ async function updateExpiryStatus() {
   try {
     await TenantDetails.updateMany(
       {
-        tenantLeaseEndDate: { $lte: todayDateymd },
+        $and: [
+          { tenantLeaseEndDate: { $lte: todayDateymd } },
+          {
+            $or: [
+              { AgreementStatus: { $eq: "Active" } },
+              { AgreementStatus: { $eq: "Renewed" } },
+            ],
+          },
+        ],
       },
-      {
-        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      },
+
       {
         $set: {
           AgreementStatus: "Expired",
         },
       }
-    );
+    ).then((data) => console.log("tenant data", data));
     await TenentAgreement.updateMany(
       { tenantLeaseEndDate: { $lte: todayDateymd } },
-      {
-        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      },
+      // {
+      //   $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
+      // },
       {
         $set: {
           AgreementStatus: "Expired",

@@ -11,7 +11,7 @@ import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 const TenantReport = ({
-  auth: { expReport, isAuthenticated, user, users },
+  auth: { expReport, isAuthenticated, user, users, yearExpCnt },
   tenants: { allorg },
   ParticularTenant,
   deactiveTenantsDetails,
@@ -22,7 +22,11 @@ const TenantReport = ({
     let total = expReport.reduce((acc, obj) => acc + obj.chargesCal, 0);
     localStorage.setItem("total", total);
   }, []);
-  console.log(expReport);
+  console.log(
+    "year",
+    yearExpCnt.map((ele) => ele)
+  );
+  console.log("exp", expReport);
   const componentRef = useRef();
 
   const [showEditModal, setShowEditModal] = useState(false);
@@ -77,7 +81,6 @@ const TenantReport = ({
     <Fragment></Fragment>
   ) : (
     <>
-    
       {user.usergroup === "Super Admin" ? (
         <div>
           <div className="container container_align ">
@@ -88,7 +91,6 @@ const TenantReport = ({
                     style={{
                       fontFamily: "Serif",
                       color: "#095a4a",
-
                     }}
                     className="font-weight-bold "
                   >
@@ -162,178 +164,168 @@ const TenantReport = ({
             </section>
           </div>
         </div>
-        
       ) : (
-        
         <>
           <div className="col mt-sm-5 ">
-          
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
-              
-                <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
-                  <h1
-                    style={{
-                      fontFamily: "Serif",
-                      color: "#095a4a",
-                      position: "relative",
-                      right: "65px"
-                    }}
-                    className="font-weight-bold headsize"
-                  >
-                    
-                      {" "}
-                      Tenant Report
-                  
-                  </h1>
-                </div>
-              
-
-                <div className="col-lg-4 col-md-1 col-sm-1 col-1 pt-4 text-end  mediaprint">
-                  <button onClick={handlePrint}>
-                    <img
-                     
-                      height="25px"
-                      // onClick={() => refresh()}
-                      src={require("../../static/images/print.png")}
-                      alt="Print"
-                      title="Print"
-                    />
-                  </button>
-                </div>
-              
-              </div>
-              <hr className="line"></hr>
-              <div className="row">
-              <div className="col-lg-1"></div>
-                <div
-                  ref={componentRef}
-                  className="body-inner no-padding table-responsive ml-4"
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
+              <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
+                <h1
+                  style={{
+                    fontFamily: "Serif",
+                    color: "#095a4a",
+                    position: "relative",
+                    right: "65px",
+                  }}
+                  className="font-weight-bold headsize"
                 >
-              
-                    <div className="body-inner no-padding  table-responsive ">
-                      <img alt={""} src={logo} className={"watermark"} />
-                      <table
-                       className="table table-bordered table-striped table-hover  mt-5"
-                        id="datatable2"
-                      >
-                        <thead className="report-header">
-                          <tr>
-                            <th>Name</th>
-                            <th>Building Name</th>
-                            <th>Door No</th>
-                            <th>File No</th>
-                            <th>Location</th>
-                            <th>Stamp Duty</th>
-                            <th>Expiry Date</th>
-                            <th>Next Rent Amount</th>
-                            <th>Agreement Status</th>
-                            <th>Expired</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {expReport &&
-                            expReport[0] &&
-                            expReport.map((Val, idx) => {
-                              // var ED = Val.tenantLeaseEndDate.split(/\D/g);
-                              // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-                              //   "-"
-                              // );
-                              return (
-                                <tr key={idx}>
-                                  <td>{Val.tenantName}</td>
-                                  <td>{Val.BuildingName}</td>
-                                  <td>
-                                    {Val.tenantDoorNo.map((ele) => {
-                                      return ele.label;
-                                    })}
-                                  </td>
-                                  <td>{Val.tenantFileNo}</td>
-                                  <td>{Val.Location}</td>
-                                  <td>{Val.stampDuty}</td>
-                                  <td>{Val.tenantLeaseEndDate}</td>
-                                  <td>{Val.chargesCal}</td>
-                                  <td>{Val.tenantstatus}</td>
-                                  {Val.AgreementStatus === "Expired" ? (
-                                    <td>
-                                      <center>
-                                        <button
-                                          variant="success"
-                                          className="rewbtn"
-                                          onClick={() => onRenewal(Val, idx)}
-                                        >
-                                          Renewal
-                                        </button>
-                                      </center>
-                                    </td>
-                                  ) : (
-                                    <td></td>
-                                  )}
-                                </tr>
-                              );
-                            })}
-                          {expReport.length < 1 && (
-                            <td  className="text-center"colSpan={10}>No Data Available</td>
-                          )}
-                        </tbody>
-                      </table>
-                    
-                    <tfoot className="report-footer">
+                  {" "}
+                  Tenant Report
+                </h1>
+              </div>
+
+              <div className="col-lg-4 col-md-1 col-sm-1 col-1 pt-4 text-end  mediaprint">
+                <button onClick={handlePrint}>
+                  <img
+                    height="25px"
+                    // onClick={() => refresh()}
+                    src={require("../../static/images/print.png")}
+                    alt="Print"
+                    title="Print"
+                  />
+                </button>
+              </div>
+            </div>
+            <hr className="line"></hr>
+            <div className="row">
+              <div className="col-lg-1"></div>
+              <div
+                ref={componentRef}
+                className="body-inner no-padding table-responsive ml-4"
+              >
+                <div className="body-inner no-padding  table-responsive ">
+                  <img alt={""} src={logo} className={"watermark"} />
+                  <table
+                    className="table table-bordered table-striped table-hover  mt-5"
+                    id="datatable2"
+                  >
+                    <thead className="report-header">
                       <tr>
-                        <td className="report-footer-cell">
-                          <div className="footer-info">
-                            <div className={"page-footer"}>
-                              footer content....
-                            </div>
-                          </div>
-                        </td>
+                        <th>Name</th>
+                        <th>Building Name</th>
+                        <th>Door No</th>
+                        <th>File No</th>
+                        <th>Location</th>
+                        <th>Stamp Duty</th>
+                        <th>Expiry Date</th>
+                        <th>Next Rent Amount</th>
+                        <th>Agreement Status</th>
+                        <th>Expired</th>
                       </tr>
-                    </tfoot>
-                 
+                    </thead>
+                    <tbody>
+                      {expReport &&
+                        expReport[0] &&
+                        expReport.map((Val, idx) => {
+                          // var ED = Val.tenantLeaseEndDate.split(/\D/g);
+                          // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
+                          //   "-"
+                          // );
+                          return (
+                            <tr key={idx}>
+                              <td>{Val.tenantName}</td>
+                              <td>{Val.BuildingName}</td>
+                              <td>
+                                {Val.tenantDoorNo.map((ele) => {
+                                  return ele.label;
+                                })}
+                              </td>
+                              <td>{Val.tenantFileNo}</td>
+                              <td>{Val.Location}</td>
+                              <td>{Val.stampDuty}</td>
+                              <td>{Val.tenantLeaseEndDate}</td>
+                              <td>{Val.chargesCal}</td>
+                              <td>{Val.AgreementStatus}</td>
+                              {Val.AgreementStatus === "Expired" ? (
+                                <td>
+                                  <center>
+                                    <button
+                                      variant="success"
+                                      className="rewbtn"
+                                      onClick={() => onRenewal(Val, idx)}
+                                    >
+                                      Renewal
+                                    </button>
+                                  </center>
+                                </td>
+                              ) : (
+                                <td></td>
+                              )}
+                            </tr>
+                          );
+                        })}
+                      {expReport.length < 1 && (
+                        <td className="text-center" colSpan={10}>
+                          No Data Available
+                        </td>
+                      )}
+                    </tbody>
+                  </table>
+
+                  <tfoot className="report-footer">
+                    <tr>
+                      <td className="report-footer-cell">
+                        <div className="footer-info">
+                          <div className={"page-footer"}>
+                            footer content....
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
                 </div>
               </div>
-            
 
-            {/*link to renewal page */}
-            <div style={{ display: "none" }}>
-              {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
+              {/*link to renewal page */}
+              <div style={{ display: "none" }}>
+                {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
+              </div>
+              <Modal
+                show={showEditModal}
+                backdrop="static"
+                keyboard={false}
+                size="md"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+              >
+                <Modal.Header className="confirmbox-heading">
+                  <div className="col-lg-10">
+                    <h3
+                      style={{
+                        fontFamily: "Sans-serif",
+                        color: "white",
+                      }}
+                    >
+                      Renewal Agreement
+                    </h3>
+                  </div>
+                  <div className="col-lg-2">
+                    <button onClick={handleEditModalClose} className="close">
+                      <img
+                        src={require("../../static/images/close.png")}
+                        alt="X"
+                        style={{ height: "20px", width: "20px" }}
+                      />
+                    </button>
+                  </div>
+                </Modal.Header>
+                <Modal.Body>
+                  <RenewTenentAgreement
+                    tenantsData={userData}
+                    onReportModalChange={onReportModalChange}
+                  />
+                </Modal.Body>
+              </Modal>
             </div>
-            <Modal
-              show={showEditModal}
-              backdrop="static"
-              keyboard={false}
-              size="md"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered
-            >
-              <Modal.Header className="confirmbox-heading">
-                <div className="col-lg-10">
-                  <h3
-                    style={{
-                      fontFamily: "Sans-serif",
-                      color: "white",
-                    }}
-                  >
-                    Renewal Agreement
-                  </h3>
-                </div>
-                <div className="col-lg-2">
-                  <button onClick={handleEditModalClose} className="close">
-                    <img
-                      src={require("../../static/images/close.png")}
-                      alt="X"
-                      style={{ height: "20px", width: "20px" }}
-                    />
-                  </button>
-                </div>
-              </Modal.Header>
-              <Modal.Body>
-                <RenewTenentAgreement
-                  tenantsData={userData}
-                  onReportModalChange={onReportModalChange}
-                />
-              </Modal.Body>
-            </Modal>
-          </div>
           </div>
 
           {/* Deactivating the tenant start*/}

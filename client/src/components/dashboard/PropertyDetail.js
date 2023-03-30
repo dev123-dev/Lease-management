@@ -81,6 +81,7 @@ const PropertyDetail = ({
   const handleShow = () => setShow(true);
 
   const [checkData, setCheckData] = useState([]);
+
   const HandelCheck = (e) => {
     var updatedlist = [...checkData];
     if (e.target.checked) {
@@ -118,21 +119,60 @@ const PropertyDetail = ({
     getParticularProperty(OrgainationId_Loc_name);
   };
 
+  
+  
   const onDeactivate = (e) => {
-    e.preventDefault();
-    setShow(false);
-    const reason = {
-      PropertyId: PropertyId,
-      OrganizationId: user && user.OrganizationId,
-      Dno: checkData.length !== 0 ? checkData : dno,
-      shopStatus: "Deactive",
-      deactive_reason: deactive_reason,
-    };
-    deactiveProperty(reason);
-    getParticularOrg({ OrganizationId: user && user.OrganizationId });
 
-    handleShowDno();
+// alert(checkData.length );
+    
+if(checkData.length !==0){
+
+  e.preventDefault();
+    
+  setShow(false);
+  const reason = {
+    PropertyId: PropertyId,
+    OrganizationId: user && user.OrganizationId,
+    Dno:  checkData,
+    shopStatus: "Deactive",
+    deactive_reason: deactive_reason,
   };
+  deactiveProperty(reason);
+  getParticularOrg({ OrganizationId: user && user.OrganizationId });
+
+  handleShowDno();
+
+}
+else{
+  alert();
+}
+  };
+
+
+  const onDeactivateall=(e)=>{
+
+    if(checkData.length ===0){
+
+      e.preventDefault();
+        
+      setShow(false);
+      const reason = {
+        PropertyId: PropertyId,
+        OrganizationId: user && user.OrganizationId,
+        Dno:  [],
+        shopStatus: "Deactive",
+        deactive_reason: deactive_reason,
+      };
+      deactiveProperty(reason);
+      getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    
+      handleShowDno();
+    
+    }
+    else{
+      alert("not triger");
+    }
+  }
 
   const [showadd, setShowadd] = useState(false);
 
@@ -398,8 +438,9 @@ const PropertyDetail = ({
       {/* Model edit end */}
 
       {/* modal for Deactivating the single Property starting */}
+
       <Modal show={show} centered>
-        <form onSubmit={(e) => onDeactivate(e)}>
+        <form onSubmit={(e) => onDeactivateall(e)}>
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title ">
@@ -447,6 +488,7 @@ const PropertyDetail = ({
         </form>
       </Modal>
 
+{/* modal for Deactivating the mul Property ending */}
       <Modal show={selectDno} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header className="confirmbox-heading">
@@ -521,7 +563,7 @@ const PropertyDetail = ({
           </Modal.Footer>
         </form>
       </Modal>
-      {/* modal for Deactivating the single Property ending */}
+      {/* modal for Deactivating the mul Property ending */}
     </>
   );
 };
