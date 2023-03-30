@@ -189,13 +189,11 @@ setDeactiveThisBiuldingID(Val.BuildingId)
     <Fragment></Fragment>
   ) : (
     <>
-      {" "}
+    
       <Fragment>
         <div className="col mt-sm-4 space ">
-         
-
+       
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
-            <div>
               <h1
                 style={{
                   fontFamily: "Serif",
@@ -212,11 +210,10 @@ setDeactiveThisBiuldingID(Val.BuildingId)
                 </span>
               </h1>
               <hr className="line"></hr>
-            </div>
-
+           
             <div className="text-end"> </div>
 
-            <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
+            <div className="container-fluid d-flex align-items-center justify-content-center ">
               <div className="col">
                 <div className=" row text-end">
                   <div className="col-lg-4">
@@ -269,7 +266,7 @@ setDeactiveThisBiuldingID(Val.BuildingId)
 
                   <div className="body-inner no-padding table-responsive">
                     <table
-                      className="table table-bordered table-striped table-hover   mt-1"
+                      className="table table-bordered table-striped table-hover mt-1 "
                       id="datatable2"
                     >
                       <thead>
@@ -372,9 +369,14 @@ setDeactiveThisBiuldingID(Val.BuildingId)
                       <Fragment />
                     )}
                   </div>
-                  <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
+                  {/* <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
                     <label>No.of Tenants: {tenantCount.length}</label>
-                  </div>
+                  </div> */}
+                   <div className="col-lg-6">
+                  <p className="text-end h6">
+                  No.of Tenants: {tenantCount.length}
+                  </p>
+                </div>
                 </div>
               </div>
             </div>

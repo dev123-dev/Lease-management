@@ -203,6 +203,7 @@ const UserDetails = ({
                       No.of User :{" "}
                       {get_particularOrg_user && get_particularOrg_user.length}
                     </p>
+                     
                   </div>
                 </div>
               </div>

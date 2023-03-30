@@ -61,12 +61,18 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
+  console.log("snd data",finalData)
   try {
+
     await axios.post(
       `${linkPath}/api/tenantSetting/update-tenant-settings`,
       finalData,
       config
     );
+    dispatch( getAllSettings({
+      OrganizationId: finalData && finalData.OrganizationId,
+      userId: finalData && finalData.userId,
+    }))
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
