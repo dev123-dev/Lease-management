@@ -402,11 +402,17 @@ const Header = ({
                       aria-labelledby="contained-modal-title-vcenter"
                       centered
                     >
-                      <Modal.Header>
+                      <Modal.Header className="confirmbox-heading">
                         <div className="col-lg-10">
-                          <h3 className="modal-title text-center">
-                            Tenant Setting
-                          </h3>
+                        <h3
+                style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }}
+                className="text-center  ml-4"
+              >
+                Tenant Setting
+              </h3>
                         </div>
                         <div className="col-lg-2">
                           <button

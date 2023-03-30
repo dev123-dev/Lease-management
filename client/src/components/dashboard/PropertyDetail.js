@@ -204,7 +204,7 @@ const PropertyDetail = ({
                       borderRadius: 1,
                       colors: {
                         ...theme.colors,
-                        primary: "gray",
+                        primary: "#095a4a",
                       },
                     })}
                   ></Select>

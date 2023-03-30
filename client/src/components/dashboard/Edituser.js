@@ -150,6 +150,19 @@ const Edituser = ({
                 value={orgname}
                 placeholder={OrganizationName}
                 onChange={(e) => onchangeOrg(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
+                    
+                  },
+                })}
                 required
               >
                 select Organization
@@ -185,7 +198,9 @@ const Edituser = ({
                   borderRadius: 1,
                   colors: {
                     ...theme.colors,
-                    primary: "black",
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
+                    
                   },
                 })}
               />

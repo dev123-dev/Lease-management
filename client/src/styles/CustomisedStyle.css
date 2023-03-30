@@ -2280,6 +2280,7 @@ button {
   width: 110px;
   height: 40px;
   border-color: #000;
+  border-radius:0%;
 }
 #TenantSettingBtn:hover {
   background-color: #095a4a;
