@@ -159,10 +159,11 @@ const PropertyDetail = ({
   };
   return (
     <>
-      <div className="col mt-sm-5   ">
+      <div className="col mt-sm-5 ">
 
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3">
           <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+            
             <h1
               style={{
                 fontFamily: "Serif",
@@ -176,6 +177,8 @@ const PropertyDetail = ({
               Property Details
 
             </h1>
+          
+           
 
           </div>
           <hr className="line"></hr>

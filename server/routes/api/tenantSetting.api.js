@@ -24,7 +24,7 @@ router.post("/update-tenant-settings", async (req, res) => {
       { OrganizationId: data.OrganizationId, userId: data.userId },
       {
         $set: {
-          hikePercentage: data.hikePercentage,
+          hike: data.hike,
           stampDuty: data.stampDuty,
           leaseTimePeriod: data.leaseTimePeriod,
         },

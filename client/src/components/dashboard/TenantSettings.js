@@ -15,7 +15,7 @@ const TenantSettings = ({
   getAllSettings,
   onAddSettingModalChange,
 }) => {
-  console.log("data", allTenantSetting.leaseTimePeriod);
+  //console.log("data", allTenantSetting.leaseTimePeriod);
   const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     if (myuser) {
@@ -137,6 +137,7 @@ const TenantSettings = ({
             />
           </div>
         </div>
+
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>
@@ -159,7 +160,8 @@ const TenantSettings = ({
             />
           </div>
         </div>
-        <div className="col-lg-12 Savebutton" size="lg">
+
+        <div className="col-lg-12 col-sm-12 col-12 ">
           {allTenantSetting == null ? (
             <button
               variant="success"
@@ -171,6 +173,7 @@ const TenantSettings = ({
           ) : (
             <button
               variant="success"
+              className="btn sub_form btn_continue Save float-right"
               id="TenantSettingBtn"
               onClick={() => onUpdate()}
             >

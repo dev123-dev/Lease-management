@@ -88,10 +88,15 @@ const Edituser = ({
     };
     console.log(updateUSER);
     UpdateUser(updateUSER);
+
     handleClose(true);
   };
+
+  // useEffect( () => () => console.log("unmount"), [] );
+
   useEffect(() => {
     getalluser();
+
   }, [refersh]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -202,23 +207,7 @@ const Edituser = ({
           </div>
         </div>
 
-        {/* <div className="col-lg-12 Savebutton " size="lg">
-        // <input
-        //   type="submit"
-        //   name="Save"
-        //   value="Update"
-        //   // onClick={(e) => onUpdate()}
-        //   className="btn sub_form btn_continue Save float-right"
-        // />
-        {/* <button
-          id="savebtn"
-          variant="success"
-          className="btn sub_form btn_continue Save float-right"
-          onClick={() => onUpdate()}
-        >
-          Update
-        </button> */}
-        {/* </div>  */}
+      
       </form>
     </Fragment>
   );
