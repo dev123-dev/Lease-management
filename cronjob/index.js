@@ -57,6 +57,7 @@ async function updateExpiryStatus() {
         },
       }
     );
+    
     await OrganizationDetails.updateMany(
       {
         enddate: { $lte: todayDateymd },
@@ -73,6 +74,7 @@ async function updateExpiryStatus() {
   } catch (error) {
     console.error("Error Here", error);
     //res.status(500).send("Internal Server Error.");
+  //
   }
 }
 
