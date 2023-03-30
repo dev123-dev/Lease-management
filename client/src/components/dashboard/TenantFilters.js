@@ -106,9 +106,12 @@ const TenantFilters = ({
         ...searchData,
         monthSearch: "",
       });
+      localStorage.setItem("year",JSON.stringify(finalData));
+
       getOrgExpCount(finalData);
-      getPreviousYearsExpCountOfOrg(finalData);
       
+      getPreviousYearsExpCountOfOrg(finalData);
+
     }
   };
 
