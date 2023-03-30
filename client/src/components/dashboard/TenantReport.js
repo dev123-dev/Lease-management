@@ -73,11 +73,11 @@ const TenantReport = ({
     documentTitle: "TenantReports",
     onAfterPrint: () => alert("print success"),
   });
-
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <>
+    
       {user.usergroup === "Super Admin" ? (
         <div>
           <div className="container container_align ">
@@ -162,37 +162,36 @@ const TenantReport = ({
             </section>
           </div>
         </div>
+        
       ) : (
-        <Fragment>
-          <div className="container container_align ">
-            <section className="sub_reg">
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-10 col-md-11 col-sm-11 col-11">
+        
+        <>
+          <div className="col mt-sm-5 ">
+          
+              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
+              
+                <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
                   <h1
                     style={{
                       fontFamily: "Serif",
                       color: "#095a4a",
                       position: "relative",
-                      right: "100px"
+                      right: "65px"
                     }}
-                    className="font-weight-bold headsize "
+                    className="font-weight-bold headsize"
                   >
-                    <span
-                      style={{ fontFamily: "Serif" }}
-                      className=" text-right font-weight-bold "
-
-                    >
+                    
                       {" "}
                       Tenant Report
-                    </span>
+                  
                   </h1>
                 </div>
               
 
-                <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
+                <div className="col-lg-4 col-md-1 col-sm-1 col-1 pt-4 text-end  mediaprint">
                   <button onClick={handlePrint}>
                     <img
-                      className=""
+                     
                       height="25px"
                       // onClick={() => refresh()}
                       src={require("../../static/images/print.png")}
@@ -201,18 +200,20 @@ const TenantReport = ({
                     />
                   </button>
                 </div>
-                
+              
               </div>
+              <hr className="line"></hr>
               <div className="row">
+              <div className="col-lg-1"></div>
                 <div
                   ref={componentRef}
-                  className=" col-lg-11 col-md-11 col-sm-11 col-11 text-center "
+                  className="body-inner no-padding table-responsive ml-4"
                 >
-                  <section className="body">
+              
                     <div className="body-inner no-padding  table-responsive fixTableHead">
                       <img alt={""} src={logo} className={"watermark"} />
                       <table
-                        className="table table-bordered table-striped table-hover report-container"
+                       className="table table-bordered table-striped table-hover table1 mt-5"
                         id="datatable2"
                       >
                         <thead className="report-header">
@@ -271,11 +272,11 @@ const TenantReport = ({
                               );
                             })}
                           {expReport.length < 1 && (
-                            <td colSpan={10}>No Data Available</td>
+                            <td  className="text-center"colSpan={10}>No Data Available</td>
                           )}
                         </tbody>
                       </table>
-                    </div>
+                    
                     <tfoot className="report-footer">
                       <tr>
                         <td className="report-footer-cell">
@@ -287,10 +288,10 @@ const TenantReport = ({
                         </td>
                       </tr>
                     </tfoot>
-                  </section>
+                 
                 </div>
               </div>
-            </section>
+            
 
             {/*link to renewal page */}
             <div style={{ display: "none" }}>
@@ -332,6 +333,7 @@ const TenantReport = ({
                 />
               </Modal.Body>
             </Modal>
+          </div>
           </div>
 
           {/* Deactivating the tenant start*/}
@@ -405,7 +407,7 @@ const TenantReport = ({
           </Modal>
 
           {/* Deactivation End */}
-        </Fragment>
+        </>
       )}
     </>
   );

@@ -76,11 +76,10 @@ const TenantReport = ({
                 Organization Report
               </h1>
             </div>
-         
 
             <div className="row">
               <div className="col-lg-1"></div>
-              <div className="body-inner no-padding table-responsive ml-4">
+              <div className="body-inner no-padding table-responsive fixTableHead ml-4">
                 <table
                   className="table table-bordered table-striped table-hover table1 mt-5"
                   id="datatable2"
