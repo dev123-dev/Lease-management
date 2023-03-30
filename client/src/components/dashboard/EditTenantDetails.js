@@ -455,7 +455,7 @@ const histroy=useHistory()
                     colors: {
                       ...theme.colors,
                       // primary25: "#e8a317",
-                      primary: "#e8a317",
+                      primary: "#095a4a",
                       
                     },
                   })}

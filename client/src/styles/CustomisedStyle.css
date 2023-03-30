@@ -334,7 +334,8 @@ footer.footer .top_top {
   display: flex;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #e0e9e5f5;
+
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
