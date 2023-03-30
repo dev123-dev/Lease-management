@@ -608,27 +608,41 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
+
   try {
-    if (data.Dno.empty === true) {
-      console.log("empty property");
+    if (data.Dno.length === 0) {
+      property
+        .updateOne(
+          {
+            OrganizationId: data.OrganizationId,
+            _id: data.PropertyId,
+          },
+          {
+            $set: {
+              shopStatus: "Deactive",
+              deactive_reason: data.deactive_reason,
+            },
+          }
+        )
+        .then((data) => console.log("single", data));
     } else {
-      // data.Dno.map((eleDoor) => {
-      //   property
-      //     .updateOne(
-      //       {
-      //         OrganizationId: data.OrganizationId,
-      //         _id: data.PropertyId,
-      //         shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
-      //       },
-      //       {
-      //         $set: {
-      //           "shopDoorNo.$.status": "Deleted the Door Number",
-      //           deactive_reason: data.deactive_reason,
-      //         },
-      //       }
-      //     )
-      //     .then((data) => console.log("multi", data));
-      // });
+      data.Dno.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.PropertyId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Deleted the Door Number",
+                deactive_reason: data.deactive_reason,
+              },
+            }
+          )
+          .then((data) => console.log("multi", data));
+      });
     }
 
     // res.json(propertydata);
