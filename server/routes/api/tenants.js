@@ -608,41 +608,27 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-
   try {
-    if (data.Dno.length === 0) {
-      property
-        .updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.PropertyId,
-          },
-          {
-            $set: {
-              shopStatus: "Deactive",
-              deactive_reason: data.deactive_reason,
-            },
-          }
-        )
-        .then((data) => console.log("single", data));
+    if (data.Dno.empty === true) {
+      console.log("empty property");
     } else {
-      data.Dno.map((eleDoor) => {
-        property
-          .updateOne(
-            {
-              OrganizationId: data.OrganizationId,
-              _id: data.PropertyId,
-              shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
-            },
-            {
-              $set: {
-                "shopDoorNo.$.status": "Deleted the Door Number",
-                deactive_reason: data.deactive_reason,
-              },
-            }
-          )
-          .then((data) => console.log("multi", data));
-      });
+      // data.Dno.map((eleDoor) => {
+      //   property
+      //     .updateOne(
+      //       {
+      //         OrganizationId: data.OrganizationId,
+      //         _id: data.PropertyId,
+      //         shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+      //       },
+      //       {
+      //         $set: {
+      //           "shopDoorNo.$.status": "Deleted the Door Number",
+      //           deactive_reason: data.deactive_reason,
+      //         },
+      //       }
+      //     )
+      //     .then((data) => console.log("multi", data));
+      // });
     }
 
     // res.json(propertydata);
@@ -1494,35 +1480,26 @@ router.post("/renew-tenant-details", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  console.log(data);
+  console.log("hii", data);
   if (data.tenantLeaseEndDate < todayDateymd) {
-    const finalDataTA = {
-      tdId: data.tdId,
-      tenantFileNo: data.tenantFileNo,
-      tenantDoorNo: data.tenantDoorNo,
-      tenantRentAmount: data.tenantRentAmount,
-      tenantLeaseStartDate: data.tenantLeaseStartDate,
-      tenantLeaseEndDate: data.tenantLeaseEndDate,
-      AgreementStatus: "Expired",
-      tenantAgreementEntredBy: data.tenantEnteredBy,
-      tenantAgreementDate: data.tenantDate,
-    };
     try {
-      let tenantAgreementDetails = new TenentAgreement(finalDataTA);
-      output = await tenantAgreementDetails.save();
       await TenantDetails.updateOne(
         { _id: data.tdId },
         {
           $set: {
             AgreementStatus: "Expired",
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
           },
         }
-      );
+      ).then((data) => console.log("hii this is tenant details", data));
       const updateStatus = await TenentAgreement.updateOne(
         { _id: data.agreementId },
         {
           $set: {
             AgreementStatus: "Expired",
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
           },
         }
       );
@@ -1532,33 +1509,24 @@ router.post("/renew-tenant-details", async (req, res) => {
       res.status(500).send("Internal Server Error.");
     }
   } else {
-    const finalDataTA = {
-      tdId: data.tdId,
-      tenantFileNo: data.tenantFileNo,
-      tenantDoorNo: data.tenantDoorNo,
-      tenantRentAmount: data.tenantRentAmount,
-      tenantLeaseStartDate: data.tenantLeaseStartDate,
-      tenantLeaseEndDate: data.tenantLeaseEndDate,
-      AgreementStatus: "Renewed",
-      tenantAgreementEntredBy: data.tenantEnteredBy,
-      tenantAgreementDate: data.tenantDate,
-    };
     try {
-      let tenantAgreementDetails = new TenentAgreement(finalDataTA);
-      output = await tenantAgreementDetails.save();
       await TenantDetails.updateOne(
         { _id: data.tdId },
         {
           $set: {
             AgreementStatus: "Renewed",
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
           },
         }
-      );
+      ).then((data) => console.log("xxxx", data));
       const updateStatus = await TenentAgreement.updateOne(
         { _id: data.agreementId },
         {
           $set: {
             AgreementStatus: "Renewed",
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
           },
         }
       );

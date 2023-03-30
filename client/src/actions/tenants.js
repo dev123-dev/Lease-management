@@ -61,18 +61,19 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
-  console.log("snd data",finalData)
+  console.log("snd data", finalData);
   try {
-
     await axios.post(
       `${linkPath}/api/tenantSetting/update-tenant-settings`,
       finalData,
       config
     );
-    dispatch( getAllSettings({
-      OrganizationId: finalData && finalData.OrganizationId,
-      userId: finalData && finalData.userId,
-    }))
+    dispatch(
+      getAllSettings({
+        OrganizationId: finalData && finalData.OrganizationId,
+        userId: finalData && finalData.userId,
+      })
+    );
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -356,7 +357,7 @@ export const deleteOrganization = (id) => async (dispatch) => {
 //Renew Organization details
 export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
   try {
-    console.log("popina data",renewdata)
+    console.log("popina data", renewdata);
     await axios.post(
       `${linkPath}/api/tenants/Renew-Organization`,
       renewdata,
@@ -780,6 +781,7 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 };
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
+  console.log("insdie action of renewal", finalData);
   const finalDataReport = {
     monthSearch: finalData.monthSearch,
     yearSearch: finalData.yearSearch,
