@@ -458,7 +458,8 @@ const AddTenantDetails = ({
                   type="text"
                   value={LocList}
                   placeholder="Location"
-                  className="form-control "
+                  className="form-control bg-white"
+                 
                   readOnly
                 ></input>
                 <br></br>
@@ -584,7 +585,7 @@ const AddTenantDetails = ({
                     borderRadius: 0,
                     colors: {
                       ...theme.colors,
-                      // primary25: "#e8a317",
+                      primary25: "#e8a317",
                       primary: "#095a4a",
                       
                     },
@@ -689,7 +690,7 @@ const AddTenantDetails = ({
                 {isavail && isavail.length !== 0 ? (
                   <>
 
-                    <div className="col-lg-6 col-md-12 col-sm-12 card-new button_Door"
+                    <div className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white"
                       style={{ border: "transparent", minHeight: "90px" }}
                     > <span className="h4 " style={{ fontFamily: "Serif", color: "#095a4a" }}>Available Door No:</span>
 
@@ -722,7 +723,7 @@ const AddTenantDetails = ({
                     </div>
 
                     <div
-                      className=" col-lg-6 col-md-12  card-new  "
+                      className=" col-lg-6 col-md-12  card-new  bg-white"
                       style={{ border: "transparent", minHeight: "80px" }}
                     ><span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Selected Door No : </span>
                       {selectedDoorNumber &&
