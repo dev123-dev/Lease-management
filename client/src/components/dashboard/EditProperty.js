@@ -15,6 +15,13 @@ const EditProperty = ({
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     fun();
   }, []);
+
+  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
+    color: "white",
+    fontFamily: "Arial",
+    display: "none",
+  });
+
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [Sellocation, SetselLoction] = useState([]);
@@ -58,8 +65,14 @@ const EditProperty = ({
       if (new_door.every((ele) => ele === false)) {
         setdno([...dno, { doorNo: inputdata, status: "Avaiable" }]);
         setinput("");
+        SetRoomAlreadyExist({
+          display: "none",
+        });
       } else {
-        alert("room number already exist");
+        SetRoomAlreadyExist({
+          display: "inline",
+          color: "#FF0000",
+        });
       }
 
       //setdno(delitem);
@@ -109,31 +122,27 @@ const EditProperty = ({
   const onUpdate = (e) => {
     e.preventDefault();
 
-if(dno.length!==0)
-    {
-
-    const update = {
-      OrganizationName: user.OrganizationName,
-      Orgainzation_id: user.OrganizationId,
-      Property_id: Propertydata.PropertyId,
-      buildingName: buildingName,
-      shopDoorNo: dno,
-      shopAddress: shopAddress,
-      hike: hike,
-      stampDuty: stampDuty,
-      leaseTimePeriod: LeaseTime,
-      Location: orgLoc,
-      isSubmitted: true,
-      shopStatus: "Active",
-    };
-    updateProperty(update);
-    handleEditModalClose();
-    setShowUpdateModal(false);
-  }
-  else{
-    alert();
-  }
-
+    if (dno.length !== 0) {
+      const update = {
+        OrganizationName: user.OrganizationName,
+        Orgainzation_id: user.OrganizationId,
+        Property_id: Propertydata.PropertyId,
+        buildingName: buildingName,
+        shopDoorNo: dno,
+        shopAddress: shopAddress,
+        hike: hike,
+        stampDuty: stampDuty,
+        leaseTimePeriod: LeaseTime,
+        Location: orgLoc,
+        isSubmitted: true,
+        shopStatus: "Active",
+      };
+      updateProperty(update);
+      handleEditModalClose();
+      setShowUpdateModal(false);
+    } else {
+      alert();
+    }
   };
 
   return (
@@ -273,6 +282,9 @@ if(dno.length!==0)
                   })}
                 </div>
               </div>
+              <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
+                RoomAlreadyExist
+              </p>
             </div>
             <div className="col-lg-9 text-danger">
               * Indicates mandatory fields, Please fill mandatory fields before
