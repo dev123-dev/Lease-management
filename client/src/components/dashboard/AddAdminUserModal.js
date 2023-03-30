@@ -36,7 +36,6 @@ const AddAdminUserModal = ({
     passwordValResult: "",
     passwordValStyle: {},
     passwordInptErrStyle: {},
-
     repwdValChecker: false,
     repwdValResult: "",
     repwdValStyle: {},
