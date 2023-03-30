@@ -360,8 +360,9 @@ const AddSuperUserModel = ({
                       borderRadius: 0,
                       colors: {
                         ...theme.colors,
-                        // primary25: "#e88504",
+                        primary25: "#e8a317",
                         primary: "#095a4a",
+                        
                       },
                     })}
                     isSearchable={true}
@@ -373,29 +374,7 @@ const AddSuperUserModel = ({
                   <span className="form-input-info"></span>
                 </div>
               </div>
-              {/* <div className="col-lg-6 controls">
-                {" "}
-                <label>Organization belongs torrr*:</label>{" "}
-                <Select
-                  name="orgname"
-                  className=""
-                  placeholder="---Select---"
-                  isSearchable={false}
-                  options={orglist}
-                  value={orgname}
-                  onChange={(e) => onchangeOrg(e)}
-                  theme={(theme) => ({
-                    ...theme,
-                   
-                    borderRadius: 0,
-                    colors: {
-                      ...theme.colors,
-                      primary: "gray",
-                    },
-                  })}
-                  required
-                />
-              </div> */}
+              
               <div className="col-lg-6">
                 <label className="control-label">Password*:</label>
                 <div className="controls">
@@ -475,7 +454,9 @@ const AddSuperUserModel = ({
 
                     colors: {
                       ...theme.colors,
-                      primary: "gray",
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                      
                     },
                   })}
                   required

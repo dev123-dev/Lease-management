@@ -96,16 +96,14 @@ const TenantSettings = ({
           <div className="col-lg-4 col-md-2 col-sm-1 col-12">
             <label>
               {" "}
-              Hike Percentage{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>{" "}
-              :
+              Hike Percentage*:
+             
             </label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
+            placeholder="Hike Percentage"
               type="text"
               name="hike"
               className="form-control"
@@ -118,11 +116,8 @@ const TenantSettings = ({
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>
-              Stamp Duty{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>
-              :
+              Stamp Duty*:
+             
             </label>
           </div>
 
@@ -130,6 +125,7 @@ const TenantSettings = ({
             <input
               type="text"
               name="stampDuty"
+              placeholder="Stamp Duty"
               className="form-control"
               value={stampDuty}
               onChange={(e) => setStampDuty(e.target.value)}
@@ -141,11 +137,8 @@ const TenantSettings = ({
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>
-              Lease Time Period{" "}
-              <i className="text-danger ">
-                <b>*</b>
-              </i>{" "}
-              :
+              Lease Time Period*:
+             
             </label>
           </div>
 
@@ -153,6 +146,7 @@ const TenantSettings = ({
             <input
               type="text"
               name="leaseTimePeriod"
+              placeholder="Time Period"
               className="form-control"
               value={leaseTimePeriod}
               onChange={(e) => setLeaseTimePeriod(e.target.value)}
@@ -166,6 +160,7 @@ const TenantSettings = ({
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
+              id="TenantSettingBtn"
               onClick={() => onSubmit()}
             >
               Save
