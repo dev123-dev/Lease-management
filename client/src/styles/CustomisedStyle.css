@@ -2395,7 +2395,8 @@ div.page-footer {
 
 div {
   border: 3px solid transparent;
-}
+  /* border:3px solid palevioletred;*/
+} 
 .top_menu {
   /* margin-left: -2px; */
 }
@@ -2560,10 +2561,10 @@ width: 100px;
   display: grid;
   grid-template-columns: auto auto auto;
 }
-#tenantAddr {
+/* #tenantAddr {
   margin-left: 0%;
   width: 165%;
-}
+} */
 .DoorNumber {
   margin: 30%;
   width: 125%;
@@ -2628,6 +2629,3 @@ width: 100px;
  
 }
 
-.table1{
-  overflow: hidden;
-}
