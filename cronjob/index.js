@@ -57,13 +57,22 @@ async function updateExpiryStatus() {
         },
       }
     );
+
     await OrganizationDetails.updateMany(
       {
-        enddate: { $lte: todayDateymd },
+        $and: [
+          { enddate: { $lte: todayDateymd } },
+          {
+            $or: [
+              { AgreementStatus: { $eq: "Active" } },
+              { AgreementStatus: { $eq: "Renewed" } },
+            ],
+          },
+        ],
       },
-      {
-        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      },
+      // {
+      //   $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
+      // },
       {
         $set: { AgreementStatus: "Expired" },
       }
@@ -73,6 +82,7 @@ async function updateExpiryStatus() {
   } catch (error) {
     console.error("Error Here", error);
     //res.status(500).send("Internal Server Error.");
+    //
   }
 }
 
