@@ -52,6 +52,7 @@ const TenantReport = ({
     setShowEditModal(true);
     setUserData(org);
     history.push("/Renewal-Org", org);
+    console.log("renewal main",org);
   };
   const onRenewal = (tenants) => {
     setShowEditModal(true);
@@ -117,7 +118,7 @@ const TenantReport = ({
                             <th>Phone</th>
                             <th>StartDate</th>
                             <th>Org-Status</th>
-                            <th>End D</th>
+                            <th>End Date</th>
                             <th>Operation</th>
                           </tr>
                         </thead>
