@@ -2442,10 +2442,9 @@ div {
     margin-bottom: 3px;
     background-color: #ffffff;
   }
-
-  /* .log_size {
-    margin-left: 100%;
-  } */
+.renewalinput{
+width: 100px;
+}
 
   .heading_color {
     position: relative;
@@ -2616,7 +2615,6 @@ div {
 }
 .plusiconbck{
   background-color:#f3f3f3; 
-  /* background-image:url('../static/images/bg1.jpg');  */
-  /* #f0f0f05f; */
  
 }
+
