@@ -60,11 +60,19 @@ async function updateExpiryStatus() {
 
     await OrganizationDetails.updateMany(
       {
-        enddate: { $lte: todayDateymd },
+        $and: [
+          { enddate: { $lte: todayDateymd } },
+          {
+            $or: [
+              { AgreementStatus: { $eq: "Active" } },
+              { AgreementStatus: { $eq: "Renewed" } },
+            ],
+          },
+        ],
       },
-      {
-        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      },
+      // {
+      //   $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
+      // },
       {
         $set: { AgreementStatus: "Expired" },
       }
