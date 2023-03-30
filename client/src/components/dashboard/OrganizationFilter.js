@@ -80,44 +80,47 @@ const TenantReport = ({
   ) : (
     <>
       {user.usergroup === "Super Admin" ? (
-        <div>
-          <div className="container container_align ">
-            <section className="sub_reg">
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                <h1
-                  style={{
-                    fontFamily: "Serif",
-                    color: "#095a4a",
-                    position:"relative",
-                    right:"60px",
-                  }}
-                  className="font-weight-bold headsize "
-                >
-                  
-                    {" "}
-                    DashBoard
-                  
-                </h1>
-                </div>
-                <hr className="line"></hr>
+        
+          <div className="col mt-sm-5 DashBoard ">
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
+            
+          <div>
+          <h1
+            style={{
+              fontFamily: "Serif",
+              color: "#095a4a",
+            }}
+            className="font-weight-bold headsize"
+          >
+            <span
+              style={{ fontFamily: "Serif" }}
+              className=" text-right font-weight-bold ml-5"
+            >
+              {" "}
+              Dashboard
+            </span>
+          </h1>
+          <hr className="line"></hr>
+        </div>
+            
                 
-              </div>
+        <div className="container-fluid d-flex align-items-center justify-content-center ">
+        <div className="col">
               <div className="row">
                 <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                  <section className="body">
-                    <div className="body-inner no-padding  table-responsive fixTableHead">
+                <div className="col-lg-1"></div>
+                    <div className="body-inner no-padding table-responsive ml-2">
                       <table
-                        className="table table-bordered table-striped table-hover"
+                        className="table table-bordered table-striped table-hover table1 mt-2 "
                         id="datatable2"
                       >
                         <thead>
                           <tr>
-                            <th>Main page Name</th>
+                            <th>Organization Name</th>
                             <th>Email</th>
                             <th>Phone</th>
                             <th>StartDate</th>
-                            <th>Org-Status</th>
+                            <th>Status</th>
                             <th>End Date</th>
                             <th>Operation</th>
                           </tr>
@@ -154,12 +157,15 @@ const TenantReport = ({
                         </tbody>
                       </table>
                     </div>
-                  </section>
+                    <div className="col-lg-1"></div>
                 </div>
               </div>
-            </section>
+              </div>
+              </div>
+
+              </div>
           </div>
-        </div>
+        
       ) : (
         <Fragment>
           <div className="container container_align ">
