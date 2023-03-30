@@ -710,17 +710,17 @@ const histroy=useHistory()
               <div className="row ml-1 ">
                 {/* to sel */}
                 <div
-                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door "
+                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white "
                   style={{ border: "transparent", minHeight: "90px" }}
                 >
-                  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door Number :</span>
+                  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Available Door No :</span>
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
                         <button
                           key={idx}
                           type="button"
-                          name="workMistake"
+                          // name="workMistake"
                           className=" btn btn-success doorbtn"
                           // id="savebtn"
                           onClick={() => onSelectChange(DoorNumber)}
@@ -738,19 +738,19 @@ const histroy=useHistory()
                 </div>
                 {/* end to sel */}
                 <div
-                  className=" col-lg-6 col-md-12 card-new"
+                  className=" col-lg-6 col-md-12 card-new bg-white"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
-                  <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span>
+                  <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door No : </span>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
                       return (
-                        // <p key={idx} className="DoorCover">
+                    
                         <button
                         key={idx}
                           type="button"
-                          name="selectedWorkMistake"
+                          // name="selectedWorkMistake"
                           className="btn  doorbtn"
                           // id="savebtn"
                           onClick={() => onRemoveChange(Doornumber)}
@@ -763,12 +763,7 @@ const histroy=useHistory()
                           >
                             -
                           </span>
-                          {/* <span
-                            className="mx-2 "
-                           
-                          >
-                            X
-                          </span> */}
+                          
                         </button>
                         // </p>
                       );

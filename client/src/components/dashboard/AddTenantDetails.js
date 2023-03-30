@@ -696,7 +696,7 @@ const AddTenantDetails = ({
 
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
-                          // if(DoorNumber.status==="Avaiable")
+                         
 
                           return (
 
