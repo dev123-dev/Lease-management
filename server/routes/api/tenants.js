@@ -1301,6 +1301,7 @@ router.post("/Renew-Organization", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
+  console.log("heheh",data.enddate , todayDateymd)
   if (data.enddate < todayDateymd) {
     await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
@@ -1316,7 +1317,7 @@ router.post("/Renew-Organization", async (req, res) => {
           org_status: "Active",
         },
       }
-    );
+    ).then((data)=>{console.log("xpired")});
   } else {
     await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
@@ -1332,65 +1333,9 @@ router.post("/Renew-Organization", async (req, res) => {
           org_status: "Active",
         },
       }
-    );
+    ).then((data)=>{console.log("reneqwsw")});;
   }
-  // let comapare = await OrganizationDetails.updateOne(
-  //   {
-  //     _id: data.OrganizationId,
-  //   },
-
-  //   {
-  //     $cond: {
-  //       if: { $lte: ["$enddate", todayDateymd] },
-  //       then: {
-  //         $set: {
-  //           OrganizationName: data.Orgname,
-  //           OrganizationEmail: data.Orgemail,
-  //           OrganizationNumber: data.Orgphone,
-  //           OrganizationAddress: data.OrganizationAddress,
-  //           date: data.date,
-  //           enddate: data.enddate,
-  //           AgreementStatus: "xxxxxxxxxxx",
-  //           org_status: "Active",
-  //         },
-  //       },
-  //       else: {
-  //         $set: {
-  //           OrganizationName: data.Orgname,
-  //           OrganizationEmail: data.Orgemail,
-  //           OrganizationNumber: data.Orgphone,
-  //           OrganizationAddress: data.OrganizationAddress,
-  //           date: data.date,
-  //           enddate: data.enddate,
-  //           AgreementStatus: "Renewed",
-  //           org_status: "Active",
-  //         },
-  //       },
-  //     },
-  //   }
-  // ).then((data) => console.log("done done ", data));
-
-  // try {
-  //   await OrganizationDetails.updateOne(
-  //     {
-  //       _id: data.OrganizationId,
-  //     },
-  //     {
-  //       $set: {
-  //         OrganizationName: data.Orgname,
-  //         OrganizationEmail: data.Orgemail,
-  //         OrganizationNumber: data.Orgphone,
-  //         OrganizationAddress: data.OrganizationAddress,
-  //         date: data.date,
-  //         enddate: data.enddate,
-  //         AgreementStatus: "Renewed",
-  //         org_status: "Active",
-  //       },
-  //     }
-  //   );
-  // } catch (error) {
-  //   console.log(error.message);
-  // }
+  
 });
 
 router.post("/renew-tenant-details", async (req, res) => {
