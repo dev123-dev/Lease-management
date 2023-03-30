@@ -45,6 +45,7 @@ const TenantReport = ({
   const history = useHistory();
 
   const renewal = (org) => {
+    alert("");
     setShowEditModal(true);
     setOrgData(org);
     history.push("/Renewal-Org", org);
@@ -60,7 +61,6 @@ const TenantReport = ({
   ) : (
     <>
       {user.usergroup === "Super Admin" ? (
-
         <div className="col mt-sm-5">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
             <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
@@ -69,88 +69,79 @@ const TenantReport = ({
                   fontFamily: "Serif",
                   color: "#095a4a",
                   position: "relative",
-                  right: "65px"
-
-
+                  right: "65px",
                 }}
                 className="font-weight-bold headsize"
               >
-
                 Organization Report
-
               </h1>
-
             </div>
             <hr className="line"></hr>
 
-
             <div className="row">
-            <div className="col-lg-1"></div>
+              <div className="col-lg-1"></div>
               <div className="body-inner no-padding table-responsive ml-4">
-               
-                  
-                    <table
-                     className="table table-bordered table-striped table-hover table1 mt-5"
-                      id="datatable2"
-                    >
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Phone</th>
-                          <th>StartDate</th>
-                          <th>EndDate</th>
-                          <th>Status</th>
-                          <th>Operation</th>
-                        </tr>
-                      </thead>
+                <table
+                  className="table table-bordered table-striped table-hover table1 mt-5"
+                  id="datatable2"
+                >
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>StartDate</th>
+                      <th>EndDate</th>
+                      <th>Status</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
 
-                      <tbody>
-                        {exp_org_detail &&
-                          exp_org_detail[0] &&
-                          exp_org_detail.map((org, index) => {
-                            var ED = org.enddate && org.enddate.split(/\D/g);
-                            var EndDate = [
-                              ED && ED[2],
-                              ED && ED[1],
-                              ED && ED[0],
-                            ].join("-");
-                            return (
-                              <tr>
-                                <td>{org.OrganizationName}</td>
-                                <td>{org.OrganizationEmail}</td>
-                                <td>{org.OrganizationNumber}</td>
-                                <td>{org.date}</td>
-                                <td>{EndDate}</td>
-                                <td>{org.AgreementStatus}</td>
+                  <tbody>
+                    {exp_org_detail &&
+                      exp_org_detail[0] &&
+                      exp_org_detail.map((org, index) => {
+                        var ED = org.enddate && org.enddate.split(/\D/g);
+                        var EndDate = [
+                          ED && ED[2],
+                          ED && ED[1],
+                          ED && ED[0],
+                        ].join("-");
+                        return (
+                          <tr>
+                            <td>{org.OrganizationName}</td>
+                            <td>{org.OrganizationEmail}</td>
+                            <td>{org.OrganizationNumber}</td>
+                            <td>{org.date}</td>
+                            <td>{EndDate}</td>
+                            <td>{org.AgreementStatus}</td>
 
-                                <td>
-                                  {org.AgreementStatus === "Expired" ? (
-                                    <button
-                                      className="rewbtn"
-                                      onClick={() => renewal(org)}
-                                    >
-                                      Renewal
-                                    </button>
-                                  ) : (
-                                    <p></p>
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        {exp_org_detail.length < 1 && (
-                          <td className="text-center" colSpan={10}>No Data Available</td>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                
+                            <td>
+                              {org.AgreementStatus === "Expired" ? (
+                                <button
+                                  className="rewbtn"
+                                  onClick={() => renewal(org)}
+                                >
+                                  Renewal
+                                </button>
+                              ) : (
+                                <p></p>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    {exp_org_detail.length < 1 && (
+                      <td className="text-center" colSpan={10}>
+                        No Data Available
+                      </td>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-        
-
+        </div>
       ) : (
         <></>
       )}
