@@ -7,17 +7,23 @@ import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 import { useHistory } from "react-router-dom";
+import {getPreviousYearsExpCountOfOrg}  from "../../actions/tenants";
+
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allTenants, ext_year_count_org },
-  getAllTenants,
+  getAllTenants,getPreviousYearsExpCountOfOrg,
   deactiveTenantsDetails,
 }) => {
+  const year=JSON.parse(localStorage.getItem("year")) || {selectedVal:new Date().toISOString(),"selectedY": new Date().getFullYear() };
+  console.log("yer",year);
   let history = useHistory();
   useEffect(() => {
     getAllTenants();
-  });
+    getPreviousYearsExpCountOfOrg(year);
 
+  },[]); 
+  //"2023-01-01T05:45:32.000Z"
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -370,5 +376,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAllTenants,
   deactiveTenantsDetails,
+  getPreviousYearsExpCountOfOrg,
   //getAllOrganization,
 })(TenantReport);
