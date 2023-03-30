@@ -16,6 +16,12 @@ const AddShopDetails = ({
   getAllSettings,
   getParticularProperty,
 }) => {
+  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
+    color: "white",
+    fontFamily: "Arial",
+    display: "none",
+  });
+
   const myuser = JSON.parse(localStorage.getItem("user"));
   const [pageRefresh, SetRefresh] = useState(false);
   useEffect(() => {
@@ -99,8 +105,14 @@ const AddShopDetails = ({
         setshowscroll("block");
         setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
         setinput("");
+        SetRoomAlreadyExist({
+          display: "none",
+        });
       } else {
-        alert("room number already exist");
+        SetRoomAlreadyExist({
+          display: "inline",
+          color: "#FF0000",
+        });
       }
     }
   };
@@ -122,13 +134,8 @@ const AddShopDetails = ({
   const [errors, setErrors] = useState({
     LocChecker: false,
     LocErrorStyle: {},
-   
   });
-  const {
-    LocChecker,
-    LocErrorStyle,
-   
-  } = errors;
+  const { LocChecker, LocErrorStyle } = errors;
 
   const checkError = () => {
     if (!LocChecker) {
@@ -138,46 +145,45 @@ const AddShopDetails = ({
       });
       return false;
     }
-   
+
     return true;
   };
-const [locError,setLocError]=useState("black");
+  const [locError, setLocError] = useState("black");
 
   const onSubmit = (e) => {
     e.preventDefault();
-    
-    if (checkError() && items.length!==0) {
-    const finalData = {
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
-      buildingName: buildingName,
-      shopDoorNo: items,
-      hike: hike,
-      stampDuty: stampDuty,
-      leaseTimePeriod: LeaseTime,
-      shopAddress: shopAddress,
-      isSubmitted: false,
-      Location: orgLoc.value,
-      shopStatus: "Active",
-    };
-    AddShopDetailsform(finalData);
-    setFormData({
-      ...formData,
-      buildingName: "",
-      inputdata: "",
-      hike: "",
-      stampDuty: "",
-      leaseTimePeriod: "",
-      address: "",
-      shopStatus: "",
-      isSubmitted: true,
-    });
 
-    setShowadd(false);
-  }
-  else{
-    setLocError("red")
-  }
+    if (checkError() && items.length !== 0) {
+      const finalData = {
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+        buildingName: buildingName,
+        shopDoorNo: items,
+        hike: hike,
+        stampDuty: stampDuty,
+        leaseTimePeriod: LeaseTime,
+        shopAddress: shopAddress,
+        isSubmitted: false,
+        Location: orgLoc.value,
+        shopStatus: "Active",
+      };
+      AddShopDetailsform(finalData);
+      setFormData({
+        ...formData,
+        buildingName: "",
+        inputdata: "",
+        hike: "",
+        stampDuty: "",
+        leaseTimePeriod: "",
+        address: "",
+        shopStatus: "",
+        isSubmitted: true,
+      });
+
+      setShowadd(false);
+    } else {
+      setLocError("red");
+    }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -187,10 +193,15 @@ const [locError,setLocError]=useState("black");
       <Modal.Header className="confirmbox-heading">
         <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead">
           <div className="ml-5">
-            <h3 style={{
-              fontFamily: "Sans-serif",
-              color: "white",
-            }} className="text-center h ml-4 ">ADD PROPERTY DETAILS</h3>
+            <h3
+              style={{
+                fontFamily: "Sans-serif",
+                color: "white",
+              }}
+              className="text-center h ml-4 "
+            >
+              ADD PROPERTY DETAILS
+            </h3>
           </div>
         </div>
         <div className="col-lg-2">
@@ -243,7 +254,6 @@ const [locError,setLocError]=useState("black");
                       ...theme.colors,
                       primary25: "#e8a317",
                       primary: "#095a4a",
-                      
                     },
                   })}
                   required
@@ -287,7 +297,9 @@ const [locError,setLocError]=useState("black");
                   <br></br>
                 </div>
 
-                <label className="ml-2" style={{color:locError}}>Door No*:</label>
+                <label className="ml-2" style={{ color: locError }}>
+                  Door No*:
+                </label>
 
                 <input
                   className="form-control"
@@ -316,7 +328,10 @@ const [locError,setLocError]=useState("black");
                     </svg>
                   </div>
                   <br></br>
-                  <div className="showItemcl plusiconbck " style={{ display: showscroll }}>
+                  <div
+                    className="showItemcl plusiconbck "
+                    style={{ display: showscroll }}
+                  >
                     {items.map((ele, index) => {
                       return (
                         <div className="eachItem" key={index}>
@@ -333,6 +348,9 @@ const [locError,setLocError]=useState("black");
                     })}
                   </div>
                 </div>
+                <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
+                  RoomAlreadyExist
+                </p>
               </div>
 
               <div className="col-lg-6">
