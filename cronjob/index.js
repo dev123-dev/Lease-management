@@ -58,23 +58,23 @@ async function updateExpiryStatus() {
       }
     );
 
-    await OrganizationDetails.updateMany(
-      {
-        enddate: { $lte: todayDateymd },
-        $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      },
-      // {
-      //   $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      // }
-      {
-        $set: { AgreementStatus: "Expired" },
-      }
-    ).then((data) => console.log("new data", data));
+    // await OrganizationDetails.updateMany(
+    //   {
+    //     enddate: { $lte: todayDateymd },
+    //     $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
+    //   },
+    //   // {
+    //   //   $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
+    //   // }
+    //   {
+    //     $set: { AgreementStatus: "Expired" },
+    //   }
+    // ).then((data) => console.log("new data", data));
 
     console.log("Status updated as Expired");
   } catch (error) {
     console.error("Error Here", error);
-    //res.status(500).send("Internal Server Error.");
+    res.status(500).send("Internal Server Error.");
   }
 }
 
