@@ -108,6 +108,7 @@ const TenantFilters = ({
       });
       getOrgExpCount(finalData);
       getPreviousYearsExpCountOfOrg(finalData);
+      
     }
   };
 
