@@ -166,7 +166,7 @@ const ReneworgAggreement = ({
                     type="button"
                     variant="success"
                     id="buttonchanges"
-                    onClick={() => { histroy.push('/SuperUser') }}
+                    onClick={() => { histroy.push('/MainSuper') }}
                   >
                     <b>Cancel</b>
                   </button>

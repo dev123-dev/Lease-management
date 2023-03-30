@@ -81,7 +81,7 @@ const TenantReport = ({
               </h1>
 
             </div>
-            <hr className="line"></hr>
+         
 
 
             <div className="row">
