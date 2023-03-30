@@ -2087,7 +2087,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .locadd {
   background-color: transparent;
   margin-left: 83%;
-  margin-top: -9%;
+  margin-top: -10%;
   height: 20%;
   width: 9%;
   border-radius: 0;
@@ -2415,6 +2415,11 @@ div {
     width: 200%;
     height: fit-content;
   }
+  .locadd{
+    position:relative;
+    left: 5px;
+    bottom: 10px;
+  }
 .line{
   width: 220px;
 }
@@ -2617,11 +2622,12 @@ width: 100px;
   box-shadow: 0 10px 15px rgb(0 0 0 / 15%);
   border-radius: 0.25rem;
 }
-.table1{
-  background-color: rgba(236, 6, 6, 0.333);
-}
+
 .plusiconbck{
   background-color:#f3f3f3; 
  
 }
 
+.table1{
+  overflow: hidden;
+}

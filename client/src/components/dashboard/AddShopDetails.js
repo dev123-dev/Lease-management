@@ -314,7 +314,7 @@ const [locError,setLocError]=useState("black");
                     </svg>
                   </div>
                   <br></br>
-                  <div className="showItemcl " style={{ display: showscroll }}>
+                  <div className="showItemcl plusiconbck " style={{ display: showscroll }}>
                     {items.map((ele, index) => {
                       return (
                         <div className="eachItem" key={index}>

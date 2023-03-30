@@ -210,10 +210,10 @@ const TenantReport = ({
                   className="body-inner no-padding table-responsive ml-4"
                 >
               
-                    <div className="body-inner no-padding  table-responsive fixTableHead">
+                    <div className="body-inner no-padding  table-responsive ">
                       <img alt={""} src={logo} className={"watermark"} />
                       <table
-                       className="table table-bordered table-striped table-hover table1 mt-5"
+                       className="table table-bordered table-striped table-hover  mt-5"
                         id="datatable2"
                       >
                         <thead className="report-header">
