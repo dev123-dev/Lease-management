@@ -184,7 +184,7 @@ const AddSuperUserModel = ({
   // password validation is ending
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "Super Admin", label: "Super Admin" },
+    // { value: "Super Admin", label: "Super Admin" },
   ];
 
   const onuserchange = (e) => {
