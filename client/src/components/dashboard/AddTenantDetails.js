@@ -34,7 +34,7 @@ const AddTenantDetails = ({
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
-  useEffect(() => { }, [getAllSettings]);
+  useEffect(() => {}, [getAllSettings]);
   const [doorno, setdno] = useState([]);
 
   const onchangeDoor = (e) => {
@@ -123,7 +123,8 @@ const AddTenantDetails = ({
   let AvaiableRoomBuilding = particular_org_data;
   let isavail = particular_org_data.filter(
     (item) =>
-    item.shopDoorNo && !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+      item.shopDoorNo &&
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
   const allBuildingNames = [];
   AvaiableRoomBuilding.map((buildingData) =>
@@ -297,14 +298,12 @@ const AddTenantDetails = ({
     PropertyErrorStyle: {},
     PaymentChecker: false,
     PaymentErrorStyle: {},
-
   });
   const {
     PropertyChecker,
     PropertyErrorStyle,
     PaymentChecker,
     PaymentErrorStyle,
-
   } = errors;
   const checkError = () => {
     if (!PaymentChecker) {
@@ -321,7 +320,6 @@ const AddTenantDetails = ({
       });
       return false;
     }
-
 
     return true;
   };
@@ -388,7 +386,7 @@ const AddTenantDetails = ({
 
       // setShowadd(false);
 
-      history.push("/tenant-detail")
+      history.push("/tenant-detail");
     }
   };
 
@@ -396,23 +394,23 @@ const AddTenantDetails = ({
     <Fragment></Fragment>
   ) : (
     <>
-      <Modal.Header className="mt-sm-5">
-
-      </Modal.Header>{" "}
+      <Modal.Header className="mt-sm-5"></Modal.Header>{" "}
       <Modal.Body>
-
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid ">
             <div className="row card-new pb-3 ">
               <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
                 <h2
-                  style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
+                  style={{
+                    fontFamily: "Serif",
+                    color: "#095a4a",
+                    marginLeft: "10px",
+                  }}
                   className="font-weight-bold headsize"
                 >
                   Add Tenant Details
                 </h2>
               </div>
-
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Tenant Name*:</label>
                 <input
@@ -426,7 +424,6 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
                 <label style={PropertyErrorStyle}>Property Name*:</label>
                 <Select
@@ -444,11 +441,9 @@ const AddTenantDetails = ({
                       ...theme.colors,
                       // primary25: "#e8a317",
                       primary: "#095a4a",
-                      
                     },
                   })}
                   required
-
                 ></Select>
                 <br></br>
               </div>
@@ -459,7 +454,6 @@ const AddTenantDetails = ({
                   value={LocList}
                   placeholder="Location"
                   className="form-control bg-white"
-                 
                   readOnly
                 ></input>
                 <br></br>
@@ -477,7 +471,6 @@ const AddTenantDetails = ({
                 />{" "}
                 <br></br>
               </div>
-
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Phone No:</label>
                 <input
@@ -587,7 +580,6 @@ const AddTenantDetails = ({
                       ...theme.colors,
                       primary25: "#e8a317",
                       primary: "#095a4a",
-                      
                     },
                   })}
                   required
@@ -670,67 +662,88 @@ const AddTenantDetails = ({
                 <br></br>
               </div>{" "}
               <div className="control-group col-md-6 col-lg-3 col-sm-6 col-xs-6">
-                      <label className="control-label"> Tenant Address*:</label>
-                      <div className="controls">
-                        <textarea
-                          rows="3"
-                          value={tenantAddr}
-                          name="tenantAddr"
-                          // id="tenantAddr"
-                          placeholder="Address"
-                          className="form-control"
-                          onChange={(e) => onInputChange(e)}
-                          required
-                        ></textarea>
-                        <span className="form-input-info"></span>
-                      </div>
+                <label className="control-label"> Tenant Address*:</label>
+                <div className="controls">
+                  <textarea
+                    rows="3"
+                    value={tenantAddr}
+                    name="tenantAddr"
+                    // id="tenantAddr"
+                    placeholder="Address"
+                    className="form-control"
+                    onChange={(e) => onInputChange(e)}
+                    required
+                  ></textarea>
+                  <span className="form-input-info"></span>
+                </div>
+              </div>
+              <div className="row ml-1">
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                <div
+                      className="h4 "
+                      style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    >
+                      Available Door No:
                     </div>
-             
-              <div className="row  ml-1">
+                </div>
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                <div
+                        className="h4"
+                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                      >
+                        Selected Door No :{" "}
+                      </div>
+                </div>
+              </div>
+              <div className="row  mx-1">
                 {isavail && isavail.length !== 0 ? (
                   <>
-
-                    <div className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white"
+                    {/* <div
+                      className="h4 "
+                      style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    >
+                      Available Door No:
+                    </div> */}
+                    <div
+                      className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white border-dark border-right"
                       style={{ border: "transparent", minHeight: "90px" }}
-                    > <span className="h4 " style={{ fontFamily: "Serif", color: "#095a4a" }}>Available Door No:</span>
-
+                    >
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
                           // if(DoorNumber.status==="Avaiable")
 
                           return (
-
                             <button
                               key={idx}
                               type="button"
                               // name="workMistake"
-                             
+
                               className="btn btn-success doorbtn"
                               onClick={() => onSelectChange(DoorNumber)}
                             >
                               {DoorNumber.value}
-                              <span
-                                id="savebtn"
-                                className="mx-2"
-                              >
+                              <span id="savebtn" className="mx-2">
                                 +
                               </span>
                             </button>
-
                           );
-
                         })}
                     </div>
 
                     <div
                       className=" col-lg-6 col-md-12  card-new  bg-white"
                       style={{ border: "transparent", minHeight: "80px" }}
-                    ><span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Selected Door No : </span>
+                    >
+                      {/* <span
+                        className="h4"
+                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                      >
+                        Selected Door No :{" "}
+                      </span> */}
                       {selectedDoorNumber &&
                         selectedDoorNumber.length > 0 &&
                         selectedDoorNumber.map((Doornumber, idx) => {
                           return (
-
                             <button
                               key={idx}
                               type="button"
@@ -738,22 +751,21 @@ const AddTenantDetails = ({
                               onClick={() => onRemoveChange(Doornumber)}
                             >
                               {Doornumber.value}
-                              <span
-                                id="savebtn"
-                                className="mx-2"
-                              >
+                              <span id="savebtn" className="mx-2">
                                 -
                               </span>
                             </button>
-
                           );
                         })}
                     </div>
-
-
                   </>
                 ) : (
-                  <div style={{ fontFamily: "Serif", color: "#095a4a" }} className="card-new"  ><marquee>No Doors in the Property</marquee></div>
+                  <div
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    className="card-new"
+                  >
+                    <marquee>No Doors in the Property</marquee>
+                  </div>
                 )}
               </div>
               <div className="col-lg-9 text-danger">

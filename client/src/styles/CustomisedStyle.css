@@ -328,6 +328,7 @@ footer.footer .top_top {
   margin-left: 0px;
 }
 .card-new {
+  overflow-x: scroll;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2609,7 +2610,7 @@ width: 100px;
   min-height: 47px;
 }
 .doorbtn{
-  min-width:50px;
+  /* min-width:50px; */
   height:40px;
   margin-top: 20px;
   margin-left: 5px;

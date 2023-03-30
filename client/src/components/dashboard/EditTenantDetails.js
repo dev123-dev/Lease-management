@@ -708,12 +708,18 @@ const histroy=useHistory()
               </div>
               {/*  switch */}
               <div className="row ml-1 ">
+<div className="col-lg-6 col-md-12 col-sm-12">  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door Number :</span></div>
+<div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span></div>
+
+              </div>
+
+              <div className="row ml-1 ">
                 {/* to sel */}
                 <div
-                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door "
+                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right "
                   style={{ border: "transparent", minHeight: "90px" }}
                 >
-                  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door Number :</span>
+                
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
@@ -741,7 +747,7 @@ const histroy=useHistory()
                   className=" col-lg-6 col-md-12 card-new"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
-                  <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span>
+                 
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
