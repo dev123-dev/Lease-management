@@ -232,7 +232,9 @@ setDeactiveThisBiuldingID(Val.BuildingId)
                         borderRadius: 1,
                         colors: {
                           ...theme.colors,
-                          primary: "gray",
+                          primary25: "#e8a317",
+                          primary: "#095a4a",
+                          
                         },
                       })}
                     ></Select>

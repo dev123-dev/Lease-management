@@ -76,7 +76,7 @@ const TenantReport = ({
                 Organization Report
               </h1>
             </div>
-            <hr className="line"></hr>
+         
 
             <div className="row">
               <div className="col-lg-1"></div>

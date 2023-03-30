@@ -84,11 +84,11 @@ const TenantReport = ({
             <section className="sub_reg">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
-                   <h1
+                  <h1
                     style={{
                       fontFamily: "Serif",
                       color: "#095a4a",
-                      
+
                     }}
                     className="font-weight-bold "
                   >
@@ -172,18 +172,23 @@ const TenantReport = ({
                     style={{
                       fontFamily: "Serif",
                       color: "#095a4a",
+                      position: "relative",
+                      right: "100px"
                     }}
-                    className="font-weight-bold "
+                    className="font-weight-bold headsize "
                   >
                     <span
                       style={{ fontFamily: "Serif" }}
                       className=" text-right font-weight-bold "
+
                     >
                       {" "}
                       Tenant Report
                     </span>
                   </h1>
                 </div>
+              
+
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1 pt-4">
                   <button onClick={handlePrint}>
                     <img
@@ -196,6 +201,7 @@ const TenantReport = ({
                     />
                   </button>
                 </div>
+                
               </div>
               <div className="row">
                 <div
@@ -300,14 +306,14 @@ const TenantReport = ({
             >
               <Modal.Header className="confirmbox-heading">
                 <div className="col-lg-10">
-                <h3
-              style={{
-                fontFamily: "Sans-serif",
-                color: "white",
-              }}
-            >
-              Renewal Agreement
-            </h3>
+                  <h3
+                    style={{
+                      fontFamily: "Sans-serif",
+                      color: "white",
+                    }}
+                  >
+                    Renewal Agreement
+                  </h3>
                 </div>
                 <div className="col-lg-2">
                   <button onClick={handleEditModalClose} className="close">

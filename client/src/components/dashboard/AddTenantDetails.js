@@ -435,7 +435,20 @@ const AddTenantDetails = ({
                   options={allBuildingNames}
                   value={buildingData}
                   onChange={(e) => onBuildingChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                      
+                    },
+                  })}
                   required
+
                 ></Select>
                 <br></br>
               </div>
@@ -565,15 +578,17 @@ const AddTenantDetails = ({
                   value={tenantPaymentMode}
                   placeholder="Select..."
                   onChange={(e) => onPaymentModeChange(e)}
-                  // theme={(theme) => ({
-                  //   ...theme,
+                  theme={(theme) => ({
+                    ...theme,
 
-                  //   borderRadius: 0,
-                  //   colors: {
-                  //     ...theme.colors,
-                  //     primary: "black",
-                  //   },
-                  // })}
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                      
+                    },
+                  })}
                   required
                 />
                 <br></br>
