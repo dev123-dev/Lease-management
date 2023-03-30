@@ -447,19 +447,21 @@ const histroy=useHistory()
                   options={allBuildingNames}
                   value={buildingName}
                   onChange={(e) => onBuildingChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      // primary25: "#e8a317",
+                      primary: "#e8a317",
+                      
+                    },
+                  })}
                 ></Select>
               </div>
-              {/* <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Door No*: </label>
-                <Select
-                  name="doorno"
-                  options={Dno}
-                  value={testdno}
-                  onChange={(e) => onchangeDoor(e)}
-                  isMulti={true}
-                  required
-                ></Select>
-              </div> */}
+              
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Location*: </label>
                 <input
@@ -608,12 +610,13 @@ const histroy=useHistory()
                   onChange={(e) => onPaymentModeChange(e)}
                   theme={(theme) => ({
                     ...theme,
-                    height: 26,
-                    minHeight: 26,
-                    borderRadius: 1,
+
+                    borderRadius: 0,
                     colors: {
                       ...theme.colors,
-                      primary: "black",
+                      // primary25: "#e8a317",
+                      primary: "#095a4a",
+                      
                     },
                   })}
                 />
@@ -689,13 +692,13 @@ const histroy=useHistory()
                 ></input>
                 <br></br>
               </div>
-              <div className="col-lg-2  col-md-12 col-sm-12 col-12">
-                <label>Tenant's Address *:</label>
+              <div className="control-group col-md-6 col-lg-3 col-sm-6 col-xs-6">
+              <label className="control-label"> Tenant Address*:</label>
                 <textarea
                   name="tenantAddr"
                   value={tenantAddr}
-                  id="tenantAddr"
-                  className="textarea form-control"
+                  // id="tenantAddr"
+                  className=" form-control"
                   rows="3"
               
                   placeholder="Address"
@@ -704,13 +707,13 @@ const histroy=useHistory()
                 ></textarea>{" "}
               </div>
               {/*  switch */}
-              <div className="row ">
+              <div className="row ml-1 ">
                 {/* to sel */}
                 <div
-                  className="col-lg-6 col-md-12 col-sm-12 button_Door border "
-                  // style={{ border: "1px solid black", minHeight: "80px" }}
+                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door "
+                  style={{ border: "transparent", minHeight: "90px" }}
                 >
-                  <span className="h4">Avaiable Door Number :</span>
+                  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door Number :</span>
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
@@ -718,7 +721,7 @@ const histroy=useHistory()
                           key={idx}
                           type="button"
                           name="workMistake"
-                          className="m-2 btn btn-success"
+                          className=" btn btn-success doorbtn"
                           // id="savebtn"
                           onClick={() => onSelectChange(DoorNumber)}
                         >
@@ -727,7 +730,7 @@ const histroy=useHistory()
                            id="savebtn"
                            className="mx-2"
                           >
-                            X
+                            +
                           </span>
                         </button>
                       );
@@ -735,10 +738,10 @@ const histroy=useHistory()
                 </div>
                 {/* end to sel */}
                 <div
-                  className=" col-lg-6 col-md-12 border"
-                  // style={{ border: "1px solid black", minHeight: "80px" }}
+                  className=" col-lg-6 col-md-12 card-new"
+                  style={{ border: "transparent", minHeight: "80px" }}
                 >
-                  <span  className="h4">Occupied Door Number : </span>
+                  <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
@@ -748,7 +751,7 @@ const histroy=useHistory()
                         key={idx}
                           type="button"
                           name="selectedWorkMistake"
-                          className="m-2 btn btn-danger"
+                          className="btn  doorbtn"
                           // id="savebtn"
                           onClick={() => onRemoveChange(Doornumber)}
                         >
@@ -758,7 +761,7 @@ const histroy=useHistory()
                            id="savebtn"
                            className="mx-2"
                           >
-                            X
+                            -
                           </span>
                           {/* <span
                             className="mx-2 "

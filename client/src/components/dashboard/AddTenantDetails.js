@@ -403,7 +403,7 @@ const AddTenantDetails = ({
 
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid ">
-            <div className="row card-new pb-3">
+            <div className="row card-new pb-3 ">
               <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{ fontFamily: "Serif", color: "#095a4a", marginLeft: "10px" }}
@@ -442,7 +442,7 @@ const AddTenantDetails = ({
                     borderRadius: 1,
                     colors: {
                       ...theme.colors,
-                      primary25: "#e8a317",
+                      // primary25: "#e8a317",
                       primary: "#095a4a",
                       
                     },
@@ -584,7 +584,7 @@ const AddTenantDetails = ({
                     borderRadius: 0,
                     colors: {
                       ...theme.colors,
-                      primary25: "#e8a317",
+                      // primary25: "#e8a317",
                       primary: "#095a4a",
                       
                     },
@@ -668,21 +668,24 @@ const AddTenantDetails = ({
                 ></input>
                 <br></br>
               </div>{" "}
-              <div className="col-lg-2 col-md-12 col-sm-12 col-12">
-                <label>Tenant's Address*:</label>
-                <textarea
-                  name="tenantAddr"
-                  value={tenantAddr}
-                  id="tenantAddr"
-                  className="textarea form-control"
-                  rows="4"
-                  placeholder="Address"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                ></textarea>{" "}
-                <br></br>
-              </div>
-              <div className="row ">
+              <div className="control-group col-md-6 col-lg-3 col-sm-6 col-xs-6">
+                      <label className="control-label"> Tenant Address*:</label>
+                      <div className="controls">
+                        <textarea
+                          rows="3"
+                          value={tenantAddr}
+                          name="tenantAddr"
+                          // id="tenantAddr"
+                          placeholder="Address"
+                          className="form-control"
+                          onChange={(e) => onInputChange(e)}
+                          required
+                        ></textarea>
+                        <span className="form-input-info"></span>
+                      </div>
+                    </div>
+             
+              <div className="row  ml-1">
                 {isavail && isavail.length !== 0 ? (
                   <>
 
@@ -719,7 +722,7 @@ const AddTenantDetails = ({
                     </div>
 
                     <div
-                      className=" col-lg-6 col-md-12  card-new "
+                      className=" col-lg-6 col-md-12  card-new  "
                       style={{ border: "transparent", minHeight: "80px" }}
                     ><span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Selected Door No : </span>
                       {selectedDoorNumber &&
