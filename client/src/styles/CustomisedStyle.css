@@ -2418,7 +2418,10 @@ div {
 .line{
   width: 220px;
 }
-.renewdash{
+.mediaprint{
+  margin-left: 220px;
+  margin-top: -80px;
+  
   
 }
 .locaddedit{
