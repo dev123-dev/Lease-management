@@ -103,7 +103,7 @@ const TenantReport = ({
               className=" text-right font-weight-bold ml-5"
             >
               {" "}
-              Dashboard
+             Renewal Dashboard
             </span>
           </h1>
           <hr className="line"></hr>
