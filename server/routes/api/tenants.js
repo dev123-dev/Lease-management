@@ -298,6 +298,7 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org", async (req, res) => {
   let data = req.body;
+  console.log(data);
   try {
     if (data.OrganizationId) {
       OrganizationDetails.find(
@@ -305,7 +306,7 @@ router.post("/get-particular-org", async (req, res) => {
         {
           Location: 1,
         }
-      );
+      ).then((data) => res.json(data));
     }
   } catch (error) {
     console.log(error.message);
