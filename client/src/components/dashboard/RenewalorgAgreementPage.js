@@ -90,7 +90,7 @@ const ReneworgAggreement = ({
      
 <div className="mt-5">
 <div className="col-lg-6 col-md-12 col-sm-12 col-12 py-3">
-      <div className="row container-fluid mt-5 cardAgreement">
+      <div className="row container-fluid mt-5 cardAgreement"  style={{backgroundColor:"#e0e9e5f5"}}>
       <form onSubmit={(e) => onSubmit(e)}>
       <div className="col-lg-12 col-sm-12 col-md-12 col-12">
               <span

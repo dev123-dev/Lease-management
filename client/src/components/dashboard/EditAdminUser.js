@@ -23,7 +23,7 @@ const EditAdminUser = ({
   }, []);
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "Clerk", label: "Clerk" },
+    // { value: "Clerk", label: "Clerk" },
   ];
   const [group, setgroup] = useState(
     org
@@ -190,7 +190,8 @@ const EditAdminUser = ({
                   borderRadius: 1,
                   colors: {
                     ...theme.colors,
-                    primary: "black",
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
                   },
                 })}
               />
