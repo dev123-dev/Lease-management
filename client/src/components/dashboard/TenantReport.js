@@ -103,7 +103,7 @@ const TenantReport = ({
                     </span>
                   </h1>
                 </div>
-                <div className="col-lg-2 col-md-11 col-sm-11 col-11 py-4">
+                <div className="col-lg-2 col-md-11 col-sm-11 col-11">
                   <img
                     className="img_icon_size log"
                     src={require("../../static/images/print.png")}
@@ -167,7 +167,7 @@ const TenantReport = ({
       ) : (
         <>
           <div className="col mt-sm-5 ">
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
               <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
                 <h1
                   style={{
@@ -183,10 +183,10 @@ const TenantReport = ({
                 </h1>
               </div>
 
-              <div className="col-lg-4 col-md-1 col-sm-1 col-1 pt-4 text-end  mediaprint">
+              <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint">
                 <button onClick={handlePrint}>
                   <img
-                    height="25px"
+                    height="20px"
                     // onClick={() => refresh()}
                     src={require("../../static/images/print.png")}
                     alt="Print"
@@ -195,24 +195,24 @@ const TenantReport = ({
                 </button>
               </div>
             </div>
-            <hr className="line"></hr>
+            
             <div className="row">
               <div className="col-lg-1"></div>
               <div
                 ref={componentRef}
-                className="body-inner no-padding table-responsive ml-4"
+                className="body-inner no-padding table-responsive  col-lg-10"
               >
-                <div className="body-inner no-padding  table-responsive ">
+             
                   <img alt={""} src={logo} className={"watermark"} />
                   <table
-                    className="table table-bordered table-striped table-hover  mt-5"
+                    className="table table-bordered table-striped table-hover   mt-1  "
                     id="datatable2"
                   >
-                    <thead className="report-header">
+                    <thead >
                       <tr>
                         <th>Name</th>
                         <th>Building Name</th>
-                        <th>Door No</th>
+                        {/* <th>Door No</th> */}
                         <th>File No</th>
                         <th>Location</th>
                         <th>Stamp Duty</th>
@@ -234,11 +234,11 @@ const TenantReport = ({
                             <tr key={idx}>
                               <td>{Val.tenantName}</td>
                               <td>{Val.BuildingName}</td>
-                              <td>
+                              {/* <td>
                                 {Val.tenantDoorNo.map((ele) => {
                                   return ele.label;
                                 })}
-                              </td>
+                              </td> */}
                               <td>{Val.tenantFileNo}</td>
                               <td>{Val.Location}</td>
                               <td>{Val.stampDuty}</td>
@@ -282,13 +282,13 @@ const TenantReport = ({
                       </td>
                     </tr>
                   </tfoot>
-                </div>
+                
               </div>
-
+              {/* <div className="col-lg-1"></div> */}
               {/*link to renewal page */}
-              <div style={{ display: "none" }}>
-                {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
               </div>
+                {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
+            
               <Modal
                 show={showEditModal}
                 backdrop="static"
@@ -325,7 +325,7 @@ const TenantReport = ({
                   />
                 </Modal.Body>
               </Modal>
-            </div>
+          
           </div>
 
           {/* Deactivating the tenant start*/}

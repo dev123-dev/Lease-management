@@ -1132,9 +1132,11 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         $project: {
           tenantName: "$tenantName",
           OrganizationId: "$OrganizationId",
+          BuildingName:"$BuildingName",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantRentAmount: "$output.tenantRentAmount",
           AgreementStatus: "$output.AgreementStatus",
+          
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
           agreementId: "$output._id",

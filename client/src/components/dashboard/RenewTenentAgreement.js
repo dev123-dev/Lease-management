@@ -67,7 +67,7 @@ const RenewTenentAgreement = ({
     const finalData = {
       tenantRentAmount: tenantRentAmount,
       tenantFileNo: tenantFileNo,
-      tenantDoorNo: door,
+      // tenantDoorNo: door,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
@@ -129,13 +129,13 @@ const RenewTenentAgreement = ({
             <label>Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{tenantsData.tenantName}</label>
+            <label><b>{tenantsData.tenantName}</b></label>
           </div>
         </div>
 
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Door No:</label>
+            <label>Building Name:</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
@@ -143,11 +143,11 @@ const RenewTenentAgreement = ({
               type="text"
               name="tenantDoorNo"
               className="form-control"
-              value={door.map((ele) => ele)}
+              value={tenantsData.BuildingName}
               onChange={(e) => onInputChange(e)}
               required
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -166,7 +166,7 @@ const RenewTenentAgreement = ({
               onChange={(e) => onInputChange(e)}
               required
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -185,7 +185,7 @@ const RenewTenentAgreement = ({
               onChange={(e) => onInputChange(e)}
               required
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -203,7 +203,7 @@ const RenewTenentAgreement = ({
               name="tenantLeaseStartDate"
               onChange={(e) => onDateChangeEntry(e)}
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -221,13 +221,15 @@ const RenewTenentAgreement = ({
           <div className="col-lg-12 Savebutton" size="lg">
             <button
               variant="success"
-              className="btn sub_form "
+              className="btn sub_form float-right"
               id="savebtn"
               onClick={() => onSubmit()}
               style={
                 leaseEndDate !== ""
                   ? { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
+                
+
               }
             >
               Save
