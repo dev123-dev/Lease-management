@@ -454,7 +454,7 @@ const AddTenantDetails = ({
                   value={LocList}
                   placeholder="Location"
                   className="form-control bg-white"
-                  readOnly
+                  
                 ></input>
                 <br></br>
               </div>
@@ -683,31 +683,32 @@ const AddTenantDetails = ({
                       className="h4 "
                       style={{ fontFamily: "Serif", color: "#095a4a" }}
                     >
-                      Available Door No:
+                      Door No:
                     </div>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12">
+                {/* <div className="col-lg-6 col-md-12 col-sm-12">
                 <div
                         className="h4"
                         style={{ fontFamily: "Serif", color: "#095a4a" }}
                       >
                         Selected Door No :{" "}
                       </div>
-                </div>
+                </div> */}
               </div>
               <div className="row  mx-1">
                 {isavail && isavail.length !== 0 ? (
                   <>
-                    {/* <div
-                      className="h4 "
-                      style={{ fontFamily: "Serif", color: "#095a4a" }}
-                    >
-                      Available Door No:
-                    </div> */}
+                    
                     <div
                       className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white border-dark border-right"
                       style={{ border: "transparent", minHeight: "90px" }}
                     >
+                      <div
+                      className="h4 "
+                      style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    >
+                      Available:
+                    </div> <br></br>
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
                          
@@ -734,12 +735,12 @@ const AddTenantDetails = ({
                       className=" col-lg-6 col-md-12  card-new  bg-white"
                       style={{ border: "transparent", minHeight: "80px" }}
                     >
-                      {/* <span
+                      <div
                         className="h4"
                         style={{ fontFamily: "Serif", color: "#095a4a" }}
                       >
-                        Selected Door No :{" "}
-                      </span> */}
+                        Selected:
+                      </div><br></br>
                       {selectedDoorNumber &&
                         selectedDoorNumber.length > 0 &&
                         selectedDoorNumber.map((Doornumber, idx) => {

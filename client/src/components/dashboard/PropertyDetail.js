@@ -137,6 +137,8 @@ const PropertyDetail = ({
 
     if (checkData.length !== 0) {
       e.preventDefault();
+//alert(checkData);
+      setShow(false);
       const reason = {
         PropertyId: PropertyId,
         OrganizationId: user && user.OrganizationId,
@@ -148,10 +150,7 @@ const PropertyDetail = ({
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
 
       handleShowDno();
-      SetRoomAlreadyExist({
-        display: "none",
-      });
-      setShow(false);
+      setCheckData([])
     } else {
       SetRoomAlreadyExist({
         display: "inline",

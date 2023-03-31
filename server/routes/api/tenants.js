@@ -603,7 +603,7 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-
+console.log(data.Dno);
   try {
     if (data.Dno.length === 0) {
       property.updateOne(
@@ -617,7 +617,7 @@ router.post("/deactive-property", async (req, res) => {
             deactive_reason: data.deactive_reason,
           },
         }
-      );
+      ).then((data)=>console.log("update with len < 0",data));
     } else {
       data.Dno.map((eleDoor) => {
         property.updateOne(
@@ -632,8 +632,8 @@ router.post("/deactive-property", async (req, res) => {
               deactive_reason: data.deactive_reason,
             },
           }
-        );
-      });
+        ).then((data)=>console.log("update with len > 1",data));;
+      })
     }
 
     // res.json(propertydata);
