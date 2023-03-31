@@ -43,7 +43,7 @@ const PropertyDetail = ({
         SetselLoction(Loc);
       });
   };
-
+  console.log("property", particular_org_loc);
   // let output = particular_org_data.filter(
   //   (item) =>
   //     item.shopDoorNo &&
@@ -367,11 +367,10 @@ const PropertyDetail = ({
         show={showadd}
         backdrop="static"
         size="lg"
-      
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <AddShopDetails setShowadd={setShowadd}  />
+        <AddShopDetails setShowadd={setShowadd} />
       </Modal>
       {/* add model end */}
 
