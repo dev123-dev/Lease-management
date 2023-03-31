@@ -55,6 +55,8 @@ const EditOrganization = ({
   //Leasestartdate
   const [showStartdate, setShowStartdate] = useState(org.date);
   const [showEnddate, setShowEnddate] = useState(org.enddate);
+  var ED = showEnddate.split(/\D/g);
+  var endDate = [ED[2], ED[1], ED[0]].join("-");
 
   const onInputChange = (e) => {
     if (e.target.name === "startdate") {
@@ -172,7 +174,7 @@ const EditOrganization = ({
               <input
                 type="text"
                 readOnly={true}
-                value={showEnddate}
+                value={endDate}
                 className="form-control"
                 placeholder={enddate}
                 onChange={(e) => onInputChange(e)}

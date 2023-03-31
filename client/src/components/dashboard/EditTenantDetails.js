@@ -23,7 +23,7 @@ const EditTenantDetails = ({
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-const histroy=useHistory()
+  const histroy = useHistory();
   useEffect(() => {
     fun();
     checkDoorNumber();
@@ -335,16 +335,18 @@ const histroy=useHistory()
     setNewLeaseEndDate(newLeaseEndDate);
   };
 
-  const [entryDate, setEntryDate] = useState(particular_tenant_EditData.tenantLeaseStartDate);
-  const [leaseEndDate, setLeaseEndDate] = useState(particular_tenant_EditData.tenantLeaseEndDate);
+  const [entryDate, setEntryDate] = useState(
+    particular_tenant_EditData.tenantLeaseStartDate
+  );
+  const [leaseEndDate, setLeaseEndDate] = useState(
+    particular_tenant_EditData.tenantLeaseEndDate
+  );
   const [newLeaseEndDate, setNewLeaseEndDate] = useState("null");
-  console.log(leaseEndDate,"leaseEndDate")
   var ED = leaseEndDate.split(/\D/g);
   var endDate = [ED[2], ED[1], ED[0]].join("-");
-//console.log("GAK",particular_tenant_EditData.tenantLeaseStartDate);
+  //console.log("GAK",particular_tenant_EditData.tenantLeaseStartDate);
 
-//console.log("GAi",new Date(particular_tenant_EditData.tenantLeaseEndDate));
-
+  //console.log("GAi",new Date(particular_tenant_EditData.tenantLeaseEndDate));
 
   //For setting mindate as todays date
   var today = new Date();
@@ -390,7 +392,7 @@ const histroy=useHistory()
     };
     // console.log(finalData);
     UpdateTenantsDetails(finalData);
-    histroy.push("/tenant-detail")
+    histroy.push("/tenant-detail");
     // const historyData = {
     //   tdId: tenantId,
     //   //tenantDoorNo: tenantsdetails.shopDoorNo,
@@ -428,21 +430,23 @@ const histroy=useHistory()
     <Fragment></Fragment>
   ) : (
     <>
-      <Modal.Header className="mt-sm-5">
-        
-      </Modal.Header>
+      <Modal.Header className="mt-sm-5"></Modal.Header>
       <Modal.Body>
         <form onSubmit={(e) => onUpdate(e)}>
           <div className="conatiner-fluid ">
             <div className="row card-new pb-3">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
-              <h2
-                style={{ fontFamily: "Serif", color: "#095a4a",marginLeft:"10px"}}
-                className="font-weight-bold headsize"
-              >
-                Edit Tenant Details
-              </h2>
-            </div>
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+                <h2
+                  style={{
+                    fontFamily: "Serif",
+                    color: "#095a4a",
+                    marginLeft: "10px",
+                  }}
+                  className="font-weight-bold headsize"
+                >
+                  Edit Tenant Details
+                </h2>
+              </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Property Name*:</label>
                 <Select
@@ -459,19 +463,16 @@ const histroy=useHistory()
                       ...theme.colors,
                       // primary25: "#e8a317",
                       primary: "#095a4a",
-                      
                     },
                   })}
                 ></Select>
               </div>
-              
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Location*: </label>
                 <input
                   type="text"
                   placeholder={tenantLocation}
                   className="form-control"
-                 
                 ></input>
                 <br></br>
               </div>
@@ -619,7 +620,6 @@ const histroy=useHistory()
                       ...theme.colors,
                       // primary25: "#e8a317",
                       primary: "#095a4a",
-                      
                     },
                   })}
                 />
@@ -674,7 +674,7 @@ const histroy=useHistory()
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Lease Start Date*: </label>
                 <input
-                 placeholder="dd-mm-yyyy"
+                  placeholder="dd-mm-yyyy"
                   type="date"
                   className="form-control cpp-input datevalidation"
                   name="tenantLeaseStartDate"
@@ -696,14 +696,13 @@ const histroy=useHistory()
                 <br></br>
               </div>
               <div className="control-group col-md-6 col-lg-3 col-sm-6 col-xs-6">
-              <label className="control-label"> Tenant Address*:</label>
+                <label className="control-label"> Tenant Address*:</label>
                 <textarea
                   name="tenantAddr"
                   value={tenantAddr}
                   // id="tenantAddr"
                   className=" form-control"
                   rows="3"
-              
                   placeholder="Address"
                   onChange={(e) => onInputChange(e)}
                   required
@@ -711,23 +710,30 @@ const histroy=useHistory()
               </div>
               {/*  switch */}
               <div className="row ml-1 ">
-<div className="col-lg-6 col-md-12 col-sm-12">  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Door Number :</span></div>
-{/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span></div> */}
-
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                  {" "}
+                  <span
+                    className="h4"
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  >
+                    Door Number :
+                  </span>
+                </div>
+                {/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span></div> */}
               </div>
-
               <div className="row ml-1 ">
                 {/* to sel */}
                 <div
                   className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right "
                   style={{ border: "transparent", minHeight: "90px" }}
-                ><div
-                className="h4 "
-                style={{ fontFamily: "Serif", color: "#095a4a" }}
-              >
-                Available:
-              </div> <br></br>
-                
+                >
+                  <div
+                    className="h4 "
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  >
+                    Available:
+                  </div>{" "}
+                  <br></br>
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
                       return (
@@ -740,10 +746,7 @@ const histroy=useHistory()
                           onClick={() => onSelectChange(DoorNumber)}
                         >
                           {DoorNumber.doorNo}
-                          <span
-                           id="savebtn"
-                           className="mx-2"
-                          >
+                          <span id="savebtn" className="mx-2">
                             +
                           </span>
                         </button>
@@ -755,19 +758,19 @@ const histroy=useHistory()
                   className=" col-lg-6 col-md-12 card-new bg-white"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
-                 <div
-                className="h4 "
-                style={{ fontFamily: "Serif", color: "#095a4a" }}
-              >
-                Selected:
-              </div> <br></br>
+                  <div
+                    className="h4 "
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  >
+                    Selected:
+                  </div>{" "}
+                  <br></br>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
                       return (
-                    
                         <button
-                        key={idx}
+                          key={idx}
                           type="button"
                           // name="selectedWorkMistake"
                           className="btn  doorbtn"
@@ -776,13 +779,9 @@ const histroy=useHistory()
                         >
                           {Doornumber.value}
 
-                          <span
-                           id="savebtn"
-                           className="mx-2"
-                          >
+                          <span id="savebtn" className="mx-2">
                             -
                           </span>
-                          
                         </button>
                         // </p>
                       );
@@ -797,29 +796,27 @@ const histroy=useHistory()
               <div className="col-lg-3">
                 <div className="row">
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                   
-                      <button
-                      onClick={()=>{histroy.push("/tenant-detail")}}
-                        variant="success"
-                        className="btn sub_form btn_continue Save float-right mx-5"
-                        id="savebtn"
-                        type="button"
-                      >
-                        Back
-                      </button>
-                    
+                    <button
+                      onClick={() => {
+                        histroy.push("/tenant-detail");
+                      }}
+                      variant="success"
+                      className="btn sub_form btn_continue Save float-right mx-5"
+                      id="savebtn"
+                      type="button"
+                    >
+                      Back
+                    </button>
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                   
-                      <button
-                        type="submit"
-                        variant="success"
-                        className="btn sub_form btn_continue Save float-right"
-                        id="savebtn"
-                      >
-                        Save
-                      </button>
-                    
+                    <button
+                      type="submit"
+                      variant="success"
+                      className="btn sub_form btn_continue Save float-right"
+                      id="savebtn"
+                    >
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
@@ -827,7 +824,7 @@ const histroy=useHistory()
           </div>
         </form>
       </Modal.Body>
-      </>
+    </>
   );
 };
 
