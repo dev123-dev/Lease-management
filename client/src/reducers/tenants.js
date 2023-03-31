@@ -20,6 +20,7 @@ import {
   EXP_ORG_DETAIL,
   EXP_ORG_REPORT,
   EXP_ORG_COUNT,
+  EXP_ORG_,
   YEAR_EXP_COUNT_ORG,
   GET_EDIT_TENANT_DETAILS,
 } from "../actions/types";
@@ -42,6 +43,7 @@ const initialState = {
   yearExpCnt: [],
   expReport: [],
   allorg: [""],
+  exp_org: [""],
   allsuperuser: [""],
   exp_org_detail: [""],
   updatedorg: [""],
@@ -74,6 +76,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         allDoorNumber: payload,
+      };
+    case EXP_ORG_:
+      return {
+        ...state,
+        exp_org: payload,
       };
     case GET_ALL_SHOPS:
       return {

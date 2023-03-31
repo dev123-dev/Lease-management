@@ -30,6 +30,7 @@ import {
   EXP_ORG_COUNT,
   YEAR_EXP_COUNT_ORG,
   GET_EDIT_TENANT_DETAILS,
+  EXP_ORG_,
 } from "./types";
 
 const config = {
@@ -519,11 +520,27 @@ export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
 export const getOrgExpCount = (finaldata) => async (dispatch) => {
   try {
     const res = await axios.post(
-      `${linkPath}/api/tenants/get-month-exp-org`,
+      `${linkPath}/api/tenants/get-month-exp-org-count`,
       finaldata
     );
     dispatch({
       type: EXP_ORG_COUNT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const getOrgExp = (finaldata) => async (dispatch) => {
+  console.log("heyy", finaldata);
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-month-exp-org`,
+      finaldata
+    );
+    console.log("all details", res.data);
+    dispatch({
+      type: EXP_ORG_,
       payload: res.data,
     });
   } catch (error) {
