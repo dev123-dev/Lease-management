@@ -9,6 +9,7 @@ const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
+const auth = require("../../middleware/auth");
 
 router.post("/add-tenant-details", async (req, res) => {
   var today = new Date();
@@ -85,7 +86,7 @@ router.post("/add-tenant-details", async (req, res) => {
               "shopDoorNo.$.status": "Acquired",
             },
           }
-        );
+        ).then((data));
       });
 
       const finalData1 = {
@@ -170,7 +171,7 @@ router.post("/add-tenant-details", async (req, res) => {
               "shopDoorNo.$.status": "Acquired",
             },
           }
-        );
+        ).then((data));
       });
 
       const finalData1 = {
@@ -302,7 +303,7 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org", async (req, res) => {
   let data = req.body;
-  console.log(data);
+  // console.log(data);
   try {
     if (data.OrganizationId) {
       OrganizationDetails.find(
@@ -515,11 +516,11 @@ router.get("/get-all-Superuser", async (req, res) => {
 });
 
 //get particular organization user
-router.post("/get-particular-org-user", async (req, res) => {
-  let data = req.body;
+router.post("/get-particular-org-user",auth,  async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
   try {
     const ParticularOrg = await UserDetails.find({
-      OrganizationId: data.OrganizationId,
+      OrganizationId: userInfo.OrganizationId,
     }); /*.sort({ userStatus: 1 })*/
     res.json(ParticularOrg);
   } catch (error) {
@@ -603,7 +604,6 @@ router.post("/get-Particular-Property", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-console.log(data.Dno);
   try {
     if (data.Dno.length === 0) {
       property.updateOne(
@@ -751,7 +751,7 @@ router.post("/deactive-tenant", async (req, res) => {
               deactive_reason: data.deactive_reason,
             },
           }
-        );
+        ).then((data));
       });
     } else {
       data.Dno.map((ele) => {
@@ -766,7 +766,7 @@ router.post("/deactive-tenant", async (req, res) => {
               deactive_reason: data.deactive_reason,
             },
           }
-        );
+        ).then((data));
       });
       data.Dno.map((ele) => {
         property.updateOne(
@@ -783,7 +783,7 @@ router.post("/deactive-tenant", async (req, res) => {
               "shopDoorNo.$.status": "Avaiable",
             },
           }
-        );
+        ).then((data));
       });
     }
   } catch (error) {
@@ -1062,7 +1062,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
       //   },
       // },
     ]);
-    console.log("rrr", yeardata);
+    // console.log("rrr", yeardata);
     res.json(yeardata);
   } catch (err) {
     res.status(500).send("Internal Server Error.");
@@ -1201,7 +1201,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         },
       },
     ]);
-    console.log("tenantExpReport-xxxx", tenantExpReport);
+    // console.log("tenantExpReport-xxxx", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -1351,7 +1351,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
         },
       },
     ]);
-    console.log("get-tenant-old-exp-report", tenantExpReport);
+    // console.log("get-tenant-old-exp-report", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -1503,7 +1503,7 @@ router.post("/Renew-Organization", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  console.log("heheh", data.enddate, todayDateymd);
+  // console.log("heheh", data.enddate, todayDateymd);
   if (data.enddate < todayDateymd) {
     await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
@@ -1548,7 +1548,7 @@ router.post("/renew-tenant-details", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  console.log("hii", data);
+  // console.log("hii", data);
   if (data.tenantLeaseEndDate < todayDateymd) {
     try {
       await TenantDetails.updateOne(
@@ -1617,7 +1617,7 @@ router.post("/update-tenant-details", async (req, res) => {
   try {
     let data = req.body;
 
-    console.log(data);
+    // console.log(data);
     if (data.tenantLeaseEndDate < todayDateymd) {
       const updatetenantdetails = await TenantDetails.updateOne(
         { _id: data.recordId },
@@ -1660,7 +1660,7 @@ router.post("/update-tenant-details", async (req, res) => {
               "shopDoorNo.$.status": "Acquired",
             },
           }
-        );
+        ).then((data));
       });
 
       data.unseletedDoorno.map((eleDoor) => {
@@ -1675,7 +1675,7 @@ router.post("/update-tenant-details", async (req, res) => {
               "shopDoorNo.$.status": "Avaiable",
             },
           }
-        );
+        ).then((data));
       });
       res.json(updatetenantdetails);
 
@@ -1732,7 +1732,7 @@ router.post("/update-tenant-details", async (req, res) => {
               "shopDoorNo.$.status": "Acquired",
             },
           }
-        );
+        ).then((data));
       });
 
       data.unseletedDoorno.map((eleDoor) => {
@@ -1747,7 +1747,7 @@ router.post("/update-tenant-details", async (req, res) => {
               "shopDoorNo.$.status": "Avaiable",
             },
           }
-        );
+        ).then((data));;
       });
       res.json(updatetenantdetails);
 

@@ -329,7 +329,7 @@ const histroy=useHistory()
     if (mm2 < 10) {
       mm2 = "0" + mm2;
     }
-    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+    var leaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setLeaseEndDate(leaseEndDate);
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
@@ -338,6 +338,9 @@ const histroy=useHistory()
   const [entryDate, setEntryDate] = useState(particular_tenant_EditData.tenantLeaseStartDate);
   const [leaseEndDate, setLeaseEndDate] = useState(particular_tenant_EditData.tenantLeaseEndDate);
   const [newLeaseEndDate, setNewLeaseEndDate] = useState("null");
+  console.log(leaseEndDate,"leaseEndDate")
+  var ED = leaseEndDate.split(/\D/g);
+  var endDate = [ED[2], ED[1], ED[0]].join("-");
 //console.log("GAK",particular_tenant_EditData.tenantLeaseStartDate);
 
 //console.log("GAi",new Date(particular_tenant_EditData.tenantLeaseEndDate));
@@ -379,12 +382,13 @@ const histroy=useHistory()
       tenantPaymentMode: tenantPaymentMode.value,
       tenantchequeDate: startSelectedDate,
       tenantLeaseStartDate: entryDate,
-      tenantLeaseEndDate: newLeaseEndDate,
+      tenantLeaseEndDate: leaseEndDate,
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
       unseletedDoorno: unselectedDno,
     };
+    // console.log(finalData);
     UpdateTenantsDetails(finalData);
     histroy.push("/tenant-detail")
     // const historyData = {
@@ -686,7 +690,7 @@ const histroy=useHistory()
                 <input
                   placeholder="dd-mm-yyyy"
                   className="form-control cpp-input datevalidation"
-                  value={leaseEndDate}
+                  value={endDate}
                   required
                 ></input>
                 <br></br>

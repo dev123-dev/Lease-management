@@ -153,7 +153,7 @@ export const getParticularOrg = (data) => async (dispatch) => {
       data,
       config
     );
-    console.log("loc data", res.data);
+    // console.log("loc data", res.data);
     dispatch(getParticularProperty({ OrganizationId: data.OrganizationId }));
 
     dispatch({
@@ -165,7 +165,6 @@ export const getParticularOrg = (data) => async (dispatch) => {
 
 export const getParticularUser = (data) => async (dispatch) => {
   let userdata = data;
-
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-user`,
@@ -310,6 +309,7 @@ export const getalluser = () => async (dispatch) => {
 
 //get Particular Organization user
 export const get_particular_org_user = (data) => async (dispatch) => {
+  // console.log(data,"data")
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-org-user`,

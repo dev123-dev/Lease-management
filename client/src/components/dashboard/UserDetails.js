@@ -7,7 +7,7 @@ import Pagination from "../layout/Pagination";
 import {
   getParticularUser,
   getAllSettings,
-  getalluser,
+  // getalluser,
   deactivateUser,
   get_particular_org_user,
 } from "../../actions/tenants";
@@ -19,12 +19,12 @@ const UserDetails = ({
   get_particular_org_user,
   deactivateUser, //this is a action function to call
 }) => {
+  console.log("user",get_particularOrg_user)
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
-    get_particular_org_user({
-      OrganizationId: user && user.OrganizationId,
-    });
-  }, [refresh]);
+    get_particular_org_user();
+  }, []);
+
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -57,7 +57,8 @@ const UserDetails = ({
     setDeactiveShow(true);
   };
 
-  const onDeactivate = () => {
+  const onDeactivate = (e) => {
+    e.preventDefault();
     setDeactiveShow(false);
     const reason = {
       userId: AdminId,
@@ -328,7 +329,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 export default connect(mapStateToProps, {
-  getalluser,
+  // getalluser,
   getAllSettings,
   deactivateUser,
   getParticularUser,

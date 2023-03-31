@@ -17,6 +17,7 @@ const SuperUserDashboard = ({
   getParticularUser,
   deactivateUser, //this is a action function to call
 }) => {
+  console.log("user",user)
   const [refresh, setrefresh] = useState(false);
   useEffect(() => {
     getalluser();
