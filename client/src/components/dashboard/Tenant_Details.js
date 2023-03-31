@@ -141,22 +141,55 @@ setDeactiveThisBiuldingID(Val.BuildingId)
     });
   };
 
+
+const onDeactivateall=(e)=>{
+  e.preventDefault();
+  SetDoornumber(false);
+  const reason = {
+    OrganizationId: user && user.OrganizationId,
+    Dno: checkData.length !== 0 ? checkData : dno,
+    deactive_reason: deactive_reason,
+    tid: tId,
+    isSubmitted: "true",
+    BiuldingID:DeactiveThisBiuldingID
+  };
+  console.log("ok ",reason)
+ deactiveTenantsDetails(reason);
+  handleClose();
+  setFreshPage(!freshpage);
+  setCheckData([]);
+
+}
+const [Error,setError]=useState("");
   const onDeactivate = (e) => {
     e.preventDefault();
-    SetDoornumber(false);
-    const reason = {
-      OrganizationId: user && user.OrganizationId,
-      Dno: checkData.length !== 0 ? checkData : dno,
-      deactive_reason: deactive_reason,
-      tid: tId,
-      isSubmitted: "true",
-      BiuldingID:DeactiveThisBiuldingID
-    };
-    deactiveTenantsDetails(reason);
-    handleClose();
-    setFreshPage(!freshpage);
-    setCheckData([]);
+    if( checkData.length==0 ){
+setError("Please Select DoorNumber")
+//alert();
+
+    }else{
+
+      SetDoornumber(false);
+      const reason = {
+        OrganizationId: user && user.OrganizationId,
+        Dno: checkData.length !== 0 ? checkData : dno,
+        deactive_reason: deactive_reason,
+        tid: tId,
+        isSubmitted: "true",
+        BiuldingID:DeactiveThisBiuldingID
+      };
+      console.log("ok ",reason)
+     deactiveTenantsDetails(reason);
+      handleClose();
+      setFreshPage(!freshpage);
+      setCheckData([]);
+    }
+
+   
   };
+
+
+
   const [showadd, setShowadd] = useState(false);
 
   //pagination code
@@ -287,14 +320,14 @@ setDeactiveThisBiuldingID(Val.BuildingId)
                       <tbody>
                         {currentDatas &&
                           currentDatas.map((Val, idx) => {
-                            var ED =
-                              Val.tenantLeaseEndDate &&
-                              Val.tenantLeaseEndDate.split(/\D/g);
-                            var tenant = [
-                              ED && ED[2],
-                              ED && ED[1],
-                              ED && ED[0],
-                            ].join("-");
+                              var ED =
+                                Val.tenantLeaseEndDate &&
+                                Val.tenantLeaseEndDate.split(/\D/g);
+                              var tenant = [
+                                ED && ED[2],
+                                ED && ED[1],
+                                ED && ED[0],
+                              ].join("-");
 
                             if (Val.tenantstatus === "Active") {
                               return (
@@ -384,6 +417,7 @@ setDeactiveThisBiuldingID(Val.BuildingId)
             </div>
           </div>
         </div>
+
         {/* add model start*/}
         <Modal
           show={showadd}
@@ -402,9 +436,10 @@ setDeactiveThisBiuldingID(Val.BuildingId)
 
         {/* Edit end*/}
       </Fragment>
-      {/* deactivate start */}
+
+      {/* deactivate all */}
       <Modal show={show} centered>
-        <form onSubmit={onDeactivate}>
+        <form onSubmit={(e)=>{onDeactivateall(e)}}>
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-11 ">
               <div className="modal-title">
@@ -509,6 +544,7 @@ setDeactiveThisBiuldingID(Val.BuildingId)
               required
             ></textarea>
             <div>Are you sure You Want To Deactivate..?</div>
+            <div style={{color:"red"}}>{Error}</div>
             {/* </Form.Group>
           </Form> */}
           </Modal.Body>
