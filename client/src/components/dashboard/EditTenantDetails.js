@@ -707,8 +707,8 @@ const histroy=useHistory()
               </div>
               {/*  switch */}
               <div className="row ml-1 ">
-<div className="col-lg-6 col-md-12 col-sm-12">  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Avaiable Door Number :</span></div>
-<div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span></div>
+<div className="col-lg-6 col-md-12 col-sm-12">  <span className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Door Number :</span></div>
+{/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span></div> */}
 
               </div>
 
@@ -717,7 +717,12 @@ const histroy=useHistory()
                 <div
                   className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right "
                   style={{ border: "transparent", minHeight: "90px" }}
-                >
+                ><div
+                className="h4 "
+                style={{ fontFamily: "Serif", color: "#095a4a" }}
+              >
+                Available:
+              </div> <br></br>
                 
                   {unselectedDno &&
                     unselectedDno.map((DoorNumber, idx) => {
@@ -746,7 +751,12 @@ const histroy=useHistory()
                   className=" col-lg-6 col-md-12 card-new bg-white"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
-                 
+                 <div
+                className="h4 "
+                style={{ fontFamily: "Serif", color: "#095a4a" }}
+              >
+                Selected:
+              </div> <br></br>
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
