@@ -101,6 +101,7 @@ const EditOrganization = ({
         enddate: showEnddate,
         Location: items,
       };
+      console.log(updateData);
       updateOrganization(updateData);
       getAllOrganization();
 
