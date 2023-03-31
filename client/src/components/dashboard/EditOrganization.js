@@ -1,13 +1,17 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { updateOrganization } from "../../actions/tenants";
+import { updateOrganization, getAllOrganization } from "../../actions/tenants";
 const EditOrganization = ({
   auth: { isAuthenticated, user, users },
   org,
   EditModal,
+  getAllOrganization,
   updateOrganization,
 }) => {
+  useEffect(() => {
+    getAllOrganization();
+  }, []);
   // adding multiple location start
   const [inputdata, setinput] = useState("");
   const [items, setitem] = useState(org.Location);
@@ -81,26 +85,27 @@ const EditOrganization = ({
     }
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
-const[locError,setLocError]=useState("black")
+  const [locError, setLocError] = useState("black");
   const onUpdate = (e) => {
     e.preventDefault();
-    if(items.length===0){
-      setLocError("red")
-    }else
-  {
-    const updateData = {
-      OrganizationId: org._id,
-      OrganizationName: OrganizationName,
-      OrganizationEmail: OrganizationEmail,
-      OrganizationNumber: OrganizationNumber,
-      OrganizationAddress: OrganizationAddress,
-      startdate: showStartdate,
-      enddate: showEnddate,
-      Location: items,
-    };
-    updateOrganization(updateData);
-    EditModal(false);
-  }
+    if (items.length === 0) {
+      setLocError("red");
+    } else {
+      const updateData = {
+        OrganizationId: org._id,
+        OrganizationName: OrganizationName,
+        OrganizationEmail: OrganizationEmail,
+        OrganizationNumber: OrganizationNumber,
+        OrganizationAddress: OrganizationAddress,
+        startdate: showStartdate,
+        enddate: showEnddate,
+        Location: items,
+      };
+      updateOrganization(updateData);
+      getAllOrganization();
+
+      EditModal(false);
+    }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -173,7 +178,9 @@ const[locError,setLocError]=useState("black")
                 required
               />
               <br></br>
-              <label className="ml-2" style={{color:locError}}>Location*:</label>
+              <label className="ml-2" style={{ color: locError }}>
+                Location*:
+              </label>
               <input
                 className="form-control"
                 type="text"
@@ -260,4 +267,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   updateOrganization,
+  getAllOrganization,
 })(EditOrganization);

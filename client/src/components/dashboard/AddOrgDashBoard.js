@@ -17,7 +17,7 @@ const AddOrgDashBoard = ({
   getAllOrganization,
 }) => {
   useEffect(() => {
-    getAllOrganization("");
+    getAllOrganization();
   }, []);
 
   const [showUpdateModal, setShowUpdateModal] = useState(false);

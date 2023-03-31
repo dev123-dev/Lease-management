@@ -9,7 +9,7 @@ router.post("/add-tenant-settings", async (req, res) => {
   try {
     let tenantSettings = new TenantSettings(data);
     output = await tenantSettings.save();
-    res.send(output);
+    res.json(output);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");

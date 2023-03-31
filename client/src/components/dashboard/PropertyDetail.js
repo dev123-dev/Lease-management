@@ -119,60 +119,49 @@ const PropertyDetail = ({
     getParticularProperty(OrgainationId_Loc_name);
   };
 
-  
-  
   const onDeactivate = (e) => {
+    // alert(checkData.length );
 
-// alert(checkData.length );
-    
-if(checkData.length !==0){
-
-  e.preventDefault();
-    
-  setShow(false);
-  const reason = {
-    PropertyId: PropertyId,
-    OrganizationId: user && user.OrganizationId,
-    Dno:  checkData,
-    shopStatus: "Deactive",
-    deactive_reason: deactive_reason,
-  };
-  deactiveProperty(reason);
-  getParticularOrg({ OrganizationId: user && user.OrganizationId });
-
-  handleShowDno();
-
-}
-else{
-  alert();
-}
-  };
-
-
-  const onDeactivateall=(e)=>{
-
-    if(checkData.length ===0){
-
+    if (checkData.length !== 0) {
       e.preventDefault();
-        
+
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
         OrganizationId: user && user.OrganizationId,
-        Dno:  [],
+        Dno: checkData,
         shopStatus: "Deactive",
         deactive_reason: deactive_reason,
       };
       deactiveProperty(reason);
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    
+
       handleShowDno();
-    
+    } else {
+      alert();
     }
-    else{
+  };
+
+  const onDeactivateall = (e) => {
+    if (checkData.length === 0) {
+      e.preventDefault();
+
+      setShow(false);
+      const reason = {
+        PropertyId: PropertyId,
+        OrganizationId: user && user.OrganizationId,
+        Dno: [],
+        shopStatus: "Deactive",
+        deactive_reason: deactive_reason,
+      };
+      deactiveProperty(reason);
+      getParticularOrg({ OrganizationId: user && user.OrganizationId });
+
+      handleShowDno();
+    } else {
       alert("not triger");
     }
-  }
+  };
 
   const [showadd, setShowadd] = useState(false);
 
@@ -200,30 +189,21 @@ else{
   return (
     <>
       <div className="col mt-sm-5 ">
-
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3">
           <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
-            
             <h1
               style={{
                 fontFamily: "Serif",
                 color: "#095a4a",
-                position:"relative",
-                right:"70px"
+                position: "relative",
+                right: "70px",
               }}
               className="font-weight-bold headsize "
             >
-
               Property Details
-
             </h1>
-          
-           
-
           </div>
           <hr className="line"></hr>
-
-
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
@@ -246,7 +226,6 @@ else{
                         ...theme.colors,
                         primary25: "#e8a317",
                         primary: "#095a4a",
-                        
                       },
                     })}
                   ></Select>
@@ -287,7 +266,7 @@ else{
                         >
                           Building Name
                         </th>
-                        <th>Door Number</th>
+                        {/* <th>Door Number</th> */}
                         <th>Location</th>
                         <th>Hike %</th>
                         <th>Stamp Duty</th>
@@ -304,7 +283,7 @@ else{
                               <td className="headcolstatic secondlinebreak1">
                                 {Val.buildingName}
                               </td>
-                              <td>
+                              {/* <td>
                                 {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
@@ -318,7 +297,7 @@ else{
                                       );
                                     }
                                   })}
-                              </td>
+                              </td> */}
                               <td>{Val.Location}</td>
                               <td>{Val.hike}</td>
                               <td>{Val.stampDuty}</td>
@@ -488,7 +467,7 @@ else{
         </form>
       </Modal>
 
-{/* modal for Deactivating the mul Property ending */}
+      {/* modal for Deactivating the mul Property ending */}
       <Modal show={selectDno} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header className="confirmbox-heading">
