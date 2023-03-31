@@ -45,7 +45,7 @@ const TenantReport = ({
   const history = useHistory();
 
   const renewal = (org) => {
-    alert("");
+   // alert("");
     setShowEditModal(true);
     setOrgData(org);
     history.push("/Renewal-Org", org);
