@@ -218,7 +218,8 @@ router.post("/add-Organization", async (req, res) => {
         date: data.date,
         enddate: data.enddate,
         Location: data.Location,
-        org_status: "Expired",
+        AgreementStatus: "Expired",
+        org_status: "Active",
         enter_by_dateTime: data.enter_by_dateTime,
       };
 
@@ -232,7 +233,8 @@ router.post("/add-Organization", async (req, res) => {
         date: output.date,
         enddate: output.enddate,
         Location: output.Location,
-        org_status: "Expired",
+        AgreementStatus: "Expired",
+        org_status: "Active",
         enter_by_dateTime: output.enter_by_dateTime,
       };
 
@@ -254,6 +256,7 @@ router.post("/add-Organization", async (req, res) => {
         date: data.date,
         enddate: data.enddate,
         Location: data.Location,
+        AgreementStatus: "Active",
         org_status: "Active",
         enter_by_dateTime: data.enter_by_dateTime,
       };
@@ -268,6 +271,7 @@ router.post("/add-Organization", async (req, res) => {
         date: output.date,
         enddate: output.enddate,
         Location: output.Location,
+        AgreementStatus: "Active",
         org_status: "Active",
         enter_by_dateTime: output.enter_by_dateTime,
       };
