@@ -75,18 +75,20 @@ router.post("/add-tenant-details", async (req, res) => {
       output2 = await tenantHistories.save();
 
       tenantdata.shopDoorNo.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: tenantdata.OrganizationId,
-            _id: tenantdata.BuildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Acquired",
+        property
+          .updateOne(
+            {
+              OrganizationId: tenantdata.OrganizationId,
+              _id: tenantdata.BuildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
             },
-          }
-        ).then((data));
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then(data);
       });
 
       const finalData1 = {
@@ -160,18 +162,20 @@ router.post("/add-tenant-details", async (req, res) => {
       output2 = await tenantHistories.save();
 
       tenantdata.shopDoorNo.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: tenantdata.OrganizationId,
-            _id: tenantdata.BuildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Acquired",
+        property
+          .updateOne(
+            {
+              OrganizationId: tenantdata.OrganizationId,
+              _id: tenantdata.BuildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
             },
-          }
-        ).then((data));
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then(data);
       });
 
       const finalData1 = {
@@ -516,7 +520,7 @@ router.get("/get-all-Superuser", async (req, res) => {
 });
 
 //get particular organization user
-router.post("/get-particular-org-user",auth,  async (req, res) => {
+router.post("/get-particular-org-user", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
   try {
     const ParticularOrg = await UserDetails.find({
@@ -606,34 +610,38 @@ router.post("/deactive-property", async (req, res) => {
   let data = req.body;
   try {
     if (data.Dno.length === 0) {
-      property.updateOne(
-        {
-          OrganizationId: data.OrganizationId,
-          _id: data.PropertyId,
-        },
-        {
-          $set: {
-            shopStatus: "Deactive",
-            deactive_reason: data.deactive_reason,
-          },
-        }
-      ).then((data)=>console.log("update with len < 0",data));
-    } else {
-      data.Dno.map((eleDoor) => {
-        property.updateOne(
+      property
+        .updateOne(
           {
             OrganizationId: data.OrganizationId,
             _id: data.PropertyId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
           },
           {
             $set: {
-              "shopDoorNo.$.status": "Deleted the Door Number",
+              shopStatus: "Deactive",
               deactive_reason: data.deactive_reason,
             },
           }
-        ).then((data)=>console.log("update with len > 1",data));;
-      })
+        )
+        .then((data) => console.log("update with len < 0", data));
+    } else {
+      data.Dno.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.PropertyId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Deleted the Door Number",
+                deactive_reason: data.deactive_reason,
+              },
+            }
+          )
+          .then((data) => console.log("update with len > 1", data));
+      });
     }
 
     // res.json(propertydata);
@@ -720,7 +728,7 @@ router.post("/deactive-Organization", async (req, res) => {
           userStatus: "Deactive",
         },
       }
-    ).then((data));
+    ).then(data);
     let dltOrg = await OrganizationDetails.updateOne(
       { _id: data.Org_id },
       {
@@ -730,7 +738,7 @@ router.post("/deactive-Organization", async (req, res) => {
           deactive_reason: data.deactive_reason,
         },
       }
-    ).th;
+    );
     res.json(dltOrg);
   } catch (err) {}
 });
@@ -751,7 +759,7 @@ router.post("/deactive-tenant", async (req, res) => {
               deactive_reason: data.deactive_reason,
             },
           }
-        ).then((data));
+        ).then(data);
       });
     } else {
       data.Dno.map((ele) => {
@@ -766,24 +774,26 @@ router.post("/deactive-tenant", async (req, res) => {
               deactive_reason: data.deactive_reason,
             },
           }
-        ).then((data));
+        ).then(data);
       });
       data.Dno.map((ele) => {
-        property.updateOne(
-          {
-            _id: data.BiuldingID,
-            shopDoorNo: {
-              $elemMatch: {
-                doorNo: ele.label,
+        property
+          .updateOne(
+            {
+              _id: data.BiuldingID,
+              shopDoorNo: {
+                $elemMatch: {
+                  doorNo: ele.label,
+                },
               },
             },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Avaiable",
-            },
-          }
-        ).then((data));
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then(data);
       });
     }
   } catch (error) {
@@ -1132,11 +1142,11 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         $project: {
           tenantName: "$tenantName",
           OrganizationId: "$OrganizationId",
-          BuildingName:"$BuildingName",
+          BuildingName: "$BuildingName",
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantRentAmount: "$output.tenantRentAmount",
           AgreementStatus: "$output.AgreementStatus",
-          
+
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
           agreementId: "$output._id",
@@ -1649,33 +1659,37 @@ router.post("/update-tenant-details", async (req, res) => {
       );
 
       data.tenantDoorNo.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.BuildingName.buildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Acquired",
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
             },
-          }
-        ).then((data));
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then(data);
       });
 
       data.unseletedDoorno.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.BuildingName.buildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Avaiable",
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
             },
-          }
-        ).then((data));
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then(data);
       });
       res.json(updatetenantdetails);
 
@@ -1721,33 +1735,37 @@ router.post("/update-tenant-details", async (req, res) => {
       );
 
       data.tenantDoorNo.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.BuildingName.buildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Acquired",
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
             },
-          }
-        ).then((data));
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then(data);
       });
 
       data.unseletedDoorno.map((eleDoor) => {
-        property.updateOne(
-          {
-            OrganizationId: data.OrganizationId,
-            _id: data.BuildingName.buildingId,
-            shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
-          },
-          {
-            $set: {
-              "shopDoorNo.$.status": "Avaiable",
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingName.buildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
             },
-          }
-        ).then((data));;
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then(data);
       });
       res.json(updatetenantdetails);
 
