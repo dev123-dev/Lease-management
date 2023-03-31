@@ -24,6 +24,12 @@ const PropertyDetail = ({
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
   }, []);
 
+  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
+    color: "white",
+    fontFamily: "Arial",
+    display: "none",
+  });
+
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
@@ -43,7 +49,6 @@ const PropertyDetail = ({
         SetselLoction(Loc);
       });
   };
-  console.log("property", particular_org_loc);
   // let output = particular_org_data.filter(
   //   (item) =>
   //     item.shopDoorNo &&
@@ -124,8 +129,6 @@ const PropertyDetail = ({
 
     if (checkData.length !== 0) {
       e.preventDefault();
-
-      setShow(false);
       const reason = {
         PropertyId: PropertyId,
         OrganizationId: user && user.OrganizationId,
@@ -137,8 +140,15 @@ const PropertyDetail = ({
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
 
       handleShowDno();
+      SetRoomAlreadyExist({
+        display: "none",
+      });
+      setShow(false);
     } else {
-      alert();
+      SetRoomAlreadyExist({
+        display: "inline",
+        color: "#FF0000",
+      });
     }
   };
 
@@ -159,7 +169,6 @@ const PropertyDetail = ({
 
       handleShowDno();
     } else {
-      alert("not triger");
     }
   };
 
@@ -515,6 +524,9 @@ const PropertyDetail = ({
                       <label htmlFor="vehicle1">
                         {ele.doorNo}&nbsp; &nbsp;
                       </label>
+                      <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
+                        Please Select Any Room
+                      </p>
                     </>
                   );
                 }
