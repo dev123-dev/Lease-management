@@ -312,10 +312,7 @@ footer.footer .top_top {
 
 .top_menu {
   background-color: #095a4a;
-  /* padding: 0.5rem; */
-
-  /* #4b748f;#0086dc */
-  /* #429f8c; */
+  
 }
 
 .row {
@@ -816,6 +813,7 @@ label {
 
 #datatable2 th {
   background: #095a4a;
+ 
   color: #fff;
   padding: 8px;
   text-align: center;
