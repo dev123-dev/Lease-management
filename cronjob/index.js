@@ -51,7 +51,7 @@ async function updateExpiryStatus() {
           AgreementStatus: "Expired",
         },
       }
-    ).then((data) => console.log("tenant data", data));
+    );
     await TenentAgreement.updateMany(
       { tenantLeaseEndDate: { $lte: todayDateymd } },
       // {
@@ -82,7 +82,7 @@ async function updateExpiryStatus() {
       {
         $set: { AgreementStatus: "Expired" },
       }
-    ).then((data) => console.log("new data", data));
+    );
 
     console.log("Status updated as Expired");
   } catch (error) {

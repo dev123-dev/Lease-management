@@ -106,12 +106,11 @@ const TenantFilters = ({
         ...searchData,
         monthSearch: "",
       });
-      localStorage.setItem("year",JSON.stringify(finalData));
+      localStorage.setItem("year", JSON.stringify(finalData));
 
       getOrgExpCount(finalData);
-      
-      getPreviousYearsExpCountOfOrg(finalData);
 
+      getPreviousYearsExpCountOfOrg(finalData);
     }
   };
 
@@ -157,6 +156,14 @@ const TenantFilters = ({
     getTenantReportOldExp(finalDataReportOld);
     getOrganizationExpiryReport(finalDataReportOld);
   };
+  const oldExpCountFetchOrg = () => {
+    const finalDataReportOld = {
+      monthSearch: monthfilter,
+      yearSearch: new Date(startMonthDate).getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
+    };
+    getOrganizationExpiryReport(finalDataReportOld);
+  };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -175,7 +182,7 @@ const TenantFilters = ({
                     to="/Organization-filter"
                     style={{ width: "100px" }}
                     className="top_box"
-                    onClick={() => oldExpCountFetch()}
+                    onClick={() => oldExpCountFetchOrg()}
                   >
                     {" "}
                     {ext_year_count_org && ext_year_count_org.length > 0
