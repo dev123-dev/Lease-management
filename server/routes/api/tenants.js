@@ -359,7 +359,20 @@ router.post("/update-Organization", async (req, res) => {
 
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   if (data.enddate < todayDateymd) {
-    const updateorg = await OrganizationDetails.updateOne(
+    console.log(data);
+
+    UserDetails.updateMany(
+      {
+        OrganizationId: data.OrganizationId,
+      },
+      {
+        $set: {
+          OrganizationName: data.OrganizationName,
+        },
+      }
+    ).then((data) => console.log(data));
+
+    await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
       {
         $set: {
@@ -375,6 +388,17 @@ router.post("/update-Organization", async (req, res) => {
       }
     );
   } else {
+    UserDetails.updateMany(
+      {
+        OrganizationId: data.OrganizationId,
+      },
+      {
+        $set: {
+          OrganizationName: data.OrganizationName,
+        },
+      }
+    ).then((data) => console.log(data));
+
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
       {
