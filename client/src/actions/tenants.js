@@ -152,6 +152,7 @@ export const getParticularOrg = (data) => async (dispatch) => {
       data,
       config
     );
+    console.log("loc data", res.data);
     dispatch(getParticularProperty({ OrganizationId: data.OrganizationId }));
 
     dispatch({
