@@ -339,6 +339,7 @@ router.post("/get-particular-user", async (req, res) => {
 
 //update all organization
 router.post("/update-Organization", async (req, res) => {
+  let data = req.body;
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -347,7 +348,6 @@ router.post("/update-Organization", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
-  let data = req.body;
   if (data.enddate < todayDateymd) {
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
