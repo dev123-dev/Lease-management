@@ -113,7 +113,7 @@ const EditAdminUser = ({
       OrganizationId: org.OrganizationId,
     };
     UpdateUser(updateUSER);
-    getalluser();
+    // getalluser();
     setRefresh(!refresh);
     setSuperModal(false);
   };

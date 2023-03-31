@@ -531,9 +531,7 @@ const PropertyDetail = ({
                       <label htmlFor="vehicle1">
                         {ele.doorNo}&nbsp; &nbsp;
                       </label>
-                      <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
-                        Please Select Any Room
-                      </p>
+                     
                     </>
                   );
                 }
@@ -551,6 +549,9 @@ const PropertyDetail = ({
               required
             ></textarea>
             <div>Are you sure You Want To Deactivate..?</div>
+            <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
+                        Please Select Any Room
+                      </p>
             {/* </Form.Group>
           </Form> */}
           </Modal.Body>
