@@ -720,7 +720,7 @@ router.post("/deactive-Organization", async (req, res) => {
           userStatus: "Deactive",
         },
       }
-    );
+    ).then((data));
     let dltOrg = await OrganizationDetails.updateOne(
       { _id: data.Org_id },
       {
@@ -730,7 +730,7 @@ router.post("/deactive-Organization", async (req, res) => {
           deactive_reason: data.deactive_reason,
         },
       }
-    );
+    ).th;
     res.json(dltOrg);
   } catch (err) {}
 });
