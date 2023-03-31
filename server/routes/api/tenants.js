@@ -351,8 +351,8 @@ router.post("/update-Organization", async (req, res) => {
   var yyyy = today.getFullYear();
   if (dd < 10) dd = "0" + dd;
   if (mm < 10) mm = "0" + mm;
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
   if (data.enddate < todayDateymd) {
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
