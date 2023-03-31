@@ -154,7 +154,7 @@ const TenantFilters = ({
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportOldExp(finalDataReportOld);
-    getOrganizationExpiryReport(finalDataReportOld);
+    // getOrganizationExpiryReport(finalDataReportOld);
   };
   const oldExpCountFetchOrg = () => {
     const finalDataReportOld = {
