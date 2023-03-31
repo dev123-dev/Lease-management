@@ -388,10 +388,11 @@ else{
         show={showadd}
         backdrop="static"
         size="lg"
+      
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-        <AddShopDetails setShowadd={setShowadd} />
+        <AddShopDetails setShowadd={setShowadd}  />
       </Modal>
       {/* add model end */}
 

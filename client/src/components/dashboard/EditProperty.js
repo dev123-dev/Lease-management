@@ -263,7 +263,7 @@ const EditProperty = ({
                     />
                   </svg>
                 </div>
-                <div className="showItemcl ">
+                <div className="showItemcl plusiconbck ">
                   {dno.map((ele, index1) => {
                     if (ele.status === "Avaiable") {
                       return (

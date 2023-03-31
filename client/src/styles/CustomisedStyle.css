@@ -2559,6 +2559,11 @@ width: 100px;
 }
 .dno {
   display: inline-block;
+
+}
+.dnoscroll{
+  overflow-x: scroll;
+  max-width:100px;
 }
 /* .back_image {
   background-image: url("../static/images/img2.jpg");
@@ -2634,7 +2639,7 @@ width: 100px;
 }
 
 .plusiconbck{
-  background-color:#f3f3f3; 
+  background-color: #e0e9e5f5;
  
 }
 
