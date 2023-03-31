@@ -124,7 +124,7 @@ const PropertyDetail = ({
 
     if (checkData.length !== 0) {
       e.preventDefault();
-
+alert(checkData);
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
@@ -137,6 +137,7 @@ const PropertyDetail = ({
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
 
       handleShowDno();
+      setCheckData([])
     } else {
       alert();
     }

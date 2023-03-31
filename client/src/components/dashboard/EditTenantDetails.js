@@ -467,7 +467,7 @@ const histroy=useHistory()
                   type="text"
                   placeholder={tenantLocation}
                   className="form-control"
-                  readOnly
+                 
                 ></input>
                 <br></br>
               </div>

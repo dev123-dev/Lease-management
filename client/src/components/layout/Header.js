@@ -306,7 +306,7 @@ const Header = ({
                             onClick={() => openSecondLevelMenu2()}
                             className="navbar-right pt-3 pb-1"
                           >
-                            {user.usergroup}&nbsp;
+                            {user.username}&nbsp;
                             <i className="fa fa-caret-down" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

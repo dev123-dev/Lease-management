@@ -454,7 +454,7 @@ const AddTenantDetails = ({
                   value={LocList}
                   placeholder="Location"
                   className="form-control bg-white"
-                  readOnly
+                  
                 ></input>
                 <br></br>
               </div>
