@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, particular_org_data, allTenantSetting },
-  setShowadd,
+ 
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
@@ -710,7 +710,7 @@ const AddTenantDetails = ({
                     >
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
-                          // if(DoorNumber.status==="Avaiable")
+                         
 
                           return (
                             <button

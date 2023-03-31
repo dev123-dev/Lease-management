@@ -8,7 +8,6 @@ import {
   UpdateTenantsDetails,
 } from "../../actions/tenants";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import tenants from "../../reducers/tenants";
@@ -726,7 +725,7 @@ const histroy=useHistory()
                         <button
                           key={idx}
                           type="button"
-                          name="workMistake"
+                          // name="workMistake"
                           className=" btn btn-success doorbtn"
                           // id="savebtn"
                           onClick={() => onSelectChange(DoorNumber)}
@@ -744,7 +743,7 @@ const histroy=useHistory()
                 </div>
                 {/* end to sel */}
                 <div
-                  className=" col-lg-6 col-md-12 card-new"
+                  className=" col-lg-6 col-md-12 card-new bg-white"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
                  
@@ -752,11 +751,11 @@ const histroy=useHistory()
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
                       return (
-                        // <p key={idx} className="DoorCover">
+                    
                         <button
                         key={idx}
                           type="button"
-                          name="selectedWorkMistake"
+                          // name="selectedWorkMistake"
                           className="btn  doorbtn"
                           // id="savebtn"
                           onClick={() => onRemoveChange(Doornumber)}
@@ -769,12 +768,7 @@ const histroy=useHistory()
                           >
                             -
                           </span>
-                          {/* <span
-                            className="mx-2 "
-                           
-                          >
-                            X
-                          </span> */}
+                          
                         </button>
                         // </p>
                       );

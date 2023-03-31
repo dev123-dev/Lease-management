@@ -13,9 +13,11 @@
   color: #4d4d4d;
 }
 .img_icon_sizeDashboard {
-  width: 60px;
-  height: 50px;
+  width: 80px;
+  height: 70px;
   text-align: center;
+
+  /* transform: rotateX(150deg); */
 }
 
 .container_align {
@@ -348,7 +350,7 @@ footer.footer .top_top {
   display: flex;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: #e0e9e5f5;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
@@ -1889,6 +1891,7 @@ input.visually-hidden:focus-within + label {
   color: #18d4ca;
 }
 .card:hover {
+  /* background-color: #e0e9e5; */
   transform: scale(1.05);
   box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
 }
@@ -1911,15 +1914,19 @@ input.visually-hidden:focus-within + label {
 }
 .card::before {
   transform-origin: left top;
+  
 }
 .card::after {
   transform-origin: right bottom;
+ 
+
 }
 .card:hover::before,
 .card:hover::after,
 .card:focus::before,
 .card:focus::after {
   transform: scale3d(1, 1, 1);
+  
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -2042,10 +2049,11 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 300px;
   height: 250px;
   padding: 10px;
-  /* border: 2px solid #e88504; */
-  /* background: #000000be; */
+  /* background: #e0e9e5f5; */
+  
   margin: 20px;
 }
+
 .second-level-menu > li:hover {
   /* background: #cccccc; */
   background: #e8a317;
