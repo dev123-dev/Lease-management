@@ -8,6 +8,7 @@ import {
   getParticularProperty,
   getParticularOrg,
   deactiveProperty,
+  getAllSettings,
   getAllShops,
 } from "../../actions/tenants";
 import Select from "react-select";
@@ -17,11 +18,18 @@ const PropertyDetail = ({
   tenants: { particular_org_data, particular_org_loc },
   deactiveProperty,
   getParticularOrg,
+  getAllSettings,
   getParticularProperty,
 }) => {
   useEffect(() => {
+    const myuser = JSON.parse(localStorage.getItem("user"));
+
     fun();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
+    });
   }, []);
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
@@ -567,5 +575,6 @@ export default connect(mapStateToProps, {
   getAllShops,
   deactiveProperty,
   getParticularOrg,
+  getAllSettings,
   getParticularProperty,
 })(PropertyDetail);

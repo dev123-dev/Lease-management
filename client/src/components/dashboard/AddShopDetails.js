@@ -22,9 +22,9 @@ const AddShopDetails = ({
     display: "none",
   });
 
-  const myuser = JSON.parse(localStorage.getItem("user"));
   const [pageRefresh, SetRefresh] = useState(false);
   useEffect(() => {
+    const myuser = JSON.parse(localStorage.getItem("user"));
     if (myuser) {
       fun();
       getParticularOrg({ OrganizationId: myuser && myuser.OrganizationId });
