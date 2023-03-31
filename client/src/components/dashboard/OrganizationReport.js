@@ -6,7 +6,7 @@ import { getAllOrganization } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { isAuthenticated, user, users },
-  tenants: { exp_org_detail, ext_year_count_org },
+  tenants: { exp_org_detail, ext_year_count_org, exp_org },
   getAllOrganization,
 }) => {
   useEffect(() => {
@@ -78,30 +78,28 @@ const TenantReport = ({
             </div>
 
             <div className="row table1">
-            <div className="col-lg-1"></div>
+              <div className="col-lg-1"></div>
               <div className="body-inner no-padding table-responsive fixTableHead ml-4">
-               
-                  
-                    <table
-                     className="table table-bordered table-striped table-hover table1 mt-5 "
-                      id="datatable2"
-                    >
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Email</th>
-                          <th>Phone</th>
-                          <th>StartDate</th>
-                          <th>EndDate</th>
-                          <th>Status</th>
-                          <th>Operation</th>
-                        </tr>
-                      </thead>
+                <table
+                  className="table table-bordered table-striped table-hover table1 mt-5 "
+                  id="datatable2"
+                >
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>StartDate</th>
+                      <th>EndDate</th>
+                      <th>Status</th>
+                      <th>Operation</th>
+                    </tr>
+                  </thead>
 
                   <tbody>
-                    {exp_org_detail &&
-                      exp_org_detail[0] &&
-                      exp_org_detail.map((org, index) => {
+                    {exp_org &&
+                      exp_org[0] &&
+                      exp_org.map((org, index) => {
                         var ED = org.enddate && org.enddate.split(/\D/g);
                         var EndDate = [
                           ED && ED[2],

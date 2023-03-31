@@ -813,7 +813,7 @@ router.post("/deactive-tenant", async (req, res) => {
 // });
 
 //get exp month count for Organization
-router.post("/get-month-exp-org", async (req, res) => {
+router.post("/get-month-exp-org-count", async (req, res) => {
   const { selectedY } = req.body;
 
   var yearVal = new Date().getFullYear();
@@ -847,6 +847,47 @@ router.post("/get-month-exp-org", async (req, res) => {
     ]);
 
     res.json(orgexp);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.post("/get-month-exp-org", async (req, res) => {
+  let data = req.body;
+  console.log("xxxxxxxxxxxxxxxxxx", data);
+  const selectedY = data.yearSearch;
+
+  var yearVal = new Date().getFullYear();
+  if (selectedY) {
+    yearVal = selectedY;
+  }
+  try {
+    const orgexp = await OrganizationDetails.aggregate([
+      {
+        $match: {
+          enddate: { $regex: new RegExp("^" + yearVal, "i") },
+          AgreementStatus: { $eq: "Expired" },
+          org_status: "Active",
+        },
+      },
+      // {
+      //   $group: {
+      //     _id: {
+      //       year: {
+      //         $year: { $dateFromString: { dateString: "$enddate" } },
+      //       },
+      //       month: {
+      //         $month: {
+      //           $dateFromString: { dateString: "$enddate" },
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
+    ]).then((data) => res.json(data));
+
+    //res.json(orgexp);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");

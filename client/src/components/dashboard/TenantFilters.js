@@ -11,6 +11,7 @@ import {
   getOrganizationExpiryReport,
   ParticularTenant,
   getOrgExpCount,
+  getOrgExp,
   getPreviousYearsExpCountOfOrg,
 } from "../../actions/tenants";
 
@@ -38,6 +39,7 @@ const TenantFilters = ({
   getTenantReportOldExp,
   ParticularTenant,
   getOrgExpCount,
+  getOrgExp,
   getOrganizationExpiryReport,
   getPreviousYearsExpCountOfOrg,
 }) => {
@@ -140,9 +142,12 @@ const TenantFilters = ({
       });
       const finalDataReport = {
         monthSearch: optFiltrVal,
-
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
+      console.log(finalDataReport);
+      getOrgExp(finalDataReport);
+      getOrgExpCount(finalDataReport);
+
       getOrganizationExpiryReport(finalDataReport);
     }
   };
@@ -397,6 +402,7 @@ export default connect(mapStateToProps, {
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
   getTenantReportOldExp,
+  getOrgExp,
   ParticularTenant,
   getOrgExpCount,
   getOrganizationExpiryReport,
