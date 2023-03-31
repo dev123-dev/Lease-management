@@ -129,7 +129,7 @@ const PropertyDetail = ({
 
     if (checkData.length !== 0) {
       e.preventDefault();
-alert(checkData);
+//alert(checkData);
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
