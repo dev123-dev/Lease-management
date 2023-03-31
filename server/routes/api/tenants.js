@@ -855,7 +855,6 @@ router.post("/get-month-exp-org-count", async (req, res) => {
 
 router.post("/get-month-exp-org", async (req, res) => {
   let data = req.body;
-  console.log("xxxxxxxxxxxxxxxxxx", data);
   const selectedY = data.yearSearch;
 
   var yearVal = new Date().getFullYear();
@@ -863,14 +862,43 @@ router.post("/get-month-exp-org", async (req, res) => {
     yearVal = selectedY;
   }
   try {
-    const orgexp = await OrganizationDetails.aggregate([
+    // const orgexp = await OrganizationDetails.aggregate([
+    //   {
+    //     $match: {
+    //       enddate: { $regex: new RegExp("^" + yearVal, "i") },
+    //       AgreementStatus: { $eq: "Expired" },
+    //       org_status: "Active",
+    //     },
+    //   },
+    //   // {
+    //   //   $group: {
+    //   //     _id: {
+    //   //       year: {
+    //   //         $year: { $dateFromString: { dateString: "$enddate" } },
+    //   //       },
+    //   //       month: {
+    //   //         $month: {
+    //   //           $dateFromString: { dateString: "$enddate" },
+    //   //         },
+    //   //       },
+    //   //     },
+    //   //   },
+    //   // },
+    // ]).then((data) => res.json(data));
+    const orgexp = await OrganizationDetails.find(
       {
-        $match: {
-          enddate: { $regex: new RegExp("^" + yearVal, "i") },
-          AgreementStatus: { $eq: "Expired" },
-          org_status: "Active",
-        },
-      },
+        $and: [
+          { enddate: { $regex: new RegExp("^" + yearVal, "i") } },
+          { org_status: "Active" },
+          {
+            $or: [
+              { AgreementStatus: { $eq: "Expired" } },
+              { AgreementStatus: { $eq: "Renewed" } },
+            ],
+          },
+        ],
+      }
+
       // {
       //   $group: {
       //     _id: {
@@ -885,7 +913,7 @@ router.post("/get-month-exp-org", async (req, res) => {
       //     },
       //   },
       // },
-    ]).then((data) => res.json(data));
+    ).then((data) => res.json(data));
 
     //res.json(orgexp);
   } catch (err) {
