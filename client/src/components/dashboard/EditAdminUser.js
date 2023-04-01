@@ -114,6 +114,8 @@ const EditAdminUser = ({
     };
     UpdateUser(updateUSER);
     // getalluser();
+      get_particular_org_user({ orgid: user.OrganizationId });
+
     setRefresh(!refresh);
     setSuperModal(false);
   };
