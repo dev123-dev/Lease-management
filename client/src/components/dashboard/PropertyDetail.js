@@ -369,7 +369,7 @@ const PropertyDetail = ({
                 </div>
                 <div className="col-lg-6">
                   <p className="text-end h6">
-                    No.of Property : {particular_org_data.length}
+                    No. of Property : {particular_org_data.length}
                   </p>
                 </div>
               </div>

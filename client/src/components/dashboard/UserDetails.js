@@ -198,7 +198,7 @@ const UserDetails = ({
                   </div>
                   <div className="col-lg-6">
                     <p className="text-end h6">
-                      No.of User :{" "}
+                      No. of User :{" "}
                       {get_particularOrg_user && get_particularOrg_user.length}
                     </p>
                   </div>
