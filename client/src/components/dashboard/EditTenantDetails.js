@@ -483,8 +483,9 @@ const EditTenantDetails = ({
                 <label>Location*: </label>
                 <input
                   type="text"
-                  placeholder={tenantLocation}
+                  value={tenantLocation}
                   className="form-control"
+                  
                 ></input>
                 <br></br>
               </div>

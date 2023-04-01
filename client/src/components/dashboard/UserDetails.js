@@ -100,7 +100,7 @@ const UserDetails = ({
               style={{ fontFamily: "Serif" }}
               className=" text-right font-weight-bold ml-4"
             >
-              {" "}
+              
               User Details
             </span>
           </h1>
