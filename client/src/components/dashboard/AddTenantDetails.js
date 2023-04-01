@@ -718,14 +718,13 @@ const AddTenantDetails = ({
                             <button
                               key={idx}
                               type="button"
-                              // name="workMistake"
-
+                              
                               className="btn btn-success doorbtn"
                               onClick={() => onSelectChange(DoorNumber)}
                             >
                               {DoorNumber.value}
-                              <span id="savebtn" className="mx-2">
-                                +
+                              <span  className="mx-2">
+                                <b>+</b>
                               </span>
                             </button>
                           );
@@ -753,8 +752,8 @@ const AddTenantDetails = ({
                               onClick={() => onRemoveChange(Doornumber)}
                             >
                               {Doornumber.value}
-                              <span id="savebtn" className="mx-2">
-                                -
+                              <span  className="mx-2">
+                               <b>-</b> 
                               </span>
                             </button>
                           );
