@@ -233,7 +233,7 @@ const TenantReport = ({
                       <th>Expired</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="text-center">
                     {expReport &&
                       expReport[0] &&
                       expReport.map((Val, idx) => {

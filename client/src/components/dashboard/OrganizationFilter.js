@@ -131,7 +131,7 @@ const TenantReport = ({
                             <th>Operation</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="text-center">
                           {ext_year_count_org &&
                             ext_year_count_org[0] &&
                             ext_year_count_org.map((org, index) => {

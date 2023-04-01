@@ -99,7 +99,7 @@ const TenantReport = ({
                     </tr>
                   </thead>
 
-                  <tbody>
+                  <tbody className="text-center">
                     {exp_org &&
                       exp_org[0] &&
                       exp_org.map((org, index) => {
