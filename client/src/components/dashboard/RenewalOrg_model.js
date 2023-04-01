@@ -22,6 +22,8 @@ const RenewalOrg_mainPage = ({
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+  var ED = leaseEndDate.split(/\D/g);
+  var endDate = [ED[2], ED[1], ED[0]].join("-");
 
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
@@ -126,7 +128,7 @@ const RenewalOrg_mainPage = ({
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
               className="form-control cpp-input datevalidation"
-              placeholder={leaseEndDate}
+              placeholder={endDate}
             ></input>
           </div>
         </div>
