@@ -19,12 +19,10 @@ const UserDetails = ({
   get_particular_org_user,
   deactivateUser, //this is a action function to call
 }) => {
-  console.log("user",get_particularOrg_user)
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
     get_particular_org_user();
   }, []);
-
 
   const [formData, setFormData] = useState({
     deactive_reason: "",
@@ -100,7 +98,6 @@ const UserDetails = ({
               style={{ fontFamily: "Serif" }}
               className=" text-right font-weight-bold ml-4"
             >
-              
               User Details
             </span>
           </h1>
@@ -204,7 +201,6 @@ const UserDetails = ({
                       No.of User :{" "}
                       {get_particularOrg_user && get_particularOrg_user.length}
                     </p>
-                     
                   </div>
                 </div>
               </div>
