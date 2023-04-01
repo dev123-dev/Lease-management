@@ -461,7 +461,7 @@ const EditTenantDetails = ({
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Property Name*:</label>
-                <Select
+                {/* <Select
                   name="buildingName"
                   options={allBuildingNames}
                   value={buildingName}
@@ -477,7 +477,14 @@ const EditTenantDetails = ({
                       primary: "#095a4a",
                     },
                   })}
-                ></Select>
+                ></Select> */}
+                <input
+                  type="text"
+                  value={buildingName.label}
+                  className="form-control"
+                  
+                ></input>
+
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Location*: </label>
@@ -773,6 +780,7 @@ const EditTenantDetails = ({
                   {selectedDno &&
                     selectedDno.length > 0 &&
                     selectedDno.map((Doornumber, idx) => {
+                      if(Doornumber.status==="Acquired"){
                       return (
                         <button
                           key={idx}
@@ -792,6 +800,7 @@ const EditTenantDetails = ({
                         </button>
                         // </p>
                       );
+                      }
                     })}
                 </div>
               </div>
