@@ -103,6 +103,8 @@ const TenantReport = ({
                     {exp_org &&
                       exp_org[0] &&
                       exp_org.map((org, index) => {
+                        var ED1 = org.date.split(/\D/g);
+                        var startDate = [ED1[2], ED1[1], ED1[0]].join("-");
                         var ED = org.enddate && org.enddate.split(/\D/g);
                         var EndDate = [
                           ED && ED[2],
@@ -114,7 +116,7 @@ const TenantReport = ({
                             <td>{org.OrganizationName}</td>
                             <td>{org.OrganizationEmail}</td>
                             <td>{org.OrganizationNumber}</td>
-                            <td>{org.date}</td>
+                            <td>{startDate}</td>
                             <td>{EndDate}</td>
                             <td>{org.AgreementStatus}</td>
 

@@ -466,6 +466,7 @@ const AddTenantDetails = ({
                   placeholder="File No"
                   value={tenantFileNo}
                   className="form-control"
+                  pattern="[a-zA-z0-9\-]+$"
                   onChange={(e) => onInputChange(e)}
                   required
                 />{" "}
