@@ -118,7 +118,7 @@ const MainAdminPage = ({
             <div
               className="col-lg-5 card h2 text-center pt-5  "
               id="shadow-bck"
-              style={{ backgroundColor: "#e0e9e5f5" }}
+             
             >
               <div className="text-center">
                 <img
@@ -142,7 +142,7 @@ const MainAdminPage = ({
             <div
               className="col-lg-5 card  h2 text-center pt-5"
               id="shadow-bck"
-              style={{ backgroundColor: "#e0e9e5f5" }}
+            
             >
               <div className="text-center">
                 <img
@@ -171,7 +171,7 @@ const MainAdminPage = ({
             <div
               className="col-lg-5 card h2 text-center pt-5"
               id="shadow-bck"
-              style={{ backgroundColor: "#e0e9e5f5" }}
+              
             >
               <div className="text-center">
                 <img
@@ -195,7 +195,7 @@ const MainAdminPage = ({
             <div
               className="col-lg-5 card h2 text-center pt-5 "
               id="shadow-bck"
-              style={{ backgroundColor: "#e0e9e5f5" }}
+             
             >
               <div className="text-center">
                 <img
