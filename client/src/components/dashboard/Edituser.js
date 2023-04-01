@@ -138,7 +138,7 @@ const Edituser = ({
             </div>
             {superuser.usergroup === "Super Admin" ? (
               <>
-                <div className="col-lg-6">
+                {/* <div className="col-lg-6">
                   <label> Address :</label>
                   <textarea
                     name="useraddress"
@@ -151,11 +151,11 @@ const Edituser = ({
                     style={{ width: "100%" }}
                   ></textarea>
                   <br></br>
-                </div>{" "}
+                </div>{" "} */}
               </>
             ) : (
               <>
-                {" "}
+               
                 <div className="col-lg-6">
                   <label>Organization belongs to *: </label>
 
@@ -191,29 +191,7 @@ const Edituser = ({
                     select Organization
                   </Select> */}
                 </div>
-                <div className="col-lg-6">
-                  <label>UserGroup*:</label>
-
-                  <Select
-                    name="userGroup"
-                    value={userGroup}
-                    options={UserGroups}
-                    onChange={(e) => onuser(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                  />
-                  <br></br>
-                </div>
-                <div className="col-lg-6">
+                 <div className="col-lg-6">
                   <label> Address :</label>
                   <textarea
                     name="useraddress"
@@ -227,35 +205,10 @@ const Edituser = ({
                   ></textarea>
                   <br></br>
                 </div>
+               
               </>
             )}
-            <div className="col-lg-6">
-              <label>Organization belongs to*: </label>
-
-              <Select
-                name="orgname"
-                options={orglist}
-                value={orgname}
-                placeholder={OrganizationName}
-                onChange={(e) => onchangeOrg(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-                required
-              >
-                select Organization
-              </Select>
-            </div>
-
+          
             <div className="col-lg-6">
               <label>UserGroup*:</label>
 
