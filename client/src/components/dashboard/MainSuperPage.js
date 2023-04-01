@@ -124,31 +124,32 @@ const MainSuperPage = ({
                           SD && SD[1],
                           SD && SD[0],
                         ].join("-");
-
-                        return (
-                          <tr key={index}>
-                            <td>{org.OrganizationName}</td>
-                            <td>{org.OrganizationEmail}</td>
-                            <td>{org.OrganizationNumber}</td>
-                            <td>{org.OrganizationAddress}</td>
-                            <td>{org.org_status}</td>
-                            <td>{org.AgreementStatus}</td>
-                            <td>{StartDate}</td>
-                            <td>{Enddate}</td>
-                            <td>
-                              {org.AgreementStatus === "Expired" ? (
-                                <button
-                                  className="rewbtn"
-                                  onClick={() => onRenewal(org, index)}
-                                >
-                                  Renewal
-                                </button>
-                              ) : (
-                                <p></p>
-                              )}
-                            </td>
-                          </tr>
-                        );
+                        if (org.AgreementStatus !== "Deactivated") {
+                          return (
+                            <tr key={index}>
+                              <td>{org.OrganizationName}</td>
+                              <td>{org.OrganizationEmail}</td>
+                              <td>{org.OrganizationNumber}</td>
+                              <td>{org.OrganizationAddress}</td>
+                              <td>{org.org_status}</td>
+                              <td>{org.AgreementStatus}</td>
+                              <td>{StartDate}</td>
+                              <td>{Enddate}</td>
+                              <td>
+                                {org.AgreementStatus === "Expired" ? (
+                                  <button
+                                    className="rewbtn"
+                                    onClick={() => onRenewal(org, index)}
+                                  >
+                                    Renewal
+                                  </button>
+                                ) : (
+                                  <p></p>
+                                )}
+                              </td>
+                            </tr>
+                          );
+                        }
                       })}
                   </tbody>
                 </table>
