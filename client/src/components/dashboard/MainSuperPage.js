@@ -108,7 +108,7 @@ const MainSuperPage = ({
                       <th>Renewal</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody className="text-center">
                     {currentDatas &&
                       currentDatas[0] &&
                       currentDatas.map((org, index) => {

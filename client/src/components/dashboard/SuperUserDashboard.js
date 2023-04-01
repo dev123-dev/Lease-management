@@ -148,7 +148,7 @@ const SuperUserDashboard = ({
                             <th>Operation</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="text-center">
                           {currentDatas &&
                             currentDatas[0] &&
                             currentDatas.map((allsuperuse, idx) => {
