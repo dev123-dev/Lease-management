@@ -237,10 +237,10 @@ const TenantReport = ({
                     {expReport &&
                       expReport[0] &&
                       expReport.map((Val, idx) => {
-                        // var ED = Val.tenantLeaseEndDate.split(/\D/g);
-                        // var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-                        //   "-"
-                        // );
+                        var ED = Val.tenantLeaseEndDate.split(/\D/g);
+                        var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
+                          "-"
+                        );
                         return (
                           <tr key={idx}>
                             <td>{Val.tenantName}</td>
@@ -253,7 +253,7 @@ const TenantReport = ({
                             <td>{Val.tenantFileNo}</td>
                             <td>{Val.Location}</td>
                             <td>{Val.stampDuty}</td>
-                            <td>{Val.tenantLeaseEndDate}</td>
+                            <td>{tenantLeaseEndDate}</td>
                             <td>{Val.chargesCal}</td>
                             <td>{Val.AgreementStatus}</td>
                             {Val.AgreementStatus === "Expired" ? (
