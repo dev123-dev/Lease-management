@@ -307,7 +307,6 @@ router.get("/get-all-Organization", async (req, res) => {
 //get particular organization for displaying location in Add property page
 router.post("/get-particular-org", async (req, res) => {
   let data = req.body;
-  // console.log(data);
   try {
     if (data.OrganizationId) {
       OrganizationDetails.find(
@@ -359,8 +358,6 @@ router.post("/update-Organization", async (req, res) => {
 
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   if (data.enddate < todayDateymd) {
-    console.log(data);
-
     UserDetails.updateMany(
       {
         OrganizationId: data.OrganizationId,
@@ -370,7 +367,7 @@ router.post("/update-Organization", async (req, res) => {
           OrganizationName: data.OrganizationName,
         },
       }
-    ).then((data) => console.log(data));
+    ).then(data);
 
     await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
@@ -397,7 +394,7 @@ router.post("/update-Organization", async (req, res) => {
           OrganizationName: data.OrganizationName,
         },
       }
-    ).then((data) => console.log(data));
+    ).then(data);
 
     const updateorg = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
@@ -647,7 +644,7 @@ router.post("/deactive-property", async (req, res) => {
             },
           }
         )
-        .then((data) => console.log("update with len < 0", data));
+        .then(data);
     } else {
       data.Dno.map((eleDoor) => {
         property
@@ -664,7 +661,7 @@ router.post("/deactive-property", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log("update with len > 1", data));
+          .then(data);
       });
     }
 
@@ -879,7 +876,6 @@ router.post("/get-month-exp-org-count", async (req, res) => {
         },
       },
     ]);
-    console.log("orgexp", orgexp);
     res.json(orgexp);
   } catch (err) {
     console.error(err.message);
