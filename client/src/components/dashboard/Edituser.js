@@ -88,7 +88,7 @@ const Edituser = ({
     };
     console.log(updateUSER);
     UpdateUser(updateUSER);
-
+    getalluser();
     handleClose(true);
   };
 

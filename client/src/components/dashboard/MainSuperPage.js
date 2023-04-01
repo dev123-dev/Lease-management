@@ -61,6 +61,8 @@ const MainSuperPage = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+  const totallorg=allorg.filter((ele)=>ele.org_status!=="Deactive");
+
   return !isAuthenticated || !user || !users || loading ? (
     // <Roller />
     <></>
@@ -173,7 +175,7 @@ const MainSuperPage = ({
               <div className="col-lg-6  ">
                 <p className="text-end h6">
                   {" "}
-                  No of Organization : {allorg.length}
+                  No of Organization : {totallorg.length}
                 </p>
               </div>
             </div>
