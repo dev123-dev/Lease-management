@@ -7,23 +7,26 @@ import RenewTenentAgreement from "./RenewTenentAgreement";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 import { useHistory } from "react-router-dom";
-import {getPreviousYearsExpCountOfOrg}  from "../../actions/tenants";
+import { getPreviousYearsExpCountOfOrg } from "../../actions/tenants";
 
 const TenantReport = ({
   auth: { expReport, isAuthenticated, user, users },
   tenants: { allTenants, ext_year_count_org },
-  getAllTenants,getPreviousYearsExpCountOfOrg,
+  getAllTenants,
+  getPreviousYearsExpCountOfOrg,
   deactiveTenantsDetails,
 }) => {
-  const year=JSON.parse(localStorage.getItem("year")) || {selectedVal:new Date().toISOString(),"selectedY": new Date().getFullYear() };
-  console.log("yer",year);
+  const [refresh, SetRefresh] = useState("");
+
+  const year = JSON.parse(localStorage.getItem("year")) || {
+    selectedVal: new Date().toISOString(),
+    selectedY: new Date().getFullYear(),
+  };
   let history = useHistory();
   useEffect(() => {
     getAllTenants();
     getPreviousYearsExpCountOfOrg(year);
-
-  },[]); 
-  //"2023-01-01T05:45:32.000Z"
+  }, [refresh]);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -57,8 +60,8 @@ const TenantReport = ({
   const onRenewalOrganization = (org) => {
     setShowEditModal(true);
     setUserData(org);
-    history.push("/Renewal-Org", org);
-    console.log("renewal main",org);
+    history.push("/Renewal-Org", { org: org, SetRefresh: refresh });
+    //history.push("/Renewal-Org", org);
   };
   const onRenewal = (tenants) => {
     setShowEditModal(true);
@@ -86,35 +89,32 @@ const TenantReport = ({
   ) : (
     <>
       {user.usergroup === "Super Admin" ? (
-        
-          <div className="col mt-sm-5 DashBoard ">
+        <div className="col mt-sm-5 DashBoard ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
-            
-          <div>
-          <h1
-            style={{
-              fontFamily: "Serif",
-              color: "#095a4a",
-            }}
-            className="font-weight-bold headsize"
-          >
-            <span
-              style={{ fontFamily: "Serif" }}
-              className=" text-right font-weight-bold ml-5"
-            >
-              {" "}
-             Renewal Dashboard
-            </span>
-          </h1>
-          <hr className="line"></hr>
-        </div>
-            
-                
-        <div className="container-fluid d-flex align-items-center justify-content-center ">
-        <div className="col">
-              <div className="row">
-                <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                <div className="col-lg-1"></div>
+            <div>
+              <h1
+                style={{
+                  fontFamily: "Serif",
+                  color: "#095a4a",
+                }}
+                className="font-weight-bold headsize"
+              >
+                <span
+                  style={{ fontFamily: "Serif" }}
+                  className=" text-right font-weight-bold ml-5"
+                >
+                  {" "}
+                  Renewal Dashboard
+                </span>
+              </h1>
+              <hr className="line"></hr>
+            </div>
+
+            <div className="container-fluid d-flex align-items-center justify-content-center ">
+              <div className="col">
+                <div className="row">
+                  <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
+                    <div className="col-lg-1"></div>
                     <div className="body-inner no-padding table-responsive ml-2">
                       <table
                         className="table table-bordered table-striped table-hover table1 mt-2 "
@@ -145,14 +145,7 @@ const TenantReport = ({
                                   <td>{org.enddate}</td>
                                   <td>
                                     {org.AgreementStatus === "Expired" ? (
-                                      <button
-                                        className="rewbtn"
-                                        onClick={() =>
-                                          onRenewalOrganization(org)
-                                        }
-                                      >
-                                        Renewal
-                                      </button>
+                                      <i> Renewal</i>
                                     ) : (
                                       <p></p>
                                     )}
@@ -164,14 +157,12 @@ const TenantReport = ({
                       </table>
                     </div>
                     <div className="col-lg-1"></div>
+                  </div>
                 </div>
               </div>
-              </div>
-              </div>
-
-              </div>
+            </div>
           </div>
-        
+        </div>
       ) : (
         <Fragment>
           <div className="container container_align ">

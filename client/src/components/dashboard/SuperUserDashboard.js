@@ -17,7 +17,6 @@ const SuperUserDashboard = ({
   getParticularUser,
   deactivateUser, //this is a action function to call
 }) => {
-  console.log("user",user)
   const [refresh, setrefresh] = useState(false);
   useEffect(() => {
     getalluser();
@@ -91,31 +90,27 @@ const SuperUserDashboard = ({
   return (
     <div>
       {!loading &&
-        isAuthenticated &&
-        user &&
-        user.usergroup === "Super Admin" ? (
+      isAuthenticated &&
+      user &&
+      user.usergroup === "Super Admin" ? (
         // this is for super admin page
 
         <>
           <div className="col mt-sm-5">
-           
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
               <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 <h1
                   style={{
                     fontFamily: "Serif",
                     color: "#095a4a",
-                    position:"relative",
-                    right:"60px",
+                    position: "relative",
+                    right: "60px",
                   }}
                   className="font-weight-bold headsize "
                 >
-                  
-                    {" "}
-                    User Details
-                  
+                  {" "}
+                  User Details
                 </h1>
-               
               </div>
               <hr className="line"></hr>
 
@@ -135,7 +130,6 @@ const SuperUserDashboard = ({
                   </div>
 
                   <div className="row">
-
                     <div className="col-lg-1"></div>
 
                     <div className="body-inner no-padding table-responsive">
@@ -249,10 +243,15 @@ const SuperUserDashboard = ({
             <Modal.Header className="confirmbox-heading">
               <div className="col-lg-10">
                 <div className="ml-4">
-                  <h3 style={{
-                    fontFamily: "Sans-serif",
-                    color: "white",
-                  }} className="text-center   ml-4 ">Edit User Details</h3>
+                  <h3
+                    style={{
+                      fontFamily: "Sans-serif",
+                      color: "white",
+                    }}
+                    className="text-center   ml-4 "
+                  >
+                    Edit User Details
+                  </h3>
                 </div>
               </div>
               <div className="col-lg-2">
@@ -280,10 +279,15 @@ const SuperUserDashboard = ({
               <Modal.Header className="confirmbox-heading">
                 <div className="col-lg-11 ">
                   <div className="modal-title">
-                    <h3 style={{
-                      fontFamily: "Sans-serif",
-                      color: "white",
-                    }} className="text-center">DEACTIVATE </h3>
+                    <h3
+                      style={{
+                        fontFamily: "Sans-serif",
+                        color: "white",
+                      }}
+                      className="text-center"
+                    >
+                      DEACTIVATE{" "}
+                    </h3>
                   </div>
                 </div>
                 <div className="close">

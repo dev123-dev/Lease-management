@@ -879,7 +879,7 @@ router.post("/get-month-exp-org-count", async (req, res) => {
         },
       },
     ]);
-
+    console.log("orgexp", orgexp);
     res.json(orgexp);
   } catch (err) {
     console.error(err.message);
@@ -919,35 +919,18 @@ router.post("/get-month-exp-org", async (req, res) => {
     //   //   },
     //   // },
     // ]).then((data) => res.json(data));
-    const orgexp = await OrganizationDetails.find(
-      {
-        $and: [
-          { enddate: { $regex: new RegExp("^" + yearVal, "i") } },
-          { org_status: "Active" },
-          {
-            $or: [
-              { AgreementStatus: { $eq: "Expired" } },
-              { AgreementStatus: { $eq: "Renewed" } },
-            ],
-          },
-        ],
-      }
-
-      // {
-      //   $group: {
-      //     _id: {
-      //       year: {
-      //         $year: { $dateFromString: { dateString: "$enddate" } },
-      //       },
-      //       month: {
-      //         $month: {
-      //           $dateFromString: { dateString: "$enddate" },
-      //         },
-      //       },
-      //     },
-      //   },
-      // },
-    ).then((data) => res.json(data));
+    await OrganizationDetails.find({
+      $and: [
+        { enddate: { $regex: new RegExp("^" + yearVal, "i") } },
+        { org_status: "Active" },
+        {
+          $or: [
+            { AgreementStatus: { $eq: "Expired" } },
+            { AgreementStatus: { $eq: "Renewed" } },
+          ],
+        },
+      ],
+    }).then((data) => res.json(data));
 
     //res.json(orgexp);
   } catch (err) {
