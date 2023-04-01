@@ -152,41 +152,45 @@ const SuperUserDashboard = ({
                           {currentDatas &&
                             currentDatas[0] &&
                             currentDatas.map((allsuperuse, idx) => {
-                              return (
-                                <tr key={idx}>
-                                  <td>{allsuperuse.username}</td>
-                                  <td>{allsuperuse.useremail}</td>
-                                  <td>{allsuperuse.userphone}</td>
-                                  <td>{allsuperuse.usergroup}</td>
-                                  <td>{allsuperuse.OrganizationName}</td>
-                                  <td>{allsuperuse.useraddress}</td>
-                                  {allsuperuse.userStatus === "Active" ? (
-                                    <td className="text-center">
-                                      <img
-                                        className="Cursor "
-                                        onClick={() => onEdit(allsuperuse, idx)}
-                                        src={require("../../static/images/edit_icon.png")}
-                                        alt="Edit"
-                                        title="Edit"
-                                      />
-                                      &nbsp;
-                                      <img
-                                        className="Cursor "
-                                        onClick={() =>
-                                          onDelete(allsuperuse._id)
-                                        }
-                                        src={require("../../static/images/delete.png")}
-                                        alt="delete"
-                                        title="delete"
-                                      />
-                                    </td>
-                                  ) : (
-                                    <td className="blank text-center">
-                                      Deactivated
-                                    </td>
-                                  )}
-                                </tr>
-                              );
+                              if (allsuperuse.usergroup !== "Super Admin") {
+                                return (
+                                  <tr key={idx}>
+                                    <td>{allsuperuse.username}</td>
+                                    <td>{allsuperuse.useremail}</td>
+                                    <td>{allsuperuse.userphone}</td>
+                                    <td>{allsuperuse.usergroup}</td>
+                                    <td>{allsuperuse.OrganizationName}</td>
+                                    <td>{allsuperuse.useraddress}</td>
+                                    {allsuperuse.userStatus === "Active" ? (
+                                      <td className="text-center">
+                                        <img
+                                          className="Cursor "
+                                          onClick={() =>
+                                            onEdit(allsuperuse, idx)
+                                          }
+                                          src={require("../../static/images/edit_icon.png")}
+                                          alt="Edit"
+                                          title="Edit"
+                                        />
+                                        &nbsp;
+                                        <img
+                                          className="Cursor "
+                                          onClick={() =>
+                                            onDelete(allsuperuse._id)
+                                          }
+                                          src={require("../../static/images/delete.png")}
+                                          alt="delete"
+                                          title="delete"
+                                        />
+                                      </td>
+                                    ) : (
+                                      <td className="blank text-center">
+                                        Deactivated
+                                      </td>
+                                    )}
+                                  </tr>
+                                );
+                              }
                             })}
                         </tbody>
                       </table>
