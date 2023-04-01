@@ -129,7 +129,9 @@ const RenewTenentAgreement = ({
             <label>Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label><b>{tenantsData.tenantName}</b></label>
+            <label>
+              <b>{tenantsData.tenantName}</b>
+            </label>
           </div>
         </div>
 
@@ -145,7 +147,7 @@ const RenewTenentAgreement = ({
               className="form-control"
               value={tenantsData.BuildingName}
               onChange={(e) => onInputChange(e)}
-              required
+              readOnly
               style={{
                 width: "100%",
               }}
@@ -164,7 +166,7 @@ const RenewTenentAgreement = ({
               className="form-control"
               value={tenantFileNo}
               onChange={(e) => onInputChange(e)}
-              required
+              readOnly
               style={{
                 width: "100%",
               }}
@@ -183,7 +185,7 @@ const RenewTenentAgreement = ({
               className="form-control"
               value={tenantRentAmount}
               onChange={(e) => onInputChange(e)}
-              required
+              readOnly
               style={{
                 width: "100%",
               }}
@@ -198,6 +200,7 @@ const RenewTenentAgreement = ({
           <div className="col-lg-6 col-md-4 col-sm-4 col-12">
             <input
               type="date"
+              required
               placeholder="dd/mm/yyyy"
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
@@ -228,8 +231,6 @@ const RenewTenentAgreement = ({
                 leaseEndDate !== ""
                   ? { opacity: "1" }
                   : { opacity: "1", pointerEvents: "none" }
-                
-
               }
             >
               Save
