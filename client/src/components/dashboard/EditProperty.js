@@ -13,19 +13,29 @@ const EditProperty = ({
 }) => {
   useEffect(() => {
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    fun();
+    // fun();
   }, []);
-
-  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
-    color: "white",
-    fontFamily: "Arial",
-    display: "none",
-  });
+  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState("black");
 
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [Sellocation, SetselLoction] = useState([]);
-  const [orgLoc, setLoc] = useState(Propertydata.Location);
+  // const loc = [];
+  let newLoc = particular_org_loc[0];
+  const loc =
+    newLoc &&
+    newLoc.Location.map((ele) => {
+      return {
+        label: ele,
+        value: ele,
+      };
+    });
+  const [orgLoc, setLoc] = useState(
+    Propertydata
+      ? loc && loc.filter((x) => x.label === Propertydata.Location)[0]
+      : ""
+  );
+  // const [orgLoc, setLoc] = useState(Propertydata.Location);
   // if (
   //   !orgLoc &&
   //   Propertydata &&
@@ -65,34 +75,17 @@ const EditProperty = ({
       if (new_door.every((ele) => ele === false)) {
         setdno([...dno, { doorNo: inputdata, status: "Avaiable" }]);
         setinput("");
-        SetRoomAlreadyExist({
-          display: "none",
-        });
+        SetRoomAlreadyExist("black");
       } else {
-        SetRoomAlreadyExist({
-          display: "inline",
-          color: "#FF0000",
-        });
+        SetRoomAlreadyExist("red");
       }
-
       //setdno(delitem);
     }
   };
   const onchangeLoc = (e) => {
     setLoc(e);
   };
-  const loc = [];
-  const { Location } = particular_org_loc[0];
-  const fun = () => {
-    particular_org_loc[0] &&
-      Location.map((ele) => {
-        loc.push({
-          label: ele,
-          value: ele,
-        });
-        SetselLoction(loc);
-      });
-  };
+
   //multiple location end
   const [formData, setFormData] = useState({
     buildingName: Propertydata.buildingName,
@@ -218,10 +211,11 @@ const EditProperty = ({
               <label>Location*:</label>
               <Select
                 name="orgLoc"
-                options={Sellocation}
-                value={orgLoc}
+                options={loc}
+                // value={orgLoc.label}
                 readOnly={true}
                 onChange={(e) => onchangeLoc(e)}
+                placeholder={orgLoc.value}
                 theme={(theme) => ({
                   ...theme,
                   height: 26,
@@ -238,7 +232,9 @@ const EditProperty = ({
             </div>
 
             <div className="  col-lg-6 ">
-              <label className="ml-2">Door No*: </label>
+              <label className="ml-2" style={{ color: RoomAlreadyExist }}>
+                Door No*:{" "}
+              </label>
               <input
                 className="form-control"
                 type="text"
@@ -282,9 +278,9 @@ const EditProperty = ({
                   })}
                 </div>
               </div>
-              <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
+              {/* <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
                 RoomAlreadyExist
-              </p>
+              </p> */}
             </div>
             <div className="col-lg-9 text-danger">
               * Indicates mandatory fields, Please fill mandatory fields before
