@@ -136,6 +136,99 @@ const Edituser = ({
               />
               <br></br>
             </div>
+            {superuser.usergroup === "Super Admin" ? (
+              <>
+                <div className="col-lg-6">
+                  <label> Address :</label>
+                  <textarea
+                    name="useraddress"
+                    value={useraddress}
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    onChange={(e) => onInputChange(e)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                  <br></br>
+                </div>{" "}
+              </>
+            ) : (
+              <>
+                {" "}
+                <div className="col-lg-6">
+                  <label>Organization belongs to *: </label>
+
+                  <input
+                    type="text"
+                    name="userphone"
+                    value={superuser.OrganizationName}
+                    className="form-control"
+                    onChange={(e) => onInputChange(e)}
+                    readOnly
+                  />
+
+                  {/* <Select
+                    name="orgname"
+                    options={orglist}
+                    value={orgname}
+                    placeholder={OrganizationName}
+                    onChange={(e) => onchangeOrg(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                    required
+                  >
+                    select Organization
+                  </Select> */}
+                </div>
+                <div className="col-lg-6">
+                  <label>UserGroup*:</label>
+
+                  <Select
+                    name="userGroup"
+                    value={userGroup}
+                    options={UserGroups}
+                    onChange={(e) => onuser(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  />
+                  <br></br>
+                </div>
+                <div className="col-lg-6">
+                  <label> Address :</label>
+                  <textarea
+                    name="useraddress"
+                    value={useraddress}
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    onChange={(e) => onInputChange(e)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                  <br></br>
+                </div>
+              </>
+            )}
             <div className="col-lg-6">
               <label>Organization belongs to*: </label>
 
@@ -161,20 +254,6 @@ const Edituser = ({
               >
                 select Organization
               </Select>
-            </div>
-            <div className="col-lg-6">
-              <label> Address :</label>
-              <textarea
-                name="useraddress"
-                value={useraddress}
-                className="textarea form-control"
-                rows="3"
-                cols="20"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-              ></textarea>
-              <br></br>
             </div>
 
             <div className="col-lg-6">
