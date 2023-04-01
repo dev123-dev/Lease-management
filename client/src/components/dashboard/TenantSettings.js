@@ -121,6 +121,7 @@ const TenantSettings = ({
               name="hike"
               className="form-control"
               value={hike}
+              
               onChange={(e) => setHike(e.target.value)}
               required
             />
@@ -161,6 +162,10 @@ const TenantSettings = ({
             />
           </div>
         </div>
+        <div className="col-lg-9 text-danger">
+                * Indicates mandatory fields, Please fill mandatory fields
+                before Submit
+              </div>
         <div className="col-lg-12 col-sm-12 col-12 text-danger ">{Error}</div>
         <div className="col-lg-12 col-sm-12 col-12 ">
           {allTenantSetting == null ? (
