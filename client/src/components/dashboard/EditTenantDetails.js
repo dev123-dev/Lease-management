@@ -448,6 +448,18 @@ const EditTenantDetails = ({
                 </h2>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label className="ml-2">Tenant Name*: </label>
+                <input
+                  type="text"
+                  name="tenantName"
+                  placeholder="Name"
+                  value={tenantName}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Property Name*:</label>
                 <Select
                   name="buildingName"
@@ -483,23 +495,13 @@ const EditTenantDetails = ({
                   name="tenantFileNo"
                   placeholder="FileNo"
                   value={tenantFileNo}
+                  pattern="[a-zA-z0-9\-]+$"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   required
                 />
               </div>
-              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label className="ml-2">Tenant Name*: </label>
-                <input
-                  type="text"
-                  name="tenantName"
-                  placeholder="Name"
-                  value={tenantName}
-                  className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                  required
-                />
-              </div>
+             
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label>Phone No:</label>
                 <input
@@ -724,7 +726,7 @@ const EditTenantDetails = ({
               <div className="row ml-1 ">
                 {/* to sel */}
                 <div
-                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right "
+                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right bg-white "
                   style={{ border: "transparent", minHeight: "90px" }}
                 >
                   <div
