@@ -85,7 +85,9 @@ const TenantSettings = ({
 
   const onUpdate = () => {
     if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
-      SetError("Please Fill All the Field");
+      SetError(
+        "* Indicates mandatory fields, Please fill mandatory fields before Submit"
+      );
     } else {
       const finalData = {
         OrganizationId: user.OrganizationId,
