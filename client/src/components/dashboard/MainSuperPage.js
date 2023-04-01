@@ -175,7 +175,7 @@ const MainSuperPage = ({
               <div className="col-lg-6  ">
                 <p className="text-end h6">
                   {" "}
-                  No of Organization : {totallorg.length}
+                  No. of Organization : {totallorg.length}
                 </p>
               </div>
             </div>

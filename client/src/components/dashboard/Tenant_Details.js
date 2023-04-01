@@ -409,7 +409,7 @@ setError("Please Select DoorNumber")
                   </div> */}
                    <div className="col-lg-6">
                   <p className="text-end h6">
-                  No.of Tenants: {tenantCount.length}
+                  No. of Tenants: {tenantCount.length}
                   </p>
                 </div>
                 </div>
