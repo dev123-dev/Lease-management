@@ -2,14 +2,14 @@ import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { UpdateUser } from "../../actions/tenants";
+import { UpdateUser,get_particular_org_user } from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
 const Edituser = ({
   auth: { isAuthenticated, user, users },
   tenants: { allorg },
   superuser,
-  UpdateUser,
+  UpdateUser,get_particular_org_user,
   getalluser,
   EditModal,
 }) => {
@@ -71,6 +71,7 @@ const Edituser = ({
     setus(e);
   };
   const [refersh, setrefresh] = useState("");
+
   const onUpdate = (e) => {
     e.preventDefault();
     setrefresh("x");
@@ -87,6 +88,7 @@ const Edituser = ({
     };
     UpdateUser(updateUSER);
     getalluser();
+  //  get_particular_org_user({ orgid: user.OrganizationId });
     handleClose(true);
   };
 
@@ -256,5 +258,5 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   UpdateUser,
-  getalluser,
+  getalluser,get_particular_org_user,
 })(Edituser); // to connect to particular function which is getalluser
