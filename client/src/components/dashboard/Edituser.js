@@ -61,13 +61,12 @@ const Edituser = ({
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const [us, setus] = useState(
+  const [userGroup, setus] = useState(
     superuser
       ? UserGroups &&
           UserGroups.filter((x) => x.value === superuser.usergroup)[0]
       : ""
   );
-
   const onuser = (e) => {
     setus(e);
   };
@@ -82,21 +81,17 @@ const Edituser = ({
       userphone: userphone,
       useraddress: useraddress,
       useremail: useremail,
-      usergroup: us,
-      OrganizationName: orgname.label,
-      OrganizationId: orgname.value,
+      usergroup: userGroup ? userGroup.value : "",
+      OrganizationName: orgname ? orgname.label : "",
+      OrganizationId: orgname ? orgname.value : "",
     };
-    console.log(updateUSER);
     UpdateUser(updateUSER);
 
     handleClose(true);
   };
 
-  // useEffect( () => () => console.log("unmount"), [] );
-
   useEffect(() => {
     getalluser();
-
   }, [refersh]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -160,7 +155,6 @@ const Edituser = ({
                     ...theme.colors,
                     primary25: "#e8a317",
                     primary: "#095a4a",
-                    
                   },
                 })}
                 required
@@ -187,8 +181,8 @@ const Edituser = ({
               <label>UserGroup*:</label>
 
               <Select
-                name="us"
-                value={us}
+                name="userGroup"
+                value={userGroup}
                 options={UserGroups}
                 onChange={(e) => onuser(e)}
                 theme={(theme) => ({
@@ -200,7 +194,6 @@ const Edituser = ({
                     ...theme.colors,
                     primary25: "#e8a317",
                     primary: "#095a4a",
-                    
                   },
                 })}
               />
@@ -221,8 +214,6 @@ const Edituser = ({
             />
           </div>
         </div>
-
-      
       </form>
     </Fragment>
   );
