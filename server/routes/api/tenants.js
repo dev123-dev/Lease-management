@@ -567,7 +567,7 @@ router.post("/Update-User", async (req, res) => {
           username: data.username,
           userphone: data.userphone,
           useremail: data.useremail,
-          usergroup: data.usergroup.label,
+          usergroup: data.usergroup,
           useraddress: data.useraddress,
           OrganizationName: data.OrganizationName,
           OrganizationId: data.OrganizationId,
