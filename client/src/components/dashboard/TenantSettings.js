@@ -110,13 +110,13 @@ const TenantSettings = ({
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="row">
+      <div className="row ">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-4 col-md-2 col-sm-1 col-12">
-            <label> Hike Percentage*:</label>
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label> Hike %*:</label>
           </div>
 
-          <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-5 col-md-4 col-sm-4  col-12 ">
             <input
               placeholder="Hike Percentage"
               type="text"
@@ -127,7 +127,10 @@ const TenantSettings = ({
               onChange={(e) => setHike(e.target.value)}
               required
             />
+          
+           
           </div>
+          
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
@@ -149,7 +152,7 @@ const TenantSettings = ({
 
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Lease Time Period*:</label>
+            <label>Lease Time Period*:(in months)</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -177,7 +180,7 @@ const TenantSettings = ({
               id="TenantSettingBtn"
               onClick={() => onSubmit()}
             >
-              Save
+              <b>Save</b>
             </button>
           ) : (
             <button
@@ -186,7 +189,7 @@ const TenantSettings = ({
               id="TenantSettingBtn"
               onClick={() => onUpdate()}
             >
-              Update
+             <b>Update</b> 
             </button>
           )}
         </div>
