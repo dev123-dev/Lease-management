@@ -61,13 +61,12 @@ const Edituser = ({
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const [us, setus] = useState(
+  const [userGroup, setus] = useState(
     superuser
       ? UserGroups &&
           UserGroups.filter((x) => x.value === superuser.usergroup)[0]
       : ""
   );
-
   const onuser = (e) => {
     setus(e);
   };
@@ -82,21 +81,17 @@ const Edituser = ({
       userphone: userphone,
       useraddress: useraddress,
       useremail: useremail,
-      usergroup: us,
-      OrganizationName: orgname.label,
-      OrganizationId: orgname.value,
+      usergroup: userGroup ? userGroup.value : "",
+      OrganizationName: orgname ? orgname.label : "",
+      OrganizationId: orgname ? orgname.value : "",
     };
-    console.log(updateUSER);
     UpdateUser(updateUSER);
     getalluser();
     handleClose(true);
   };
 
-  // useEffect( () => () => console.log("unmount"), [] );
-
   useEffect(() => {
     getalluser();
-
   }, [refersh]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -141,6 +136,99 @@ const Edituser = ({
               />
               <br></br>
             </div>
+            {superuser.usergroup === "Super Admin" ? (
+              <>
+                <div className="col-lg-6">
+                  <label> Address :</label>
+                  <textarea
+                    name="useraddress"
+                    value={useraddress}
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    onChange={(e) => onInputChange(e)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                  <br></br>
+                </div>{" "}
+              </>
+            ) : (
+              <>
+                {" "}
+                <div className="col-lg-6">
+                  <label>Organization belongs to *: </label>
+
+                  <input
+                    type="text"
+                    name="userphone"
+                    value={superuser.OrganizationName}
+                    className="form-control"
+                    onChange={(e) => onInputChange(e)}
+                    readOnly
+                  />
+
+                  {/* <Select
+                    name="orgname"
+                    options={orglist}
+                    value={orgname}
+                    placeholder={OrganizationName}
+                    onChange={(e) => onchangeOrg(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                    required
+                  >
+                    select Organization
+                  </Select> */}
+                </div>
+                <div className="col-lg-6">
+                  <label>UserGroup*:</label>
+
+                  <Select
+                    name="userGroup"
+                    value={userGroup}
+                    options={UserGroups}
+                    onChange={(e) => onuser(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  />
+                  <br></br>
+                </div>
+                <div className="col-lg-6">
+                  <label> Address :</label>
+                  <textarea
+                    name="useraddress"
+                    value={useraddress}
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    onChange={(e) => onInputChange(e)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                  <br></br>
+                </div>
+              </>
+            )}
             <div className="col-lg-6">
               <label>Organization belongs to*: </label>
 
@@ -160,7 +248,6 @@ const Edituser = ({
                     ...theme.colors,
                     primary25: "#e8a317",
                     primary: "#095a4a",
-                    
                   },
                 })}
                 required
@@ -168,27 +255,13 @@ const Edituser = ({
                 select Organization
               </Select>
             </div>
-            <div className="col-lg-6">
-              <label> Address :</label>
-              <textarea
-                name="useraddress"
-                value={useraddress}
-                className="textarea form-control"
-                rows="3"
-                cols="20"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-              ></textarea>
-              <br></br>
-            </div>
 
             <div className="col-lg-6">
               <label>UserGroup*:</label>
 
               <Select
-                name="us"
-                value={us}
+                name="userGroup"
+                value={userGroup}
                 options={UserGroups}
                 onChange={(e) => onuser(e)}
                 theme={(theme) => ({
@@ -200,7 +273,6 @@ const Edituser = ({
                     ...theme.colors,
                     primary25: "#e8a317",
                     primary: "#095a4a",
-                    
                   },
                 })}
               />
@@ -221,8 +293,6 @@ const Edituser = ({
             />
           </div>
         </div>
-
-      
       </form>
     </Fragment>
   );

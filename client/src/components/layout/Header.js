@@ -43,7 +43,6 @@ const Header = ({
   const handleLogoutModalClose = () => setShowLogout(false);
 
   const handleLogoutModalShow = () => {
-    
     setShowLogout(true);
   };
   const handleTenantSettingModalClose = () => setTenantSetting(false);
@@ -51,8 +50,8 @@ const Header = ({
 
   const LogoutModalClose = () => {
     handleLogoutModalClose();
-   
-     logout();
+
+    logout();
   };
 
   const onAddSettingModalChange = (e) => {
@@ -60,9 +59,7 @@ const Header = ({
       handleTenantSettingModalClose();
     }
   };
-  const openSecondLevelMenu2 = () => {
-   
-  };
+  const openSecondLevelMenu2 = () => {};
 
   return (
     <Fragment>
@@ -118,7 +115,6 @@ const Header = ({
                     id="hea"
                     className="navlink headinghover   "
                     activeStyle={{
-                      
                       color: "#e8a317",
 
                       textDecoration: "none",
@@ -143,7 +139,7 @@ const Header = ({
                     className="navlink"
                     activeStyle={{
                       color: "#e8a317",
-                     
+
                       textDecoration: "none",
                     }}
                   >
@@ -170,7 +166,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                    
+
                       textDecoration: "none",
                     }}
                   >
@@ -192,7 +188,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-              
+
                       textDecoration: "none",
                     }}
                   >
@@ -215,7 +211,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                  
+
                       textDecoration: "none",
                     }}
                   >
@@ -240,7 +236,7 @@ const Header = ({
                             // onClick={() => handleLogoutModalShow()}
                             className="navbar-right pt-3 "
                           >
-                            {user.usergroup} &nbsp;
+                            {user.username} &nbsp;
                             <i className="fa fa-caret-down" />
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -283,7 +279,7 @@ const Header = ({
                       <Modal.Footer>
                         <button
                           id="logoutbtn"
-                           onClick={() => LogoutModalClose()}
+                          onClick={() => LogoutModalClose()}
                         >
                           <b>YES</b>
                         </button>
@@ -404,15 +400,15 @@ const Header = ({
                     >
                       <Modal.Header className="confirmbox-heading">
                         <div className="col-lg-10">
-                        <h3
-                style={{
-                  fontFamily: "Sans-serif",
-                  color: "white",
-                }}
-                className="text-center  ml-4"
-              >
-                Tenant Setting
-              </h3>
+                          <h3
+                            style={{
+                              fontFamily: "Sans-serif",
+                              color: "white",
+                            }}
+                            className="text-center  ml-4"
+                          >
+                            Tenant Setting
+                          </h3>
                         </div>
                         <div className="col-lg-2">
                           <button
