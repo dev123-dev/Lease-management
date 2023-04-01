@@ -359,12 +359,12 @@ export const deleteOrganization = (id) => async (dispatch) => {
 //Renew Organization details
 export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
   try {
-    console.log("popina data", renewdata);
     await axios.post(
       `${linkPath}/api/tenants/Renew-Organization`,
       renewdata,
       config
     );
+    dispatch(getAllOrganization());
   } catch (error) {
     console.log(error.message);
   }
@@ -372,7 +372,6 @@ export const RenewOrgDetailsform = (renewdata) => async (dispatch) => {
 
 // Add Staff Performance feedback
 export const AddTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log("in action add-tenant-details", finalData);
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
   };
@@ -532,7 +531,6 @@ export const getOrgExpCount = (finaldata) => async (dispatch) => {
   }
 };
 export const getOrgExp = (finaldata) => async (dispatch) => {
-  console.log("heyy", finaldata);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-month-exp-org`,
@@ -612,6 +610,7 @@ export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
       data,
       config
     );
+    console.log(" getPreviousYearsExpCountOfOrg ", res.data);
     dispatch({
       type: YEAR_EXP_COUNT_ORG,
       payload: res.data,

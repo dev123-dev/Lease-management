@@ -109,9 +109,7 @@ const TenantFilters = ({
         monthSearch: "",
       });
       localStorage.setItem("year", JSON.stringify(finalData));
-
       getOrgExpCount(finalData);
-
       getPreviousYearsExpCountOfOrg(finalData);
     }
   };
@@ -144,10 +142,8 @@ const TenantFilters = ({
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
       };
-      console.log(finalDataReport);
       getOrgExp(finalDataReport);
       getOrgExpCount(finalDataReport);
-
       getOrganizationExpiryReport(finalDataReport);
     }
   };
@@ -159,7 +155,6 @@ const TenantFilters = ({
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportOldExp(finalDataReportOld);
-    // getOrganizationExpiryReport(finalDataReportOld);
   };
   const oldExpCountFetchOrg = () => {
     const finalDataReportOld = {

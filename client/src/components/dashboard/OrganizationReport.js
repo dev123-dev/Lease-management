@@ -6,12 +6,14 @@ import { getAllOrganization } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 const TenantReport = ({
   auth: { isAuthenticated, user, users },
-  tenants: { exp_org_detail, ext_year_count_org, exp_org },
+  tenants: { exp_org_detail, exp_org },
   getAllOrganization,
 }) => {
+  const [refresh, SetRefresh] = useState("");
+
   useEffect(() => {
     getAllOrganization();
-  }, []);
+  }, [refresh]);
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -45,10 +47,11 @@ const TenantReport = ({
   const history = useHistory();
 
   const renewal = (org) => {
-   // alert("");
+    // alert("");
     setShowEditModal(true);
     setOrgData(org);
-    history.push("/Renewal-Org", org);
+    history.push("/Renewal-Org", { org: org, SetRefresh: refresh });
+    //history.push("/Renewal-Org", org);
   };
   const onReportModalChange = (e) => {
     if (e) {
@@ -117,12 +120,7 @@ const TenantReport = ({
 
                             <td>
                               {org.AgreementStatus === "Expired" ? (
-                                <button
-                                  className="rewbtn"
-                                  onClick={() => renewal(org)}
-                                >
-                                  Renewal
-                                </button>
+                                <i>Renewal</i>
                               ) : (
                                 <p></p>
                               )}

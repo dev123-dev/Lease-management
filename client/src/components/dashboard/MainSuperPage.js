@@ -14,7 +14,7 @@ const MainSuperPage = ({
 }) => {
   useEffect(() => {
     getAllOrganization();
-  }, []);
+  }, [allorg]);
 
   var today = new Date();
   var dd = today.getDate();
@@ -92,7 +92,7 @@ const MainSuperPage = ({
 
               <div className="body-inner no-padding table-responsive">
                 <table
-                   className="table table-bordered table-striped table-hover table1 mt-5"
+                  className="table table-bordered table-striped table-hover table1 mt-5"
                   id="datatable2"
                 >
                   <thead>
