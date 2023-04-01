@@ -4,7 +4,11 @@ import prop from "../../static/images/property.png";
 import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
-import { getParticularProperty, ParticularTenant } from "../../actions/tenants";
+import {
+  getParticularProperty,
+  ParticularTenant,
+  getAllSettings,
+} from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 // import { Roller } from "react-awesome-spinners";
@@ -13,6 +17,7 @@ const MainAdminPage = ({
   auth: { user, isAuthenticated, loading },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
+  getAllSettings,
   ParticularTenant,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
@@ -24,6 +29,10 @@ const MainAdminPage = ({
         OrganizationId: myuser && myuser.OrganizationId,
       });
       ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
     }
   }, []);
   const total = JSON.parse(localStorage.getItem("total"));
@@ -64,14 +73,11 @@ const MainAdminPage = ({
     setPropertyCount(pCount);
   };
   return !isAuthenticated || !user || loading ? (
-    
     <></>
   ) : (
     <>
-  
       <div className="col mt-sm-5 ">
-      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
-          
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h1
               style={{
@@ -99,104 +105,124 @@ const MainAdminPage = ({
             {/* <br />
           <br /> */}
           </div>
-          </div>
+        </div>
 
-          <section
-            className="sub_reg"
-            style={{
-              backgroundColor: "transparent",
-            }}
-          >
-            <div className="row">
-              <div className="col-lg-1"></div>
-              <div
-                className="col-lg-5 card h2 text-center pt-5  "
-                id="shadow-bck"
-                style={{backgroundColor:"#e0e9e5f5"}}
-              >
-                <div className="text-center">
-                  <img
-                    className="img_icon_sizeDashboard log "
-                    src={prop}
-                    alt="Property"
-                  />
-                   <p align="center"><h2  style={{
-                fontFamily: "Serif",
-                color: "black",
-              }}>Property Count<br></br>  {particular_org_data && particular_org_data.length}</h2></p>
-                </div>
-               
+        <section
+          className="sub_reg"
+          style={{
+            backgroundColor: "transparent",
+          }}
+        >
+          <div className="row">
+            <div className="col-lg-1"></div>
+            <div
+              className="col-lg-5 card h2 text-center pt-5  "
+              id="shadow-bck"
+              style={{ backgroundColor: "#e0e9e5f5" }}
+            >
+              <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard log "
+                  src={prop}
+                  alt="Property"
+                />
+                <p align="center">
+                  <h2
+                    style={{
+                      fontFamily: "Serif",
+                      color: "black",
+                    }}
+                  >
+                    Property Count<br></br>{" "}
+                    {particular_org_data && particular_org_data.length}
+                  </h2>
+                </p>
               </div>
-              <div
-                className="col-lg-5 card  h2 text-center pt-5"
-                id="shadow-bck"
-                style={{backgroundColor:"#e0e9e5f5"}}
-              >
-                <div className="text-center">
-                  <img
-                    className="img_icon_sizeDashboard log "
-                    src={unprop}
-                    alt="Unoccupied property"
-                  />
-                   <p align="center"><h2  style={{
-                fontFamily: "Serif",
-                color: "black",
-              }}>Unoccupied Property<br></br>{ShopStatus && ShopStatus.length}</h2></p>
-                </div>
-                <div>
-                 
-                
-                </div>
-              </div>
-              <div className="col-lg-1"></div>
             </div>
-            <div className="row">
-              <div className="col-lg-1"></div>
-              <div
-                className="col-lg-5 card h2 text-center pt-5"
-                id="shadow-bck"
-                style={{backgroundColor:"#e0e9e5f5"}}
-              >
-                <div className="text-center">
-                  <img
-                    className="img_icon_sizeDashboard log "
-                    src={people} 
-                    alt="Tenant Count"
-                  />
-                   <p ><h2  style={{
-                fontFamily: "Serif",
-                color: "black",
-              }}>No of Tenant Count<br></br>{tenantCount.length}</h2></p>
-                </div>
-                
+            <div
+              className="col-lg-5 card  h2 text-center pt-5"
+              id="shadow-bck"
+              style={{ backgroundColor: "#e0e9e5f5" }}
+            >
+              <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard log "
+                  src={unprop}
+                  alt="Unoccupied property"
+                />
+                <p align="center">
+                  <h2
+                    style={{
+                      fontFamily: "Serif",
+                      color: "black",
+                    }}
+                  >
+                    Unoccupied Property<br></br>
+                    {ShopStatus && ShopStatus.length}
+                  </h2>
+                </p>
               </div>
-              <div
-                className="col-lg-5 card h2 text-center pt-5 "
-                id="shadow-bck"
-                style={{backgroundColor:"#e0e9e5f5"}}
-              >
-                <div className="text-center">
-                  <img
-                    className="img_icon_sizeDashboard log "
-                    src={money}
-                    alt="Renewal"
-                  /> 
-                   <p align="center"><h2 align="center"  style={{
-                fontFamily: "Serif",
-                color: "black",
-              }}> Total Renewal<br></br>{total}</h2></p>
-                  
-                </div>
-               
-              </div>
-              <div className="col-lg-1"></div>
+              <div></div>
             </div>
-          </section>
-        
+            <div className="col-lg-1"></div>
+          </div>
+          <div className="row">
+            <div className="col-lg-1"></div>
+            <div
+              className="col-lg-5 card h2 text-center pt-5"
+              id="shadow-bck"
+              style={{ backgroundColor: "#e0e9e5f5" }}
+            >
+              <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard log "
+                  src={people}
+                  alt="Tenant Count"
+                />
+                <p>
+                  <h2
+                    style={{
+                      fontFamily: "Serif",
+                      color: "black",
+                    }}
+                  >
+                    No of Tenant Count<br></br>
+                    {tenantCount.length}
+                  </h2>
+                </p>
+              </div>
+            </div>
+            <div
+              className="col-lg-5 card h2 text-center pt-5 "
+              id="shadow-bck"
+              style={{ backgroundColor: "#e0e9e5f5" }}
+            >
+              <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard log "
+                  src={money}
+                  alt="Renewal"
+                />
+                <p align="center">
+                  <h2
+                    align="center"
+                    style={{
+                      fontFamily: "Serif",
+                      color: "black",
+                    }}
+                  >
+                    {" "}
+                    Total Renewal<br></br>
+                    {total}
+                  </h2>
+                </p>
+              </div>
+            </div>
+            <div className="col-lg-1"></div>
+          </div>
+        </section>
       </div>
-    
-  </>
-   
+    </>
   );
 };
 const mapStateToProps = (state) => ({
@@ -206,4 +232,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getParticularProperty,
   ParticularTenant,
+  getAllSettings,
 })(MainAdminPage);
