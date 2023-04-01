@@ -30,6 +30,7 @@ const EditAdminUser = ({
       ? UserGroups && UserGroups.filter((x) => x.value === org.usergroup)[0]
       : ""
   );
+  // console.log("group", group);
   const [orgname, setOrgname] = useState();
 
   const orglist = [];
@@ -93,13 +94,13 @@ const EditAdminUser = ({
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const [us, setus] = useState("");
+  // const [us, setus] = useState("");
 
-  const onuser = (e) => {
+  const onuserGroup = (e) => {
     setgroup(e);
-    setus(e);
+    // setus(e);
   };
-
+  // console.log("us", us);
   const onUpdate = (e) => {
     e.preventDefault();
     const updateUSER = {
@@ -108,10 +109,11 @@ const EditAdminUser = ({
       userphone: userphone,
       useraddress: useraddress,
       useremail: useremail,
-      usergroup: us,
+      usergroup: group.value,
       OrganizationName: org.OrganizationName,
       OrganizationId: org.OrganizationId,
     };
+    // console.log("updateUSER", updateUSER);
     UpdateUser(updateUSER);
     // getalluser();
       get_particular_org_user({ orgid: user.OrganizationId });
@@ -184,7 +186,7 @@ const EditAdminUser = ({
                 options={UserGroups}
                 value={group}
                 isSearchable={false}
-                onChange={(e) => onuser(e)}
+                onChange={(e) => onuserGroup(e)}
                 theme={(theme) => ({
                   ...theme,
                   height: 26,
