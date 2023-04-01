@@ -317,7 +317,7 @@ setError("Please Select DoorNumber")
                           <th>Operation</th>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody className="text-center">
                         {currentDatas &&
                           currentDatas.map((Val, idx) => {
                               var ED =

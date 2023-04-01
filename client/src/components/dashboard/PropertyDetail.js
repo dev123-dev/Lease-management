@@ -291,7 +291,7 @@ const PropertyDetail = ({
                         <th>Operation</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="text-center">
                       {particular_org_data &&
                         particular_org_data.map((Val, idx) => {
                           return (
