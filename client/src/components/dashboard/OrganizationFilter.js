@@ -135,14 +135,19 @@ const TenantReport = ({
                           {ext_year_count_org &&
                             ext_year_count_org[0] &&
                             ext_year_count_org.map((org, index) => {
+                              var ED = org.date.split(/\D/g);
+                              var startDate = [ED[2], ED[1], ED[0]].join("-");
+                              var ED1 = org.enddate.split(/\D/g);
+                              var endDate = [ED1[2], ED1[1], ED1[0]].join("-");
+
                               return (
                                 <tr>
                                   <td>{org.OrganizationName}</td>
                                   <td>{org.OrganizationEmail}</td>
                                   <td>{org.OrganizationNumber}</td>
-                                  <td>{org.OrganizationAddress}</td>
+                                  <td>{startDate}</td>
                                   <td>{org.AgreementStatus}</td>
-                                  <td>{org.enddate}</td>
+                                  <td>{endDate}</td>
                                   <td>
                                     {org.AgreementStatus === "Expired" ? (
                                       <i> Renewal</i>
