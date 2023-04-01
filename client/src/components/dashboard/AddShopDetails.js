@@ -16,11 +16,7 @@ const AddShopDetails = ({
   getAllSettings,
   getParticularProperty,
 }) => {
-  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
-    color: "white",
-    fontFamily: "Arial",
-    display: "none",
-  });
+  const [RoomAlreadyExist, SetRoomAlreadyExist] = useState("black");
 
   const [pageRefresh, SetRefresh] = useState(false);
   useEffect(() => {
@@ -105,14 +101,9 @@ const AddShopDetails = ({
         setshowscroll("block");
         setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
         setinput("");
-        SetRoomAlreadyExist({
-          display: "none",
-        });
+        setLocError("black");
       } else {
-        SetRoomAlreadyExist({
-          display: "inline",
-          color: "#FF0000",
-        });
+        setLocError("red");
       }
     }
   };
@@ -296,6 +287,24 @@ const AddShopDetails = ({
                   <span id="category_result" className="form-input-info"></span>{" "}
                   <br></br>
                 </div>
+                <label>Address*:</label>
+
+                <textarea
+                  name="shopAddress"
+                  value={shopAddress}
+                  id=" addprop "
+                  className="textarea form-control"
+                  rows="3"
+                  placeholder="Address"
+                  onChange={(e) => onPropertychange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>
+                <br></br>
+
+              </div>
+
+              <div className="col-lg-6">
 
                 <label className="ml-2" style={{ color: locError }}>
                   Door No*:
@@ -348,26 +357,10 @@ const AddShopDetails = ({
                     })}
                   </div>
                 </div>
-                <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
+                {/* <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
                   RoomAlreadyExist
-                </p>
-              </div>
+                </p> */}
 
-              <div className="col-lg-6">
-                <label>Address*:</label>
-
-                <textarea
-                  name="shopAddress"
-                  value={shopAddress}
-                  id=" addprop "
-                  className="textarea form-control"
-                  rows="3"
-                  placeholder="Address"
-                  onChange={(e) => onPropertychange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                <br></br>
               </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields

@@ -2158,7 +2158,8 @@ button {
 }
 .showItemcl {
   overflow-y: scroll;
-  height: 70px;
+  min-height: 10px;
+  max-height: 155px;
 }
 .rewbtn {
   background-color: #095a4a;
@@ -2638,7 +2639,7 @@ width: 100px;
 }
 
 .plusiconbck{
-  background-color: #e0e9e5f5;
+ min-height: 0%;
  
 }
 
