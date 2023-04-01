@@ -26,8 +26,13 @@ const Header = ({
   getalluser,
   getAllOrganization,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
-    getAllSettings();
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
+    });
     getAllOrganization();
   }, [getAllSettings]);
   useEffect(() => {
