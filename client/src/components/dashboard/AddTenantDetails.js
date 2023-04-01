@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, particular_org_data, allTenantSetting },
- 
+
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
@@ -454,7 +454,6 @@ const AddTenantDetails = ({
                   value={LocList}
                   placeholder="Location"
                   className="form-control bg-white"
-                  
                 ></input>
                 <br></br>
               </div>
@@ -591,7 +590,7 @@ const AddTenantDetails = ({
                 <>
                   {/* <div className="row"> */}
                   <div className="  col-lg-3 col-md-12 col-sm-12 col-12 ">
-                    <label> Cheque No/DD No:</label>
+                    <label> Cheque No/DD No*:</label>
                     <input
                       type="text"
                       name="tenantChequenoOrDdno"
@@ -604,7 +603,7 @@ const AddTenantDetails = ({
                   </div>
 
                   <div className=" col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label>Bank Name :</label>
+                    <label>Bank Name*:</label>
                     <input
                       type="text"
                       name="tenantBankName"
@@ -680,12 +679,12 @@ const AddTenantDetails = ({
               </div>
               <div className="row ml-1">
                 <div className="col-lg-6 col-md-12 col-sm-12">
-                <div
-                      className="h4 "
-                      style={{ fontFamily: "Serif", color: "#095a4a" }}
-                    >
-                      Door No:
-                    </div>
+                  <div
+                    className="h4 "
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  >
+                    Door No:
+                  </div>
                 </div>
                 {/* <div className="col-lg-6 col-md-12 col-sm-12">
                 <div
@@ -699,34 +698,40 @@ const AddTenantDetails = ({
               <div className="row  mx-1">
                 {isavail && isavail.length !== 0 ? (
                   <>
-                    
                     <div
                       className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white border-dark border-right"
                       style={{ border: "transparent", minHeight: "90px" }}
                     >
                       <div
-                      className="h4 "
-                      style={{ fontFamily: "Serif", color: "#095a4a" }}
-                    >
-                      Available:
-                    </div> <br></br>
+                        className="h4 "
+                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                      >
+                        Available:
+                      </div>{" "}
+                      <br></br>
                       {DnoList &&
                         DnoList.map((DoorNumber, idx) => {
-                         
-
                           return (
                             <button
                               key={idx}
                               type="button"
-                              
                               className="btn btn-success doorbtn"
                               onClick={() => onSelectChange(DoorNumber)}
                             >
                               {DoorNumber.value}
-                              <span  className="ml-4">
-                                <b className="text-dark "><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
-  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"/>
-</svg></b>
+                              <span className="ml-4">
+                                <b className="text-dark ">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-plus-square-fill"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
+                                  </svg>
+                                </b>
                               </span>
                             </button>
                           );
@@ -742,7 +747,8 @@ const AddTenantDetails = ({
                         style={{ fontFamily: "Serif", color: "#095a4a" }}
                       >
                         Selected:
-                      </div><br></br>
+                      </div>
+                      <br></br>
                       {selectedDoorNumber &&
                         selectedDoorNumber.length > 0 &&
                         selectedDoorNumber.map((Doornumber, idx) => {
@@ -754,10 +760,19 @@ const AddTenantDetails = ({
                               onClick={() => onRemoveChange(Doornumber)}
                             >
                               {Doornumber.value}
-                              <span  className="ml-4">
-                               <b className="text-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-dash-square-fill" viewBox="0 0 16 16">
-  <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z"/>
-</svg></b> 
+                              <span className="ml-4">
+                                <b className="text-light">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-dash-square-fill"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
+                                  </svg>
+                                </b>
                               </span>
                             </button>
                           );
