@@ -58,33 +58,48 @@ const TenantSettings = ({
   // const onInputChange = (e) => {
   //   setFormData({ ...formData, [e.target.name]: e.target.value });
   // };
-
+  const [Error, SetError] = useState("");
   const onSubmit = () => {
-    const finalData = {
-      OrganizationId: user.OrganizationId,
-      userId: user._id,
-      userName: user.username,
-      OrganizationName: user.OrganizationName,
-      hike: parseInt(hike),
-      stampDuty: parseInt(stampDuty),
-      leaseTimePeriod: parseInt(leaseTimePeriod),
-    };
-    AddTenantSettingform(finalData);
-    onAddSettingModalChange(true);
-    getAllSettings();
+    if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
+      SetError("Please Fill All the Field");
+    } else {
+      const finalData = {
+        OrganizationId: user.OrganizationId,
+        userId: user._id,
+        userName: user.username,
+        OrganizationName: user.OrganizationName,
+        hike: parseInt(hike),
+        stampDuty: parseInt(stampDuty),
+        leaseTimePeriod: parseInt(leaseTimePeriod),
+      };
+      AddTenantSettingform(finalData);
+      onAddSettingModalChange(true);
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
   };
 
   const onUpdate = () => {
-    const finalData = {
-      OrganizationId: user.OrganizationId,
-      userId: user._id,
-      userName: user.username,
-      hike: hike,
-      stampDuty: stampDuty,
-      leaseTimePeriod: leaseTimePeriod,
-    };
-    UpdateTenantSettingform(finalData);
-    onAddSettingModalChange(true);
+    if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
+      SetError("Please Fill All the Field");
+    } else {
+      const finalData = {
+        OrganizationId: user.OrganizationId,
+        userId: user._id,
+        userName: user.username,
+        hike: hike,
+        stampDuty: stampDuty,
+        leaseTimePeriod: leaseTimePeriod,
+      };
+      UpdateTenantSettingform(finalData);
+      onAddSettingModalChange(true);
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -94,16 +109,12 @@ const TenantSettings = ({
       <div className="row">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-1 col-12">
-            <label>
-              {" "}
-              Hike Percentage*:
-             
-            </label>
+            <label> Hike Percentage*:</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
-            placeholder="Hike Percentage"
+              placeholder="Hike Percentage"
               type="text"
               name="hike"
               className="form-control"
@@ -115,10 +126,7 @@ const TenantSettings = ({
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>
-              Stamp Duty*:
-             
-            </label>
+            <label>Stamp Duty*:</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -136,10 +144,7 @@ const TenantSettings = ({
 
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>
-              Lease Time Period*:
-             
-            </label>
+            <label>Lease Time Period*:</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -154,7 +159,7 @@ const TenantSettings = ({
             />
           </div>
         </div>
-
+        <div className="col-lg-12 col-sm-12 col-12 text-danger ">{Error}</div>
         <div className="col-lg-12 col-sm-12 col-12 ">
           {allTenantSetting == null ? (
             <button
