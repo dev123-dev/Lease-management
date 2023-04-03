@@ -214,8 +214,8 @@ const MainAdminPage = ({
                     }}
                   >
                     {" "}
-                   <b className="h4">Total Renewal</b> <br></br>
-                    {total}
+                   <b className="h4">Total Renewal <br></br>
+                    {total}</b>
                   </p>
                   </center>
                 </p>
