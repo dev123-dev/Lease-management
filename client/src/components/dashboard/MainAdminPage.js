@@ -79,29 +79,21 @@ const MainAdminPage = ({
       <div className="col mt-sm-5 ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ">
-            <h1
+            <h2
               style={{
-                fontFamily: "Serif",
-                color: "#095a4a",
+                position:"relative",
+                top:"60px",
               }}
-              className="font-weight-bold headsize"
+              className="heading_color  headsize  ml-4"
             >
-              <span
-                className="font-weight-bold "
-                style={{
-                  fontFamily: "Serif",
-                }}
-              >
+             
                 {user && user.orgName}
-              </span>
-              <span
-                style={{ fontFamily: "Serif" }}
-                className=" text-right font-weight-bold"
-              >
+              
+              
                 {" "}
                 Dashboard
-              </span>
-            </h1>
+              
+            </h2>
             {/* <br />
           <br /> */}
           </div>
@@ -126,16 +118,21 @@ const MainAdminPage = ({
                   src={prop}
                   alt="Property"
                 />
-                <p align="center">
-                  <h2
+                
+                <p>
+                <center>
+                  <p
                     style={{
-                      fontFamily: "Serif",
+                      // fontFamily: "Serif",
                       color: "black",
                     }}
+                    // className="h3"
                   >
-                    Property Count<br></br>{" "}
-                    {particular_org_data && particular_org_data.length}
-                  </h2>
+                    <b className="h4">Property Count<br></br>{" "}
+                    {particular_org_data && particular_org_data.length}</b>
+                    </p>
+                   
+                </center>
                 </p>
               </div>
             </div>
@@ -150,16 +147,18 @@ const MainAdminPage = ({
                   src={unprop}
                   alt="Unoccupied property"
                 />
-                <p align="center">
-                  <h2
+                <p >
+                  <center>
+                  <p
                     style={{
-                      fontFamily: "Serif",
+                      // fontFamily: "Serif",
                       color: "black",
                     }}
                   >
-                    Unoccupied Property<br></br>
-                    {ShopStatus && ShopStatus.length}
-                  </h2>
+                   <b className="h4">Unoccupied Property<br></br>
+                    {ShopStatus && ShopStatus.length}</b> 
+                  </p>
+                  </center>
                 </p>
               </div>
               <div></div>
@@ -180,15 +179,17 @@ const MainAdminPage = ({
                   alt="Tenant Count"
                 />
                 <p>
-                  <h2
+                  <center>
+                  <p
                     style={{
-                      fontFamily: "Serif",
+                      // fontFamily: "Serif",
                       color: "black",
                     }}
                   >
-                    No of Tenant Count<br></br>
-                    {tenantCount.length}
-                  </h2>
+                   <b className="h4">No of Tenant Count <br></br>
+                    {tenantCount.length}</b>
+                  </p>
+                  </center>
                 </p>
               </div>
             </div>
@@ -203,18 +204,20 @@ const MainAdminPage = ({
                   src={money}
                   alt="Renewal"
                 />
-                <p align="center">
-                  <h2
-                    align="center"
+                <p>
+                  <center>
+                  <p
+                 
                     style={{
-                      fontFamily: "Serif",
+                      // fontFamily: "Serif",
                       color: "black",
                     }}
                   >
                     {" "}
-                    Total Renewal<br></br>
+                   <b className="h4">Total Renewal</b> <br></br>
                     {total}
-                  </h2>
+                  </p>
+                  </center>
                 </p>
               </div>
             </div>
