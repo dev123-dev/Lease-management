@@ -137,7 +137,7 @@ const PropertyDetail = ({
 
     if (checkData.length !== 0) {
       e.preventDefault();
-//alert(checkData);
+      //alert(checkData);
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
@@ -150,7 +150,7 @@ const PropertyDetail = ({
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
 
       handleShowDno();
-      setCheckData([])
+      setCheckData([]);
     } else {
       SetRoomAlreadyExist({
         display: "inline",
@@ -202,6 +202,7 @@ const PropertyDetail = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
+  const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
       <div className="col mt-sm-5 ">
@@ -513,8 +514,11 @@ const PropertyDetail = ({
           <Modal.Body>
             {/* <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-
-            <div className="text-dark">Choose Door No for Deactivate</div>
+            {dnolen.length > 0 ? (
+              <div className="text-dark">Choose Door No for Deactivate</div>
+            ) : (
+              <></>
+            )}
             <div className="checkbx">
               {/* eslint-disable-next-line array-callback-return */}
               {dno.map((ele) => {
@@ -531,7 +535,6 @@ const PropertyDetail = ({
                       <label htmlFor="vehicle1">
                         {ele.doorNo}&nbsp; &nbsp;
                       </label>
-                     
                     </>
                   );
                 }
@@ -550,8 +553,8 @@ const PropertyDetail = ({
             ></textarea>
             <div>Are you sure You Want To Deactivate..?</div>
             <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
-                        Please Select Any Room
-                      </p>
+              Please Select Any Room
+            </p>
             {/* </Form.Group>
           </Form> */}
           </Modal.Body>
