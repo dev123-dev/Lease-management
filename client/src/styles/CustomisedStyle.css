@@ -312,7 +312,6 @@ footer.footer .top_top {
 
 .top_menu {
   background-color: #095a4a;
-  
 }
 
 .row {
@@ -813,13 +812,12 @@ label {
 
 #datatable2 th {
   background: #095a4a;
- 
+
   color: #fff;
   padding: 8px;
   text-align: center;
   position: sticky;
   top: 0;
- 
 }
 .fixTableHead {
   overflow-y: auto;
@@ -1864,7 +1862,6 @@ input.visually-hidden:focus-within + label {
 }
 /* datepicker css changes end */
 
-
 .item {
   padding-left: 5px;
   padding-right: 5px;
@@ -1912,19 +1909,15 @@ input.visually-hidden:focus-within + label {
 }
 .card::before {
   transform-origin: left top;
-  
 }
 .card::after {
   transform-origin: right bottom;
- 
-
 }
 .card:hover::before,
 .card:hover::after,
 .card:focus::before,
 .card:focus::after {
   transform: scale3d(1, 1, 1);
-  
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -2035,7 +2028,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 #hea {
   color: white;
-  font-size: large;
+  /* font-size: large; */
 
   font-weight: 500;
   height: 30px;
@@ -2048,7 +2041,7 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 250px;
   padding: 10px;
   /* background: #e0e9e5f5; */
-  
+
   margin: 20px;
 }
 
@@ -2122,9 +2115,8 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0;
   border: transparent;
   position: absolute;
-  
 }
-.locaddedit{
+.locaddedit {
   background-color: transparent;
   margin-left: 81%;
   margin-top: -10%;
@@ -2133,9 +2125,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 0;
   border: transparent;
   position: absolute;
-
 }
-
 
 .tenantfil:hover {
   background-color: grey;
@@ -2289,7 +2279,7 @@ button {
   width: 110px;
   height: 40px;
   border-color: #000;
-  border-radius:0%;
+  border-radius: 0%;
 }
 #TenantSettingBtn:hover {
   background-color: #095a4a;
@@ -2356,7 +2346,6 @@ div.page-footer p {
 .table.report-container {
   page-break-after: always;
   width: 100%;
-  
 }
 thead.report-header {
   display: table-header-group;
@@ -2405,7 +2394,7 @@ div.page-footer {
 div {
   border: 3px solid transparent;
   /* border:3px solid palevioletred;*/
-} 
+}
 .top_menu {
   /* margin-left: -2px; */
 }
@@ -2421,11 +2410,10 @@ div {
   background-size: cover;
 }
 @media screen and (max-width: 420px) {
-
   /* .close {
     border-color: transparent;
     /* border: transparent; */
-    /* color: #5a0909;
+  /* color: #5a0909;
     margin-left: 100px;
     cursor: pointer;
   }  */
@@ -2433,24 +2421,22 @@ div {
     width: 200%;
     height: fit-content;
   }
-  .locadd{
-    position:relative;
+  .locadd {
+    position: relative;
     left: 5px;
     bottom: 10px;
   }
-.line{
-  width: 220px;
-}
-.mediaprint{
-  margin-left: 220px;
-  margin-top: -80px;
-  
-  
-}
-.locaddedit{
-  left: 5px;
+  .line {
+    width: 220px;
+  }
+  .mediaprint {
+    margin-left: 220px;
+    margin-top: -80px;
+  }
+  .locaddedit {
+    left: 5px;
     bottom: 37px;
-}
+  }
   .back_fill {
     background-color: #ffffff;
     margin-bottom: -10%;
@@ -2472,9 +2458,9 @@ div {
     margin-bottom: 3px;
     background-color: #ffffff;
   }
-.renewalinput{
-width: 100px;
-}
+  .renewalinput {
+    width: 100px;
+  }
 
   .heading_color {
     position: relative;
@@ -2490,7 +2476,7 @@ width: 100px;
   }
 
   .locadds {
-    position:relative;
+    position: relative;
     left: 10px;
     bottom: 10px;
   }
@@ -2552,7 +2538,6 @@ width: 100px;
   }
   .table {
     display: block;
-  
   }
 
   .tenantfilter {
@@ -2566,11 +2551,10 @@ width: 100px;
 }
 .dno {
   display: inline-block;
-
 }
-.dnoscroll{
+.dnoscroll {
   overflow-x: scroll;
-  max-width:100px;
+  max-width: 100px;
 }
 /* .back_image {
   background-image: url("../static/images/img2.jpg");
@@ -2604,7 +2588,7 @@ width: 100px;
 }
 .navlink {
   font-size: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 .navlinkitem:hover {
   /* background-color: rgb(231, 157, 105); */
@@ -2622,32 +2606,30 @@ width: 100px;
     /* margin-right: 70px; */
     margin-top: 0px;
   }
-  .headsize{
+  .headsize {
     font-size: 27px;
   }
 }
-.sizeinput{
+.sizeinput {
   min-height: 47px;
 }
-.doorbtn{
+.doorbtn {
   /* min-width:50px; */
-  height:40px;
+  height: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
   margin-left: 5px;
-  font-size:larger;
+  font-size: larger;
   background-color: rgb(188, 45, 45);
-  color:white;
+  color: white;
 }
 
-.cardAgreement{
+.cardAgreement {
   border: 2px solid rgba(0, 0, 0, 0.125);
   box-shadow: 0 10px 15px rgb(0 0 0 / 15%);
   border-radius: 0.25rem;
 }
 
-.plusiconbck{
- min-height: 0%;
- 
+.plusiconbck {
+  min-height: 0%;
 }
-

@@ -109,7 +109,10 @@ const Header = ({
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" className="nvbar" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto navbar_Collapse_content" id="org_detail">
+            <Nav
+              className="mr-auto navbar_Collapse_content mt-1 mb-3"
+              id="org_detail"
+            >
               <NavItem>
                 {!loading &&
                 isAuthenticated &&
@@ -121,7 +124,6 @@ const Header = ({
                     className="navlink headinghover   "
                     activeStyle={{
                       color: "#e8a317",
-
                       textDecoration: "none",
                     }}
                   >
@@ -212,7 +214,7 @@ const Header = ({
                 user.usergroup === "Admin" ? (
                   <NavLink
                     to="/AdminUser"
-                    className="navlink  headinghover navbar-right "
+                    className="navlink  headinghover navbar-right mt-1 mb-3 "
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
@@ -234,17 +236,26 @@ const Header = ({
                 {user.usergroup === "Super Admin" ? (
                   <>
                     <Nav>
-                      <ul className="top-level-menu text-left">
+                      <ul className="top-level-menu text-left ">
                         <li>
                           <Link
                             to="#"
                             // onClick={() => handleLogoutModalShow()}
                             className="navbar-right pt-3 "
                           >
-                            {user.username} &nbsp;
-                            <i className="fa fa-caret-down" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <inline
+                              style={{
+                                position: "relative",
+                                backgroundColor: "red",
+                                bottom: "10px",
+                              }}
+                            >
+                              {" "}
+                              {user.username} &nbsp;
+                              <i className="fa fa-caret-down" />
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </inline>
                           </Link>
 
                           <ul className="dropdown-menu second-level-menu mb-3 ">
