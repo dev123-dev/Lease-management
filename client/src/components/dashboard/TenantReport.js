@@ -89,15 +89,13 @@ const TenantReport = ({
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                   <h2
                     style={{
-                      position:"relative",
-              top:"60px",
+                      position: "relative",
+                      top: "60px",
                     }}
                     className=" heading_color  headsize  ml-4 "
                   >
-                    
-                      {" "}
-                      DashBoard
-                    
+                    {" "}
+                    DashBoard
                   </h2>
                 </div>
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11">
@@ -180,8 +178,8 @@ const TenantReport = ({
               <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{
-                    position:"relative",
-                    top:"60px",
+                    position: "relative",
+                    top: "60px",
                   }}
                   className="heading_color  headsize  ml-4"
                 >
