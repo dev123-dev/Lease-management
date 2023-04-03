@@ -205,30 +205,19 @@ const PropertyDetail = ({
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
-      <div className="col mt-sm-5">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3">
-          <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
-            <h1
-              style={{
-                fontFamily: "Serif",
-                color: "#095a4a",
-                position: "relative",
-                right: "70px",
-              }}
-              className="font-weight-bold headsize "
+      <div className="col mt-sm-4 space ">
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
+          <div className="row mt-5  ">
+            <div className="col-lg-5 mt-3">
+            <h2
+             className="heading_color  headsize  ml-4"
             >
               Property Details
-            </h1>
-          </div>
-          <hr className="line"></hr>
-
-          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
-            <div className="col">
-              <div className="row text-end ">
-                <div className="col-lg-4">
-                  {" "}
-                  <Select
-                    className="dropdown text-left"
+            </h2>
+            </div>
+            <div className="col-lg-5 mt-3">
+            <Select
+                    className="dropdown text-left mt-sm-3"
                     placeholder="Search-Location"
                     name="location"
                     options={Sellocation}
@@ -246,10 +235,9 @@ const PropertyDetail = ({
                       },
                     })}
                   ></Select>
-                </div>
-                <div className="col-lg-4"></div>
-                <div className="col-lg-4 refresh ">
-                  {" "}
+            </div>
+            <div className="col-lg-2 text-end mt-sm-5">
+            {" "}
                   <img
                     height="20px"
                     onClick={() => setShowadd(true)}
@@ -265,8 +253,14 @@ const PropertyDetail = ({
                     alt="refresh"
                     title="refresh"
                   />
-                </div>
-              </div>
+            </div>
+           
+          </div>
+        
+
+          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
+            <div className="col">
+              
 
               <div className="row ">
                 <div className="col-lg-1"></div>
