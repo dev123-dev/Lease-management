@@ -330,7 +330,7 @@ const TenantFilters = ({
                         <div
                           className="tenantfil  "
                           style={{
-                            fontWeight: "bold",
+                            // fontWeight: "bold",
                             color: "#fff",
                             padding: "0px 0px 0px 5px",
                           }}
