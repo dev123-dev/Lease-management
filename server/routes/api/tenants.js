@@ -295,7 +295,7 @@ router.post("/add-Organization", async (req, res) => {
 router.get("/get-all-Organization", async (req, res) => {
   try {
     const data = await OrganizationDetails.find({}).sort({
-      AgreementStatus: -1,
+      org_status: 1,
     });
 
     res.json(data);

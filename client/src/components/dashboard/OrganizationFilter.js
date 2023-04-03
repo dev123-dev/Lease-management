@@ -94,13 +94,11 @@ const TenantReport = ({
             <div>
               <h1
                 style={{
-                  fontFamily: "Serif",
                   color: "#095a4a",
                 }}
                 className="font-weight-bold headsize"
               >
                 <span
-                  style={{ fontFamily: "Serif" }}
                   className=" text-right font-weight-bold ml-5"
                 >
                   {" "}

@@ -81,7 +81,6 @@ const MainAdminPage = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h1
               style={{
-                fontFamily: "Serif",
                 color: "#095a4a",
               }}
               className="font-weight-bold headsize"
@@ -89,13 +88,11 @@ const MainAdminPage = ({
               <span
                 className="font-weight-bold "
                 style={{
-                  fontFamily: "Serif",
                 }}
               >
                 {user && user.orgName}
               </span>
               <span
-                style={{ fontFamily: "Serif" }}
                 className=" text-right font-weight-bold"
               >
                 {" "}
@@ -129,7 +126,6 @@ const MainAdminPage = ({
                 <p align="center">
                   <h2
                     style={{
-                      fontFamily: "Serif",
                       color: "black",
                     }}
                   >
@@ -153,7 +149,6 @@ const MainAdminPage = ({
                 <p align="center">
                   <h2
                     style={{
-                      fontFamily: "Serif",
                       color: "black",
                     }}
                   >
@@ -182,7 +177,6 @@ const MainAdminPage = ({
                 <p>
                   <h2
                     style={{
-                      fontFamily: "Serif",
                       color: "black",
                     }}
                   >
@@ -207,7 +201,6 @@ const MainAdminPage = ({
                   <h2
                     align="center"
                     style={{
-                      fontFamily: "Serif",
                       color: "black",
                     }}
                   >

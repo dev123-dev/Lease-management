@@ -402,7 +402,6 @@ const AddTenantDetails = ({
               <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{
-                    fontFamily: "Serif",
                     color: "#095a4a",
                     marginLeft: "10px",
                   }}
@@ -681,7 +680,7 @@ const AddTenantDetails = ({
                 <div className="col-lg-6 col-md-12 col-sm-12">
                   <div
                     className="h4 "
-                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    style={{ color: "#095a4a" }}
                   >
                     Door No:
                   </div>
@@ -689,7 +688,6 @@ const AddTenantDetails = ({
                 {/* <div className="col-lg-6 col-md-12 col-sm-12">
                 <div
                         className="h4"
-                        style={{ fontFamily: "Serif", color: "#095a4a" }}
                       >
                         Selected Door No :{" "}
                       </div>
@@ -704,7 +702,7 @@ const AddTenantDetails = ({
                     >
                       <div
                         className="h4 "
-                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                        style={{  color: "#095a4a" }}
                       >
                         Available:
                       </div>{" "}
@@ -744,7 +742,7 @@ const AddTenantDetails = ({
                     >
                       <div
                         className="h4"
-                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                        style={{ color: "#095a4a" }}
                       >
                         Selected:
                       </div>
@@ -781,7 +779,7 @@ const AddTenantDetails = ({
                   </>
                 ) : (
                   <div
-                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    style={{color: "#095a4a" }}
                     className="card-new"
                   >
                     <marquee>No Doors in the Property</marquee>

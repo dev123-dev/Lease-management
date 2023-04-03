@@ -136,7 +136,6 @@ const AddOrgModal = ({
           <div className=" ml-5">
             <h4
               style={{
-                fontFamily: "Sans-serif",
                 color: "white",
               }}
             >

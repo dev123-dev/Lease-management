@@ -89,13 +89,11 @@ const TenantReport = ({
                 <div className="col-lg-10 col-md-11 col-sm-11 col-11 ">
                   <h1
                     style={{
-                      fontFamily: "Serif",
                       color: "#095a4a",
                     }}
                     className="font-weight-bold "
                   >
                     <span
-                      style={{ fontFamily: "Serif" }}
                       className=" text-right font-weight-bold "
                     >
                       {" "}
@@ -183,7 +181,6 @@ const TenantReport = ({
               <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
                 <h1
                   style={{
-                    fontFamily: "Serif",
                     color: "#095a4a",
                     position: "relative",
                     right: "65px",
@@ -309,7 +306,6 @@ const TenantReport = ({
                 <div className="col-lg-10">
                   <h3
                     style={{
-                      fontFamily: "Sans-serif",
                       color: "white",
                     }}
                   >

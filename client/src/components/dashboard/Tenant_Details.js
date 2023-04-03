@@ -434,7 +434,6 @@ const Tenant_Details = ({
             {/* <div className="col-lg-11 ">
               <div className="modal-title">
                 <h3 style={{
-                  fontFamily: "Sans-serif",
                   color: "white",
                 }} className="text-center mr-3 ">DEACTIVATE</h3>
               </div>
@@ -452,7 +451,6 @@ const Tenant_Details = ({
               <div className="ml-4">
                 <h3
                   style={{
-                    fontFamily: "Sans-serif",
                     color: "white",
                   }}
                   className=" text-center ml-4"
@@ -508,7 +506,6 @@ const Tenant_Details = ({
               <div className="ml-4">
                 <h3
                   style={{
-                    fontFamily: "Sans-serif",
                     color: "white",
                   }}
                   className="text-center  "
@@ -530,7 +527,6 @@ const Tenant_Details = ({
             {/* <div className="col-lg-11 ">
               <div className="modal-title ">
                 <h3 style={{
-                  fontFamily: "Sans-serif",
                   color: "white",
                 }} className="text-center mr-3 ">DEACTIVATE</h3>
               </div>
