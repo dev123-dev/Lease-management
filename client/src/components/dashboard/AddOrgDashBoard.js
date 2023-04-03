@@ -113,21 +113,21 @@ const AddOrgDashBoard = ({
   return (
     <>
       <div className="col mt-sm-5">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
           <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
-            <h1
-              style={{
-                fontFamily: "Serif",
-                color: "#095a4a",
-                marginLeft: "10px",
-              }}
-              className="font-weight-bold headsize ml-3"
+            <h2
+              // style={{
+              //   fontFamily: "Serif",
+              //   color: "#095a4a",
+              //   marginLeft: "10px",
+              // }}
+              className=" headsize ml-3 heading_color"
             >
               Organization Details
-            </h1>
+            </h2>
           </div>
 
-          <hr className="line"></hr>
+       
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col">
