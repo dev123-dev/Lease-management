@@ -438,7 +438,6 @@ const EditTenantDetails = ({
               <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{
-                    fontFamily: "Serif",
                     color: "#095a4a",
                     marginLeft: "10px",
                   }}
@@ -724,12 +723,12 @@ const EditTenantDetails = ({
                   {" "}
                   <span
                     className="h4"
-                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    style={{  color: "#095a4a" }}
                   >
                     Door Number :
                   </span>
                 </div>
-                {/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ fontFamily: "Serif", color: "#095a4a" }}>Occupied Door Number : </span></div> */}
+                {/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ color: "#095a4a" }}>Occupied Door Number : </span></div> */}
               </div>
               <div className="row ml-1 ">
                 {/* to sel */}
@@ -739,7 +738,7 @@ const EditTenantDetails = ({
                 >
                   <div
                     className="h4 "
-                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    style={{ color: "#095a4a" }}
                   >
                     Available:
                   </div>{" "}
@@ -772,7 +771,7 @@ const EditTenantDetails = ({
                 >
                   <div
                     className="h4 "
-                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    style={{  color: "#095a4a" }}
                   >
                     Selected:
                   </div>{" "}

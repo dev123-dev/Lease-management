@@ -34,7 +34,7 @@ const PropertyDetail = ({
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
     color: "white",
-    fontFamily: "Arial",
+  
     display: "none",
   });
 
@@ -399,7 +399,6 @@ const PropertyDetail = ({
             <div className="ml-4">
               <h4
                 style={{
-                  fontFamily: "Sans-serif",
                   color: "white",
                 }}
                 className="text-center  ml-4"
@@ -437,7 +436,6 @@ const PropertyDetail = ({
             <div className="ml-4">
               <h4
                 style={{
-                  fontFamily: "Sans-serif",
                   color: "white",
                 }}
                 className=" text-center "
@@ -461,7 +459,6 @@ const PropertyDetail = ({
               <div className="modal-title ">
                 <h3
                   style={{
-                    fontFamily: "Sans-serif",
                     color: "white",
                   }}
                   className="text-center"
@@ -511,7 +508,6 @@ const PropertyDetail = ({
               <div className="modal-title ">
                 <h3
                   style={{
-                    fontFamily: "Sans-serif",
                     color: "white",
                   }}
                   className="text-center mr-3 "
@@ -534,7 +530,6 @@ const PropertyDetail = ({
             <div className="ml-1">
               <h4
                 style={{
-                  fontFamily: "Sans-serif",
                   color: "white",
                 }}
                 className="text-center "

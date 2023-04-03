@@ -268,7 +268,6 @@ const AddOrgDashBoard = ({
             <div className="ml-4">
               <h4
                 style={{
-                  fontFamily: "Sans-serif",
                   color: "white",
                 }}
                 className="text-center  ml-4 "
@@ -303,7 +302,6 @@ const AddOrgDashBoard = ({
               <div className="modal-title">
                 <h4
                   style={{
-                    fontFamily: "Sans-serif",
                     color: "white",
                   }}
                   className="text-center"

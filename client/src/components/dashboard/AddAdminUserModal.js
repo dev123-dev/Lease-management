@@ -244,7 +244,6 @@ const AddAdminUserModal = ({
         <div className=" row col-lg-10 col-md-12 col-sm-12 col-12 modhead ">
           <div className="ml-5">
             <h4 style={{
-              fontFamily: "Sans-serif",
               color: "white",
             }} className=" text-center ml-4">ADD USER DETAILS</h4>{" "}
           </div>

@@ -195,7 +195,6 @@ const MainSuperPage = ({
           <div className="col-lg-10">
             <h4
               style={{
-                fontFamily: "Sans-serif",
                 color: "white",
               }}
             >

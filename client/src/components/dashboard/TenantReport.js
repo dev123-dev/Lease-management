@@ -304,7 +304,6 @@ const TenantReport = ({
                 <div className="col-lg-10">
                   <h3
                     style={{
-                      fontFamily: "Sans-serif",
                       color: "white",
                     }}
                   >

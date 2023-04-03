@@ -93,7 +93,7 @@ const ReneworgAggreement = ({
             <form onSubmit={(e) => onSubmit(e)}>
               <div className="col-lg-12 col-sm-12 col-md-12 col-12">
                 <span
-                  style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  style={{ color: "#095a4a" }}
                   className="font-weight-bold headsize h2"
                 >
                   Renewal Agreement

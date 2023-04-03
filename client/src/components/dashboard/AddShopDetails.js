@@ -186,7 +186,6 @@ const AddShopDetails = ({
           <div className="ml-5">
             <h4
               style={{
-                fontFamily: "Sans-serif",
                 color: "white",
               }}
               className="text-center ml-4 "

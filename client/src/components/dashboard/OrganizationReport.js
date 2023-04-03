@@ -69,7 +69,6 @@ const TenantReport = ({
             <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
               <h1
                 style={{
-                  fontFamily: "Serif",
                   color: "#095a4a",
                   position: "relative",
                   right: "65px",

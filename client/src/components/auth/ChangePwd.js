@@ -182,7 +182,6 @@ const ChangePwd = ({
             
             
             style={{
-              fontFamily: "Serif",
               color: "#095a4a",
             position:"relative",
             right:"80px"
@@ -191,7 +190,6 @@ const ChangePwd = ({
             className="font-weight-bold "
           >
             <span
-              style={{ fontFamily: "Serif" }}
               className="  font-weight-bold  "
             >
               {" "}
