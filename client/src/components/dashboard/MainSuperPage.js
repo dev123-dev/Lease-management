@@ -68,24 +68,24 @@ const MainSuperPage = ({
     <></>
   ) : (
     <div className="col mt-sm-5 DashBoard">
-      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
+      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  ">
         <div>
-          <h1
-            style={{
-              fontFamily: "Serif",
-              color: "#095a4a",
+          <h2
+           style={{
+            position:"relative",
+        top:"50px",
             }}
-            className="font-weight-bold headsize"
-          >
-            <span
-              style={{ fontFamily: "Serif" }}
-              className=" text-right font-weight-bold ml-4"
+            className=" heading_color  headsize  ml-3"
+          
+            
+              
+             
             >
               {" "}
               Dashboard
-            </span>
-          </h1>
-          <hr className="line"></hr>
+            
+          </h2>
+      
         </div>
         <div className="container-fluid d-flex align-items-center justify-content-center ">
           <div className="col">

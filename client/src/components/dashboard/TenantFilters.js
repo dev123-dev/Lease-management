@@ -16,18 +16,18 @@ import {
 } from "../../actions/tenants";
 
 const optName = [
-  { value: "01", label: "JAN" },
-  { value: "02", label: "FEB" },
-  { value: "03", label: "MAR" },
-  { value: "04", label: "APR" },
-  { value: "05", label: "MAY" },
-  { value: "06", label: "JUN" },
-  { value: "07", label: "JUL" },
-  { value: "08", label: "AUG" },
-  { value: "09", label: "SEP" },
-  { value: "10", label: "OCT" },
-  { value: "11", label: "NOV" },
-  { value: "12", label: "DEC" },
+  { value: "01", label: "Jan" },
+  { value: "02", label: "Feb" },
+  { value: "03", label: "Mar" },
+  { value: "04", label: "Apr" },
+  { value: "05", label: "May" },
+  { value: "06", label: "Jun" },
+  { value: "07", label: "Jul" },
+  { value: "08", label: "Aug" },
+  { value: "09", label: "Sep" },
+  { value: "10", label: "Oct" },
+  { value: "11", label: "Nov" },
+  { value: "12", label: "Dec" },
 ];
 
 const TenantFilters = ({
@@ -222,7 +222,7 @@ const TenantFilters = ({
                       <div
                         className="tenantfil  "
                         style={{
-                          fontWeight: "bold",
+                          // fontWeight: "bold",
                           color: "#fff",
                           padding: "0px 0px 0px 5px",
                         }}
