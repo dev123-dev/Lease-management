@@ -247,7 +247,7 @@ const SuperUserDashboard = ({
             <Modal.Header className="confirmbox-heading">
               <div className="col-lg-10">
                 <div className="ml-4">
-                  <h3
+                  <h4
                     style={{
                       fontFamily: "Sans-serif",
                       color: "white",
@@ -255,7 +255,7 @@ const SuperUserDashboard = ({
                     className="text-center   ml-4 "
                   >
                     Edit User Details
-                  </h3>
+                  </h4>
                 </div>
               </div>
               <div className="col-lg-2">
@@ -283,7 +283,7 @@ const SuperUserDashboard = ({
               <Modal.Header className="confirmbox-heading">
                 <div className="col-lg-11 ">
                   <div className="modal-title">
-                    <h3
+                    <h4
                       style={{
                         fontFamily: "Sans-serif",
                         color: "white",
@@ -291,7 +291,7 @@ const SuperUserDashboard = ({
                       className="text-center"
                     >
                       DEACTIVATE{" "}
-                    </h3>
+                    </h4>
                   </div>
                 </div>
                 <div className="close">

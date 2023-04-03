@@ -184,7 +184,7 @@ const AddShopDetails = ({
       <Modal.Header className="confirmbox-heading">
         <div className=" row col-lg-12 col-md-12 col-sm-12 col-12 modhead">
           <div className="ml-5">
-            <h3
+            <h4
               style={{
                 fontFamily: "Sans-serif",
                 color: "white",
@@ -192,7 +192,7 @@ const AddShopDetails = ({
               className="text-center ml-4 "
             >
               ADD PROPERTY DETAILS
-            </h3>
+            </h4>
           </div>
         </div>
         <div className="col-lg-2">
