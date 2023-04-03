@@ -97,22 +97,20 @@ const SuperUserDashboard = ({
 
         <>
           <div className="col mt-sm-5">
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  ">
               <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-                <h1
+                <h2
                   style={{
-                    fontFamily: "Serif",
-                    color: "#095a4a",
-                    position: "relative",
-                    right: "60px",
+                    position:"relative",
+                top:"50px",
                   }}
-                  className="font-weight-bold headsize "
+                  className="heading_color  headsize  ml-3"
                 >
                   {" "}
                   User Details
-                </h1>
+                </h2>
               </div>
-              <hr className="line"></hr>
+            
 
               <div className="container-fluid d-flex align-items-center justify-content-center ">
                 <div className="col">
