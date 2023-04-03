@@ -91,15 +91,17 @@ const TenantReport = ({
       {user.usergroup === "Super Admin" ? (
         <div className="col mt-sm-5 DashBoard ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3 ">
-            <div>
-              <h1
+            <div className="mb-5">
+              <h2
                 style={{
-                  color: "#095a4a",
+                  position:"relative",
+              top:"60px",
+                  
                 }}
-                className="headsize"
+                className="heading_color  headsize  ml-5"
               >
-                <span className=" text-right "> Renewal Dashboard</span>
-              </h1>
+                 Renewal Dashboard
+              </h2>
               {/* <hr className="line"></hr> */}
             </div>
 
