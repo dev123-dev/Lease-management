@@ -96,16 +96,11 @@ const TenantReport = ({
                 style={{
                   color: "#095a4a",
                 }}
-                className="font-weight-bold headsize"
+                className="headsize"
               >
-                <span
-                  className=" text-right font-weight-bold ml-5"
-                >
-                  {" "}
-                  Renewal Dashboard
-                </span>
+                <span className=" text-right "> Renewal Dashboard</span>
               </h1>
-              <hr className="line"></hr>
+              {/* <hr className="line"></hr> */}
             </div>
 
             <div className="container-fluid d-flex align-items-center justify-content-center ">
