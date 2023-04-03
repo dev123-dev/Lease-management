@@ -86,23 +86,20 @@ const UserDetails = ({
   return (
     <>
       <div className="col mt-sm-4 space">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
-          <h1
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  ">
+          <h2
             style={{
-              fontFamily: "Serif",
-              color: "#095a4a",
+              position:"relative",
+              top:"60px",
             }}
-            className="font-weight-bold headsize"
-          >
-            <span
-              style={{ fontFamily: "Serif" }}
-              className=" text-right font-weight-bold ml-4"
+           
+              className=" heading_color  headsize  ml-4"
             >
               User Details
-            </span>
-          </h1>
+            
+          </h2>
           <div>
-            <hr className="line"></hr>
+       
           </div>
           <div className="text-end"></div>
           <div className="container-fluid d-flex align-items-center justify-content-center ">

@@ -216,73 +216,70 @@ const Tenant_Details = ({
     <>
       <Fragment>
         <div className="col mt-sm-4 space ">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
-            <h1
-              style={{
-                fontFamily: "Serif",
-                color: "#095a4a",
-              }}
-              className="font-weight-bold headsize"
-            >
-              <span
-                style={{ fontFamily: "Serif" }}
-                className=" text-right font-weight-bold ml-4"
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
+            <div className="row mt-5 ">
+              <div className="col-lg-5 mt-3"> 
+              <h2
+               
+                className="heading_color  headsize  ml-4"
               >
+
                 {" "}
                 Tenant Details
-              </span>
-            </h1>
-            <hr className="line"></hr>
 
-            <div className="text-end"> </div>
+              </h2>
+              </div>
+              <div className="col-lg-5"  style={{
+                  position:"relative",
+                  top:"10px"
+                  
+                }}>
+                <Select
+                className="dropdown text-left mt-sm-3"
+               
+                placeholder="Search-Location"
+                name="location"
+                options={location}
+                value={sellocation}
+                onChange={(e) => onchangeLocation(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
+                  },
+                })}
+              ></Select></div>
+              <div className="col-lg-2 text-end mt-sm-5">
+                <Link to="/add-tenant-details">
+                  <img
+                    height="20px"
+                    // onClick={() => setShowadd(true)}
+                    src={require("../../static/images/add-icon.png")}
+                    alt="Add Tenant"
+                    title="Add Tenant"
+                  />
+                </Link>
+                <img
+                  className="ml-2"
+                  height="20px"
+                  onClick={() => refresh()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="refresh"
+                  title="refresh"
+                /></div>
+            </div>
+
+
+
 
             <div className="container-fluid d-flex align-items-center justify-content-center ">
               <div className="col">
-                <div className=" row text-end">
-                  <div className="col-lg-4">
-                    {" "}
-                    <Select
-                      className="dropdown text-left"
-                      placeholder="Search-Location"
-                      name="location"
-                      options={location}
-                      value={sellocation}
-                      onChange={(e) => onchangeLocation(e)}
-                      theme={(theme) => ({
-                        ...theme,
-                        height: 26,
-                        minHeight: 26,
-                        borderRadius: 1,
-                        colors: {
-                          ...theme.colors,
-                          primary25: "#e8a317",
-                          primary: "#095a4a",
-                        },
-                      })}
-                    ></Select>
-                  </div>
-                  <div className="col-lg-4"></div>
-                  <div className="col-lg-4 refresh">
-                    {" "}
-                    <Link to="/add-tenant-details">
-                      <img
-                        height="20px"
-                        // onClick={() => setShowadd(true)}
-                        src={require("../../static/images/add-icon.png")}
-                        alt="Add Tenant"
-                        title="Add Tenant"
-                      />
-                    </Link>
-                    <img
-                      className="ml-2"
-                      height="20px"
-                      onClick={() => refresh()}
-                      src={require("../../static/images/refresh-icon.png")}
-                      alt="refresh"
-                      title="refresh"
-                    />
-                  </div>
-                </div>
+
                 {/* <div className="refreshbtn"></div> */}
 
                 <div className="row">
@@ -290,7 +287,7 @@ const Tenant_Details = ({
 
                   <div className="body-inner no-padding table-responsive">
                     <table
-                      className="table table-bordered table-striped table-hover mt-1 "
+                      className="table table-bordered table-striped table-hover  "
                       id="datatable2"
                     >
                       <thead>
@@ -382,7 +379,7 @@ const Tenant_Details = ({
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
                     {get_particular_org_tenant &&
-                    get_particular_org_tenant.length !== 0 ? (
+                      get_particular_org_tenant.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
                         totalData={currentDatas.length}
@@ -469,7 +466,7 @@ const Tenant_Details = ({
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
-                  style={{ height: "20px", width: "20px" ,marginLeft : "-12px"}}
+                  style={{ height: "20px", width: "20px", marginLeft: "-12px" }}
                 />
               </button>
             </div>
@@ -525,7 +522,7 @@ const Tenant_Details = ({
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
-                  style={{ height: "20px", width: "20px" ,marginLeft : "-12px" }}
+                  style={{ height: "20px", width: "20px", marginLeft: "-12px" }}
                 />
               </button>
             </div>
