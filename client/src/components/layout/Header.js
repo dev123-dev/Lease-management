@@ -169,7 +169,7 @@ const Header = ({
                   user.usergroup === "Clerk") ? (
                   <NavLink
                     to="/PropertyDetail"
-                    className="navlink   headinghover"
+                    className="navlink   headinghover  navbar-right"
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
@@ -191,7 +191,7 @@ const Header = ({
                 user.usergroup === "Admin" ? (
                   <NavLink
                     to="/tenant-detail"
-                    className="navlink  headinghover"
+                    className="navlink  headinghover  navbar-right  "
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
@@ -214,7 +214,7 @@ const Header = ({
                 user.usergroup === "Admin" ? (
                   <NavLink
                     to="/AdminUser"
-                    className="navlink  headinghover navbar-right mt-1 mb-3 "
+                    className="navlink  headinghover navbar-right"
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
@@ -318,10 +318,19 @@ const Header = ({
                             onClick={() => openSecondLevelMenu2()}
                             className="navbar-right pt-3 pb-1"
                           >
-                            {user.username}&nbsp;
-                            <i className="fa fa-caret-down" />
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <inline
+                              style={{
+                                position: "relative",
+                                backgroundColor: "red",
+                                bottom: "10px",
+                              }}
+                            >
+                              {" "}
+                              {user.username} &nbsp;
+                              <i className="fa fa-caret-down" />
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </inline>
                           </Link>
 
                           <ul className="dropdown-menu second-level-menu ">
