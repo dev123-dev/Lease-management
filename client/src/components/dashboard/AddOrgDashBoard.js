@@ -266,7 +266,7 @@ const AddOrgDashBoard = ({
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10 ">
             <div className="ml-4">
-              <h3
+              <h4
                 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
@@ -274,7 +274,7 @@ const AddOrgDashBoard = ({
                 className="text-center  ml-4 "
               >
                 Edit Organization Details{" "}
-              </h3>
+              </h4>
             </div>
           </div>
           <div className="col-lg-2 ">
@@ -301,7 +301,7 @@ const AddOrgDashBoard = ({
           <Modal.Header className="confirmbox-heading">
             <div className="col-lg-10">
               <div className="modal-title">
-                <h3
+                <h4
                   style={{
                     fontFamily: "Sans-serif",
                     color: "white",
@@ -309,7 +309,7 @@ const AddOrgDashBoard = ({
                   className="text-center"
                 >
                   DEACTIVATE
-                </h3>
+                </h4>
               </div>
             </div>
             <div

@@ -193,14 +193,14 @@ const MainSuperPage = ({
       >
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
-            <h3
+            <h4
               style={{
                 fontFamily: "Sans-serif",
                 color: "white",
               }}
             >
               Renewal Agreement
-            </h3>
+            </h4>
           </div>
           <div className="col-lg-2">
             <button onClick={handleEditModalClose} className="close">

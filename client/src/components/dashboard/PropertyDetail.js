@@ -397,7 +397,7 @@ const PropertyDetail = ({
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
             <div className="ml-4">
-              <h3
+              <h4
                 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
@@ -405,7 +405,7 @@ const PropertyDetail = ({
                 className="text-center  ml-4"
               >
                 Edit Property Details
-              </h3>{" "}
+              </h4>{" "}
             </div>
           </div>
           <div className="col-lg-2">
@@ -435,7 +435,7 @@ const PropertyDetail = ({
 
           <div className="col-lg-10">
             <div className="ml-4">
-              <h3
+              <h4
                 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
@@ -443,7 +443,7 @@ const PropertyDetail = ({
                 className=" text-center "
               >
                 DEACTIVATE
-              </h3>
+              </h4>
             </div>
           </div>
           <div className="col-lg-2">
@@ -532,7 +532,7 @@ const PropertyDetail = ({
 
 <div className="col-lg-10">
             <div className="ml-1">
-              <h3
+              <h4
                 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
@@ -540,7 +540,7 @@ const PropertyDetail = ({
                 className="text-center "
               >
                 DEACTIVATE
-              </h3>
+              </h4>
             </div>
           </div>
           <div className="col-lg-2">

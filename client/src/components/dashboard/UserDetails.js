@@ -229,7 +229,7 @@ const UserDetails = ({
         <Modal.Header className="confirmbox-heading">
           <div className="col-lg-10">
             <div className="ml-4">
-              <h3
+              <h4
                 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
@@ -237,7 +237,7 @@ const UserDetails = ({
                 className=" text-center   ml-4 "
               >
                 EDIT USER DETAILS{" "}
-              </h3>
+              </h4>
             </div>
           </div>
           <div className="col-lg-2">
@@ -268,7 +268,7 @@ const UserDetails = ({
 
 <div className="col-lg-10">
             <div className="ml-4">
-              <h3
+              <h4
                 style={{
                   fontFamily: "Sans-serif",
                   color: "white",
@@ -276,7 +276,7 @@ const UserDetails = ({
                 className=" text-center ml-4"
               >
                 DEACTIVATE
-              </h3>
+              </h4>
             </div>
           </div>
           <div className="col-lg-2">
