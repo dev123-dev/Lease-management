@@ -268,27 +268,30 @@ const UserDetails = ({
       <Modal show={Deactiveshow} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-11 ">
-              <div className="modal-title">
-                <h3
-                  style={{
-                    fontFamily: "Sans-serif",
-                    color: "white",
-                  }}
-                  className="text-center mr-3 "
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
+
+<div className="col-lg-10">
+            <div className="ml-4">
+              <h3
+                style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }}
+                className=" text-center ml-4"
+              >
+                DEACTIVATE
+              </h3>
             </div>
-            <div className="close">
+          </div>
+          <div className="col-lg-2">
+            <button  onClick={() => setDeactiveShow(false)} className="close">
               <img
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
-                onClick={() => setDeactiveShow(false)}
               />
-            </div>
+            </button>
+          </div>
+
           </Modal.Header>
 
           <Modal.Body>

@@ -37,7 +37,7 @@ const App = () => {
           <Header />
 
           <div className="row back_image ">
-            <div className="col-lg-1 col-md-1 col-sm-12 no_padding  ">
+            <div className="col-lg-1 col-md-1 col-sm-12 no_padding ">
               <TenantFilters />
             </div>
             <div className="col-lg-11 col-md-11 col-sm-12 no_padding">

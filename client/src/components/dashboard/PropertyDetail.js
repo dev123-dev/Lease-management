@@ -205,7 +205,7 @@ const PropertyDetail = ({
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
-      <div className="col mt-sm-5 ">
+      <div className="col mt-sm-5">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-3">
           <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
             <h1
@@ -438,14 +438,39 @@ const PropertyDetail = ({
       <Modal show={show} centered>
         <form onSubmit={(e) => onDeactivateall(e)}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-11 ">
+
+          <div className="col-lg-10">
+            <div className="ml-4">
+              <h3
+                style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }}
+                className=" text-center "
+              >
+                DEACTIVATE
+              </h3>
+            </div>
+          </div>
+          <div className="col-lg-2">
+            <button  onClick={() => setShow(false)} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+
+
+            {/* <div className="col-lg-11 ">
               <div className="modal-title ">
                 <h3
                   style={{
                     fontFamily: "Sans-serif",
                     color: "white",
                   }}
-                  className="text-center mr-3 "
+                  className="text-center"
                 >
                   DEACTIVATE
                 </h3>
@@ -456,9 +481,9 @@ const PropertyDetail = ({
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
-                onClick={() => setShow(false)}
+                
               />
-            </div>
+            </div> */}
           </Modal.Header>
 
           <Modal.Body>
@@ -488,7 +513,7 @@ const PropertyDetail = ({
       <Modal show={selectDno} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-11 ">
+            {/* <div className="col-lg-11 ">
               <div className="modal-title ">
                 <h3
                   style={{
@@ -506,9 +531,35 @@ const PropertyDetail = ({
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
-                onClick={handleCloseDno}
+               
               />
+            </div> */}
+
+
+<div className="col-lg-10">
+            <div className="ml-1">
+              <h3
+                style={{
+                  fontFamily: "Sans-serif",
+                  color: "white",
+                }}
+                className="text-center "
+              >
+                DEACTIVATE
+              </h3>
             </div>
+          </div>
+          <div className="col-lg-2">
+            <button   onClick={handleCloseDno} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+
+
           </Modal.Header>
 
           <Modal.Body>

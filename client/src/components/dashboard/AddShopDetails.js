@@ -189,7 +189,7 @@ const AddShopDetails = ({
                 fontFamily: "Sans-serif",
                 color: "white",
               }}
-              className="text-center h ml-4 "
+              className="text-center ml-4 "
             >
               ADD PROPERTY DETAILS
             </h3>

@@ -21,14 +21,14 @@ const Tenant_Details = ({
     particular_org_data,
     get_particular_org_tenant,
     particular_org_loc,
-    allTenantSetting
+    allTenantSetting,
   },
   ParticularTenant,
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
   deactiveTenantsDetails,
-  getAllSettings
+  getAllSettings,
 }) => {
   const [freshpage, setFreshPage] = useState(true);
   const checkboxRef = useRef(null);
@@ -73,7 +73,7 @@ const Tenant_Details = ({
   const handleShow = () => setShow(true);
   const [selectDno, SetDoornumber] = useState();
   const handleShowDno = () => SetDoornumber(false);
-  const [DeactiveThisBiuldingID,setDeactiveThisBiuldingID]=useState("")
+  const [DeactiveThisBiuldingID, setDeactiveThisBiuldingID] = useState("");
   const handleCloseDno = () => {
     SetDoornumber(false);
     setCheckData([]);
@@ -83,8 +83,8 @@ const Tenant_Details = ({
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno, Val) => {
     setId(id);
-console.log("whole find cil",Val.BuildingId);
-setDeactiveThisBiuldingID(Val.BuildingId)
+    console.log("whole find cil", Val.BuildingId);
+    setDeactiveThisBiuldingID(Val.BuildingId);
     if (Dno.length >= 1) {
       SetDno(Dno);
       SetDoornumber(true);
@@ -141,34 +141,30 @@ setDeactiveThisBiuldingID(Val.BuildingId)
     });
   };
 
-
-const onDeactivateall=(e)=>{
-  e.preventDefault();
-  SetDoornumber(false);
-  const reason = {
-    OrganizationId: user && user.OrganizationId,
-    Dno: checkData.length !== 0 ? checkData : dno,
-    deactive_reason: deactive_reason,
-    tid: tId,
-    isSubmitted: "true",
-    BiuldingID:DeactiveThisBiuldingID
+  const onDeactivateall = (e) => {
+    e.preventDefault();
+    SetDoornumber(false);
+    const reason = {
+      OrganizationId: user && user.OrganizationId,
+      Dno: checkData.length !== 0 ? checkData : dno,
+      deactive_reason: deactive_reason,
+      tid: tId,
+      isSubmitted: "true",
+      BiuldingID: DeactiveThisBiuldingID,
+    };
+    console.log("ok ", reason);
+    deactiveTenantsDetails(reason);
+    handleClose();
+    setFreshPage(!freshpage);
+    setCheckData([]);
   };
-  console.log("ok ",reason)
- deactiveTenantsDetails(reason);
-  handleClose();
-  setFreshPage(!freshpage);
-  setCheckData([]);
-
-}
-const [Error,setError]=useState("");
+  const [Error, setError] = useState("");
   const onDeactivate = (e) => {
     e.preventDefault();
-    if( checkData.length==0 ){
-setError("Please Select DoorNumber")
-//alert();
-
-    }else{
-
+    if (checkData.length == 0) {
+      setError("Please Select DoorNumber");
+      //alert();
+    } else {
       SetDoornumber(false);
       const reason = {
         OrganizationId: user && user.OrganizationId,
@@ -176,19 +172,15 @@ setError("Please Select DoorNumber")
         deactive_reason: deactive_reason,
         tid: tId,
         isSubmitted: "true",
-        BiuldingID:DeactiveThisBiuldingID
+        BiuldingID: DeactiveThisBiuldingID,
       };
-      console.log("ok ",reason)
-     deactiveTenantsDetails(reason);
+      console.log("ok ", reason);
+      deactiveTenantsDetails(reason);
       handleClose();
       setFreshPage(!freshpage);
       setCheckData([]);
     }
-
-   
   };
-
-
 
   const [showadd, setShowadd] = useState(false);
 
@@ -222,28 +214,26 @@ setError("Please Select DoorNumber")
     <Fragment></Fragment>
   ) : (
     <>
-    
       <Fragment>
         <div className="col mt-sm-4 space ">
-       
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5">
-              <h1
-                style={{
-                  fontFamily: "Serif",
-                  color: "#095a4a",
-                }}
-                className="font-weight-bold headsize"
+            <h1
+              style={{
+                fontFamily: "Serif",
+                color: "#095a4a",
+              }}
+              className="font-weight-bold headsize"
+            >
+              <span
+                style={{ fontFamily: "Serif" }}
+                className=" text-right font-weight-bold ml-4"
               >
-                <span
-                  style={{ fontFamily: "Serif" }}
-                  className=" text-right font-weight-bold ml-4"
-                >
-                  {" "}
-                  Tenant Details
-                </span>
-              </h1>
-              <hr className="line"></hr>
-           
+                {" "}
+                Tenant Details
+              </span>
+            </h1>
+            <hr className="line"></hr>
+
             <div className="text-end"> </div>
 
             <div className="container-fluid d-flex align-items-center justify-content-center ">
@@ -267,7 +257,6 @@ setError("Please Select DoorNumber")
                           ...theme.colors,
                           primary25: "#e8a317",
                           primary: "#095a4a",
-                          
                         },
                       })}
                     ></Select>
@@ -320,14 +309,14 @@ setError("Please Select DoorNumber")
                       <tbody className="text-center">
                         {currentDatas &&
                           currentDatas.map((Val, idx) => {
-                              var ED =
-                                Val.tenantLeaseEndDate &&
-                                Val.tenantLeaseEndDate.split(/\D/g);
-                              var tenant = [
-                                ED && ED[2],
-                                ED && ED[1],
-                                ED && ED[0],
-                              ].join("-");
+                            var ED =
+                              Val.tenantLeaseEndDate &&
+                              Val.tenantLeaseEndDate.split(/\D/g);
+                            var tenant = [
+                              ED && ED[2],
+                              ED && ED[1],
+                              ED && ED[0],
+                            ].join("-");
 
                             if (Val.tenantstatus === "Active") {
                               return (
@@ -393,7 +382,7 @@ setError("Please Select DoorNumber")
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
                     {get_particular_org_tenant &&
-                      get_particular_org_tenant.length !== 0 ? (
+                    get_particular_org_tenant.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
                         totalData={currentDatas.length}
@@ -407,11 +396,11 @@ setError("Please Select DoorNumber")
                   {/* <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
                     <label>No.of Tenants: {tenantCount.length}</label>
                   </div> */}
-                   <div className="col-lg-6">
-                  <p className="text-end h6">
-                  No. of Tenants: {tenantCount.length}
-                  </p>
-                </div>
+                  <div className="col-lg-6">
+                    <p className="text-end h6">
+                      No. of Tenants: {tenantCount.length}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -439,9 +428,13 @@ setError("Please Select DoorNumber")
 
       {/* deactivate all */}
       <Modal show={show} centered>
-        <form onSubmit={(e)=>{onDeactivateall(e)}}>
+        <form
+          onSubmit={(e) => {
+            onDeactivateall(e);
+          }}
+        >
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-11 ">
+            {/* <div className="col-lg-11 ">
               <div className="modal-title">
                 <h3 style={{
                   fontFamily: "Sans-serif",
@@ -454,8 +447,31 @@ setError("Please Select DoorNumber")
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
-                onClick={handleClose}
+               
               />
+            </div> */}
+
+            <div className="col-lg-10">
+              <div className="ml-4">
+                <h3
+                  style={{
+                    fontFamily: "Sans-serif",
+                    color: "white",
+                  }}
+                  className=" text-center ml-4"
+                >
+                  DEACTIVATE
+                </h3>
+              </div>
+            </div>
+            <div className="col-lg-2 bg-danger">
+              <button onClick={handleClose} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" ,marginLeft : "-12px"}}
+                />
+              </button>
             </div>
           </Modal.Header>
 
@@ -491,7 +507,30 @@ setError("Please Select DoorNumber")
       <Modal show={selectDno} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-11 ">
+            <div className="col-lg-10">
+              <div className="ml-4">
+                <h3
+                  style={{
+                    fontFamily: "Sans-serif",
+                    color: "white",
+                  }}
+                  className="text-center  "
+                >
+                  DEACTIVATE
+                </h3>
+              </div>
+            </div>
+            <div className="col-lg-2">
+              <button onClick={handleCloseDno} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" ,marginLeft : "-12px" }}
+                />
+              </button>
+            </div>
+
+            {/* <div className="col-lg-11 ">
               <div className="modal-title ">
                 <h3 style={{
                   fontFamily: "Sans-serif",
@@ -504,9 +543,9 @@ setError("Please Select DoorNumber")
                 src={require("../../static/images/close.png")}
                 alt="X"
                 style={{ height: "20px", width: "20px" }}
-                onClick={handleCloseDno}
+               
               />
-            </div>
+            </div> */}
           </Modal.Header>
 
           <Modal.Body>
@@ -516,7 +555,7 @@ setError("Please Select DoorNumber")
 
             <div className="checkbox mx-5">
               {dno.map((ele, index) => {
-                if (ele.status == "Acquired" || ele.status === "Avaiable") {
+                if (ele.status === "Acquired" || ele.status === "Avaiable") {
                   return (
                     <>
                       <input
@@ -544,7 +583,7 @@ setError("Please Select DoorNumber")
               required
             ></textarea>
             <div>Are you sure You Want To Deactivate..?</div>
-            <div style={{color:"red"}}>{Error}</div>
+            <div style={{ color: "red" }}>{Error}</div>
             {/* </Form.Group>
           </Form> */}
           </Modal.Body>
