@@ -178,8 +178,8 @@ const TenantReport = ({
               <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{
-                    position: "relative",
-                    top: "60px",
+                    // position: "relative",
+                    // top: "60px",
                   }}
                   className="heading_color  headsize  ml-4"
                 >
