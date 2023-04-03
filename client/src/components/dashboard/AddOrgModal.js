@@ -38,7 +38,7 @@ const AddOrgModal = ({
     if (mm2 < 10) {
       mm2 = "0" + mm2;
     }
-    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1; //yyyy1 + "-" + mm2 + "-" + dd1;
+    var leaseEndDate = mm2 + "-" + dd1 + "-" + yyyy1; //yyyy1 + "-" + mm2 + "-" + dd1;
     setLeaseEndDate(leaseEndDate);
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
@@ -95,40 +95,37 @@ const AddOrgModal = ({
   const onshow = () => setShowAdd(true);
   const onremove = () => setShowAdd(false);
 
-const [locationError,setLocationError]=useState("black")
+  const [locationError, setLocationError] = useState("black");
 
   const onSubmitORGdata = (e) => {
     e.preventDefault();
-    if(items.length==0){
-      setLocationError("red")
+    if (items.length == 0) {
+      setLocationError("red");
+    } else {
+      const finalORGdata = {
+        OrganizationName: OrganizationName,
+        OrganizationEmail: OrganizationEmail,
+        OrganizationNumber: OrganizationNumber,
+        OrganizationAddress: OrganizationAddress,
+        date: entryDate,
+        enddate: newLeaseEndDate,
+        Location: items,
+      };
+      AddOrganization(finalORGdata);
+      setShowadd(false);
+      onshow();
+      setFormDataORG({
+        ...formDataORG,
+        OrganizationName: "",
+        OrganizationEmail: "",
+        OrganizationNumber: "",
+        OrganizationAddress: "",
+        OrganizationStatus: "",
+        date: "",
+        enddate: "",
+        Location: [],
+      });
     }
-    else{
-    const finalORGdata = {
-      OrganizationName: OrganizationName,
-      OrganizationEmail: OrganizationEmail,
-      OrganizationNumber: OrganizationNumber,
-      OrganizationAddress: OrganizationAddress,
-      date: entryDate,
-      enddate: newLeaseEndDate,
-      Location: items,
-    };
-    
-
-    AddOrganization(finalORGdata);
-    setShowadd(false);
-    onshow();
-    setFormDataORG({
-      ...formDataORG,
-      OrganizationName: "",
-      OrganizationEmail: "",
-      OrganizationNumber: "",
-      OrganizationAddress: "",
-      OrganizationStatus: "",
-      date: "",
-      enddate: "",
-      Location: [],
-    });
-  }
   };
   return !isAuthenticated || !user || !users ? (
     <></>
@@ -205,7 +202,7 @@ const [locationError,setLocationError]=useState("black")
                 <label>Lease Start Date*:</label>
                 <input
                   type="date"
-                  placeholder="dd/mm/yyyy"
+                  //placeholder="dd/mm/yyyy"
                   className="form-control cpp-input datevalidation"
                   name="tenantLeaseStartDate"
                   value={entryDate}
@@ -223,7 +220,7 @@ const [locationError,setLocationError]=useState("black")
                   type="text"
                   value={leaseEndDate}
                   className="form-control cpp-input datevalidation"
-                  name="tenantLeaseStartDate"
+                  name="leaseEndDate"
                   style={{
                     width: "100%",
                   }}
@@ -231,7 +228,9 @@ const [locationError,setLocationError]=useState("black")
                 />
                 <br></br>
 
-                <label className="ml-2" style={{color:locationError}}>Location*:</label>
+                <label className="ml-2" style={{ color: locationError }}>
+                  Location*:
+                </label>
 
                 <input
                   className="form-control"
@@ -243,7 +242,7 @@ const [locationError,setLocationError]=useState("black")
                   id="Location"
                 ></input>
 
-                <div >
+                <div>
                   <div className="locadds " onClick={addItem}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +259,10 @@ const [locationError,setLocationError]=useState("black")
                     </svg>
                   </div>
                   <br></br>
-                  <div className="showItemcl plusiconbck" style={{ display: showscroll }}>
+                  <div
+                    className="showItemcl plusiconbck"
+                    style={{ display: showscroll }}
+                  >
                     {items.map((ele, index) => {
                       return (
                         <div className="eachItem" key={index}>
@@ -277,7 +279,6 @@ const [locationError,setLocationError]=useState("black")
                     })}
                   </div>
                 </div>
-                
               </div>
               <div className="col-lg-6">
                 <label> Address*:</label>
@@ -293,8 +294,6 @@ const [locationError,setLocationError]=useState("black")
                   required
                 ></textarea>{" "}
               </div>
-              
-             
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
