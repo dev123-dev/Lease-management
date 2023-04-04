@@ -402,10 +402,10 @@ const AddTenantDetails = ({
               <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{
-                    color: "#095a4a",
+                
                     marginLeft: "10px",
                   }}
-                  className="font-weight-bold headsize"
+                  className=" heading_color headsize"
                 >
                   Add Tenant Details
                 </h2>
@@ -517,7 +517,7 @@ const AddTenantDetails = ({
                   value={tenantPanNo}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) => funcKeyDown(e)}
+                  // onKeyDown={(e) => funcKeyDown(e)}
                 />
                 <br></br>
               </div>
