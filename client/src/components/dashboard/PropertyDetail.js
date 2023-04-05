@@ -34,7 +34,7 @@ const PropertyDetail = ({
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
     color: "white",
-  
+
     display: "none",
   });
 
@@ -209,61 +209,55 @@ const PropertyDetail = ({
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
-            <h2
-             className="heading_color  headsize  ml-4"
-            >
-              Property Details
-            </h2>
+              <h2 className="heading_color  headsize  ml-4">
+                Property Details
+              </h2>
             </div>
             <div className="col-lg-5 mt-3">
-            <Select
-                    className="dropdown text-left mt-sm-3"
-                    placeholder="Search-Location"
-                    name="location"
-                    options={Sellocation}
-                    value={LOCATION}
-                    onChange={(e) => onchangeLocation(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                  ></Select>
+              <Select
+                className="dropdown text-left mt-sm-3"
+                placeholder="Search-Location"
+                name="location"
+                options={Sellocation}
+                value={LOCATION}
+                onChange={(e) => onchangeLocation(e)}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
+                  },
+                })}
+              ></Select>
             </div>
             <div className="col-lg-2 text-end mt-sm-5">
-            {" "}
-                  <img
-                    height="20px"
-                    style={{cursor:"pointer"}}
-                    onClick={() => setShowadd(true)}
-                    src={require("../../static/images/add-icon.png")}
-                    alt="Add Prop"
-                    title="Add Prop"
-                  />
-                  <img
-                    className="ml-2"
-                    style={{cursor:"pointer"}}
-                    height="20px"
-                    onClick={() => refresh()}
-                    src={require("../../static/images/refresh-icon.png")}
-                    alt="refresh"
-                    title="refresh"
-                  />
+              {" "}
+              <img
+                height="20px"
+                style={{ cursor: "pointer" }}
+                onClick={() => setShowadd(true)}
+                src={require("../../static/images/add-icon.png")}
+                alt="Add Prop"
+                title="Add Prop"
+              />
+              <img
+                className="ml-2"
+                style={{ cursor: "pointer" }}
+                height="20px"
+                onClick={() => refresh()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="refresh"
+              />
             </div>
-           
           </div>
-        
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
-              
-
               <div className="row ">
                 <div className="col-lg-1"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -292,6 +286,7 @@ const PropertyDetail = ({
                     <tbody className="text-center">
                       {particular_org_data &&
                         particular_org_data.map((Val, idx) => {
+                          console.log("Val", Val.shopDoorNo);
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -317,15 +312,15 @@ const PropertyDetail = ({
                               <td>{Val.stampDuty}</td>
                               <td>{Val.leaseTimePeriod}</td>
                               <td>{Val.shopAddress}</td>
-                              {/* <td title={AddDetail.familyCards}> */}
+                              {/* <td title={AddDetail.shopDoorNo}> */}
                               <td>
-                                              <img
-                                                className="img_icon_size log"
-                                                src={require("../../static/images/info.png")}
-                                                alt="Govt Cards"
-                                                // title={AddDetail.familyCards}
-                                              />
-                                            </td>
+                                <img
+                                  className="img_icon_size log"
+                                  src={require("../../static/images/info.png")}
+                                  alt="Govt Cards"
+                                  title={Val.shopDoorNo.map((e) => e.doorNo)}
+                                />
+                              </td>
                               <td className=" text-center">
                                 {Val.shopStatus === "Active" ? (
                                   <>
@@ -442,29 +437,27 @@ const PropertyDetail = ({
       <Modal show={show} centered>
         <form onSubmit={(e) => onDeactivateall(e)}>
           <Modal.Header className="confirmbox-heading">
-
-          <div className="col-lg-10">
-            <div className="ml-4">
-              <h4
-                style={{
-                  color: "white",
-                }}
-                className=" text-center "
-              >
-                DEACTIVATE
-              </h4>
+            <div className="col-lg-10">
+              <div className="ml-4">
+                <h4
+                  style={{
+                    color: "white",
+                  }}
+                  className=" text-center "
+                >
+                  DEACTIVATE
+                </h4>
+              </div>
             </div>
-          </div>
-          <div className="col-lg-2">
-            <button  onClick={() => setShow(false)} className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-
+            <div className="col-lg-2">
+              <button onClick={() => setShow(false)} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
 
             {/* <div className="col-lg-11 ">
               <div className="modal-title ">
@@ -536,30 +529,27 @@ const PropertyDetail = ({
               />
             </div> */}
 
-
-<div className="col-lg-10">
-            <div className="ml-1">
-              <h4
-                style={{
-                  color: "white",
-                }}
-                className="text-center "
-              >
-                DEACTIVATE
-              </h4>
+            <div className="col-lg-10">
+              <div className="ml-1">
+                <h4
+                  style={{
+                    color: "white",
+                  }}
+                  className="text-center "
+                >
+                  DEACTIVATE
+                </h4>
+              </div>
             </div>
-          </div>
-          <div className="col-lg-2">
-            <button   onClick={handleCloseDno} className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-
-
+            <div className="col-lg-2">
+              <button onClick={handleCloseDno} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
           </Modal.Header>
 
           <Modal.Body>
