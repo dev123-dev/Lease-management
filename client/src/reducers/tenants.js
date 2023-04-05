@@ -138,6 +138,7 @@ const tenants = (state = initialState, action) => {
         get_admin: payload,
       };
     case PARTICULAR_ORG_USER:
+      localStorage.setItem("Org", JSON.stringify(payload));
       return {
         ...state,
         get_particularOrg_user: payload,

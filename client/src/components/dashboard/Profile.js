@@ -13,9 +13,43 @@ const Profile = ({
   EditModal,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
+  const myorg = JSON.parse(localStorage.getItem("Org"));
+
+  const [OrganizationData, setOrgnizationData] = useState({
+    OrganizationName:
+      get_particularOrg_user &&
+      get_particularOrg_user[0] &&
+      get_particularOrg_user[0].output.OrganizationName,
+    OrganizationEmail:
+      get_particularOrg_user &&
+      get_particularOrg_user[0] &&
+      get_particularOrg_user[0].output &&
+      get_particularOrg_user[0].output.OrganizationEmail
+        ? get_particularOrg_user[0].output.OrganizationEmail
+        : myorg &&
+          myorg[0] &&
+          myorg[0].output &&
+          myorg[0].output.OrganizationEmail,
+    OrganizationNumber:
+      get_particularOrg_user &&
+      get_particularOrg_user[0] &&
+      get_particularOrg_user[0].output &&
+      get_particularOrg_user[0].output.OrganizationNumber
+        ? get_particularOrg_user[0].output.OrganizationNumber
+        : myorg &&
+          myorg[0] &&
+          myorg[0].output &&
+          myorg[0].output.OrganizationNumber,
+    OrganizationAddress:
+      get_particularOrg_user &&
+      get_particularOrg_user[0] &&
+      get_particularOrg_user[0].output.OrganizationAddress,
+  });
   useEffect(() => {
     get_particular_org_user({ OrganizationId: myuser.OrganizationId });
   }, []);
+
+  //console.log("my org", myorg);
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
@@ -24,12 +58,14 @@ const Profile = ({
     });
   });
 
+  // console.log("myuser", myuser);
   const [orgname, setOrgname] = useState(
     superuser
       ? orglist &&
           orglist.filter((x) => x.value === superuser.OrganizationId)[0]
       : ""
   );
+
   const UserGroups = [
     { value: "Admin", label: "Admin" },
     // { value: "Super Admin", label: "Super Admin" },
@@ -59,30 +95,16 @@ const Profile = ({
     OrganizationId: myuser.OrganizationId ? myuser.OrganizationId : "",
   });
 
-  const [OrganizationData, setOrgnizationData] = useState({
-    OrganizationName:
-      get_particularOrg_user &&
-      get_particularOrg_user[0].output && get_particularOrg_user[0].output.OrganizationName,
-    OrganizationEmail:
-      get_particularOrg_user && get_particularOrg_user[0].output &&
-      get_particularOrg_user[0].output.OrganizationEmail,
-    OrganizationNumber:
-      get_particularOrg_user &&  get_particularOrg_user[0].output &&
-      get_particularOrg_user[0].output.OrganizationNumber,
-    OrganizationAddress:
-      get_particularOrg_user &&  get_particularOrg_user[0].output &&
-      get_particularOrg_user[0].output.OrganizationAddress,
-  });
   const {
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
     Location,
   } = OrganizationData;
- 
 
   let location = [];
   get_particularOrg_user &&
+    get_particularOrg_user[0] &&
     get_particularOrg_user[0].output.Location.map((ele) => {
       location.push({
         label: ele,
@@ -102,10 +124,12 @@ const Profile = ({
   };
 
   const [userGroup, setus] = useState();
+
   // superuser
   //   ? UserGroups &&
   //       UserGroups.filter((x) => x.value === superuser.usergroup)[0]
   //   : ""
+
   const onuser = (e) => {
     setus(e);
   };
@@ -115,6 +139,7 @@ const Profile = ({
     e.preventDefault();
     setrefresh("x");
     EditModal(false);
+
     const updateUSER = {
       userid: superuser._id,
       username: username,
@@ -252,21 +277,16 @@ const Profile = ({
                   <b>Update</b>
                 </button>
               </div>
-
-            
             </div>
-           
           </section>
         </div>
       ) : (
         <div className="container container_align  ">
-         
           <section className="sub_reg">
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-            <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-            <h2 className="heading_color"> Profile </h2>
-            
-          </div>
+              <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+                <h2 className="heading_color"> Profile </h2>
+              </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Name*:</label>
@@ -315,8 +335,6 @@ const Profile = ({
                     onChange={(e) => onInputChange(e)}
                     readOnly
                   />
-
-                 
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
@@ -330,10 +348,9 @@ const Profile = ({
                     readOnly
                   />
 
-                 
                   <br></br>
                 </div>
-                <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Address :</label>
                   <textarea
                     name="useraddress"
@@ -347,7 +364,6 @@ const Profile = ({
                   ></textarea>
                   <br></br>
                 </div>{" "}
-                
               </div>
               <div
                 className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
@@ -388,7 +404,6 @@ const Profile = ({
                       name="OrganizationName"
                       value={OrganizationName}
                       className="form-control"
-                    
                       readOnly
                     />
                     <br></br>
@@ -396,11 +411,10 @@ const Profile = ({
                   <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label>Email*: </label>
                     <input
-                      type="email"
                       name="OrganizationEmail"
                       value={OrganizationEmail}
                       className="form-control"
-                     readOnly
+                      readOnly
                     />
                     <br></br>
                   </div>
@@ -408,11 +422,10 @@ const Profile = ({
                     <label>Phone No:</label>
 
                     <input
-                      type="number"
                       name="OrganizationNumber"
                       value={OrganizationNumber}
                       className="form-control"
-                    readOnly
+                      readOnly
                     />
                     <br></br>
                   </div>
