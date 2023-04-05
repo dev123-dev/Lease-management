@@ -340,6 +340,21 @@ footer.footer .top_top {
   box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
   border-radius: 0.25rem;
 }
+.card-Profile {
+ 
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-width: 0;
+  word-wrap: break-word;
+  /* background-color: #e0e9e5f5; */
+
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  border-radius: 0.25rem;
+}
 .card-new1 {
   display: -webkit-box;
   display: -ms-flexbox;
