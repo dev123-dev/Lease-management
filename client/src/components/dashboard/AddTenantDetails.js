@@ -402,7 +402,6 @@ const AddTenantDetails = ({
               <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
                 <h2
                   style={{
-                
                     marginLeft: "10px",
                   }}
                   className=" heading_color headsize"
@@ -653,10 +652,9 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label>Lease End Date*:</label>
                 <input
-                  placeholder="dd-mm-yyyy"
                   className="form-control cpp-input datevalidation"
-                  // value={leaseEndDate}
-                  required
+                  value={leaseEndDate}
+                  readOnly
                 ></input>
                 <br></br>
               </div>{" "}

@@ -26,7 +26,6 @@ const TenantReport = ({
     "year",
     yearExpCnt.map((ele) => ele)
   );
-  console.log("exp", expReport);
   const componentRef = useRef();
 
   const [showEditModal, setShowEditModal] = useState(false);

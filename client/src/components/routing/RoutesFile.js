@@ -27,10 +27,12 @@ import MainAdmin from "../dashboard/MainAdminPage";
 import AddAdminModal from "../dashboard/AddAdminUserModal";
 import OrganizationFilter from "../dashboard/OrganizationFilter";
 import OrganizationReport from "../dashboard/OrganizationReport";
+import Profile from "../dashboard/Profile";
 const RoutesFile = () => {
   return (
     <section>
       <Switch>
+        <PrivateRoute exact path="/AdminProfile" component={Profile} />
         <PrivateRoute
           exact
           path="/add-tenant-details"

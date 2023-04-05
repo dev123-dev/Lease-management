@@ -77,7 +77,7 @@ const Header = ({
         >
           {!loading && isAuthenticated && user && user.usergroup === "Admin" ? (
             <Navbar.Brand>
-              <NavLink to="/MainAdmin">
+              <NavLink to="/AdminProfile">
                 <img
                   className=" log_size"
                   alt="Pinnacle Media"
@@ -94,7 +94,7 @@ const Header = ({
           user &&
           user.usergroup === "Super Admin" ? (
             <Navbar.Brand>
-              <NavLink to="/MainSuper">
+              <NavLink to="/AdminProfile">
                 <img
                   className="log_size"
                   alt="Pinnacle Media"
@@ -113,6 +113,50 @@ const Header = ({
               className="mr-auto navbar_Collapse_content mt-1 mb-3"
               id="org_detail"
             >
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Super Admin" ? (
+                  <NavLink
+                    to="/MainSuper"
+                    id="hea"
+                    className="navlink headinghover   "
+                    activeStyle={{
+                      color: "#e8a317",
+                      textDecoration: "none",
+                    }}
+                  >
+                    DashBoard
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem></NavItem>
+                )}
+              </NavItem>
+
+              {/* <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Super Admin" ? (
+                  <NavLink
+                    to="/Super"
+                    id="hea"
+                    className="navlink headinghover   "
+                    activeStyle={{
+                      color: "#e8a317",
+                      textDecoration: "none",
+                    }}
+                  >
+                    OrganizationDetails
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem></NavItem>
+                )}
+              </NavItem> */}
+
               <NavItem>
                 {!loading &&
                 isAuthenticated &&
@@ -229,6 +273,29 @@ const Header = ({
                   // <NavItem>gg</NavItem>
                 )}
               </NavItem>
+
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Admin" ? (
+                  <NavLink
+                    to="/MainAdmin"
+                    className="navlink  headinghover navbar-right"
+                    id="hea"
+                    activeStyle={{
+                      color: "#e8a317",
+
+                      textDecoration: "none",
+                    }}
+                  >
+                    DashBoard
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem>gg</NavItem>
+                )}
+              </NavItem>
             </Nav>
 
             {!loading && isAuthenticated && user ? (
@@ -259,6 +326,15 @@ const Header = ({
                           </Link>
 
                           <ul className="dropdown-menu second-level-menu mb-3 ">
+                            <li className="hwhite drophover">
+                              <Link
+                                to="/AdminProfile"
+                                className="navlinkitem"
+                                // onClick={() => handleLogoutModalShow()}
+                              >
+                                Profile
+                              </Link>
+                            </li>
                             <li className="hwhite drophover">
                               <Link
                                 to="#"
@@ -334,6 +410,22 @@ const Header = ({
                           </Link>
 
                           <ul className="dropdown-menu second-level-menu ">
+                            {!loading &&
+                            isAuthenticated &&
+                            user &&
+                            user.usergroup === "Admin" ? (
+                              <li className="hwhite">
+                                <Link
+                                  to="/AdminProfile"
+                                  className="navlinkitem"
+                                  //onClick={() => handleTenantSettingModalShow()}
+                                >
+                                  Profile
+                                </Link>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
                             {!loading &&
                             isAuthenticated &&
                             user &&

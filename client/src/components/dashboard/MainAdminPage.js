@@ -11,6 +11,7 @@ import {
 } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 // import { Roller } from "react-awesome-spinners";
 
 const MainAdminPage = ({
@@ -81,18 +82,12 @@ const MainAdminPage = ({
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ">
             <h2
               style={{
-                position:"relative",
-                top:"60px",
+                position: "relative",
+                top: "60px",
               }}
               className="heading_color  headsize  ml-4"
             >
-             
-                {user && user.orgName}
-              
-              
-                {" "}
-                Dashboard
-              
+              {user && user.orgName} Dashboard
             </h2>
             {/* <br />
           <br /> */}
@@ -110,94 +105,93 @@ const MainAdminPage = ({
             <div
               className="col-lg-5 card h2 text-center pt-5  "
               id="shadow-bck"
-             
             >
               <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard log "
-                  src={prop}
-                  alt="Property"
-                />
-                
+                <Link to="/PropertyDetail">
+                  {" "}
+                  <img
+                    className="img_icon_sizeDashboard log "
+                    src={prop}
+                    alt="Property"
+                  />
+                </Link>
+
                 <p>
-                <center>
-                  <p
-                    style={{
-                      // fontFamily: "Serif",
-                      color: "black",
-                    }}
-                    // className="h3"
-                  >
-                    <b className="h4">Property Count<br></br>{" "}
-                    {particular_org_data && particular_org_data.length}</b>
-                    </p>
-                   
-                </center>
-                </p>
-              </div>
-            </div>
-            <div
-              className="col-lg-5 card  h2 text-center pt-5"
-              id="shadow-bck"
-            
-            >
-              <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard log "
-                  src={unprop}
-                  alt="Unoccupied property"
-                />
-                <p >
                   <center>
-                  <p
-                    style={{
-                      // fontFamily: "Serif",
-                      color: "black",
-                    }}
-                  >
-                   <b className="h4">Unoccupied Property<br></br>
-                    {ShopStatus && ShopStatus.length}</b> 
-                  </p>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                      // className="h3"
+                    >
+                      <b className="h4">
+                        Property Count<br></br>{" "}
+                        {particular_org_data && particular_org_data.length}
+                      </b>
+                    </p>
                   </center>
                 </p>
               </div>
+            </div>
+            <div className="col-lg-5 card  h2 text-center pt-5" id="shadow-bck">
+              <div className="text-center">
+                <Link to="/tenant-detail">
+                  <img
+                    className="img_icon_sizeDashboard log "
+                    src={people}
+                    alt="Tenant Count"
+                  />
+                </Link>
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      <b className="h4">
+                        No of Tenant Count <br></br>
+                        {tenantCount.length}
+                      </b>
+                    </p>
+                  </center>
+                </p>
+              </div>
+
               <div></div>
             </div>
             <div className="col-lg-1"></div>
           </div>
           <div className="row">
             <div className="col-lg-1"></div>
-            <div
-              className="col-lg-5 card h2 text-center pt-5"
-              id="shadow-bck"
-              
-            >
+            <div className="col-lg-5  h2 text-center pt-5" id="shadow-bck">
+              {/* tenant count */}
               <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard log "
-                  src={people}
-                  alt="Tenant Count"
+                  src={unprop}
+                  alt="Unoccupied property"
                 />
                 <p>
                   <center>
-                  <p
-                    style={{
-                      // fontFamily: "Serif",
-                      color: "black",
-                    }}
-                  >
-                   <b className="h4">No of Tenant Count <br></br>
-                    {tenantCount.length}</b>
-                  </p>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      <b className="h4">
+                        Unoccupied Property<br></br>
+                        {ShopStatus && ShopStatus.length}
+                      </b>
+                    </p>
                   </center>
                 </p>
               </div>
             </div>
-            <div
-              className="col-lg-5 card h2 text-center pt-5 "
-              id="shadow-bck"
-             
-            >
+            <div className="col-lg-5  h2 text-center pt-5 " id="shadow-bck">
               <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard log "
@@ -206,17 +200,18 @@ const MainAdminPage = ({
                 />
                 <p>
                   <center>
-                  <p
-                 
-                    style={{
-                      // fontFamily: "Serif",
-                      color: "black",
-                    }}
-                  >
-                    {" "}
-                   <b className="h4">Total Renewal <br></br>
-                    {total}</b>
-                  </p>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      {" "}
+                      <b className="h4">
+                        Total Renewal <br></br>
+                        {total}
+                      </b>
+                    </p>
                   </center>
                 </p>
               </div>

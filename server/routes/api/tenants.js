@@ -766,11 +766,9 @@ router.post("/deactive-Organization", async (req, res) => {
 
 router.post("/deactive-tenant", async (req, res) => {
   try {
-   
     let data = req.body;
-  //  console.log( "len",data.Dno.length );
-    if (data.Dno.length > 0 ) {
-
+    //  console.log( "len",data.Dno.length );
+    if (data.Dno.length > 0) {
       //console.log("rvced data",data)
       data.Dno.map((ele) => {
         TenantDetails.updateOne(
@@ -780,8 +778,8 @@ router.post("/deactive-tenant", async (req, res) => {
             // "shopDoorNo.$.label":ele.lable,
           },
           {
-            $pull:{
-              shopDoorNo:{label:ele.label},
+            $pull: {
+              shopDoorNo: { label: ele.label },
               //"shopDoorNo.$.status": "Deleted",
               // "shopDoorNo.$.status": ele.lable,
             },
@@ -792,7 +790,7 @@ router.post("/deactive-tenant", async (req, res) => {
           //     deactive_reason: data.deactive_reason,
           //   },
           // }
-        ).then((data)=>{});
+        ).then((data) => {});
       });
       data.Dno.map((ele) => {
         property
@@ -813,29 +811,25 @@ router.post("/deactive-tenant", async (req, res) => {
           )
           .then(data);
       });
-    } 
-    else //if(console.log(data.Dno.length === 0))
-     {
+    } //if(console.log(data.Dno.length === 0))
+    else {
       console.log("door No");
 
-// data.Dno.map((ele) => {
-        TenantDetails.updateOne(
-          {
-            _id: data.tid,
-            //shopDoorNo: { $elemMatch: { label: ele.label } },
+      // data.Dno.map((ele) => {
+      TenantDetails.updateOne(
+        {
+          _id: data.tid,
+          //shopDoorNo: { $elemMatch: { label: ele.label } },
+        },
+        {
+          $set: {
+            tenantstatus: "Deactive",
+            deactive_reason: data.deactive_reason,
           },
-          {
-            $set: {
-              tenantstatus: "Deactive",
-              deactive_reason: data.deactive_reason,
-            },
-          }
-        ).then(data);
+        }
+      ).then(data);
       //});
-
-      
     }
-
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -976,7 +970,7 @@ router.post("/get-month-exp-count", async (req, res) => {
         $match: {
           OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearVal, "i") },
-          AgreementStatus: { $ne: "Renewed" },
+          // AgreementStatus: { $ne: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
@@ -1122,7 +1116,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
         $match: {
           OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $lt: firstDay },
-          AgreementStatus: { $ne: "Renewed" },
+          // AgreementStatus: { $eq: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
@@ -1168,7 +1162,6 @@ router.post("/get-tenant-exp-report", async (req, res) => {
           tenantLeaseEndDate: "$output.tenantLeaseEndDate",
           tenantRentAmount: "$output.tenantRentAmount",
           AgreementStatus: "$output.AgreementStatus",
-
           tenantstatus: "$tenantstatus",
           tdId: "$output.tdId",
           agreementId: "$output._id",
@@ -1228,7 +1221,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         $match: {
           OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
-          AgreementStatus: { $ne: "Renewed" },
+          // AgreementStatus: { $eq: "Renewed" },
           tenantstatus: { $eq: "Active" },
         },
       },
@@ -1378,7 +1371,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
         $match: {
           OrganizationId: OrganizationId,
           tenantLeaseEndDate: { $lte: lastDate },
-          AgreementStatus: { $ne: "Renewed" },
+          // AgreementStatus: { $ne: "Renewed" },
           tenantstatus: { $eq: "Active" },
         },
       },
