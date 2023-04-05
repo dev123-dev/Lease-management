@@ -47,30 +47,30 @@ const Profile = ({
   //multiple location end
 
   const [userData, setuserData] = useState({
-    userid: user._id,
-    username: user.username,
-    useremail: user.useremail,
-    usergroup: user.usergroup,
-    useraddress: user.useraddress,
-    userphone: user.userphone,
-    OrganizationName: user.OrganizationName
-      ? user.OrganizationName
+    userid: myuser._id,
+    username: myuser.username,
+    useremail: myuser.useremail,
+    usergroup: myuser.usergroup,
+    useraddress: myuser.useraddress,
+    userphone: myuser.userphone,
+    OrganizationName: myuser.OrganizationName
+      ? myuser.OrganizationName
       : "Pinnacle Media",
-    OrganizationId: user.OrganizationId ? user.OrganizationId : "",
+    OrganizationId: myuser.OrganizationId ? myuser.OrganizationId : "",
   });
 
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&
-      get_particularOrg_user[0].output.OrganizationName,
+      get_particularOrg_user[0].output && get_particularOrg_user[0].output.OrganizationName,
     OrganizationEmail:
-      get_particularOrg_user &&
+      get_particularOrg_user && get_particularOrg_user[0].output &&
       get_particularOrg_user[0].output.OrganizationEmail,
     OrganizationNumber:
-      get_particularOrg_user &&
+      get_particularOrg_user &&  get_particularOrg_user[0].output &&
       get_particularOrg_user[0].output.OrganizationNumber,
     OrganizationAddress:
-      get_particularOrg_user &&
+      get_particularOrg_user &&  get_particularOrg_user[0].output &&
       get_particularOrg_user[0].output.OrganizationAddress,
   });
   const {
@@ -79,6 +79,7 @@ const Profile = ({
     OrganizationAddress,
     Location,
   } = OrganizationData;
+ 
 
   let location = [];
   get_particularOrg_user &&
@@ -134,13 +135,13 @@ const Profile = ({
       {user && user.usergroup === "Super Admin" ? (
         <div className="container container_align  ">
           <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-            <h2 className="heading_color">Super Profile </h2>
+            <h2 className="heading_color">Profile </h2>
             <hr />
           </div>
           <section className="sub_reg">
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Name*:</label>
                   <input
                     type="text"
@@ -152,7 +153,7 @@ const Profile = ({
                   />
                   <br></br>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Email*: </label>
                   <input
                     type="email"
@@ -164,7 +165,7 @@ const Profile = ({
                   />
                   <br></br>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Phone No:</label>
 
                   <input
@@ -176,7 +177,7 @@ const Profile = ({
                   />
                   <br></br>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
                   <input
                     type="text"
@@ -209,7 +210,7 @@ const Profile = ({
                     select Organization
                   </Select>{" "} */}
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Address :</label>
                   <textarea
                     name="useraddress"
@@ -223,7 +224,7 @@ const Profile = ({
                   ></textarea>
                   <br></br>
                 </div>{" "}
-                <div className="col-lg-6">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
 
                   <input
@@ -235,23 +236,6 @@ const Profile = ({
                     readOnly
                   />
 
-                  <Select
-                    name="userGroup"
-                    value={userGroup}
-                    options={UserGroups}
-                    onChange={(e) => onuser(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                  />
                   <br></br>
                 </div>
               </div>
@@ -269,113 +253,22 @@ const Profile = ({
                 </button>
               </div>
 
-              {/* <div className="col-lg-3 Savebutton float-right" size="lg">
-            <input
-              id="savebtn"
-              type="submit"
-              name="Save"
-              value="Update"
-              className="btn sub_form btn_continue Save float-right"
-            />
-          </div> */}
+            
             </div>
-            {/* <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-              <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-                {" "}
-                <h2 className="heading_color">Organization Profile </h2>
-              </div>
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-                <>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label> Organization Name*:</label>
-
-                    <input
-                      type="text"
-                      name="OrganizationName"
-                      // value={OrganizationName}
-                      className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                      required
-                    />
-                    <br></br>
-                  </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Email*: </label>
-                    <input
-                      type="email"
-                      name="OrganizationEmail"
-                      // value={OrganizationEmail}
-                      className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                      required
-                    />
-                    <br></br>
-                  </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Phone No:</label>
-
-                    <input
-                      type="number"
-                      name="OrganizationNumber"
-                      // value={OrganizationNumber}
-                      className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                    />
-                    <br></br>
-                  </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Location:</label>
-
-                    <input
-                      type="number"
-                      name="OrganizationNumber"
-                      // value={OrganizationNumber}
-                      className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                    />
-                    <br></br>
-                  </div>
-                  <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-                    <label>Institution Logo :</label>
-                    <div className="form__img-input-container">
-                      <img
-                        src={`${
-                          institutionData && institutionData.institutionProfile
-                            ? institutionData.institutionProfile
-                            : ""
-                        }`}
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
-                    size="lg"
-                  >
-                    <button
-                      variant="success"
-                      id="savebtn"
-                      className="btn sub_form btn_continue blackbrd Save float-right"
-                      // onClick={() => onUpdatepersonal()}
-                    >
-                      <b>Update</b>
-                    </button>
-                  </div>
-                </>
-              </div>
-            </div> */}
+           
           </section>
         </div>
       ) : (
         <div className="container container_align  ">
-          <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-            <h2 className="heading_color">Admin Profile </h2>
-            <hr />
-          </div>
+         
           <section className="sub_reg">
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+            <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+            <h2 className="heading_color"> Profile </h2>
+            
+          </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Name*:</label>
                   <input
                     type="text"
@@ -387,7 +280,7 @@ const Profile = ({
                   />
                   <br></br>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Email*: </label>
                   <input
                     type="email"
@@ -399,7 +292,7 @@ const Profile = ({
                   />
                   <br></br>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Phone No:</label>
 
                   <input
@@ -411,7 +304,7 @@ const Profile = ({
                   />
                   <br></br>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
 
                   <input
@@ -423,30 +316,24 @@ const Profile = ({
                     readOnly
                   />
 
-                  <Select
-                    name="orgname"
-                    options={orglist}
-                    value={orgname}
-                    placeholder={OrganizationName}
-                    onChange={(e) => onchangeOrg(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                    required
-                  >
-                    select Organization
-                  </Select>
+                 
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <label>UserGroup*:</label>
+
+                  <input
+                    type="text"
+                    name="usergrp"
+                    value={OrganizationName}
+                    className="form-control"
+                    onChange={(e) => onInputChange(e)}
+                    readOnly
+                  />
+
+                 
+                  <br></br>
+                </div>
+                <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Address :</label>
                   <textarea
                     name="useraddress"
@@ -460,37 +347,7 @@ const Profile = ({
                   ></textarea>
                   <br></br>
                 </div>{" "}
-                <div className="col-lg-6">
-                  <label>UserGroup*:</label>
-
-                  <input
-                    type="text"
-                    name="usergrp"
-                    value={OrganizationName}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    readOnly
-                  />
-
-                  <Select
-                    name="userGroup"
-                    value={userGroup}
-                    options={UserGroups}
-                    onChange={(e) => onuser(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                  />
-                  <br></br>
-                </div>
+                
               </div>
               <div
                 className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
@@ -523,7 +380,7 @@ const Profile = ({
               </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
                 <>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label> Organization Name*:</label>
 
                     <input
@@ -531,24 +388,23 @@ const Profile = ({
                       name="OrganizationName"
                       value={OrganizationName}
                       className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                      required
+                    
+                      readOnly
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label>Email*: </label>
                     <input
                       type="email"
                       name="OrganizationEmail"
                       value={OrganizationEmail}
                       className="form-control"
-                      onChange={(e) => onInputChange(e)}
-                      required
+                     readOnly
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label>Phone No:</label>
 
                     <input
@@ -556,19 +412,19 @@ const Profile = ({
                       name="OrganizationNumber"
                       value={OrganizationNumber}
                       className="form-control"
-                      onChange={(e) => onInputChange(e)}
+                    readOnly
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label>Location:</label>
                     {location.map((ele) => {
-                      return <i>{ele.label}</i>;
+                      return <i className="h5 ml-3">{ele.label}</i>;
                     })}
 
                     <br></br>
                   </div>
-                  <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+                  <div className=" col-lg-8 col-md-12 col-sm-12 col-12 py-3">
                     <label>Institution Logo :</label>
                     {/* <div className="form__img-input-container">
                       <img
@@ -585,14 +441,14 @@ const Profile = ({
                     className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                     size="lg"
                   >
-                    <button
+                    {/* <button
                       variant="success"
                       id="savebtn"
                       className="btn sub_form btn_continue blackbrd Save float-right"
                       // onClick={() => onUpdatepersonal()}
                     >
                       <b>Update</b>
-                    </button>
+                    </button> */}
                   </div>
                 </>
               </div>
