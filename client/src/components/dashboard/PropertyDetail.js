@@ -240,6 +240,7 @@ const PropertyDetail = ({
             {" "}
                   <img
                     height="20px"
+                    style={{cursor:"pointer"}}
                     onClick={() => setShowadd(true)}
                     src={require("../../static/images/add-icon.png")}
                     alt="Add Prop"
@@ -247,6 +248,7 @@ const PropertyDetail = ({
                   />
                   <img
                     className="ml-2"
+                    style={{cursor:"pointer"}}
                     height="20px"
                     onClick={() => refresh()}
                     src={require("../../static/images/refresh-icon.png")}

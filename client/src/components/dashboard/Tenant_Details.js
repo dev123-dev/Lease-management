@@ -266,6 +266,7 @@ const Tenant_Details = ({
                 </Link>
                 <img
                   className="ml-2"
+                  style={{cursor:"pointer"}}
                   height="20px"
                   onClick={() => refresh()}
                   src={require("../../static/images/refresh-icon.png")}
