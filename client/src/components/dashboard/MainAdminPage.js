@@ -8,6 +8,7 @@ import {
   getParticularProperty,
   ParticularTenant,
   getAllSettings,
+  get_particular_org_user,
 } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
@@ -20,6 +21,7 @@ const MainAdminPage = ({
   getParticularProperty,
   getAllSettings,
   ParticularTenant,
+  get_particular_org_user,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
 
@@ -34,6 +36,7 @@ const MainAdminPage = ({
         OrganizationId: myuser && myuser.OrganizationId,
         userId: myuser && myuser._id,
       });
+      get_particular_org_user({ OrganizationId: myuser.OrganizationId });
     }
   }, []);
   const total = JSON.parse(localStorage.getItem("total"));
@@ -134,7 +137,10 @@ const MainAdminPage = ({
                 </p>
               </div>
             </div>
-            <div className="col-lg-5 card ml-2 h2 text-center pt-5" id="shadow-bck">
+            <div
+              className="col-lg-5 card ml-2 h2 text-center pt-5"
+              id="shadow-bck"
+            >
               <div className="text-center">
                 <Link to="/tenant-detail">
                   <img
@@ -191,7 +197,10 @@ const MainAdminPage = ({
                 </p>
               </div>
             </div>
-            <div className="col-lg-5  ml-4 h2 text-center pt-5 carddash" id="shadow-bck">
+            <div
+              className="col-lg-5  ml-4 h2 text-center pt-5 carddash"
+              id="shadow-bck"
+            >
               <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard log "
@@ -231,4 +240,5 @@ export default connect(mapStateToProps, {
   getParticularProperty,
   ParticularTenant,
   getAllSettings,
+  get_particular_org_user,
 })(MainAdminPage);
