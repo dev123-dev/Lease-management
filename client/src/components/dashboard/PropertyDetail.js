@@ -292,6 +292,7 @@ const PropertyDetail = ({
                     <tbody className="text-center">
                       {particular_org_data &&
                         particular_org_data.map((Val, idx) => {
+                          console.log("Val",Val.shopDoorNo)
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -317,13 +318,15 @@ const PropertyDetail = ({
                               <td>{Val.stampDuty}</td>
                               <td>{Val.leaseTimePeriod}</td>
                               <td>{Val.shopAddress}</td>
-                              {/* <td title={AddDetail.familyCards}> */}
+                              {/* <td title={AddDetail.shopDoorNo}> */}
                               <td>
                                               <img
                                                 className="img_icon_size log"
                                                 src={require("../../static/images/info.png")}
                                                 alt="Govt Cards"
-                                                // title={AddDetail.familyCards}
+                                                title={Val.shopDoorNo.map((e)=>
+                                                  e.doorNo
+                          )}
                                               />
                                             </td>
                               <td className=" text-center">
