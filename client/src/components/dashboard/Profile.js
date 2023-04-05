@@ -136,12 +136,10 @@ const Profile = ({
   const [refersh, setrefresh] = useState("");
 
   const onUpdate = (e) => {
-    e.preventDefault();
     setrefresh("x");
-    EditModal(false);
 
     const updateUSER = {
-      userid: superuser._id,
+      userid: myuser._id,
       username: username,
       userphone: userphone,
       useraddress: useraddress,
@@ -150,8 +148,9 @@ const Profile = ({
       OrganizationName: orgname ? orgname.label : "",
       OrganizationId: orgname ? orgname.value : "",
     };
-    UpdateUser(updateUSER);
-    getalluser();
+    console.log(updateUSER);
+    // UpdateUser(updateUSER);
+    // getalluser();
     //  get_particular_org_user({ orgid: user.OrganizationId });
     handleClose(true);
   };
@@ -326,27 +325,56 @@ const Profile = ({
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
-
-                  <input
-                    type="text"
+                  <Select
                     name="orgname"
-                    value={OrganizationName}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    readOnly
-                  />
+                    options={orglist}
+                    value={orgname}
+                    placeholder={OrganizationName}
+                    onChange={(e) => onchangeOrg(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                    required
+                  >
+                    select Organization
+                  </Select>{" "}
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
-
-                  <input
+                  <Select
+                    name="userGroup"
+                    value={userGroup}
+                    options={UserGroups}
+                    onChange={(e) => onuser(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  />
+                  {/* <input
                     type="text"
                     name="usergrp"
-                    value={OrganizationName}
+                    value={usergroup}
                     className="form-control"
                     onChange={(e) => onInputChange(e)}
                     readOnly
-                  />
+                  /> */}
 
                   <br></br>
                 </div>
@@ -373,7 +401,7 @@ const Profile = ({
                   variant="success"
                   id="savebtn"
                   className="btn sub_form btn_continue blackbrd Save float-right"
-                  // onClick={() => onUpdatepersonal()}
+                  onClick={() => onUpdate()}
                 >
                   <b>Update</b>
                 </button>
