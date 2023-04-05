@@ -541,17 +541,81 @@ router.get("/get-all-Superuser", async (req, res) => {
 });
 
 //get particular organization user
+// router.post("/get-particular-org-user", auth, async (req, res) => {
+//   const userInfo = await UserDetails.findById(req.user.id).select("-password");
+//   try {
+//     const ParticularOrg = await UserDetails.find({
+//       OrganizationId: userInfo.OrganizationId,
+//     }); /*.sort({ userStatus: 1 })*/
+//     res.json(ParticularOrg);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
+
 router.post("/get-particular-org-user", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
   try {
-    const ParticularOrg = await UserDetails.find({
-      OrganizationId: userInfo.OrganizationId,
-    }); /*.sort({ userStatus: 1 })*/
-    res.json(ParticularOrg);
+    await UserDetails.aggregate([
+      {
+        $match: {
+          OrganizationId: req.body.OrganizationId,
+        },
+      },
+      {
+        $lookup: {
+          from: "organizationdetails",
+          localField: "OrganizationName",
+          foreignField: "OrganizationName",
+          as: "output",
+        },
+      },
+      { $unwind: "$output" },
+    ]).then((data) => res.json(data));
+    //res.json(ParticularOrg);
   } catch (error) {
     console.log(error.message);
   }
 });
+
+// $match: {
+//   name: req.body.name,
+//   pass:req.body.pass,
+// },
+// },
+// $lookup: {
+// from: "organizationdetails",
+// localField: "OrganizationName",
+// foreignField: "OrganizationName",
+// as: "output"
+// }
+// }
+
+//   },
+// ])
+
+//   $lookup: {
+//     from: "OrganizationDetails",
+//     localField: "OrganizationName",
+//     foreignField: "OrganizationName",
+//     as: "output",
+//   },
+// },
+// { $unwind: "$output" },
+// {
+//   $project: {
+//     //OrganizationId: "$_id",
+//     OrganizationName: "$OrganizationName",
+//     OrganizationEmail: "$OrganizationEmail",
+//     OrganizationAddress: "$OrganizationAddress",
+//     OrganizationNumber: "$OrganizationNumber",
+//     Location: "$Location",
+//   },
+// },
+// {
+//   $match: {
+//     //   OrganizationName: "$OrganizationName",
+//   },
 
 //edit the super user
 router.post("/Update-User", async (req, res) => {
