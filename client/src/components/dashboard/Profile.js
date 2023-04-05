@@ -144,7 +144,7 @@ const Profile = ({
       userphone: userphone,
       useraddress: useraddress,
       useremail: useremail,
-      usergroup: usergroup ? usergroup.value : "",
+      usergroup: userGroup,
       OrganizationName: orgname ? orgname.label : "",
       OrganizationId: orgname ? orgname.value : "",
     };
@@ -325,7 +325,7 @@ const Profile = ({
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
-                  <Select
+                  {/* <Select
                     name="orgname"
                     options={orglist}
                     value={orgname}
@@ -346,7 +346,14 @@ const Profile = ({
                     required
                   >
                     select Organization
-                  </Select>{" "}
+                  </Select>{" "} */}
+                  <input
+                    type="text"
+                    name="OrganizationName"
+                    value={OrganizationName}
+                    className="form-control"
+                    readOnly
+                  />
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
