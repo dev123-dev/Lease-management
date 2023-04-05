@@ -79,13 +79,13 @@ const MainAdminPage = ({
     <>
       <div className="col mt-sm-5 ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ">
+          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ml-5">
             <h2
               style={{
                 position: "relative",
                 top: "60px",
               }}
-              className="heading_color  headsize  ml-4"
+              className="heading_color  headingdashboard  ml-5"
             >
               {user && user.orgName} Dashboard
             </h2>
@@ -103,7 +103,7 @@ const MainAdminPage = ({
           <div className="row">
             <div className="col-lg-1"></div>
             <div
-              className="col-lg-5 card h2 text-center pt-5  "
+              className="col-lg-5  ml-2 card h2 text-center pt-5  "
               id="shadow-bck"
             >
               <div className="text-center">
@@ -134,7 +134,7 @@ const MainAdminPage = ({
                 </p>
               </div>
             </div>
-            <div className="col-lg-5 card  h2 text-center pt-5" id="shadow-bck">
+            <div className="col-lg-5 card ml-2 h2 text-center pt-5" id="shadow-bck">
               <div className="text-center">
                 <Link to="/tenant-detail">
                   <img
@@ -166,7 +166,7 @@ const MainAdminPage = ({
           </div>
           <div className="row">
             <div className="col-lg-1"></div>
-            <div className="col-lg-5  h2 text-center pt-5" id="shadow-bck">
+            <div className="col-lg-5 ml-2 h2 text-center pt-5" id="shadow-bck">
               {/* tenant count */}
               <div className="text-center">
                 <img
@@ -191,7 +191,7 @@ const MainAdminPage = ({
                 </p>
               </div>
             </div>
-            <div className="col-lg-5  h2 text-center pt-5 " id="shadow-bck">
+            <div className="col-lg-5  ml-4 h2 text-center pt-5 carddash" id="shadow-bck">
               <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard log "

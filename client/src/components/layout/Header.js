@@ -200,7 +200,28 @@ const Header = ({
                   <></>
                 )}
               </NavItem>
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Admin" ? (
+                  <NavLink
+                    to="/MainAdmin"
+                    className="navlink  headinghover navbar-right"
+                    id="hea"
+                    activeStyle={{
+                      color: "#e8a317",
 
+                      textDecoration: "none",
+                    }}
+                  >
+                    DashBoard
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem>gg</NavItem>
+                )}
+              </NavItem>
               {/* admin page */}
               <NavItem>
                 {(!loading &&
@@ -274,28 +295,7 @@ const Header = ({
                 )}
               </NavItem>
 
-              <NavItem>
-                {!loading &&
-                isAuthenticated &&
-                user &&
-                user.usergroup === "Admin" ? (
-                  <NavLink
-                    to="/MainAdmin"
-                    className="navlink  headinghover navbar-right"
-                    id="hea"
-                    activeStyle={{
-                      color: "#e8a317",
-
-                      textDecoration: "none",
-                    }}
-                  >
-                    DashBoard
-                  </NavLink>
-                ) : (
-                  <></>
-                  // <NavItem>gg</NavItem>
-                )}
-              </NavItem>
+              
             </Nav>
 
             {!loading && isAuthenticated && user ? (
@@ -332,7 +332,7 @@ const Header = ({
                                 className="navlinkitem"
                                 // onClick={() => handleLogoutModalShow()}
                               >
-                                Profile
+                                My Profile
                               </Link>
                             </li>
                             <li className="hwhite drophover">
@@ -420,7 +420,7 @@ const Header = ({
                                   className="navlinkitem"
                                   //onClick={() => handleTenantSettingModalShow()}
                                 >
-                                  Profile
+                                  My Profile
                                 </Link>
                               </li>
                             ) : (

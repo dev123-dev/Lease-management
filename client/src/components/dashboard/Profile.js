@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { connect } from "react-redux";
 import Select from "react-select";
 import { useState } from 'react';
@@ -91,17 +91,18 @@ const Profile = ({
 
   
   return (
-    <div>
-
+    // <div>
+<Fragment>
        <div className="container container_align  ">
-       <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-          <h2 className="heading_color"> Profile </h2>
-          <hr />
+      
+        {/* <section  className="sub_reg"> */}
+        <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3 mt-sm-5">
+        <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+          <h2 className="heading_color"> User Profile </h2>
+          
         </div>
-        <section  className="sub_reg">
-        <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div className="col-lg-4 col-md-6 col-sm-12 col-12">
               <label> Name*:</label>
               <input
                 type="text"
@@ -113,7 +114,7 @@ const Profile = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label> Email*: </label>
               <input
                 type="email"
@@ -125,7 +126,7 @@ const Profile = ({
               />
               <br></br>
             </div>
-            <div  className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label>Phone No:</label>
 
               <input
@@ -139,7 +140,7 @@ const Profile = ({
             </div>
           
                
-                <div  className="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
  
                   <input
@@ -174,22 +175,9 @@ const Profile = ({
                     select Organization
                   </Select> */}
                 </div>
-                <div className="col-lg-6">
-                  <label> Address :</label>
-                  <textarea
-                    name="useraddress"
-                    // value={useraddress}
-                    className="textarea form-control"
-                    rows="3"
-                    cols="20"
-                    placeholder="Address"
-                    onChange={(e) => onInputChange(e)}
-                    style={{ width: "100%" }}
-                  ></textarea>
-                  <br></br>
-                </div>{" "}
+                
                  
-            <div className="col-lg-6">
+            <div className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label>UserGroup*:</label>
               
               <input
@@ -220,6 +208,20 @@ const Profile = ({
               /> */}
               <br></br>
             </div>
+            <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <label> Address :</label>
+                  <textarea
+                    name="useraddress"
+                    // value={useraddress}
+                    className="textarea form-control"
+                    rows="3"
+                    cols="20"
+                    placeholder="Address"
+                    onChange={(e) => onInputChange(e)}
+                    style={{ width: "100%" }}
+                  ></textarea>
+                  <br></br>
+                </div>{" "}
           </div>
           <div
               className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
@@ -252,7 +254,7 @@ const Profile = ({
             </div>
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
               <>
-              <div  className="col-lg-6 col-md-12 col-sm-12 col-12">
+              <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label> Organization Name*:</label>
 
               <input
@@ -265,7 +267,7 @@ const Profile = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label>Email*: </label>
               <input
                 type="email"
@@ -277,7 +279,7 @@ const Profile = ({
               />
               <br></br>
             </div>
-            <div  className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div  className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label>Phone No:</label>
 
               <input
@@ -289,7 +291,7 @@ const Profile = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+            <div className="col-lg-4 col-md-12 col-sm-12 col-12">
               <label>Location:</label>
 
               <input
@@ -301,7 +303,7 @@ const Profile = ({
               />
               <br></br>
             </div>
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+            <div className=" col-lg-8 col-md-12 col-sm-12 col-12 py-3">
                     <label>Institution Logo :</label>
                     {/* <div className="form__img-input-container">
                       <img
@@ -333,9 +335,10 @@ const Profile = ({
           </div>
 
 
-          </section>
+          {/* </section> */}
         </div>
-    </div>
+        </Fragment>
+    // </div>
   )
 }
 const mapStateToProps = (state) => ({

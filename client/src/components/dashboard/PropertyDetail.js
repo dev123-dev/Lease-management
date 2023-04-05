@@ -285,6 +285,7 @@ const PropertyDetail = ({
                         <th>Stamp Duty</th>
                         <th>Lease Time Period</th>
                         <th>Address</th>
+                        <th>Door No</th>
                         <th>Operation</th>
                       </tr>
                     </thead>
@@ -316,7 +317,15 @@ const PropertyDetail = ({
                               <td>{Val.stampDuty}</td>
                               <td>{Val.leaseTimePeriod}</td>
                               <td>{Val.shopAddress}</td>
-
+                              {/* <td title={AddDetail.familyCards}> */}
+                              <td>
+                                              <img
+                                                className="img_icon_size log"
+                                                src={require("../../static/images/info.png")}
+                                                alt="Govt Cards"
+                                                // title={AddDetail.familyCards}
+                                              />
+                                            </td>
                               <td className=" text-center">
                                 {Val.shopStatus === "Active" ? (
                                   <>

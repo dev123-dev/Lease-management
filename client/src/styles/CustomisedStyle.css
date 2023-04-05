@@ -2057,7 +2057,7 @@ input[type="number"]::-webkit-outer-spin-button {
   padding: 10px;
   /* background: #e0e9e5f5; */
 
-  margin: 20px;
+  margin: 15px;
 }
 
 .second-level-menu > li:hover {
@@ -2448,6 +2448,12 @@ div {
     margin-left: 220px;
     margin-top: -80px;
   }
+  .carddash{
+    right:17px;
+    top:12px;
+
+  }
+
   .locaddedit {
     left: 5px;
     bottom: 37px;
@@ -2623,6 +2629,10 @@ div {
   }
   .headsize {
     font-size: 27px;
+  }
+  .headingdashboard {
+    font-size: 30px;
+   left: -40px;
   }
 }
 .sizeinput {
