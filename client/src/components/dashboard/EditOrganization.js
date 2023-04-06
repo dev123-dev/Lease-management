@@ -147,7 +147,7 @@ const EditOrganization = ({
               <br></br>
             </div>
             <div className="col-lg-6">
-              <label>Phone No:</label>
+              <label>Phone No*:</label>
 
               <input
                 type="number"
@@ -155,6 +155,7 @@ const EditOrganization = ({
                 value={OrganizationNumber}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
+                required
               />
               <br></br>
             </div>

@@ -4,7 +4,7 @@ import { Container, Navbar, Nav, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
-
+import lralogo from "../../static/images/lraLogo_wh.png"
 import { NavItem } from "react-bootstrap";
 
 import { Link, NavLink } from "react-router-dom";
@@ -74,6 +74,8 @@ const Header = ({
   };
   const openSecondLevelMenu2 = () => {};
 
+const imgurl="../../static/images/lraLogo_wh.png";
+
   return (
     <Fragment>
       <header>
@@ -90,7 +92,10 @@ const Header = ({
                 <img
                   className=" log_size"
                   alt="Pinnacle Media"
-                  src={myuser.output.Logo}
+
+                  src={myuser &&  myuser.output ? myuser.output.Logo :lralogo}
+                  //{imgurl}
+                  //{myuser &&  myuser.output ? myuser.output.Logo :lralogo}
                   title="Dashboard"
                 /></div>
               </NavLink>
