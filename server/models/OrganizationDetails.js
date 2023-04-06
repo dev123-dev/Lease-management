@@ -4,9 +4,9 @@ const OrganizationSchema = new mongoose.Schema({
   OrganizationName: {
     type: String,
   },
-  OrganizationId: {
-    type: String,
-  },
+  // OrganizationId: {
+  //   type: String,
+  // },
   OrganizationEmail: {
     type: String,
   },
@@ -19,9 +19,8 @@ const OrganizationSchema = new mongoose.Schema({
   NumberOfUser: {
     type: Number,
   },
-  logo: {
-    data: Buffer,
-    contentType: String,
+  Logo: {
+    type: String,
   },
   Location: [],
   enter_by_id: {

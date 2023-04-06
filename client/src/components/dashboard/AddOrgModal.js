@@ -81,6 +81,7 @@ const AddOrgModal = ({
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
+    Logo,
   } = formDataORG;
 
   const onORGchange = (e) => {
@@ -109,6 +110,7 @@ const AddOrgModal = ({
         OrganizationNumber: OrganizationNumber,
         OrganizationAddress: OrganizationAddress,
         date: entryDate,
+        Logo: Logo,
         enddate: newLeaseEndDate,
         Location: items,
       };
@@ -123,6 +125,7 @@ const AddOrgModal = ({
         OrganizationAddress: "",
         OrganizationStatus: "",
         date: "",
+        Logo: "",
         enddate: "",
         Location: [],
       });
@@ -295,29 +298,23 @@ const AddOrgModal = ({
                 ></textarea>{" "}
               </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-                          <label className="label-control">
-                            Org Logo :
-                          </label>
+                <label className="label-control">Org Logo :</label>
 
-                          <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
-                            <FileBase64
-                              type="file"
-                              multiple={false}
-                              // onDone={({ base64 }) =>
-                              //   setFormData({
-                              //     ...formData,
-                              //     institutionLogo: base64,
-                              //   })
-                              // }
-                            />
+                <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+                  <FileBase64
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) =>
+                      setFormDataORG({
+                        ...formDataORG,
+                        Logo: base64,
+                      })
+                    }
+                  />
 
-                            <img
-                              className="log_size"
-                              alt="Preview"
-                              // src={`${institutionLogo}`}
-                            />
-                          </div>
-                        </div>
+                  <img className="log_size" alt="Preview" src={`${Logo}`} />
+                </div>
+              </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit

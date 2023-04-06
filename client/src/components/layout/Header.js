@@ -17,29 +17,37 @@ import {
   getAllSettings,
   getAllOrganization,
   getalluser,
+  get_particular_org_user,
 } from "../../actions/tenants";
 
 const Header = ({
   auth: { isAuthenticated, loading, user },
+  tenants: { get_particularOrg_user },
   logout,
   getAllSettings,
+  get_particular_org_user,
   getalluser,
   getAllOrganization,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
+  const myorg = JSON.parse(localStorage.getItem("Org"));
 
   useEffect(() => {
-    getAllSettings({
-      OrganizationId: myuser && myuser.OrganizationId,
-      userId: myuser && myuser._id,
-    });
-    getAllOrganization();
+    if (myuser) {
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+      getAllOrganization();
+      get_particular_org_user({
+        OrganizationId: myuser && myuser.OrganizationId,
+      });
+    }
   }, [getAllSettings]);
   useEffect(() => {
     getalluser();
     getAllOrganization();
   }, []);
-
   const [showLogin, setShowLogin] = useState(false);
   const [showLogout, setShowLogout] = useState(false);
 
@@ -81,7 +89,7 @@ const Header = ({
                 <img
                   className=" log_size"
                   alt="Pinnacle Media"
-                  src={require("../../static/images/lraLogo_wh.png")}
+                  src={myuser.output.Logo}
                   title="Dashboard"
                 />
               </NavLink>
@@ -294,8 +302,6 @@ const Header = ({
                   // <NavItem>gg</NavItem>
                 )}
               </NavItem>
-
-              
             </Nav>
 
             {!loading && isAuthenticated && user ? (
@@ -585,5 +591,6 @@ export default connect(mapStateToProps, {
   logout,
   getAllSettings,
   getalluser,
+  get_particular_org_user,
   getAllOrganization,
 })(Header);

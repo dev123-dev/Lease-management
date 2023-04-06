@@ -10,7 +10,7 @@ const LoginHistory = require("../../models/LoginHistory");
 var nodemailer = require("nodemailer");
 const { networkInterfaces } = require("os");
 const nets = networkInterfaces();
-
+const mongoose = require("mongoose");
 const {
   SERVER_ERROR,
   EMAIL_REQUIRED_INVALID,
@@ -143,8 +143,29 @@ router.post(
 // @access   Private
 router.get("/load-user", auth, async (req, res) => {
   try {
-    const user = await UserDetails.findById(req.user.id);
-    res.json(user);
+    // const user = await UserDetails.findById(req.user.id);
+    // res.json(user);
+
+    const id = mongoose.Types.ObjectId(req.user.id);
+    console.log("xxx", req.body);
+
+    await UserDetails.aggregate([
+      {
+        $match: {
+          _id: id,
+        },
+      },
+      {
+        $lookup: {
+          from: "organizationdetails",
+          localField: "OrganizationId",
+          foreignField: "_id",
+          as: "output",
+        },
+      },
+      { $unwind: "$output" },
+    ]).then((data) => res.json(data[0]));
+    // res.json(data));
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
   }

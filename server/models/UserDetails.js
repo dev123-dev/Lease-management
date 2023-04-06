@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
   },
   OrganizationId: {
-    type: String,
+    type: ObjectId,
   },
   enter_by_id: {
     type: ObjectId,
