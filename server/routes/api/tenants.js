@@ -206,6 +206,7 @@ router.post("/add-tenant-details", async (req, res) => {
 //add organization try
 router.post("/add-Organization", async (req, res) => {
   let data = req.body;
+  console.log(data);
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -221,6 +222,7 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationNumber: data.OrganizationNumber,
         OrganizationAddress: data.OrganizationAddress,
         date: data.date,
+        Logo: data.Logo,
         enddate: data.enddate,
         Location: data.Location,
         AgreementStatus: "Expired",
@@ -236,6 +238,8 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationNumber: output.OrganizationNumber,
         OrganizationAddress: output.OrganizationAddress,
         date: output.date,
+        Logo: data.Logo,
+
         enddate: output.enddate,
         Location: output.Location,
         AgreementStatus: "Expired",
@@ -259,6 +263,7 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationNumber: data.OrganizationNumber,
         OrganizationAddress: data.OrganizationAddress,
         date: data.date,
+        Logo: data.Logo,
         enddate: data.enddate,
         Location: data.Location,
         AgreementStatus: "Active",
@@ -274,6 +279,7 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationNumber: output.OrganizationNumber,
         OrganizationAddress: output.OrganizationAddress,
         date: output.date,
+        Logo: data.Logo,
         enddate: output.enddate,
         Location: output.Location,
         AgreementStatus: "Active",
@@ -336,6 +342,7 @@ router.post("/get-particular-user", async (req, res) => {
         usergroup: 1,
         userphone: 1,
         OrganizationName: 1,
+        Logo: 1,
         Location: 1,
       }
     ).sort({ userStatus: 1 });

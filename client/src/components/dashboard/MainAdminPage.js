@@ -24,7 +24,8 @@ const MainAdminPage = ({
   get_particular_org_user,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-
+  const myorg = JSON.parse(localStorage.getItem("Org"));
+  //console.log("myorg", myorg);
   useEffect(() => {
     if (myuser) {
       fun();

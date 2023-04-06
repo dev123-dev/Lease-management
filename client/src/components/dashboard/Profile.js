@@ -68,7 +68,7 @@ const Profile = ({
 
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    // { value: "Super Admin", label: "Super Admin" },
+    { value: "Manager", label: "Manager" },
   ];
 
   const onchangeOrg = (e) => {
@@ -123,12 +123,11 @@ const Profile = ({
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const [userGroup, setus] = useState();
-
-  // superuser
-  //   ? UserGroups &&
-  //       UserGroups.filter((x) => x.value === superuser.usergroup)[0]
-  //   : ""
+  const [userGroup, setus] = useState(
+    user
+      ? UserGroups && UserGroups.filter((x) => x.value === user.usergroup)[0]
+      : ""
+  );
 
   const onuser = (e) => {
     setus(e);
