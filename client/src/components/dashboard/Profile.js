@@ -157,12 +157,13 @@ const Profile = ({
     <div>
       {user && user.usergroup === "Super Admin" ? (
         <div className="container container_align  ">
-          <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-            <h2 className="heading_color">Profile </h2>
-            <hr />
-          </div>
+          
           <section className="sub_reg">
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+            <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+            <h2 className="heading_color">Profile </h2>
+            
+          </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Name*:</label>
@@ -257,6 +258,81 @@ const Profile = ({
               </div>
             </div>
           </section>
+          <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+         
+         <div className="col-lg-12 col-md-12 col-sm-12 col-12">
+           {" "}
+           <h2 className="heading_color">Organization Profile </h2>
+         </div>
+         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+           <>
+             
+                  <div className=" row col-lg-12">
+             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+               <label>Email*: </label>
+               <input
+                 name="OrganizationEmail"
+                 value={myuser.output.OrganizationEmail}
+                 className="form-control"
+                 readOnly
+               />
+               <br></br>
+             </div>
+             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+               <label>Phone No:</label>
+
+               <input
+                 name="OrganizationNumber"
+                 value={myuser.output.OrganizationNumber}
+                 className="form-control"
+                 readOnly
+               />
+               <br></br>
+             </div>
+             <div className=" col-lg-6 col-md-12 col-sm-12 col-12 ">
+               <label>Organization Logo :</label>
+               <div className="form__img-input-container d-flex justify-content-center align-item-center">
+                 <img
+                 
+                   src={myuser.output.Logo}
+                   alt="OrgLogo"
+                 />
+               </div>
+             </div>
+             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+               <label>Address:</label>
+
+               <input
+                 name="OrganizationNumber"
+                 value={myuser.output.OrganizationAddress}
+                 className="form-control"
+                 readOnly
+               />
+               <br></br>
+             </div>
+             
+             </div>
+             
+             
+            
+             {/* <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+               <label>Location:</label>
+               {location.map((ele) => {
+                 return <div className=" ml-3 form-control  ">{ele.label}</div>;
+               })}
+
+               <br></br>
+             </div> */}
+            
+             <div
+               className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
+               size="lg"
+             >
+              
+             </div>
+           </>
+         </div>
+       </div>
         </div>
       ) : (
         <div className="container container_align  ">
