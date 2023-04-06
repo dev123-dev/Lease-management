@@ -86,12 +86,13 @@ const Header = ({
           {!loading && isAuthenticated && user && user.usergroup === "Admin" ? (
             <Navbar.Brand>
               <NavLink to="/AdminProfile">
+                <div>
                 <img
                   className=" log_size"
                   alt="Pinnacle Media"
                   src={myuser.output.Logo}
                   title="Dashboard"
-                />
+                /></div>
               </NavLink>
             </Navbar.Brand>
           ) : (
@@ -103,12 +104,13 @@ const Header = ({
           user.usergroup === "Super Admin" ? (
             <Navbar.Brand>
               <NavLink to="/AdminProfile">
+                <div className="bg-danger logostyle">
                 <img
                   className="log_size"
                   alt="Pinnacle Media"
                   src={myuser.output.Logo}
                   title="Dashboard"
-                />
+                /></div>
               </NavLink>
             </Navbar.Brand>
           ) : (
