@@ -242,11 +242,9 @@ const AddOrgModal = ({
                   style={{ width: "100%" }}
                   required
                 ></textarea>{" "}
-
               </div>
               <div className="col-lg-6">
-               
-              <label className="ml-2" style={{ color: locationError }}>
+                <label className="ml-2" style={{ color: locationError }}>
                   Location*:
                 </label>
 
@@ -312,13 +310,12 @@ const AddOrgModal = ({
                       })
                     }
                   />
-                  </div>
-                  </div>
-                  <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  " >
-
-                  <img className="log_size " alt="Preview" src={`${Logo}`}/>
                 </div>
-              
+              </div>
+              <i>File size must be less than 70kb</i>
+              <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  ">
+                <img className="log_size " alt="Preview" src={`${Logo}`} />
+              </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
