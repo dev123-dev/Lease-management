@@ -261,7 +261,7 @@ const EditOrganization = ({
               </div>
               </div>
               <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  " >
-                <img className="log_size" alt="Preview" src={`${Logo}`} />
+                <img className="log_size" alt="Preview" src={`${Logo}`} style={{height:"100px",width:"200px"}} />
               </div>
            
           </div>

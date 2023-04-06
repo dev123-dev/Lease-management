@@ -286,6 +286,7 @@ footer.footer .top_top {
   height: 46px;
   /* margin-right: 70px; */
   margin-top: 0px;
+  overflow: hidden;
 }
 
 #pass_admin_help div#tooltipPassAdmin {
@@ -2630,6 +2631,7 @@ div {
     height: 43px;
     /* margin-right: 70px; */
     margin-top: 0px;
+    overflow: hidden;
   }
   .headsize {
     font-size: 27px;
@@ -2674,6 +2676,7 @@ input[type="date"]:in-range::-webkit-datetime-edit-text {
 *{
   font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 }
-.logostyle{
+/* .logostyle{
   border-radius: 50%;
-}
+  overflow: hidden;
+} */

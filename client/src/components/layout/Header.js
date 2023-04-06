@@ -104,7 +104,7 @@ const Header = ({
           user.usergroup === "Super Admin" ? (
             <Navbar.Brand>
               <NavLink to="/AdminProfile">
-                <div className="bg-danger logostyle">
+                <div className=" logostyle">
                 <img
                   className="log_size"
                   alt="Pinnacle Media"
