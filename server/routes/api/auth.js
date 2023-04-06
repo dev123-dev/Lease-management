@@ -147,7 +147,6 @@ router.get("/load-user", auth, async (req, res) => {
     // res.json(user);
 
     const id = mongoose.Types.ObjectId(req.user.id);
-    console.log("xxx", req.body);
 
     await UserDetails.aggregate([
       {
