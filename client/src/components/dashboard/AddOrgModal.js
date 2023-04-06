@@ -311,8 +311,8 @@ const AddOrgModal = ({
                     }
                   />
                 </div>
+                <i>File size must be less than 70kb</i>
               </div>
-              <i>File size must be less than 70kb</i>
               <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  ">
                 <img className="log_size " alt="Preview" src={`${Logo}`} />
               </div>
