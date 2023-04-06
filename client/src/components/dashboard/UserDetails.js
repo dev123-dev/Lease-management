@@ -21,9 +21,9 @@ const UserDetails = ({
 }) => {
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
-    get_particular_org_user();
+    get_particular_org_user({ OrganizationId: user.OrganizationId });
   }, []);
-
+console.log(get_particularOrg_user)
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
@@ -65,7 +65,7 @@ const UserDetails = ({
       deactive_reason: deactive_reason,
     };
     deactivateUser(reason);
-    get_particular_org_user({ orgid: user.OrganizationId });
+    get_particular_org_user({ OrganizationId: user.OrganizationId });
   };
 
   const [showadd, setShowadd] = useState(false);

@@ -10,6 +10,7 @@ const property = require("../../models/PropertyDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 const auth = require("../../middleware/auth");
+const mongoose = require("mongoose");
 
 router.post("/add-tenant-details", async (req, res) => {
   var today = new Date();
@@ -564,11 +565,12 @@ router.get("/get-all-Superuser", async (req, res) => {
 
 router.post("/get-particular-org-user", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
+  const id = mongoose.Types.ObjectId(req.body. OrganizationId);
   try {
     await UserDetails.aggregate([
       {
         $match: {
-          OrganizationId: req.body.OrganizationId,
+          OrganizationId: id,
         },
       },
       {

@@ -14,7 +14,6 @@ const Profile = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-console.log("hai",myuser)
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&
@@ -49,7 +48,6 @@ console.log("hai",myuser)
     get_particular_org_user({ OrganizationId: myuser.OrganizationId });
   }, []);
 
-  //console.log("my org", myorg);
   const orglist = [];
   allorg.map((org) => {
     orglist.push({
@@ -58,7 +56,6 @@ console.log("hai",myuser)
     });
   });
 
-  // console.log("myuser", myuser);
   const [orgname, setOrgname] = useState(
     superuser
       ? orglist &&
@@ -89,10 +86,10 @@ console.log("hai",myuser)
     usergroup: myuser.usergroup,
     useraddress: myuser.useraddress,
     userphone: myuser.userphone,
-    OrganizationName: myuser.OrganizationName
-      ? myuser.OrganizationName
+    OrganizationName: myuser.output.OrganizationName
+      ? myuser.output.OrganizationName
       : "Pinnacle Media",
-    OrganizationId: myuser.OrganizationId ? myuser.OrganizationId : "",
+    OrganizationId: myuser.output.OrganizationId ? myuser.output.OrganizationId : "",
   });
 
   const {
@@ -123,14 +120,12 @@ console.log("hai",myuser)
   };
 
   const [userGroup, setus] = useState(
-    user
-      ? UserGroups && UserGroups.filter((x) => x.value === user.usergroup)[0]
+    myuser
+      ? UserGroups && UserGroups.filter((x) => x.value === myuser.usergroup)[0]
       : ""
   );
 
-  const onuser = (e) => {
-    setus(e);
-  };
+  
   const [refersh, setrefresh] = useState("");
 
   const onUpdate = (e) => {
@@ -143,10 +138,11 @@ console.log("hai",myuser)
       useraddress: useraddress,
       useremail: useremail,
       usergroup: userGroup,
-      OrganizationName: orgname ? orgname.label : "",
-      OrganizationId: orgname ? orgname.value : "",
+      OrganizationName:myuser.output.OrganizationName ,
+      OrganizationId: myuser.output._id,
     };
-    console.log(updateUSER);
+    console.log("myuser",myuser)
+    console.log("done",updateUSER);
     // UpdateUser(updateUSER);
     // getalluser();
     //  get_particular_org_user({ orgid: user.OrganizationId });
@@ -221,7 +217,6 @@ console.log("hai",myuser)
                     name="usergrp"
                     value={usergroup}
                     className="form-control"
-                    onChange={(e) => onInputChange(e)}
                     readOnly
                   />
 
@@ -242,7 +237,7 @@ console.log("hai",myuser)
                   <br></br>
                 </div>{" "}
               </div>
-              <div
+              {/* <div
                 className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                 size="lg"
               >
@@ -250,11 +245,11 @@ console.log("hai",myuser)
                   variant="success"
                   id="savebtn"
                   className="btn sub_form btn_continue blackbrd Save float-right"
-                  // onClick={() => onUpdatepersonal()}
+                  onClick={() => onUpdate()}
                 >
                   <b>Update</b>
                 </button>
-              </div>
+              </div> */}
             </div>
           </section>
           <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
