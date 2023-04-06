@@ -3,6 +3,7 @@ import { Modal } from "react-bootstrap";
 import { Fragment } from "react";
 import { connect } from "react-redux";
 import { AddOrganization } from "../../actions/tenants";
+import FileBase64 from "react-file-base64";
 
 const AddOrgModal = ({
   // tenants: {AddOrganization },
@@ -293,6 +294,30 @@ const AddOrgModal = ({
                   required
                 ></textarea>{" "}
               </div>
+              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+                          <label className="label-control">
+                            Org Logo :
+                          </label>
+
+                          <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+                            <FileBase64
+                              type="file"
+                              multiple={false}
+                              // onDone={({ base64 }) =>
+                              //   setFormData({
+                              //     ...formData,
+                              //     institutionLogo: base64,
+                              //   })
+                              // }
+                            />
+
+                            <img
+                              className="log_size"
+                              alt="Preview"
+                              // src={`${institutionLogo}`}
+                            />
+                          </div>
+                        </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
