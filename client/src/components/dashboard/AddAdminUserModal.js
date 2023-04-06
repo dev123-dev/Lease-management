@@ -165,7 +165,8 @@ const AddAdminUserModal = ({
   // validation for password ending
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    // { value: "Clerk", label: "Clerk" },
+     { value: "Clerk", label: "Clerk" },
+     { value: "Manager", label: "Manager" },
   ];
 
   const [User, setUser] = useState("");
@@ -219,9 +220,10 @@ const AddAdminUserModal = ({
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
     };
-    setShowadd(false);
+    console.log(finalUserData)
+    
     AddAdminuser(finalUserData);
-
+    setShowadd(false);
     setFormData({
       ...formData,
       name: "",
