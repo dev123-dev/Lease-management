@@ -441,7 +441,7 @@ const EditTenantDetails = ({
                     
                     marginLeft: "10px",
                   }}
-                  className="heading_color headsize"
+                  className="heading_color headsize mt-2"
                 >
                   Edit Tenant Details
                 </h2>
@@ -816,7 +816,7 @@ const EditTenantDetails = ({
                         histroy.push("/tenant-detail");
                       }}
                       variant="success"
-                      className="btn sub_form btn_continue Save float-right mx-5"
+                      className="btn sub_form btn_continue Save float-right "
                       id="savebtn"
                       type="button"
                     >

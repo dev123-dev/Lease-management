@@ -2444,6 +2444,10 @@ div {
   .line {
     width: 220px;
   }
+  .profile{
+    top:-10px;
+
+  }
   .mediaprint {
     margin-left: 220px;
     margin-top: -80px;

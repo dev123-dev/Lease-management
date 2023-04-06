@@ -404,7 +404,7 @@ const AddTenantDetails = ({
                   style={{
                     marginLeft: "10px",
                   }}
-                  className=" heading_color headsize"
+                  className=" heading_color headsize mt-2"
                 >
                   Add Tenant Details
                 </h2>
@@ -795,7 +795,7 @@ const AddTenantDetails = ({
                     <Link to="/tenant-detail">
                       <button
                         variant="success"
-                        className="btn sub_form btn_continue Save float-right mx-5"
+                        className="btn sub_form btn_continue Save float-right "
                         id="savebtn"
                         type="button"
                       >

@@ -136,7 +136,7 @@ const Profile = ({
   const [refersh, setrefresh] = useState("");
 
   const onUpdate = (e) => {
-    setrefresh("x");
+    setrefresh ("x");
 
     const updateUSER = {
       userid: myuser._id,
@@ -211,28 +211,22 @@ const Profile = ({
                     onChange={(e) => onInputChange(e)}
                     readOnly
                   />
-                  {/* <Select
-                    name="orgname"
-                    // options={orglist}
-                    // value={orgname}
-                    placeholder={OrganizationName}
-                    onChange={(e) => onchangeOrg(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
+                  
+                </div>
+                
+                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <label>UserGroup*:</label>
 
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                    required
-                  >
-                    select Organization
-                  </Select>{" "} */}
+                  <input
+                    type="text"
+                    name="usergrp"
+                    value={usergroup}
+                    className="form-control"
+                    onChange={(e) => onInputChange(e)}
+                    readOnly
+                  />
+
+                  <br></br>
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Address :</label>
@@ -248,20 +242,6 @@ const Profile = ({
                   ></textarea>
                   <br></br>
                 </div>{" "}
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>UserGroup*:</label>
-
-                  <input
-                    type="text"
-                    name="usergrp"
-                    value={usergroup}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    readOnly
-                  />
-
-                  <br></br>
-                </div>
               </div>
               <div
                 className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
@@ -325,28 +305,7 @@ const Profile = ({
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
-                  {/* <Select
-                    name="orgname"
-                    options={orglist}
-                    value={orgname}
-                    placeholder={OrganizationName}
-                    onChange={(e) => onchangeOrg(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                    required
-                  >
-                    select Organization
-                  </Select>{" "} */}
+                 
                   <input
                     type="text"
                     name="OrganizationName"
@@ -357,31 +316,15 @@ const Profile = ({
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
-                  <Select
-                    name="userGroup"
-                    value={userGroup}
-                    options={UserGroups}
-                    onChange={(e) => onuser(e)}
-                    theme={(theme) => ({
-                      ...theme,
-                      height: 26,
-                      minHeight: 26,
-                      borderRadius: 1,
-                      colors: {
-                        ...theme.colors,
-                        primary25: "#e8a317",
-                        primary: "#095a4a",
-                      },
-                    })}
-                  />
-                  {/* <input
+                  
+                  <input
                     type="text"
                     name="usergrp"
                     value={usergroup}
                     className="form-control"
                     onChange={(e) => onInputChange(e)}
                     readOnly
-                  /> */}
+                  />
 
                   <br></br>
                 </div>
@@ -414,36 +357,19 @@ const Profile = ({
                 </button>
               </div>
 
-              {/* <div className="col-lg-3 Savebutton float-right" size="lg">
-            <input
-              id="savebtn"
-              type="submit"
-              name="Save"
-              value="Update"
-              className="btn sub_form btn_continue Save float-right"
-            />
-          </div> */}
+             
             </div>
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+         
               <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 {" "}
                 <h2 className="heading_color">Organization Profile </h2>
               </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
                 <>
-                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                    <label> Organization Name*:</label>
-
-                    <input
-                      type="text"
-                      name="OrganizationName"
-                      value={OrganizationName}
-                      className="form-control"
-                      readOnly
-                    />
-                    <br></br>
-                  </div>
-                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                  
+                       <div className=" row col-lg-8">
+                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                     <label>Email*: </label>
                     <input
                       name="OrganizationEmail"
@@ -453,7 +379,7 @@ const Profile = ({
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                     <label>Phone No:</label>
 
                     <input
@@ -464,15 +390,7 @@ const Profile = ({
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                    <label>Location:</label>
-                    {location.map((ele) => {
-                      return <i className="h5 ml-3">{ele.label}</i>;
-                    })}
-
-                    <br></br>
-                  </div>
-                  <div className=" col-lg-8 col-md-12 col-sm-12 col-12 py-3">
+                  <div className=" col-lg-6 col-md-12 col-sm-12 col-12 py-3">
                     <label>Institution Logo :</label>
                     {/* <div className="form__img-input-container">
                       <img
@@ -485,18 +403,23 @@ const Profile = ({
                       />
                     </div> */}
                   </div>
+                  </div>
+                  
+                 
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Location:</label>
+                    {location.map((ele) => {
+                      return <div className=" ml-3 form-control  ">{ele.label}</div>;
+                    })}
+
+                    <br></br>
+                  </div>
+                 
                   <div
                     className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                     size="lg"
                   >
-                    {/* <button
-                      variant="success"
-                      id="savebtn"
-                      className="btn sub_form btn_continue blackbrd Save float-right"
-                      // onClick={() => onUpdatepersonal()}
-                    >
-                      <b>Update</b>
-                    </button> */}
+                   
                   </div>
                 </>
               </div>

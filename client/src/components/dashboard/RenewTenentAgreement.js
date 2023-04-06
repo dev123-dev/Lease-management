@@ -79,7 +79,7 @@ const RenewTenentAgreement = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log(finalData);
+    // console.log(finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);

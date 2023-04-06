@@ -286,7 +286,7 @@ const PropertyDetail = ({
                     <tbody className="text-center">
                       {particular_org_data &&
                         particular_org_data.map((Val, idx) => {
-                          console.log("Val", Val.shopDoorNo);
+                         
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">

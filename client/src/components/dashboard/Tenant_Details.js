@@ -83,7 +83,7 @@ const Tenant_Details = ({
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno, Val) => {
     setId(id);
-    console.log("whole find cil", Val.BuildingId);
+    
     setDeactiveThisBiuldingID(Val.BuildingId);
     if (Dno.length >= 1) {
       SetDno(Dno);
@@ -152,7 +152,7 @@ const Tenant_Details = ({
       isSubmitted: "true",
       BiuldingID: DeactiveThisBiuldingID,
     };
-    console.log("ok ", reason);
+   
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);
@@ -174,7 +174,7 @@ const Tenant_Details = ({
         isSubmitted: "true",
         BiuldingID: DeactiveThisBiuldingID,
       };
-      console.log("ok ", reason);
+    
       deactiveTenantsDetails(reason);
       handleClose();
       setFreshPage(!freshpage);
@@ -288,7 +288,7 @@ const Tenant_Details = ({
 
                   <div className="body-inner no-padding table-responsive">
                     <table
-                      className="table table-bordered table-striped table-hover  "
+                      className="table table-bordered table-striped table-hover mt-1  "
                       id="datatable2"
                     >
                       <thead>
@@ -304,7 +304,7 @@ const Tenant_Details = ({
                           <th>Operation</th>
                         </tr>
                       </thead>
-                      <tbody className="text-center">
+                      <tbody className="text-center  ">
                         {currentDatas &&
                           currentDatas.map((Val, idx) => {
                             var ED =
