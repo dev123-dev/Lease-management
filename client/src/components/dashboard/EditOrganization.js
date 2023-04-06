@@ -90,7 +90,16 @@ const EditOrganization = ({
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
   const [locError, setLocError] = useState("black");
+  const[imgError,setImgError]=useState("black")
   const onUpdate = (e) => {
+    if(Logo===" ")
+    {
+      setImgError("red");
+      e.preventDefault();
+    }
+    else{
+
+ 
     e.preventDefault();
     if (items.length === 0) {
       setLocError("red");
@@ -112,6 +121,7 @@ const EditOrganization = ({
 
       EditModal(false);
     }
+  }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -246,7 +256,7 @@ const EditOrganization = ({
               </div>
             </div>
             <div className="row col-lg-8 col-md-12 col-sm-12 col-12 py-3">
-              <label className="label-control">Organization Logo :</label>
+              <label className="label-control" style={{color:imgError}}>Organization Logo :</label>
 
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
                 <FileBase64
@@ -260,6 +270,7 @@ const EditOrganization = ({
                   }
                 />
               </div>
+              <i className="smallsize">(File size must be less than 70kb)</i>
               </div>
               <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  " >
                 <img className="log_size" alt="Preview" src={`${Logo}`} style={{height:"100px",width:"200px"}} />
