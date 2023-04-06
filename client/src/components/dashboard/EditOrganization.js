@@ -184,6 +184,20 @@ const EditOrganization = ({
                 required
               />
               <br></br>
+              <label> Address*: </label>
+              <textarea
+                name="OrganizationAddress"
+                value={OrganizationAddress}
+                className="textarea form-control"
+                rows="3"
+                cols="20"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>{" "}
+            </div>
+            <div className="col-lg-6">
               <label className="ml-2" style={{ color: locError }}>
                 Location*:
               </label>
@@ -230,22 +244,8 @@ const EditOrganization = ({
                 </div>
               </div>
             </div>
-            <div className="col-lg-6">
-              <label> Address*: </label>
-              <textarea
-                name="OrganizationAddress"
-                value={OrganizationAddress}
-                className="textarea form-control"
-                rows="3"
-                cols="20"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>{" "}
-            </div>
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-              <label className="label-control">Org Logo :</label>
+            <div className="row col-lg-8 col-md-12 col-sm-12 col-12 py-3">
+              <label className="label-control">Organization Logo :</label>
 
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
                 <FileBase64
@@ -258,10 +258,12 @@ const EditOrganization = ({
                     })
                   }
                 />
-
+              </div>
+              </div>
+              <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  " >
                 <img className="log_size" alt="Preview" src={`${Logo}`} />
               </div>
-            </div>
+           
           </div>
         </div>
 
