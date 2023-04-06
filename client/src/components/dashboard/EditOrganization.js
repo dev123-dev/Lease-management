@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import "../../../../client/src/styles/CustomisedStyle.css";
+import FileBase64 from "react-file-base64";
 import { updateOrganization, getAllOrganization } from "../../actions/tenants";
 const EditOrganization = ({
   auth: { isAuthenticated, user, users },
@@ -48,6 +49,7 @@ const EditOrganization = ({
     OrganizationEmail,
     OrganizationNumber,
     OrganizationAddress,
+    Logo,
     startdate,
     enddate,
   } = formDataORG;
@@ -100,6 +102,7 @@ const EditOrganization = ({
         OrganizationNumber: OrganizationNumber,
         OrganizationAddress: OrganizationAddress,
         startdate: showStartdate,
+        Logo: Logo,
         enddate: showEnddate,
         Location: items,
       };
@@ -241,6 +244,24 @@ const EditOrganization = ({
                 required
               ></textarea>{" "}
             </div>
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+                <label className="label-control">Org Logo :</label>
+
+                <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+                  <FileBase64
+                    type="file"
+                    multiple={false}
+                    onDone={({ base64 }) =>
+                      setFormDataORG({
+                        ...formDataORG,
+                        Logo: base64,
+                      })
+                    }
+                  />
+
+                  <img className="log_size" alt="Preview" src={`${Logo}`} />
+                </div>
+              </div>
           </div>
         </div>
 
