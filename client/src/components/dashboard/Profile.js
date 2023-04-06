@@ -14,7 +14,7 @@ const Profile = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-console.log("hai",myuser)
+  console.log("hai", myuser);
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&
@@ -104,7 +104,7 @@ console.log("hai",myuser)
 
   let location = [];
   myuser &&
-  myuser.output.Location.map((ele) => {
+    myuser.output.Location.map((ele) => {
       location.push({
         label: ele,
         value: ele,
@@ -134,7 +134,7 @@ console.log("hai",myuser)
   const [refersh, setrefresh] = useState("");
 
   const onUpdate = (e) => {
-    setrefresh ("x");
+    setrefresh("x");
 
     const updateUSER = {
       userid: myuser._id,
@@ -156,13 +156,11 @@ console.log("hai",myuser)
     <div>
       {user && user.usergroup === "Super Admin" ? (
         <div className="container container_align  ">
-          
           <section className="sub_reg">
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-            <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-            <h2 className="heading_color">Profile </h2>
-            
-          </div>
+              <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+                <h2 className="heading_color">Profile </h2>
+              </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label> Name*:</label>
@@ -210,9 +208,7 @@ console.log("hai",myuser)
                     onChange={(e) => onInputChange(e)}
                     readOnly
                   />
-                  
                 </div>
-                
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
 
@@ -258,63 +254,54 @@ console.log("hai",myuser)
             </div>
           </section>
           <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-         
-         <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-           {" "}
-           <h2 className="heading_color">Organization Profile </h2>
-         </div>
-         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-           <>
-             
-                  <div className=" row col-lg-12">
-             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-               <label>Email*: </label>
-               <input
-                 name="OrganizationEmail"
-                 value={myuser.output.OrganizationEmail}
-                 className="form-control"
-                 readOnly
-               />
-               <br></br>
-             </div>
-             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-               <label>Phone No:</label>
+            <div className="col-lg-12 col-md-12 col-sm-12 col-12">
+              {" "}
+              <h2 className="heading_color">Organization Profile </h2>
+            </div>
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+              <>
+                <div className=" row col-lg-12">
+                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <label>Email*: </label>
+                    <input
+                      name="OrganizationEmail"
+                      value={myuser.output.OrganizationEmail}
+                      className="form-control"
+                      readOnly
+                    />
+                    <br></br>
+                  </div>
+                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <label>Phone No:</label>
 
-               <input
-                 name="OrganizationNumber"
-                 value={myuser.output.OrganizationNumber}
-                 className="form-control"
-                 readOnly
-               />
-               <br></br>
-             </div>
-             <div className=" col-lg-6 col-md-12 col-sm-12 col-12 ">
-               <label>Organization Logo :</label>
-               <div className="form__img-input-container d-flex justify-content-center align-item-center">
-                 <img
-                 
-                   src={myuser.output.Logo}
-                   alt="OrgLogo"
-                 />
-               </div>
-             </div>
-             <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-               <label>Address:</label>
+                    <input
+                      name="OrganizationNumber"
+                      value={myuser.output.OrganizationNumber}
+                      className="form-control"
+                      readOnly
+                    />
+                    <br></br>
+                  </div>
+                  <div className=" col-lg-6 col-md-12 col-sm-12 col-12 ">
+                    <label>Organization Logo :</label>
+                    <div className="form__img-input-container d-flex justify-content-center align-item-center">
+                      <img src={myuser.output.Logo} alt="OrgLogo" />
+                    </div>
+                  </div>
+                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                    <label>Address:</label>
 
-               <input
-                 name="OrganizationNumber"
-                 value={myuser.output.OrganizationAddress}
-                 className="form-control"
-                 readOnly
-               />
-               <br></br>
-             </div>
-             
-             </div>
-             
-             
-            
-             {/* <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <input
+                      name="OrganizationNumber"
+                      value={myuser.output.OrganizationAddress}
+                      className="form-control"
+                      readOnly
+                    />
+                    <br></br>
+                  </div>
+                </div>
+
+                {/* <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                <label>Location:</label>
                {location.map((ele) => {
                  return <div className=" ml-3 form-control  ">{ele.label}</div>;
@@ -322,16 +309,14 @@ console.log("hai",myuser)
 
                <br></br>
              </div> */}
-            
-             <div
-               className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
-               size="lg"
-             >
-              
-             </div>
-           </>
-         </div>
-       </div>
+
+                <div
+                  className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
+                  size="lg"
+                ></div>
+              </>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="container container_align  ">
@@ -379,7 +364,7 @@ console.log("hai",myuser)
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>Organization belongs to *: </label>
-                 
+
                   <input
                     type="text"
                     name="OrganizationName"
@@ -390,7 +375,7 @@ console.log("hai",myuser)
                 </div>
                 <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                   <label>UserGroup*:</label>
-                  
+
                   <input
                     type="text"
                     name="usergrp"
@@ -430,67 +415,59 @@ console.log("hai",myuser)
                   <b>Update</b>
                 </button>
               </div>
-
-             
             </div>
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-         
               <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 {" "}
                 <h2 className="heading_color">Organization Profile </h2>
               </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
                 <>
-                  
-                       <div className=" row col-lg-8">
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Email*: </label>
-                    <input
-                      name="OrganizationEmail"
-                      value={myuser.output.OrganizationEmail}
-                      className="form-control"
-                      readOnly
-                    />
-                    <br></br>
-                  </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Phone No:</label>
-
-                    <input
-                      name="OrganizationNumber"
-                      value={myuser.output.OrganizationNumber}
-                      className="form-control"
-                      readOnly
-                    />
-                    <br></br>
-                  </div>
-                  <div className=" col-lg-6 col-md-12 col-sm-12 col-12 py-3">
-                    <label>Organization Logo :</label>
-                    <div className="form__img-input-container">
-                      <img
-                        src={myuser.output.Logo}
-                        alt=""
+                  <div className=" row col-lg-8">
+                    <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                      <label>Email*: </label>
+                      <input
+                        name="OrganizationEmail"
+                        value={myuser.output.OrganizationEmail}
+                        className="form-control"
+                        readOnly
                       />
+                      <br></br>
+                    </div>
+                    <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                      <label>Phone No:</label>
+
+                      <input
+                        name="OrganizationNumber"
+                        value={myuser.output.OrganizationNumber}
+                        className="form-control"
+                        readOnly
+                      />
+                      <br></br>
+                    </div>
+                    <div className=" col-lg-6 col-md-12 col-sm-12 col-12 py-3">
+                      <label>Organization Logo :</label>
+                      <div className="form__img-input-container d-flex justify-content-center align-item-center ">
+                        <img src={myuser.output.Logo} alt="OrgLogo" />
+                      </div>
                     </div>
                   </div>
-                  </div>
-                  
-                 
+
                   <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label>Location:</label>
                     {location.map((ele) => {
-                      return <div className=" ml-3 form-control  ">{ele.label}</div>;
+                      return (
+                        <div className=" ml-3 form-control  ">{ele.label}</div>
+                      );
                     })}
 
                     <br></br>
                   </div>
-                 
+
                   <div
                     className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                     size="lg"
-                  >
-                   
-                  </div>
+                  ></div>
                 </>
               </div>
             </div>

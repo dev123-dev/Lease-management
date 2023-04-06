@@ -27,7 +27,7 @@ const TenantReport = ({
     yearExpCnt.map((ele) => ele)
   );
   const componentRef = useRef();
-
+  const myuser = JSON.parse(localStorage.getItem("user"));
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
@@ -74,7 +74,7 @@ const TenantReport = ({
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: "TenantReports",
-    onAfterPrint: () => alert("print success"),
+    // onAfterPrint: () => alert("print success"),
   });
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -208,7 +208,11 @@ const TenantReport = ({
                 ref={componentRef}
                 className="body-inner no-padding table-responsive  col-lg-10"
               >
-                <img alt={""} src={logo} className={"watermark"} />
+                <img
+                  alt={""}
+                  src={myuser && myuser.output ? myuser.output.Logo : logo}
+                  className={"watermark"}
+                />
                 <table
                   className="table table-bordered table-striped table-hover   mt-1  "
                   id="datatable2"

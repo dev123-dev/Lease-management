@@ -300,11 +300,9 @@ const AddShopDetails = ({
                   required
                 ></textarea>
                 <br></br>
-
               </div>
 
               <div className="col-lg-6">
-
                 <label className="ml-2" style={{ color: locError }}>
                   Door No*:
                 </label>
@@ -359,7 +357,6 @@ const AddShopDetails = ({
                 {/* <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
                   RoomAlreadyExist
                 </p> */}
-
               </div>
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields

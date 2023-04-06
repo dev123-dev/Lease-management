@@ -47,10 +47,10 @@ const App = () => {
                 <Route component={RoutesFile} />
               </Switch>
             </div>
-            <footer className="footer">
+            {/* <footer className="footer">
               <Footer />
               <br />
-            </footer>
+            </footer> */}
           </div>
         </Fragment>
       </Router>
