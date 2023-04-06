@@ -312,6 +312,7 @@ const AddOrgModal = ({
                       })
                     }
                   />
+                  
                   </div>
                   </div>
                   <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  " >
