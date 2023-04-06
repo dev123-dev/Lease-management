@@ -14,7 +14,7 @@ const Profile = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-
+console.log("hai",myuser)
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&
@@ -103,9 +103,8 @@ const Profile = ({
   } = OrganizationData;
 
   let location = [];
-  get_particularOrg_user &&
-    get_particularOrg_user[0] &&
-    get_particularOrg_user[0].output.Location.map((ele) => {
+  myuser &&
+  myuser.output.Location.map((ele) => {
       location.push({
         label: ele,
         value: ele,
@@ -448,7 +447,7 @@ const Profile = ({
                     <label>Email*: </label>
                     <input
                       name="OrganizationEmail"
-                      value={OrganizationEmail}
+                      value={myuser.output.OrganizationEmail}
                       className="form-control"
                       readOnly
                     />
@@ -459,24 +458,20 @@ const Profile = ({
 
                     <input
                       name="OrganizationNumber"
-                      value={OrganizationNumber}
+                      value={myuser.output.OrganizationNumber}
                       className="form-control"
                       readOnly
                     />
                     <br></br>
                   </div>
                   <div className=" col-lg-6 col-md-12 col-sm-12 col-12 py-3">
-                    <label>Institution Logo :</label>
-                    {/* <div className="form__img-input-container">
+                    <label>Organization Logo :</label>
+                    <div className="form__img-input-container">
                       <img
-                        src={`${
-                          institutionData && institutionData.institutionProfile
-                            ? institutionData.institutionProfile
-                            : ""
-                        }`}
+                        src={myuser.output.Logo}
                         alt=""
                       />
-                    </div> */}
+                    </div>
                   </div>
                   </div>
                   

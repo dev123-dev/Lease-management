@@ -98,8 +98,14 @@ const AddOrgModal = ({
   const onremove = () => setShowAdd(false);
 
   const [locationError, setLocationError] = useState("black");
-
+  const[imgError,setImgError]=useState("black")
   const onSubmitORGdata = (e) => {
+    if(Logo===""){
+      setImgError("red")
+      e.preventDefault();
+    }
+    else{
+
     e.preventDefault();
     if (items.length == 0) {
       setLocationError("red");
@@ -116,7 +122,7 @@ const AddOrgModal = ({
       };
       AddOrganization(finalORGdata);
       setShowadd(false);
-      onshow();
+      // onshow();
       setFormDataORG({
         ...formDataORG,
         OrganizationName: "",
@@ -130,6 +136,7 @@ const AddOrgModal = ({
         Location: [],
       });
     }
+  }
   };
   return !isAuthenticated || !user || !users ? (
     <></>
@@ -190,7 +197,7 @@ const AddOrgModal = ({
                 <br></br>
               </div>{" "}
               <div className="col-lg-6">
-                <label>Phone No:</label>
+                <label>Phone No*:</label>
                 <input
                   type="number"
                   name="OrganizationNumber"
@@ -198,6 +205,7 @@ const AddOrgModal = ({
                   onChange={(e) => onORGchange(e)}
                   className="form-control"
                   placeholder="Phone Number"
+                  required
                 />
                 <br></br>
               </div>
@@ -259,7 +267,7 @@ const AddOrgModal = ({
                 ></input>
 
                 <div>
-                  <div className="locadds " onClick={addItem}>
+                  <div className="locadds  " onClick={addItem}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="30"
@@ -297,7 +305,7 @@ const AddOrgModal = ({
                 </div>
               </div>
               <div className="row col-lg-8 col-md-12 col-sm-12 col-12 py-3">
-                <label className="label-control">Organization Logo :</label>
+                <label className="label-control" style={{color:imgError}}>Organization Logo*:</label>
 
                 <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
                   <FileBase64
@@ -311,7 +319,7 @@ const AddOrgModal = ({
                     }
                   />
                 </div>
-                <i>File size must be less than 70kb</i>
+                <i className="smallsize">(File size must be less than 70kb)</i>
               </div>
               <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  ">
                 <img className="log_size " alt="Preview" src={`${Logo}`}  style={{height:"100px",width:"200px"}}/>
