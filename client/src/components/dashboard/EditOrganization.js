@@ -40,7 +40,7 @@ const EditOrganization = ({
     OrganizationAddress: org.OrganizationAddress,
     startdate: org.date,
     enddate: org.enddate,
-    Logo: "",
+    Logo: org.Logo,
     Location: items,
   });
 
@@ -245,23 +245,23 @@ const EditOrganization = ({
               ></textarea>{" "}
             </div>
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-                <label className="label-control">Org Logo :</label>
+              <label className="label-control">Org Logo :</label>
 
-                <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
-                  <FileBase64
-                    type="file"
-                    multiple={false}
-                    onDone={({ base64 }) =>
-                      setFormDataORG({
-                        ...formDataORG,
-                        Logo: base64,
-                      })
-                    }
-                  />
+              <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
+                <FileBase64
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) =>
+                    setFormDataORG({
+                      ...formDataORG,
+                      Logo: base64,
+                    })
+                  }
+                />
 
-                  <img className="log_size" alt="Preview" src={`${Logo}`} />
-                </div>
+                <img className="log_size" alt="Preview" src={`${Logo}`} />
               </div>
+            </div>
           </div>
         </div>
 
