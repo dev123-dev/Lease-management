@@ -137,7 +137,14 @@ const AddTenantDetails = ({
 
   const [DnoList, setDnoList] = useState([]);
   const [LocList, SetLocList] = useState([]);
-
+let passwrdTooltip = {
+     marginLeft: "-16em",
+     position: "absolute",
+     marginTop: "1.5em",
+     pointerEvents: "none",
+     zIndex: "999",
+     width: "300px",
+   };
   const LocName = [];
   particular_org_data.map((loc) => {
     LocName.push({
@@ -507,6 +514,24 @@ const AddTenantDetails = ({
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
                 />{" "}
+                   <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint=" Must have only 12 digits "
+                  ></div>
+                </div>
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -521,6 +546,24 @@ const AddTenantDetails = ({
                   onChange={(e) => onInputChange(e)}
                   // onKeyDown={(e) => funcKeyDown(e)}
                 />
+                  <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Must have 5 Alphabets,4 Numbers,1 Alphabet"
+                  ></div>
+                </div>
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -534,7 +577,25 @@ const AddTenantDetails = ({
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
                   required
-                />{" "}
+                />
+                  <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Monthly Rent "
+                  ></div>
+                </div>
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
