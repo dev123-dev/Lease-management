@@ -13,7 +13,7 @@ import {
 } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
-const LocationReport = ({
+const BuildingReport = ({
   auth: { user },
   tenants: { particular_org_data, particular_org_loc },
   deactiveProperty,
@@ -67,23 +67,6 @@ const LocationReport = ({
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const handleUpdateModalOpen = () => setShowUpdateModal(!showUpdateModal);
   const [property, setProperty] = useState([]);
-
-  const onEdit = (ele) => {
-    let propertydata = {
-      OrganizationId: ele.OrganizationId,
-      PropertyId: ele._id,
-      OrganizationName: ele.OrganizationName,
-      buildingName: ele.buildingName,
-      hike: ele.hike,
-      leaseTimePeriod: ele.leaseTimePeriod,
-      shopAddress: ele.shopAddress,
-      shopDoorNo: ele.shopDoorNo,
-      Location: ele.Location,
-      stampDuty: ele.stampDuty,
-    };
-    setProperty(propertydata);
-    handleUpdateModalOpen();
-  };
 
   const { deactive_reason } = formData;
 
@@ -210,7 +193,7 @@ const LocationReport = ({
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
-              <h2 className="heading_color  headsize  ml-4">Location Report</h2>
+              <h2 className="heading_color  headsize  ml-4">Building Report</h2>
             </div>
             <div className="col-lg-5 mt-3">
               <Select
@@ -233,26 +216,7 @@ const LocationReport = ({
                 })}
               ></Select>
             </div>
-            <div className="col-lg-2 text-end mt-sm-5">
-              {" "}
-              <img
-                height="20px"
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add Prop"
-                title="Add Prop"
-              />
-              <img
-                className="ml-2"
-                style={{ cursor: "pointer" }}
-                height="20px"
-                onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
-                alt="refresh"
-                title="refresh"
-              />
-            </div>
+            <div className="col-lg-2 text-end mt-sm-5"> </div>
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
@@ -272,11 +236,11 @@ const LocationReport = ({
                         >
                           Building Name
                         </th>
-                        {/* <th>Door Number</th> */}
 
                         <th>Address</th>
                         <th>Location</th>
-                        <th> Total Door No</th>
+                        <th> Unccupied Door No</th>
+                        <th> Occupied Door No</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -289,9 +253,10 @@ const LocationReport = ({
                               </td>
 
                               <td>{Val.shopAddress}</td>
-                              {/* <td title={AddDetail.shopDoorNo}> */}
+                              <td>{Val.Location}</td>
                               <td>
-                                {/* {Val.shopDoorNo &&
+                                {" "}
+                                {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Avaiable") {
@@ -301,17 +266,16 @@ const LocationReport = ({
                                         </div>
                                       );
                                     }
-                                  })} */}
-                                {Val.Location}
+                                  })}
                               </td>
                               <td>
-                                <img
+                                {/* <img
                                   className="img_icon_size log"
                                   src={require("../../static/images/info.png")}
                                   alt="Govt Cards"
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
-                                />
-                                {/* {Val.shopDoorNo &&
+                                /> */}
+                                {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Acquired") {
@@ -321,7 +285,7 @@ const LocationReport = ({
                                         </div>
                                       );
                                     }
-                                  })} */}
+                                  })}
                               </td>
                             </tr>
                           );
@@ -598,4 +562,4 @@ export default connect(mapStateToProps, {
   getParticularOrg,
   getAllSettings,
   getParticularProperty,
-})(LocationReport);
+})(BuildingReport);

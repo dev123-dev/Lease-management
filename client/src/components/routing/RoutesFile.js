@@ -30,6 +30,7 @@ import OrganizationReport from "../dashboard/OrganizationReport";
 import Profile from "../dashboard/Profile";
 import AllReport from "../dashboard/AllReport";
 import locationReport from "../dashboard/locationReport";
+import BuildingReport from "../dashboard/BuildingReport";
 const RoutesFile = () => {
   return (
     <section>
@@ -40,6 +41,7 @@ const RoutesFile = () => {
           path="/add-tenant-details"
           component={AddTenantDetails}
         />
+        <PrivateRoute exact path="/BuildingReport" component={BuildingReport} />
         <PrivateRoute exact path="/Report" component={AllReport} />
         <PrivateRoute exact path="/LocationReport" component={locationReport} />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
