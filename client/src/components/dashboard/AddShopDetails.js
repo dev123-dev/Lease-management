@@ -16,6 +16,8 @@ const AddShopDetails = ({
   getAllSettings,
   getParticularProperty,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState("black");
 
   const [pageRefresh, SetRefresh] = useState(false);
@@ -62,9 +64,9 @@ const AddShopDetails = ({
   const [formData, setFormData] = useState({
     buildingName: "",
     shopDoorNo: [],
-    hike: allTenantSetting && allTenantSetting.hike,
-    stampDuty: allTenantSetting && allTenantSetting.stampDuty,
-    LeaseTime: allTenantSetting && allTenantSetting.leaseTimePeriod,
+    hike: myuser.output && myuser.output.hike,
+    stampDuty: myuser.output && myuser.output.StampDuty,
+    LeaseTime: myuser.output && myuser.output.LeaseTimePeriod,
     shopAddress: "",
     isSubmitted: false,
   });

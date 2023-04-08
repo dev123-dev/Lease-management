@@ -32,6 +32,7 @@ import {
   GET_EDIT_TENANT_DETAILS,
   EXP_ORG_,
 } from "./types";
+import { loadUser } from "./auth";
 
 const config = {
   headers: {
@@ -75,6 +76,7 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
         userId: finalData && finalData.userId,
       })
     );
+    dispatch(loadUser());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,

@@ -115,6 +115,9 @@ const AddOrgModal = ({
           OrganizationAddress: OrganizationAddress,
           date: entryDate,
           Logo: Logo,
+          hike: "",
+          StampDuty: "",
+          LeaseTimePeriod: "",
           enddate: newLeaseEndDate,
           Location: items,
         };

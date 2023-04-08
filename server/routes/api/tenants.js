@@ -223,6 +223,9 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationNumber: data.OrganizationNumber,
         OrganizationAddress: data.OrganizationAddress,
         date: data.date,
+        hike: "",
+        StampDuty: "",
+        LeaseTimePeriod: "",
         Logo: data.Logo,
         enddate: data.enddate,
         Location: data.Location,
@@ -240,7 +243,9 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationAddress: output.OrganizationAddress,
         date: output.date,
         Logo: data.Logo,
-
+        hike: "",
+        StampDuty: "",
+        LeaseTimePeriod: "",
         enddate: output.enddate,
         Location: output.Location,
         AgreementStatus: "Expired",
@@ -265,6 +270,9 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationAddress: data.OrganizationAddress,
         date: data.date,
         Logo: data.Logo,
+        hike: "",
+        StampDuty: "",
+        LeaseTimePeriod: "",
         enddate: data.enddate,
         Location: data.Location,
         AgreementStatus: "Active",
@@ -281,6 +289,9 @@ router.post("/add-Organization", async (req, res) => {
         OrganizationAddress: output.OrganizationAddress,
         date: output.date,
         Logo: data.Logo,
+        hike: "",
+        StampDuty: "",
+        LeaseTimePeriod: "",
         enddate: output.enddate,
         Location: output.Location,
         AgreementStatus: "Active",
@@ -387,7 +398,7 @@ router.post("/update-Organization", async (req, res) => {
           OrganizationAddress: data.OrganizationAddress,
           AgreementStatus: "Expired",
           enddate: data.enddate,
-          Logo:data.Logo,
+          Logo: data.Logo,
           date: data.startdate,
           Location: data.Location,
         },
@@ -415,7 +426,7 @@ router.post("/update-Organization", async (req, res) => {
           OrganizationAddress: data.OrganizationAddress,
           AgreementStatus: "Active",
           enddate: data.enddate,
-          Logo:data.Logo,
+          Logo: data.Logo,
           date: data.startdate,
           Location: data.Location,
         },
@@ -565,7 +576,7 @@ router.get("/get-all-Superuser", async (req, res) => {
 
 router.post("/get-particular-org-user", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
-  const id = mongoose.Types.ObjectId(req.body. OrganizationId);
+  const id = mongoose.Types.ObjectId(req.body.OrganizationId);
   try {
     await UserDetails.aggregate([
       {
