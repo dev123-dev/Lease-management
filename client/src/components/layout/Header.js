@@ -127,7 +127,7 @@ const Header = ({
           user &&
           user.usergroup === "Clerk" ? (
             <Navbar.Brand>
-              <NavLink to="/AdminProfile">
+             
                 <div className=" logostyle">
                   <img
                     className="log_size logg"
@@ -136,7 +136,6 @@ const Header = ({
                     title="Dashboard"
                   />
                 </div>
-              </NavLink>
             </Navbar.Brand>
           ) : (
             <Navbar.Brand></Navbar.Brand>

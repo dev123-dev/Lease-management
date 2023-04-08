@@ -280,7 +280,7 @@ const TenantFilters = ({
       ) : (
         <>
           {/* TENANT FILTER */}
-          <Fragment>
+          {logUser.usergroup==="Admin"? <Fragment>
             <div className="container_align top_menu col-sm-12 responsiveDiv ">
               {/* <div className="row pb-2 ml-2   "> */}
               <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter  ">
@@ -379,7 +379,8 @@ const TenantFilters = ({
               </div>
               {/* </div> */}
             </div>
-          </Fragment>
+          </Fragment> : <></>}
+         
         </>
       )}
     </>
