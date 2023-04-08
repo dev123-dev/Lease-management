@@ -28,6 +28,8 @@ import AddAdminModal from "../dashboard/AddAdminUserModal";
 import OrganizationFilter from "../dashboard/OrganizationFilter";
 import OrganizationReport from "../dashboard/OrganizationReport";
 import Profile from "../dashboard/Profile";
+import AllReport from "../dashboard/AllReport";
+import locationReport from "../dashboard/locationReport";
 const RoutesFile = () => {
   return (
     <section>
@@ -38,6 +40,8 @@ const RoutesFile = () => {
           path="/add-tenant-details"
           component={AddTenantDetails}
         />
+        <PrivateRoute exact path="/Report" component={AllReport} />
+        <PrivateRoute exact path="/LocationReport" component={locationReport} />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute
           exact

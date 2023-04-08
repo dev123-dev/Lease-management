@@ -4,7 +4,7 @@ import { Container, Navbar, Nav, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { logout } from "../../actions/auth";
 import Login from "../auth/Login";
-import lralogo from "../../static/images/lraLogo_wh.png"
+import lralogo from "../../static/images/lraLogo_wh.png";
 import { NavItem } from "react-bootstrap";
 
 import { Link, NavLink } from "react-router-dom";
@@ -74,7 +74,7 @@ const Header = ({
   };
   const openSecondLevelMenu2 = () => {};
 
-const imgurl="../../static/images/lraLogo_wh.png";
+  const imgurl = "../../static/images/lraLogo_wh.png";
 
   return (
     <Fragment>
@@ -89,15 +89,15 @@ const imgurl="../../static/images/lraLogo_wh.png";
             <Navbar.Brand>
               <NavLink to="/AdminProfile">
                 <div>
-                <img
-                  className=" log_size"
-                  alt="Pinnacle Media"
-
-                  src={myuser &&  myuser.output ? myuser.output.Logo :lralogo}
-                  //{imgurl}
-                  //{myuser &&  myuser.output ? myuser.output.Logo :lralogo}
-                  title="Dashboard"
-                /></div>
+                  <img
+                    className=" log_size"
+                    alt="Pinnacle Media"
+                    src={myuser && myuser.output ? myuser.output.Logo : lralogo}
+                    //{imgurl}
+                    //{myuser &&  myuser.output ? myuser.output.Logo :lralogo}
+                    title="Dashboard"
+                  />
+                </div>
               </NavLink>
             </Navbar.Brand>
           ) : (
@@ -110,12 +110,13 @@ const imgurl="../../static/images/lraLogo_wh.png";
             <Navbar.Brand>
               <NavLink to="/AdminProfile">
                 <div className=" logostyle">
-                <img
-                  className="log_size"
-                  alt="Pinnacle Media"
-                  src={myuser.output.Logo}
-                  title="Dashboard"
-                /></div>
+                  <img
+                    className="log_size"
+                    alt="Pinnacle Media"
+                    src={myuser.output.Logo}
+                    title="Dashboard"
+                  />
+                </div>
               </NavLink>
             </Navbar.Brand>
           ) : (
@@ -303,6 +304,29 @@ const imgurl="../../static/images/lraLogo_wh.png";
                     }}
                   >
                     User
+                  </NavLink>
+                ) : (
+                  <></>
+                  // <NavItem>gg</NavItem>
+                )}
+              </NavItem>
+
+              <NavItem>
+                {!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Admin" ? (
+                  <NavLink
+                    to="/Report"
+                    className="navlink  headinghover navbar-right"
+                    id="hea"
+                    activeStyle={{
+                      color: "#e8a317",
+
+                      textDecoration: "none",
+                    }}
+                  >
+                    Report
                   </NavLink>
                 ) : (
                   <></>
