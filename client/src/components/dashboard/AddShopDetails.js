@@ -20,6 +20,14 @@ const AddShopDetails = ({
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState("black");
 
+  // let passwrdTooltip = {
+  //   marginLeft: "-16em",
+  //   position: "absolute",
+  //   marginTop: "1.5em",
+  //   pointerEvents: "none",
+  //   zIndex: "999",
+  //   width: "300px",
+  // };
   const [pageRefresh, SetRefresh] = useState(false);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
@@ -250,6 +258,24 @@ const AddShopDetails = ({
                   })}
                   required
                 ></Select>
+                 {/* <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "60px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Password  at least 1 uppercase and 1 lowercase, 1 digit, 1 symbol, length from 8 to 20"
+                  ></div>
+                </div> */}
 
                 <br></br>
               </div>

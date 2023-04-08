@@ -84,7 +84,14 @@ const TenantSettings = ({
       });
     }
   };
-
+  let passwrdTooltip = {
+    marginLeft: "-16em",
+    position: "absolute",
+    marginTop: "1.5em",
+    pointerEvents: "none",
+    zIndex: "999",
+    width: "300px",
+  };
   const onUpdate = () => {
     if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
       SetError(
@@ -128,7 +135,26 @@ const TenantSettings = ({
               onChange={(e) => setHike(e.target.value)}
               required
             />
+             <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "10px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Only enter Number "
+                  ></div>
+                </div>
           </div>
+         
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
@@ -145,6 +171,24 @@ const TenantSettings = ({
               onChange={(e) => setStampDuty(e.target.value)}
               required
             />
+              <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "10px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint=" Dont Enter fractional number (Eg:1.2),(2.2) "
+                  ></div>
+                </div>
           </div>
         </div>
 

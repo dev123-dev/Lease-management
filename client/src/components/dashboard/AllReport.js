@@ -81,7 +81,7 @@ const AllReport = ({
               }}
               className="heading_color  headingdashboard  "
             >
-              {user && user.orgName} Report
+              {user && user.orgName}  All Report
             </h2>
             {/* <br />
           <br /> */}
