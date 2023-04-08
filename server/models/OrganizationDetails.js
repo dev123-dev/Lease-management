@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+var SchemaTypes = mongoose.Schema.Types;
 
 const OrganizationSchema = new mongoose.Schema({
   OrganizationName: {
@@ -7,6 +8,15 @@ const OrganizationSchema = new mongoose.Schema({
   // OrganizationId: {
   //   type: String,
   // },
+  hike: {
+    type: Number,
+  },
+  StampDuty: {
+    type: Number,
+  },
+  LeaseTimePeriod: {
+    type: Number,
+  },
   OrganizationEmail: {
     type: String,
   },

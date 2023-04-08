@@ -187,7 +187,7 @@ const AddTenantDetails = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting.leaseTimePeriod;
+    var leaseMonth = myuser.output.LeaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -501,9 +501,8 @@ const AddTenantDetails = ({
                   name="tenantAdharNo"
                   placeholder="Aadhar No"
                   value={tenantAdharNo}
-                  
                   pattern="^[0-9\b]+$"
-                 maxLength="12"
+                  maxLength="12"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}

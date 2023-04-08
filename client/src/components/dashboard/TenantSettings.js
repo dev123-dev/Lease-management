@@ -17,6 +17,8 @@ const TenantSettings = ({
 }) => {
   //console.log("data", allTenantSetting.leaseTimePeriod);
   const myuser = JSON.parse(localStorage.getItem("user"));
+  console.log("tenant setting", myuser);
+
   useEffect(() => {
     if (myuser) {
       getAllSettings({
@@ -32,24 +34,24 @@ const TenantSettings = ({
   //formData
 
   const [formData, setFormData] = useState({
-    hike: allTenantSetting && allTenantSetting.hike,
-    stampDuty: allTenantSetting && allTenantSetting.stampDuty,
-    leaseTimePeriod: allTenantSetting && allTenantSetting.leaseTimePeriod,
+    hike: myuser.output.hike,
+    stampDuty: myuser.output && myuser.output.StampDuty,
+    leaseTimePeriod: myuser.output && myuser.output.LeaseTimePeriod,
   });
 
   const [hike, setHike] = useState(
-    allTenantSetting && allTenantSetting.hike
-      ? allTenantSetting && allTenantSetting.hike
+    myuser.output && myuser.output.hike
+      ? myuser.output && myuser.output.hike
       : ""
   );
   const [stampDuty, setStampDuty] = useState(
-    allTenantSetting && allTenantSetting.stampDuty
-      ? allTenantSetting && allTenantSetting.stampDuty
+    myuser.output && myuser.output.StampDuty
+      ? myuser.output && myuser.output.StampDuty
       : ""
   );
   const [leaseTimePeriod, setLeaseTimePeriod] = useState(
-    allTenantSetting && allTenantSetting.leaseTimePeriod
-      ? allTenantSetting && allTenantSetting.leaseTimePeriod
+    myuser.output && myuser.output.LeaseTimePeriod
+      ? myuser.output && myuser.output.LeaseTimePeriod
       : ""
   );
 
@@ -71,8 +73,8 @@ const TenantSettings = ({
         userName: user.username,
         OrganizationName: user.OrganizationName,
         hike: parseInt(hike),
-        stampDuty: parseInt(stampDuty),
-        leaseTimePeriod: parseInt(leaseTimePeriod),
+        StampDuty: parseInt(stampDuty),
+        LeaseTimePeriod: parseInt(leaseTimePeriod),
       };
       AddTenantSettingform(finalData);
       onAddSettingModalChange(true);
@@ -94,8 +96,8 @@ const TenantSettings = ({
         userId: user._id,
         userName: user.username,
         hike: hike,
-        stampDuty: stampDuty,
-        leaseTimePeriod: leaseTimePeriod,
+        StampDuty: stampDuty,
+        LeaseTimePeriod: leaseTimePeriod,
       };
       UpdateTenantSettingform(finalData);
       onAddSettingModalChange(true);
@@ -123,14 +125,10 @@ const TenantSettings = ({
               name="hike"
               className="form-control"
               value={hike}
-              
               onChange={(e) => setHike(e.target.value)}
               required
             />
-          
-           
           </div>
-          
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
@@ -168,12 +166,12 @@ const TenantSettings = ({
           </div>
         </div>
         <div className="col-lg-9 text-danger">
-                * Indicates mandatory fields, Please fill mandatory fields
-                before Submit
-              </div>
+          * Indicates mandatory fields, Please fill mandatory fields before
+          Submit
+        </div>
         <div className="col-lg-12 col-sm-12 col-12 text-danger ">{Error}</div>
         <div className="col-lg-12 col-sm-12 col-12 ">
-          {allTenantSetting == null ? (
+          {!myuser.OrganizationId ? (
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
@@ -189,7 +187,7 @@ const TenantSettings = ({
               id="TenantSettingBtn"
               onClick={() => onUpdate()}
             >
-             <b>Update</b> 
+              <b>Update</b>
             </button>
           )}
         </div>
