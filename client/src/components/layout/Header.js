@@ -90,7 +90,7 @@ const Header = ({
               <NavLink to="/AdminProfile">
                 <div>
                   <img
-                    className=" log_size"
+                    className=" log_size log"
                     alt="Pinnacle Media"
                     src={myuser && myuser.output ? myuser.output.Logo : lralogo}
                     //{imgurl}
@@ -111,7 +111,26 @@ const Header = ({
               <NavLink to="/AdminProfile">
                 <div className=" logostyle">
                   <img
-                    className="log_size"
+                    className="log_size log"
+                    alt="Pinnacle Media"
+                    src={myuser.output.Logo}
+                    title="Dashboard"
+                  />
+                </div>
+              </NavLink>
+            </Navbar.Brand>
+          ) : (
+            <Navbar.Brand></Navbar.Brand>
+          )}
+           {!loading &&
+          isAuthenticated &&
+          user &&
+          user.usergroup === "Clerk" ? (
+            <Navbar.Brand>
+              <NavLink to="/AdminProfile">
+                <div className=" logostyle">
+                  <img
+                    className="log_size logg"
                     alt="Pinnacle Media"
                     src={myuser.output.Logo}
                     title="Dashboard"
@@ -239,6 +258,7 @@ const Header = ({
                   // <NavItem>gg</NavItem>
                 )}
               </NavItem>
+              
               {/* admin page */}
               <NavItem>
                 {(!loading &&
@@ -268,10 +288,14 @@ const Header = ({
               </NavItem>
 
               <NavItem>
-                {!loading &&
+                {(!loading &&
                 isAuthenticated &&
                 user &&
-                user.usergroup === "Admin" ? (
+                user.usergroup === "Admin") ||
+                (!loading &&
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Clerk")  ? (
                   <NavLink
                     to="/tenant-detail"
                     className="navlink  headinghover  navbar-right  "

@@ -301,7 +301,14 @@ const Tenant_Details = ({
                           <th>Phone Number</th>
                           <th>Expiry Date</th>
                           <th>Rent Amount</th>
-                          <th>Operation</th>
+                          {myuser.usergroup === "Clerk" ? (
+                             <></>
+                             ) : (
+                              <>
+                              {" "}
+                              <th>Operation</th>
+                            </>
+                             )}
                         </tr>
                       </thead>
                       <tbody className="text-center  ">
@@ -339,8 +346,7 @@ const Tenant_Details = ({
                                   <td>{Val.tenantPhone}</td>
                                   <td>{tenant}</td>
                                   <td>{Val.tenantRentAmount}</td>
-
-                                  {Val.tenantstatus === "Active" ? (
+                                  {myuser.usergroup==="Clerk"? <></>:<>  {Val.tenantstatus === "Active" ? (
                                     <td className=" text-center">
                                       <Link to="/edit-tenant-details">
                                         <img
@@ -362,13 +368,15 @@ const Tenant_Details = ({
                                         title="Delete"
                                       />
                                     </td>
+                                      
                                   ) : (
                                     <td>
                                       <div className="blank text-center">
                                         Deactived
                                       </div>
                                     </td>
-                                  )}
+                                  )}</>}
+                                
                                 </tr>
                               );
                             }

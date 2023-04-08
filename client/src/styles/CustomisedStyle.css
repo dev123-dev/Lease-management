@@ -695,6 +695,10 @@ p {
 .curToPoint {
   cursor: pointer;
 }
+.logg{
+  cursor: pointer;
+  margin-left:-15px;
+}
 
 .indetails-text::-webkit-input-placeholder {
   color: #bbbbbb;
