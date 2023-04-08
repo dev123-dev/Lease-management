@@ -4,6 +4,8 @@ import {} from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import locreport from '../../static/images/locrep.png'
+import propreport from '../../static/images/propreport.png'
 // import { Roller } from "react-awesome-spinners";
 
 const AllReport = ({
@@ -75,8 +77,9 @@ const AllReport = ({
               style={{
                 position: "relative",
                 top: "60px",
+                right:"70px"
               }}
-              className="heading_color  headingdashboard  ml-5"
+              className="heading_color  headingdashboard  "
             >
               {user && user.orgName} Report
             </h2>
@@ -92,17 +95,17 @@ const AllReport = ({
           }}
         >
           <div className="row">
-            <div className="col-lg-1"></div>
+            
             <div
-              className="col-lg-5  ml-2 card h2 text-center pt-5  "
+              className="col-lg-3  ml-2 card h2 text-center pt-5  "
               id="shadow-bck"
             >
               <div className="text-center">
                 <Link to="/LocationReport">
                   {" "}
                   <img
-                    className="img_icon_sizeDashboard log "
-                    src={""}
+                    className="img_icon_repDashboard log "
+                    src={propreport}
                     alt="IMG1"
                   />
                 </Link>
@@ -117,7 +120,7 @@ const AllReport = ({
                       // className="h3"
                     >
                       <b className="h4">
-                        A<br></br> {""}
+                        Property Report<br></br> {""}
                       </b>
                     </p>
                   </center>
@@ -125,14 +128,14 @@ const AllReport = ({
               </div>
             </div>
             <div
-              className="col-lg-5 card ml-2 h2 text-center pt-5"
+              className="col-lg-3 card ml-2 h2 text-center pt-5"
               id="shadow-bck"
             >
               <div className="text-center">
                 <Link to="/BuildingReport">
                   <img
-                    className="img_icon_sizeDashboard log "
-                    src={""}
+                    className="img_icon_repDashboard log  "
+                    src={locreport}
                     alt="IMG2"
                   />
                 </Link>
@@ -145,7 +148,7 @@ const AllReport = ({
                       }}
                     >
                       <b className="h4">
-                        B <br></br>
+                        Location Report<br></br>
                         {""}
                       </b>
                     </p>
@@ -155,65 +158,10 @@ const AllReport = ({
 
               <div></div>
             </div>
-            <div className="col-lg-1"></div>
+            <div className="col-lg-3"></div>
+            <div className="col-lg-3"></div>
           </div>
-          <div className="row">
-            <div className="col-lg-1"></div>
-            <div className="col-lg-5 ml-2 h2 text-center pt-5" id="shadow-bck">
-              {/* tenant count */}
-              <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard log "
-                  src={""}
-                  alt="IMG3"
-                />
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        C<br></br>
-                        {""}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
-            <div
-              className="col-lg-5  ml-4 h2 text-center pt-5 carddash"
-              id="shadow-bck"
-            >
-              <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard log "
-                  src={""}
-                  alt="IMG4"
-                />
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      {" "}
-                      <b className="h4">
-                        D <br></br>
-                        {""}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-1"></div>
-          </div>
+         
         </section>
       </div>
     </>

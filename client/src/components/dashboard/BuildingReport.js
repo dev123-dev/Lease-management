@@ -216,7 +216,15 @@ const BuildingReport = ({
                 })}
               ></Select>
             </div>
-            <div className="col-lg-2 text-end mt-sm-5"> </div>
+            <div className="col-lg-2 text-end mt-sm-5"> <img
+                className="ml-2"
+                style={{ cursor: "pointer" }}
+                height="20px"
+                onClick={() => refresh()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="refresh"
+              /> </div>
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">

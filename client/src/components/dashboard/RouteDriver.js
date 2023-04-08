@@ -13,17 +13,17 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
     get_particular_org_user({ OrganizationId: user && user.OrganizationId });
   }, [loadUser]);
 
-  useEffect(() => {
-    const myuser = JSON.parse(localStorage.getItem("user"));
+  // useEffect(() => {
+  //   const myuser = JSON.parse(localStorage.getItem("user"));
 
-    return () => {
-      get_particular_org_user({
-        OrganizationId: myuser && myuser.OrganizationId,
-      });
-      const myorg = JSON.parse(localStorage.getItem("Org"));
-      console.log(myorg, "unmount");
-    };
-  }, [loadUser]);
+  //   return () => {
+  //     get_particular_org_user({
+  //       OrganizationId: myuser && myuser.OrganizationId,
+  //     });
+  //     const myorg = JSON.parse(localStorage.getItem("Org"));
+  //     console.log(myorg, "unmount");
+  //   };
+  // }, [loadUser]);
 
   if (user) {
     if (user.usergroup === "Admin") {

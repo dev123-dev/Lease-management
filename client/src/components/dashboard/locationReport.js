@@ -235,14 +235,14 @@ const LocationReport = ({
             </div>
             <div className="col-lg-2 text-end mt-sm-5">
               {" "}
-              <img
+              {/* <img
                 height="20px"
                 style={{ cursor: "pointer" }}
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}
                 alt="Add Prop"
                 title="Add Prop"
-              />
+              /> */}
               <img
                 className="ml-2"
                 style={{ cursor: "pointer" }}
