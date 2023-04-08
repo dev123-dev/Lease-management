@@ -177,7 +177,7 @@ const MainAdminPage = ({
               {/* tenant count */}
               <div className="text-center">
                 <img
-                  className="img_icon_sizeDashboard log "
+                  className="img_icon_sizeDashboard  "
                   src={unprop}
                   alt="Unoccupied property"
                 />
@@ -204,7 +204,7 @@ const MainAdminPage = ({
             >
               <div className="text-center">
                 <img
-                  className="img_icon_sizeDashboard log "
+                  className="img_icon_sizeDashboard  "
                   src={money}
                   alt="Renewal"
                 />
