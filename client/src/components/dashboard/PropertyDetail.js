@@ -21,9 +21,9 @@ const PropertyDetail = ({
   getAllSettings,
   getParticularProperty,
 }) => {
-  useEffect(() => {
-    const myuser = JSON.parse(localStorage.getItem("user"));
+  const myuser = JSON.parse(localStorage.getItem("user"));
 
+  useEffect(() => {
     fun();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getAllSettings({
@@ -275,12 +275,30 @@ const PropertyDetail = ({
                         </th>
                         {/* <th>Door Number</th> */}
                         <th>Location</th>
-                        <th>Hike %</th>
-                        <th>Stamp Duty</th>
-                        <th>Lease Time Period</th>
-                        <th>Address</th>
-                        <th>Door No</th>
-                        <th>Operation</th>
+                        {myuser.usergroup === "Clerk" ? (
+                          <>
+                            {" "}
+                            <th>Address</th>
+                            <th>Door No</th>
+                          </>
+                        ) : (
+                          <>
+                            <th>Hike %</th>
+                            <th>Stamp Duty</th>
+                            <th>Lease Time Period</th>
+                            <th>Address</th>
+                            <th>Door No</th>
+                          </>
+                        )}
+
+                        {myuser.usergroup === "Clerk" ? (
+                          <></>
+                        ) : (
+                          <>
+                            {" "}
+                            <th>Operation</th>
+                          </>
+                        )}
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -308,9 +326,16 @@ const PropertyDetail = ({
                                   })}
                               </td> */}
                               <td>{Val.Location}</td>
-                              <td>{Val.hike}</td>
-                              <td>{Val.StampDuty}</td>
-                              <td>{Val.LeaseTimePeriod}</td>
+                              {myuser.usergroup === "Clerk" ? (
+                                <></>
+                              ) : (
+                                <>
+                                  <td>{Val.hike}</td>
+                                  <td>{Val.StampDuty}</td>
+                                  <td>{Val.LeaseTimePeriod}</td>
+                                </>
+                              )}
+
                               <td>{Val.shopAddress}</td>
                               <td>
                                 <img
@@ -322,31 +347,38 @@ const PropertyDetail = ({
                                   }
                                 />
                               </td>
-                              <td className=" text-center">
-                                {Val.shopStatus === "Active" ? (
-                                  <>
-                                    <img
-                                      className="Cursor"
-                                      onClick={() => onEdit(Val)}
-                                      src={require("../../static/images/edit_icon.png")}
-                                      alt="Edit Property"
-                                      title="Edit Property"
-                                    />
-                                    &nbsp;
-                                    <img
-                                      className=" Cursor"
-                                      onClick={() =>
-                                        onDelete(Val._id, Val.shopDoorNo)
-                                      }
-                                      src={require("../../static/images/delete.png")}
-                                      alt="Delete Property "
-                                      title="Delete Property"
-                                    />
-                                  </>
-                                ) : (
-                                  <p></p>
-                                )}
-                              </td>
+                              {myuser.usergroup === "Admin" ? (
+                                <>
+                                  {" "}
+                                  <td className=" text-center">
+                                    {Val.shopStatus === "Active" ? (
+                                      <>
+                                        <img
+                                          className="Cursor"
+                                          onClick={() => onEdit(Val)}
+                                          src={require("../../static/images/edit_icon.png")}
+                                          alt="Edit Property"
+                                          title="Edit Property"
+                                        />
+                                        &nbsp;
+                                        <img
+                                          className=" Cursor"
+                                          onClick={() =>
+                                            onDelete(Val._id, Val.shopDoorNo)
+                                          }
+                                          src={require("../../static/images/delete.png")}
+                                          alt="Delete Property "
+                                          title="Delete Property"
+                                        />
+                                      </>
+                                    ) : (
+                                      <p></p>
+                                    )}
+                                  </td>
+                                </>
+                              ) : (
+                                <></>
+                              )}
                             </tr>
                           );
                         })}

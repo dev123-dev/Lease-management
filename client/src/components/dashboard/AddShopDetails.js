@@ -253,41 +253,108 @@ const AddShopDetails = ({
 
                 <br></br>
               </div>
+              {myuser.usergroup === "Admin" ? (
+                <>
+                  {" "}
+                  <div className="col-lg-6 ">
+                    <label>Stamp Duty*:</label>
+                    <input
+                      type="text"
+                      placeholder={stampDuty}
+                      name="stamp Duty"
+                      className="form-control  input"
+                      readOnly
+                    />
+                    <br></br>
+                  </div>
+                  <div className="col-lg-6">
+                    <label>
+                      Hike<b>%</b>*:
+                    </label>
+                    <input
+                      type="text"
+                      placeholder={hike}
+                      name="hike"
+                      className="form-control  input"
+                      readOnly
+                    />{" "}
+                    <br></br>
+                  </div>
+                  <div className="col-lg-6">
+                    <label>Lease Time Period*:</label>
+                    <div className="controls">
+                      <input
+                        placeholder={LeaseTime}
+                        className="form-control"
+                        readOnly
+                      />
+                      <span
+                        id="category_result"
+                        className="form-input-info"
+                      ></span>{" "}
+                      <br></br>
+                    </div>
+                    <label>Address*:</label>
+
+                    <textarea
+                      name="shopAddress"
+                      value={shopAddress}
+                      id=" addprop "
+                      className="textarea form-control"
+                      rows="3"
+                      placeholder="Address"
+                      onChange={(e) => onPropertychange(e)}
+                      style={{ width: "100%" }}
+                      required
+                    ></textarea>
+                    <br></br>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {" "}
+                  <div className="col-lg-6 d-none">
+                    <label>Stamp Duty*:</label>
+                    <input
+                      type="text"
+                      placeholder={stampDuty}
+                      name="stamp Duty"
+                      className="form-control  input"
+                      readOnly
+                    />
+                    <br></br>
+                  </div>
+                  <div className="col-lg-6 d-none">
+                    <label>
+                      Hike<b>%</b>*:
+                    </label>
+                    <input
+                      type="text"
+                      placeholder={hike}
+                      name="hike"
+                      className="form-control  input"
+                      readOnly
+                    />{" "}
+                    <br></br>
+                  </div>
+                  <div className="col-lg-6 d-none">
+                    <label>Lease Time Period*:</label>
+                    <div className="controls">
+                      <input
+                        placeholder={LeaseTime}
+                        className="form-control"
+                        readOnly
+                      />
+                      <span
+                        id="category_result"
+                        className="form-input-info"
+                      ></span>{" "}
+                      <br></br>
+                    </div>
+                  </div>
+                </>
+              )}
               <div className="col-lg-6">
-                <label>Stamp Duty*:</label>
-                <input
-                  type="text"
-                  placeholder={stampDuty}
-                  name="stamp Duty"
-                  className="form-control  input"
-                  readOnly
-                />
-                <br></br>
-              </div>
-              <div className="col-lg-6">
-                <label>
-                  Hike<b>%</b>*:
-                </label>
-                <input
-                  type="text"
-                  placeholder={hike}
-                  name="hike"
-                  className="form-control  input"
-                  readOnly
-                />{" "}
-                <br></br>
-              </div>
-              <div className="col-lg-6">
-                <label>Lease Time Period*:</label>
-                <div className="controls">
-                  <input
-                    placeholder={LeaseTime}
-                    className="form-control"
-                    readOnly
-                  />
-                  <span id="category_result" className="form-input-info"></span>{" "}
-                  <br></br>
-                </div>
                 <label>Address*:</label>
 
                 <textarea

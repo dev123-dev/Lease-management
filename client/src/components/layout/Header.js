@@ -216,6 +216,7 @@ const Header = ({
                   <></>
                 )}
               </NavItem>
+
               <NavItem>
                 {!loading &&
                 isAuthenticated &&
@@ -265,6 +266,7 @@ const Header = ({
                   // <NavItem></NavItem>
                 )}
               </NavItem>
+
               <NavItem>
                 {!loading &&
                 isAuthenticated &&
