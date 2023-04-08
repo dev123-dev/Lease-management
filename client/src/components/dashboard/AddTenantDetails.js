@@ -497,10 +497,13 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Aadhaar No:</label>
                 <input
-                  type="number"
+                  type="text"
                   name="tenantAdharNo"
                   placeholder="Aadhar No"
                   value={tenantAdharNo}
+                  
+                  pattern="^[0-9\b]+$"
+                 maxLength="12"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
@@ -514,6 +517,7 @@ const AddTenantDetails = ({
                   name="tenantPanNo"
                   placeholder="Pan No"
                   value={tenantPanNo}
+                  pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   // onKeyDown={(e) => funcKeyDown(e)}
