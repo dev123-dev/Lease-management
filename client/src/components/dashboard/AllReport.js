@@ -129,7 +129,7 @@ const AllReport = ({
               id="shadow-bck"
             >
               <div className="text-center">
-                <Link to="/tenant-detail">
+                <Link to="/BuildingReport">
                   <img
                     className="img_icon_sizeDashboard log "
                     src={""}
