@@ -169,11 +169,38 @@ const MainAdminPage = ({
             </div>
             <div className="col-lg-1"></div>
           </div>
+          <div className="container fluid">
           <div className="row">
-            <div className="col-lg-3"></div>
-            <div className="col-lg-3 ml-2 h2 text-center pt-5" id="shadow-bck">
-              {/* tenant count */}
-              <div className="text-center">
+
+          <div className="col-lg-4  ml-2  h2 text-center   "
+              id="shadow-bck">   
+          <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard  "
+                  src={unprop}
+                  alt="Unoccupied property"
+                />
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      <b className="h4">
+                        Unoccupied Property<br></br>
+                        {ShopStatus && ShopStatus.length}
+                      </b>
+                    </p>
+                  </center>
+                </p>
+          </div>
+          </div>
+
+          <div  className="col-lg-4    h2 text-center   "
+              id="shadow-bck">
+            <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard  "
                   src={unprop}
@@ -195,61 +222,38 @@ const MainAdminPage = ({
                   </center>
                 </p>
               </div>
-            </div>
-            <div
-              className="col-lg-3  ml-4 h2 text-center pt-5 carddash"
-              id="shadow-bck"
-            >
-              <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard  "
-                  src={money}
-                  alt="Renewal"
-                />
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      {" "}
-                      <b className="h4">
-                        Total Renewal <br></br>
-                        {total}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
-            <div className="col-lg-3">
-              <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard  "
-                  src={money}
-                  alt="Renewal"
-                />
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      {" "}
-                      <b className="h4">
-                        Total Renewal <br></br>
-                        {total}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
           </div>
+          
+          <div  className="col-lg-4    h2 text-center   "
+              id="shadow-bck"> 
+          <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard  "
+                  src={money}
+                  alt="Renewal"
+                />
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      {" "}
+                      <b className="h4">
+                        Total Renewal <br></br>
+                        {total}
+                      </b>
+                    </p>
+                  </center>
+                </p>
+              </div>
+          </div>
+
+          </div>
+          </div>
+       
         </section>
       </div>
     </>
