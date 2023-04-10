@@ -165,8 +165,8 @@ const AddAdminUserModal = ({
   // validation for password ending
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-     { value: "Clerk", label: "Clerk" },
-     { value: "Manager", label: "Manager" },
+    { value: "IT Department", label: "IT Department" },
+    { value: "Manager", label: "Manager" },
   ];
 
   const [User, setUser] = useState("");
@@ -185,13 +185,8 @@ const AddAdminUserModal = ({
   const [errors, setErrors] = useState({
     UserGrpChecker: false,
     UserGrpErrorStyle: {},
-   
   });
-  const {
-    UserGrpChecker,
-    UserGrpErrorStyle,
-   
-  } = errors;
+  const { UserGrpChecker, UserGrpErrorStyle } = errors;
 
   const checkError = () => {
     if (!UserGrpChecker) {
@@ -201,41 +196,38 @@ const AddAdminUserModal = ({
       });
       return false;
     }
-    
+
     return true;
   };
-  
-  const onsubmitUserData = (e) => {
 
+  const onsubmitUserData = (e) => {
     e.preventDefault();
     if (checkError()) {
-   
-    const finalUserData = {
-      username: name,
-      useremail: email,
-      userphone: phone,
-      useraddress: address,
-      usergroup: User,
-      password: rePassword,
-      OrganizationName: user.OrganizationName,
-      OrganizationId: user.OrganizationId,
-    };
-    console.log(finalUserData)
-    
-    AddAdminuser(finalUserData);
-    setShowadd(false);
-    setFormData({
-      ...formData,
-      name: "",
-      phone: "",
-      email: "",
-      address: "",
-      group: "",
-      OrganizationName: "",
-      password: "",
-    });
-  }
-  
+      const finalUserData = {
+        username: name,
+        useremail: email,
+        userphone: phone,
+        useraddress: address,
+        usergroup: User,
+        password: rePassword,
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+      };
+      console.log(finalUserData);
+
+      AddAdminuser(finalUserData);
+      setShowadd(false);
+      setFormData({
+        ...formData,
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        group: "",
+        OrganizationName: "",
+        password: "",
+      });
+    }
   };
 
   return isAuthenticated && users && user && user.usergroup === "Admin" ? (
@@ -245,9 +237,14 @@ const AddAdminUserModal = ({
       <Modal.Header className="confirmbox-heading">
         <div className=" row col-lg-10 col-md-12 col-sm-12 col-12 modhead ">
           <div className="ml-5">
-            <h4 style={{
-              color: "white",
-            }} className=" text-center ml-4">ADD USER DETAILS</h4>{" "}
+            <h4
+              style={{
+                color: "white",
+              }}
+              className=" text-center ml-4"
+            >
+              ADD USER DETAILS
+            </h4>{" "}
           </div>
         </div>
         <div className="  col-lg-2 ">
@@ -386,7 +383,7 @@ const AddAdminUserModal = ({
               </div>
 
               <div className="col-lg-6">
-                <label style={UserGrpErrorStyle} >UserGroup*:</label>
+                <label style={UserGrpErrorStyle}>UserGroup*:</label>
                 <Select
                   name="usergroup"
                   options={UserGroups}
