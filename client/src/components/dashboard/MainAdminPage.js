@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 // import { Roller } from "react-awesome-spinners";
 
 const MainAdminPage = ({
-  auth: { user, isAuthenticated, loading },
+  auth: { user, isAuthenticated, loading, yearExpCnt },
   tenants: { particular_org_data, get_particular_org_tenant },
   getParticularProperty,
   getAllSettings,
@@ -40,6 +40,14 @@ const MainAdminPage = ({
       get_particular_org_user({ OrganizationId: myuser.OrganizationId });
     }
   }, []);
+
+  let TotalRenewalCount = 0;
+  get_particular_org_tenant &&
+    get_particular_org_tenant.filter((ele) => {
+      if (ele.AgreementStatus === "Expired") {
+        TotalRenewalCount += 1;
+      }
+    });
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;
   let AvaiableShopCount = 0;
@@ -53,7 +61,7 @@ const MainAdminPage = ({
   //     label: ele.shopStatus,
   //   })
   // );
-
+  console.log("particular_org_data", particular_org_data);
   particular_org_data &&
     particular_org_data.map((ele) => {
       ele.shopDoorNo &&

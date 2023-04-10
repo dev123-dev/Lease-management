@@ -22,10 +22,7 @@ const TenantReport = ({
     let total = expReport.reduce((acc, obj) => acc + obj.chargesCal, 0);
     localStorage.setItem("total", total);
   }, []);
-  console.log(
-    "year",
-    yearExpCnt.map((ele) => ele)
-  );
+
   const componentRef = useRef();
   const myuser = JSON.parse(localStorage.getItem("user"));
   const [showEditModal, setShowEditModal] = useState(false);
@@ -71,18 +68,19 @@ const TenantReport = ({
   // const handlePrint = () => {
   //   alert();
   // };
-   const[showPrint,setShowPrint]=useState({
-    backgroundColor:"#095a4a",color:"black",fontWeight:"bold"
-   });
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "black",
+    fontWeight: "bold",
+  });
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-   
+
     documentTitle: "TenantReports",
     // onAfterPrint: () => alert("print success"),
-  //    setShowPrint("black");
-   }
-  );
- 
+    //    setShowPrint("black");
+  });
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -197,7 +195,7 @@ const TenantReport = ({
               </div>
 
               <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint">
-                <button onClick={handlePrint} >
+                <button onClick={handlePrint}>
                   <img
                     height="20px"
                     //  onClick={() => refresh()}
@@ -209,7 +207,7 @@ const TenantReport = ({
               </div>
             </div>
 
-            <div className="row"   ref={componentRef}>
+            <div className="row" ref={componentRef}>
               <div className="col-lg-1"></div>
               <div
                 // ref={componentRef}
@@ -267,7 +265,7 @@ const TenantReport = ({
                                   <button
                                     variant="success"
                                     className="rewbtn"
-                                    style={{backgroudColor : "#e8a317"}}
+                                    style={{ backgroudColor: "#e8a317" }}
                                     onClick={() => onRenewal(Val, idx)}
                                   >
                                     Renewal
