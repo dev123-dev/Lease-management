@@ -955,7 +955,7 @@ router.post("/get-month-exp-org-count", async (req, res) => {
       {
         $match: {
           enddate: { $regex: new RegExp("^" + yearVal, "i") },
-          AgreementStatus: { $eq: "Expired" },
+          // AgreementStatus: { $eq: "Expired" },
           org_status: "Active",
         },
       },
@@ -1022,6 +1022,7 @@ router.post("/get-month-exp-org", async (req, res) => {
           $or: [
             { AgreementStatus: { $eq: "Expired" } },
             { AgreementStatus: { $eq: "Renewed" } },
+            { AgreementStatus: { $eq: "Active" } },
           ],
         },
       ],
