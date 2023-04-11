@@ -233,7 +233,9 @@ export const UpdateUser = (userdata) => async (dispatch) => {
       config
     );
 
-    get_particular_org_user({ OrganizationId: userdata.OrganizationId });
+    dispatch(
+      get_particular_org_user({ OrganizationId: userdata.OrganizationId })
+    );
   } catch (error) {
     console.error(error.message);
   }

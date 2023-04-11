@@ -19,11 +19,12 @@ const UserDetails = ({
   get_particular_org_user,
   deactivateUser, //this is a action function to call
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   const [refresh, setRefresh] = useState(false);
   useEffect(() => {
-    get_particular_org_user({ OrganizationId: user.OrganizationId });
+    get_particular_org_user({ OrganizationId: myuser.OrganizationId });
   }, []);
-console.log(get_particularOrg_user)
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
@@ -60,12 +61,12 @@ console.log(get_particularOrg_user)
     setDeactiveShow(false);
     const reason = {
       userId: AdminId,
-      orgId: user && user.OrganizationId,
+      orgId: myuser && myuser.OrganizationId,
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
     deactivateUser(reason);
-    get_particular_org_user({ OrganizationId: user.OrganizationId });
+    get_particular_org_user({ OrganizationId: myuser.OrganizationId });
   };
 
   const [showadd, setShowadd] = useState(false);
@@ -83,24 +84,21 @@ console.log(get_particularOrg_user)
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+  console.log(get_particularOrg_user, "get_particularOrg_user");
   return (
     <>
       <div className="col mt-sm-4 space">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  ">
           <h2
             style={{
-              position:"relative",
-              top:"60px",
+              position: "relative",
+              top: "60px",
             }}
-           
-              className=" heading_color  headsize  ml-4"
-            >
-              User Details
-            
+            className=" heading_color  headsize  ml-4"
+          >
+            User Details
           </h2>
-          <div>
-       
-          </div>
+          <div></div>
           <div className="text-end"></div>
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col ">
@@ -264,29 +262,27 @@ console.log(get_particularOrg_user)
       <Modal show={Deactiveshow} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">
-
-<div className="col-lg-10">
-            <div className="ml-4">
-              <h4
-                style={{
-                  color: "white",
-                }}
-                className=" text-center ml-4"
-              >
-                DEACTIVATE
-              </h4>
+            <div className="col-lg-10">
+              <div className="ml-4">
+                <h4
+                  style={{
+                    color: "white",
+                  }}
+                  className=" text-center ml-4"
+                >
+                  DEACTIVATE
+                </h4>
+              </div>
             </div>
-          </div>
-          <div className="col-lg-2">
-            <button  onClick={() => setDeactiveShow(false)} className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-
+            <div className="col-lg-2">
+              <button onClick={() => setDeactiveShow(false)} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
           </Modal.Header>
 
           <Modal.Body>

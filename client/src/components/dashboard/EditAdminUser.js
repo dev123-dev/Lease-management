@@ -16,9 +16,11 @@ const EditAdminUser = ({
   get_particular_org_user,
   getalluser,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     get_particular_org_user({
-      OrganizationId: user && user.OrganizationId,
+      OrganizationId: myuser && myuser.OrganizationId,
     });
   }, []);
   const UserGroups = [
@@ -116,7 +118,7 @@ const EditAdminUser = ({
     // console.log("updateUSER", updateUSER);
     UpdateUser(updateUSER);
     // getalluser();
-      get_particular_org_user({ orgid: user.OrganizationId });
+    //get_particular_org_user({ orgid: myuser.OrganizationId });
 
     setRefresh(!refresh);
     setSuperModal(false);
