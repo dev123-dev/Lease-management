@@ -62,7 +62,6 @@ const MainAdminPage = ({
   //     label: ele.shopStatus,
   //   })
   // );
-  console.log("particular_org_data", particular_org_data);
   particular_org_data &&
     particular_org_data.map((ele) => {
       ele.shopDoorNo &&
@@ -212,10 +211,10 @@ const MainAdminPage = ({
           </div>
 
           <div
-            className="col-lg-4 col-md-12 col-sm-12 card1   h2 text-center   "
-            id="shadow-bck"
-          >
-            <div className="text-center">
+            className="col-lg-4 col-md-12 col-sm-12  "
+            // id="shadow-bck"
+          ></div>
+          {/* <div className="text-center">
               <img
                 className="img_icon_sizeDashboard  "
                 src={door}
@@ -224,20 +223,20 @@ const MainAdminPage = ({
               <p>
                 <center>
                   <p
-                    style={{
-                      // fontFamily: "Serif",
+                    style={{ */}
+          {/* fontFamily: "Serif",
                       color: "black",
                     }}
                   >
                     <b className="h4">
-                      Occupied Door No<br></br>
-                      {/* {ShopStatus && ShopStatus.length} */}
-                    </b>
+                      Occupied Door No<br></br> */}
+          {/* {ShopStatus && ShopStatus.length} */}
+          {/* </b>
                   </p>
                 </center>
               </p>
             </div>
-          </div>
+          </div> */}
 
           <div
             className="col-lg-4 col-md-12 col-sm-12 h2 text-center card2 "
@@ -261,7 +260,7 @@ const MainAdminPage = ({
                     {" "}
                     <b className="h4">
                       Total Renewal count <br></br>
-                      {total}
+                      {TotalRenewalCount}
                     </b>
                   </p>
                 </center>
