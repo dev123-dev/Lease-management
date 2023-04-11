@@ -318,8 +318,12 @@ const BuildingReport = ({
                                     }
                                   })}
                               </td>
-                              <td>{Val.output.tenantRentAmount}</td>
-                              <td>{Val.output.tenantDepositAmt}</td>
+                              <td>
+                                {Val.output && Val.output.tenantRentAmount}
+                              </td>
+                              <td>
+                                {Val.output && Val.output.tenantDepositAmt}
+                              </td>
                             </tr>
                           );
                         })}
