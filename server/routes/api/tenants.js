@@ -1082,7 +1082,7 @@ router.post("/get-month-exp-count", async (req, res) => {
       },
       {
         $match: {
-          OrganizationId: OrganizationId,
+          OrganizationId: mongoose.Types.ObjectId(OrganizationId),
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearVal, "i") },
           // AgreementStatus: { $ne: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
@@ -1228,7 +1228,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
       },
       {
         $match: {
-          OrganizationId: OrganizationId,
+          OrganizationId: mongoose.Types.ObjectId(OrganizationId),
           tenantLeaseEndDate: { $lt: firstDay },
           // AgreementStatus: { $eq: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
@@ -1333,7 +1333,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
       },
       {
         $match: {
-          OrganizationId: OrganizationId,
+          OrganizationId: mongoose.Types.ObjectId(OrganizationId),
           tenantLeaseEndDate: { $regex: new RegExp("^" + yearMonth, "i") },
           // AgreementStatus: { $eq: "Renewed" },
           tenantstatus: { $eq: "Active" },
@@ -1483,7 +1483,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
       },
       {
         $match: {
-          OrganizationId: OrganizationId,
+          OrganizationId: mongoose.Types.ObjectId(OrganizationId),
           tenantLeaseEndDate: { $lte: lastDate },
           // AgreementStatus: { $ne: "Renewed" },
           tenantstatus: { $eq: "Active" },

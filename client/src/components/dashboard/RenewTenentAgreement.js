@@ -92,7 +92,7 @@ const RenewTenentAgreement = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting.leaseTimePeriod;
+    var leaseMonth = myuser.output.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();

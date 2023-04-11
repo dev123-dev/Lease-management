@@ -3,13 +3,13 @@ ObjectId = mongoose.Schema.ObjectId;
 
 const TenantAgreementDetails = new mongoose.Schema({
   OrganizationId: {
-    type: String,
+    type: ObjectId,
   },
   OrganizationName: {
     type: String,
   },
   BuildingId: {
-    type: String,
+    type: ObjectId,
   },
   BuildingName: {
     type: String,

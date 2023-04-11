@@ -204,6 +204,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
+  console.log(get_property_related_tenant);
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
@@ -306,13 +307,14 @@ const BuildingReport = ({
                                   alt="Govt Cards"
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
                                 /> */}
-                                {Val.shopDoorNo &&
-                                  Val.shopDoorNo.map((ele) => {
+                                {Val.output &&
+                                  Val.output.shopDoorNo &&
+                                  Val.output.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Acquired") {
                                       return (
                                         <div className="dno">
-                                          {ele.doorNo + ","}
+                                          {ele.label + ","}
                                         </div>
                                       );
                                     }

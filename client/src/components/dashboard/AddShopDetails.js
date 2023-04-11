@@ -73,8 +73,8 @@ const AddShopDetails = ({
     buildingName: "",
     shopDoorNo: [],
     hike: myuser.output && myuser.output.hike,
-    stampDuty: myuser.output && myuser.output.StampDuty,
-    LeaseTime: myuser.output && myuser.output.LeaseTimePeriod,
+    stampDuty: myuser.output && myuser.output.stampDuty,
+    LeaseTime: myuser.output && myuser.output.leaseTimePeriod,
     shopAddress: "",
     isSubmitted: false,
   });
@@ -258,7 +258,7 @@ const AddShopDetails = ({
                   })}
                   required
                 ></Select>
-                 {/* <div
+                {/* <div
                   className="cstm-hint"
                   id="pass_admin_help"
                   style={{ top: "60px" }}

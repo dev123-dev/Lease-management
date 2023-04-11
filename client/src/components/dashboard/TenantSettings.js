@@ -103,8 +103,8 @@ const TenantSettings = ({
         userId: user._id,
         userName: user.username,
         hike: hike,
-        StampDuty: stampDuty,
-        LeaseTimePeriod: leaseTimePeriod,
+        stampDuty: stampDuty,
+        leaseTimePeriod: leaseTimePeriod,
       };
       UpdateTenantSettingform(finalData);
       onAddSettingModalChange(true);

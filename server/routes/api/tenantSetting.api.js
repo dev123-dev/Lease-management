@@ -30,14 +30,13 @@ router.post("/add-tenant-settings", async (req, res) => {
 router.post("/update-tenant-settings", async (req, res) => {
   try {
     let data = req.body;
-    console.log("actual", data);
     const updateagreementdetails = await OrganizationDetails.updateOne(
       { _id: data.OrganizationId },
       {
         $set: {
           hike: data.hike,
-          stampDuty: data.StampDuty,
-          leaseTimePeriod: data.LeaseTimePeriod,
+          stampDuty: data.stampDuty,
+          leaseTimePeriod: data.leaseTimePeriod,
         },
       }
     ).then((data) => console.log(data));
