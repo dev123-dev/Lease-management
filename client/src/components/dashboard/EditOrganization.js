@@ -163,6 +163,8 @@ const EditOrganization = ({
                 type="number"
                 name="OrganizationNumber"
                 value={OrganizationNumber}
+                pattern="\d{10}"
+                  title=" 10 Digits only"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required

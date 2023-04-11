@@ -479,10 +479,12 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Phone No:</label>
                 <input
-                  type="number"
+                  type="text"
                   name="tenantPhone"
                   placeholder="Phone No"
                   value={tenantPhone}
+                  pattern="\d{10}"
+                  title=" 10 Digits only"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}

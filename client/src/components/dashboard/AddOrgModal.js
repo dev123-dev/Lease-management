@@ -200,9 +200,11 @@ const AddOrgModal = ({
               <div className="col-lg-6">
                 <label>Phone No*:</label>
                 <input
-                  type="number"
+                  type="text"
                   name="OrganizationNumber"
                   value={OrganizationNumber}
+                  pattern="\d{10}"
+                  title=" 10 Digits only"
                   onChange={(e) => onORGchange(e)}
                   className="form-control"
                   placeholder="Phone Number"

@@ -163,6 +163,8 @@ const EditAdminUser = ({
               <input
                 type="number"
                 name="userphone"
+                pattern="\d{10}"
+                  title=" 10 Digits only"
                 value={userphone}
                 className="form-control"
                 onChange={(e) => onInputChange(e)}

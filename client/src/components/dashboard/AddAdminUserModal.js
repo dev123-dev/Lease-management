@@ -199,6 +199,7 @@ const AddAdminUserModal = ({
 
     return true;
   };
+ 
 
   const onsubmitUserData = (e) => {
     e.preventDefault();
@@ -293,16 +294,19 @@ const AddAdminUserModal = ({
                   onChange={(e) => onuserchange(e)}
                   required
                 />
+               
                 <br></br>
               </div>
 
               <div className="col-lg-6">
                 <label>Phone No:</label>
                 <input
-                  type="number"
+                  type="text"
                   name="phone"
                   placeholder="Phone No"
                   value={phone}
+                  pattern="\d{10}"
+                  title=" 10 Digits only"
                   className="form-control"
                   onChange={(e) => onuserchange(e)}
                 />

@@ -176,13 +176,13 @@ const MainAdminPage = ({
               </div>
             </div>
             <div className="col-lg-1"></div>
-          </div>
-        </section>
-      </div>
+            </div>
+    
       <div className="container fluid">
         <div className="row col-lg-12 col-md-12 col-sm-12 ml-2">
+          <div className="col-lg-1"></div>
           <div
-            className="col-lg-4 col-md-12 col-sm-12 h2 text-center "
+            className="col-lg-5 col-md-12 col-sm-12 h2 text-center "
             id="shadow-bck"
             style={{ right: "10px" }}
           >
@@ -210,10 +210,10 @@ const MainAdminPage = ({
             </div>
           </div>
 
-          <div
+          {/* <div
             className="col-lg-4 col-md-12 col-sm-12  "
-            // id="shadow-bck"
-          ></div>
+           
+          ></div> */}
           {/* <div className="text-center">
               <img
                 className="img_icon_sizeDashboard  "
@@ -239,7 +239,7 @@ const MainAdminPage = ({
           </div> */}
 
           <div
-            className="col-lg-4 col-md-12 col-sm-12 h2 text-center card2 "
+            className="col-lg-5 col-md-12 col-sm-12 h2 text-center card2 "
             id="shadow-bck"
             style={{ left: "10px" }}
           >
@@ -267,8 +267,12 @@ const MainAdminPage = ({
               </p>
             </div>
           </div>
+          <div className="col-lg-1"></div>
         </div>
       </div>
+      
+        </section>
+        </div>
     </>
   );
 };
