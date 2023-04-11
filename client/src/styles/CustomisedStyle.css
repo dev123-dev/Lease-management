@@ -2076,6 +2076,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 
+
 .second-level-menu > li:hover {
   /* background: #cccccc; */
   background: #e8a317;
@@ -2084,6 +2085,7 @@ input[type="number"]::-webkit-outer-spin-button {
 #shadow-bck {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
 #savebtn {
   background-color: transparent;
   color: black;
@@ -2424,7 +2426,7 @@ div.page-footer {
 
 div {
   border: 3px solid transparent;
-  /* border:3px solid palevioletred;*/
+  /* border:3px solid palevioletred; */
 }
 .top_menu {
   /* margin-left: -2px; */
@@ -2459,6 +2461,16 @@ div {
   }
   .line {
     width: 220px;
+  }
+  .card1{
+    right:10px;
+    height:180px;
+
+  }
+  .card2{
+    margin-left: -20px;
+    height:180px;
+
   }
   .profile{
     top:-10px;

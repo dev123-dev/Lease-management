@@ -380,7 +380,7 @@ const AddShopDetails = ({
                   </div>
                 </>
               )}
-              <div className="col-lg-6">
+              {/* <div className="col-lg-6">
                 <label>Address*:</label>
 
                 <textarea
@@ -395,7 +395,7 @@ const AddShopDetails = ({
                   required
                 ></textarea>
                 <br></br>
-              </div>
+              </div> */}
 
               <div className="col-lg-6">
                 <label className="ml-2" style={{ color: locError }}>

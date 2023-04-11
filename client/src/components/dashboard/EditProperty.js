@@ -223,7 +223,8 @@ const EditProperty = ({
                   borderRadius: 1,
                   colors: {
                     ...theme.colors,
-                    primary: "black",
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
                   },
                 })}
                 required
