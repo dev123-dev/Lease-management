@@ -508,8 +508,10 @@ let passwrdTooltip = {
                   name="tenantAdharNo"
                   placeholder="Aadhar No"
                   value={tenantAdharNo}
-                  pattern="^[0-9\b]+$"
-                  maxLength="12"
+                  // pattern="^[0-9\b]+$"
+                  pattern="\d{12}"
+                  // minLength="12"
+                  title="Must Contain 12 digits"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
@@ -534,6 +536,7 @@ let passwrdTooltip = {
                 </div>
                 <br></br>
               </div>
+
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Pan Number:</label>
                 <input

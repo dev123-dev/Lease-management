@@ -4,6 +4,7 @@ import prop from "../../static/images/property.png";
 import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
+import door from "../../static/images/door.png"
 import {
   getParticularProperty,
   ParticularTenant,
@@ -177,11 +178,13 @@ const MainAdminPage = ({
             </div>
             <div className="col-lg-1"></div>
           </div>
+          </section>
+          </div>
           <div className="container fluid">
-          <div className="row">
+          <div className="row col-lg-12 col-md-12 col-sm-12 ml-2" >
 
-          <div className="col-lg-4  ml-2  h2 text-center   "
-              id="shadow-bck">   
+          <div className="col-lg-4 col-md-12 col-sm-12 h2 text-center " id="shadow-bck" style={{right:"10px"}}
+              >   
           <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard  "
@@ -206,12 +209,12 @@ const MainAdminPage = ({
           </div>
           </div>
 
-          <div  className="col-lg-4    h2 text-center   "
-              id="shadow-bck">
+          <div  className="col-lg-4 col-md-12 col-sm-12 card1   h2 text-center   " id="shadow-bck"
+             >
             <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard  "
-                  src={unprop}
+                  src={door}
                   alt="Unoccupied property"
                 />
                 <p>
@@ -223,8 +226,8 @@ const MainAdminPage = ({
                       }}
                     >
                       <b className="h4">
-                        Unoccupied Property<br></br>
-                        {ShopStatus && ShopStatus.length}
+                       Occupied Door No<br></br>
+                        {/* {ShopStatus && ShopStatus.length} */}
                       </b>
                     </p>
                   </center>
@@ -232,8 +235,8 @@ const MainAdminPage = ({
               </div>
           </div>
           
-          <div  className="col-lg-4    h2 text-center   "
-              id="shadow-bck"> 
+          <div  className="col-lg-4 col-md-12 col-sm-12 h2 text-center card2 "id="shadow-bck" style={{left:"10px"}}
+              > 
           <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard  "
@@ -250,7 +253,7 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                        Total Renewal <br></br>
+                         Total Renewal count <br></br>
                         {total}
                       </b>
                     </p>
@@ -262,8 +265,8 @@ const MainAdminPage = ({
           </div>
           </div>
        
-        </section>
-      </div>
+     
+      
     </>
   );
 };
