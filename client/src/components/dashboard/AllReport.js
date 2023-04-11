@@ -4,10 +4,10 @@ import {} from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import locreport from '../../static/images/locrep.png'
-import propreport from '../../static/images/propreport.png'
+import locreport from "../../static/images/locrep.png";
+import propreport from "../../static/images/propreport.png";
 // import { Roller } from "react-awesome-spinners";
-
+import { ParticularTenant } from "../../actions/tenants";
 const AllReport = ({
   auth: { user, isAuthenticated, loading },
   tenants: { particular_org_data, get_particular_org_tenant },
@@ -27,8 +27,12 @@ const AllReport = ({
       //     userId: myuser && myuser._id,
       //   });
       //   get_particular_org_user({ OrganizationId: myuser.OrganizationId });
+      ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
     }
   }, []);
+
+  console.log("get_particular_org_tenant", get_particular_org_tenant);
+
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;
   let AvaiableShopCount = 0;
@@ -77,11 +81,11 @@ const AllReport = ({
               style={{
                 position: "relative",
                 top: "60px",
-                right:"70px"
+                right: "70px",
               }}
               className="heading_color  headingdashboard  "
             >
-              {user && user.orgName}  All Report
+              {user && user.orgName} All Report
             </h2>
             {/* <br />
           <br /> */}
@@ -95,8 +99,6 @@ const AllReport = ({
           }}
         >
           <div className="row">
-            
-           
             <div
               className="col-lg-3 card ml-2 h2 text-center pt-5"
               id="shadow-bck"
@@ -162,7 +164,6 @@ const AllReport = ({
             <div className="col-lg-3"></div>
             <div className="col-lg-3"></div>
           </div>
-         
         </section>
       </div>
     </>
@@ -172,4 +173,4 @@ const mapStateToProps = (state) => ({
   tenants: state.tenants,
   auth: state.auth,
 });
-export default connect(mapStateToProps, {})(AllReport);
+export default connect(mapStateToProps, { ParticularTenant })(AllReport);

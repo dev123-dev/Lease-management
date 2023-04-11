@@ -16,7 +16,7 @@ const TenantDetails = new mongoose.Schema({
     type: String,
   },
   OrganizationId: {
-    type: String,
+    type: ObjectId,
   },
   tenantLeaseEndDate: {
     type: String,
@@ -72,7 +72,7 @@ const TenantDetails = new mongoose.Schema({
     type: String,
   },
   BuildingId: {
-    type: String,
+    type: ObjectId,
   },
   Location: {
     type: String,

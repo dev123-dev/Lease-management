@@ -12,8 +12,8 @@ router.post("/add-tenant-settings", async (req, res) => {
       {
         $set: {
           hike: data.hike,
-          StampDuty: data.StampDuty,
-          LeaseTimePeriod: data.LeaseTimePeriod,
+          stampDuty: data.StampDuty,
+          leaseTimePeriod: data.LeaseTimePeriod,
         },
       }
     );
@@ -36,8 +36,8 @@ router.post("/update-tenant-settings", async (req, res) => {
       {
         $set: {
           hike: data.hike,
-          StampDuty: data.StampDuty,
-          LeaseTimePeriod: data.LeaseTimePeriod,
+          stampDuty: data.StampDuty,
+          leaseTimePeriod: data.LeaseTimePeriod,
         },
       }
     ).then((data) => console.log(data));
@@ -59,8 +59,8 @@ router.post("/get-all-settings", async (req, res) => {
       },
       {
         hike: 1,
-        StampDuty: 1,
-        LeaseTimePeriod: 1,
+        stampDuty: 1,
+        leaseTimePeriod: 1,
       }
     ).then(data);
     res.json(tenanatSettingData);

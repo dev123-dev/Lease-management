@@ -712,6 +712,33 @@ router.post("/get-Particular-Property", async (req, res) => {
   }
 });
 
+router.post("/get-Property-tenant-details", async (req, res) => {
+  let { PropertyId, OrganizationId } = req.body;
+  //const id = mongoose.Types.ObjectId(req.body.OrganizationId);
+
+  property
+    .aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(OrganizationId),
+          // _id: mongoose.Types.ObjectId(ele),
+        },
+      },
+      {
+        $lookup: {
+          from: "tenantdetails",
+          localField: "_id",
+          foreignField: "BuildingId",
+          as: "output",
+        },
+      },
+      {
+        $unwind: "$output",
+      },
+    ])
+    .then((data) => res.json(data));
+});
+
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;

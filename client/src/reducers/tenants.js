@@ -23,6 +23,7 @@ import {
   EXP_ORG_,
   YEAR_EXP_COUNT_ORG,
   GET_EDIT_TENANT_DETAILS,
+  PROPERTY_RELATED_TENANT,
 } from "../actions/types";
 
 const initialState = {
@@ -51,6 +52,7 @@ const initialState = {
   particular_org_loc: [""],
   particular_user: [""],
   get_admin: [""],
+  get_property_related_tenant: [""],
   get_particular_org_user: [""],
   get_Particular_org_Tenantsetting: [""],
   get_particular_org_tenant: [""],
@@ -66,6 +68,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         expReport: payload,
+      };
+    case PROPERTY_RELATED_TENANT:
+      return {
+        ...state,
+        get_property_related_tenant: payload,
       };
     case GET_DOORNOS:
       return {

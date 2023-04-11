@@ -11,10 +11,10 @@ const OrganizationSchema = new mongoose.Schema({
   hike: {
     type: Number,
   },
-  StampDuty: {
+  stampDuty: {
     type: Number,
   },
-  LeaseTimePeriod: {
+  leaseTimePeriod: {
     type: Number,
   },
   OrganizationEmail: {

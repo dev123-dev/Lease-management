@@ -9,28 +9,47 @@ import {
   getParticularOrg,
   deactiveProperty,
   getAllSettings,
+  ParticularTenant,
   getAllShops,
+  getPropertyTenantData,
 } from "../../actions/tenants";
+
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
 const BuildingReport = ({
   auth: { user },
-  tenants: { particular_org_data, particular_org_loc },
+  tenants: {
+    particular_org_data,
+    particular_org_loc,
+    get_particular_org_tenant,
+    get_property_related_tenant,
+  },
   deactiveProperty,
   getParticularOrg,
   getAllSettings,
+  getPropertyTenantData,
   getParticularProperty,
 }) => {
-  console.log("data", particular_org_data);
+  let propertyId =
+    particular_org_data &&
+    particular_org_data.map((ele) => {
+      return ele._id;
+    });
+
+  console.log("get_property_related_tenant", get_property_related_tenant);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
-
     fun();
+    getPropertyTenantData({
+      PropertyId: propertyId,
+      OrganizationId: myuser.OrganizationId,
+    });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getAllSettings({
       OrganizationId: myuser && myuser.OrganizationId,
       userId: myuser && myuser._id,
     });
+    ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
   }, []);
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
@@ -142,7 +161,6 @@ const BuildingReport = ({
       });
     }
   };
-
   const onDeactivateall = (e) => {
     if (checkData.length === 0) {
       e.preventDefault();
@@ -195,7 +213,7 @@ const BuildingReport = ({
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">Building Report</h2>
             </div>
-            <div className="col-lg-5 mt-3">
+            {/* <div className="col-lg-5 mt-3">
               <Select
                 className="dropdown text-left mt-sm-3"
                 placeholder="Search-Location"
@@ -215,16 +233,19 @@ const BuildingReport = ({
                   },
                 })}
               ></Select>
-            </div>
-            <div className="col-lg-2 text-end mt-sm-5"> <img
-                className="ml-2"
+            </div> */}
+            {/* <div className="col-lg-2 text-end mt-sm-5">
+              {" "}
+              <img
+                className="ml-5"
                 style={{ cursor: "pointer" }}
                 height="20px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
                 alt="refresh"
                 title="refresh"
-              /> </div>
+              />{" "}
+            </div> */}
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
@@ -249,11 +270,13 @@ const BuildingReport = ({
                         <th>Location</th>
                         <th> Unccupied Door No</th>
                         <th> Occupied Door No</th>
+                        <th>Monthly Rent Amount</th>
+                        <th>Deposite Amount</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
-                      {particular_org_data &&
-                        particular_org_data.map((Val, idx) => {
+                      {get_property_related_tenant &&
+                        get_property_related_tenant.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -295,6 +318,8 @@ const BuildingReport = ({
                                     }
                                   })}
                               </td>
+                              <td>{Val.output.tenantRentAmount}</td>
+                              <td>{Val.output.tenantDepositAmt}</td>
                             </tr>
                           );
                         })}
@@ -306,7 +331,8 @@ const BuildingReport = ({
 
               <div className="row">
                 <div className="col-lg-6">
-                  {particular_org_data && particular_org_data.length !== 0 ? (
+                  {get_property_related_tenant &&
+                  get_property_related_tenant.length !== 0 ? (
                     <Pagination
                       dataPerPage={dataPerPage}
                       totalData={particular_org_data.length}
@@ -319,7 +345,7 @@ const BuildingReport = ({
                 </div>
                 <div className="col-lg-6">
                   <p className="text-end h6">
-                    No. of Property : {particular_org_data.length}
+                    No. of Property : {get_property_related_tenant.length}
                   </p>
                 </div>
               </div>
@@ -568,6 +594,8 @@ export default connect(mapStateToProps, {
   getAllShops,
   deactiveProperty,
   getParticularOrg,
+  ParticularTenant,
   getAllSettings,
+  getPropertyTenantData,
   getParticularProperty,
 })(BuildingReport);

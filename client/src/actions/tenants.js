@@ -31,6 +31,7 @@ import {
   YEAR_EXP_COUNT_ORG,
   GET_EDIT_TENANT_DETAILS,
   EXP_ORG_,
+  PROPERTY_RELATED_TENANT,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -247,6 +248,20 @@ export const Adduser = (userData) => async (dispatch) => {
     dispatch({
       type: AUTH_ERROR,
     });
+  }
+};
+export const getPropertyTenantData = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-Property-tenant-details`,
+      data
+    );
+    dispatch({
+      type: PROPERTY_RELATED_TENANT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
   }
 };
 

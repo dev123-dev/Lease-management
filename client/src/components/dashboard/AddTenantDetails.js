@@ -137,14 +137,14 @@ const AddTenantDetails = ({
 
   const [DnoList, setDnoList] = useState([]);
   const [LocList, SetLocList] = useState([]);
-let passwrdTooltip = {
-     marginLeft: "-16em",
-     position: "absolute",
-     marginTop: "1.5em",
-     pointerEvents: "none",
-     zIndex: "999",
-     width: "300px",
-   };
+  let passwrdTooltip = {
+    marginLeft: "-16em",
+    position: "absolute",
+    marginTop: "1.5em",
+    pointerEvents: "none",
+    zIndex: "999",
+    width: "300px",
+  };
   const LocName = [];
   particular_org_data.map((loc) => {
     LocName.push({
@@ -194,7 +194,7 @@ let passwrdTooltip = {
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = myuser.output.LeaseTimePeriod;
+    var leaseMonth = myuser.output.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -514,7 +514,7 @@ let passwrdTooltip = {
                   onChange={(e) => onInputChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
                 />{" "}
-                   <div
+                <div
                   className="cstm-hint"
                   id="pass_admin_help"
                   style={{ top: "30px" }}
@@ -546,7 +546,7 @@ let passwrdTooltip = {
                   onChange={(e) => onInputChange(e)}
                   // onKeyDown={(e) => funcKeyDown(e)}
                 />
-                  <div
+                <div
                   className="cstm-hint"
                   id="pass_admin_help"
                   style={{ top: "30px" }}
@@ -578,7 +578,7 @@ let passwrdTooltip = {
                   onKeyDown={(e) => funcKeyDown(e)}
                   required
                 />
-                  <div
+                <div
                   className="cstm-hint"
                   id="pass_admin_help"
                   style={{ top: "30px" }}
