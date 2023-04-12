@@ -176,7 +176,7 @@ const Login = ({
 
   return (
     <Fragment>
-      <div className="col-md-12 col-lg-12 col-sm-12 col-12 py-3">
+      <div className="col-md-12 col-lg-12 col-sm-12 col-12 py-3 ">
         <div className="modal-header ">
           {loading ? (
             <h2 className="modal-title " id="myModalLabel" style={modalTitle}>

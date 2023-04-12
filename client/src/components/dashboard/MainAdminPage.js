@@ -105,17 +105,11 @@ const MainAdminPage = ({
           <br /> */}
           </div>
         </div>
-
-        <section
-          className="sub_reg"
-          style={{
-            backgroundColor: "transparent",
-          }}
-        >
+        <section className="sub_reg" style={{ backgroundColor: "transparent" }}>
           <div className="row">
             <div className="col-lg-1"></div>
             <div
-              className="col-lg-5  ml-2 card h2 text-center pt-5  "
+              className="col-lg-5  ml-2 card h2 text-center pt-5"
               id="shadow-bck"
             >
               <div className="text-center">
@@ -127,7 +121,6 @@ const MainAdminPage = ({
                     alt="Property"
                   />
                 </Link>
-
                 <p>
                   <center>
                     <p
@@ -138,7 +131,7 @@ const MainAdminPage = ({
                       // className="h3"
                     >
                       <b className="h4">
-                        Property Count<br></br>{" "}
+                        Total properties<br></br>{" "}
                         {particular_org_data && particular_org_data.length}
                       </b>
                     </p>
@@ -167,7 +160,7 @@ const MainAdminPage = ({
                       }}
                     >
                       <b className="h4">
-                        No of Tenant Count <br></br>
+                        Total Tenant Count <br></br>
                         {tenantCount.length}
                       </b>
                     </p>
@@ -176,41 +169,98 @@ const MainAdminPage = ({
               </div>
             </div>
             <div className="col-lg-1"></div>
+          </div>
+          <div className="row">
+            <div className="col-lg-1"></div>
+            <div
+              className="col-lg-5  ml-2  h2 text-center pt-5"
+              id="shadow-bck"
+            >
+              <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard  "
+                  src={door}
+                  alt="Unoccupied property"
+                />
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      <b className="h4">
+                        Unoccupied properties <br></br>
+                        {tenantCount.length}
+                      </b>
+                    </p>
+                  </center>
+                </p>
+              </div>
             </div>
-    
-      <div className="container fluid">
-        <div className="row col-lg-12 col-md-12 col-sm-12 ml-2">
-          <div className="col-lg-1"></div>
-          <div
-            className="col-lg-5 col-md-12 col-sm-12 h2 text-center "
-            id="shadow-bck"
-            style={{ right: "10px" }}
-          >
-            <div className="text-center">
-              <img
-                className="img_icon_sizeDashboard  "
-                src={unprop}
-                alt="Unoccupied property"
-              />
-              <p>
-                <center>
-                  <p
-                    style={{
-                      // fontFamily: "Serif",
-                      color: "black",
-                    }}
-                  >
-                    <b className="h4">
-                      Unoccupied Property<br></br>
-                      {ShopStatus && ShopStatus.length}
-                    </b>
-                  </p>
-                </center>
-              </p>
+            <div className="col-lg-5  ml-2 h2 text-center pt-5" id="shadow-bck">
+              <div className="text-center">
+                <img
+                  className="img_icon_sizeDashboard  "
+                  src={money}
+                  alt="Renewal"
+                />
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      {" "}
+                      <b className="h4">
+                        Total Renewal count <br></br>
+                        {TotalRenewalCount}
+                      </b>
+                    </p>
+                  </center>
+                </p>
+              </div>
             </div>
+            <div className="col-lg-1"></div>
           </div>
 
-          {/* <div
+          {/* <div className="container fluid">
+            <div className="row col-lg-12 col-md-12 col-sm-12 ml-2">
+              <div className="col-lg-1"></div>
+              <div
+                className="col-lg-5 card2 ml-2 h2 text-center pt-5"
+                id="shadow-bck"
+              >
+                <div className="text-center">
+                  <Link to="/tenant-detail">
+                    <img
+                      className="img_icon_sizeDashboard log "
+                      src={people}
+                      alt="Tenant Count"
+                    />
+                  </Link>
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                      >
+                        <b className="h4">
+                          Unoccupied property <br></br>
+                          {tenantCount.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </div>
+
+              {/* <div
             className="col-lg-4 col-md-12 col-sm-12  "
            
           ></div> */}
@@ -238,41 +288,40 @@ const MainAdminPage = ({
             </div>
           </div> */}
 
-          <div
-            className="col-lg-5 col-md-12 col-sm-12 h2 text-center card2 "
-            id="shadow-bck"
-            style={{ left: "10px" }}
-          >
-            <div className="text-center">
-              <img
-                className="img_icon_sizeDashboard  "
-                src={money}
-                alt="Renewal"
-              />
-              <p>
-                <center>
-                  <p
-                    style={{
-                      // fontFamily: "Serif",
-                      color: "black",
-                    }}
-                  >
-                    {" "}
-                    <b className="h4">
-                      Total Renewal count <br></br>
-                      {TotalRenewalCount}
-                    </b>
+          {/* <div
+                className="col-lg-5 col-md-12 col-sm-12 h2 text-center card2 "
+                id="shadow-bck"
+                style={{ left: "10px" }}
+              >
+                <div className="text-center">
+                  <img
+                    className="img_icon_sizeDashboard  "
+                    src={money}
+                    alt="Renewal"
+                  />
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                      >
+                        {" "}
+                        <b className="h4">
+                          Total Renewal count <br></br>
+                          {TotalRenewalCount}
+                        </b>
+                      </p>
+                    </center>
                   </p>
-                </center>
-              </p>
-            </div>
-          </div>
-          <div className="col-lg-1"></div>
-        </div>
-      </div>
-      
+                </div>
+              </div>
+              <div className="col-lg-1"></div>
+            </div> */}
+          {/* </div>  */}
         </section>
-        </div>
+      </div>
     </>
   );
 };

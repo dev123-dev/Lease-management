@@ -122,20 +122,19 @@ const Header = ({
           ) : (
             <Navbar.Brand></Navbar.Brand>
           )}
-           {!loading &&
+          {!loading &&
           isAuthenticated &&
           user &&
-          user.usergroup === "Clerk" ? (
+          user.usergroup === "IT Department" ? (
             <Navbar.Brand>
-             
-                <div className=" logostyle">
-                  <img
-                    className="log_size logg"
-                    alt="Pinnacle Media"
-                    src={myuser.output.Logo}
-                    title="Dashboard"
-                  />
-                </div>
+              <div className=" logostyle">
+                <img
+                  className="log_size logg"
+                  alt="Pinnacle Media"
+                  src={myuser.output.Logo}
+                  title="Dashboard"
+                />
+              </div>
             </Navbar.Brand>
           ) : (
             <Navbar.Brand></Navbar.Brand>
@@ -257,7 +256,7 @@ const Header = ({
                   // <NavItem>gg</NavItem>
                 )}
               </NavItem>
-              
+
               {/* admin page */}
               <NavItem>
                 {(!loading &&
@@ -267,7 +266,7 @@ const Header = ({
                 (!loading &&
                   isAuthenticated &&
                   user &&
-                  user.usergroup === "Clerk") ? (
+                  user.usergroup === "IT Department") ? (
                   <NavLink
                     to="/PropertyDetail"
                     className="navlink   headinghover  navbar-right"
@@ -288,13 +287,13 @@ const Header = ({
 
               <NavItem>
                 {(!loading &&
-                isAuthenticated &&
-                user &&
-                user.usergroup === "Admin") ||
+                  isAuthenticated &&
+                  user &&
+                  user.usergroup === "Admin") ||
                 (!loading &&
                   isAuthenticated &&
                   user &&
-                  user.usergroup === "Clerk")  ? (
+                  user.usergroup === "IT Department") ? (
                   <NavLink
                     to="/tenant-detail"
                     className="navlink  headinghover  navbar-right  "

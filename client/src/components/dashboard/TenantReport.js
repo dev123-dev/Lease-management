@@ -70,7 +70,7 @@ const TenantReport = ({
   // };
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
-    color: "black",
+    color: "white",
     fontWeight: "bold",
   });
   const handlePrint = useReactToPrint({
@@ -194,7 +194,7 @@ const TenantReport = ({
                 </h2>
               </div>
 
-              <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint">
+              <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-5">
                 <button onClick={handlePrint}>
                   <img
                     height="20px"

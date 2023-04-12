@@ -275,7 +275,7 @@ const PropertyDetail = ({
                         </th>
                         {/* <th>Door Number</th> */}
                         <th>Location</th>
-                        {myuser.usergroup === "Clerk" ? (
+                        {myuser.usergroup === "IT Department" ? (
                           <>
                             {" "}
                             <th>Address</th>
@@ -291,7 +291,7 @@ const PropertyDetail = ({
                           </>
                         )}
 
-                        {myuser.usergroup === "Clerk" ? (
+                        {myuser.usergroup === "IT Department" ? (
                           <></>
                         ) : (
                           <>
@@ -325,7 +325,7 @@ const PropertyDetail = ({
                                   })}
                               </td> */}
                               <td>{Val.Location}</td>
-                              {myuser.usergroup === "Clerk" ? (
+                              {myuser.usergroup === "IT Department" ? (
                                 <></>
                               ) : (
                                 <>

@@ -17,7 +17,7 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
         <Fragment></Fragment>
       ) : (
         <Fragment>
-          <div className="container container_align"></div>
+          <div className="container container_align "></div>
           <Link
             className="log btn btn_submit"
             style={{ padding: "10px 39px" }}

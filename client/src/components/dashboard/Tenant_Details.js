@@ -83,7 +83,7 @@ const Tenant_Details = ({
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno, Val) => {
     setId(id);
-    
+
     setDeactiveThisBiuldingID(Val.BuildingId);
     if (Dno.length >= 1) {
       SetDno(Dno);
@@ -152,7 +152,7 @@ const Tenant_Details = ({
       isSubmitted: "true",
       BiuldingID: DeactiveThisBiuldingID,
     };
-   
+
     deactiveTenantsDetails(reason);
     handleClose();
     setFreshPage(!freshpage);
@@ -174,7 +174,7 @@ const Tenant_Details = ({
         isSubmitted: "true",
         BiuldingID: DeactiveThisBiuldingID,
       };
-    
+
       deactiveTenantsDetails(reason);
       handleClose();
       setFreshPage(!freshpage);
@@ -218,42 +218,39 @@ const Tenant_Details = ({
         <div className="col mt-sm-4 space ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
             <div className="row mt-5 ">
-              <div className="col-lg-5 mt-3"> 
-              <h2
-               
-                className="heading_color  headsize  ml-4"
-              >
-
-                {" "}
-                Tenant Details
-
-              </h2>
+              <div className="col-lg-5 mt-3">
+                <h2 className="heading_color  headsize  ml-4">
+                  {" "}
+                  Tenant Details
+                </h2>
               </div>
-              <div className="col-lg-5"  style={{
-                  position:"relative",
-                  top:"10px"
-                  
-                }}>
+              <div
+                className="col-lg-5"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
                 <Select
-                className="dropdown text-left mt-sm-3"
-               
-                placeholder="Search-Location"
-                name="location"
-                options={location}
-                value={sellocation}
-                onChange={(e) => onchangeLocation(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-              ></Select></div>
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="Search-Location"
+                  name="location"
+                  options={location}
+                  value={sellocation}
+                  onChange={(e) => onchangeLocation(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                ></Select>
+              </div>
               <div className="col-lg-2 text-end mt-sm-5">
                 <Link to="/add-tenant-details">
                   <img
@@ -266,21 +263,18 @@ const Tenant_Details = ({
                 </Link>
                 <img
                   className="ml-2"
-                  style={{cursor:"pointer"}}
+                  style={{ cursor: "pointer" }}
                   height="20px"
                   onClick={() => refresh()}
                   src={require("../../static/images/refresh-icon.png")}
                   alt="refresh"
                   title="refresh"
-                /></div>
+                />
+              </div>
             </div>
-
-
-
 
             <div className="container-fluid d-flex align-items-center justify-content-center ">
               <div className="col">
-
                 {/* <div className="refreshbtn"></div> */}
 
                 <div className="row">
@@ -301,14 +295,14 @@ const Tenant_Details = ({
                           <th>Phone Number</th>
                           <th>Expiry Date</th>
                           <th>Rent Amount</th>
-                          {myuser.usergroup === "Clerk" ? (
-                             <></>
-                             ) : (
-                              <>
+                          {myuser.usergroup === "IT Department" ? (
+                            <></>
+                          ) : (
+                            <>
                               {" "}
                               <th>Operation</th>
                             </>
-                             )}
+                          )}
                         </tr>
                       </thead>
                       <tbody className="text-center  ">
@@ -346,37 +340,46 @@ const Tenant_Details = ({
                                   <td>{Val.tenantPhone}</td>
                                   <td>{tenant}</td>
                                   <td>{Val.tenantRentAmount}</td>
-                                  {myuser.usergroup==="Clerk"? <></>:<>  {Val.tenantstatus === "Active" ? (
-                                    <td className=" text-center">
-                                      <Link to="/edit-tenant-details">
-                                        <img
-                                          className="Cursor  "
-                                          onClick={() => onEdit(Val)}
-                                          src={require("../../static/images/edit_icon.png")}
-                                          alt="Edit"
-                                          title="Edit"
-                                        />{" "}
-                                        &nbsp;
-                                      </Link>
-                                      <img
-                                        className="Cursor "
-                                        onClick={() =>
-                                          onDelete(Val._id, Val.shopDoorNo, Val)
-                                        }
-                                        src={require("../../static/images/delete.png")}
-                                        alt="Delete"
-                                        title="Delete"
-                                      />
-                                    </td>
-                                      
+                                  {myuser.usergroup === "IT Department" ? (
+                                    <></>
                                   ) : (
-                                    <td>
-                                      <div className="blank text-center">
-                                        Deactived
-                                      </div>
-                                    </td>
-                                  )}</>}
-                                
+                                    <>
+                                      {" "}
+                                      {Val.tenantstatus === "Active" ? (
+                                        <td className=" text-center">
+                                          <Link to="/edit-tenant-details">
+                                            <img
+                                              className="Cursor  "
+                                              onClick={() => onEdit(Val)}
+                                              src={require("../../static/images/edit_icon.png")}
+                                              alt="Edit"
+                                              title="Edit"
+                                            />{" "}
+                                            &nbsp;
+                                          </Link>
+                                          <img
+                                            className="Cursor "
+                                            onClick={() =>
+                                              onDelete(
+                                                Val._id,
+                                                Val.shopDoorNo,
+                                                Val
+                                              )
+                                            }
+                                            src={require("../../static/images/delete.png")}
+                                            alt="Delete"
+                                            title="Delete"
+                                          />
+                                        </td>
+                                      ) : (
+                                        <td>
+                                          <div className="blank text-center">
+                                            Deactived
+                                          </div>
+                                        </td>
+                                      )}
+                                    </>
+                                  )}
                                 </tr>
                               );
                             }
@@ -388,7 +391,7 @@ const Tenant_Details = ({
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
                     {get_particular_org_tenant &&
-                      get_particular_org_tenant.length !== 0 ? (
+                    get_particular_org_tenant.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
                         totalData={currentDatas.length}
