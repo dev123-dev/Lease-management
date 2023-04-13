@@ -31,6 +31,8 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
             show={showLogin}
             backdrop="static"
             keyboard={false}
+            className="back"
+            //style={{backgroundColor : "red"}}
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >

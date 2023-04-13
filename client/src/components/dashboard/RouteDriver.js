@@ -28,8 +28,11 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
   if (user) {
     if (user.usergroup === "Admin") {
       return <Redirect to="/MainAdmin" />;
-    } else {
+    } else if(user.usergroup === "Super Admin") {
       return <Redirect to="/MainSuper" />;
+    }else{
+   
+      return <Redirect to="/PropertyDetail" />;
     }
   }
   return <Fragment></Fragment>;

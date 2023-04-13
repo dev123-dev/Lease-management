@@ -176,9 +176,9 @@ const TenantFilters = ({
             <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
-                <div className="btn_more text-center">
+                <div className="btn_more text-center " title="Previous Year Renewal Count" style={{cursor : "pointer"}}>
                   <Link
-                    title="Total Renewal Count"
+                    title="Previous Year Renewal Count"
                     to="/Organization-filter"
                     style={{ width: "100px" }}
                     className="top_box"
@@ -283,7 +283,7 @@ const TenantFilters = ({
           {logUser.usergroup==="Admin"? <Fragment>
             <div className="container_align top_menu col-sm-12 responsiveDiv ">
               {/* <div className="row pb-2 ml-2   "> */}
-              <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter  ">
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter   ">
                 <div>
                   <div className="btn_more text-center">
                     <Link

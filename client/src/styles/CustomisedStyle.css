@@ -1960,6 +1960,8 @@ input[type="number"]::-webkit-outer-spin-button {
   .responsiveDiv {
     overflow-y: auto;
     background-color: #095a4a;
+    /* background-color: #18d4ca; */
+
     position: absolute;
     right: 8px;
     /* left: 8px; */
@@ -1968,7 +1970,8 @@ input[type="number"]::-webkit-outer-spin-button {
 @media (max-width: 550px) {
   .responsiveDiv {
     overflow-y: auto;
-    background-color: #095a4a;
+    /* background-color: #095a4a; */
+    background-color: #18d4ca;
     position: absolute;
     /* right: 8px;
     left: 8px; */
@@ -1989,7 +1992,7 @@ input[type="number"]::-webkit-outer-spin-button {
   /*small screen*/
   .responsiveDiv {
     /* width: 100%; */
-
+/* background-color: red; */
     padding-top: 5%;
   }
   ::-webkit-scrollbar-track {
@@ -2713,4 +2716,9 @@ i.smallsize::first-line{
 }
 .tenant_filter_back{
   background-color: #095a4a;
+}
+.back{
+  
+    background:#095a4a;
+   
 }

@@ -48,6 +48,7 @@ const TenantReport = ({
 
   const onRenewal = (tenants) => {
     //setId(id);
+    console.log("x",tenants)
     setShowEditModal(true);
     setUserData(tenants);
   };

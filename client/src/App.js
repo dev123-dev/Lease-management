@@ -30,6 +30,8 @@ const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
+  const myuser = JSON.parse(localStorage.getItem("user"));
+console.log("app js",myuser)
   return (
     <Provider store={store}>
       <Router>
@@ -37,7 +39,7 @@ const App = () => {
           <Header />
 
           <div className="row back_image ">
-            <div className="col-lg-1 col-md-1 col-sm-12 no_padding tenant_filter_back ">
+          <div className="col-lg-1 col-md-1 col-sm-12 no_padding ">  
               <TenantFilters />
             </div>
             <div className="col-lg-11 col-md-11 col-sm-12 no_padding">

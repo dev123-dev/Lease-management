@@ -212,7 +212,7 @@ const BuildingReport = ({
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
-              <h2 className="heading_color  headsize  ml-4">Building Report</h2>
+              <h2 className="heading_color  headsize  ml-4">Property Report</h2>
             </div>
             {/* <div className="col-lg-5 mt-3">
               <Select

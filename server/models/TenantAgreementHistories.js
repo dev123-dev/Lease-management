@@ -2,21 +2,39 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantAgreementHistory = new mongoose.Schema({
+  OrganizationId: {
+    type: ObjectId,
+  },
+  OrganizationName: {
+    type: String,
+  },
+  BuildingId: {
+    type: ObjectId,
+  },
+  BuildingName: {
+    type: String,
+  },
+  PropertyId: {
+    type: String,
+  },
   tdId: {
     type: ObjectId,
     // required: true,
   },
   tenantRentAmount: {
     type: Number,
-    required: true,
   },
   tenantLeaseStartDate: {
     type: String,
-    required: true,
   },
   tenantLeaseEndDate: {
     type: String,
     // required: true,
+  },
+  tenantDoorNumnber: [],
+  tenantstatus: {
+    type: String,
+    default: "Active",
   },
   tenantAgreementEntredBy: {
     type: ObjectId,
@@ -31,9 +49,7 @@ const TenantAgreementHistory = new mongoose.Schema({
   tenantFileNo: {
     type: String,
   },
-  tenantDoorNo: {
-    type: String,
-  },
+  tenantDoorNo: {},
   AgreementStatus: {
     type: String,
     default: "Active", //Active,Expired, Renewed
@@ -82,7 +98,7 @@ const TenantAgreementHistory = new mongoose.Schema({
   },
 });
 
-module.exports = TenantAgreementHistory = mongoose.model(
+module.exports = mongoose.model(
   "TenantAgreementHistories",
   TenantAgreementHistory
 );

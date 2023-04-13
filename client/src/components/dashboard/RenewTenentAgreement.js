@@ -71,6 +71,9 @@ const RenewTenentAgreement = ({
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
+      OrganizationId : tenantsData.OrganizationId,
+      BuildingName : tenantsData.BuildingName,
+      BuildingId : tenantsData.BuildingId,
       agreementId: tenantsData.agreementId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
@@ -115,7 +118,7 @@ const RenewTenentAgreement = ({
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
   };
-
+console.log("this is it",tenantsData)
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (

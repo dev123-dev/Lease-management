@@ -160,7 +160,7 @@ const MainAdminPage = ({
                       }}
                     >
                       <b className="h4">
-                        Total Tenant Count <br></br>
+                        Total Tenants <br></br>
                         {tenantCount.length}
                       </b>
                     </p>
@@ -191,7 +191,7 @@ const MainAdminPage = ({
                       }}
                     >
                       <b className="h4">
-                        Unoccupied properties <br></br>
+                        Unoccupied Properties <br></br>
                         {tenantCount.length}
                       </b>
                     </p>
@@ -216,7 +216,7 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                        Total Renewal count <br></br>
+                       Renewable Properties <br></br>
                         {TotalRenewalCount}
                       </b>
                     </p>

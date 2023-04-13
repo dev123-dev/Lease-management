@@ -213,7 +213,7 @@ const AddOrgModal = ({
                 <br></br>
               </div>
               <div className="col-lg-6">
-                <label>Lease Start Date*:</label>
+                <label>Aggrement Start Date*:</label>
                 <input
                   type="date"
                   //placeholder="dd/mm/yyyy"
@@ -228,7 +228,7 @@ const AddOrgModal = ({
                 />
               </div>
               <div className="col-lg-6">
-                <label>Lease End Date*:</label>
+                <label>Aggrement End Date*:</label>
                 <br></br>
                 <input
                   type="text"

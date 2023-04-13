@@ -615,7 +615,8 @@ const Header = ({
                   <NavItem></NavItem>
 
                   <Modal
-                    style={{ background: "#514968" }}
+                  //className="back"
+                   //style={{ background: "red" }}
                     show={showLogin}
                     backdrop="static"
                     keyboard={false}
@@ -623,7 +624,7 @@ const Header = ({
                     centered
                   >
                     <Modal.Header></Modal.Header>
-                    <Modal.Body>
+                    <Modal.Body >
                       <Login />
                     </Modal.Body>
                   </Modal>

@@ -218,7 +218,7 @@ const MainSuperPage = ({
       </Modal.Body>
     </Modal>
   </div> </> : <>
-  <div className="mt-5">WelCome {myuser.username}</div>
+  {/* <div className="mt-5">WelCome {myuser.username}</div> */}
   </>
      
    

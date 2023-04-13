@@ -9,6 +9,7 @@ const ShopDetails = require("../../models/ShopDetails");
 const property = require("../../models/PropertyDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
+const TenantAgreementHistory = require("../../models/TenantAgreementHistories");
 const auth = require("../../middleware/auth");
 const mongoose = require("mongoose");
 
@@ -110,6 +111,8 @@ router.post("/add-tenant-details", async (req, res) => {
       };
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
+      let TenantAgreement = new  TenantAgreementHistory(finalData1);
+      output1 = await TenantAgreement.save();
 
       //adding new data end----------------------------------------------------------------------------
     } else {
@@ -161,7 +164,7 @@ router.post("/add-tenant-details", async (req, res) => {
       };
       let tenantHistories = new TenentHistories(finalData2);
       output2 = await tenantHistories.save();
-
+     
       tenantdata.shopDoorNo.map((eleDoor) => {
         property
           .updateOne(
@@ -197,6 +200,8 @@ router.post("/add-tenant-details", async (req, res) => {
       };
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
+      let TenantAgreement = new  TenantAgreementHistory(finalData1);
+      output1 = await TenantAgreement.save();
     }
   } catch (err) {
     console.error(err.message);
@@ -1437,6 +1442,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           Location: "$Location",
           tenantDoorNo: "$shopDoorNo",
           BuildingName: "$BuildingName",
+          BuildingId : "$BuildingId",
           chargesCal: {
             $add: [
               {
@@ -1687,9 +1693,26 @@ router.post("/renew-tenant-details", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  // console.log("hii", data);
+  
   if (data.tenantLeaseEndDate < todayDateymd) {
     try {
+      const TenantAgreementHistorydata = {
+        tenantRentAmount: data.tenantRentAmount,
+        tenantLeaseStartDate: data.tenantLeaseStartDate,
+        tenantLeaseEndDate: data.tenantLeaseEndDate,
+        tdId: data.tdId,
+        AgreementStatus : "Expired",
+        OrganizationId : data.OrganizationId,
+        BuildingName : data.BuildingName,
+        BuildingId : data.BuildingId,
+        agreementId: data.agreementId,
+        tenantEnteredBy: data.tenantEnteredBy,
+        tenantDate: data.tenantDate,
+       
+      } 
+      let aggdata = await new TenantAgreementHistory(TenantAgreementHistorydata)
+      aggdata.save();
+      
       await TenantDetails.updateOne(
         { _id: data.tdId },
         {
@@ -1717,6 +1740,23 @@ router.post("/renew-tenant-details", async (req, res) => {
     }
   } else {
     try {
+      const TenantAgreementHistorydata = {
+        tenantRentAmount: data.tenantRentAmount,
+        tenantLeaseStartDate: data.tenantLeaseStartDate,
+        tenantLeaseEndDate: data.tenantLeaseEndDate,
+        tdId: data.tdId,
+        AgreementStatus : "Renewed",
+        OrganizationId : data.OrganizationId,
+        BuildingName : data.BuildingName,
+        BuildingId : data.BuildingId,
+        agreementId: data.agreementId,
+        tenantEnteredBy: data.tenantEnteredBy,
+        tenantDate: data.tenantDate,
+       
+      } 
+      let aggdata = await new TenantAgreementHistory(TenantAgreementHistorydata)
+      aggdata.save();
+      
       await TenantDetails.updateOne(
         { _id: data.tdId },
         {

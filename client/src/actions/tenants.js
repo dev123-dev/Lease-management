@@ -817,7 +817,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 };
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log("insdie action of renewal", finalData);
   const finalDataReport = {
     monthSearch: finalData.monthSearch,
     yearSearch: finalData.yearSearch,
@@ -838,6 +837,9 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     tenantLeaseStartDate: finalData.tenantLeaseStartDate,
     tenantLeaseEndDate: finalData.tenantLeaseEndDate,
     tdId: finalData.tdId,
+    OrganizationId :finalData.OrganizationId,
+    BuildingId : finalData.BuildingId,
+    BuildingName :finalData.BuildingName,
     AgreementStatus: finalData.AgreementStatus,
     agreementId: finalData.agreementId,
     tenantEnteredBy: finalData.tenantEnteredBy,
