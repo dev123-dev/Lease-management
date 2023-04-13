@@ -109,7 +109,7 @@ const AddShopDetails = ({
       let new_door = items.map((ele) => ele.doorNo === inputdata);
       if (new_door.every((ele) => ele === false)) {
         setshowscroll("block");
-        setitem([...items, { doorNo: inputdata, status: "Avaiable" }]);
+        setitem([...items, { doorNo: inputdata, status: "Avaiable","buildingName" : buildingName }]);
         setinput("");
         setLocError("black");
       } else {
@@ -168,6 +168,7 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Active",
       };
+      console.log(finalData)
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,

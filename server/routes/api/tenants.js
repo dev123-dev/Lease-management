@@ -92,7 +92,7 @@ router.post("/add-tenant-details", async (req, res) => {
           )
           .then(data);
       });
-
+console.log(data)
       const finalData1 = {
         tdId: tenantdata._id,
         OrganizationName: data.OrganizationName,
@@ -102,7 +102,7 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantstatus: "Active",
         AgreementStatus: "Expired",
         tenantFileNo: data.tenantFileNo,
-        tenantDoorNo: data.tenantDoorNo.label,
+        tenantDoorNo: data.tenantDoorNo,
         tenantRentAmount: data.tenantRentAmount,
         tenantLeaseStartDate: data.tenantLeaseStartDate,
         tenantLeaseEndDate: data.tenantLeaseEndDate,
@@ -181,6 +181,7 @@ router.post("/add-tenant-details", async (req, res) => {
           )
           .then(data);
       });
+      console.log(data)
 
       const finalData1 = {
         tdId: tenantdata._id,
@@ -191,7 +192,7 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantstatus: "Active",
         AgreementStatus: "Active",
         tenantFileNo: data.tenantFileNo,
-        tenantDoorNo: data.tenantDoorNo.label,
+        tenantDoorNo: data.tenantDoorNo,
         tenantRentAmount: data.tenantRentAmount,
         tenantLeaseStartDate: data.tenantLeaseStartDate,
         tenantLeaseEndDate: data.tenantLeaseEndDate,
