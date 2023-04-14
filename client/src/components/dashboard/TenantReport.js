@@ -257,7 +257,7 @@ const TenantReport = ({
                               </td> */}
                             <td>{Val.tenantFileNo}</td>
                             <td>{Val.Location}</td>
-                            <td>{Val.stampDuty}</td>
+                            <td>{Number(Val.stampDuty).toFixed(2)}</td>
                             <td>{tenantLeaseEndDate}</td>
                             <td>{Val.chargesCal}</td>
                             <td>{Val.AgreementStatus}</td>
