@@ -17,7 +17,7 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
         <Fragment></Fragment>
       ) : (
         <Fragment>
-          <div className="container container_align"></div>
+          <div className="container container_align "></div>
           <Link
             className="log btn btn_submit"
             style={{ padding: "10px 39px" }}
@@ -31,6 +31,8 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
             show={showLogin}
             backdrop="static"
             keyboard={false}
+            className="back"
+            //style={{backgroundColor : "red"}}
             aria-labelledby="contained-modal-title-vcenter"
             centered
           >
@@ -48,9 +50,6 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
   );
 };
 
-Homepage.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });

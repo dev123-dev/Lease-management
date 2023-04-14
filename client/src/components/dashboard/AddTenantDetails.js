@@ -1,34 +1,50 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
+  getParticularProperty,
   getAllDoorNos,
+  getAllTenants,
   getAllSettings,
 } from "../../actions/tenants";
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
-
+import "../../../../client/src/styles/CustomisedStyle.css";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 const AddTenantDetails = ({
-  tenants: { allDoorNos, allTenantSetting },
   auth: { isAuthenticated, user, users, finalDataRep },
+  tenants: { allDoorNos, particular_org_data, allTenantSetting },
+
   getAllDoorNos,
+  getParticularProperty,
   AddTenantDetailsform,
   getAllSettings,
 }) => {
+  const myuser = JSON.parse(localStorage.getItem("user"));
+  const history = useHistory();
+  useEffect(() => {
+    getParticularProperty({ OrganizationId: myuser.OrganizationId });
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
+    });
+  }, []);
+
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
-  useEffect(() => {
-    getAllSettings();
-  }, [getAllSettings]);
+  useEffect(() => {}, [getAllSettings]);
+  const [doorno, setdno] = useState([]);
+
+  const onchangeDoor = (e) => {
+    setdno(e);
+  };
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
   ];
-
-  //formData
   const [formData, setFormData] = useState({
     tenantFileNo: "",
     tenantDoorNo: "",
@@ -50,7 +66,6 @@ const AddTenantDetails = ({
     generatordepoAmt: "",
     isSubmitted: false,
   });
-
   const {
     tenantFileNo,
     tenantDoorNo,
@@ -92,16 +107,94 @@ const AddTenantDetails = ({
 
   //For setting mindate as todays date
 
+  const funcKeyDown = (e) => {
+    ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+  };
+
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState();
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+
+  const [buildingData, getbuildingData] = useState();
+  const [buildingId, setBuildingID] = useState();
+  const [buildingName, setBuildingName] = useState();
+
+  //this code is used to filter out only those building whose room number is avaiable if not avaiable it will not display the building name
+  let AvaiableRoomBuilding = particular_org_data;
+  let isavail = particular_org_data.filter(
+    (item) =>
+      item.shopDoorNo &&
+      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
+  );
+  const allBuildingNames = [];
+  AvaiableRoomBuilding.map((buildingData) =>
+    allBuildingNames.push({
+      buildingId: buildingData._id,
+      label: buildingData.buildingName,
+      value: buildingData._id,
+    })
+  );
+
+  const [DnoList, setDnoList] = useState([]);
+  const [LocList, SetLocList] = useState([]);
+  let passwrdTooltip = {
+    marginLeft: "-16em",
+    position: "absolute",
+    marginTop: "1.5em",
+    pointerEvents: "none",
+    zIndex: "999",
+    width: "300px",
+  };
+  const LocName = [];
+  particular_org_data.map((loc) => {
+    LocName.push({
+      label: loc.Location,
+      value: loc._id,
+    });
+  });
+  const onBuildingChange = (e) => {
+    setErrors({
+      ...errors,
+      PropertyChecker: true,
+      PropertyErrorStyle: { color: "#000" },
+    });
+
+    setBuildingID(e.value);
+    setBuildingName(e.label);
+    let temp = []; //here we are adding blank arrray bcz to refresh everytime when new name is selected
+    AvaiableRoomBuilding &&
+      AvaiableRoomBuilding.map((ele) => {
+        if (e.buildingId === ele._id) {
+          SetLocList(ele.Location);
+          ele.shopDoorNo.map((doornumber) => {
+            if (doornumber.status === "Avaiable") {
+              temp.push({
+                label: doornumber.doorNo,
+                value: doornumber.doorNo,
+                status: "Acquired",
+              });
+              // } else {
+              //   temp.push({
+              //     label: "Blank",
+              //   });
+            }
+          });
+        }
+
+        setDnoList(temp);
+      });
+
+    getbuildingData(e);
+    setBuildingID(e.buildingId ? e.buildingId : null);
+    setBuildingName(e.label ? e.label : "");
+  };
 
   const onDateChangeEntry = (e) => {
     setEntryDate(e.target.value);
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+    var leaseMonth = myuser.output.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -152,13 +245,13 @@ const AddTenantDetails = ({
   const onDateChange = (e) => {
     setChequeDate(e.target.value);
   };
-  const [showInformationModal, setShowInformation] = useState(false);
 
-  const handleInformationModalClose = () => setShowInformation(false);
-  const LogoutModalClose = () => {
-    handleInformationModalClose();
-  };
   const onPaymentModeChange = (e) => {
+    setErrors({
+      ...errors,
+      PaymentChecker: true,
+      PaymentErrorStyle: { color: "#000" },
+    });
     if (e) {
       setFormData({
         ...formData,
@@ -177,386 +270,630 @@ const AddTenantDetails = ({
       });
     }
   };
-  const shopdoorNo = [];
-  allDoorNos.map((doorno) =>
-    shopdoorNo.push({
-      label: doorno.shopDoorNo,
-      value: doorno.shopDoorNo,
-    })
-  );
-  var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
 
-  const onSubmit = () => {
-    const finalData = {
-      tenantFileNo: tenantFileNo,
-      tenantDoorNo: tenantDoorNo,
-      tenantName: tenantName,
-      tenantPhone: tenantPhone,
-      tenantFirmName: tenantFirmName,
-      tenantAddr: tenantAddr,
-      tenantAdharNo: tenantAdharNo,
-      tenantPanNo: tenantPanNo,
-      tenantDepositAmt: tenantDepositAmt,
-      tenantPaymentMode: tenantPaymentMode.value,
-      tenantChequenoOrDdno: tenantChequenoOrDdno,
-      tenantBankName: tenantBankName,
-      tenantchequeDate: startSelectedDate,
-      tenantRentAmount: tenantRentAmount,
-      tenantLeaseStartDate: entryDate,
-      tenantLeaseEndDate: newLeaseEndDate,
-      shopId: shopId,
-      generatordepoAmt: generatordepoAmt,
-      tenantEnteredBy: user && user._id,
-      tenantDate: todayDateymd,
-      selectedY: finalDataRep.yearSearch,
-      selectedVal: dt,
-    };
-    AddTenantDetailsform(finalData);
+  var dt = new Date(finalDataRep.yearSearch + "-" + finalDataRep.monthSearch);
+  const [selectedDoorNumber, setSelectedDoorNumber] = useState([]);
+
+  const onSelectChange = (inputuserdata) => {
+    let temparray = [];
+    temparray.push(...selectedDoorNumber, inputuserdata);
+    setSelectedDoorNumber(temparray);
+    setDnoList(DnoList.filter((x) => x.value !== inputuserdata.value));
+
     setFormData({
       ...formData,
-      tenantFileNo: "",
-      tenantDoorNo: "",
-      tenantName: "",
-      tenantPhone: "",
-      tenantFirmName: "",
-      tenantAddr: "",
-      tenantAdharNo: "",
-      tenantPanNo: "",
-      tenantDepositAmt: "",
-      tenantPaymentMode: "",
-      tenantBankName: "",
-      tenantchequeDate: "",
-      tenantRentAmount: "",
-      tenantLeaseEndDate: "",
-      tenantChequenoOrDdno: "",
-      generatordepoAmt: "",
+      [inputuserdata.name]: 1,
     });
-    setShowInformation(true);
-    setEntryDate("");
-    getDoorNoData("");
-    setLeaseEndDate("");
-    setNewLeaseEndDate("");
-    setChequeDate("");
-    setFileNoData("");
+  };
+
+  const onRemoveChange = (Doornumber) => {
+    let temparray2 = [];
+    temparray2.push(...DnoList, Doornumber);
+
+    setDnoList(temparray2);
+    setSelectedDoorNumber(
+      selectedDoorNumber.filter((x) => x.value !== Doornumber.value)
+    );
+    setFormData({
+      ...formData,
+      [Doornumber.name]: 0,
+    });
+  };
+
+  const [errors, setErrors] = useState({
+    PropertyChecker: false,
+    PropertyErrorStyle: {},
+    PaymentChecker: false,
+    PaymentErrorStyle: {},
+  });
+  const {
+    PropertyChecker,
+    PropertyErrorStyle,
+    PaymentChecker,
+    PaymentErrorStyle,
+  } = errors;
+  const checkError = () => {
+    if (!PaymentChecker) {
+      setErrors({
+        ...errors,
+        PaymentErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!PropertyChecker) {
+      setErrors({
+        ...errors,
+        PropertyErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (checkError()) {
+      const finalData = {
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+        BuildingName: buildingName,
+        BuildingId: buildingId,
+        Location: LocList,
+        tenantFileNo: tenantFileNo,
+        tenantDoorNo: selectedDoorNumber,
+        tenantName: tenantName,
+        tenantPhone: tenantPhone,
+        tenantFirmName: tenantFirmName,
+        tenantAddr: tenantAddr,
+        tenantAdharNo: tenantAdharNo,
+        tenantPanNo: tenantPanNo,
+        tenantDepositAmt: tenantDepositAmt,
+        tenantPaymentMode: tenantPaymentMode.value,
+        tenantChequenoOrDdno: tenantChequenoOrDdno,
+        tenantBankName: tenantBankName,
+        tenantchequeDate: startSelectedDate,
+        tenantRentAmount: tenantRentAmount,
+        tenantLeaseStartDate: entryDate,
+        tenantLeaseEndDate: newLeaseEndDate,
+        generatordepoAmt: generatordepoAmt,
+        tenantEnteredBy: user && user._id,
+        tenantDate: todayDateymd,
+        selectedY: finalDataRep.yearSearch,
+        selectedVal: dt,
+      };
+      AddTenantDetailsform(finalData);
+
+      setFormData({
+        ...formData,
+        tenantFileNo: "",
+        tenantDoorNo: "",
+        tenantName: "",
+        tenantPhone: "",
+        tenantFirmName: "",
+        tenantAddr: "",
+        tenantAdharNo: "",
+        tenantPanNo: "",
+        tenantDepositAmt: "",
+        tenantPaymentMode: "",
+        tenantBankName: "",
+        tenantchequeDate: "",
+        tenantRentAmount: "",
+        tenantLeaseEndDate: "",
+        tenantChequenoOrDdno: "",
+        generatordepoAmt: "",
+      });
+
+      setEntryDate("");
+      getDoorNoData("");
+      setLeaseEndDate("");
+      setNewLeaseEndDate("");
+      setChequeDate("");
+      setFileNoData("");
+
+      // setShowadd(false);
+
+      history.push("/tenant-detail");
+    }
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
-      <div className="container container_align">
-        <section className="sub_reg">
-          <div className="col-lg-5 col-md-12 col-sm-12 col-12 ">
-            <h2 className="heading_color">Add Tenant Details </h2>
-          </div>
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Door No*:</label>
-              <input
-                type="text"
-                name="tenantDoorNo"
-                value={tenantDoorNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-
-            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-              <label> File No* :</label>
-              <input
-                type="text"
-                name="tenantFileNo"
-                value={tenantFileNo}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Tenant Name *:</label>
-              <input
-                type="text"
-                name="tenantName"
-                value={tenantName}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                required
-              />
-            </div>
-            <div className="row col-lg-8 col-md-9 col-sm-9 col-12 no_padding ">
-              <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-                <label>Phone No:</label>
+    <>
+      <Modal.Header className="mt-sm-5"></Modal.Header>{" "}
+      <Modal.Body>
+        <form onSubmit={(e) => onSubmit(e)}>
+          <div className="container-fluid ">
+            <div className="row card-new pb-3 ">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+                <h2
+                  style={{
+                    marginLeft: "10px",
+                  }}
+                  className=" heading_color headsize mt-2"
+                >
+                  Add Tenant Details
+                </h2>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Tenant Name*:</label>
                 <input
-                  type="number"
-                  name="tenantPhone"
-                  value={tenantPhone}
+                  type="text"
+                  name="tenantName"
+                  placeholder="Name"
+                  value={tenantName}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
                   required
-                />
+                />{" "}
+                <br></br>
               </div>
-              <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-                <label> Firm Name :</label>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
+                <label style={PropertyErrorStyle}>Property Name*:</label>
+                <Select
+                  className="py-0"
+                  name="Property name"
+                  options={allBuildingNames}
+                  value={buildingData}
+                  onChange={(e) => onBuildingChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      // primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                  required
+                ></Select>
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label> Location*:</label>
+                <input
+                  type="text"
+                  value={LocList}
+                  placeholder="Location"
+                  className="form-control bg-white"
+                ></input>
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label> File No*:</label>
+                <input
+                  type="text"
+                  name="tenantFileNo"
+                  placeholder="File No"
+                  value={tenantFileNo}
+                  className="form-control"
+                  pattern="[a-zA-z0-9\-]+$"
+                  onChange={(e) => onInputChange(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Phone No:</label>
+                <input
+                  type="text"
+                  name="tenantPhone"
+                  placeholder="Phone No"
+                  value={tenantPhone}
+                  pattern="\d{10}"
+                  title=" 10 Digits only"
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Firm Name:</label>
                 <input
                   type="text"
                   name="tenantFirmName"
+                  placeholder="Firm Name"
                   value={tenantFirmName}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  required
-                />
+                />{" "}
+                <br></br>
               </div>
-              <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-                <label>Adhaar No:</label>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Aadhaar No:</label>
                 <input
-                  type="number"
+                  type="text"
                   name="tenantAdharNo"
+                  placeholder="Aadhar No"
                   value={tenantAdharNo}
+                  // pattern="^[0-9\b]+$"
+                  pattern="\d{12}"
+                  // minLength="12"
+                  title="Must Contain 12 digits"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
-                  required
-                />
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />{" "}
+                <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint=" Must have only 12 digits "
+                  ></div>
+                </div>
+                <br></br>
               </div>
-              <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-                <label>Pan Card No:</label>
+
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Pan Number:</label>
                 <input
                   type="text"
                   name="tenantPanNo"
+                  placeholder="Pan No"
                   value={tenantPanNo}
+                  pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
-                  required
+                  // onKeyDown={(e) => funcKeyDown(e)}
                 />
+                <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Must have 5 Alphabets,4 Numbers,1 Alphabet"
+                  ></div>
+                </div>
+                <br></br>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-6 col-12">
-              <label>Tenant's Address *:</label>
-              <textarea
-                name="tenantAddr"
-                value={tenantAddr}
-                id="tenantAddr"
-                className="textarea form-control"
-                rows="4"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>
-            </div>
-          </div>
-
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Deposit Amount *:</label>
-              <input
-                type="number"
-                name="tenantDepositAmt"
-                value={tenantDepositAmt}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Generator Deposit Amount:</label>
-              <input
-                type="number"
-                name="generatordepoAmt"
-                value={generatordepoAmt}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-            <div className="col-lg-4 col-md-4 col-sm-4 col-12">
-              <label>Mode Of Payment *:</label>
-              <Select
-                name="tenantPaymentMode"
-                options={PaymentMethods}
-                isSearchable={false}
-                value={tenantPaymentMode}
-                placeholder="Select"
-                onChange={(e) => onPaymentModeChange(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
-              />
-            </div>
-          </div>
-          {showChequenoSection && (
-            <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-              {/* <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-              
-              </div> */}
-
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <label>Cheque No/DD No :</label>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Rent Amount*:</label>
                 <input
-                  type="text"
-                  name="tenantChequenoOrDdno"
-                  value={tenantChequenoOrDdno}
+                  type="number"
+                  name="tenantRentAmount"
+                  placeholder="Rent Amount"
+                  value={tenantRentAmount}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
                   required
                 />
+                <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Monthly Rent "
+                  ></div>
+                </div>
+                <br></br>
               </div>
-              {/* <div className="col-lg-2 col-md-4 col-sm-4 col-12">
-               
-              </div> */}
-
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <label>Bank Name :</label>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Deposit Amount*:</label>
                 <input
-                  type="text"
-                  name="tenantBankName"
-                  value={tenantBankName}
+                  type="number"
+                  name="tenantDepositAmt"
+                  value={tenantDepositAmt}
+                  placeholder="Deposit Amount"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                  required
+                />{" "}
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Generator Deposit Amount :</label>
+                <input
+                  type="number"
+                  name="generatordepoAmt"
+                  placeholder="GeneratorDeposit Amount"
+                  value={generatordepoAmt}
+                  className="form-control"
+                  onChange={(e) => onInputChange(e)}
+                  onKeyDown={(e) => funcKeyDown(e)}
+                />
+                <br></br>
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label style={PaymentErrorStyle}>Mode Of Payment*:</label>
+                <Select
+                  name="tenantPaymentMode"
+                  options={PaymentMethods}
+                  isSearchable={false}
+                  value={tenantPaymentMode}
+                  placeholder="Select..."
+                  onChange={(e) => onPaymentModeChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+
+                    borderRadius: 0,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
                   required
                 />
-              </div>
-              {/* <div className="col-lg-1 col-md-4 col-sm-4 col-12"></div> */}
-              <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-                <label>ChequeDate:</label>
-                <br />
+                <br></br>
+              </div>{" "}
+              {showChequenoSection ? (
+                <>
+                  {/* <div className="row"> */}
+                  <div className="  col-lg-3 col-md-12 col-sm-12 col-12 ">
+                    <label> Cheque No/DD No*:</label>
+                    <input
+                      type="text"
+                      name="tenantChequenoOrDdno"
+                      value={tenantChequenoOrDdno}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      required
+                    />
+                    <br></br>
+                  </div>
+
+                  <div className=" col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label>Bank Name*:</label>
+                    <input
+                      type="text"
+                      name="tenantBankName"
+                      value={tenantBankName}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      required
+                    />
+                    <br></br>
+                  </div>
+                  <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label>Cheque Date:</label>
+                    <input
+                      type="date"
+                      placeholder="dd/mm/yyyy"
+                      className="form-control cpp-input datevalidation"
+                      name="tenantchequeDate"
+                      value={startSelectedDate}
+                      onChange={(e) => onDateChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                      required
+                    />
+                    <br></br>
+                  </div>
+                  {/* </div> */}
+                </>
+              ) : (
+                <></>
+              )}
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Lease Start Date*:</label>
                 <input
                   type="date"
-                  placeholder="dd/mm/yyyy"
+                  placeholder="dd-mm-yyyy"
                   className="form-control cpp-input datevalidation"
-                  name="tenantchequeDate"
-                  value={startSelectedDate}
-                  onChange={(e) => onDateChange(e)}
+                  name="tenantLeaseStartDate"
+                  value={entryDate}
+                  onChange={(e) => onDateChangeEntry(e)}
                   style={{
-                    width: "75%",
+                    width: "100%",
                   }}
-                />
+                  required
+                />{" "}
+                <br></br>
+              </div>{" "}
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
+                <label>Lease End Date*:</label>
+                <input
+                  className="form-control cpp-input datevalidation"
+                  value={leaseEndDate}
+                  readOnly
+                ></input>
+                <br></br>
+              </div>{" "}
+              <div className="control-group col-md-6 col-lg-3 col-sm-6 col-xs-6">
+                <label className="control-label"> Tenant Address*:</label>
+                <div className="controls">
+                  <textarea
+                    rows="3"
+                    value={tenantAddr}
+                    name="tenantAddr"
+                    // id="tenantAddr"
+                    placeholder="Address"
+                    className="form-control"
+                    onChange={(e) => onInputChange(e)}
+                    required
+                  ></textarea>
+                  <span className="form-input-info"></span>
+                </div>
+              </div>
+              <div className="row ml-1">
+                <div className="col-lg-6 col-md-12 col-sm-12">
+                  <div
+                    className="h4 "
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  >
+                    Door No:
+                  </div>
+                </div>
+                {/* <div className="col-lg-6 col-md-12 col-sm-12">
+                <div
+                        className="h4"
+                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                      >
+                        Selected Door No :{" "}
+                      </div>
+                </div> */}
+              </div>
+              <div className="row  mx-1">
+                {isavail && isavail.length !== 0 ? (
+                  <>
+                    <div
+                      className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white border-dark border-right"
+                      style={{ border: "transparent", minHeight: "90px" }}
+                    >
+                      <div
+                        className="h4 "
+                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                      >
+                        Available:
+                      </div>{" "}
+                      <br></br>
+                      {DnoList &&
+                        DnoList.map((DoorNumber, idx) => {
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className="btn btn-success doorbtn"
+                              onClick={() => onSelectChange(DoorNumber)}
+                            >
+                              {DoorNumber.value}
+                              <span className="ml-4">
+                                <b className="text-dark ">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-plus-square-fill"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
+                                  </svg>
+                                </b>
+                              </span>
+                            </button>
+                          );
+                        })}
+                    </div>
+
+                    <div
+                      className=" col-lg-6 col-md-12  card-new  bg-white"
+                      style={{ border: "transparent", minHeight: "80px" }}
+                    >
+                      <div
+                        className="h4"
+                        style={{ fontFamily: "Serif", color: "#095a4a" }}
+                      >
+                        Selected:
+                      </div>
+                      <br></br>
+                      {selectedDoorNumber &&
+                        selectedDoorNumber.length > 0 &&
+                        selectedDoorNumber.map((Doornumber, idx) => {
+                          return (
+                            <button
+                              key={idx}
+                              type="button"
+                              className="btn  doorbtn"
+                              onClick={() => onRemoveChange(Doornumber)}
+                            >
+                              {Doornumber.value}
+                              <span className="ml-4">
+                                <b className="text-light">
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="20"
+                                    height="16"
+                                    fill="currentColor"
+                                    class="bi bi-dash-square-fill"
+                                    viewBox="0 0 16 16"
+                                  >
+                                    <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
+                                  </svg>
+                                </b>
+                              </span>
+                            </button>
+                          );
+                        })}
+                    </div>
+                  </>
+                ) : (
+                  <div
+                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    className="card-new"
+                  >
+                    <marquee>No Doors in the Property</marquee>
+                  </div>
+                )}
+              </div>
+              <div className="col-lg-9 text-danger">
+                * Indicates mandatory fields, Please fill mandatory fields
+                before Submit
+              </div>
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <div className="row ">
+                  <div className="col-lg-6 col-md-12 col-sm-12">
+                    <Link to="/tenant-detail">
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right "
+                        id="savebtn"
+                        type="button"
+                      >
+                        Back
+                      </button>
+                    </Link>
+                  </div>
+                  <div className="col-lg-6 col-md-12 col-sm-12">
+                    {/* <Link to="/tenant-detail"> */}
+                    <button
+                      variant="success"
+                      className="btn sub_form btn_continue Save float-right"
+                      id="savebtn"
+                      type="submit"
+                    >
+                      Save
+                    </button>
+                    {/* </Link> */}
+                  </div>
+                </div>
               </div>
             </div>
-          )}
-          <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label> Rent Amount *:</label>
-              <input
-                type="number"
-                name="tenantRentAmount"
-                value={tenantRentAmount}
-                className="form-control"
-                onChange={(e) => onInputChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
-                required
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label> Lease Start Date *:</label>
-              <br />
-              <input
-                type="date"
-                placeholder="dd/mm/yyyy"
-                className="form-control cpp-input datevalidation"
-                name="tenantLeaseStartDate"
-                value={entryDate}
-                onChange={(e) => onDateChangeEntry(e)}
-                style={{
-                  width: "55%",
-                }}
-              />
-            </div>
-
-            <div className="col-lg-4  col-md-4 col-sm-4 col-12">
-              <label>Lease End Date:</label>
-              <br />
-              <label>
-                <b>{leaseEndDate}</b>
-              </label>
-            </div>
           </div>
-
-          <div className="col-lg-12 Savebutton " size="lg">
-            <button
-              variant="success"
-              className="btn sub_form btn_continue Save float-right"
-              onClick={() => onSubmit()}
-              style={
-                tenantDoorNo !== "" &&
-                tenantFileNo !== "" &&
-                tenantName !== "" &&
-                tenantPaymentMode !== "" &&
-                tenantDepositAmt !== "" &&
-                tenantRentAmount !== "" &&
-                entryDate !== "" &&
-                tenantAddr !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
-            >
-              Save
-            </button>
-          </div>
-        </section>
-        <Modal
-          show={showInformationModal}
-          backdrop="static"
-          keyboard={false}
-          aria-labelledby="contained-modal-title-vcenter"
-          centered
-          className="logout-modal"
-        >
-          <Modal.Header className="confirmbox-heading">
-            <h4 className="mt-0">Information</h4>
-          </Modal.Header>
-          <Modal.Body>
-            <h5>Shop Details Added!!</h5>
-          </Modal.Body>
-          <Modal.Footer>
-            <button
-              className="btn btn_green_bg"
-              onClick={() => LogoutModalClose()}
-            >
-              OK
-            </button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    </Fragment>
+        </form>
+      </Modal.Body>{" "}
+      {/*  modal start */}
+      {/* modal ending */}
+    </>
   );
-};
-
-AddTenantDetails.propTypes = {
-  auth: PropTypes.object.isRequired,
-  tenants: PropTypes.object.isRequired,
-  AddTenantDetailsform: PropTypes.func.isRequired,
-  getAllDoorNos: PropTypes.func.isRequired,
-  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -568,4 +905,6 @@ export default connect(mapStateToProps, {
   AddTenantDetailsform,
   getAllDoorNos,
   getAllSettings,
+  getAllTenants,
+  getParticularProperty,
 })(AddTenantDetails);

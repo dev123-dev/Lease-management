@@ -10,7 +10,7 @@ const LoginHistory = require("../../models/LoginHistory");
 var nodemailer = require("nodemailer");
 const { networkInterfaces } = require("os");
 const nets = networkInterfaces();
-
+const mongoose = require("mongoose");
 const {
   SERVER_ERROR,
   EMAIL_REQUIRED_INVALID,
@@ -39,7 +39,8 @@ const {
 // @desc     Authenticate user & get token
 // @access   Public
 router.post(
-  LOGIN,
+  "/login",
+
   [
     check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
     check(PASSWORD, PASSWORD_INVALID).exists(),
@@ -52,11 +53,13 @@ router.post(
     // }
 
     //retriving Data
-    const { useremail, password, userOTP } = req.body;
+    const { useremail, password } = req.body;
+
     try {
       //userEmail Check In DB
       let userDetails = await UserDetails.findOne({
         useremail: useremail,
+        userStatus: "Active",
       });
 
       if (!userDetails) {
@@ -66,18 +69,15 @@ router.post(
       }
 
       //Match The Passwords
-      const isMatch = await bcrypt.compare(password, userDetails.password);
+      const isMatch = (await password) == userDetails.password ? true : false; //bcrypt.compare(password, userDetails.password);
 
       if (!isMatch) {
         return res
           .status(STATUS_CODE_400)
           .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
       }
-      if (
-        userOTP === userDetails.genaratedOtp ||
-        userOTP === "~!@#" ||
-        userOTP === "5#7w"
-      ) {
+
+      if (true) {
         //Create Payload
         const payload = {
           user: {
@@ -93,18 +93,11 @@ router.post(
             if (err) {
               throw err;
             }
+
             res.json({ token });
           }
         );
-        const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
-        await UserDetails.updateOne(
-          { _id: userDetails._id },
-          {
-            $set: {
-              genaratedOtp: randomOTPVal,
-            },
-          }
-        );
+
         let ipAddress = "";
         for (const name of Object.keys(nets)) {
           for (const net of nets[name]) {
@@ -150,8 +143,28 @@ router.post(
 // @access   Private
 router.get("/load-user", auth, async (req, res) => {
   try {
-    const user = await UserDetails.findById(req.user.id).select("-password");
-    res.json(user);
+    // const user = await UserDetails.findById(req.user.id);
+    // res.json(user);
+
+    const id = mongoose.Types.ObjectId(req.user.id);
+
+    await UserDetails.aggregate([
+      {
+        $match: {
+          _id: id,
+        },
+      },
+      {
+        $lookup: {
+          from: "organizationdetails",
+          localField: "OrganizationId",
+          foreignField: "_id",
+          as: "output",
+        },
+      },
+      { $unwind: "$output" },
+    ]).then((data) => res.json(data[0]));
+    // res.json(data));
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
   }
@@ -162,7 +175,7 @@ router.get("/load-user", auth, async (req, res) => {
 // @access   Private
 router.get(GET_ALL_USERS, auth, async (req, res) => {
   try {
-    const user = await UserDetails.find().select("-password"); //.select('-password');
+    const user = await UserDetails.find(); /*.select("-password");*/ //.select('-password');
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -175,7 +188,7 @@ router.get(GET_ALL_USERS, auth, async (req, res) => {
 // @access   Private
 router.post(FILTER_USERS, auth, async (req, res) => {
   const { alphaSearch } = req.body;
-  console;
+
   try {
     let query = {};
     if (alphaSearch !== "") {
@@ -185,7 +198,7 @@ router.post(FILTER_USERS, auth, async (req, res) => {
         },
       };
     }
-    userDetails = await UserDetails.find(query).select("-password");
+    userDetails = await UserDetails.find(query); /*.select("-password");*/
 
     res.json(userDetails);
   } catch (err) {
@@ -211,13 +224,13 @@ router.post(
     let data = req.body;
     try {
       //Preparing The Salt
-      const salt = await bcrypt.genSalt(10);
+      // const salt = await bcrypt.genSalt(10);
       //Hashing the Password
-      const password = await bcrypt.hash(data.password, salt);
+      // const password = await bcrypt.hash(data.password, salt);
 
       await UserDetails.findOneAndUpdate(
         { _id: req.user.id },
-        { password: password }
+        { password: data.password }
       );
       res.json({ msg: "Password changed succesfully" });
     } catch (err) {
@@ -266,74 +279,6 @@ router.post(
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Internal Server Error.");
-    }
-  }
-);
-
-//SEND OTP
-router.post(
-  "/send_email-otp",
-  [
-    check(EMAIL, EMAIL_REQUIRED_INVALID).exists(),
-    check(PASSWORD, PASSWORD_INVALID).exists(),
-  ],
-
-  async (req, res) => {
-    const { useremail, password } = req.body;
-    try {
-      //userEmail Check In DB
-      let userDetails = await UserDetails.findOne({
-        useremail: useremail,
-      });
-
-      if (!userDetails) {
-        return res.status(STATUS_CODE_400).json({
-          errors: [{ msg: INVALID_CREDENTIALS }],
-        });
-      }
-
-      //Match The Passwords
-      const isMatch = await bcrypt.compare(password, userDetails.password);
-
-      if (!isMatch) {
-        return res
-          .status(STATUS_CODE_400)
-          .json({ errors: [{ msg: INVALID_CREDENTIALS }] });
-      }
-      const randomOTPVal = Math.floor(1000 + Math.random() * 9000);
-      var transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: "leasemanagement18@gmail.com",
-          pass: "lrmgnt@18",
-        },
-      });
-
-      var mailOptions = {
-        from: "leasemanagement18@gmail.com",
-        to: useremail,
-        subject: "OTP for Login",
-        text: `Your OTP is ` + randomOTPVal,
-      };
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email sent: " + info.response);
-          return res.json("OTP Sent to Email");
-        }
-      });
-      await UserDetails.updateOne(
-        { _id: userDetails._id },
-        {
-          $set: {
-            genaratedOtp: randomOTPVal,
-          },
-        }
-      );
-    } catch (err) {
-      console.error(err.message);
-      res.status(STATUS_CODE_500).json({ errors: [{ msg: "Server Error" }] });
     }
   }
 );

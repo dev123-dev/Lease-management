@@ -4,21 +4,27 @@ require("mongoose-double")(mongoose);
 var SchemaTypes = mongoose.Schema.Types;
 
 const TenantSettings = new mongoose.Schema({
-  hikePercentage: {
+  userId: {
+    type: String,
+  },
+  userName: {
+    type: String,
+  },
+  hike: {
     type: Number,
-    Required: true,
+  },
+  OrganizationId: {
+    type: String,
+  },
+  OrganizationName: {
+    type: String,
   },
   stampDuty: {
     type: SchemaTypes.Double,
-    required: true,
   },
   leaseTimePeriod: {
     type: Number,
-    required: true,
   },
 });
 
-module.exports = tenantSettings = mongoose.model(
-  "tenantSettings",
-  TenantSettings
-);
+module.exports = mongoose.model("tenantSettings", TenantSettings);

@@ -12,6 +12,7 @@
     "react-bootstrap-range-slider": "^3.0.3",
     "react-datepicker": "^4.6.0",
     "react-dom": "^17.0.2",
+    "react-file-base64": "^1.0.3",
     "react-redux": "^7.2.6",
     "react-router-dom": "^5.1.2",
     "react-scripts": "^5.0.0",
@@ -48,6 +49,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://65.0.209.240:5433"
+ 
+ "proxy": "http://65.0.209.240:5433"
   
 }

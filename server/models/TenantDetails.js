@@ -4,7 +4,25 @@ ObjectId = mongoose.Schema.ObjectId;
 const TenantDetails = new mongoose.Schema({
   tenantName: {
     type: String,
-    required: true,
+  },
+  tenantFileNo: {
+    type: String,
+  },
+  AgreementStatus: {
+    type: String,
+    default: "Active",
+  },
+  OrganizationName: {
+    type: String,
+  },
+  OrganizationId: {
+    type: ObjectId,
+  },
+  tenantLeaseEndDate: {
+    type: String,
+  },
+  tenantLeaseStartDate: {
+    type: String,
   },
   tenantPhone: {
     type: Number,
@@ -15,7 +33,6 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantAddr: {
     type: String,
-    required: true,
   },
   tenantAdharNo: {
     type: String,
@@ -25,16 +42,17 @@ const TenantDetails = new mongoose.Schema({
     type: String,
     // required: true,
   },
+  tenantRentAmount: {
+    type: Number,
+  },
   tenantDepositAmt: {
     type: Number,
-    required: true,
   },
   generatordepoAmt: {
     type: Number,
   },
   tenantPaymentMode: {
     type: String,
-    required: true,
   },
   tenantChequenoOrDdno: {
     type: String,
@@ -47,9 +65,20 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantstatus: {
     type: String,
-    required: true,
+
     default: "Active", //Active,Deactive
   },
+  BuildingName: {
+    type: String,
+  },
+  BuildingId: {
+    type: ObjectId,
+  },
+  Location: {
+    type: String,
+  },
+  shopDoorNo: [],
+
   shopId: {
     type: ObjectId,
   },
@@ -63,9 +92,48 @@ const TenantDetails = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
-  tenantdeactivereason: {
+  enter_by_id: {
+    type: ObjectId,
+  },
+  enter_by_name: {
+    type: String,
+  },
+  enter_by_dateTime: {
+    type: Date,
+    default: Date.now(),
+  },
+  enter_by_date: {
+    type: String,
+  },
+  edit_by_id: {
+    type: ObjectId,
+  },
+  edit_by_name: {
+    type: String,
+  },
+  edit_by_dateTime: {
+    type: Date,
+    default: Date.now(),
+  },
+  edit_by_date: {
+    type: String,
+  },
+  deactive_by_id: {
+    type: ObjectId,
+  },
+  deactive_by_name: {
+    type: String,
+  },
+  deactive_by_dateTime: {
+    type: Date,
+    default: Date.now(),
+  },
+  deactive_by_date: {
+    type: String,
+  },
+  deactive_reason: {
     type: String,
   },
 });
 
-module.exports = tenantDetails = mongoose.model("tenantDetails", TenantDetails);
+module.exports = mongoose.model("tenantDetails", TenantDetails);

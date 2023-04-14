@@ -1,16 +1,18 @@
 import React, { Fragment, useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-// import TenantReport from "./TenantReport";
 
 import DatePicker from "react-datepicker";
 import {
   getMonthExpCount,
-  getMonthExpCountFilter,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
   getTenantReportOldExp,
+  getOrganizationExpiryReport,
+  ParticularTenant,
+  getOrgExpCount,
+  getOrgExp,
+  getPreviousYearsExpCountOfOrg,
 } from "../../actions/tenants";
 
 const optName = [
@@ -29,28 +31,43 @@ const optName = [
 ];
 
 const TenantFilters = ({
-  auth: { isAuthenticated, user, users, monthExpCnt, yearExpCnt, expReport },
+  auth: { isAuthenticated, user, users, monthExpCnt, yearExpCnt },
+  tenants: { exp_org_count, ext_year_count_org },
   getMonthExpCount,
-  getMonthExpCountFilter,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
   getTenantReportOldExp,
+  ParticularTenant,
+  getOrgExpCount,
+  getOrgExp,
+  getOrganizationExpiryReport,
+  getPreviousYearsExpCountOfOrg,
 }) => {
+  const logUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    getMonthExpCount();
+    getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
   }, [getMonthExpCount]);
+
   useEffect(() => {
     const finalData = {
       selectedVal: new Date(),
+      OrganizationId: logUser && logUser.OrganizationId,
     };
     getPreviousYearsExpCount(finalData);
   }, [getPreviousYearsExpCount]);
+
   useEffect(() => {
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
       yearSearch: new Date().getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportYearMonth(finalDataReport);
+    const data = {
+      OrganizationId: logUser && logUser.OrganizationId,
+      LocationName: logUser && logUser.OrganizationName,
+    };
+    ParticularTenant(data);
   }, [getTenantReportYearMonth]);
 
   const [searchData, setSearchData] = useState({
@@ -68,13 +85,32 @@ const TenantFilters = ({
       const finalData = {
         selectedY: getYear,
         selectedVal: dt,
+        OrganizationId: logUser && logUser.OrganizationId,
       };
       setSearchData({
         ...searchData,
         monthSearch: "",
       });
-      getMonthExpCountFilter(finalData);
+      getMonthExpCount(finalData); //Done
       getPreviousYearsExpCount(finalData);
+    }
+  };
+
+  const OrgainzationmonthYearChange = (dt) => {
+    var getYear = new Date(dt).getFullYear();
+    if (getYear) {
+      setMonthStartDate(dt);
+      const finalData = {
+        selectedY: getYear,
+        selectedVal: dt,
+      };
+      setSearchData({
+        ...searchData,
+        monthSearch: "",
+      });
+      localStorage.setItem("year", JSON.stringify(finalData));
+      getOrgExpCount(finalData);
+      getPreviousYearsExpCountOfOrg(finalData);
     }
   };
 
@@ -88,137 +124,283 @@ const TenantFilters = ({
       const finalDataReport = {
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
+        OrganizationId: logUser && logUser.OrganizationId,
       };
       getTenantReportYearMonth(finalDataReport);
-      // <Redirect to="/tenant-report" />;
     }
   };
-  const oldExpCountFetch = () => {
-    const finalDataReportOld = {
-      yearSearch: new Date(startMonthDate).getFullYear(),
-    };
-    getTenantReportOldExp(finalDataReportOld);
-    // <Redirect to="/tenant-report" />;
+  const [monthfilter, setMonthFilter] = useState("");
+  const onSelectOrgChange = (optFiltrVal) => {
+    setMonthFilter(optFiltrVal);
+    if (optFiltrVal) {
+      setSearchData({
+        ...searchData,
+        monthSearch: optFiltrVal,
+        yearSearch: new Date(startMonthDate).getFullYear(),
+      });
+      const finalDataReport = {
+        monthSearch: optFiltrVal,
+        yearSearch: new Date(startMonthDate).getFullYear(),
+      };
+      getOrgExp(finalDataReport);
+      getOrgExpCount(finalDataReport);
+      getOrganizationExpiryReport(finalDataReport);
+    }
   };
 
+  const oldExpCountFetch = () => {
+    const finalDataReportOld = {
+      monthSearch: monthfilter,
+      yearSearch: new Date(startMonthDate).getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
+    };
+    getTenantReportOldExp(finalDataReportOld);
+  };
+  const oldExpCountFetchOrg = () => {
+    const finalDataReportOld = {
+      monthSearch: monthfilter,
+      yearSearch: new Date(startMonthDate).getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
+    };
+    getOrganizationExpiryReport(finalDataReportOld);
+  };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
-    <Fragment>
-      <div className="container_align top_menu ">
-        <div className="row pb-5 responsiveDiv">
-          <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center ">
-            {/* brdr-clr-styles */}
-            {/* <form> */}
-            <div className="">
-              <Link
-                to="/tenant-report"
-                className="btn btn_more"
-                onClick={() => oldExpCountFetch()}
-              >
-                {yearExpCnt && yearExpCnt[0] && yearExpCnt[0].count > 0
-                  ? yearExpCnt[0].count
-                  : 0}
-              </Link>
-              {/* className="btn-rou" */}
-            </div>
-            <div className="py-2">
-              <DatePicker
-                className="form-control yearpicker"
-                placeholder="yyyy"
-                //   maxDate={subMonths(new Date(), -1)}
-                onChange={(date) => monthYearChange(date)}
-                dateFormat="yyyy"
-                selected={startMonthDate}
-                style={{ textAlign: "center" }}
-                showYearPicker
-              />
-            </div>
+    <>
+      {logUser.usergroup === "Super Admin" ? (
+        //super admin filterrr
+        <Fragment>
+          <div className="container_align top_menu col-sm-12 responsiveDiv ">
+            {/* <div className="row pb-2  ml-2 responsiveDiv  bg-success "> */}
+            <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter">
+              {/* this is for textbox below image for showing the total count of Renewal */}
+              <div>
+                <div className="btn_more text-center " title="Previous Year Renewal Count" style={{cursor : "pointer"}}>
+                  <Link
+                    title="Previous Year Renewal Count"
+                    to="/Organization-filter"
+                    style={{ width: "100px" }}
+                    className="top_box"
+                    onClick={() => oldExpCountFetchOrg()}
+                  >
+                    {" "}
+                    {ext_year_count_org && ext_year_count_org.length > 0
+                      ? ext_year_count_org.length
+                      : 0}
+                  </Link>
+                </div>
 
-            {optName &&
-              optName.map((optFiltr, idx) => {
-                let countVal = 0;
-                monthExpCnt.map((monthExpCntVal) => {
-                  if (
-                    Number(monthExpCntVal._id.month) === Number(optFiltr.value)
-                  ) {
-                    countVal = monthExpCntVal.count;
-                  }
-                  return <></>;
-                });
-                return (
-                  <div className="py-1" key={idx}>
-                    <div style={{ color: "#fff" }}>
-                      {" "}
-                      <Link
-                        to="/tenant-report"
-                        name="alphaSearch"
-                        // className="btnLink"
-                        onClick={() => onSelectChange(optFiltr.value)}
-                        style={
-                          Number(monthSearch) === Number(optFiltr.value)
-                            ? {
-                                fontWeight: "bold",
-                                color: "black",
-                                fontSize: "120%",
-                              }
-                            : { fontWeight: "bold", fontSize: "120%" }
-                        }
+                <div className="yearpicker">
+                  <DatePicker
+                    className="form-control text-center"
+                    placeholder="yyyy"
+                    onChange={(date) => OrgainzationmonthYearChange(date)}
+                    dateFormat="yyyy"
+                    selected={startMonthDate}
+                    style={{ textAlign: "center" }}
+                    showYearPicker
+                  />
+                </div>
+              </div>
+
+              {optName &&
+                optName.map((optFiltr, idx) => {
+                  let countVal = 0;
+                  exp_org_count &&
+                    exp_org_count.map((monthExpCntVal) => {
+                      if (
+                        Number(monthExpCntVal._id.month) ===
+                        Number(optFiltr.value)
+                      ) {
+                        countVal = monthExpCntVal.count;
+                      }
+                      return <></>;
+                    });
+                  return (
+                    <div className="filter_bg  " key={idx}>
+                      <div
+                        className="tenantfil  "
+                        style={{
+                          // fontWeight: "bold",
+                          color: "#fff",
+                          padding: "0px 0px 0px 5px",
+                        }}
                       >
-                        {optFiltr.label}
-                      </Link>{" "}
-                      &nbsp;
-                      <label
-                        className="btn-roun"
-                        style={
-                          countVal !== 0
-                            ? {
-                                fontSize: "80%",
-                                color: "#000",
-                                background: "#fff",
-                              }
-                            : {
-                                fontSize: "80%",
-                                color: "#429f8c",
-                                background: "#fff",
-                              }
-                        }
-                      >
-                        {countVal}
-                      </label>
+                        {" "}
+                        <Link
+                          to="/Organization-report"
+                          name="alphaSearch"
+                          // className="bg-dark"
+                          onClick={() => onSelectOrgChange(optFiltr.value)}
+                          style={
+                            Number(monthSearch) === Number(optFiltr.value)
+                              ? {
+                                  fontWeight: "bold",
+                                  color: "#e8a317",
+                                  fontSize: "115%",
+                                }
+                              : { fontWeight: "", fontSize: "115%" }
+                          }
+                        >
+                          {optFiltr.label}
+                        </Link>{" "}
+                        {/* &nbsp; */}
+                        <label
+                          className="btn-roun  "
+                          style={
+                            countVal !== 0
+                              ? {
+                                  fontSize: "80%",
+                                  color: "#000",
+                                  background: "#fff",
+                                }
+                              : {
+                                  fontSize: "80%",
+                                  color: "#429f8c",
+                                  background: "#fff",
+                                }
+                          }
+                        >
+                          {countVal}
+                        </label>
+                      </div>
                     </div>
-                    <div> </div>
-                  </div>
-                );
-              })}
-            {/* </form> */}
-          </div>
+                  );
+                })}
+              {/* </form> */}
+            </div>
 
-          {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
-            <TenantReport />
-          </div> */}
-        </div>
-      </div>
-    </Fragment>
+            {/* <div className="col-lg-10 col-md-7 col-sm-8 col-8">
+                <TenantReport />
+              </div> */}
+            {/* </div> */}
+          </div>
+        </Fragment>
+      ) : (
+        <>
+          {/* TENANT FILTER */}
+          {logUser.usergroup==="Admin"? <Fragment>
+            <div className="container_align top_menu col-sm-12 responsiveDiv ">
+              {/* <div className="row pb-2 ml-2   "> */}
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter   ">
+                <div>
+                  <div className="btn_more text-center">
+                    <Link
+                      to="/tenant-report"
+                      className="top_box "
+                      onClick={() => oldExpCountFetch()}
+                    >
+                      {yearExpCnt && yearExpCnt.length > 0
+                        ? yearExpCnt.length
+                        : 0}
+                    </Link>
+                  </div>
+                  <div className="yearpicker ">
+                    <DatePicker
+                      className="form-control text-center  "
+                      placeholder="yyyy"
+                      onChange={(date) => monthYearChange(date)}
+                      dateFormat="yyyy"
+                      selected={startMonthDate}
+                      style={{ textAlign: "center" }}
+                      showYearPicker
+                    />
+                  </div>
+                </div>
+
+                {optName &&
+                  optName.map((optFiltr, idx) => {
+                    let countVal = 0;
+                    monthExpCnt.map((monthExpCntVal) => {
+                      if (
+                        Number(monthExpCntVal._id.month) ===
+                        Number(optFiltr.value)
+                      ) {
+                        countVal = monthExpCntVal.count;
+                      }
+                      return <></>;
+                    });
+                    return (
+                      <div
+                        className=" filter_bg  "
+                        key={idx}
+                        // style={{ border: "5px soild blue" }}
+                      >
+                        <div
+                          className="tenantfil  "
+                          style={{
+                            // fontWeight: "bold",
+                            color: "#fff",
+                            padding: "0px 0px 0px 5px",
+                          }}
+                        >
+                          {" "}
+                          <Link
+                            to="/tenant-report"
+                            name="alphaSearch"
+                            onClick={() => onSelectChange(optFiltr.value)}
+                            style={
+                              Number(monthSearch) === Number(optFiltr.value)
+                                ? {
+                                    fontWeight: "bold",
+                                    color: "#e8a317",
+                                    fontSize: "115%",
+                                  }
+                                : { fontWeight: "", fontSize: "115%" }
+                            }
+                          >
+                            {optFiltr.label}
+                          </Link>{" "}
+                          {/* &nbsp; */}
+                          <label
+                            className="btn-roun "
+                            style={
+                              countVal !== 0
+                                ? {
+                                    fontSize: "80%",
+                                    color: "#000",
+                                    background: "#fff",
+                                  }
+                                : {
+                                    fontSize: "80%",
+                                    color: "#429f8c",
+                                    background: "#fff",
+                                  }
+                            }
+                          >
+                            {countVal}
+                          </label>
+                        </div>
+                        <div> </div>
+                      </div>
+                    );
+                  })}
+              </div>
+              {/* </div> */}
+            </div>
+          </Fragment> : <></>}
+         
+        </>
+      )}
+    </>
   );
 };
 
-TenantFilters.propTypes = {
-  auth: PropTypes.object.isRequired,
-  getMonthExpCount: PropTypes.func.isRequired,
-  getMonthExpCountFilter: PropTypes.func.isRequired,
-  getPreviousYearsExpCount: PropTypes.func.isRequired,
-  getTenantReportYearMonth: PropTypes.func.isRequired,
-  getTenantReportOldExp: PropTypes.func.isRequired,
-};
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  tenants: state.tenants,
 });
 
 export default connect(mapStateToProps, {
   getMonthExpCount,
-  getMonthExpCountFilter,
+  // getMonthExpCountFilter,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
   getTenantReportOldExp,
+  getOrgExp,
+  ParticularTenant,
+  getOrgExpCount,
+  getOrganizationExpiryReport,
+  getPreviousYearsExpCountOfOrg,
 })(TenantFilters);

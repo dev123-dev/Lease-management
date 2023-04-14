@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { changePwd } from "../../actions/auth";
+import "../../styles/CustomisedStyle.css";
 
 const ChangePwd = ({
   auth: { isAuthenticated, user },
@@ -18,7 +19,6 @@ const ChangePwd = ({
     zIndex: "999",
     width: "300px",
   };
-
   const [formData, setFormData] = useState({
     password: "",
     rePassword: "",
@@ -178,12 +178,34 @@ const ChangePwd = ({
         <section className="sub_reg">
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-              <h2 className=" heading_color">Reset Password</h2>
+            <h1
+            
+            
+            style={{
+              color: "#095a4a",
+            position:"relative",
+            right:"80px"
+              
+            }}
+            className="font-weight-bold "
+          >
+            <span
+              className="  font-weight-bold  "
+            >
+              {" "}
+              Reset Password
+            </span>
+          </h1>
             </div>
 
-            <div className="row">
+            <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label className="label-control">Password *</label>
+                <label className="label-control ">
+                   New Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
                 <input
                   type="password"
                   name="password"
@@ -223,9 +245,14 @@ const ChangePwd = ({
               </div>
             </div>
 
-            <div className="row">
+            <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
-                <label className="label-control">Confirm Password *</label>
+                <label className="label-control">
+                  Confirm Password{" "}
+                  <i className="text-danger ">
+                    <b>*</b>
+                  </i>
+                </label>
                 <input
                   type="password"
                   name="rePassword"
@@ -247,21 +274,27 @@ const ChangePwd = ({
                 )}
               </div>
             </div>
-
-            <div className="col-md-12 col-lg-12 col-sm-12 col-12 text-left">
-              <input
-                type="submit"
-                name="Submit"
-                value="UPDATE"
-                className="btn sub_form reg_continue blackbrd"
-                id="updatePswd"
-              />
-              <Link
-                className="btn sub_form reg_continue blackbrd"
-                to="/tenant-report"
-              >
-                CANCEL
-              </Link>
+            <br></br>
+            <div className="row">
+              <div className="col-lg-4">
+                <input
+                  type="submit"
+                  name="Submit"
+                  value="UPDATE"
+                  id="buttonchanges"
+                />
+                &nbsp;
+                <Link to="/tenant-report">
+                  <input
+                    type="submit"
+                    name="Submit"
+                    value="CANCEL"
+                    id="buttonchanges1"
+                  />
+                </Link>
+              </div>
+              <div className="col-lg-4"></div>
+              <div className="col-lg-4"></div>
             </div>
           </form>
         </section>

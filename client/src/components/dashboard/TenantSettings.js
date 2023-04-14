@@ -1,8 +1,10 @@
 import React, { useState, Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { AddTenantSettingform } from "../../actions/tenants";
-import { UpdateTenantSettingform } from "../../actions/tenants";
+import {
+  UpdateTenantSettingform,
+  getParticularTenantSetting,
+} from "../../actions/tenants";
 
 import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
@@ -13,149 +15,228 @@ const TenantSettings = ({
   getAllSettings,
   onAddSettingModalChange,
 }) => {
-  useEffect(() => {
-    getAllSettings();
-  }, [getAllSettings]);
+  //console.log("data", allTenantSetting.leaseTimePeriod);
+  const myuser = JSON.parse(localStorage.getItem("user"));
+  console.log("tenant setting", myuser);
 
+  useEffect(() => {
+    if (myuser) {
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
+
+    // getParticularTenantSetting({
+    //   OrganizationId: user && user.OrganizationId,
+    // });
+  }, []);
   //formData
 
   const [formData, setFormData] = useState({
-    recordId: allTenantSetting[0] ? allTenantSetting[0]._id : "",
-    hikePercentage: allTenantSetting[0]
-      ? allTenantSetting[0].hikePercentage
-      : "",
-    stampDuty: allTenantSetting[0] ? allTenantSetting[0].stampDuty : "",
-    leaseTimePeriod: allTenantSetting[0]
-      ? allTenantSetting[0].leaseTimePeriod
-      : "",
+    hike: myuser.output.hike,
+    stampDuty: myuser.output && myuser.output.ltampDuty,
+    leaseTimePeriod: myuser.output && myuser.output.leaseTimePeriod,
   });
 
-  const { hikePercentage, stampDuty, leaseTimePeriod } = formData;
+  const [hike, setHike] = useState(
+    myuser.output && myuser.output.hike
+      ? myuser.output && myuser.output.hike
+      : ""
+  );
+  const [stampDuty, setStampDuty] = useState(
+    myuser.output && myuser.output.stampDuty
+      ? myuser.output && myuser.output.stampDuty
+      : ""
+  );
+  const [leaseTimePeriod, setLeaseTimePeriod] = useState(
+    myuser.output && myuser.output.leaseTimePeriod
+      ? myuser.output && myuser.output.leaseTimePeriod
+      : ""
+  );
 
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const {  stampDuty, leaseTimePeriod } = formData;
 
+  // const onInputChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
+  const [Error, SetError] = useState("");
   const onSubmit = () => {
-    const finalData = {
-      hikePercentage: hikePercentage,
-      stampDuty: stampDuty,
-      leaseTimePeriod: leaseTimePeriod,
-    };
-    AddTenantSettingform(finalData);
-    setFormData({ ...formData, isSubmitted: true });
-    getAllSettings();
+    if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
+      SetError(
+        "* Indicates mandatory fields, Please fill mandatory fields before Submit"
+      );
+    } else {
+      const finalData = {
+        OrganizationId: user.OrganizationId,
+        userId: user._id,
+        userName: user.username,
+        OrganizationName: user.OrganizationName,
+        hike: parseInt(hike),
+        StampDuty: parseInt(stampDuty),
+        LeaseTimePeriod: parseInt(leaseTimePeriod),
+      };
+      AddTenantSettingform(finalData);
+      onAddSettingModalChange(true);
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
   };
-
-  const onUpdate = (allTenantSetting) => {
-    const finalData = {
-      recordId: allTenantSetting ? allTenantSetting[0]._id : "",
-      hikePercentage: hikePercentage,
-      stampDuty: stampDuty,
-      leaseTimePeriod: leaseTimePeriod,
-    };
-
-    UpdateTenantSettingform(finalData);
-    onAddSettingModalChange(true);
-    getAllSettings();
+  let passwrdTooltip = {
+    marginLeft: "-16em",
+    position: "absolute",
+    marginTop: "1.5em",
+    pointerEvents: "none",
+    zIndex: "999",
+    width: "300px",
+  };
+  const onUpdate = () => {
+    if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
+      SetError(
+        "* Indicates mandatory fields, Please fill mandatory fields before Submit"
+      );
+    } else {
+      const finalData = {
+        OrganizationId: user.OrganizationId,
+        userId: user._id,
+        userName: user.username,
+        hike: hike,
+        stampDuty: stampDuty,
+        leaseTimePeriod: leaseTimePeriod,
+      };
+      UpdateTenantSettingform(finalData);
+      onAddSettingModalChange(true);
+      getAllSettings({
+        OrganizationId: myuser && myuser.OrganizationId,
+        userId: myuser && myuser._id,
+      });
+    }
   };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
     <Fragment>
-      <div className="row">
+      <div className="row ">
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
-          <div className="col-lg-4 col-md-2 col-sm-1 col-12">
-            <label> Hike Percentage * :</label>
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label> Hike %*:</label>
           </div>
 
-          <div className="col-lg-5  col-md-4 col-sm-4 col-12">
+          <div className="col-lg-5 col-md-4 col-sm-4  col-12 ">
             <input
+              placeholder="Hike Percentage"
               type="text"
-              name="hikePercentage"
+              name="hike"
               className="form-control"
-              value={hikePercentage}
-              onChange={(e) => onInputChange(e)}
+              value={hike}
+              onChange={(e) => setHike(e.target.value)}
               required
             />
+            <div
+              className="cstm-hint"
+              id="pass_admin_help"
+              style={{ top: "10px" }}
+            >
+              <img
+                src={require("../../static/images/help1.png")}
+                alt="help"
+                id="img_tool_admin"
+                className="pass_admin_help_icon_question"
+              />
+              <div
+                id="tooltipPassAdmin"
+                className="syle-hint"
+                style={passwrdTooltip}
+                data-hint="Only enter Number "
+              ></div>
+            </div>
           </div>
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Stamp Duty * :</label>
+            <label>Stamp Duty*:</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="stampDuty"
+              placeholder="Stamp Duty"
               className="form-control"
               value={stampDuty}
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => setStampDuty(e.target.value)}
               required
             />
+            <div
+              className="cstm-hint"
+              id="pass_admin_help"
+              style={{ top: "10px" }}
+            >
+              <img
+                src={require("../../static/images/help1.png")}
+                alt="help"
+                id="img_tool_admin"
+                className="pass_admin_help_icon_question"
+              />
+              <div
+                id="tooltipPassAdmin"
+                className="syle-hint"
+                style={passwrdTooltip}
+                data-hint=" Dont Enter fractional number (Eg:1.2),(2.2) "
+              ></div>
+            </div>
           </div>
         </div>
+
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Lease Time Period * :</label>
+            <label>Lease Time Period*:(in months)</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
               type="text"
               name="leaseTimePeriod"
+              placeholder="Time Period"
               className="form-control"
               value={leaseTimePeriod}
-              onChange={(e) => onInputChange(e)}
+              onChange={(e) => setLeaseTimePeriod(e.target.value)}
               required
             />
           </div>
         </div>
-        <div className="col-lg-12 Savebutton" size="lg">
-          {allTenantSetting && allTenantSetting.length === 0 ? (
+        <div className="col-lg-9 text-danger">
+          * Indicates mandatory fields, Please fill mandatory fields before
+          Submit
+        </div>
+        <div className="col-lg-12 col-sm-12 col-12 text-danger ">{Error}</div>
+        <div className="col-lg-12 col-sm-12 col-12 ">
+          {!myuser.OrganizationId ? (
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
+              id="TenantSettingBtn"
               onClick={() => onSubmit()}
-              style={
-                leaseTimePeriod !== "" &&
-                stampDuty !== "" &&
-                hikePercentage !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
             >
-              Save
+              <b>Save</b>
             </button>
           ) : (
             <button
               variant="success"
               className="btn sub_form btn_continue Save float-right"
-              onClick={() => onUpdate(allTenantSetting)}
-              style={
-                leaseTimePeriod !== "" &&
-                stampDuty !== "" &&
-                hikePercentage !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
-              }
+              id="TenantSettingBtn"
+              onClick={() => onUpdate()}
             >
-              Update
+              <b>Update</b>
             </button>
           )}
         </div>
       </div>
     </Fragment>
   );
-};
-
-TenantSettings.propTypes = {
-  getAllSettings: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  AddTenantSettingform: PropTypes.func.isRequired,
-  UpdateTenantSettingform: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -166,5 +247,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getAllSettings,
   AddTenantSettingform,
+  getParticularTenantSetting,
   UpdateTenantSettingform,
 })(TenantSettings);

@@ -3,8 +3,9 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 //const path = require('path');
 const app = express();
-const cronjob = require("../Lease-management/cronjob/index");
-
+// const cronjob = require("../Lease-management/cronjob/index");
+const cronjob = require("./cronjob");
+//server
 app.use(cors());
 // Connect Database
 connectDB();
@@ -16,6 +17,7 @@ app.use(express.json({ extended: false }));
 app.use("/api/users", require("./server/routes/api/user"));
 app.use("/api/auth", require("./server/routes/api/auth"));
 app.use("/api/tenants", require("./server/routes/api/tenants"));
+app.use("/api/tenantSetting", require("./server/routes/api/tenantSetting.api"));
 
 // Set static folder for client build Serve static assets in production
 //app.use(express.static('client/build'));

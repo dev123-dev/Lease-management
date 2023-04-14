@@ -11,8 +11,9 @@ import {
   YEAR_EXP_CNT,
   EXP_REPORT,
   GET_ALL_USER,
-  OTP_SENT,
+  // OTP_SENT,
   SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
   FINAL_DATA_REP,
 } from "../actions/types";
 
@@ -32,7 +33,7 @@ const initialState = {
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
-  otpMessage: "",
+  //otpMessage: "",
   finalDataRep: [],
 };
 
@@ -41,11 +42,14 @@ const auth = (state = initialState, action) => {
 
   switch (type) {
     case USER_LOADED:
+      localStorage.setItem("user", JSON.stringify(payload));
+
       return {
         ...state,
         isAuthenticated: true,
         loading: false,
         user: payload,
+        x: payload,
       };
     case LOGIN_SUCCESS:
       localStorage.setItem("token", payload.token);
@@ -58,18 +62,24 @@ const auth = (state = initialState, action) => {
       };
 
     case LOGIN_FAIL:
+      return {
+        ...state,
+
+        errorResponse: "Invalid Email or Password",
+      };
     case AUTH_ERROR:
     case LOGOUT:
-      localStorage.removeItem("token");
+       localStorage.removeItem("token");
+       localStorage.clear();
       return {
         ...state,
         user: null,
         token: null,
         isAuthenticated: false,
         loading: false,
-        errorResponse: payload,
+        errorResponse: payload, //"Invalid UserName or Password",
         successResponse: "",
-        otpMessage: "",
+        // otpMessage: "",
       };
 
     case ALL_USERS:
@@ -83,7 +93,7 @@ const auth = (state = initialState, action) => {
         ...state,
         errorResponse: "",
         successResponse: "",
-        otpMessage: "",
+        //otpMessage: "",
       };
 
     case CHANGE_PWD_FAIL:
@@ -135,18 +145,22 @@ const auth = (state = initialState, action) => {
         ...state,
         finalDataRep: payload,
       };
-    case OTP_SENT:
-      return {
-        ...state,
-        otpMessage: payload,
-        errorResponse: "",
-        loading: false,
-      };
+    // case OTP_SENT:
+    //   return {
+    //     ...state,
+    //     otpMessage: payload,
+    //     errorResponse: "",
+    //     loading: false,
+    //   };
     case SET_LOADING_TRUE:
       return {
         ...state,
         loading: true,
-        otpMessage: "",
+      };
+    case SET_LOADING_FALSE:
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 
@@ -11,20 +10,27 @@ const RenewTenentAgreement = ({
   getAllSettings,
   onReportModalChange,
 }) => {
-  const [error, setError] = useState({
-    nextBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-    selBtnStyle: { opacity: "0.5", pointerEvents: "none" },
-  });
-  useEffect(() => {
-    getAllSettings();
-  }, [getAllSettings]);
+  const myuser = JSON.parse(localStorage.getItem("user"));
 
-  const { nextBtnStyle } = error;
+  const [door, SetDoornumber] = useState([]);
+  useEffect(() => {
+    getAllSettings({
+      OrganizationId: myuser && myuser.OrganizationId,
+      userId: myuser && myuser._id,
+    });
+    const doornumber =
+      tenantsData &&
+      tenantsData.tenantDoorNo &&
+      tenantsData.tenantDoorNo.map((ele) => {
+        return ele.label;
+      });
+    SetDoornumber(doornumber);
+  }, [getAllSettings]);
 
   //formData
   const [formData, setFormData] = useState({
     isSubmitted: false,
-    tenantDoorNo: tenantsData.tenantDoorNo,
+    tenantDoorNo: door,
     tenantFileNo: tenantsData.tenantFileNo,
     tenantRentAmount: tenantsData.chargesCal,
   });
@@ -56,26 +62,27 @@ const RenewTenentAgreement = ({
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const [showEditModal, setShowEditModal] = useState(false);
 
   const onSubmit = () => {
     const finalData = {
       tenantRentAmount: tenantRentAmount,
       tenantFileNo: tenantFileNo,
-      tenantDoorNo: tenantDoorNo,
+      // tenantDoorNo: door,
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
-      AgreementStatus: "Active",
+      OrganizationId : tenantsData.OrganizationId,
+      BuildingName : tenantsData.BuildingName,
+      BuildingId : tenantsData.BuildingId,
       agreementId: tenantsData.agreementId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
-
       monthSearch: finalDataRep.monthSearch,
       yearSearch: finalDataRep.yearSearch,
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
+    // console.log(finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
@@ -88,7 +95,7 @@ const RenewTenentAgreement = ({
     var newDate = e.target.value;
     var calDate = new Date(newDate);
 
-    var leaseMonth = allTenantSetting[0].leaseTimePeriod;
+    var leaseMonth = myuser.output.leaseTimePeriod;
 
     //Calculating lease end date
     var dateData = calDate.getDate();
@@ -111,7 +118,7 @@ const RenewTenentAgreement = ({
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
   };
-
+console.log("this is it",tenantsData)
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -125,13 +132,15 @@ const RenewTenentAgreement = ({
             <label>Name:</label>
           </div>
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{tenantsData.tenantName}</label>
+            <label>
+              <b>{tenantsData.tenantName}</b>
+            </label>
           </div>
         </div>
 
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Door No:</label>
+            <label>Building Name:</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
@@ -139,11 +148,11 @@ const RenewTenentAgreement = ({
               type="text"
               name="tenantDoorNo"
               className="form-control"
-              value={tenantDoorNo}
+              value={tenantsData.BuildingName}
               onChange={(e) => onInputChange(e)}
-              required
+              readOnly
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -160,9 +169,9 @@ const RenewTenentAgreement = ({
               className="form-control"
               value={tenantFileNo}
               onChange={(e) => onInputChange(e)}
-              required
+              readOnly
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -179,9 +188,9 @@ const RenewTenentAgreement = ({
               className="form-control"
               value={tenantRentAmount}
               onChange={(e) => onInputChange(e)}
-              required
+              readOnly
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -194,15 +203,13 @@ const RenewTenentAgreement = ({
           <div className="col-lg-6 col-md-4 col-sm-4 col-12">
             <input
               type="date"
+              required
               placeholder="dd/mm/yyyy"
-              //   min={yesterdayDt}
-              //   max={today2}
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
-              // value={tenants.tenantLeaseEndDate}
               onChange={(e) => onDateChangeEntry(e)}
               style={{
-                width: "70%",
+                width: "100%",
               }}
             />
           </div>
@@ -220,7 +227,8 @@ const RenewTenentAgreement = ({
           <div className="col-lg-12 Savebutton" size="lg">
             <button
               variant="success"
-              className="btn sub_form btn_continue Save float-right"
+              className="btn sub_form float-right"
+              id="savebtn"
               onClick={() => onSubmit()}
               style={
                 leaseEndDate !== ""
@@ -235,13 +243,6 @@ const RenewTenentAgreement = ({
       </section>
     </Fragment>
   );
-};
-
-RenewTenentAgreement.propTypes = {
-  auth: PropTypes.object.isRequired,
-  tenants: PropTypes.object.isRequired,
-  RenewTenantDetailsform: PropTypes.func.isRequired,
-  getAllSettings: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
