@@ -330,7 +330,7 @@ footer.footer .top_top {
   margin-right: 0px;
   margin-left: 0px;
 }
-*/ .row {
+.row {
   display: flex;
   flex-wrap: wrap;
   margin-right: 0px;
