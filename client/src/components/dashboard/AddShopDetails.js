@@ -379,6 +379,22 @@ const AddShopDetails = ({
                       <br></br>
                     </div>
                   </div>
+                  <div className="col-lg-6">
+                <label>Address*:</label>
+
+                <textarea
+                  name="shopAddress"
+                  value={shopAddress}
+                  id=" addprop "
+                  className="textarea form-control"
+                  rows="3"
+                  placeholder="Address"
+                  onChange={(e) => onPropertychange(e)}
+                  style={{ width: "100%" }}
+                  required
+                ></textarea>
+                <br></br>
+              </div>
                 </>
               )}
               {/* <div className="col-lg-6">

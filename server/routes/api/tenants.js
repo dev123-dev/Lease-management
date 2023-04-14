@@ -1218,7 +1218,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
   const { selectedVal, OrganizationId } = req.body;
-
+console.log("body",req.body)
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
 
@@ -1263,7 +1263,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
   var yearMonth = yearSearch + "-" + monthVal;
 
   try {
-    const tenantSettingsData = await TenantSettings.find({});
+    const tenantSettingsData = await OrganizationDetails.find({_id:OrganizationId});
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -1418,7 +1418,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
   const { yearSearch, OrganizationId } = req.body;
   var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
   try {
-    const tenantSettingsData = await TenantSettings.find({});
+    const tenantSettingsData = await OrganizationDetails.find({_id:OrganizationId});
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
