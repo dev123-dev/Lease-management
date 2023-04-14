@@ -14,7 +14,7 @@ const Profile = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-  console.log("hai", myuser);
+  // console.log("hai", myuser);
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&
@@ -143,8 +143,8 @@ const Profile = ({
       OrganizationName: myuser.output.OrganizationName,
       OrganizationId: myuser.output._id,
     };
-    console.log("myuser", myuser);
-    console.log("done", updateUSER);
+    // console.log("myuser", myuser);
+    // console.log("done", updateUSER);
     // UpdateUser(updateUSER);
     // getalluser();
     //  get_particular_org_user({ orgid: user.OrganizationId });

@@ -199,7 +199,6 @@ const AddAdminUserModal = ({
 
     return true;
   };
- 
 
   const onsubmitUserData = (e) => {
     e.preventDefault();
@@ -214,7 +213,7 @@ const AddAdminUserModal = ({
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
       };
-      console.log(finalUserData);
+      // console.log(finalUserData);
 
       AddAdminuser(finalUserData);
       setShowadd(false);
@@ -294,7 +293,6 @@ const AddAdminUserModal = ({
                   onChange={(e) => onuserchange(e)}
                   required
                 />
-               
                 <br></br>
               </div>
 

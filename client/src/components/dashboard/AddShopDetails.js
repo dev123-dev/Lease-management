@@ -109,7 +109,10 @@ const AddShopDetails = ({
       let new_door = items.map((ele) => ele.doorNo === inputdata);
       if (new_door.every((ele) => ele === false)) {
         setshowscroll("block");
-        setitem([...items, { doorNo: inputdata, status: "Avaiable","buildingName" : buildingName }]);
+        setitem([
+          ...items,
+          { doorNo: inputdata, status: "Avaiable", buildingName: buildingName },
+        ]);
         setinput("");
         setLocError("black");
       } else {
@@ -168,7 +171,7 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Active",
       };
-      console.log(finalData)
+      // console.log(finalData)
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,
@@ -380,21 +383,21 @@ const AddShopDetails = ({
                     </div>
                   </div>
                   <div className="col-lg-6">
-                <label>Address*:</label>
+                    <label>Address*:</label>
 
-                <textarea
-                  name="shopAddress"
-                  value={shopAddress}
-                  id=" addprop "
-                  className="textarea form-control"
-                  rows="3"
-                  placeholder="Address"
-                  onChange={(e) => onPropertychange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                <br></br>
-              </div>
+                    <textarea
+                      name="shopAddress"
+                      value={shopAddress}
+                      id=" addprop "
+                      className="textarea form-control"
+                      rows="3"
+                      placeholder="Address"
+                      onChange={(e) => onPropertychange(e)}
+                      style={{ width: "100%" }}
+                      required
+                    ></textarea>
+                    <br></br>
+                  </div>
                 </>
               )}
               {/* <div className="col-lg-6">

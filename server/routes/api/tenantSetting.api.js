@@ -39,7 +39,7 @@ router.post("/update-tenant-settings", async (req, res) => {
           leaseTimePeriod: data.leaseTimePeriod,
         },
       }
-    ).then((data) => console.log(data));
+    ).then(data);
 
     res.json(updateagreementdetails);
   } catch (error) {
