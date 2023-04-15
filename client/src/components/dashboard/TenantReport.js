@@ -210,7 +210,7 @@ const TenantReport = ({
             </div>
 
             <div className="row" ref={componentRef}>
-              <div className="col-lg-1"></div>
+              <div className="col-lg-1  col-sm-12 col-md-12"></div>
               <div
                 // ref={componentRef}
                 className="body-inner no-padding table-responsive  col-lg-10"
@@ -312,7 +312,7 @@ const TenantReport = ({
               centered
             >
               <Modal.Header className="confirmbox-heading">
-                <div className="col-lg-10">
+                <div className="col-lg-10  col-sm-12 col-md-12">
                   <h3
                     style={{
                       color: "white",
@@ -321,7 +321,7 @@ const TenantReport = ({
                     Renewal Agreement
                   </h3>
                 </div>
-                <div className="col-lg-2">
+                <div className="col-lg-2  col-sm-12 col-md-12">
                   <button onClick={handleEditModalClose} className="close">
                     <img
                       src={require("../../static/images/close.png")}

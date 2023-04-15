@@ -87,7 +87,7 @@ const MainSuperPage = ({
       <div className="container-fluid d-flex align-items-center justify-content-center ">
         <div className="col">
           <div className="row ">
-            <div className="col-lg-1"></div>
+            <div className="col-lg-1  col-sm-12 col-md-12"></div>
 
             <div className="body-inner no-padding table-responsive">
               <table
@@ -153,10 +153,10 @@ const MainSuperPage = ({
                 </tbody>
               </table>
             </div>
-            <div className="col-lg-1"></div>
+            <div className="col-lg-1  col-sm-12 col-md-12"></div>
           </div>
           <div className="row ">
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               {allorg && allorg.length !== 0 ? (
                 <Pagination
                   dataPerPage={dataPerPage}
@@ -169,7 +169,7 @@ const MainSuperPage = ({
               )}
             </div>
 
-            <div className="col-lg-6  ">
+            <div className="col-lg-6  col-sm-12 col-md-12  ">
               <p className="text-end h6">
                 {" "}
                 No. of Organization : {totallorg.length}
@@ -190,7 +190,7 @@ const MainSuperPage = ({
       centered
     >
       <Modal.Header className="confirmbox-heading">
-        <div className="col-lg-10">
+        <div className="col-lg-10  col-sm-12 col-md-12">
           <h4
             style={{
               color: "white",
@@ -199,7 +199,7 @@ const MainSuperPage = ({
             Renewal Agreement
           </h4>
         </div>
-        <div className="col-lg-2">
+        <div className="col-lg-2  col-sm-12 col-md-12">
           <button onClick={handleEditModalClose} className="close">
             <img
               src={require("../../static/images/close.png")}

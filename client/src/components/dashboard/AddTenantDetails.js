@@ -521,7 +521,7 @@ const AddTenantDetails = ({
                 <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px" }}
+                  style={{ top: "30px",cursor:"pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}
@@ -554,7 +554,7 @@ const AddTenantDetails = ({
                 <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px" }}
+                  style={{ top: "30px",cursor:"pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}
@@ -586,7 +586,7 @@ const AddTenantDetails = ({
                 <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px" }}
+                  style={{ top: "30px",cursor:"pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}

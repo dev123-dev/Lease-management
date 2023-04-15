@@ -79,7 +79,7 @@ const TenantReport = ({
             </div>
 
             <div className="row table1">
-              <div className="col-lg-1"></div>
+              <div className="col-lg-1  col-sm-12 col-md-12"></div>
               <div className="body-inner no-padding table-responsive fixTableHead ml-4">
                 <table
                   className="table table-bordered table-striped table-hover table1 mt-5 "

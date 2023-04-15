@@ -208,7 +208,7 @@ const TenantSettings = ({
             />
           </div>
         </div>
-        <div className="col-lg-9 text-danger">
+        <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
           * Indicates mandatory fields, Please fill mandatory fields before
           Submit
         </div>

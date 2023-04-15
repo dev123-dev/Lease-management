@@ -184,7 +184,7 @@ const LocationReport = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(7);
+  const [dataPerPage] = useState(6);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -280,8 +280,8 @@ const LocationReport = ({
                       </tr>
                     </thead>
                     <tbody className="text-center">
-                      {particular_org_data &&
-                        particular_org_data.map((Val, idx) => {
+                      {currentDatas &&
+                        currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">

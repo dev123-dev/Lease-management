@@ -182,19 +182,17 @@ const ChangePwd = ({
             
             
             style={{
-              color: "#095a4a",
+              color: "black",
             position:"relative",
             right:"80px"
               
             }}
-            className="font-weight-bold "
+           
           >
-            <span
-              className="  font-weight-bold  "
-            >
+           
               {" "}
               Reset Password
-            </span>
+            
           </h1>
             </div>
 
