@@ -186,7 +186,7 @@ const Tenant_Details = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(6);
+  const [dataPerPage] = useState(8);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -194,7 +194,7 @@ const Tenant_Details = ({
     get_particular_org_tenant &&
     get_particular_org_tenant.slice(indexOfFirstData, indexOfLastData);
   const paginate = (nmbr) => {
-  //nmbr is page  number
+    //nmbr is page  number
     setCurrentData(nmbr);
   };
   const refresh = () => {

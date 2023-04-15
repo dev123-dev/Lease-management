@@ -99,7 +99,7 @@ const AddOrgDashBoard = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(2);
+  const [dataPerPage] = useState(8);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -117,16 +117,14 @@ const AddOrgDashBoard = ({
           <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
             <h2
               style={{
-                position:"relative",
-                top:"50px",
+                position: "relative",
+                top: "50px",
               }}
               className=" headsize ml-3 heading_color"
             >
               Organization Details
             </h2>
           </div>
-
-       
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col">
