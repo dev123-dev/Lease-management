@@ -62,6 +62,7 @@ const MainAdminPage = ({
   //     label: ele.shopStatus,
   //   })
   // );
+
   particular_org_data &&
     particular_org_data.map((ele) => {
       ele.shopDoorNo &&
@@ -192,14 +193,17 @@ const MainAdminPage = ({
                     >
                       <b className="h4">
                         Unoccupied Properties <br></br>
-                        {tenantCount.length}
+                        {ShopStatus.length}
                       </b>
                     </p>
                   </center>
                 </p>
               </div>
             </div>
-            <div className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 text-center pt-5" id="shadow-bck">
+            <div
+              className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 text-center pt-5"
+              id="shadow-bck"
+            >
               <div className="text-center">
                 <img
                   className="img_icon_sizeDashboard  "
@@ -216,7 +220,7 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                       Renewable Properties <br></br>
+                        Renewable Properties <br></br>
                         {TotalRenewalCount}
                       </b>
                     </p>

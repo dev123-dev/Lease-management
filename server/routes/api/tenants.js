@@ -1803,9 +1803,10 @@ router.post("/update-tenant-details", async (req, res) => {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     let data = req.body;
-
-    // console.log(data);
-    if (data.tenantLeaseEndDate < todayDateymd) {
+    // console.log(data.tenantLeaseEndDate);
+    //  console.log("", todayDateymd);
+    if (console.log(data.tenantLeaseEndDate < todayDateymd)) {
+      //console.log(":hit update");
       const updatetenantdetails = await TenantDetails.updateOne(
         { _id: data.recordId },
         {
@@ -1834,13 +1835,13 @@ router.post("/update-tenant-details", async (req, res) => {
           },
         }
       );
-
+      //console.log(":hit aq");
       data.tenantDoorNo.map((eleDoor) => {
         property
           .updateOne(
             {
               OrganizationId: data.OrganizationId,
-              _id: data.BuildingName.buildingId,
+              _id: data.BuildingId,
               shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
             },
             {
@@ -1849,15 +1850,15 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then(data);
+          .then((data) => console.log("data 1", data));
       });
-
+      // console.log(":hit unavai");
       data.unseletedDoorno.map((eleDoor) => {
         property
           .updateOne(
             {
               OrganizationId: data.OrganizationId,
-              _id: data.BuildingName.buildingId,
+              _id: data.BuildingId,
               shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
             },
             {
@@ -1866,7 +1867,7 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then(data);
+          .then((data) => console.log("data 2", data));
       });
       res.json(updatetenantdetails);
 
@@ -1910,13 +1911,13 @@ router.post("/update-tenant-details", async (req, res) => {
           },
         }
       );
-
+      // console.log("x", data);
       data.tenantDoorNo.map((eleDoor) => {
         property
           .updateOne(
             {
               OrganizationId: data.OrganizationId,
-              _id: data.BuildingName.buildingId,
+              _id: data.BuildingId,
               shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
             },
             {
@@ -1925,7 +1926,7 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then(data);
+          .then((data) => console.log("Aqu", data));
       });
 
       data.unseletedDoorno.map((eleDoor) => {
@@ -1933,7 +1934,7 @@ router.post("/update-tenant-details", async (req, res) => {
           .updateOne(
             {
               OrganizationId: data.OrganizationId,
-              _id: data.BuildingName.buildingId,
+              _id: data.BuildingId,
               shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
             },
             {
