@@ -252,7 +252,6 @@ const EditTenantDetails = ({
       });
     }
   };
-  //console.log("f no", particular_tenant_EditData)
   const [formData, setFormData] = useState({
     isSubmitted: false,
     BuildingName: particular_tenant_EditData.BuildingName,
@@ -378,6 +377,7 @@ const EditTenantDetails = ({
       OrganizationId: user && user.OrganizationId,
       OrganizationName: user && user.OrganizationName,
       BuildingName: buildingName,
+      BuildingId: particular_tenant_EditData.BuildingId,
       tenantDoorNo: selectedDno, //doorno,
       tenantFileNo: tenantFileNo,
       tenantRentAmount: tenantRentAmount,
@@ -399,7 +399,7 @@ const EditTenantDetails = ({
       tenantDate: todayDateymd,
       unseletedDoorno: unselectedDno,
     };
-    // console.log(finalData);
+    //console.log(finalData);
     UpdateTenantsDetails(finalData);
     histroy.push("/tenant-detail");
     // const historyData = {
@@ -551,10 +551,10 @@ const EditTenantDetails = ({
                     e.preventDefault()
                   }
                 />
-                  <div
+                <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px",cursor:"pointer" }}
+                  style={{ top: "30px", cursor: "pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}
@@ -584,10 +584,10 @@ const EditTenantDetails = ({
                     e.preventDefault()
                   }
                 />{" "}
-                      <div
+                <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px",cursor:"pointer" }}
+                  style={{ top: "30px", cursor: "pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}
@@ -619,10 +619,10 @@ const EditTenantDetails = ({
                   }
                   required
                 />
-                 <div
+                <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px",cursor:"pointer" }}
+                  style={{ top: "30px", cursor: "pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}

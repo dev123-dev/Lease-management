@@ -190,8 +190,8 @@ const BuildingReport = ({
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentDatas =
-  get_property_related_tenant &&
-  get_property_related_tenant.slice(indexOfFirstData, indexOfLastData);
+    get_property_related_tenant &&
+    get_property_related_tenant.slice(indexOfFirstData, indexOfLastData);
 
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
@@ -272,7 +272,7 @@ const BuildingReport = ({
                         <th> Unccupied Door No</th>
                         <th> Occupied Door No</th>
                         <th>Monthly Rent Amount</th>
-                        <th>Deposite Amount</th>
+                        <th>Deposit Amount</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -359,8 +359,6 @@ const BuildingReport = ({
           </div>
         </div>
       </div>
-
-    
     </>
   );
 };

@@ -111,7 +111,7 @@ const Header = ({
               <NavLink to="/AdminProfile">
                 <div className=" logostyle">
                   <img
-                    className="log_size log"
+                    className="log_size1 log"
                     alt="Pinnacle Media"
                     src={myuser.output.Logo}
                     title="Dashboard"
