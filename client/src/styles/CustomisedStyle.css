@@ -2103,8 +2103,9 @@ input[type="number"]::-webkit-outer-spin-button {
 #signin {
   background-color: #095a4a;
   color: white;
-  border-radius: 0%;
-  width: 30%;
+  border-radius:5%;
+  width: 40%;
+  
 }
 #signin:hover {
   background-color: #080808;
