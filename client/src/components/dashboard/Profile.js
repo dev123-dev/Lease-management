@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import Select from "react-select";
 import { useState } from "react";
 import { get_particular_org_user } from "../../actions/tenants";
+import { UpdateUser } from "../../actions/tenants";
+
 const Profile = ({
   auth: { isAuthenticated, user, users },
   tenants: { allorg, get_particularOrg_user },
@@ -14,7 +16,7 @@ const Profile = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-  // console.log("hai", myuser);
+  console.log("hai", myuser);
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&
@@ -82,11 +84,11 @@ const Profile = ({
 
   const [userData, setuserData] = useState({
     userid: myuser._id,
-    username: myuser.username,
-    useremail: myuser.useremail,
-    usergroup: myuser.usergroup,
-    useraddress: myuser.useraddress,
-    userphone: myuser.userphone,
+    username: user && user.username,
+    useremail: user && user.useremail,
+    usergroup: user && user.usergroup,
+    useraddress: user && user.useraddress,
+    userphone: user && user.userphone,
     OrganizationName: myuser.output.OrganizationName
       ? myuser.output.OrganizationName
       : "Pinnacle Media",
@@ -144,8 +146,8 @@ const Profile = ({
       OrganizationId: myuser.output._id,
     };
     // console.log("myuser", myuser);
-    // console.log("done", updateUSER);
-    // UpdateUser(updateUSER);
+    console.log("done", updateUSER);
+    UpdateUser(updateUSER);
     // getalluser();
     //  get_particular_org_user({ orgid: user.OrganizationId });
     handleClose(true);
@@ -478,4 +480,7 @@ const mapStateToProps = (state) => ({
   tenants: state.tenants,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { get_particular_org_user })(Profile); // to connect to particular function which is getalluser
+export default connect(mapStateToProps, {
+  get_particular_org_user,
+  UpdateUser,
+})(Profile); // to connect to particular function which is getalluser
