@@ -24,7 +24,7 @@ const OrganizationDetails = require("../server/models/OrganizationDetails");
 // });
 
 async function updateExpiryStatus() {
-  console.log("Running Cron Job");
+  // console.log("Running Cron Job");
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -84,7 +84,7 @@ async function updateExpiryStatus() {
       }
     );
 
-    console.log("Status updated as Expired");
+    // console.log("Status updated as Expired");
   } catch (error) {
     console.error("Error Here", error);
     //res.status(500).send("Internal Server Error.");
