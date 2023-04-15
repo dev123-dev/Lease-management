@@ -160,7 +160,7 @@ const Header = ({
                       textDecoration: "none",
                     }}
                   >
-                    DashBoard
+                    Dashboard
                   </NavLink>
                 ) : (
                   <></>
@@ -204,7 +204,7 @@ const Header = ({
                       textDecoration: "none",
                     }}
                   >
-                    OrganizationDetails
+                    Organization Details
                   </NavLink>
                 ) : (
                   <></>
@@ -227,7 +227,7 @@ const Header = ({
                       textDecoration: "none",
                     }}
                   >
-                    UserDetails
+                    User Details
                   </NavLink>
                 ) : (
                   <></>
@@ -249,7 +249,7 @@ const Header = ({
                       textDecoration: "none",
                     }}
                   >
-                    DashBoard
+                    Dashboard
                   </NavLink>
                 ) : (
                   <></>
