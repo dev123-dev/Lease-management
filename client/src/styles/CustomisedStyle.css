@@ -1956,21 +1956,22 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+
 @media (min-width: 551px) {
   .responsiveDiv {
     overflow-y: auto;
     background-color: #095a4a;
-    /* background-color: #18d4ca; */
+    
 
     position: absolute;
     right: 8px;
-    /* left: 8px; */
+   
   }
 }
 @media (max-width: 550px) {
   .responsiveDiv {
     overflow-y: auto;
-    /* background-color: #095a4a; */
+    /* background-color: #57095a; */
     background-color: #095a4a;
     position: absolute;
     /* right: 8px;
@@ -1992,7 +1993,7 @@ input[type="number"]::-webkit-outer-spin-button {
   /*small screen*/
   .responsiveDiv {
     /* width: 100%; */
-/* background-color: red; */
+/* background-color: rgb(55, 0, 255); */
     padding-top: 5%;
   }
   ::-webkit-scrollbar-track {
@@ -2460,14 +2461,14 @@ div {
   .line {
     width: 220px;
   }
+
   .card1{
     right:10px;
     height:180px;
 
   }
   .card2{
-    margin-left: -20px;
-    height:230px;
+    right:15px;
    
 
   }

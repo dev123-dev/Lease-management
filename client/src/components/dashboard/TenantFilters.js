@@ -285,11 +285,11 @@ const TenantFilters = ({
           {/* TENANT FILTER */}
           {logUser.usergroup === "Admin" ? (
             <Fragment>
-              <div className="container_align top_menu col-sm-12 responsiveDiv ">
+              <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 " >
                 {/* <div className="row pb-2 ml-2   "> */}
-                <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter   ">
-                  <div>
-                    <div className="btn_more text-center">
+                <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter    ">
+                  <div >
+                    <div className="btn_more text-center ">
                       <Link
                         to="/tenant-report"
                         className="top_box "
@@ -300,7 +300,7 @@ const TenantFilters = ({
                           : 0}
                       </Link>
                     </div>
-                    <div className="yearpicker ">
+                    <div className="yearpicker  ">
                       <DatePicker
                         className="form-control text-center  "
                         placeholder="yyyy"
@@ -327,7 +327,7 @@ const TenantFilters = ({
                       });
                       return (
                         <div
-                          className=" filter_bg  "
+                          className=" filter_bg "
                           key={idx}
                           // style={{ border: "5px soild blue" }}
                         >
@@ -358,7 +358,7 @@ const TenantFilters = ({
                             </Link>{" "}
                             {/* &nbsp; */}
                             <label
-                              className="btn-roun "
+                              className="btn-roun  "
                               style={
                                 countVal !== 0
                                   ? {
