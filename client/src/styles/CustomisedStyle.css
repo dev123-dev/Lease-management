@@ -299,6 +299,15 @@ footer.footer .top_top {
   margin-left:10px;
   overflow: hidden;
 }
+.log_size1 {
+  width: 110px;
+  height: 56px;
+  /* margin-right: 70px; */
+  margin-top: -5px;
+  margin-left:6px;
+  overflow: hidden;
+}
+
 
 #pass_admin_help div#tooltipPassAdmin {
   display: none;
