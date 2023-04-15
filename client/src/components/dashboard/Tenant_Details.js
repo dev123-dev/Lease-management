@@ -186,7 +186,7 @@ const Tenant_Details = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState();
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -471,7 +471,7 @@ const Tenant_Details = ({
                 </h3>
               </div>
             </div>
-            <div className="col-lg-2 bg-danger">
+            <div className="col-lg-2 ">
               <button onClick={handleClose} className="close">
                 <img
                   src={require("../../static/images/close.png")}

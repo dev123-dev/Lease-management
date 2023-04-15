@@ -36,7 +36,7 @@ const BuildingReport = ({
       return ele._id;
     });
 
-  console.log("get_property_related_tenant", get_property_related_tenant);
+  // console.log("get_property_related_tenant", get_property_related_tenant);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
     fun();
@@ -204,7 +204,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
-  console.log(get_property_related_tenant);
+  // console.log(get_property_related_tenant);
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>

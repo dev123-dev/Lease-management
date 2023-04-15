@@ -92,7 +92,7 @@ router.post("/add-tenant-details", async (req, res) => {
           )
           .then(data);
       });
-console.log(data)
+      // console.log(data);
       const finalData1 = {
         tdId: tenantdata._id,
         OrganizationName: data.OrganizationName,
@@ -111,7 +111,7 @@ console.log(data)
       };
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
-      let TenantAgreement = new  TenantAgreementHistory(finalData1);
+      let TenantAgreement = new TenantAgreementHistory(finalData1);
       output1 = await TenantAgreement.save();
 
       //adding new data end----------------------------------------------------------------------------
@@ -164,7 +164,7 @@ console.log(data)
       };
       let tenantHistories = new TenentHistories(finalData2);
       output2 = await tenantHistories.save();
-     
+
       tenantdata.shopDoorNo.map((eleDoor) => {
         property
           .updateOne(
@@ -181,7 +181,7 @@ console.log(data)
           )
           .then(data);
       });
-      console.log(data)
+      // console.log(data);
 
       const finalData1 = {
         tdId: tenantdata._id,
@@ -201,7 +201,7 @@ console.log(data)
       };
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
-      let TenantAgreement = new  TenantAgreementHistory(finalData1);
+      let TenantAgreement = new TenantAgreementHistory(finalData1);
       output1 = await TenantAgreement.save();
     }
   } catch (err) {
@@ -213,7 +213,7 @@ console.log(data)
 //add organization try
 router.post("/add-Organization", async (req, res) => {
   let data = req.body;
-  console.log(data);
+  // console.log(data);
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -932,7 +932,7 @@ router.post("/deactive-tenant", async (req, res) => {
       });
     } //if(console.log(data.Dno.length === 0))
     else {
-      console.log("door No");
+      // console.log("door No");
 
       // data.Dno.map((ele) => {
       TenantDetails.updateOne(
@@ -1218,7 +1218,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
   const { selectedVal, OrganizationId } = req.body;
-console.log("body",req.body)
+  // console.log("body okey x", req.body);
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
 
@@ -1255,7 +1255,9 @@ console.log("body",req.body)
 });
 
 router.post("/get-tenant-exp-report", async (req, res) => {
+  // console.log("problem");
   const { monthSearch, yearSearch, OrganizationId } = req.body;
+  // console.log("this is it", req.body);
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;
@@ -1263,7 +1265,10 @@ router.post("/get-tenant-exp-report", async (req, res) => {
   var yearMonth = yearSearch + "-" + monthVal;
 
   try {
-    const tenantSettingsData = await OrganizationDetails.find({_id:OrganizationId});
+    const tenantSettingsData = await OrganizationDetails.find({
+      _id: mongoose.Types.ObjectId(OrganizationId),
+    });
+    // console.log("tenantSettingsData", tenantSettingsData);
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -1418,7 +1423,9 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
   const { yearSearch, OrganizationId } = req.body;
   var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
   try {
-    const tenantSettingsData = await OrganizationDetails.find({_id:OrganizationId});
+    const tenantSettingsData = await OrganizationDetails.find({
+      _id: OrganizationId,
+    });
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -1443,7 +1450,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           Location: "$Location",
           tenantDoorNo: "$shopDoorNo",
           BuildingName: "$BuildingName",
-          BuildingId : "$BuildingId",
+          BuildingId: "$BuildingId",
           chargesCal: {
             $add: [
               {
@@ -1694,7 +1701,7 @@ router.post("/renew-tenant-details", async (req, res) => {
   if (mm < 10) mm = "0" + mm;
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
-  
+
   if (data.tenantLeaseEndDate < todayDateymd) {
     try {
       const TenantAgreementHistorydata = {
@@ -1702,18 +1709,18 @@ router.post("/renew-tenant-details", async (req, res) => {
         tenantLeaseStartDate: data.tenantLeaseStartDate,
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tdId: data.tdId,
-        AgreementStatus : "Expired",
-        OrganizationId : data.OrganizationId,
-        BuildingName : data.BuildingName,
-        BuildingId : data.BuildingId,
+        AgreementStatus: "Expired",
+        OrganizationId: data.OrganizationId,
+        BuildingName: data.BuildingName,
+        BuildingId: data.BuildingId,
         agreementId: data.agreementId,
         tenantEnteredBy: data.tenantEnteredBy,
         tenantDate: data.tenantDate,
-       
-      } 
-      let aggdata = await new TenantAgreementHistory(TenantAgreementHistorydata)
+      };
+      let aggdata = await new TenantAgreementHistory(
+        TenantAgreementHistorydata
+      );
       aggdata.save();
-      
       await TenantDetails.updateOne(
         { _id: data.tdId },
         {
@@ -1746,18 +1753,18 @@ router.post("/renew-tenant-details", async (req, res) => {
         tenantLeaseStartDate: data.tenantLeaseStartDate,
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tdId: data.tdId,
-        AgreementStatus : "Renewed",
-        OrganizationId : data.OrganizationId,
-        BuildingName : data.BuildingName,
-        BuildingId : data.BuildingId,
+        AgreementStatus: "Renewed",
+        OrganizationId: data.OrganizationId,
+        BuildingName: data.BuildingName,
+        BuildingId: data.BuildingId,
         agreementId: data.agreementId,
         tenantEnteredBy: data.tenantEnteredBy,
         tenantDate: data.tenantDate,
-       
-      } 
-      let aggdata = await new TenantAgreementHistory(TenantAgreementHistorydata)
+      };
+      let aggdata = await new TenantAgreementHistory(
+        TenantAgreementHistorydata
+      );
       aggdata.save();
-      
       await TenantDetails.updateOne(
         { _id: data.tdId },
         {

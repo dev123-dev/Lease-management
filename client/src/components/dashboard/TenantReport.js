@@ -20,6 +20,7 @@ const TenantReport = ({
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
 
     let total = expReport.reduce((acc, obj) => acc + obj.chargesCal, 0);
+
     localStorage.setItem("total", total);
   }, []);
 
@@ -48,7 +49,7 @@ const TenantReport = ({
 
   const onRenewal = (tenants) => {
     //setId(id);
-    console.log("x",tenants)
+    // console.log("x", tenants);
     setShowEditModal(true);
     setUserData(tenants);
   };
@@ -256,7 +257,7 @@ const TenantReport = ({
                               </td> */}
                             <td>{Val.tenantFileNo}</td>
                             <td>{Val.Location}</td>
-                            <td>{Val.stampDuty}</td>
+                            <td>{Number(Val.stampDuty).toFixed(2)}</td>
                             <td>{tenantLeaseEndDate}</td>
                             <td>{Val.chargesCal}</td>
                             <td>{Val.AgreementStatus}</td>

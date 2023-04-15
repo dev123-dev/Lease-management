@@ -64,7 +64,7 @@ export const AddTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
-  console.log("snd data", finalData);
+  // console.log("snd data", finalData);
   try {
     await axios.post(
       `${linkPath}/api/tenantSetting/update-tenant-settings`,
@@ -211,7 +211,7 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
 
 //update Property
 export const updateProperty = (updatedata) => async (dispatch) => {
-  console.log("updateProperty", updatedata);
+  // console.log("updateProperty", updatedata);
   try {
     await axios.post(
       `${linkPath}/api/tenants/update-Property`,
@@ -360,7 +360,7 @@ export const deactivateUser = (id) => async (dispatch) => {
 //deleting organization details
 export const deleteOrganization = (id) => async (dispatch) => {
   try {
-    console.log(id);
+    // console.log(id);
     await axios.post(
       `${linkPath}/api/tenants/deactive-Organization`,
       id,
@@ -629,7 +629,7 @@ export const getPreviousYearsExpCountOfOrg = (data) => async (dispatch) => {
       data,
       config
     );
-    console.log(" getPreviousYearsExpCountOfOrg ", res.data);
+    // console.log(" getPreviousYearsExpCountOfOrg ", res.data);
     dispatch({
       type: YEAR_EXP_COUNT_ORG,
       payload: res.data,
@@ -817,17 +817,21 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 };
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
+  console.log("hity");
   const finalDataReport = {
     monthSearch: finalData.monthSearch,
     yearSearch: finalData.yearSearch,
+    OrganizationId: finalData.OrganizationId,
   };
 
   const finalDataExpCount = {
     selectedY: finalData.selectedY,
+    OrganizationId: finalData.OrganizationId,
   };
 
   const finalDataPrevYear = {
     selectedVal: finalData.selectedVal,
+    OrganizationId: finalData.OrganizationId,
   };
 
   const finalData2 = {
@@ -837,14 +841,15 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     tenantLeaseStartDate: finalData.tenantLeaseStartDate,
     tenantLeaseEndDate: finalData.tenantLeaseEndDate,
     tdId: finalData.tdId,
-    OrganizationId :finalData.OrganizationId,
-    BuildingId : finalData.BuildingId,
-    BuildingName :finalData.BuildingName,
+    OrganizationId: finalData.OrganizationId,
+    BuildingId: finalData.BuildingId,
+    BuildingName: finalData.BuildingName,
     AgreementStatus: finalData.AgreementStatus,
     agreementId: finalData.agreementId,
     tenantEnteredBy: finalData.tenantEnteredBy,
     tenantDate: finalData.tenantDate,
   };
+
   try {
     await axios.post(
       `${linkPath}/api/tenants/renew-tenant-details`,
