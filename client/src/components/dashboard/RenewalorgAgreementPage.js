@@ -139,7 +139,7 @@ const ReneworgAggreement = ({
                   ></input>
                 </div>
               </div>
-              <div className="col-lg-12 Savebutton" size="lg">
+              <div className="col-lg-12   col-sm-12 col-md-12 Savebutton" size="lg">
                 <button
                   variant="success"
                   id="buttonchanges"

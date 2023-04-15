@@ -2722,3 +2722,9 @@ i.smallsize::first-line{
     background:#095a4a;
    
 }
+/* @media screen and (max-width: 1468px)  {
+  .tenantfilter{
+    background-color: red;
+  }
+  
+} */

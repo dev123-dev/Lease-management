@@ -77,7 +77,7 @@ const SuperUserDashboard = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(7);
+  const [dataPerPage] = useState(2);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -86,6 +86,7 @@ const SuperUserDashboard = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+  console.log(allsuperuser);
   //refresh
   return (
     <div>
@@ -128,7 +129,7 @@ const SuperUserDashboard = ({
                   </div>
 
                   <div className="row">
-                    <div className="col-lg-1"></div>
+                    <div className="col-lg-1  col-sm-12 col-md-12"></div>
 
                     <div className="body-inner no-padding table-responsive">
                       <table
@@ -150,7 +151,7 @@ const SuperUserDashboard = ({
                           {currentDatas &&
                             currentDatas[0] &&
                             currentDatas.map((allsuperuse, idx) => {
-                              if (allsuperuse.usergroup !== "Super Admin") {
+                            
                                 return (
                                   <tr key={idx}>
                                     <td>{allsuperuse.username}</td>
@@ -159,7 +160,8 @@ const SuperUserDashboard = ({
                                     <td>{allsuperuse.usergroup}</td>
                                     <td>{allsuperuse.OrganizationName}</td>
                                     <td>{allsuperuse.useraddress}</td>
-                                    {allsuperuse.userStatus === "Active" ? (
+                                    {allsuperuse.userStatus === "Active" && allsuperuse.usergroup !=="Super Admin"
+ ? (
                                       <td className="text-center">
                                         <img
                                           className="Cursor "
@@ -183,20 +185,20 @@ const SuperUserDashboard = ({
                                       </td>
                                     ) : (
                                       <td className="blank text-center">
-                                        Deactivated
+                                   
                                       </td>
                                     )}
                                   </tr>
                                 );
-                              }
+                              
                             })}
                         </tbody>
                       </table>
                     </div>
-                    <div className="col-lg-1"></div>
+                    <div className="col-lg-1 col-sm-12 col-md-12"></div>
                   </div>
                   <div className="row ">
-                    <div className="col-lg-6">
+                    <div className="col-lg-6  col-sm-12 col-md-12">
                       {allsuperuser && allsuperuser.length !== 0 ? (
                         <Pagination
                           dataPerPage={dataPerPage}
@@ -209,7 +211,7 @@ const SuperUserDashboard = ({
                       )}
                     </div>
 
-                    <div className="col-lg-6  ">
+                    <div className="col-lg-6  col-sm-12 col-md-12 ">
                       <p className="text-end h6">
                         {" "}
                         No. of User : {allsuperuser.length}
@@ -243,7 +245,7 @@ const SuperUserDashboard = ({
             centered
           >
             <Modal.Header className="confirmbox-heading">
-              <div className="col-lg-10">
+              <div className="col-lg-10  col-sm-12 col-md-12">
                 <div className="ml-4">
                   <h4
                     style={{
@@ -255,7 +257,7 @@ const SuperUserDashboard = ({
                   </h4>
                 </div>
               </div>
-              <div className="col-lg-2">
+              <div className="col-lg-2  col-sm-12 col-md-12">
                 <button
                   onClick={() => setShowEditModal(false)}
                   className="close"
@@ -278,7 +280,7 @@ const SuperUserDashboard = ({
           <Modal show={Deactiveshow} centered>
             <form onSubmit={onDeactive}>
               <Modal.Header className="confirmbox-heading">
-                <div className="col-lg-11 ">
+                <div className="col-lg-11  col-sm-12 col-md-12 ">
                   <div className="modal-title">
                     <h4
                       style={{

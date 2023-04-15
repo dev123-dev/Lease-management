@@ -280,7 +280,7 @@ const AddSuperUserModel = ({
     //for super admin
     <Fragment>
       <Modal.Header className="confirmbox-heading">
-        <div className="col-lg-10 ">
+        <div className="col-lg-10  col-sm-12 col-md-12 ">
           <div className="ml-5">
             <h4
               style={{
@@ -292,7 +292,7 @@ const AddSuperUserModel = ({
             </h4>
           </div>
         </div>
-        <div className="col-lg-2 ">
+        <div className="col-lg-2  col-sm-12 col-md-12 ">
           <button onClick={() => setShowadd(false)} className="close">
             <img
               className="editcl"
@@ -308,7 +308,7 @@ const AddSuperUserModel = ({
         <form onSubmit={(e) => onsubmitUserData(e)}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label> Name*:</label>{" "}
                 <input
                   type="text"
@@ -321,7 +321,7 @@ const AddSuperUserModel = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Email*:</label>{" "}
                 <input
                   type="email"
@@ -334,7 +334,7 @@ const AddSuperUserModel = ({
                   required
                 />
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Phone No:</label>
                 <input
                   type="text"
@@ -376,7 +376,7 @@ const AddSuperUserModel = ({
                 </div>
               </div>
               
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label className="control-label">Password*:</label>
                 <div className="controls">
                   <input
@@ -399,7 +399,7 @@ const AddSuperUserModel = ({
                 </div>
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label className="control-label">Confirm Password*:</label>
                 <div className="controls">
                   <input
@@ -425,7 +425,7 @@ const AddSuperUserModel = ({
                 </div>
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Address:</label>
                 <textarea
                   name="address"
@@ -438,7 +438,7 @@ const AddSuperUserModel = ({
                   style={{ width: "100%" }}
                 ></textarea>{" "}
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label style={userGroupErrorStyle}>UserGroup*:</label>
                 <Select
                   name="usergroup"
@@ -463,11 +463,11 @@ const AddSuperUserModel = ({
                   required
                 />
               </div>
-              <div className="col-lg-9 text-danger">
+              <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-3  col-sm-12 col-md-12">
                 <ModalFooter>
                   <div className="Savebutton " size="lg">
                     <button

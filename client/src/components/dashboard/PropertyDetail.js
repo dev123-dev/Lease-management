@@ -21,6 +21,7 @@ const PropertyDetail = ({
   getAllSettings,
   getParticularProperty,
 }) => {
+
   const myuser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -183,7 +184,7 @@ const PropertyDetail = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(7);
+  const [dataPerPage] = useState(6);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -192,6 +193,7 @@ const PropertyDetail = ({
     particular_org_data.slice(indexOfFirstData, indexOfLastData);
 
   const paginate = (nmbr) => {
+    
     setCurrentData(nmbr);
   };
   const refresh = () => {
@@ -208,12 +210,12 @@ const PropertyDetail = ({
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5  ">
-            <div className="col-lg-5 mt-3">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
               <h2 className="heading_color  headsize  ml-4">
                 Property Details
               </h2>
             </div>
-            <div className="col-lg-5 mt-3">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
               <Select
                 className="dropdown text-left mt-sm-3"
                 placeholder="Search-Location"
@@ -234,7 +236,7 @@ const PropertyDetail = ({
                 })}
               ></Select>
             </div>
-            <div className="col-lg-2 text-end mt-sm-5">
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
               {" "}
               <img
                 height="20px"
@@ -259,7 +261,7 @@ const PropertyDetail = ({
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
               <div className="row ">
-                <div className="col-lg-1"></div>
+                <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
                   <table
                     className="table table-bordered table-striped table-hover   mt-1  "
@@ -302,8 +304,8 @@ const PropertyDetail = ({
                       </tr>
                     </thead>
                     <tbody className="text-center">
-                      {particular_org_data &&
-                        particular_org_data.map((Val, idx) => {
+                      {currentDatas &&
+                        currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -384,11 +386,11 @@ const PropertyDetail = ({
                     </tbody>
                   </table>
                 </div>
-                <div className="col-lg-1"></div>
+                <div className="col-lg-1  col-sm-12 col-md-12"></div>
               </div>
 
               <div className="row">
-                <div className="col-lg-6">
+                <div className="col-lg-6  col-sm-12 col-md-12">
                   {particular_org_data && particular_org_data.length !== 0 ? (
                     <Pagination
                       dataPerPage={dataPerPage}
@@ -400,7 +402,7 @@ const PropertyDetail = ({
                     <Fragment />
                   )}
                 </div>
-                <div className="col-lg-6">
+                <div className="col-lg-6  col-sm-12 col-md-12">
                   <p className="text-end h6">
                     No. of Property : {particular_org_data.length}
                   </p>
@@ -433,7 +435,7 @@ const PropertyDetail = ({
         centered
       >
         <Modal.Header className="confirmbox-heading">
-          <div className="col-lg-10">
+          <div className="col-lg-10  col-sm-12 col-md-12">
             <div className="ml-4">
               <h4
                 style={{
@@ -445,7 +447,7 @@ const PropertyDetail = ({
               </h4>{" "}
             </div>
           </div>
-          <div className="col-lg-2">
+          <div className="col-lg-2  col-sm-12 col-md-12">
             <button onClick={handleUpdateModalOpen} className="close ml-5">
               <img
                 src={require("../../static/images/close.png")}
@@ -469,7 +471,7 @@ const PropertyDetail = ({
       <Modal show={show} centered>
         <form onSubmit={(e) => onDeactivateall(e)}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-10">
+            <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-4">
                 <h4
                   style={{
@@ -481,7 +483,7 @@ const PropertyDetail = ({
                 </h4>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-lg-2  col-sm-12 col-md-12">
               <button onClick={() => setShow(false)} className="close">
                 <img
                   src={require("../../static/images/close.png")}
@@ -561,7 +563,7 @@ const PropertyDetail = ({
               />
             </div> */}
 
-            <div className="col-lg-10">
+            <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-1">
                 <h4
                   style={{
@@ -573,7 +575,7 @@ const PropertyDetail = ({
                 </h4>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-lg-2  col-sm-12 col-md-12">
               <button onClick={handleCloseDno} className="close">
                 <img
                   src={require("../../static/images/close.png")}

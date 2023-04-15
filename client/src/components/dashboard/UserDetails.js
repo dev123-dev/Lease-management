@@ -73,7 +73,7 @@ const UserDetails = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(7);
+  const [dataPerPage] = useState(2);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -103,9 +103,9 @@ const UserDetails = ({
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col ">
               <div className="row text-end ">
-                <div className="col-lg-4"></div>
-                <div className="col-lg-4"></div>
-                <div className="col-lg-4 refresh">
+                <div className="col-lg-4  col-sm-12 col-md-12"></div>
+                <div className="col-lg-4  col-sm-12 col-md-12"></div>
+                <div className="col-lg-4  col-sm-12 col-md-12 refresh">
                   <img
                     height="20px"
                     onClick={() => setShowadd(true)}
@@ -118,7 +118,7 @@ const UserDetails = ({
               {/* <AddAdminUserModal /> */}
 
               <div className="row">
-                <div className="col-lg-1"></div>
+                <div className="col-lg-1  col-sm-12 col-md-12"></div>
 
                 <div className="body-inner no-padding table-responsive ">
                   <table
@@ -176,9 +176,9 @@ const UserDetails = ({
                     </tbody>
                   </table>
                 </div>
-                <div className="col-lg-1"></div>
+                <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 <div className="row">
-                  <div className="col-lg-6">
+                  <div className="col-lg-6  col-sm-12 col-md-12">
                     {get_particularOrg_user &&
                     get_particularOrg_user.length !== 0 ? (
                       <Pagination
@@ -191,7 +191,7 @@ const UserDetails = ({
                       <Fragment />
                     )}
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-lg-6  col-sm-12 col-md-12">
                     <p className="text-end h6">
                       No. of User :{" "}
                       {get_particularOrg_user && get_particularOrg_user.length}
@@ -225,7 +225,7 @@ const UserDetails = ({
         centered
       >
         <Modal.Header className="confirmbox-heading">
-          <div className="col-lg-10">
+          <div className="col-lg-10  col-sm-12 col-md-12">
             <div className="ml-4">
               <h4
                 style={{
@@ -237,7 +237,7 @@ const UserDetails = ({
               </h4>
             </div>
           </div>
-          <div className="col-lg-2">
+          <div className="col-lg-2  col-sm-12 col-md-12">
             <button onClick={SuperUpdateModalClose} className="close">
               <img
                 src={require("../../static/images/close.png")}
@@ -262,7 +262,7 @@ const UserDetails = ({
       <Modal show={Deactiveshow} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-10">
+            <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-4">
                 <h4
                   style={{
@@ -274,7 +274,7 @@ const UserDetails = ({
                 </h4>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-lg-2  col-sm-12 col-md-12">
               <button onClick={() => setDeactiveShow(false)} className="close">
                 <img
                   src={require("../../static/images/close.png")}

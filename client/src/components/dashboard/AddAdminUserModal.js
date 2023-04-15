@@ -268,7 +268,7 @@ const AddAdminUserModal = ({
         <form onSubmit={(e) => onsubmitUserData(e)}>
           <div className="container">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-lg-6 col-sm-12 col-md-12">
                 <label> Name*:</label>{" "}
                 <input
                   type="text"
@@ -281,7 +281,7 @@ const AddAdminUserModal = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Email*:</label>{" "}
                 <input
                   type="email"
@@ -296,7 +296,7 @@ const AddAdminUserModal = ({
                 <br></br>
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Phone No:</label>
                 <input
                   type="text"
@@ -310,7 +310,7 @@ const AddAdminUserModal = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 {" "}
                 <label>Organization belongs to*:</label>{" "}
                 <input
@@ -324,7 +324,7 @@ const AddAdminUserModal = ({
                 <br></br>
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 {" "}
                 <label>Password*:</label>
                 <input
@@ -345,7 +345,7 @@ const AddAdminUserModal = ({
                 )}
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 {" "}
                 <label>Confirm Password*:</label>
                 <input
@@ -369,7 +369,7 @@ const AddAdminUserModal = ({
                 )}
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 Address:
                 <textarea
                   name="address"
@@ -384,7 +384,7 @@ const AddAdminUserModal = ({
                 <br></br>
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label style={UserGrpErrorStyle}>UserGroup*:</label>
                 <Select
                   name="usergroup"
@@ -411,11 +411,11 @@ const AddAdminUserModal = ({
           </div>
 
           {/* save button  */}
-          <div className="col-lg-9 text-danger">
+          <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
             * Indicates mandatory fields, Please fill mandatory fields before
             Submit
           </div>
-          <div className="col-lg-3 float-right">
+          <div className="col-lg-3  col-sm-12 col-md-12 float-right">
             <button
               id="savebtn"
               className="btn sub_form btn_continue Save float-right  "

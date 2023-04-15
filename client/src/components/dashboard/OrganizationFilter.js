@@ -109,7 +109,7 @@ const TenantReport = ({
               <div className="col">
                 <div className="row">
                   <div className="col-lg-11 col-md-11 col-sm-11 col-11 text-center ">
-                    <div className="col-lg-1"></div>
+                    <div className="col-lg-1  col-sm-12 col-md-12"></div>
                     <div className="body-inner no-padding table-responsive ml-2">
                       <table
                         className="table table-bordered table-striped table-hover table1 mt-2 "
@@ -156,7 +156,7 @@ const TenantReport = ({
                         </tbody>
                       </table>
                     </div>
-                    <div className="col-lg-1"></div>
+                    <div className="col-lg-1  col-sm-12 col-md-12"></div>
                   </div>
                 </div>
               </div>
@@ -255,7 +255,7 @@ const TenantReport = ({
               centered
             >
               <Modal.Header>
-                <div className="col-lg-10">
+                <div className="col-lg-10  col-sm-12 col-md-12">
                   <h4
                     className="modal-title text-center"
                     style={{ fontWeight: "bold" }}

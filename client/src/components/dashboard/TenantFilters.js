@@ -178,12 +178,12 @@ const TenantFilters = ({
                 <div
                   className="btn_more text-center "
                   title="Previous Year Renewal Count"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: "pointer"  } }
                 >
                   <Link
                     title="Previous Year Renewal Count"
                     to="/Organization-filter"
-                    style={{ width: "100px" }}
+                   // style={{ minWidth: "100px" }}
                     className="top_box"
                     onClick={() => oldExpCountFetchOrg()}
                   >

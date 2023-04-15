@@ -127,7 +127,7 @@ const EditOrganization = ({
       <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label> Organization Name*:</label>
 
               <input
@@ -140,7 +140,7 @@ const EditOrganization = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Email*: </label>
               <input
                 type="email"
@@ -152,7 +152,7 @@ const EditOrganization = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Phone No*:</label>
 
               <input
@@ -168,7 +168,7 @@ const EditOrganization = ({
               <br></br>
             </div>
 
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Lease Start Date*:</label>
               <input
                 name="startdate"
@@ -181,7 +181,7 @@ const EditOrganization = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Lease End Date*:</label>
               <input
                 type="text"
@@ -206,7 +206,7 @@ const EditOrganization = ({
                 required
               ></textarea>{" "}
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label className="ml-2" style={{ color: locError }}>
                 Location*:
               </label>
@@ -286,11 +286,11 @@ const EditOrganization = ({
         <br></br>
 
         {/*------------- Multiple Location adding details Ending------------ */}
-        <div className="col-lg-9 text-danger">
+        <div className="col-lg-9   col-sm-12 col-md-12 text-danger">
           * Indicates mandatory fields, Please fill mandatory fields before
           Submit
         </div>
-        <div className="col-lg-3 float-right">
+        <div className="col-lg-3  col-sm-12 col-md-12 float-right">
           <button
             id="savebtn"
             className="btn sub_form btn_continue Save float-right"

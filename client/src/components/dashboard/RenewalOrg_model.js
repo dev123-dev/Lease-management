@@ -133,7 +133,7 @@ const RenewalOrg_mainPage = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12 " size="lg">
+          <div className="col-lg-12  col-sm-12 col-md-12 " size="lg">
             <button
               id="savebtn"
               className="btn sub_form btn_continue Save float-right"
