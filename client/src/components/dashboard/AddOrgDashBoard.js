@@ -99,7 +99,7 @@ const AddOrgDashBoard = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(7);
+  const [dataPerPage] = useState(2);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -142,7 +142,7 @@ const AddOrgDashBoard = ({
               </div>
 
               <div className="row ">
-                <div className="col-lg-1"></div>
+                <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 <div className="body-inner no-padding table-responsive">
                   <table
                     className="table table-bordered table-striped table-hover table1 mt-5"
@@ -214,11 +214,11 @@ const AddOrgDashBoard = ({
                     </tbody>
                   </table>
                 </div>
-                <div className="col-lg-1"></div>
+                <div className="col-lg-1  col-sm-12 col-md-12"></div>
               </div>
 
               <div className="row ">
-                <div className="col-lg-6">
+                <div className="col-lg-6  col-sm-12 col-md-12">
                   {allorg && allorg.length !== 0 ? (
                     <Pagination
                       dataPerPage={dataPerPage}
@@ -231,7 +231,7 @@ const AddOrgDashBoard = ({
                   )}
                 </div>
 
-                <div className="col-lg-6  ">
+                <div className="col-lg-6  col-sm-12 col-md-12 ">
                   <p className="text-end h6  ">
                     No. of Organization : {allorg.length}
                   </p>
@@ -264,7 +264,7 @@ const AddOrgDashBoard = ({
         centered
       >
         <Modal.Header className="confirmbox-heading">
-          <div className="col-lg-10 ">
+          <div className="col-lg-10  col-sm-12 col-md-12">
             <div className="ml-4">
               <h4
                 style={{
@@ -276,7 +276,7 @@ const AddOrgDashBoard = ({
               </h4>
             </div>
           </div>
-          <div className="col-lg-2 ">
+          <div className="col-lg-2  col-sm-12 col-md-12">
             <button onClick={editclose} className="close">
               <img
                 className="editcl"
@@ -298,7 +298,7 @@ const AddOrgDashBoard = ({
       <Modal show={showDeactivate} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-10">
+            <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="modal-title">
                 <h4
                   style={{
@@ -311,7 +311,7 @@ const AddOrgDashBoard = ({
               </div>
             </div>
             <div
-              className="close col-lg-2"
+              className="close col-lg-2  col-sm-12 col-md-12"
               onClick={() => setShowDeactivate(false)}
             >
               <img

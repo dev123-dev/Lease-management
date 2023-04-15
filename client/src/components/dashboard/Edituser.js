@@ -102,7 +102,7 @@ const Edituser = ({
       <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label> Name*:</label>
               <input
                 type="text"
@@ -114,7 +114,7 @@ const Edituser = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label> Email*: </label>
               <input
                 type="email"
@@ -126,7 +126,7 @@ const Edituser = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Phone No:</label>
 
               <input
@@ -160,7 +160,7 @@ const Edituser = ({
             ) : (
               <>
                
-                <div className="col-lg-6">
+                <div className="col-lg-6  col-sm-12 col-md-12">
                   <label>Organization belongs to *: </label>
 
                   <input
@@ -195,7 +195,7 @@ const Edituser = ({
                     select Organization
                   </Select> */}
                 </div>
-                 <div className="col-lg-6">
+                 <div className="col-lg-6  col-sm-12 col-md-12">
                   <label> Address :</label>
                   <textarea
                     name="useraddress"
@@ -213,7 +213,7 @@ const Edituser = ({
               </>
             )}
           
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>UserGroup*:</label>
 
               <Select
@@ -236,11 +236,11 @@ const Edituser = ({
               <br></br>
             </div>
           </div>
-          <div className="col-lg-9 text-danger">
+          <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
             * Indicates mandatory fields, Please fill mandatory fields before
             Submit
           </div>
-          <div className="col-lg-3 Savebutton float-right" size="lg">
+          <div className="col-lg-3  col-sm-12 col-md-12 Savebutton float-right" size="lg">
             <input
               id="savebtn"
               type="submit"

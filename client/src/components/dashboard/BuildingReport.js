@@ -36,7 +36,7 @@ const BuildingReport = ({
       return ele._id;
     });
 
-  console.log("get_property_related_tenant", get_property_related_tenant);
+  // console.log("get_property_related_tenant", get_property_related_tenant);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
     fun();
@@ -185,13 +185,13 @@ const BuildingReport = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(7);
+  const [dataPerPage] = useState(6);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentDatas =
-    particular_org_data &&
-    particular_org_data.slice(indexOfFirstData, indexOfLastData);
+  get_property_related_tenant &&
+  get_property_related_tenant.slice(indexOfFirstData, indexOfLastData);
 
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
@@ -204,7 +204,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
-  console.log(get_property_related_tenant);
+  // console.log(get_property_related_tenant);
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
@@ -276,8 +276,8 @@ const BuildingReport = ({
                       </tr>
                     </thead>
                     <tbody className="text-center">
-                      {get_property_related_tenant &&
-                        get_property_related_tenant.map((Val, idx) => {
+                      {currentDatas &&
+                        currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
@@ -341,7 +341,7 @@ const BuildingReport = ({
                   get_property_related_tenant.length !== 0 ? (
                     <Pagination
                       dataPerPage={dataPerPage}
-                      totalData={particular_org_data.length}
+                      totalData={get_property_related_tenant.length}
                       paginate={paginate}
                       currentPage={currentData}
                     />
@@ -360,234 +360,7 @@ const BuildingReport = ({
         </div>
       </div>
 
-      {/* add model start */}
-      <Modal
-        show={showadd}
-        backdrop="static"
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <AddShopDetails setShowadd={setShowadd} />
-      </Modal>
-      {/* add model end */}
-
-      {/* Modal edit start*/}
-      <Modal
-        show={showUpdateModal}
-        backdrop="static"
-        keyboard={false}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header className="confirmbox-heading">
-          <div className="col-lg-10">
-            <div className="ml-4">
-              <h4
-                style={{
-                  color: "white",
-                }}
-                className="text-center  ml-4"
-              >
-                Edit Property Details
-              </h4>{" "}
-            </div>
-          </div>
-          <div className="col-lg-2">
-            <button onClick={handleUpdateModalOpen} className="close ml-5">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-              />
-            </button>
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <EditProperty
-            Propertydata={property}
-            setShowUpdateModal={setShowUpdateModal}
-          />
-        </Modal.Body>
-      </Modal>
-      {/* Model edit end */}
-
-      {/* modal for Deactivating the single Property starting */}
-
-      <Modal show={show} centered>
-        <form onSubmit={(e) => onDeactivateall(e)}>
-          <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-10">
-              <div className="ml-4">
-                <h4
-                  style={{
-                    color: "white",
-                  }}
-                  className=" text-center "
-                >
-                  DEACTIVATE
-                </h4>
-              </div>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={() => setShow(false)} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-
-            {/* <div className="col-lg-11 ">
-              <div className="modal-title ">
-                <h3
-                  style={{
-                    color: "white",
-                  }}
-                  className="text-center"
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
-            </div>
-            <div className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-                
-              />
-            </div> */}
-          </Modal.Header>
-
-          <Modal.Body>
-            <div className="h5 despace">Reason For Deactivating</div>
-            <textarea
-              rows="2"
-              name="deactive_reason"
-              value={deactive_reason}
-              onChange={(e) => onInputChange(e)}
-              placeholder="Deactive Reason"
-              id="org_reason"
-              className="form-control "
-              style={{ width: "100%" }}
-              required
-            ></textarea>
-            <div>Are you sure You Want To Deactivate..?</div>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button id="deactivebtn" type="submit">
-              <b>Deactive</b>
-            </Button>
-          </Modal.Footer>
-        </form>
-      </Modal>
-
-      {/* modal for Deactivating the mul Property ending */}
-      <Modal show={selectDno} centered>
-        <form onSubmit={(e) => onDeactivate(e)}>
-          <Modal.Header className="confirmbox-heading">
-            {/* <div className="col-lg-11 ">
-              <div className="modal-title ">
-                <h3
-                  style={{
-                    color: "white",
-                  }}
-                  className="text-center mr-3 "
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
-            </div>
-            <div className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-               
-              />
-            </div> */}
-
-            <div className="col-lg-10">
-              <div className="ml-1">
-                <h4
-                  style={{
-                    color: "white",
-                  }}
-                  className="text-center "
-                >
-                  DEACTIVATE
-                </h4>
-              </div>
-            </div>
-            <div className="col-lg-2">
-              <button onClick={handleCloseDno} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
-
-          <Modal.Body>
-            {/* <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-            {dnolen.length > 0 ? (
-              <div className="text-dark">Choose Door No for Deactivate</div>
-            ) : (
-              <></>
-            )}
-            <div className="checkbx">
-              {/* eslint-disable-next-line array-callback-return */}
-              {dno.map((ele) => {
-                if (ele.status === "Avaiable") {
-                  return (
-                    <>
-                      <input
-                        type="checkbox"
-                        id="checkbox"
-                        value={ele.doorNo}
-                        onChange={(e) => HandelCheck(e)}
-                      />
-                      &nbsp;
-                      <label htmlFor="vehicle1">
-                        {ele.doorNo}&nbsp; &nbsp;
-                      </label>
-                    </>
-                  );
-                }
-              })}
-            </div>
-            <div className=" despace pt-3">Reason For Deactivating</div>
-            <textarea
-              rows="2"
-              name="deactive_reason"
-              value={deactive_reason}
-              onChange={(e) => onInputChange(e)}
-              autoFocus
-              id="org_reason"
-              className="form-control "
-              required
-            ></textarea>
-            <div>Are you sure You Want To Deactivate..?</div>
-            <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
-              Please Select Any Room
-            </p>
-            {/* </Form.Group>
-          </Form> */}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" id="deactivebtn" type="submit">
-              <b>Deactive</b>
-            </Button>
-          </Modal.Footer>
-        </form>
-      </Modal>
-      {/* modal for Deactivating the mul Property ending */}
+    
     </>
   );
 };

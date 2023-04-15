@@ -144,7 +144,7 @@ const AddOrgModal = ({
   ) : (
     <>
       <Modal.Header className="confirmbox-heading">
-        <div className="col-lg-10 ">
+        <div className="col-lg-10  col-sm-12 col-md-12 ">
           <div className=" ml-5">
             <h4
               style={{
@@ -155,7 +155,7 @@ const AddOrgModal = ({
             </h4>
           </div>
         </div>
-        <div className="col-lg-2 ">
+        <div className="col-lg-2  col-sm-12 col-md-12 ">
           <button onClick={() => setShowadd(false)} className="close">
             <img
               className="editcl"
@@ -184,7 +184,7 @@ const AddOrgModal = ({
                 />{" "}
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Email*:</label>
                 <input
                   type="email"
@@ -197,7 +197,7 @@ const AddOrgModal = ({
                 />
                 <br></br>
               </div>{" "}
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Phone No*:</label>
                 <input
                   type="text"
@@ -212,7 +212,7 @@ const AddOrgModal = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Aggrement Start Date*:</label>
                 <input
                   type="date"
@@ -227,7 +227,7 @@ const AddOrgModal = ({
                   required
                 />
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Aggrement End Date*:</label>
                 <br></br>
                 <input
@@ -254,7 +254,7 @@ const AddOrgModal = ({
                   required
                 ></textarea>{" "}
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label className="ml-2" style={{ color: locationError }}>
                   Location*:
                 </label>
@@ -334,11 +334,11 @@ const AddOrgModal = ({
                   style={{ height: "100px", width: "200px" }}
                 />
               </div>
-              <div className="col-lg-9 text-danger">
+              <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-3  col-sm-12 col-md-12">
                 <Modal.Footer>
                   <div className=" Savebutton  " size="lg">
                     <button

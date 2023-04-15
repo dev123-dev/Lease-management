@@ -100,7 +100,7 @@ const AllReport = ({
         >
           <div className="row">
             <div
-              className="col-lg-3 card ml-2 h2 text-center pt-5"
+              className="col-lg-3   col-sm-12 col-md-12 card ml-2 h2 text-center pt-5"
               id="shadow-bck"
             >
               <div className="text-center">
@@ -131,7 +131,7 @@ const AllReport = ({
               <div></div>
             </div>
             <div
-              className="col-lg-3  ml-2 card h2 text-center pt-5  "
+              className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
               id="shadow-bck"
             >
               <div className="text-center">
@@ -161,8 +161,8 @@ const AllReport = ({
                 </p>
               </div>
             </div>
-            <div className="col-lg-3"></div>
-            <div className="col-lg-3"></div>
+            <div className="col-lg-3  col-sm-12 col-md-12"></div>
+            <div className="col-lg-3  col-sm-12 col-md-12"></div>
           </div>
         </section>
       </div>

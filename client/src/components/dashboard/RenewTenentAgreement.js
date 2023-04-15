@@ -13,11 +13,13 @@ const RenewTenentAgreement = ({
   const myuser = JSON.parse(localStorage.getItem("user"));
 
   const [door, SetDoornumber] = useState([]);
+
   useEffect(() => {
     getAllSettings({
       OrganizationId: myuser && myuser.OrganizationId,
       userId: myuser && myuser._id,
     });
+
     const doornumber =
       tenantsData &&
       tenantsData.tenantDoorNo &&
@@ -63,7 +65,7 @@ const RenewTenentAgreement = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
+  const ondone = () => {
     const finalData = {
       tenantRentAmount: tenantRentAmount,
       tenantFileNo: tenantFileNo,
@@ -71,9 +73,9 @@ const RenewTenentAgreement = ({
       tenantLeaseStartDate: entryDate,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
-      OrganizationId : tenantsData.OrganizationId,
-      BuildingName : tenantsData.BuildingName,
-      BuildingId : tenantsData.BuildingId,
+      OrganizationId: tenantsData.OrganizationId,
+      BuildingName: tenantsData.BuildingName,
+      BuildingId: tenantsData.BuildingId,
       agreementId: tenantsData.agreementId,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
@@ -82,7 +84,7 @@ const RenewTenentAgreement = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    // console.log(finalData);
+    // console.log("this is sothing", finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
@@ -118,7 +120,6 @@ const RenewTenentAgreement = ({
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
     setNewLeaseEndDate(newLeaseEndDate);
   };
-console.log("this is it",tenantsData)
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -224,12 +225,12 @@ console.log("this is it",tenantsData)
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12 Savebutton" size="lg">
+          <div className="col-lg-12   col-sm-12 col-md-12 Savebutton" size="lg">
             <button
               variant="success"
               className="btn sub_form float-right"
               id="savebtn"
-              onClick={() => onSubmit()}
+              onClick={() => ondone()}
               style={
                 leaseEndDate !== ""
                   ? { opacity: "1" }

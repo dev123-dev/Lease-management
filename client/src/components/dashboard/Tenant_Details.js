@@ -186,7 +186,7 @@ const Tenant_Details = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(6);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -194,6 +194,7 @@ const Tenant_Details = ({
     get_particular_org_tenant &&
     get_particular_org_tenant.slice(indexOfFirstData, indexOfLastData);
   const paginate = (nmbr) => {
+  //nmbr is page  number
     setCurrentData(nmbr);
   };
   const refresh = () => {
@@ -218,14 +219,14 @@ const Tenant_Details = ({
         <div className="col mt-sm-4 space ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
             <div className="row mt-5 ">
-              <div className="col-lg-5 mt-3">
+              <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
                 <h2 className="heading_color  headsize  ml-4">
                   {" "}
                   Tenant Details
                 </h2>
               </div>
               <div
-                className="col-lg-5"
+                className="col-lg-5  col-sm-12 col-md-12"
                 style={{
                   position: "relative",
                   top: "10px",
@@ -251,7 +252,7 @@ const Tenant_Details = ({
                   })}
                 ></Select>
               </div>
-              <div className="col-lg-2 text-end mt-sm-5">
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
@@ -278,7 +279,7 @@ const Tenant_Details = ({
                 {/* <div className="refreshbtn"></div> */}
 
                 <div className="row">
-                  <div className="col-lg-1"></div>
+                  <div className="col-lg-1  col-sm-12 col-md-12"></div>
 
                   <div className="body-inner no-padding table-responsive">
                     <table
@@ -394,7 +395,7 @@ const Tenant_Details = ({
                     get_particular_org_tenant.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
-                        totalData={currentDatas.length}
+                        totalData={get_particular_org_tenant.length}
                         paginate={paginate}
                         currentPage={currentData}
                       />
@@ -405,9 +406,9 @@ const Tenant_Details = ({
                   {/* <div className="col-lg-6 col-md-6 col-sm-11 col-11 align_right">
                     <label>No.of Tenants: {tenantCount.length}</label>
                   </div> */}
-                  <div className="col-lg-6">
+                  <div className="col-lg-6  col-sm-12 col-md-12">
                     <p className="text-end h6">
-                      No. of Tenants: {tenantCount.length}
+                      No. of Tenants: {get_particular_org_tenant.length}
                     </p>
                   </div>
                 </div>
@@ -459,7 +460,7 @@ const Tenant_Details = ({
               />
             </div> */}
 
-            <div className="col-lg-10">
+            <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-4">
                 <h3
                   style={{
@@ -471,7 +472,7 @@ const Tenant_Details = ({
                 </h3>
               </div>
             </div>
-            <div className="col-lg-2 bg-danger">
+            <div className="col-lg-2  col-sm-12 col-md-12 ">
               <button onClick={handleClose} className="close">
                 <img
                   src={require("../../static/images/close.png")}
@@ -514,7 +515,7 @@ const Tenant_Details = ({
       <Modal show={selectDno} centered>
         <form onSubmit={onDeactivate}>
           <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-10">
+            <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-4">
                 <h3
                   style={{
@@ -526,7 +527,7 @@ const Tenant_Details = ({
                 </h3>
               </div>
             </div>
-            <div className="col-lg-2">
+            <div className="col-lg-2  col-sm-12 col-md-12">
               <button onClick={handleCloseDno} className="close">
                 <img
                   src={require("../../static/images/close.png")}

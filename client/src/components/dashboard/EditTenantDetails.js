@@ -54,6 +54,15 @@ const EditTenantDetails = ({
       value: buildingData._id,
     })
   );
+
+  let passwrdTooltip = {
+    marginLeft: "-16em",
+    position: "absolute",
+    marginTop: "1.5em",
+    pointerEvents: "none",
+    zIndex: "999",
+    width: "300px",
+  };
   //console.log("aLL",allBuildingNames)
   //
   //console.log("edit data",particular_tenant_EditData.shopDoorNo);
@@ -542,6 +551,24 @@ const EditTenantDetails = ({
                     e.preventDefault()
                   }
                 />
+                  <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px",cursor:"pointer" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint=" Must have only 12 digits "
+                  ></div>
+                </div>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label className="ml-2"> Pan Number: </label>
@@ -557,6 +584,24 @@ const EditTenantDetails = ({
                     e.preventDefault()
                   }
                 />{" "}
+                      <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px",cursor:"pointer" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Must have 5 Alphabets,4 Numbers,1 Alphabet "
+                  ></div>
+                </div>
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -574,6 +619,24 @@ const EditTenantDetails = ({
                   }
                   required
                 />
+                 <div
+                  className="cstm-hint"
+                  id="pass_admin_help"
+                  style={{ top: "30px",cursor:"pointer" }}
+                >
+                  <img
+                    src={require("../../static/images/help1.png")}
+                    alt="help"
+                    id="img_tool_admin"
+                    className="pass_admin_help_icon_question"
+                  />
+                  <div
+                    id="tooltipPassAdmin"
+                    className="syle-hint"
+                    style={passwrdTooltip}
+                    data-hint="Monthly Rent "
+                  ></div>
+                </div>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label className="ml-2">Deposit Amount*: </label>

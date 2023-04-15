@@ -20,6 +20,7 @@ const TenantReport = ({
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
 
     let total = expReport.reduce((acc, obj) => acc + obj.chargesCal, 0);
+
     localStorage.setItem("total", total);
   }, []);
 
@@ -48,7 +49,7 @@ const TenantReport = ({
 
   const onRenewal = (tenants) => {
     //setId(id);
-    console.log("x",tenants)
+    // console.log("x", tenants);
     setShowEditModal(true);
     setUserData(tenants);
   };
@@ -209,7 +210,7 @@ const TenantReport = ({
             </div>
 
             <div className="row" ref={componentRef}>
-              <div className="col-lg-1"></div>
+              <div className="col-lg-1  col-sm-12 col-md-12"></div>
               <div
                 // ref={componentRef}
                 className="body-inner no-padding table-responsive  col-lg-10"
@@ -256,9 +257,10 @@ const TenantReport = ({
                               </td> */}
                             <td>{Val.tenantFileNo}</td>
                             <td>{Val.Location}</td>
-                            <td>{Val.stampDuty}</td>
+                            <td>{Number(Val.stampDuty).toFixed(2)}</td>
+
                             <td>{tenantLeaseEndDate}</td>
-                            <td>{Val.chargesCal}</td>
+                            <td>{Number(Val.chargesCal).toFixed(2)}</td>
                             <td>{Val.AgreementStatus}</td>
                             {Val.AgreementStatus === "Expired" ? (
                               <td>
@@ -311,7 +313,7 @@ const TenantReport = ({
               centered
             >
               <Modal.Header className="confirmbox-heading">
-                <div className="col-lg-10">
+                <div className="col-lg-10  col-sm-12 col-md-12">
                   <h3
                     style={{
                       color: "white",
@@ -320,7 +322,7 @@ const TenantReport = ({
                     Renewal Agreement
                   </h3>
                 </div>
-                <div className="col-lg-2">
+                <div className="col-lg-2  col-sm-12 col-md-12">
                   <button onClick={handleEditModalClose} className="close">
                     <img
                       src={require("../../static/images/close.png")}

@@ -109,7 +109,10 @@ const AddShopDetails = ({
       let new_door = items.map((ele) => ele.doorNo === inputdata);
       if (new_door.every((ele) => ele === false)) {
         setshowscroll("block");
-        setitem([...items, { doorNo: inputdata, status: "Avaiable","buildingName" : buildingName }]);
+        setitem([
+          ...items,
+          { doorNo: inputdata, status: "Avaiable", buildingName: buildingName },
+        ]);
         setinput("");
         setLocError("black");
       } else {
@@ -168,7 +171,7 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Active",
       };
-      console.log(finalData)
+      // console.log(finalData)
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,
@@ -205,7 +208,7 @@ const AddShopDetails = ({
             </h4>
           </div>
         </div>
-        <div className="col-lg-2">
+        <div className="col-lg-2  col-sm-12 col-md-12">
           <button
             onClick={() => {
               setShowadd(false);
@@ -226,7 +229,7 @@ const AddShopDetails = ({
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="container-fluid propcont">
             <div className="row">
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label>Building Name*:</label>
                 <input
                   type="text"
@@ -239,7 +242,7 @@ const AddShopDetails = ({
                 />
                 <br></br>
               </div>
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label style={LocErrorStyle}>Location*:</label>
                 <Select
                   name="orgLoc"
@@ -283,7 +286,7 @@ const AddShopDetails = ({
               {myuser.usergroup === "Admin" ? (
                 <>
                   {" "}
-                  <div className="col-lg-6 ">
+                  <div className="col-lg-6  col-sm-12 col-md-12 ">
                     <label>Stamp Duty*:</label>
                     <input
                       type="text"
@@ -294,7 +297,7 @@ const AddShopDetails = ({
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-lg-6  col-sm-12 col-md-12">
                     <label>
                       Hike<b>%</b>*:
                     </label>
@@ -307,7 +310,7 @@ const AddShopDetails = ({
                     />{" "}
                     <br></br>
                   </div>
-                  <div className="col-lg-6">
+                  <div className="col-lg-6  col-sm-12 col-md-12">
                     <label>Lease Time Period*:</label>
                     <div className="controls">
                       <input
@@ -340,7 +343,7 @@ const AddShopDetails = ({
               ) : (
                 <>
                   {" "}
-                  <div className="col-lg-6 d-none">
+                  <div className="col-lg-6  col-sm-12 col-md-12 d-none">
                     <label>Stamp Duty*:</label>
                     <input
                       type="text"
@@ -351,7 +354,7 @@ const AddShopDetails = ({
                     />
                     <br></br>
                   </div>
-                  <div className="col-lg-6 d-none">
+                  <div className="col-lg-6  col-sm-12 col-md-12 d-none">
                     <label>
                       Hike<b>%</b>*:
                     </label>
@@ -364,7 +367,7 @@ const AddShopDetails = ({
                     />{" "}
                     <br></br>
                   </div>
-                  <div className="col-lg-6 d-none">
+                  <div className="col-lg-6   col-sm-12 col-md-12 d-none">
                     <label>Lease Time Period*:</label>
                     <div className="controls">
                       <input
@@ -379,22 +382,22 @@ const AddShopDetails = ({
                       <br></br>
                     </div>
                   </div>
-                  <div className="col-lg-6">
-                <label>Address*:</label>
+                  <div className="col-lg-6  col-sm-12 col-md-12">
+                    <label>Address*:</label>
 
-                <textarea
-                  name="shopAddress"
-                  value={shopAddress}
-                  id=" addprop "
-                  className="textarea form-control"
-                  rows="3"
-                  placeholder="Address"
-                  onChange={(e) => onPropertychange(e)}
-                  style={{ width: "100%" }}
-                  required
-                ></textarea>
-                <br></br>
-              </div>
+                    <textarea
+                      name="shopAddress"
+                      value={shopAddress}
+                      id=" addprop "
+                      className="textarea form-control"
+                      rows="3"
+                      placeholder="Address"
+                      onChange={(e) => onPropertychange(e)}
+                      style={{ width: "100%" }}
+                      required
+                    ></textarea>
+                    <br></br>
+                  </div>
                 </>
               )}
               {/* <div className="col-lg-6">
@@ -414,7 +417,7 @@ const AddShopDetails = ({
                 <br></br>
               </div> */}
 
-              <div className="col-lg-6">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <label className="ml-2" style={{ color: locError }}>
                   Door No*:
                 </label>
@@ -470,12 +473,12 @@ const AddShopDetails = ({
                   RoomAlreadyExist
                 </p> */}
               </div>
-              <div className="col-lg-9 text-danger">
+              <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
               </div>
 
-              <div className="col-lg-3">
+              <div className="col-lg-3  col-sm-12 col-md-12">
                 <button
                   type="submit"
                   className="btn sub_form btn_continue Save float-right  "

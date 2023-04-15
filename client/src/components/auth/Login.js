@@ -233,7 +233,7 @@ const Login = ({
             )}
           </div>
 
-          <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center">
+          <div className="col-md-12 col-sm-12 col-lg-12 col-12 text-center ">
             <button
               className="btn contact_reg"
               onClick={(e) => onSubmit(e)}

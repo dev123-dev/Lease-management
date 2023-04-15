@@ -143,7 +143,7 @@ const EditProperty = ({
       <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Building Name*:</label>
 
               <input
@@ -156,7 +156,7 @@ const EditProperty = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Stamp Duty*: </label>
               <input
                 type="text"
@@ -168,7 +168,7 @@ const EditProperty = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>
                 Hike<b>%</b>*:
               </label>
@@ -181,7 +181,7 @@ const EditProperty = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Lease Time Period*: </label>
               <input
                 type="text"
@@ -192,7 +192,7 @@ const EditProperty = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Address*:</label>
 
               <textarea
@@ -232,7 +232,7 @@ const EditProperty = ({
               <br></br>
             </div>
 
-            <div className="  col-lg-6 ">
+            <div className="  col-lg-6  col-sm-12 col-md-12 ">
               <label className="ml-2" style={{ color: RoomAlreadyExist }}>
                 Door No*:{" "}
               </label>
@@ -283,12 +283,12 @@ const EditProperty = ({
                 RoomAlreadyExist
               </p> */}
             </div>
-            <div className="col-lg-9 text-danger">
+            <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
               * Indicates mandatory fields, Please fill mandatory fields before
               Submit
             </div>
 
-            <div className="col-lg-3">
+            <div className="col-lg-3  col-sm-12 col-md-12">
               <button
                 className="btn sub_form btn_continue Save float-right"
                 id="savebtn"

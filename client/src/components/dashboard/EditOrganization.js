@@ -90,38 +90,34 @@ const EditOrganization = ({
     setFormDataORG({ ...formDataORG, [e.target.name]: e.target.value });
   };
   const [locError, setLocError] = useState("black");
-  const[imgError,setImgError]=useState("black")
+  const [imgError, setImgError] = useState("black");
   const onUpdate = (e) => {
-    if(Logo===" ")
-    {
+    if (Logo === " ") {
       setImgError("red");
       e.preventDefault();
-    }
-    else{
-
- 
-    e.preventDefault();
-    if (items.length === 0) {
-      setLocError("red");
     } else {
-      const updateData = {
-        OrganizationId: org._id,
-        OrganizationName: OrganizationName,
-        OrganizationEmail: OrganizationEmail,
-        OrganizationNumber: OrganizationNumber,
-        OrganizationAddress: OrganizationAddress,
-        startdate: showStartdate,
-        Logo: Logo,
-        enddate: showEnddate,
-        Location: items,
-      };
-      console.log(updateData);
-      updateOrganization(updateData);
-      getAllOrganization();
+      e.preventDefault();
+      if (items.length === 0) {
+        setLocError("red");
+      } else {
+        const updateData = {
+          OrganizationId: org._id,
+          OrganizationName: OrganizationName,
+          OrganizationEmail: OrganizationEmail,
+          OrganizationNumber: OrganizationNumber,
+          OrganizationAddress: OrganizationAddress,
+          startdate: showStartdate,
+          Logo: Logo,
+          enddate: showEnddate,
+          Location: items,
+        };
+        // console.log(updateData);
+        updateOrganization(updateData);
+        getAllOrganization();
 
-      EditModal(false);
+        EditModal(false);
+      }
     }
-  }
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -131,7 +127,7 @@ const EditOrganization = ({
       <form onSubmit={(e) => onUpdate(e)}>
         <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label> Organization Name*:</label>
 
               <input
@@ -144,7 +140,7 @@ const EditOrganization = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Email*: </label>
               <input
                 type="email"
@@ -156,7 +152,7 @@ const EditOrganization = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Phone No*:</label>
 
               <input
@@ -164,7 +160,7 @@ const EditOrganization = ({
                 name="OrganizationNumber"
                 value={OrganizationNumber}
                 pattern="\d{10}"
-                  title=" 10 Digits only"
+                title=" 10 Digits only"
                 className="form-control"
                 onChange={(e) => onInputChange(e)}
                 required
@@ -172,7 +168,7 @@ const EditOrganization = ({
               <br></br>
             </div>
 
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Lease Start Date*:</label>
               <input
                 name="startdate"
@@ -185,7 +181,7 @@ const EditOrganization = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Lease End Date*:</label>
               <input
                 type="text"
@@ -210,7 +206,7 @@ const EditOrganization = ({
                 required
               ></textarea>{" "}
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label className="ml-2" style={{ color: locError }}>
                 Location*:
               </label>
@@ -258,7 +254,9 @@ const EditOrganization = ({
               </div>
             </div>
             <div className="row col-lg-8 col-md-12 col-sm-12 col-12 py-3">
-              <label className="label-control" style={{color:imgError}}>Organization Logo :</label>
+              <label className="label-control" style={{ color: imgError }}>
+                Organization Logo :
+              </label>
 
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12">
                 <FileBase64
@@ -273,22 +271,26 @@ const EditOrganization = ({
                 />
               </div>
               <i className="smallsize">(File size must be less than 70kb)</i>
-              </div>
-              <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  " >
-                <img className="log_size" alt="Preview" src={`${Logo}`} style={{height:"100px",width:"200px"}} />
-              </div>
-           
+            </div>
+            <div className="row col-lg-4 col-md-12 col-sm-12 col-12 py-5 d-flex justify-content-center align-item-center  ">
+              <img
+                className="log_size"
+                alt="Preview"
+                src={`${Logo}`}
+                style={{ height: "100px", width: "200px" }}
+              />
+            </div>
           </div>
         </div>
 
         <br></br>
 
         {/*------------- Multiple Location adding details Ending------------ */}
-        <div className="col-lg-9 text-danger">
+        <div className="col-lg-9   col-sm-12 col-md-12 text-danger">
           * Indicates mandatory fields, Please fill mandatory fields before
           Submit
         </div>
-        <div className="col-lg-3 float-right">
+        <div className="col-lg-3  col-sm-12 col-md-12 float-right">
           <button
             id="savebtn"
             className="btn sub_form btn_continue Save float-right"
