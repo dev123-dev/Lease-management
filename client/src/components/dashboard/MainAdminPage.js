@@ -110,7 +110,7 @@ const MainAdminPage = ({
           <div className="row">
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
             <div
-              className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5"
+              className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5 log"
               id="shadow-bck"
             >
               <div className="text-center">
@@ -141,7 +141,7 @@ const MainAdminPage = ({
               </div>
             </div>
             <div
-              className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5"
+              className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5 log"
               id="shadow-bck"
             >
               <div className="text-center">
@@ -201,10 +201,10 @@ const MainAdminPage = ({
               </div>
             </div>
             <div
-              className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 text-center pt-5"
+              className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 text-center pt-5 ml-4 card2"
               id="shadow-bck"
             >
-              <div className="text-center">
+              <div className="text-center ">
                 <img
                   className="img_icon_sizeDashboard  "
                   src={money}
