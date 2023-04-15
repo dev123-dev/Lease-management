@@ -292,10 +292,11 @@ footer.footer .top_top {
 }
 
 .log_size {
-  width: 100px;
-  height: 46px;
+  width: 110px;
+  height: 56px;
   /* margin-right: 70px; */
-  margin-top: 0px;
+  margin-top: -5px;
+  margin-left:10px;
   overflow: hidden;
 }
 
