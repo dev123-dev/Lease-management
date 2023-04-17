@@ -36,7 +36,6 @@ const BuildingReport = ({
       return ele._id;
     });
 
-  console.log("get_property_related_tenant", get_property_related_tenant);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
     fun();
@@ -204,7 +203,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
-  // console.log(get_property_related_tenant);
+   console.log(currentDatas);
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
@@ -273,6 +272,7 @@ const BuildingReport = ({
                         <th> Occupied Door No</th>
                         <th>Monthly Rent Amount</th>
                         <th>Deposit Amount</th>
+                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -320,6 +320,7 @@ const BuildingReport = ({
                               </td>
                               <td>{Val.tenantRentAmount}</td>
                               <td>{Val.tenantDepositAmt}</td>
+                              <td>{Val.ShopStatus === "Deactive" ?<>Deactivated</> :<></> }</td>
                             </tr>
                           );
                         })}

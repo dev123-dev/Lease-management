@@ -5,19 +5,31 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import locreport from "../../static/images/locrep.png";
+import loc from "../../static/images/location.png";
 import propreport from "../../static/images/propreport.png";
 // import { Roller } from "react-awesome-spinners";
-import { ParticularTenant } from "../../actions/tenants";
+import { ParticularTenant,getPropertyTenantData } from "../../actions/tenants";
 const AllReport = ({
   auth: { user, isAuthenticated, loading },
-  tenants: { particular_org_data, get_particular_org_tenant },
+  tenants: { particular_org_data, get_particular_org_tenant },getPropertyTenantData,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
   //console.log("myorg", myorg);
   useEffect(() => {
+
+    let propertyId =
+    particular_org_data &&
+    particular_org_data.map((ele) => {
+      return ele._id;
+    });
     if (myuser) {
       fun();
+
+      getPropertyTenantData({
+        PropertyId: propertyId,
+        OrganizationId: myuser.OrganizationId,
+      });
       //   getParticularProperty({
       //     OrganizationId: myuser && myuser.OrganizationId,
       //   });
@@ -106,8 +118,8 @@ const AllReport = ({
               <div className="text-center">
                 <Link to="/LocationReport">
                   <img
-                    className="img_icon_repDashboard log  "
-                    src={locreport}
+                    className="img_icon_repDashboard log"
+                    src={loc}
                     alt="IMG2"
                   />
                 </Link>
@@ -115,7 +127,6 @@ const AllReport = ({
                   <center>
                     <p
                       style={{
-                        // fontFamily: "Serif",
                         color: "black",
                       }}
                     >
@@ -148,10 +159,8 @@ const AllReport = ({
                   <center>
                     <p
                       style={{
-                        // fontFamily: "Serif",
                         color: "black",
                       }}
-                      // className="h3"
                     >
                       <b className="h4">
                         Property Report<br></br> {""}
@@ -173,4 +182,4 @@ const mapStateToProps = (state) => ({
   tenants: state.tenants,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { ParticularTenant })(AllReport);
+export default connect(mapStateToProps, { ParticularTenant,getPropertyTenantData })(AllReport);

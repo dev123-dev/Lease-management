@@ -112,8 +112,11 @@ const PropertyDetail = ({
     SetDoornumber(false);
     setCheckData([]);
   };
+
   const onDelete = (id, Dno) => {
-    if (Dno.length >= 1) {
+    console.log(Dno,"DNO")
+    const DelDno=Dno.filter((ele)=>ele && ele.status==="Avaiable");
+    if (DelDno.length >= 1) {
       SetDno(Dno);
       setPropertyId(id);
       SetDoornumber(true);
@@ -178,6 +181,8 @@ const PropertyDetail = ({
     } else {
     }
   };
+
+
 
   const [showadd, setShowadd] = useState(false);
 
@@ -526,7 +531,7 @@ const PropertyDetail = ({
               style={{ width: "100%" }}
               required
             ></textarea>
-            <div>Are you sure You Want To Deactivate..?</div>
+            <div>Are you sure You Want To Deactivate123333..?</div>
           </Modal.Body>
           <Modal.Footer>
             <Button id="deactivebtn" type="submit">
