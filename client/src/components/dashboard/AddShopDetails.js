@@ -70,7 +70,7 @@ const AddShopDetails = ({
   //formData
 
   const [formData, setFormData] = useState({
-    buildingName: "",
+    BuildingName: "",
     shopDoorNo: [],
     hike: myuser.output && myuser.output.hike,
     stampDuty: myuser.output && myuser.output.stampDuty,
@@ -83,7 +83,7 @@ const AddShopDetails = ({
   const [items, setitem] = useState([]);
 
   const {
-    buildingName,
+    BuildingName,
     shopDoorNo,
     hike,
     stampDuty,
@@ -111,7 +111,7 @@ const AddShopDetails = ({
         setshowscroll("block");
         setitem([
           ...items,
-          { doorNo: inputdata, status: "Avaiable", buildingName: buildingName },
+          { doorNo: inputdata, status: "Avaiable", BuildingName: BuildingName },
         ]);
         setinput("");
         setLocError("black");
@@ -161,7 +161,7 @@ const AddShopDetails = ({
       const finalData = {
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
-        buildingName: buildingName,
+        BuildingName: BuildingName,
         shopDoorNo: items,
         hike: hike,
         stampDuty: stampDuty,
@@ -175,7 +175,7 @@ const AddShopDetails = ({
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,
-        buildingName: "",
+        BuildingName: "",
         inputdata: "",
         hike: "",
         stampDuty: "",
@@ -234,8 +234,8 @@ const AddShopDetails = ({
                 <input
                   type="text"
                   placeholder="Building Name"
-                  name="buildingName"
-                  value={buildingName}
+                  name="BuildingName"
+                  value={BuildingName}
                   className="form-control input"
                   onChange={(e) => onPropertychange(e)}
                   required

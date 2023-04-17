@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PropertyHistory = new mongoose.Schema({
-  buildingName: {
+  BuildingName: {
     type: String,
   },
   shopDoorNo: [],

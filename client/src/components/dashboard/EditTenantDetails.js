@@ -50,7 +50,7 @@ const EditTenantDetails = ({
   AvaiableRoomBuilding.map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
-      label: buildingData.buildingName,
+      label: buildingData.BuildingName,
       value: buildingData._id,
     })
   );
@@ -399,7 +399,7 @@ const EditTenantDetails = ({
       tenantDate: todayDateymd,
       unseletedDoorno: unselectedDno,
     };
-    //console.log(finalData);
+    console.log("file", finalData);
     UpdateTenantsDetails(finalData);
     histroy.push("/tenant-detail");
     // const historyData = {
@@ -469,9 +469,9 @@ const EditTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Property Name*:</label>
                 {/* <Select
-                  name="buildingName"
+                  name="BuildingName"
                   options={allBuildingNames}
-                  value={buildingName}
+                  value={BuildingName}
                   onChange={(e) => onBuildingChange(e)}
                   theme={(theme) => ({
                     ...theme,

@@ -467,7 +467,7 @@ router.post("/update-Property", async (req, res) => {
       { _id: data.Property_id, OrganizationId: data.Orgainzation_id },
       {
         $set: {
-          buildingName: data.buildingName,
+          BuildingName: data.BuildingName,
           shopDoorNo: data.shopDoorNo,
           shopAddress: data.shopAddress,
           hike: data.hike,
@@ -484,7 +484,7 @@ router.post("/update-Property", async (req, res) => {
       { BuildingId: data.Property_id },
       {
         $set: {
-          BuildingName: data.buildingName,
+          BuildingName: data.BuildingName,
         },
       }
     );
@@ -744,7 +744,7 @@ router.post("/get-Property-tenant-details", async (req, res) => {
       {
         $group: {
           _id: "$output.BuildingId",
-          buildingName: { $first: "$output.BuildingName" },
+          BuildingName: { $first: "$output.BuildingName" },
           //shopAddress: "$shopAddress",
           UnOccupied: { $first: "$shopDoorNo" },
           Location: { $first: "$output.Location" },
@@ -1267,7 +1267,7 @@ router.post("/get-previous-years-exp", async (req, res) => {
 });
 
 router.post("/get-tenant-exp-report", async (req, res) => {
-  // console.log("problem");
+  //console.log("problem");
   const { monthSearch, yearSearch, OrganizationId } = req.body;
   // console.log("this is it", req.body);
   var monthVal = monthSearch;
@@ -1363,7 +1363,7 @@ router.post("/get-tenant-exp-report", async (req, res) => {
         },
       },
     ]);
-    // console.log("tenantExpReport-xxxx", tenantExpReport);
+    //console.log("tenantExpReport-xxxx", tenantExpReport);
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -1827,6 +1827,7 @@ router.post("/update-tenant-details", async (req, res) => {
             OrganizationName: data.OrganizationName,
             tenantName: data.tenantName,
             AgreementStatus: "Expired",
+            tenantFileNo: data.tenantFileNo,
             tenantPhone: data.tenantPhone,
             shopDoorNo: data.tenantDoorNo,
             tenantRentAmount: data.tenantRentAmount,
@@ -1903,6 +1904,7 @@ router.post("/update-tenant-details", async (req, res) => {
             OrganizationName: data.OrganizationName,
             tenantName: data.tenantName,
             AgreementStatus: "Active",
+            tenantFileNo: data.tenantFileNo,
             tenantPhone: data.tenantPhone,
             shopDoorNo: data.tenantDoorNo,
             tenantRentAmount: data.tenantRentAmount,

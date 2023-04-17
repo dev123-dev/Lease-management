@@ -46,14 +46,15 @@ const TenantFilters = ({
   const logUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
-  }, [getMonthExpCount]);
+  }, [monthExpCnt]);
+
   useEffect(() => {
     const finalData = {
       selectedVal: new Date(),
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getPreviousYearsExpCount(finalData);
-  }, [getPreviousYearsExpCount]);
+  }, [yearExpCnt]);
 
   useEffect(() => {
     const finalDataReport = {
@@ -178,12 +179,12 @@ const TenantFilters = ({
                 <div
                   className="btn_more text-center "
                   title="Previous Year Renewal Count"
-                  style={{ cursor: "pointer"  } }
+                  style={{ cursor: "pointer" }}
                 >
                   <Link
                     title="Previous Year Renewal Count"
                     to="/Organization-filter"
-                   // style={{ minWidth: "100px" }}
+                    // style={{ minWidth: "100px" }}
                     className="top_box "
                     onClick={() => oldExpCountFetchOrg()}
                   >
@@ -285,10 +286,10 @@ const TenantFilters = ({
           {/* TENANT FILTER */}
           {logUser.usergroup === "Admin" ? (
             <Fragment>
-              <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 " >
+              <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 ">
                 {/* <div className="row pb-2 ml-2   "> */}
                 <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter    ">
-                  <div >
+                  <div>
                     <div className="btn_more text-center ">
                       <Link
                         to="/tenant-report"

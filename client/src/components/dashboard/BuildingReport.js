@@ -279,20 +279,18 @@ const BuildingReport = ({
                         currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
-                              
-                                {Val.ShopStatus === "Deactive" ? (
-                                  <td
-                                    style={{ backgroundColor: "#dda6a6" }}
-                                    className="headcolstatic secondlinebreak1"
-                                  >
-                                    {Val.buildingName}
-                                  </td>
-                                ) : (
-                                  <td className="headcolstatic secondlinebreak1">
-                                    {Val.buildingName}
-                                  </td>
-                                )}
-                            
+                              {Val.ShopStatus === "Deactive" ? (
+                                <td
+                                  style={{ backgroundColor: "#dda6a6" }}
+                                  className="headcolstatic secondlinebreak1"
+                                >
+                                  {Val.BuildingName}
+                                </td>
+                              ) : (
+                                <td className="headcolstatic secondlinebreak1">
+                                  {Val.BuildingName}
+                                </td>
+                              )}
 
                               <td>{Val.Location}</td>
                               <td>{Val.Location}</td>

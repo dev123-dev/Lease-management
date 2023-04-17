@@ -72,7 +72,7 @@ const PropertyDetail = ({
       OrganizationId: ele.OrganizationId,
       PropertyId: ele._id,
       OrganizationName: ele.OrganizationName,
-      buildingName: ele.buildingName,
+      BuildingName: ele.BuildingName,
       hike: ele.hike,
       leaseTimePeriod: ele.leaseTimePeriod,
       shopAddress: ele.shopAddress,
@@ -311,17 +311,17 @@ const PropertyDetail = ({
                             <tr key={idx}>
                               {Val.shopStatus === "Active" ? (
                                 <td className="headcolstatic secondlinebreak1">
-                                  {Val.buildingName}
+                                  {Val.BuildingName}
                                 </td>
                               ) : (
                                 <td
                                   style={{ backgroundColor: "#dda6a6" }}
                                   className="headcolstatic secondlinebreak1"
                                 >
-                                  {Val.buildingName}
+                                  {Val.BuildingName}
                                 </td>
                               )}
-                             
+
                               {/* <td>
                                 {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {

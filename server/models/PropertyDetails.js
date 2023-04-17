@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const PropertySchema = new mongoose.Schema({
-  buildingName: {
+  BuildingName: {
     type: String,
   },
   buildingid: {
