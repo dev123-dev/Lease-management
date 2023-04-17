@@ -307,7 +307,7 @@ const BuildingReport = ({
                                   alt="Govt Cards"
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
                                 /> */}
-                                {Val.shopDoorNo.map((ele) => {
+                                {Val.shopDoorNo&&Val.shopDoorNo.map((ele) => {
                                   <p key={idx}></p>;
                                   if (ele.status === "Acquired") {
                                     return (
