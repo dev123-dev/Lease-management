@@ -203,7 +203,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
-   console.log(currentDatas);
+  console.log(currentDatas);
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
@@ -272,7 +272,6 @@ const BuildingReport = ({
                         <th> Occupied Door No</th>
                         <th>Monthly Rent Amount</th>
                         <th>Deposit Amount</th>
-                        <th>Status</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -280,9 +279,20 @@ const BuildingReport = ({
                         currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
-                              <td className="headcolstatic secondlinebreak1">
-                                {Val.buildingName}
-                              </td>
+                              
+                                {Val.ShopStatus === "Deactive" ? (
+                                  <td
+                                    style={{ backgroundColor: "#dda6a6" }}
+                                    className="headcolstatic secondlinebreak1"
+                                  >
+                                    {Val.buildingName}
+                                  </td>
+                                ) : (
+                                  <td className="headcolstatic secondlinebreak1">
+                                    {Val.buildingName}
+                                  </td>
+                                )}
+                            
 
                               <td>{Val.Location}</td>
                               <td>{Val.Location}</td>
@@ -307,20 +317,20 @@ const BuildingReport = ({
                                   alt="Govt Cards"
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
                                 /> */}
-                                {Val.shopDoorNo&&Val.shopDoorNo.map((ele) => {
-                                  <p key={idx}></p>;
-                                  if (ele.status === "Acquired") {
-                                    return (
-                                      <div className="dno">
-                                        {ele.label + ","}
-                                      </div>
-                                    );
-                                  }
-                                })}
+                                {Val.shopDoorNo &&
+                                  Val.shopDoorNo.map((ele) => {
+                                    <p key={idx}></p>;
+                                    if (ele.status === "Acquired") {
+                                      return (
+                                        <div className="dno">
+                                          {ele.label + ","}
+                                        </div>
+                                      );
+                                    }
+                                  })}
                               </td>
                               <td>{Val.tenantRentAmount}</td>
                               <td>{Val.tenantDepositAmt}</td>
-                              <td>{Val.ShopStatus === "Deactive" ?<>Deactivated</> :<></> }</td>
                             </tr>
                           );
                         })}

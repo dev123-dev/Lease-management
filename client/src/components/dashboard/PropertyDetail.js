@@ -114,8 +114,8 @@ const PropertyDetail = ({
   };
 
   const onDelete = (id, Dno) => {
-    console.log(Dno,"DNO")
-    const DelDno=Dno.filter((ele)=>ele && ele.status==="Avaiable");
+    console.log(Dno, "DNO");
+    const DelDno = Dno.filter((ele) => ele && ele.status === "Avaiable");
     if (DelDno.length >= 1) {
       SetDno(Dno);
       setPropertyId(id);
@@ -181,8 +181,6 @@ const PropertyDetail = ({
     } else {
     }
   };
-
-
 
   const [showadd, setShowadd] = useState(false);
 
@@ -311,9 +309,19 @@ const PropertyDetail = ({
                         currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
-                              <td className="headcolstatic secondlinebreak1">
-                                {Val.buildingName}
-                              </td>
+                              {Val.shopStatus === "Active" ? (
+                                <td className="headcolstatic secondlinebreak1">
+                                  {Val.buildingName}
+                                </td>
+                              ) : (
+                                <td
+                                  style={{ backgroundColor: "#dda6a6" }}
+                                  className="headcolstatic secondlinebreak1"
+                                >
+                                  {Val.buildingName}
+                                </td>
+                              )}
+                             
                               {/* <td>
                                 {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
@@ -376,7 +384,7 @@ const PropertyDetail = ({
                                         />
                                       </>
                                     ) : (
-                                      <p></p>
+                                      <td></td>
                                     )}
                                   </td>
                                 </>

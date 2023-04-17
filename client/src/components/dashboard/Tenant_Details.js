@@ -210,7 +210,8 @@ const Tenant_Details = ({
   //     return ele;
   //   }
   // });
-console.log(currentDatas)
+
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -321,7 +322,10 @@ console.log(currentDatas)
                             // if (Val.tenantstatus === "Active") {
                               return (
                                 <tr key={idx}>
-                                  <td>{Val.tenantName}</td>
+                                  {
+                                    Val.tenantstatus ==="Deactive" ? <td style={{backgroundColor : "#dda6a6"}}>{Val.tenantName}</td> :<td>{Val.tenantName}</td>
+                                  }
+                                  
                                   <td>{Val.BuildingName}</td>
                                   <td>
                                     {Val.shopDoorNo.map((ele) => {
@@ -373,11 +377,7 @@ console.log(currentDatas)
                                           />
                                         </td>
                                       ) : (
-                                        <td>
-                                          <div className="blank text-center">
-                                            
-                                          </div>
-                                        </td>
+                                       <td></td>
                                       )}
                                     </>
                                   )}
