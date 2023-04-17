@@ -36,7 +36,7 @@ const BuildingReport = ({
       return ele._id;
     });
 
-  // console.log("get_property_related_tenant", get_property_related_tenant);
+  console.log("get_property_related_tenant", get_property_related_tenant);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
     fun();
@@ -190,8 +190,8 @@ const BuildingReport = ({
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentDatas =
-  get_property_related_tenant &&
-  get_property_related_tenant.slice(indexOfFirstData, indexOfLastData);
+    get_property_related_tenant &&
+    get_property_related_tenant.slice(indexOfFirstData, indexOfLastData);
 
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
@@ -284,12 +284,12 @@ const BuildingReport = ({
                                 {Val.buildingName}
                               </td>
 
-                              <td>{Val.shopAddress}</td>
+                              <td>{Val.Location}</td>
                               <td>{Val.Location}</td>
                               <td>
                                 {" "}
-                                {Val.shopDoorNo &&
-                                  Val.shopDoorNo.map((ele) => {
+                                {Val.UnOccupied &&
+                                  Val.UnOccupied.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Avaiable") {
                                       return (
@@ -307,25 +307,19 @@ const BuildingReport = ({
                                   alt="Govt Cards"
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
                                 /> */}
-                                {Val.output &&
-                                  Val.output.shopDoorNo &&
-                                  Val.output.shopDoorNo.map((ele) => {
-                                    <p key={idx}></p>;
-                                    if (ele.status === "Acquired") {
-                                      return (
-                                        <div className="dno">
-                                          {ele.label + ","}
-                                        </div>
-                                      );
-                                    }
-                                  })}
+                                {Val.shopDoorNo.map((ele) => {
+                                  <p key={idx}></p>;
+                                  if (ele.status === "Acquired") {
+                                    return (
+                                      <div className="dno">
+                                        {ele.label + ","}
+                                      </div>
+                                    );
+                                  }
+                                })}
                               </td>
-                              <td>
-                                {Val.output && Val.output.tenantRentAmount}
-                              </td>
-                              <td>
-                                {Val.output && Val.output.tenantDepositAmt}
-                              </td>
+                              <td>{Val.tenantRentAmount}</td>
+                              <td>{Val.tenantDepositAmt}</td>
                             </tr>
                           );
                         })}
@@ -359,8 +353,6 @@ const BuildingReport = ({
           </div>
         </div>
       </div>
-
-    
     </>
   );
 };

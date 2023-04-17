@@ -741,6 +741,18 @@ router.post("/get-Property-tenant-details", async (req, res) => {
       {
         $unwind: "$output",
       },
+      {
+        $group: {
+          _id: "$output.BuildingId",
+          buildingName: { $first: "$output.BuildingName" },
+          //shopAddress: "$shopAddress",
+          UnOccupied: { $first: "$shopDoorNo" },
+          Location: { $first: "$output.Location" },
+          shopDoorNo: { $first: "$output.shopDoorNo" },
+          tenantRentAmount: { $first: "$output.tenantRentAmount" },
+          tenantDepositAmt: { $first: "$output.tenantDepositAmt" },
+        },
+      },
     ])
     .then((data) => res.json(data));
 });
