@@ -4,7 +4,8 @@ import Select from "react-select";
 import { useState } from "react";
 import { get_particular_org_user } from "../../actions/tenants";
 import { UpdateUser } from "../../actions/tenants";
-
+import { Modal, Button, ModalBody } from "react-bootstrap";
+import { loadUser } from "../../actions/auth";
 const Profile = ({
   auth: { isAuthenticated, user, users },
   tenants: { allorg, get_particularOrg_user },
@@ -13,6 +14,7 @@ const Profile = ({
   getalluser,
   superuser,
   EditModal,
+  loadUser,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
@@ -120,7 +122,11 @@ const Profile = ({
     userphone,
     OrganizationName,
   } = userData;
+
+  const[showUpdate,setShowUpdate]=useState(false);
+  
   const onInputChange = (e) => {
+ 
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
@@ -132,7 +138,16 @@ const Profile = ({
 
   const [refersh, setrefresh] = useState("");
 
+  const onUpdateclose=(e)=>{
+    
+    e.preventDefault();
+    setShowUpdate(false);
+    //windows.location.reload();
+
+  }
+
   const onUpdate = (e) => {
+    setShowUpdate(true);
     setrefresh("x");
 
     const updateUSER = {
@@ -151,8 +166,11 @@ const Profile = ({
     // getalluser();
     //  get_particular_org_user({ orgid: user.OrganizationId });
     handleClose(true);
+
+    loadUser();
   };
   return (
+    <>
     <div>
       {user && user.usergroup === "Super Admin" ? (
         <div className="container container_align  ">
@@ -474,6 +492,53 @@ const Profile = ({
         </div>
       )}
     </div>
+    <Modal
+        show={showUpdate}
+        backdrop="static"
+        keyboard={false}
+
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+         <form onSubmit={(e) => onUpdateclose(e)}>
+        <Modal.Header className="confirmbox-heading">
+            <div className="col-lg-10  col-sm-12 col-md-12">
+              <div className="">
+                <h4
+                  style={{
+                    color: "white",
+                  }}
+                  className=" text-center "
+                >
+                  CONFIRMATION
+                </h4>
+              </div>
+            </div>
+            <div className="col-lg-2  col-sm-12 col-md-12">
+              <button onClick={() =>setShowUpdate(false)} className="close">
+                <img
+                  src={require("../../static/images/close.png")}
+                  alt="X"
+                  style={{ height: "20px", width: "20px" }}
+                />
+              </button>
+            </div>
+
+           
+          </Modal.Header>
+          <ModalBody className="h4 text-center">Data Updated Successfully..!!</ModalBody>
+          <Modal.Footer>
+            <Button variant="primary"  id="logoutbtn" type="submit" className=" text-center">
+              <b>OK</b>
+            </Button>
+          </Modal.Footer>
+          </form>
+       
+      </Modal>
+    
+    </>
+    
   );
 };
 const mapStateToProps = (state) => ({
@@ -483,4 +548,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   get_particular_org_user,
   UpdateUser,
+  loadUser,
 })(Profile); // to connect to particular function which is getalluser

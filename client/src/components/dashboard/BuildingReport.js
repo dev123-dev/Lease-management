@@ -272,7 +272,7 @@ const BuildingReport = ({
                         <th> Unccupied Door No</th>
                         <th> Occupied Door No</th>
                         <th>Monthly Rent Amount</th>
-                        <th>Deposite Amount</th>
+                        <th>Deposit Amount</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">

@@ -73,7 +73,14 @@ const EditProperty = ({
       //setitem([...items, inputdata]);
       let new_door = dno.map((ele) => ele.doorNo === inputdata);
       if (new_door.every((ele) => ele === false)) {
-        setdno([...dno, { doorNo: inputdata, status: "Avaiable" }]);
+        setdno([
+          ...dno,
+          {
+            doorNo: inputdata,
+            status: "Avaiable",
+            buildingName: Propertydata.buildingName,
+          },
+        ]);
         setinput("");
         SetRoomAlreadyExist("black");
       } else {

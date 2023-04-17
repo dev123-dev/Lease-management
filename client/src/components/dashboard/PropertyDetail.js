@@ -21,7 +21,6 @@ const PropertyDetail = ({
   getAllSettings,
   getParticularProperty,
 }) => {
-
   const myuser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
@@ -184,7 +183,7 @@ const PropertyDetail = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(6);
+  const [dataPerPage] = useState(8);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -193,7 +192,6 @@ const PropertyDetail = ({
     particular_org_data.slice(indexOfFirstData, indexOfLastData);
 
   const paginate = (nmbr) => {
-    
     setCurrentData(nmbr);
   };
   const refresh = () => {

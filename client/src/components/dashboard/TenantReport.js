@@ -258,8 +258,9 @@ const TenantReport = ({
                             <td>{Val.tenantFileNo}</td>
                             <td>{Val.Location}</td>
                             <td>{Number(Val.stampDuty).toFixed(2)}</td>
+
                             <td>{tenantLeaseEndDate}</td>
-                            <td>{Val.chargesCal}</td>
+                            <td>{Number(Val.chargesCal).toFixed(2)}</td>
                             <td>{Val.AgreementStatus}</td>
                             {Val.AgreementStatus === "Expired" ? (
                               <td>
