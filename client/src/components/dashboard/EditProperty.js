@@ -78,7 +78,7 @@ const EditProperty = ({
           {
             doorNo: inputdata,
             status: "Avaiable",
-            buildingName: Propertydata.buildingName,
+            BuildingName: Propertydata.BuildingName,
           },
         ]);
         setinput("");
@@ -95,7 +95,7 @@ const EditProperty = ({
 
   //multiple location end
   const [formData, setFormData] = useState({
-    buildingName: Propertydata.buildingName,
+    BuildingName: Propertydata.BuildingName,
     shopDoorNo: [],
     Location: Propertydata.Location,
     shopAddress: Propertydata.shopAddress,
@@ -106,7 +106,7 @@ const EditProperty = ({
   });
 
   const {
-    buildingName,
+    BuildingName,
     shopDoorNo,
     shopAddress,
     hike,
@@ -127,7 +127,7 @@ const EditProperty = ({
         OrganizationName: user.OrganizationName,
         Orgainzation_id: user.OrganizationId,
         Property_id: Propertydata.PropertyId,
-        buildingName: buildingName,
+        BuildingName: BuildingName,
         shopDoorNo: dno,
         shopAddress: shopAddress,
         hike: hike,
@@ -155,8 +155,8 @@ const EditProperty = ({
 
               <input
                 type="text"
-                name="buildingName"
-                value={buildingName}
+                name="BuildingName"
+                value={BuildingName}
                 className="form-control input"
                 onChange={(e) => onInputChange(e)}
                 required

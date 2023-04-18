@@ -117,7 +117,7 @@ const AddTenantDetails = ({
 
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
-  const [buildingName, setBuildingName] = useState();
+  const [BuildingName, setBuildingName] = useState();
 
   //this code is used to filter out only those building whose room number is avaiable if not avaiable it will not display the building name
   let AvaiableRoomBuilding = particular_org_data;
@@ -130,7 +130,7 @@ const AddTenantDetails = ({
   AvaiableRoomBuilding.map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
-      label: buildingData.buildingName,
+      label: buildingData.BuildingName,
       value: buildingData._id,
     })
   );
@@ -337,7 +337,7 @@ const AddTenantDetails = ({
       const finalData = {
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
-        BuildingName: buildingName,
+        BuildingName: BuildingName,
         BuildingId: buildingId,
         Location: LocList,
         tenantFileNo: tenantFileNo,
@@ -521,7 +521,7 @@ const AddTenantDetails = ({
                 <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px",cursor:"pointer" }}
+                  style={{ top: "30px", cursor: "pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}
@@ -538,7 +538,6 @@ const AddTenantDetails = ({
                 </div>
                 <br></br>
               </div>
-
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Pan Number:</label>
                 <input
@@ -554,7 +553,7 @@ const AddTenantDetails = ({
                 <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px",cursor:"pointer" }}
+                  style={{ top: "30px", cursor: "pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}
@@ -586,7 +585,7 @@ const AddTenantDetails = ({
                 <div
                   className="cstm-hint"
                   id="pass_admin_help"
-                  style={{ top: "30px",cursor:"pointer" }}
+                  style={{ top: "30px", cursor: "pointer" }}
                 >
                   <img
                     src={require("../../static/images/help1.png")}

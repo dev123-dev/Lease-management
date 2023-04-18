@@ -72,7 +72,7 @@ const PropertyDetail = ({
       OrganizationId: ele.OrganizationId,
       PropertyId: ele._id,
       OrganizationName: ele.OrganizationName,
-      buildingName: ele.buildingName,
+      BuildingName: ele.BuildingName,
       hike: ele.hike,
       leaseTimePeriod: ele.leaseTimePeriod,
       shopAddress: ele.shopAddress,
@@ -112,8 +112,11 @@ const PropertyDetail = ({
     SetDoornumber(false);
     setCheckData([]);
   };
+
   const onDelete = (id, Dno) => {
-    if (Dno.length >= 1) {
+    console.log(Dno, "DNO");
+    const DelDno = Dno.filter((ele) => ele && ele.status === "Avaiable");
+    if (DelDno.length >= 1) {
       SetDno(Dno);
       setPropertyId(id);
       SetDoornumber(true);
@@ -306,9 +309,19 @@ const PropertyDetail = ({
                         currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
-                              <td className="headcolstatic secondlinebreak1">
-                                {Val.buildingName}
-                              </td>
+                              {Val.shopStatus === "Active" ? (
+                                <td className="headcolstatic secondlinebreak1">
+                                  {Val.BuildingName}
+                                </td>
+                              ) : (
+                                <td
+                                  style={{ backgroundColor: "#dda6a6" }}
+                                  className="headcolstatic secondlinebreak1"
+                                >
+                                  {Val.BuildingName}
+                                </td>
+                              )}
+
                               {/* <td>
                                 {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
@@ -371,7 +384,7 @@ const PropertyDetail = ({
                                         />
                                       </>
                                     ) : (
-                                      <p></p>
+                                      <td></td>
                                     )}
                                   </td>
                                 </>
@@ -526,7 +539,7 @@ const PropertyDetail = ({
               style={{ width: "100%" }}
               required
             ></textarea>
-            <div>Are you sure You Want To Deactivate..?</div>
+            <div>Are you sure You Want To Deactivate123333..?</div>
           </Modal.Body>
           <Modal.Footer>
             <Button id="deactivebtn" type="submit">

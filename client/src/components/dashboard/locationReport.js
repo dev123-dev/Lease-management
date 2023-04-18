@@ -73,7 +73,7 @@ const LocationReport = ({
   //     OrganizationId: ele.OrganizationId,
   //     PropertyId: ele._id,
   //     OrganizationName: ele.OrganizationName,
-  //     buildingName: ele.buildingName,
+  //     BuildingName: ele.BuildingName,
   //     hike: ele.hike,
   //     leaseTimePeriod: ele.leaseTimePeriod,
   //     shopAddress: ele.shopAddress,
@@ -285,7 +285,7 @@ const LocationReport = ({
                           return (
                             <tr key={idx}>
                               <td className="headcolstatic secondlinebreak1">
-                                {Val.buildingName}
+                                {Val.BuildingName}
                               </td>
 
                               <td>{Val.shopAddress}</td>

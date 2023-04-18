@@ -61,11 +61,11 @@ const Tenant_Details = ({
       });
   };
 
-  let output = get_particular_org_tenant.filter(
-    (item) =>
-      item.shopDoorNo &&
-      !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
-  );
+  // let output = get_particular_org_tenant.filter(
+  //   (item) =>
+  //     item.shopDoorNo &&
+  //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
+  // );
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -205,11 +205,12 @@ const Tenant_Details = ({
     setselLoction(null);
   };
 
-  const tenantCount = currentDatas.filter((ele) => {
-    if (ele.tenantstatus === "Active") {
-      return ele;
-    }
-  });
+  // const tenantCount = currentDatas.filter((ele) => {
+  //   if (ele.tenantstatus === "Active") {
+  //     return ele;
+  //   }
+  // });
+
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -318,10 +319,13 @@ const Tenant_Details = ({
                               ED && ED[0],
                             ].join("-");
 
-                            if (Val.tenantstatus === "Active") {
+                            // if (Val.tenantstatus === "Active") {
                               return (
                                 <tr key={idx}>
-                                  <td>{Val.tenantName}</td>
+                                  {
+                                    Val.tenantstatus ==="Deactive" ? <td style={{backgroundColor : "#dda6a6"}}>{Val.tenantName}</td> :<td>{Val.tenantName}</td>
+                                  }
+                                  
                                   <td>{Val.BuildingName}</td>
                                   <td>
                                     {Val.shopDoorNo.map((ele) => {
@@ -373,17 +377,13 @@ const Tenant_Details = ({
                                           />
                                         </td>
                                       ) : (
-                                        <td>
-                                          <div className="blank text-center">
-                                            Deactived
-                                          </div>
-                                        </td>
+                                       <td></td>
                                       )}
                                     </>
                                   )}
                                 </tr>
                               );
-                            }
+                            // }
                           })}
                       </tbody>
                     </table>

@@ -36,7 +36,6 @@ const BuildingReport = ({
       return ele._id;
     });
 
-  // console.log("get_property_related_tenant", get_property_related_tenant);
   useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
     fun();
@@ -204,7 +203,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
-  // console.log(get_property_related_tenant);
+  console.log(currentDatas);
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>
@@ -280,16 +279,25 @@ const BuildingReport = ({
                         currentDatas.map((Val, idx) => {
                           return (
                             <tr key={idx}>
-                              <td className="headcolstatic secondlinebreak1">
-                                {Val.buildingName}
-                              </td>
+                              {Val.ShopStatus === "Deactive" ? (
+                                <td
+                                  style={{ backgroundColor: "#dda6a6" }}
+                                  className="headcolstatic secondlinebreak1"
+                                >
+                                  {Val.BuildingName}
+                                </td>
+                              ) : (
+                                <td className="headcolstatic secondlinebreak1">
+                                  {Val.BuildingName}
+                                </td>
+                              )}
 
-                              <td>{Val.shopAddress}</td>
+                              <td>{Val.Location}</td>
                               <td>{Val.Location}</td>
                               <td>
                                 {" "}
-                                {Val.shopDoorNo &&
-                                  Val.shopDoorNo.map((ele) => {
+                                {Val.UnOccupied &&
+                                  Val.UnOccupied.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Avaiable") {
                                       return (
@@ -307,9 +315,8 @@ const BuildingReport = ({
                                   alt="Govt Cards"
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
                                 /> */}
-                                {Val.output &&
-                                  Val.output.shopDoorNo &&
-                                  Val.output.shopDoorNo.map((ele) => {
+                                {Val.shopDoorNo &&
+                                  Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Acquired") {
                                       return (
@@ -320,12 +327,8 @@ const BuildingReport = ({
                                     }
                                   })}
                               </td>
-                              <td>
-                                {Val.output && Val.output.tenantRentAmount}
-                              </td>
-                              <td>
-                                {Val.output && Val.output.tenantDepositAmt}
-                              </td>
+                              <td>{Val.tenantRentAmount}</td>
+                              <td>{Val.tenantDepositAmt}</td>
                             </tr>
                           );
                         })}
