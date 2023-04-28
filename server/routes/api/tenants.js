@@ -647,6 +647,7 @@ router.post("/get-particular-org-user", auth, async (req, res) => {
 
 //edit the super user
 router.post("/Update-User", async (req, res) => {
+ 
   let data = req.body;
   try {
     const r = await UserDetails.updateOne(
@@ -656,7 +657,7 @@ router.post("/Update-User", async (req, res) => {
           username: data.username,
           userphone: data.userphone,
           useremail: data.useremail,
-          usergroup: data.usergroup.value,
+          usergroup: data.usergroup,
           useraddress: data.useraddress,
           OrganizationName: data.OrganizationName,
           OrganizationId: data.OrganizationId,
