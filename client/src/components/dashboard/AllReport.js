@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import locreport from "../../static/images/locrep.png";
-import loc from "../../static/images/l1.png";
+
 import propreport from "../../static/images/propreport.png";
 // import { Roller } from "react-awesome-spinners";
 import { ParticularTenant, getPropertyTenantData } from "../../actions/tenants";

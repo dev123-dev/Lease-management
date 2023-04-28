@@ -24,11 +24,8 @@
   height: 100px;
   text-align: center;
 
- 
-
   /* transform: rotateX(150deg); */
 }
-
 
 .container_align {
   margin-top: 42px;
@@ -296,7 +293,7 @@ footer.footer .top_top {
   height: 56px;
   /* margin-right: 70px; */
   margin-top: -5px;
-  margin-left:10px;
+  margin-left: 10px;
   overflow: hidden;
 }
 .log_size1 {
@@ -304,10 +301,9 @@ footer.footer .top_top {
   height: 56px;
   /* margin-right: 70px; */
   margin-top: -5px;
-  margin-left:6px;
+  margin-left: 6px;
   overflow: hidden;
 }
-
 
 #pass_admin_help div#tooltipPassAdmin {
   display: none;
@@ -362,7 +358,6 @@ footer.footer .top_top {
   border-radius: 0.25rem;
 }
 .card-Profile {
- 
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -705,9 +700,8 @@ p {
 .curToPoint {
   cursor: pointer;
 }
-.logg{
- 
-  margin-left:-15px;
+.logg {
+  margin-left: -15px;
 }
 
 .indetails-text::-webkit-input-placeholder {
@@ -1254,9 +1248,9 @@ label {
     position: absolute;
   }
 
-  .top_box {
+  /* .top_box {
     margin-left: 20%;
-  }
+  } */
   .filter_bg {
     margin-left: -27px;
     width: 200%;
@@ -1966,16 +1960,13 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-
 @media (min-width: 551px) {
   .responsiveDiv {
     overflow-y: auto;
     background-color: #095a4a;
-    
 
     position: absolute;
     right: 8px;
-   
   }
 }
 @media (max-width: 550px) {
@@ -2003,7 +1994,7 @@ input[type="number"]::-webkit-outer-spin-button {
   /*small screen*/
   .responsiveDiv {
     /* width: 100%; */
-/* background-color: rgb(55, 0, 255); */
+    /* background-color: rgb(55, 0, 255); */
     padding-top: 5%;
   }
   ::-webkit-scrollbar-track {
@@ -2089,8 +2080,6 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 15px;
 }
 
-
-
 .second-level-menu > li:hover {
   /* background: #cccccc; */
   background: #e8a317;
@@ -2114,10 +2103,9 @@ input[type="number"]::-webkit-outer-spin-button {
 #signin {
   background-color: #095a4a;
   color: white;
-  border-radius:5%;
+  border-radius: 5%;
   width: 40%;
-  
-  
+
   color: white;
   border-radius: 0%;
   margin-left: -3%;
@@ -2472,28 +2460,23 @@ div {
     width: 220px;
   }
 
-  .card1{
-    right:10px;
-    height:180px;
-
+  .card1 {
+    right: 10px;
+    height: 180px;
   }
-  .card2{
-    right:15px;
-   
-
+  .card2 {
+    right: 15px;
   }
-  .profile{
-    top:-10px;
-
+  .profile {
+    top: -10px;
   }
   .mediaprint {
     margin-left: 220px;
     margin-top: -80px;
   }
-  .carddash{
-    right:17px;
-    top:12px;
-
+  .carddash {
+    right: 17px;
+    top: 12px;
   }
 
   .locaddedit {
@@ -2575,7 +2558,7 @@ div {
     left: 60px;
   }
   .headinghover:hover {
-    color:lightgray;
+    color: lightgray;
   }
   .orghea {
     font-size: medium;
@@ -2675,7 +2658,7 @@ div {
   }
   .headingdashboard {
     font-size: 30px;
-   left: -40px;
+    left: -40px;
   }
 }
 .sizeinput {
@@ -2710,23 +2693,23 @@ input[type="date"]:in-range::-webkit-datetime-edit-day-field,
 input[type="date"]:in-range::-webkit-datetime-edit-text {
   color: transparent;
 }
-*{
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+* {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+    Segoe UI Symbol;
 }
 /* .logostyle{
   border-radius: 50%;
   overflow: hidden;
 } */
-i.smallsize::first-line{
+i.smallsize::first-line {
   font-size: small;
 }
-.tenant_filter_back{
+.tenant_filter_back {
   background-color: #095a4a;
 }
-.back{
-  
-    background:#095a4a;
-   
+.back {
+  background: #095a4a;
 }
 /* @media screen and (max-width: 1468px)  {
   .tenantfilter{
