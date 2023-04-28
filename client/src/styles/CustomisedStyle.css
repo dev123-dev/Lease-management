@@ -115,6 +115,9 @@
     border: transparent;
     margin-left: 5px;
   }
+  .monthdiv {
+    width: 45px;
+  }
 }
 @media (max-width: 550px) {
   .btn-roun {
@@ -126,6 +129,9 @@
     background: transparent;
     border: transparent;
     margin-top: 27px;
+  }
+  .monthdiv {
+    width: 0px;
   }
 }
 
