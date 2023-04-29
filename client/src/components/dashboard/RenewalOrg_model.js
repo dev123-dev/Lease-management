@@ -103,7 +103,7 @@ const RenewalOrg_mainPage = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Lease Start Date* :</label>
+            <label>Agreement Start Date* :</label>
           </div>
 
           <div className="col-lg-6 col-md-4 col-sm-4 col-12">
@@ -122,7 +122,7 @@ const RenewalOrg_mainPage = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Lease End Date:</label>
+            <label>Agreement End Date:</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
