@@ -286,7 +286,7 @@ const AddShopDetails = ({
               {myuser.usergroup === "Admin" ? (
                 <>
                   {" "}
-                  <div className="col-lg-6  col-sm-12 col-md-12 ">
+                  {/* <div className="col-lg-6  col-sm-12 col-md-12 ">
                     <label>Stamp Duty*:</label>
                     <input
                       type="text"
@@ -296,8 +296,8 @@ const AddShopDetails = ({
                       readOnly
                     />
                     <br></br>
-                  </div>
-                  <div className="col-lg-6  col-sm-12 col-md-12">
+                  </div> */}
+                  {/* <div className="col-lg-6  col-sm-12 col-md-12">
                     <label>
                       Hike<b>%</b>*:
                     </label>
@@ -309,9 +309,9 @@ const AddShopDetails = ({
                       readOnly
                     />{" "}
                     <br></br>
-                  </div>
+                  </div> */}
                   <div className="col-lg-6  col-sm-12 col-md-12">
-                    <label>Lease Time Period*:</label>
+                    {/* <label>Lease Time Period*:</label>
                     <div className="controls">
                       <input
                         placeholder={LeaseTime}
@@ -323,7 +323,7 @@ const AddShopDetails = ({
                         className="form-input-info"
                       ></span>{" "}
                       <br></br>
-                    </div>
+                    </div> */}
                     <label>Address*:</label>
 
                     <textarea

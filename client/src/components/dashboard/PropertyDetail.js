@@ -286,9 +286,9 @@ const PropertyDetail = ({
                           </>
                         ) : (
                           <>
-                            <th>Hike %</th>
+                            {/* <th>Hike %</th>
                             <th>Stamp Duty</th>
-                            <th>Lease Time Period</th>
+                            <th>Lease Time Period</th> */}
                             <th>Address</th>
                             <th>Door No</th>
                           </>
@@ -342,9 +342,9 @@ const PropertyDetail = ({
                                 <></>
                               ) : (
                                 <>
-                                  <td>{Val.hike}</td>
+                                  {/* <td>{Val.hike}</td>
                                   <td>{Val.stampDuty}</td>
-                                  <td>{Val.leaseTimePeriod}</td>
+                                  <td>{Val.leaseTimePeriod}</td> */}
                                 </>
                               )}
 

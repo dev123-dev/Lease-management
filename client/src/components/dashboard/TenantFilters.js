@@ -224,7 +224,7 @@ const TenantFilters = ({
                   return (
                     <div className="filter_bg  " key={idx}>
                       <div
-                        className="tenantfil  "
+                        className="tenantfil d-flex flex-row "
                         style={{
                           // fontWeight: "bold",
                           color: "#fff",
@@ -232,42 +232,45 @@ const TenantFilters = ({
                         }}
                       >
                         {" "}
-                        <Link
-                          to="/Organization-report"
-                          name="alphaSearch"
-                          // className="bg-dark"
-                          onClick={() => onSelectOrgChange(optFiltr.value)}
-                          style={
-                            Number(monthSearch) === Number(optFiltr.value)
-                              ? {
-                                  fontWeight: "bold",
-                                  color: "#e8a317",
-                                  fontSize: "115%",
-                                }
-                              : { fontWeight: "", fontSize: "115%" }
-                          }
-                        >
-                          {optFiltr.label}
-                        </Link>{" "}
+                        <div className=" monthdiv">
+                          <Link
+                            to="/Organization-report"
+                            name="alphaSearch"
+                            onClick={() => onSelectOrgChange(optFiltr.value)}
+                            style={
+                              Number(monthSearch) === Number(optFiltr.value)
+                                ? {
+                                    fontWeight: "bold",
+                                    color: "#e8a317",
+                                    fontSize: "115%",
+                                  }
+                                : { fontWeight: "", fontSize: "115%" }
+                            }
+                          >
+                            {optFiltr.label}
+                          </Link>{" "}
+                        </div>
                         {/* &nbsp; */}
-                        <label
-                          className="btn-roun  "
-                          style={
-                            countVal !== 0
-                              ? {
-                                  fontSize: "80%",
-                                  color: "#000",
-                                  background: "#fff",
-                                }
-                              : {
-                                  fontSize: "80%",
-                                  color: "#429f8c",
-                                  background: "#fff",
-                                }
-                          }
-                        >
-                          {countVal}
-                        </label>
+                        <div>
+                          <label
+                            className="btn-roun  "
+                            style={
+                              countVal !== 0
+                                ? {
+                                    fontSize: "80%",
+                                    color: "#000",
+                                    background: "#fff",
+                                  }
+                                : {
+                                    fontSize: "80%",
+                                    color: "#429f8c",
+                                    background: "#fff",
+                                  }
+                            }
+                          >
+                            {countVal}
+                          </label>
+                        </div>
                       </div>
                     </div>
                   );
@@ -333,7 +336,7 @@ const TenantFilters = ({
                           // style={{ border: "5px soild blue" }}
                         >
                           <div
-                            className="tenantfil  "
+                            className="tenantfil   d-flex flex-row"
                             style={{
                               // fontWeight: "bold",
                               color: "#fff",
@@ -341,41 +344,48 @@ const TenantFilters = ({
                             }}
                           >
                             {" "}
-                            <Link
-                              to="/tenant-report"
-                              name="alphaSearch"
-                              onClick={() => onSelectChange(optFiltr.value)}
-                              style={
-                                Number(monthSearch) === Number(optFiltr.value)
-                                  ? {
-                                      fontWeight: "bold",
-                                      color: "#e8a317",
-                                      fontSize: "115%",
-                                    }
-                                  : { fontWeight: "", fontSize: "115%" }
-                              }
-                            >
-                              {optFiltr.label}
-                            </Link>{" "}
+                            <div className=" monthdiv">
+                              <Link
+                                to="/tenant-report"
+                                name="alphaSearch"
+                                onClick={() => onSelectChange(optFiltr.value)}
+                                style={
+                                  Number(monthSearch) === Number(optFiltr.value)
+                                    ? {
+                                        fontWeight: "bold",
+                                        color: "#e8a317",
+                                        fontSize: "115%",
+                                      }
+                                    : {
+                                        fontWeight: "",
+                                        fontSize: "115%",
+                                      }
+                                }
+                              >
+                                {optFiltr.label}
+                              </Link>{" "}
+                            </div>
                             {/* &nbsp; */}
-                            <label
-                              className="btn-roun  "
-                              style={
-                                countVal !== 0
-                                  ? {
-                                      fontSize: "80%",
-                                      color: "#000",
-                                      background: "#fff",
-                                    }
-                                  : {
-                                      fontSize: "80%",
-                                      color: "#429f8c",
-                                      background: "#fff",
-                                    }
-                              }
-                            >
-                              {countVal}
-                            </label>
+                            <div>
+                              <label
+                                className="btn-roun  "
+                                style={
+                                  countVal !== 0
+                                    ? {
+                                        fontSize: "80%",
+                                        color: "#000",
+                                        background: "#fff",
+                                      }
+                                    : {
+                                        fontSize: "80%",
+                                        color: "#429f8c",
+                                        background: "#fff",
+                                      }
+                                }
+                              >
+                                {countVal}
+                              </label>
+                            </div>
                           </div>
                           <div> </div>
                         </div>

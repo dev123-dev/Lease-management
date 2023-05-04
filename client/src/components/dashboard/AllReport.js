@@ -5,24 +5,24 @@ import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import locreport from "../../static/images/locrep.png";
-import loc from "../../static/images/location.png";
+
 import propreport from "../../static/images/propreport.png";
 // import { Roller } from "react-awesome-spinners";
-import { ParticularTenant,getPropertyTenantData } from "../../actions/tenants";
+import { ParticularTenant, getPropertyTenantData } from "../../actions/tenants";
 const AllReport = ({
   auth: { user, isAuthenticated, loading },
-  tenants: { particular_org_data, get_particular_org_tenant },getPropertyTenantData,
+  tenants: { particular_org_data, get_particular_org_tenant },
+  getPropertyTenantData,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
   //console.log("myorg", myorg);
   useEffect(() => {
-
     let propertyId =
-    particular_org_data &&
-    particular_org_data.map((ele) => {
-      return ele._id;
-    });
+      particular_org_data &&
+      particular_org_data.map((ele) => {
+        return ele._id;
+      });
     if (myuser) {
       fun();
 
@@ -117,10 +117,15 @@ const AllReport = ({
             >
               <div className="text-center">
                 <Link to="/LocationReport">
-                  <img
+                  {/* <img
                     className="img_icon_repDashboard log"
                     src={loc}
                     alt="IMG2"
+                  /> */}
+                  <img
+                    className="img_icon_repDashboard log "
+                    src={require("../../static/images/loc.png")}
+                    alt="loc report"
                   />
                 </Link>
                 <p>
@@ -182,4 +187,7 @@ const mapStateToProps = (state) => ({
   tenants: state.tenants,
   auth: state.auth,
 });
-export default connect(mapStateToProps, { ParticularTenant,getPropertyTenantData })(AllReport);
+export default connect(mapStateToProps, {
+  ParticularTenant,
+  getPropertyTenantData,
+})(AllReport);
