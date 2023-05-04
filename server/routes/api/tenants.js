@@ -1740,6 +1740,7 @@ router.post("/renew-tenant-details", async (req, res) => {
             AgreementStatus: "Expired",
             tenantLeaseStartDate: data.tenantLeaseStartDate,
             tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantRentAmount: data.tenantRentAmount,
           },
         }
       );
@@ -1750,6 +1751,7 @@ router.post("/renew-tenant-details", async (req, res) => {
             AgreementStatus: "Expired",
             tenantLeaseStartDate: data.tenantLeaseStartDate,
             tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantRentAmount: data.tenantRentAmount,
           },
         }
       );
@@ -1784,6 +1786,7 @@ router.post("/renew-tenant-details", async (req, res) => {
             AgreementStatus: "Renewed",
             tenantLeaseStartDate: data.tenantLeaseStartDate,
             tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantRentAmount: data.tenantRentAmount,
           },
         }
       );
@@ -1794,6 +1797,7 @@ router.post("/renew-tenant-details", async (req, res) => {
             AgreementStatus: "Renewed",
             tenantLeaseStartDate: data.tenantLeaseStartDate,
             tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantRentAmount: data.tenantRentAmount,
           },
         }
       );
