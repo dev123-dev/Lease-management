@@ -25,6 +25,8 @@ const EditAdminUser = ({
   }, []);
   const UserGroups = [
     { value: "Admin", label: "Admin" },
+    { value: "IT Department", label: "IT Department" },
+    { value: "Manager", label: "Manager" },
     // { value: "Clerk", label: "Clerk" },
   ];
   const [group, setgroup] = useState(
@@ -115,7 +117,7 @@ const EditAdminUser = ({
       OrganizationName: org.OrganizationName,
       OrganizationId: org.OrganizationId,
     };
-    // console.log("updateUSER", updateUSER);
+
     UpdateUser(updateUSER);
     // getalluser();
     //get_particular_org_user({ orgid: myuser.OrganizationId });

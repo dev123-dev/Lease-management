@@ -163,7 +163,7 @@ const EditProperty = ({
               />
               <br></br>
             </div>
-            <div className="col-lg-6  col-sm-12 col-md-12">
+            {/* <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Stamp Duty*: </label>
               <input
                 type="text"
@@ -174,8 +174,8 @@ const EditProperty = ({
                 readOnly
               />
               <br></br>
-            </div>
-            <div className="col-lg-6  col-sm-12 col-md-12">
+            </div> */}
+            {/* <div className="col-lg-6  col-sm-12 col-md-12">
               <label>
                 Hike<b>%</b>*:
               </label>
@@ -187,8 +187,8 @@ const EditProperty = ({
                 readOnly
               />
               <br></br>
-            </div>
-            <div className="col-lg-6  col-sm-12 col-md-12">
+            </div> */}
+            {/* <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Lease Time Period*: </label>
               <input
                 type="text"
@@ -198,23 +198,8 @@ const EditProperty = ({
                 readOnly
               />
               <br></br>
-            </div>
-            <div className="col-lg-6  col-sm-12 col-md-12">
-              <label>Address*:</label>
-
-              <textarea
-                name="shopAddress"
-                value={shopAddress}
-                id=" addprop "
-                className="textarea form-control"
-                rows="3"
-                placeholder="Address"
-                onChange={(e) => onInputChange(e)}
-                style={{ width: "100%" }}
-                required
-              ></textarea>
-              <br></br>
-
+            </div> */}
+              <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Location*:</label>
               <Select
                 name="orgLoc"
@@ -238,6 +223,23 @@ const EditProperty = ({
               />
               <br></br>
             </div>
+            <div className="col-lg-6  col-sm-12 col-md-12">
+              <label>Address*:</label>
+
+              <textarea
+                name="shopAddress"
+                value={shopAddress}
+                id=" addprop "
+                className="textarea form-control"
+                rows="3"
+                placeholder="Address"
+                onChange={(e) => onInputChange(e)}
+                style={{ width: "100%" }}
+                required
+              ></textarea>
+              <br></br>
+              </div>
+            
 
             <div className="  col-lg-6  col-sm-12 col-md-12 ">
               <label className="ml-2" style={{ color: RoomAlreadyExist }}>
@@ -290,6 +292,7 @@ const EditProperty = ({
                 RoomAlreadyExist
               </p> */}
             </div>
+
             <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
               * Indicates mandatory fields, Please fill mandatory fields before
               Submit

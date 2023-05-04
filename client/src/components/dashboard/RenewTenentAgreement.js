@@ -59,6 +59,7 @@ const RenewTenentAgreement = ({
     tenantDoorNo,
     tenantFileNo,
     tenantRentAmount,
+    New_Rent_Amount,
   } = formData;
 
   const onInputChange = (e) => {
@@ -67,7 +68,7 @@ const RenewTenentAgreement = ({
 
   const ondone = () => {
     const finalData = {
-      tenantRentAmount: tenantRentAmount,
+      tenantRentAmount: New_Rent_Amount,
       tenantFileNo: tenantFileNo,
       // tenantDoorNo: door,
       tenantLeaseStartDate: entryDate,
@@ -84,7 +85,7 @@ const RenewTenentAgreement = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    // console.log("this is sothing", finalData);
+    console.log("this is sothing", finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
@@ -180,16 +181,16 @@ const RenewTenentAgreement = ({
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label> Rent Amount:</label>
+            <label>({tenantRentAmount})</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
               type="text"
-              name="tenantRentAmount"
+              name="New_Rent_Amount"
               className="form-control"
-              value={tenantRentAmount}
+              value={New_Rent_Amount}
               onChange={(e) => onInputChange(e)}
-              readOnly
               style={{
                 width: "100%",
               }}
