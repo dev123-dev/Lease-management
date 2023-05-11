@@ -43,7 +43,7 @@ const AllReport = ({
     }
   }, []);
 
-  console.log("get_particular_org_tenant", get_particular_org_tenant);
+  //console.log("get_particular_org_tenant", get_particular_org_tenant);
 
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;

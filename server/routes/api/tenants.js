@@ -647,7 +647,6 @@ router.post("/get-particular-org-user", auth, async (req, res) => {
 
 //edit the super user
 router.post("/Update-User", async (req, res) => {
- 
   let data = req.body;
   try {
     const r = await UserDetails.updateOne(
@@ -1025,6 +1024,15 @@ router.post("/get-month-exp-org-count", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.get("/get-door-no", async (req, res) => {
+  try {
+    let doorno = await property.find({ shopDoorNo: { $ne: "" } });
+    console.log("doorno", doorno);
+  } catch (error) {
+    console.log(error.message);
   }
 });
 

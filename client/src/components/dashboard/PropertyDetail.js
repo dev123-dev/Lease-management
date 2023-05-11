@@ -10,6 +10,7 @@ import {
   deactiveProperty,
   getAllSettings,
   getAllShops,
+  getDoorNo,
 } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
@@ -19,11 +20,13 @@ const PropertyDetail = ({
   deactiveProperty,
   getParticularOrg,
   getAllSettings,
+  getDoorNo,
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
+    getDoorNo();
     fun();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getAllSettings({
@@ -665,5 +668,6 @@ export default connect(mapStateToProps, {
   deactiveProperty,
   getParticularOrg,
   getAllSettings,
+  getDoorNo,
   getParticularProperty,
 })(PropertyDetail);

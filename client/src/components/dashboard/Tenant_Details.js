@@ -37,6 +37,7 @@ const Tenant_Details = ({
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    // console.log("get_particular_org_tenant", get_particular_org_tenant);
     // getAllSettings({
     //   OrganizationId: myuser && myuser.OrganizationId,
     //   userId: myuser && myuser._id,
@@ -210,7 +211,28 @@ const Tenant_Details = ({
   //     return ele;
   //   }
   // });
+  // console.log("currentDatas", currentDatas);
+  //namewise
+  const tenantname = [];
+  get_particular_org_tenant &&
+    get_particular_org_tenant.map((ele) =>
+      tenantname.push({
+        label: ele.tenantName,
+        value: ele._id,
+      })
+    );
 
+  //Doorno wise
+  const Doorno = [];
+  get_particular_org_tenant &&
+    get_particular_org_tenant.shopDoorNo &&
+    get_particular_org_tenant.shopDoorNo.map(
+      (ele) => console.log("ele", ele.label)
+      // tenantname.push({
+      //   label: ele.tenantName,
+      //   value: ele._id,
+      // })
+    );
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -220,14 +242,14 @@ const Tenant_Details = ({
         <div className="col mt-sm-4 space ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
             <div className="row mt-5 ">
-              <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <div className="col-lg-2  col-sm-12 col-md-12 mt-3">
                 <h2 className="heading_color  headsize  ml-4">
                   {" "}
                   Tenant Details
                 </h2>
               </div>
               <div
-                className="col-lg-5  col-sm-12 col-md-12"
+                className="col-lg-3 col-sm-12 col-md-12"
                 style={{
                   position: "relative",
                   top: "10px",
@@ -253,7 +275,61 @@ const Tenant_Details = ({
                   })}
                 ></Select>
               </div>
-              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
+              <div
+                className="col-lg-3 col-sm-12 col-md-12"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
+                <Select
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="Search-Propertywise"
+                  // name="location"
+                  options={tenantname}
+                  // value={sellocation}
+                  // onChange={(e) => onchangeLocation(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                ></Select>
+              </div>
+              <div
+                className="col-lg-3 col-sm-12 col-md-12"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
+                <Select
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="Search-doornowise"
+                  // name="location"
+                  // options={location}
+                  // value={sellocation}
+                  // onChange={(e) => onchangeLocation(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                ></Select>
+              </div>
+              <div className="col-lg-1  col-sm-12 col-md-12 text-end mt-sm-5">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
@@ -320,69 +396,73 @@ const Tenant_Details = ({
                             ].join("-");
 
                             // if (Val.tenantstatus === "Active") {
-                              return (
-                                <tr key={idx}>
-                                  {
-                                    Val.tenantstatus ==="Deactive" ? <td style={{backgroundColor : "#dda6a6"}}>{Val.tenantName}</td> :<td>{Val.tenantName}</td>
-                                  }
-                                  
-                                  <td>{Val.BuildingName}</td>
-                                  <td>
-                                    {Val.shopDoorNo.map((ele) => {
-                                      <p key={idx}></p>;
-                                      if (
-                                        ele.status === "Avaiable" ||
-                                        ele.status === "Acquired"
-                                      ) {
-                                        return <>{ele.label + ","}</>;
-                                      } else {
-                                        return <>{""}</>;
-                                      }
-                                    })}
+                            return (
+                              <tr key={idx}>
+                                {Val.tenantstatus === "Deactive" ? (
+                                  <td style={{ backgroundColor: "#dda6a6" }}>
+                                    {Val.tenantName}
                                   </td>
-                                  <td>{Val.tenantFileNo}</td>
-                                  <td>{Val.Location}</td>
-                                  <td>{Val.tenantPhone}</td>
-                                  <td>{tenant}</td>
-                                  <td>{Val.tenantRentAmount}</td>
-                                  {myuser.usergroup === "IT Department" ? (
-                                    <></>
-                                  ) : (
-                                    <>
-                                      {" "}
-                                      {Val.tenantstatus === "Active" ? (
-                                        <td className=" text-center">
-                                          <Link to="/edit-tenant-details">
-                                            <img
-                                              className="Cursor  "
-                                              onClick={() => onEdit(Val)}
-                                              src={require("../../static/images/edit_icon.png")}
-                                              alt="Edit"
-                                              title="Edit"
-                                            />{" "}
-                                            &nbsp;
-                                          </Link>
+                                ) : (
+                                  <td>{Val.tenantName}</td>
+                                )}
+
+                                <td>{Val.BuildingName}</td>
+                                <td>
+                                  {Val.shopDoorNo.map((ele) => {
+                                    <p key={idx}></p>;
+                                    if (
+                                      ele.status === "Avaiable" ||
+                                      ele.status === "Acquired"
+                                    ) {
+                                      return <>{ele.label + ","}</>;
+                                    } else {
+                                      return <>{""}</>;
+                                    }
+                                  })}
+                                </td>
+                                <td>{Val.tenantFileNo}</td>
+                                <td>{Val.Location}</td>
+                                <td>{Val.tenantPhone}</td>
+                                <td>{tenant}</td>
+                                <td>{Val.tenantRentAmount}</td>
+                                {myuser.usergroup === "IT Department" ? (
+                                  <></>
+                                ) : (
+                                  <>
+                                    {" "}
+                                    {Val.tenantstatus === "Active" ? (
+                                      <td className=" text-center">
+                                        <Link to="/edit-tenant-details">
                                           <img
-                                            className="Cursor "
-                                            onClick={() =>
-                                              onDelete(
-                                                Val._id,
-                                                Val.shopDoorNo,
-                                                Val
-                                              )
-                                            }
-                                            src={require("../../static/images/delete.png")}
-                                            alt="Delete"
-                                            title="Delete"
-                                          />
-                                        </td>
-                                      ) : (
-                                       <td></td>
-                                      )}
-                                    </>
-                                  )}
-                                </tr>
-                              );
+                                            className="Cursor  "
+                                            onClick={() => onEdit(Val)}
+                                            src={require("../../static/images/edit_icon.png")}
+                                            alt="Edit"
+                                            title="Edit"
+                                          />{" "}
+                                          &nbsp;
+                                        </Link>
+                                        <img
+                                          className="Cursor "
+                                          onClick={() =>
+                                            onDelete(
+                                              Val._id,
+                                              Val.shopDoorNo,
+                                              Val
+                                            )
+                                          }
+                                          src={require("../../static/images/delete.png")}
+                                          alt="Delete"
+                                          title="Delete"
+                                        />
+                                      </td>
+                                    ) : (
+                                      <td></td>
+                                    )}
+                                  </>
+                                )}
+                              </tr>
+                            );
                             // }
                           })}
                       </tbody>

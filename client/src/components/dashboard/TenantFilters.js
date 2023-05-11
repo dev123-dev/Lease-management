@@ -46,7 +46,8 @@ const TenantFilters = ({
   const logUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
-  }, [monthExpCnt]);
+    console.log("monthExpCnt", monthExpCnt);
+  }, []);
 
   useEffect(() => {
     const finalData = {

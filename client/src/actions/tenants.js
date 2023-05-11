@@ -287,6 +287,20 @@ export const ParticularTenant = (data) => async (dispatch) => {
   }
 };
 
+export const getDoorNo = () => async (dispatch) => {
+  console.log("action in");
+  try {
+    const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
+
+    dispatch({
+      type: PARTICULAR_ORG_TENANT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 //add admin user
 export const AddAdminuser = (userData) => async (dispatch) => {
   try {
@@ -572,6 +586,7 @@ export const getMonthExpCount = (finalData) => async (dispatch) => {
       `${linkPath}/api/tenants/get-month-exp-count`,
       finalData
     );
+    console.log("in action", res.data);
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,
