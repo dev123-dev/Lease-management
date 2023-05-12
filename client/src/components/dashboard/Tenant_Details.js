@@ -222,6 +222,8 @@ const Tenant_Details = ({
     getParticularProperty("");
     fun();
     setselLoction(null);
+    SetTenantName("");
+    SetPropertyName("");
   };
   const [doorNumber, SetDoorNumber] = useState("");
   const onchangeDoorNumberChange = (e) => {
@@ -383,7 +385,7 @@ const Tenant_Details = ({
                 ></Select>
               </div>
 
-              <div className="col-lg-1  col-sm-12 col-md-12 text-end mt-sm-5">
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
