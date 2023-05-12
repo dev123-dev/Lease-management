@@ -342,7 +342,7 @@ const Tenant_Details = ({
               >
                 <Select
                   className="dropdown text-left mt-sm-3"
-                  placeholder="DoorNo"
+                  placeholder="Door No"
                   name="doorNumber"
                   options={Dno}
                   value={doorNumber}
