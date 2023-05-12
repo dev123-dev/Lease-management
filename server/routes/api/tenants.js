@@ -647,7 +647,6 @@ router.post("/get-particular-org-user", auth, async (req, res) => {
 
 //edit the super user
 router.post("/Update-User", async (req, res) => {
- 
   let data = req.body;
   try {
     const r = await UserDetails.updateOne(
@@ -815,6 +814,45 @@ router.post("/get-particular-Tenant", async (req, res) => {
       Location: LocationName,
     };
   }
+  try {
+    const tenantdata = await TenantDetails.find(query).sort({
+      tenantstatus: 1,
+    });
+    res.json(tenantdata);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+router.post("/get-tenant-sort", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
+  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
+    req.body;
+
+  let query = { OrganizationId: userInfo.OrganizationId };
+  if (LocationName) {
+    query = {
+      ...query,
+      Location: LocationName,
+    };
+  } else if (DoorNumber) {
+    query = {
+      ...query,
+      shopDoorNo: { $elemMatch: { label: DoorNumber } },
+    };
+  } else if (propertyname) {
+    query = {
+      ...query,
+      BuildingName: propertyname,
+    };
+  } else if (tenantName) {
+    query = {
+      ...query,
+      _id: mongoose.Types.ObjectId(tenantName),
+    };
+  }
+  console.log("query", query);
   try {
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
@@ -1025,6 +1063,14 @@ router.post("/get-month-exp-org-count", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
+  }
+});
+
+router.get("/get-door-no", async (req, res) => {
+  try {
+    let doorno = await property.find({ shopDoorNo: { $ne: "" } });
+  } catch (error) {
+    console.log(error.message);
   }
 });
 
@@ -1945,7 +1991,7 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log("Aqu", data));
+          .then(data);
       });
 
       data.unseletedDoorno.map((eleDoor) => {

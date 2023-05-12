@@ -32,6 +32,7 @@ import {
   GET_EDIT_TENANT_DETAILS,
   EXP_ORG_,
   PROPERTY_RELATED_TENANT,
+  PARTICULAR_ORG_TENANT_SORT,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -280,6 +281,37 @@ export const ParticularTenant = (data) => async (dispatch) => {
     );
     dispatch({
       type: PARTICULAR_ORG_TENANT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getDoorNo = () => async (dispatch) => {
+  console.log("action in");
+  try {
+    const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
+
+    dispatch({
+      type: PARTICULAR_ORG_TENANT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const ParticularTenantFilter = (data) => async (dispatch) => {
+  console.log("Hi");
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-tenant-sort`,
+      data
+    );
+
+    dispatch({
+      type: PARTICULAR_ORG_TENANT_SORT,
       payload: res.data,
     });
   } catch (error) {
@@ -572,6 +604,7 @@ export const getMonthExpCount = (finalData) => async (dispatch) => {
       `${linkPath}/api/tenants/get-month-exp-count`,
       finalData
     );
+    console.log("in action", res.data);
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,

@@ -2,10 +2,11 @@ import React, { useState, Fragment, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
-  ParticularTenant,
+  // ParticularTenant,
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
+  ParticularTenantFilter,
   deactiveTenantsDetails,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
@@ -19,11 +20,12 @@ const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
   tenants: {
     particular_org_data,
-    get_particular_org_tenant,
+    sortetenantdetails,
     particular_org_loc,
     allTenantSetting,
   },
   ParticularTenant,
+  ParticularTenantFilter,
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
@@ -33,16 +35,33 @@ const Tenant_Details = ({
   const [freshpage, setFreshPage] = useState(true);
   const checkboxRef = useRef(null);
   const myuser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
-    ParticularTenant({ OrganizationId: user && user.OrganizationId });
+    // ParticularTenant();
+    ParticularTenantFilter();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    // getParticularOrg();
+    // getParticularProperty();
+
     // getAllSettings({
     //   OrganizationId: myuser && myuser.OrganizationId,
     //   userId: myuser && myuser._id,
     // });
     fun();
   }, [freshpage]);
+
+  // useEffect(() => {
+  //   ParticularTenant({ OrganizationId: user && user.OrganizationId });
+  //   getParticularOrg({ OrganizationId: user && user.OrganizationId });
+  //   getParticularProperty({ OrganizationId: user && user.OrganizationId });
+
+  //   // getAllSettings({
+  //   //   OrganizationId: myuser && myuser.OrganizationId,
+  //   //   userId: myuser && myuser._id,
+  //   // });
+  //   fun();
+  // }, []);
 
   const [sellocation, setselLoction] = useState(null);
   const [location, setlocation] = useState([]);
@@ -61,7 +80,7 @@ const Tenant_Details = ({
       });
   };
 
-  // let output = get_particular_org_tenant.filter(
+  // let output = sortetenantdetails.filter(
   //   (item) =>
   //     item.shopDoorNo &&
   //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
@@ -135,9 +154,8 @@ const Tenant_Details = ({
 
   const onchangeLocation = (loc) => {
     setselLoction(loc);
-    ParticularTenant({
-      OrganizationId: user && user.OrganizationId,
-      LocationName: loc.value,
+    ParticularTenantFilter({
+      LocationName: loc.label,
     });
   };
 
@@ -191,27 +209,89 @@ const Tenant_Details = ({
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const currentDatas =
-    get_particular_org_tenant &&
-    get_particular_org_tenant.slice(indexOfFirstData, indexOfLastData);
+    sortetenantdetails &&
+    sortetenantdetails.slice(indexOfFirstData, indexOfLastData);
   const paginate = (nmbr) => {
     //nmbr is page  number
     setCurrentData(nmbr);
   };
   const refresh = () => {
-    ParticularTenant({ OrganizationId: user && user.OrganizationId });
-    getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+    // ParticularTenant("");
+    ParticularTenantFilter("");
+    getParticularOrg("");
+    getParticularProperty("");
     fun();
     setselLoction(null);
   };
+  const [doorNumber, SetDoorNumber] = useState("");
+  const onchangeDoorNumberChange = (e) => {
+    SetDoorNumber(e);
 
-  // const tenantCount = currentDatas.filter((ele) => {
-  //   if (ele.tenantstatus === "Active") {
-  //     return ele;
-  //   }
-  // });
+    ParticularTenantFilter({
+      // LocationName: sellocation,
+      DoorNumber: e.value,
+    });
+    setselLoction(null);
+  };
 
+  //propertywise
+  const [PropertyName, SetPropertyName] = useState("");
+  const onchangePrperty = (e) => {
+    SetPropertyName(e);
+    console.log(e);
+    ParticularTenantFilter({
+      propertyname: e.label,
+    });
 
+    SetDoorNumber("");
+    setselLoction("");
+  };
+
+  //namewise
+  const [tenantName, SetTenantName] = useState("");
+  const onchangeTenantNames = (e) => {
+    SetTenantName(e);
+    ParticularTenantFilter({
+      // LocationName: sellocation,
+      // propertyname: PropertyName,
+      // DoorNumber: doorNumber,
+      tenantName: e.value,
+    });
+    SetPropertyName("");
+    SetDoorNumber("");
+    setselLoction("");
+  };
+
+  //propertywise
+  const propertyname = [];
+  particular_org_data &&
+    particular_org_data.map((ele) =>
+      propertyname.push({
+        label: ele.BuildingName,
+        value: ele.BuildingId,
+      })
+    );
+  let Dno = [];
+  particular_org_data &&
+    particular_org_data.map(
+      (ele) =>
+        ele.shopDoorNo &&
+        ele.shopDoorNo.map((dno) =>
+          Dno.push({
+            label: dno.doorNo,
+            value: dno.doorNo,
+          })
+        )
+    );
+  let TenantNames = [];
+  sortetenantdetails &&
+    sortetenantdetails.map((ele) =>
+      TenantNames.push({
+        label: ele.tenantName,
+        value: ele._id,
+      })
+    );
+  // console.log("currentDatas", currentDatas);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -220,14 +300,14 @@ const Tenant_Details = ({
         <div className="col mt-sm-4 space ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
             <div className="row mt-5 ">
-              <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <div className="col-lg-2  col-sm-12 col-md-12 mt-3">
                 <h2 className="heading_color  headsize  ml-4">
                   {" "}
                   Tenant Details
                 </h2>
               </div>
               <div
-                className="col-lg-5  col-sm-12 col-md-12"
+                className="col-lg-2 col-sm-12 col-md-12"
                 style={{
                   position: "relative",
                   top: "10px",
@@ -235,7 +315,7 @@ const Tenant_Details = ({
               >
                 <Select
                   className="dropdown text-left mt-sm-3"
-                  placeholder="Search-Location"
+                  placeholder="Location"
                   name="location"
                   options={location}
                   value={sellocation}
@@ -253,7 +333,57 @@ const Tenant_Details = ({
                   })}
                 ></Select>
               </div>
-              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
+              <div
+                className="col-lg-2 col-sm-12 col-md-12"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
+                <Select
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="DoorNo"
+                  name="doorNumber"
+                  options={Dno}
+                  value={doorNumber}
+                  onChange={(e) => onchangeDoorNumberChange(e)}
+                ></Select>
+              </div>
+
+              <div
+                className="col-lg-2 col-sm-12 col-md-12"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
+                <Select
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="Property"
+                  name="PropertyName"
+                  options={propertyname}
+                  value={PropertyName}
+                  onChange={(e) => onchangePrperty(e)}
+                ></Select>
+              </div>
+              <div
+                className="col-lg-2 col-sm-12 col-md-12"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
+                <Select
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="Name"
+                  name="tenantName"
+                  options={TenantNames}
+                  value={tenantName}
+                  onChange={(e) => onchangeTenantNames(e)}
+                ></Select>
+              </div>
+
+              <div className="col-lg-1  col-sm-12 col-md-12 text-end mt-sm-5">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
@@ -320,69 +450,73 @@ const Tenant_Details = ({
                             ].join("-");
 
                             // if (Val.tenantstatus === "Active") {
-                              return (
-                                <tr key={idx}>
-                                  {
-                                    Val.tenantstatus ==="Deactive" ? <td style={{backgroundColor : "#dda6a6"}}>{Val.tenantName}</td> :<td>{Val.tenantName}</td>
-                                  }
-                                  
-                                  <td>{Val.BuildingName}</td>
-                                  <td>
-                                    {Val.shopDoorNo.map((ele) => {
-                                      <p key={idx}></p>;
-                                      if (
-                                        ele.status === "Avaiable" ||
-                                        ele.status === "Acquired"
-                                      ) {
-                                        return <>{ele.label + ","}</>;
-                                      } else {
-                                        return <>{""}</>;
-                                      }
-                                    })}
+                            return (
+                              <tr key={idx}>
+                                {Val.tenantstatus === "Deactive" ? (
+                                  <td style={{ backgroundColor: "#dda6a6" }}>
+                                    {Val.tenantName}
                                   </td>
-                                  <td>{Val.tenantFileNo}</td>
-                                  <td>{Val.Location}</td>
-                                  <td>{Val.tenantPhone}</td>
-                                  <td>{tenant}</td>
-                                  <td>{Val.tenantRentAmount}</td>
-                                  {myuser.usergroup === "IT Department" ? (
-                                    <></>
-                                  ) : (
-                                    <>
-                                      {" "}
-                                      {Val.tenantstatus === "Active" ? (
-                                        <td className=" text-center">
-                                          <Link to="/edit-tenant-details">
-                                            <img
-                                              className="Cursor  "
-                                              onClick={() => onEdit(Val)}
-                                              src={require("../../static/images/edit_icon.png")}
-                                              alt="Edit"
-                                              title="Edit"
-                                            />{" "}
-                                            &nbsp;
-                                          </Link>
+                                ) : (
+                                  <td>{Val.tenantName}</td>
+                                )}
+
+                                <td>{Val.BuildingName}</td>
+                                <td>
+                                  {Val.shopDoorNo.map((ele) => {
+                                    <p key={idx}></p>;
+                                    if (
+                                      ele.status === "Avaiable" ||
+                                      ele.status === "Acquired"
+                                    ) {
+                                      return <>{ele.label + ","}</>;
+                                    } else {
+                                      return <>{""}</>;
+                                    }
+                                  })}
+                                </td>
+                                <td>{Val.tenantFileNo}</td>
+                                <td>{Val.Location}</td>
+                                <td>{Val.tenantPhone}</td>
+                                <td>{tenant}</td>
+                                <td>{Val.tenantRentAmount}</td>
+                                {myuser.usergroup === "IT Department" ? (
+                                  <></>
+                                ) : (
+                                  <>
+                                    {" "}
+                                    {Val.tenantstatus === "Active" ? (
+                                      <td className=" text-center">
+                                        <Link to="/edit-tenant-details">
                                           <img
-                                            className="Cursor "
-                                            onClick={() =>
-                                              onDelete(
-                                                Val._id,
-                                                Val.shopDoorNo,
-                                                Val
-                                              )
-                                            }
-                                            src={require("../../static/images/delete.png")}
-                                            alt="Delete"
-                                            title="Delete"
-                                          />
-                                        </td>
-                                      ) : (
-                                       <td></td>
-                                      )}
-                                    </>
-                                  )}
-                                </tr>
-                              );
+                                            className="Cursor  "
+                                            onClick={() => onEdit(Val)}
+                                            src={require("../../static/images/edit_icon.png")}
+                                            alt="Edit"
+                                            title="Edit"
+                                          />{" "}
+                                          &nbsp;
+                                        </Link>
+                                        <img
+                                          className="Cursor "
+                                          onClick={() =>
+                                            onDelete(
+                                              Val._id,
+                                              Val.shopDoorNo,
+                                              Val
+                                            )
+                                          }
+                                          src={require("../../static/images/delete.png")}
+                                          alt="Delete"
+                                          title="Delete"
+                                        />
+                                      </td>
+                                    ) : (
+                                      <td></td>
+                                    )}
+                                  </>
+                                )}
+                              </tr>
+                            );
                             // }
                           })}
                       </tbody>
@@ -391,11 +525,10 @@ const Tenant_Details = ({
                 </div>
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-11 col-11 no_padding">
-                    {get_particular_org_tenant &&
-                    get_particular_org_tenant.length !== 0 ? (
+                    {sortetenantdetails && sortetenantdetails.length !== 0 ? (
                       <Pagination
                         dataPerPage={dataPerPage}
-                        totalData={get_particular_org_tenant.length}
+                        totalData={sortetenantdetails.length}
                         paginate={paginate}
                         currentPage={currentData}
                       />
@@ -408,7 +541,7 @@ const Tenant_Details = ({
                   </div> */}
                   <div className="col-lg-6  col-sm-12 col-md-12">
                     <p className="text-end h6">
-                      No. of Tenants: {get_particular_org_tenant.length}
+                      No. of Tenants: {sortetenantdetails.length}
                     </p>
                   </div>
                 </div>
@@ -611,7 +744,8 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  ParticularTenant,
+  // ParticularTenant,
+  ParticularTenantFilter,
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
