@@ -55,7 +55,7 @@ const TenantFilters = ({
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getPreviousYearsExpCount(finalData);
-  }, [yearExpCnt]);
+  }, []);
 
   useEffect(() => {
     const finalDataReport = {
@@ -65,11 +65,10 @@ const TenantFilters = ({
     };
     getTenantReportYearMonth(finalDataReport);
     const data = {
-      OrganizationId: logUser && logUser.OrganizationId,
       LocationName: logUser && logUser.OrganizationName,
     };
     ParticularTenant(data);
-  }, [getTenantReportYearMonth]);
+  }, []);
 
   const [searchData, setSearchData] = useState({
     monthSearch: new Date().getMonth() + 1,
