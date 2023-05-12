@@ -24,6 +24,7 @@ import {
   YEAR_EXP_COUNT_ORG,
   GET_EDIT_TENANT_DETAILS,
   PROPERTY_RELATED_TENANT,
+  PARTICULAR_ORG_TENANT_SORT,
 } from "../actions/types";
 
 const initialState = {
@@ -37,6 +38,7 @@ const initialState = {
 
   allShopDetails: [],
   alltenants: [""],
+  sortetenantdetails: [],
   allTenantSetting: [""],
   allDoorNos: [""],
   allDoorNumber: [""],
@@ -73,6 +75,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         get_property_related_tenant: payload,
+      };
+    case PARTICULAR_ORG_TENANT_SORT:
+      return {
+        ...state,
+        sortetenantdetails: payload,
       };
     case GET_DOORNOS:
       return {

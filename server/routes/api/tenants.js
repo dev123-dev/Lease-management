@@ -824,6 +824,45 @@ router.post("/get-particular-Tenant", async (req, res) => {
   }
 });
 
+router.post("/get-tenant-sort", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
+  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
+    req.body;
+
+  let query = { OrganizationId: userInfo.OrganizationId };
+  if (LocationName) {
+    query = {
+      ...query,
+      Location: LocationName,
+    };
+  } else if (DoorNumber) {
+    query = {
+      ...query,
+      shopDoorNo: { $elemMatch: { label: DoorNumber } },
+    };
+  } else if (propertyname) {
+    query = {
+      ...query,
+      BuildingName: propertyname,
+    };
+  } else if (tenantName) {
+    query = {
+      ...query,
+      _id: mongoose.Types.ObjectId(tenantName),
+    };
+  }
+  console.log("query", query);
+  try {
+    const tenantdata = await TenantDetails.find(query).sort({
+      tenantstatus: 1,
+    });
+    res.json(tenantdata);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 // Get Exp Month Count
 router.get("/get-tenant-report", async (req, res) => {
   try {
@@ -1030,7 +1069,6 @@ router.post("/get-month-exp-org-count", async (req, res) => {
 router.get("/get-door-no", async (req, res) => {
   try {
     let doorno = await property.find({ shopDoorNo: { $ne: "" } });
-    console.log("doorno", doorno);
   } catch (error) {
     console.log(error.message);
   }
@@ -1953,7 +1991,7 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log("Aqu", data));
+          .then(data);
       });
 
       data.unseletedDoorno.map((eleDoor) => {
