@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
+import DatePicker from "react-datepicker";
 
 const RenewTenentAgreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
@@ -36,7 +37,7 @@ const RenewTenentAgreement = ({
     tenantFileNo: tenantsData.tenantFileNo,
     tenantRentAmount: tenantsData.chargesCal,
   });
-
+  const [reversedStart, setreversedStart] = useState("");
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -68,10 +69,10 @@ const RenewTenentAgreement = ({
 
   const ondone = () => {
     const finalData = {
-      tenantRentAmount: New_Rent_Amount,
+      tenantRentAmount: tenantRentAmount,
       tenantFileNo: tenantFileNo,
       // tenantDoorNo: door,
-      tenantLeaseStartDate: entryDate,
+      tenantLeaseStartDate: reversedStart,
       tenantLeaseEndDate: newLeaseEndDate,
       tdId: tenantsData.tdId,
       OrganizationId: tenantsData.OrganizationId,
@@ -85,18 +86,35 @@ const RenewTenentAgreement = ({
       selectedY: finalDataRep.yearSearch,
       selectedVal: dt,
     };
-    console.log("this is sothing", finalData);
+    // console.log("this is sothing", finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
   };
   const [entryDate, setEntryDate] = useState("");
+
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
   const onDateChangeEntry = (e) => {
-    setEntryDate(e.target.value);
-    var newDate = e.target.value;
+    console.log(e);
+    var newDate = e;
     var calDate = new Date(newDate);
+
+    var dd = calDate.getDate();
+    var mm = calDate.getMonth() + 1;
+    var yyyy = calDate.getFullYear();
+    if (dd < 10) {
+      dd = "0" + dd;
+    }
+
+    if (mm < 10) {
+      mm = "0" + mm;
+    }
+
+    var start = dd + "-" + mm + "-" + yyyy;
+    var reversedStart = yyyy + "-" + mm + "-" + dd;
+    setEntryDate(start);
+    setreversedStart(reversedStart);
 
     var leaseMonth = myuser.output.leaseTimePeriod;
 
@@ -116,6 +134,7 @@ const RenewTenentAgreement = ({
     if (mm2 < 10) {
       mm2 = "0" + mm2;
     }
+
     var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
     setLeaseEndDate(leaseEndDate);
     var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
@@ -181,15 +200,14 @@ const RenewTenentAgreement = ({
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label> Rent Amount:</label>
-            <label>({tenantRentAmount})</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
               type="text"
-              name="New_Rent_Amount"
+              name="tenantRentAmount"
               className="form-control"
-              value={New_Rent_Amount}
+              value={tenantRentAmount}
               onChange={(e) => onInputChange(e)}
               style={{
                 width: "100%",
@@ -203,16 +221,23 @@ const RenewTenentAgreement = ({
           </div>
 
           <div className="col-lg-6 col-md-4 col-sm-4 col-12">
-            <input
+            {/* <input
               type="date"
               required
               placeholder="dd/mm/yyyy"
               className="form-control cpp-input datevalidation"
               name="tenantLeaseStartDate"
-              onChange={(e) => onDateChangeEntry(e)}
+             
               style={{
                 width: "100%",
               }}
+            /> */}
+            <DatePicker
+              label="Controlled picker"
+              value={entryDate}
+              className=" form-control"
+              placeholderText="dd-mm-yyyy"
+              onChange={(e) => onDateChangeEntry(e)}
             />
           </div>
         </div>

@@ -62,7 +62,9 @@ const Tenant_Details = ({
   //   // });
   //   fun();
   // }, []);
-
+  const [doorNumber, SetDoorNumber] = useState("");
+  const [tenantName, SetTenantName] = useState("");
+  const [PropertyName, SetPropertyName] = useState("");
   const [sellocation, setselLoction] = useState(null);
   const [location, setlocation] = useState([]);
   const Loc = [];
@@ -157,6 +159,7 @@ const Tenant_Details = ({
     ParticularTenantFilter({
       LocationName: loc.label,
     });
+    SetDoorNumber("");
   };
 
   const onDeactivateall = (e) => {
@@ -222,8 +225,10 @@ const Tenant_Details = ({
     getParticularProperty("");
     fun();
     setselLoction(null);
+    SetTenantName("");
+    SetPropertyName("");
   };
-  const [doorNumber, SetDoorNumber] = useState("");
+
   const onchangeDoorNumberChange = (e) => {
     SetDoorNumber(e);
 
@@ -232,10 +237,12 @@ const Tenant_Details = ({
       DoorNumber: e.value,
     });
     setselLoction(null);
+    SetTenantName("");
+    SetPropertyName("");
   };
 
   //propertywise
-  const [PropertyName, SetPropertyName] = useState("");
+
   const onchangePrperty = (e) => {
     SetPropertyName(e);
     console.log(e);
@@ -245,10 +252,11 @@ const Tenant_Details = ({
 
     SetDoorNumber("");
     setselLoction("");
+    SetTenantName("");
   };
 
   //namewise
-  const [tenantName, SetTenantName] = useState("");
+
   const onchangeTenantNames = (e) => {
     SetTenantName(e);
     ParticularTenantFilter({
@@ -383,7 +391,7 @@ const Tenant_Details = ({
                 ></Select>
               </div>
 
-              <div className="col-lg-1  col-sm-12 col-md-12 text-end mt-sm-5">
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
