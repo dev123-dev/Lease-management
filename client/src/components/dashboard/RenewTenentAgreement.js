@@ -91,33 +91,73 @@ const RenewTenentAgreement = ({
     setFormData({ ...formData, isSubmitted: true });
     onReportModalChange(true);
   };
-  const [entryDate, setEntryDate] = useState("");
+  const [entryDate, setEntryDate] = useState(new Date());
 
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
-  const onDateChangeEntry = (e) => {
-    console.log(e);
-    var newDate = e;
-    var calDate = new Date(newDate);
+  // const onDateChangeEntry = (e) => {
+  //   console.log(e);
+  //   // var newDate = e;
+  //   // var calDate = new Date(newDate);
+  //   var calDate = e;
+  //   var dd = calDate.getDate();
+  //   var mm = calDate.getMonth() + 1;
+  //   var yyyy = calDate.getFullYear();
+  //   if (dd < 10) {
+  //     dd = "0" + dd;
+  //   }
 
+  //   if (mm < 10) {
+  //     mm = "0" + mm;
+  //   }
+
+  //   var start = dd + "-" + mm + "-" + yyyy;
+  //   var reversedStart = yyyy + "-" + mm + "-" + dd;
+  //   setEntryDate(start);
+  //   setreversedStart(reversedStart);
+
+  //   var leaseMonth = myuser.output.leaseTimePeriod;
+
+  //   //Calculating lease end date
+  //   var dateData = calDate.getDate();
+  //   calDate.setMonth(calDate.getMonth() + +leaseMonth);
+  //   if (calDate.getDate() != dateData) {
+  //     calDate.setDate(0);
+  //   }
+  //   var dd1 = calDate.getDate();
+  //   var mm2 = calDate.getMonth() + 1;
+  //   var yyyy1 = calDate.getFullYear();
+  //   if (dd1 < 10) {
+  //     dd1 = "0" + dd1;
+  //   }
+
+  //   if (mm2 < 10) {
+  //     mm2 = "0" + mm2;
+  //   }
+
+  //   var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
+  //   setLeaseEndDate(leaseEndDate);
+  //   var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
+  //   setNewLeaseEndDate(newLeaseEndDate);
+  // };
+  const onDateChangeEntry = (e) => {
+    var calDate = e;
+    if (new Date(e).getFullYear() < 2050) {
+      setEntryDate(new Date(e));
+    }
     var dd = calDate.getDate();
     var mm = calDate.getMonth() + 1;
     var yyyy = calDate.getFullYear();
     if (dd < 10) {
       dd = "0" + dd;
     }
-
     if (mm < 10) {
       mm = "0" + mm;
     }
-
     var start = dd + "-" + mm + "-" + yyyy;
     var reversedStart = yyyy + "-" + mm + "-" + dd;
-    setEntryDate(start);
     setreversedStart(reversedStart);
-
     var leaseMonth = myuser.output.leaseTimePeriod;
-
     //Calculating lease end date
     var dateData = calDate.getDate();
     calDate.setMonth(calDate.getMonth() + +leaseMonth);
@@ -225,18 +265,37 @@ const RenewTenentAgreement = ({
               type="date"
               required
               placeholder="dd/mm/yyyy"
-              className="form-control cpp-input datevalidation"
+              className="form-control "
               name="tenantLeaseStartDate"
-             
               style={{
                 width: "100%",
+                }}
+              /> */}
+            {/* <input
+              type="date"
+              placeholder="dd-mm-yyyy"
+              // className="form-control cpp-input datevalidation"
+              name="tenantLeaseStartDate"
+              value={entryDate}
+              onChange={(e) => onDateChangeEntry(e)}
+              style={{
+                width: "75%",
+                color: "black",
               }}
+              required
             /> */}
-            <DatePicker
+            {/* <DatePicker
               label="Controlled picker"
               value={entryDate}
-              className=" form-control"
-              placeholderText="dd-mm-yyyy"
+              className=" form-control cpp-input datevalidation"
+              // placeholderText="dd/mm/yyyy"
+              dateFormat="dd/MM/yyy"
+              onChange={(e) => onDateChangeEntry(e)}
+            /> */}
+            <DatePicker
+              dateFormat="dd/MM/yyyy"
+              className=" form-control cpp-input datevalidation"
+              selected={entryDate}
               onChange={(e) => onDateChangeEntry(e)}
             />
           </div>
