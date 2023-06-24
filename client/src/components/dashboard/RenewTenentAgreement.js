@@ -294,7 +294,8 @@ const RenewTenentAgreement = ({
             /> */}
             <DatePicker
               dateFormat="dd/MM/yyyy"
-              className=" form-control cpp-input datevalidation"
+              className="form-control "
+              style={{ color: "red" }}
               selected={entryDate}
               onChange={(e) => onDateChangeEntry(e)}
             />
@@ -310,7 +311,7 @@ const RenewTenentAgreement = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-12   col-sm-12 col-md-12 Savebutton" size="lg">
+          <div className="col-lg-12  col-sm-12 col-md-12 Savebutton" size="lg">
             <button
               variant="success"
               className="btn sub_form float-right"
@@ -318,8 +319,8 @@ const RenewTenentAgreement = ({
               onClick={() => ondone()}
               style={
                 leaseEndDate !== ""
-                  ? { opacity: "1" }
-                  : { opacity: "1", pointerEvents: "none" }
+                  ? { opacity: "1", cursor: "pointer" }
+                  : { opacity: "1", pointerEvents: "none", cursor: "pointer" }
               }
             >
               Save

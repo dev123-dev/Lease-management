@@ -1749,7 +1749,7 @@ input[type="radio"].error {
   border-radius: 0px;
   width: 25%;
   background: #fff;
-  color: #524f4f;
+  color:#524f4f;
   outline: none;
   display: inline-block;
   -webkit-appearance: none;
@@ -2716,6 +2716,23 @@ i.smallsize::first-line {
 }
 .back {
   background: #095a4a;
+}
+
+.react-datepicker__current-month{
+  color:green;
+  background-color: rgb(255, 255, 255);
+}
+.react-datepicker__header__dropdown {
+  color:green;
+  background-color: rgb(255, 255, 255);
+}
+
+.react-datepicker__header__dropdown--scroll{
+  color:green;
+   background-color: rgb(255, 254, 254);
+}
+::-webkit-input-placeholder {
+  color: #c66d6d; /* Custom color (red) for WebKit browsers */
 }
 /* @media screen and (max-width: 1468px)  {
   .tenantfilter{
