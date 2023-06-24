@@ -95,6 +95,39 @@ const RenewTenentAgreement = ({
 
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const [newLeaseEndDate, setNewLeaseEndDate] = useState();
+  const getNoOFDays = (mnth, year) => {
+    switch (mnth) {
+      case 1:
+        return 31;
+      case 2:
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
+          ? 29
+          : 28;
+      case 3:
+        return 31;
+      case 4:
+        return 30;
+      case 5:
+        return 31;
+      case 6:
+        return 30;
+      case 7:
+        return 31;
+      case 8:
+        return 31;
+      case 9:
+        return 30;
+      case 10:
+        return 31;
+      case 11:
+        return 30;
+      case 12:
+        return 31;
+      default:
+        break;
+    }
+  };
+  const [date, setDate] = useState("");
   // const onDateChangeEntry = (e) => {
   //   console.log(e);
   //   // var newDate = e;
@@ -158,26 +191,62 @@ const RenewTenentAgreement = ({
     var reversedStart = yyyy + "-" + mm + "-" + dd;
     setreversedStart(reversedStart);
     var leaseMonth = myuser.output.leaseTimePeriod;
+
     //Calculating lease end date
     var dateData = calDate.getDate();
     calDate.setMonth(calDate.getMonth() + +leaseMonth);
-    if (calDate.getDate() != dateData) {
-      calDate.setDate(0);
+    if (dateData === 1) {
+      calDate.setMonth(calDate.getMonth() - 1);
+      calDate.setDate(
+        getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
+      );
+    } else if (dateData === 30 && calDate.getMonth() + 1 === 3) {
+      calDate.setMonth(calDate.getMonth() - 1);
+      calDate.setDate(
+        getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
+      );
+    } else if (dateData === 31) {
+      if (calDate.getMonth() + 1 === 3) {
+        calDate.setMonth(calDate.getMonth() - 1);
+        calDate.setDate(
+          getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
+        );
+      } else {
+        calDate.setMonth(calDate.getMonth() - 1);
+        calDate.setDate(
+          getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
+        );
+      }
+    } else if (dateData === 29) {
+      if (calDate.getMonth() + 1 === 3) {
+        calDate.setMonth(calDate.getMonth() - 1);
+        calDate.setDate(
+          getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
+        );
+      } else {
+        calDate.setDate(dateData - 1);
+      }
+    } else {
+      calDate.setDate(dateData - 1);
     }
-    var dd1 = calDate.getDate();
-    var mm2 = calDate.getMonth() + 1;
-    var yyyy1 = calDate.getFullYear();
-    if (dd1 < 10) {
-      dd1 = "0" + dd1;
+    var dd =
+      calDate.getDate().toString().length === 1
+        ? "0" + calDate.getDate().toString()
+        : calDate.getDate().toString();
+    var mm =
+      (calDate.getMonth() + 1).toString().length === 1
+        ? "0" + (calDate.getMonth() + 1).toString()
+        : (calDate.getMonth() + 1).toString();
+    var yyyy = calDate.getFullYear();
+    setDate(dd + "-" + mm + "-" + yyyy);
+    var leaseEndDate = "";
+    if (dd == "31" && mm == "07") {
+      leaseEndDate = "30-07" + "-" + yyyy;
+    } else {
+      leaseEndDate = dd + "-" + mm + "-" + yyyy;
     }
-
-    if (mm2 < 10) {
-      mm2 = "0" + mm2;
-    }
-
-    var leaseEndDate = dd1 + "-" + mm2 + "-" + yyyy1;
     setLeaseEndDate(leaseEndDate);
-    var newLeaseEndDate = yyyy1 + "-" + mm2 + "-" + dd1;
+    var newLeaseEndDate = dd + "-" + mm + "-" + yyyy;
     setNewLeaseEndDate(newLeaseEndDate);
   };
   return !isAuthenticated || !user || !users ? (
