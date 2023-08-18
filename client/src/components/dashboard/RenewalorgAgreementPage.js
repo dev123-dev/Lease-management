@@ -75,7 +75,7 @@ const ReneworgAggreement = ({
       date: entryDate,
       enddate: newLeaseEndDate,
     };
-    //console.log("final data ",finalData)
+
     RenewOrgDetailsform(finalData);
     setShowModal(true);
   };
