@@ -60,12 +60,24 @@ const initialState = {
   get_particular_org_tenant: [""],
   exp_org_count: [],
   ext_year_count_org: [],
+  blnSearchOld: false,
+  blnSearchCurr: true
 };
 
 const tenants = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case "TENANT_FILTER_OLD":
+      return {
+        ...state,
+        blnSearchOld: payload
+      };
+    case "TENANT_FILTER_CURR":
+      return {
+        ...state,
+        blnSearchCurr: payload
+      };
     case EXP_REPORT:
       return {
         ...state,

@@ -1,5 +1,6 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Switch, useLocation } from "react-router-dom";
+import { connect } from "react-redux";
 import NotFound from "../layout/NotFound";
 
 //user Section
@@ -31,7 +32,30 @@ import Profile from "../dashboard/Profile";
 import AllReport from "../dashboard/AllReport";
 import locationReport from "../dashboard/locationReport";
 import BuildingReport from "../dashboard/BuildingReport";
-const RoutesFile = () => {
+
+import {
+  getRoutesSetOldRecordsClicked,
+  getRoutesSetCurrentYearMonthsRecordsClicked
+} from "../../actions/tenants";
+
+const RoutesFile = ({
+  getRoutesSetOldRecordsClicked,
+  getRoutesSetCurrentYearMonthsRecordsClicked
+}) => {
+  const location = useLocation();
+  // Extract the pathname from the location object
+  //This is to handle the css selection of the months and the previous records to the current year
+  if (location?.pathname === "/tenant-report" && localStorage.getItem("monthSearch") !== "") {
+    getRoutesSetOldRecordsClicked(false);
+    getRoutesSetCurrentYearMonthsRecordsClicked(true);
+  } else if (location?.pathname === "/tenant-report" && localStorage.getItem("monthSearch") === "") {
+    getRoutesSetOldRecordsClicked(true);
+    getRoutesSetCurrentYearMonthsRecordsClicked(false);
+  } else {
+    getRoutesSetOldRecordsClicked(false);
+    getRoutesSetCurrentYearMonthsRecordsClicked(false);
+  }
+
   return (
     <section>
       <Switch>
@@ -102,4 +126,11 @@ const RoutesFile = () => {
   );
 };
 
-export default RoutesFile;
+const mapStateToProps = (state) => ({
+
+});
+
+export default connect(mapStateToProps, {
+  getRoutesSetOldRecordsClicked,
+  getRoutesSetCurrentYearMonthsRecordsClicked
+})(RoutesFile);

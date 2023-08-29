@@ -42,11 +42,16 @@ const MainAdminPage = ({
     }
   }, []);
 
-  let TotalRenewalCount =
-    get_particular_org_tenant &&
-    get_particular_org_tenant.filter(
-      (ele) => ele.AgreementStatus === "Expired"
-    );
+  let TotalRenewalCount = 0;
+  get_particular_org_tenant &&
+    get_particular_org_tenant.filter((ele) => {
+      if (
+        ele.AgreementStatus === "Expired" &&
+        ele.tenantstatus !== "Deactive"
+      ) {
+        TotalRenewalCount += 1;
+      }
+    });
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;
   let AvaiableShopCount = 0;

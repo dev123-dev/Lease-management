@@ -620,13 +620,34 @@ p {
   margin-top: 21px !important;
 }
 
-.btn_more {
-  background-color: rgb(255, 255, 255);
+.btn_before_filter {
+  background-color: #ffffff;
+  color: #095A4A;
+  font-weight: bold;  
   margin-top: 50%;
   margin-left: -45%;
   width: 200%;
   padding: 5%;
 }
+
+.btn_before_filter:hover {
+  background-color: #e8a317;
+  color: #ffffff;  
+  margin-top: 50%;
+  margin-left: -45%;
+  width: 200%;
+  padding: 5%;
+}
+
+
+.btn_before_filter.active {
+  background-color: #e8a317;
+  color: #ffffff;
+  margin-top: 50%;
+  margin-left: -45%;
+  width: 200%;
+  padding: 5%;
+}  
 
 @media screen and (min-width: 768px) {
   .otherPract .register_form {
@@ -1254,9 +1275,6 @@ label {
     position: absolute;
   }
 
-  /* .top_box {
-    margin-left: 20%;
-  } */
   .filter_bg {
     margin-left: -27px;
     width: 200%;
@@ -2163,10 +2181,12 @@ input[type="number"]::-webkit-outer-spin-button {
   position: absolute;
 }
 
-.tenantfil:hover {
+/*Tenant Fill Grey*/
+/* .tenantfil:hover {
   background-color: grey;
   transform: scale(1.05);
-}
+} */
+
 button {
   border: 1px solid rgb(222, 222, 225);
   background: transparent;
@@ -2510,6 +2530,7 @@ div {
     margin-bottom: 3px;
     background-color: #ffffff;
   }
+
   .renewalinput {
     width: 100px;
   }

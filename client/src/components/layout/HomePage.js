@@ -2,7 +2,7 @@ import React, { useState, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Modal } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Login from "../auth/Login";
 
 const Homepage = ({ auth: { isAuthenticated, user } }) => {
@@ -13,8 +13,10 @@ const Homepage = ({ auth: { isAuthenticated, user } }) => {
 
   return (
     <div>
-      {isAuthenticated && user ? (
-        <Fragment></Fragment>
+      {localStorage.token ? (
+        <Fragment>
+          return <Redirect to="/route-driver" />
+        </Fragment>
       ) : (
         <Fragment>
           <div className="container container_align "></div>

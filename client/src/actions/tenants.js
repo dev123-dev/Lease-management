@@ -45,6 +45,21 @@ const config = {
 var linkPath = process.env.REACT_APP_BASE_URL;
 //var linkPath = "";
 
+//Function when call is tenant-report and old records are being searched previous to selected which agreements have not expired
+export const getRoutesSetOldRecordsClicked = (blnOldSearch) => (dispatch) => {
+  dispatch({
+    type: "TENANT_FILTER_OLD",
+    payload: blnOldSearch
+  });
+}
+
+export const getRoutesSetCurrentYearMonthsRecordsClicked = (blnCurrYearMonthSearch) => (dispatch) => {
+  dispatch({
+    type: "TENANT_FILTER_CURR",
+    payload: blnCurrYearMonthSearch
+  });
+}
+
 //tenant setting
 export const AddTenantSettingform = (finalData) => async (dispatch) => {
   try {
@@ -157,14 +172,14 @@ export const getParticularOrg = (data) => async (dispatch) => {
       data,
       config
     );
-    // console.log("loc data", res.data);
+
     dispatch(getParticularProperty({ OrganizationId: data.OrganizationId }));
 
     dispatch({
       type: PARTICULAR_ORG_LOCATION,
       payload: res.data,
     });
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const getParticularUser = (data) => async (dispatch) => {
@@ -207,7 +222,7 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
       config
     );
     dispatch(getAllOrganization());
-  } catch (err) {}
+  } catch (err) { }
 };
 
 //update Property
@@ -222,7 +237,7 @@ export const updateProperty = (updatedata) => async (dispatch) => {
     dispatch(
       getParticularProperty({ OrganizationId: updatedata.Orgainzation_id })
     );
-  } catch (err) {}
+  } catch (err) { }
 };
 
 //update Super User Form
@@ -289,7 +304,6 @@ export const ParticularTenant = (data) => async (dispatch) => {
 };
 
 export const getDoorNo = () => async (dispatch) => {
-  console.log("action in");
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
 
@@ -303,7 +317,6 @@ export const getDoorNo = () => async (dispatch) => {
 };
 
 export const ParticularTenantFilter = (data) => async (dispatch) => {
-  console.log("Hi");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-tenant-sort`,
@@ -604,7 +617,6 @@ export const getMonthExpCount = (finalData) => async (dispatch) => {
       `${linkPath}/api/tenants/get-month-exp-count`,
       finalData
     );
-    console.log("in action", res.data);
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,
@@ -815,6 +827,10 @@ export const getTenantReportOldExp =
         finalDataReportOld,
         config
       );
+      dispatch({
+        type: FINAL_DATA_REP,
+        payload: finalDataReportOld,
+      });
       dispatch({
         type: EXP_REPORT,
         payload: res.data,

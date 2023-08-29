@@ -15,24 +15,9 @@ import {
   getPreviousYearsExpCountOfOrg,
 } from "../../actions/tenants";
 
-const optName = [
-  { value: "01", label: "Jan" },
-  { value: "02", label: "Feb" },
-  { value: "03", label: "Mar" },
-  { value: "04", label: "Apr" },
-  { value: "05", label: "May" },
-  { value: "06", label: "Jun" },
-  { value: "07", label: "Jul" },
-  { value: "08", label: "Aug" },
-  { value: "09", label: "Sep" },
-  { value: "10", label: "Oct" },
-  { value: "11", label: "Nov" },
-  { value: "12", label: "Dec" },
-];
-
 const TenantFilters = ({
-  auth: { isAuthenticated, user, users, monthExpCnt, yearExpCnt },
-  tenants: { exp_org_count, ext_year_count_org },
+  auth: { isAuthenticated, optName, user, users, monthExpCnt, yearExpCnt },
+  tenants: { exp_org_count, ext_year_count_org, blnSearchOld, blnSearchCurr },
   getMonthExpCount,
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
@@ -46,8 +31,7 @@ const TenantFilters = ({
   const logUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
-    console.log("monthExpCnt", monthExpCnt);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     const finalData = {
@@ -55,9 +39,10 @@ const TenantFilters = ({
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getPreviousYearsExpCount(finalData);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
+    setMonthStartDate(new Date());
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
       yearSearch: new Date().getFullYear(),
@@ -68,7 +53,7 @@ const TenantFilters = ({
       LocationName: logUser && logUser.OrganizationName,
     };
     ParticularTenant(data);
-  }, []);
+  }, [user]);
 
   const [searchData, setSearchData] = useState({
     monthSearch: new Date().getMonth() + 1,
@@ -116,6 +101,7 @@ const TenantFilters = ({
 
   const onSelectChange = (optFiltrVal) => {
     if (optFiltrVal) {
+      localStorage.setItem("monthSearch", optFiltrVal);
       setSearchData({
         ...searchData,
         monthSearch: optFiltrVal,
@@ -133,6 +119,7 @@ const TenantFilters = ({
   const onSelectOrgChange = (optFiltrVal) => {
     setMonthFilter(optFiltrVal);
     if (optFiltrVal) {
+      localStorage.setItem("monthSearch", optFiltrVal);
       setSearchData({
         ...searchData,
         monthSearch: optFiltrVal,
@@ -149,21 +136,36 @@ const TenantFilters = ({
   };
 
   const oldExpCountFetch = () => {
+    setMonthFilter("");
+    localStorage.setItem("monthSearch", "");
+    setSearchData({
+      ...searchData,
+      monthSearch: "",
+      yearSearch: new Date(startMonthDate).getFullYear(),
+    });
     const finalDataReportOld = {
-      monthSearch: monthfilter,
+      monthSearch: "",
       yearSearch: new Date(startMonthDate).getFullYear(),
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getTenantReportOldExp(finalDataReportOld);
   };
   const oldExpCountFetchOrg = () => {
+    setMonthFilter("");
+    setSearchData({
+      ...searchData,
+      monthSearch: "",
+      yearSearch: new Date(startMonthDate).getFullYear(),
+    });
+    localStorage.setItem("monthSearch", "");
     const finalDataReportOld = {
-      monthSearch: monthfilter,
+      monthSearch: "",
       yearSearch: new Date(startMonthDate).getFullYear(),
       OrganizationId: logUser && logUser.OrganizationId,
     };
     getOrganizationExpiryReport(finalDataReportOld);
   };
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -176,24 +178,22 @@ const TenantFilters = ({
             <div className="col-lg-12 col-md-1 col-sm-1 col-1 text-center tenantfilter">
               {/* this is for textbox below image for showing the total count of Renewal */}
               <div>
-                <div
-                  className="btn_more text-center "
+                <Link
                   title="Previous Year Renewal Count"
-                  style={{ cursor: "pointer" }}
+                  to="/Organization-filter"
+                  onClick={() => oldExpCountFetchOrg()}
                 >
-                  <Link
+                  <div
+                    className={`btn_before_filter text-center ${blnSearchOld ? 'active' : ''}`}
                     title="Previous Year Renewal Count"
-                    to="/Organization-filter"
-                    // style={{ minWidth: "100px" }}
-                    className="top_box "
-                    onClick={() => oldExpCountFetchOrg()}
+                    style={{ cursor: "pointer" }}
                   >
                     {" "}
                     {ext_year_count_org && ext_year_count_org.length > 0
                       ? ext_year_count_org.length
                       : 0}
-                  </Link>
-                </div>
+                  </div>
+                </Link>
 
                 <div className="yearpicker">
                   <DatePicker
@@ -202,7 +202,6 @@ const TenantFilters = ({
                     onChange={(date) => OrgainzationmonthYearChange(date)}
                     dateFormat="yyyy"
                     selected={startMonthDate}
-                    style={{ textAlign: "center" }}
                     showYearPicker
                   />
                 </div>
@@ -238,12 +237,12 @@ const TenantFilters = ({
                             name="alphaSearch"
                             onClick={() => onSelectOrgChange(optFiltr.value)}
                             style={
-                              Number(monthSearch) === Number(optFiltr.value)
+                              Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
                                 ? {
-                                    fontWeight: "bold",
-                                    color: "#e8a317",
-                                    fontSize: "115%",
-                                  }
+                                  fontWeight: "bold",
+                                  color: "#e8a317",
+                                  fontSize: "115%",
+                                }
                                 : { fontWeight: "", fontSize: "115%" }
                             }
                           >
@@ -255,17 +254,19 @@ const TenantFilters = ({
                           <label
                             className="btn-roun  "
                             style={
-                              countVal !== 0
+                              Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
                                 ? {
-                                    fontSize: "80%",
-                                    color: "#000",
-                                    background: "#fff",
-                                  }
+                                  padding: "2px",
+                                  fontSize: "80%",
+                                  color: "#fff",
+                                  background: "#e8a317",
+                                }
                                 : {
-                                    fontSize: "80%",
-                                    color: "#429f8c",
-                                    background: "#fff",
-                                  }
+                                  padding: "2px",
+                                  fontSize: "80%",
+                                  color: "#095A4A",
+                                  background: "#fff",
+                                }
                             }
                           >
                             {countVal}
@@ -282,8 +283,8 @@ const TenantFilters = ({
                 <TenantReport />
               </div> */}
             {/* </div> */}
-          </div>
-        </Fragment>
+          </div >
+        </Fragment >
       ) : (
         <>
           {/* TENANT FILTER */}
@@ -293,17 +294,17 @@ const TenantFilters = ({
                 {/* <div className="row pb-2 ml-2   "> */}
                 <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter    ">
                   <div>
-                    <div className="btn_more text-center ">
-                      <Link
-                        to="/tenant-report"
-                        className="top_box "
-                        onClick={() => oldExpCountFetch()}
-                      >
+                    <Link
+                      to="/tenant-report"
+                      onClick={() => oldExpCountFetch()}
+                    >
+                      <div className={`btn_before_filter text-center ${blnSearchOld ? 'active' : ''}`}>
                         {yearExpCnt && yearExpCnt.length > 0
                           ? yearExpCnt.length
                           : 0}
-                      </Link>
-                    </div>
+                      </div>
+                    </Link>
+
                     <div className="yearpicker  ">
                       <DatePicker
                         className="form-control text-center  "
@@ -333,7 +334,7 @@ const TenantFilters = ({
                         <div
                           className=" filter_bg "
                           key={idx}
-                          // style={{ border: "5px soild blue" }}
+                        // style={{ border: "5px soild blue" }}
                         >
                           <div
                             className="tenantfil   d-flex flex-row"
@@ -350,16 +351,16 @@ const TenantFilters = ({
                                 name="alphaSearch"
                                 onClick={() => onSelectChange(optFiltr.value)}
                                 style={
-                                  Number(monthSearch) === Number(optFiltr.value)
+                                  Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
                                     ? {
-                                        fontWeight: "bold",
-                                        color: "#e8a317",
-                                        fontSize: "115%",
-                                      }
+                                      fontWeight: "bold",
+                                      color: "#e8a317",
+                                      fontSize: "115%",
+                                    }
                                     : {
-                                        fontWeight: "",
-                                        fontSize: "115%",
-                                      }
+                                      fontWeight: "",
+                                      fontSize: "115%",
+                                    }
                                 }
                               >
                                 {optFiltr.label}
@@ -370,17 +371,19 @@ const TenantFilters = ({
                               <label
                                 className="btn-roun  "
                                 style={
-                                  countVal !== 0
+                                  Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
                                     ? {
-                                        fontSize: "80%",
-                                        color: "#000",
-                                        background: "#fff",
-                                      }
+                                      padding: "2px",
+                                      fontSize: "80%",
+                                      color: "#fff",
+                                      background: "#e8a317",
+                                    }
                                     : {
-                                        fontSize: "80%",
-                                        color: "#429f8c",
-                                        background: "#fff",
-                                      }
+                                      padding: "2px",
+                                      fontSize: "80%",
+                                      color: "#095A4A",
+                                      background: "#fff",
+                                    }
                                 }
                               >
                                 {countVal}
