@@ -11,7 +11,7 @@ import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 const TenantReport = ({
-  auth: { expReport, isAuthenticated, user, users, yearExpCnt },
+  auth: { expReport, isAuthenticated, optName, user, users, finalDataRep },  //optName is months
   tenants: { allorg },
   ParticularTenant,
   deactiveTenantsDetails,
@@ -78,11 +78,11 @@ const TenantReport = ({
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
 
-    documentTitle: "TenantReports",
+    documentTitle: "Tenant Reports",
     // onAfterPrint: () => alert("print success"),
     //    setShowPrint("black");
   });
-
+  //console.log("finalDataRep", finalDataRep);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -192,7 +192,8 @@ const TenantReport = ({
                   className="heading_color  headsize  ml-4"
                 >
                   {" "}
-                  Tenant Report
+                  Tenant Report {"(" + ((optName.find(month => Number(month.value) === Number(finalDataRep?.monthSearch)))?.label ?
+                    (optName.find(month => Number(month.value) === Number(finalDataRep?.monthSearch)))?.label + " - " : "before ") + finalDataRep?.yearSearch + ")"}
                 </h2>
               </div>
 
@@ -226,16 +227,16 @@ const TenantReport = ({
                 >
                   <thead>
                     <tr style={showPrint}>
-                      <td>Name</td>
-                      <td>Building Name</td>
+                      <th>Name</th>
+                      <th>Building Name</th>
                       {/* <th>Door No</th> */}
-                      <td>File No</td>
-                      <td>Location</td>
-                      <td>Stamp Duty</td>
-                      <td>Expiry Date</td>
-                      <td>Next Rent Amount</td>
-                      <td>Agreement Status</td>
-                      <td>Expired</td>
+                      <th>File No</th>
+                      <th>Location</th>
+                      <th>Stamp Duty</th>
+                      <th>Expiry Date</th>
+                      <th>Next Rent Amount</th>
+                      <th>Agreement Status</th>
+                      <th>Expired</th>
                     </tr>
                   </thead>
                   <tbody className="text-center">
@@ -287,17 +288,18 @@ const TenantReport = ({
                       </td>
                     )}
                   </tbody>
+                  {"Tenant Leases Expiring : " + expReport.length}
+                  {/* <tfoot className="report-footer">
+                    <tr>
+                      <td className="report-footer-cell">
+                        <div className="footer-info">
+                          <div className={"page-footer"}>footer content....</div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot> */}
                 </table>
 
-                <tfoot className="report-footer">
-                  <tr>
-                    <td className="report-footer-cell">
-                      <div className="footer-info">
-                        <div className={"page-footer"}>footer content....</div>
-                      </div>
-                    </td>
-                  </tr>
-                </tfoot>
               </div>
               {/* <div className="col-lg-1"></div> */}
               {/*link to renewal page */}

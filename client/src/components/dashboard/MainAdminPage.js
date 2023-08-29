@@ -45,7 +45,7 @@ const MainAdminPage = ({
   let TotalRenewalCount = 0;
   get_particular_org_tenant &&
     get_particular_org_tenant.filter((ele) => {
-      if (ele.AgreementStatus === "Expired") {
+      if (ele.AgreementStatus === "Expired" && ele.tenantstatus !== "Deactive") {
         TotalRenewalCount += 1;
       }
     });
@@ -129,7 +129,7 @@ const MainAdminPage = ({
                         // fontFamily: "Serif",
                         color: "black",
                       }}
-                      // className="h3"
+                    // className="h3"
                     >
                       <b className="h4">
                         Total properties<br></br>{" "}

@@ -35,6 +35,20 @@ const initialState = {
   expReport: [],
   //otpMessage: "",
   finalDataRep: [],
+  optName: [
+    { value: "01", label: "Jan" },
+    { value: "02", label: "Feb" },
+    { value: "03", label: "Mar" },
+    { value: "04", label: "Apr" },
+    { value: "05", label: "May" },
+    { value: "06", label: "Jun" },
+    { value: "07", label: "Jul" },
+    { value: "08", label: "Aug" },
+    { value: "09", label: "Sep" },
+    { value: "10", label: "Oct" },
+    { value: "11", label: "Nov" },
+    { value: "12", label: "Dec" },
+  ]
 };
 
 const auth = (state = initialState, action) => {
@@ -69,8 +83,8 @@ const auth = (state = initialState, action) => {
       };
     case AUTH_ERROR:
     case LOGOUT:
-       localStorage.removeItem("token");
-       localStorage.clear();
+      localStorage.removeItem("token");
+      localStorage.clear();
       return {
         ...state,
         user: null,
