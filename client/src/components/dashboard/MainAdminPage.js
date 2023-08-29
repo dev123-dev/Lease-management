@@ -42,13 +42,11 @@ const MainAdminPage = ({
     }
   }, []);
 
-  let TotalRenewalCount = 0;
-  get_particular_org_tenant &&
-    get_particular_org_tenant.filter((ele) => {
-      if (ele.AgreementStatus === "Expired") {
-        TotalRenewalCount += 1;
-      }
-    });
+  let TotalRenewalCount =
+    get_particular_org_tenant &&
+    get_particular_org_tenant.filter(
+      (ele) => ele.AgreementStatus === "Expired"
+    );
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;
   let AvaiableShopCount = 0;
@@ -221,7 +219,7 @@ const MainAdminPage = ({
                       {" "}
                       <b className="h4">
                         Renewable Properties <br></br>
-                        {TotalRenewalCount}
+                        {TotalRenewalCount && TotalRenewalCount.length}
                       </b>
                     </p>
                   </center>
