@@ -184,7 +184,7 @@ const TenantReport = ({
               <div className="row mt-5 ">
                 <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
                   <h2 className="heading_color  headsize  ml-4">
-                    Tenant Report
+                    Tenant Report &nbsp;
                     {"(" +
                       (optName.find(
                         (month) =>
