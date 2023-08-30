@@ -179,59 +179,51 @@ const TenantReport = ({
         </div>
       ) : (
         <>
-          <div className="col mt-sm-5 ">
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-5 ">
-              <div className="col-lg-8 col-md-12 col-sm-12 col-12  ">
-                <h2
-                  style={
-                    {
-                      // position: "relative",
-                      // top: "60px",
-                    }
-                  }
-                  className="heading_color  headsize  ml-4"
-                >
-                  {" "}
-                  Tenant Report
-                  {"(" +
-                    (optName.find(
-                      (month) =>
-                        Number(month.value) ===
-                        Number(finalDataRep?.monthSearch)
-                    )?.label
-                      ? optName.find(
-                          (month) =>
-                            Number(month.value) ===
-                            Number(finalDataRep?.monthSearch)
-                        )?.label + " - "
-                      : "before ") +
-                    finalDataRep?.yearSearch +
-                    ")"}
-                </h2>
+          <div className="col mt-sm-4 space ">
+            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
+              <div className="row mt-5 ">
+                <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
+                  <h2 className="heading_color  headsize  ml-4">
+                    Tenant Report
+                    {"(" +
+                      (optName.find(
+                        (month) =>
+                          Number(month.value) ===
+                          Number(finalDataRep?.monthSearch)
+                      )?.label
+                        ? optName.find(
+                            (month) =>
+                              Number(month.value) ===
+                              Number(finalDataRep?.monthSearch)
+                          )?.label + " - "
+                        : "before ") +
+                      finalDataRep?.yearSearch +
+                      ")"}
+                  </h2>
+                </div>
+
+                {/* <div className="col-lg-5  col-sm-12 col-md-12 mt-4">
+             
+            </div> */}
+                <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4 pt-3">
+                  <button onClick={handlePrint}>
+                    <img
+                      height="20px"
+                      //  onClick={() => refresh()}
+                      src={require("../../static/images/print.png")}
+                      alt="Print"
+                      title="Print"
+                    />
+                  </button>
+                </div>
               </div>
 
-              <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4">
-                <button onClick={handlePrint}>
-                  <img
-                    height="20px"
-                    //  onClick={() => refresh()}
-                    src={require("../../static/images/print.png")}
-                    alt="Print"
-                    title="Print"
-                  />
-                </button>
-              </div>
-            </div>
-
-            <div className="container-fluid d-flex align-items-center justify-content-center ">
-              <div className="col">
-                <div>
+              <div className="container-fluid d-flex align-items-center justify-content-center ">
+                <div className="col">
                   <div className="row " ref={componentRef}>
                     <div className="col-lg-1  col-sm-12 col-md-12"></div>
-                    <div
-                      className="firstrowsticky body-inner no-padding table-responsive"
-                      // ref={componentRef}
-                    >
+                    <div className="firstrowsticky body-inner no-padding table-responsive">
+                      {/* ref={componentRef} */}
                       <img
                         alt={""}
                         src={
@@ -240,7 +232,7 @@ const TenantReport = ({
                         className={"watermark"}
                       />
                       <table
-                        className="table table-bordered table-striped table-hover"
+                        className="table table-bordered table-striped table-hover mt-1"
                         id="datatable2"
                       >
                         <thead>
@@ -325,18 +317,16 @@ const TenantReport = ({
                     </div>
                     <div className="col-lg-1  col-sm-12 col-md-12"></div>
                   </div>
-                </div>
-                <div
-                  className="col-lg-12 col-md-12 col-sm-12 text-right font-weight-bold ml-3"
-                  style={{ color: "#095a4a" }}
-                >
-                  {"Tenant Leases Expiring : " + expReport.length}
+                  <div
+                    className="col-lg-12 col-md-12 col-sm-12 text-right font-weight-bold ml-3"
+                    style={{ color: "#095a4a" }}
+                  >
+                    {"Tenant Leases Expiring : " + expReport.length}
+                  </div>
                 </div>
               </div>
             </div>
-
             {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
-
             <Modal
               show={showEditModal}
               backdrop="static"
