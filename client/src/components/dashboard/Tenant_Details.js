@@ -391,7 +391,7 @@ const Tenant_Details = ({
                 ></Select>
               </div>
 
-              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-4 pt-3">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
@@ -548,7 +548,10 @@ const Tenant_Details = ({
                     <label>No.of Tenants: {tenantCount.length}</label>
                   </div> */}
                   <div className="col-lg-6  col-sm-12 col-md-12">
-                    <p className="text-end h6">
+                    <p
+                      className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}
+                    >
                       No. of Tenants: {sortetenantdetails.length}
                     </p>
                   </div>

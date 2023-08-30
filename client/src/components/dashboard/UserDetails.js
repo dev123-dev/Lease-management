@@ -87,40 +87,30 @@ const UserDetails = ({
   // console.log(get_particularOrg_user, "get_particularOrg_user");
   return (
     <>
-      <div className="col mt-sm-4 space">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  ">
-          <h2
-            style={{
-              position: "relative",
-              top: "60px",
-            }}
-            className=" heading_color  headsize  ml-4"
-          >
-            User Details
-          </h2>
-          <div></div>
-          <div className="text-end"></div>
+      <div className="col mt-sm-4 space ">
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
+          <div className="row mt-5 ">
+            <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
+              <h2 className="heading_color  headsize  ml-4">User Details</h2>
+            </div>
+
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-3 pt-4 ">
+              {" "}
+              <img
+                height="20px"
+                onClick={() => setShowadd(true)}
+                src={require("../../static/images/add-icon.png")}
+                alt="Add User"
+                title="Add User"
+              />
+            </div>
+          </div>
+
           <div className="container-fluid d-flex align-items-center justify-content-center ">
-            <div className="col ">
-              <div className="row text-end ">
-                <div className="col-lg-4  col-sm-12 col-md-12"></div>
-                <div className="col-lg-4  col-sm-12 col-md-12"></div>
-                <div className="col-lg-4  col-sm-12 col-md-12 refresh">
-                  <img
-                    height="20px"
-                    onClick={() => setShowadd(true)}
-                    src={require("../../static/images/add-icon.png")}
-                    alt="Add User"
-                    title="Add User"
-                  />
-                </div>
-              </div>
-              {/* <AddAdminUserModal /> */}
-
-              <div className="row">
+            <div className="col">
+              <div className="row ">
                 <div className="col-lg-1  col-sm-12 col-md-12"></div>
-
-                <div className="body-inner no-padding table-responsive ">
+                <div className="firstrowsticky body-inner no-padding table-responsive">
                   <table
                     className="table table-bordered table-striped table-hover   mt-1"
                     id="datatable2"
@@ -177,26 +167,30 @@ const UserDetails = ({
                   </table>
                 </div>
                 <div className="col-lg-1  col-sm-12 col-md-12"></div>
-                <div className="row">
-                  <div className="col-lg-6  col-sm-12 col-md-12">
-                    {get_particularOrg_user &&
-                    get_particularOrg_user.length !== 0 ? (
-                      <Pagination
-                        dataPerPage={dataPerPage}
-                        totalData={get_particularOrg_user.length}
-                        paginate={paginate}
-                        currentPage={currentData}
-                      />
-                    ) : (
-                      <Fragment />
-                    )}
-                  </div>
-                  <div className="col-lg-6  col-sm-12 col-md-12">
-                    <p className="text-end h6">
-                      No. of User :{" "}
-                      {get_particularOrg_user && get_particularOrg_user.length}
-                    </p>
-                  </div>
+              </div>
+
+              <div className="row">
+                <div className="col-lg-6  col-sm-12 col-md-12 ">
+                  {get_particularOrg_user &&
+                  get_particularOrg_user.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={get_particularOrg_user.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+                <div className="col-lg-6  col-sm-12 col-md-12 ">
+                  <p
+                    className="text-end h6 font-weight-bold text-right "
+                    style={{ color: "#095a4a" }}
+                  >
+                    No. of User :{" "}
+                    {get_particularOrg_user && get_particularOrg_user.length}
+                  </p>
                 </div>
               </div>
             </div>

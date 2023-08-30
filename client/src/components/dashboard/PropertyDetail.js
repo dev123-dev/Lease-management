@@ -213,15 +213,16 @@ const PropertyDetail = ({
     <>
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-          <div className="row mt-5  ">
+          <div className="row mt-5 ">
             <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
               <h2 className="heading_color  headsize  ml-4">
                 Property Details
               </h2>
             </div>
-            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-4">
               <Select
-                className="dropdown text-left mt-sm-3"
+                className="dropdown text-left "
                 placeholder="Search-Location"
                 name="location"
                 options={Sellocation}
@@ -240,7 +241,7 @@ const PropertyDetail = ({
                 })}
               ></Select>
             </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-sm-5">
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-3 pt-4 ">
               {" "}
               <img
                 height="20px"
@@ -262,13 +263,13 @@ const PropertyDetail = ({
             </div>
           </div>
 
-          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
+          <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col">
               <div className="row ">
                 <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
                   <table
-                    className="table table-bordered table-striped table-hover   mt-1  "
+                    className="table table-bordered table-striped table-hover mt-1"
                     id="datatable2"
                   >
                     <thead>
@@ -417,7 +418,10 @@ const PropertyDetail = ({
                   )}
                 </div>
                 <div className="col-lg-6  col-sm-12 col-md-12">
-                  <p className="text-end h6">
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Property : {particular_org_data.length}
                   </p>
                 </div>

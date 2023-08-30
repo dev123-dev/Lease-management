@@ -1482,6 +1482,11 @@ input[type="radio"].error {
   padding: 1.5em 2em;
   top: 50%;
 }
+body{
+  overflow-x: hidden;
+}
+
+
 
 .confirmbox-heading {
   font-family: Verdana, Arial, sans-serif;
@@ -2761,3 +2766,4 @@ i.smallsize::first-line {
   }
   
 } */
+

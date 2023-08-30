@@ -93,20 +93,12 @@ const MainAdminPage = ({
     <></>
   ) : (
     <>
-      <div className="col mt-sm-5 ">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding mt-sm-2 ">
-          <div className="row col-lg-12 col-md-12 col-sm-12 col-12 ml-5">
-            <h2
-              style={{
-                position: "relative",
-                top: "60px",
-              }}
-              className="heading_color  headingdashboard  ml-5"
-            >
-              {user && user.orgName} Dashboard
-            </h2>
-            {/* <br />
-          <br /> */}
+      <div className="col mt-sm-4 space ">
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
+          <div className="row mt-5 ">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <h2 className="heading_color  headsize  ml-4">Dashboard</h2>
+            </div>
           </div>
         </div>
         <section className="sub_reg" style={{ backgroundColor: "transparent" }}>

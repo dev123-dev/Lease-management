@@ -11,7 +11,7 @@ import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 const TenantReport = ({
-  auth: { expReport, isAuthenticated, optName, user, users, finalDataRep },  //optName is months
+  auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
   tenants: { allorg },
   ParticularTenant,
   deactiveTenantsDetails,
@@ -192,12 +192,25 @@ const TenantReport = ({
                   className="heading_color  headsize  ml-4"
                 >
                   {" "}
-                  Tenant Report {"(" + ((optName.find(month => Number(month.value) === Number(finalDataRep?.monthSearch)))?.label ?
-                    (optName.find(month => Number(month.value) === Number(finalDataRep?.monthSearch)))?.label + " - " : "before ") + finalDataRep?.yearSearch + ")"}
+                  Tenant Report
+                  {"(" +
+                    (optName.find(
+                      (month) =>
+                        Number(month.value) ===
+                        Number(finalDataRep?.monthSearch)
+                    )?.label
+                      ? optName.find(
+                          (month) =>
+                            Number(month.value) ===
+                            Number(finalDataRep?.monthSearch)
+                        )?.label + " - "
+                      : "before ") +
+                    finalDataRep?.yearSearch +
+                    ")"}
                 </h2>
               </div>
 
-              <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-5">
+              <div className="col-lg-4 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4">
                 <button onClick={handlePrint}>
                   <img
                     height="20px"
@@ -210,86 +223,93 @@ const TenantReport = ({
               </div>
             </div>
 
-            <div className="row" ref={componentRef}>
-              <div className="col-lg-1  col-sm-12 col-md-12"></div>
-              <div
-                // ref={componentRef}
-                className="body-inner no-padding table-responsive  col-lg-10"
-              >
-                <img
-                  alt={""}
-                  src={myuser && myuser.output ? myuser.output.Logo : logo}
-                  className={"watermark"}
-                />
-                <table
-                  className="table table-bordered table-striped table-hover   mt-1  "
-                  id="datatable2"
-                >
-                  <thead>
-                    <tr style={showPrint}>
-                      <th>Name</th>
-                      <th>Building Name</th>
-                      {/* <th>Door No</th> */}
-                      <th>File No</th>
-                      <th>Location</th>
-                      <th>Stamp Duty</th>
-                      <th>Expiry Date</th>
-                      <th>Next Rent Amount</th>
-                      <th>Agreement Status</th>
-                      <th>Expired</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-center">
-                    {expReport &&
-                      expReport[0] &&
-                      expReport.map((Val, idx) => {
-                        var ED = Val.tenantLeaseEndDate.split(/\D/g);
-                        var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join(
-                          "-"
-                        );
-                        return (
-                          <tr key={idx}>
-                            <td>{Val.tenantName}</td>
-                            <td>{Val.BuildingName}</td>
-                            {/* <td>
+            <div className="container-fluid d-flex align-items-center justify-content-center ">
+              <div className="col">
+                <div>
+                  <div className="row " ref={componentRef}>
+                    <div className="col-lg-1  col-sm-12 col-md-12"></div>
+                    <div
+                      className="firstrowsticky body-inner no-padding table-responsive"
+                      // ref={componentRef}
+                    >
+                      <img
+                        alt={""}
+                        src={
+                          myuser && myuser.output ? myuser.output.Logo : logo
+                        }
+                        className={"watermark"}
+                      />
+                      <table
+                        className="table table-bordered table-striped table-hover"
+                        id="datatable2"
+                      >
+                        <thead>
+                          <tr style={showPrint}>
+                            <th>Name</th>
+                            <th>Building Name</th>
+                            {/* <th>Door No</th> */}
+                            <th>File No</th>
+                            <th>Location</th>
+                            <th>Stamp Duty</th>
+                            <th>Expiry Date</th>
+                            <th>Next Rent Amount</th>
+                            <th>Agreement Status</th>
+                            <th>Expired</th>
+                          </tr>
+                        </thead>
+                        <tbody className="text-center">
+                          {expReport &&
+                            expReport[0] &&
+                            expReport.map((Val, idx) => {
+                              var ED = Val.tenantLeaseEndDate.split(/\D/g);
+                              var tenantLeaseEndDate = [
+                                ED[2],
+                                ED[1],
+                                ED[0],
+                              ].join("-");
+                              return (
+                                <tr key={idx}>
+                                  <td>{Val.tenantName}</td>
+                                  <td>{Val.BuildingName}</td>
+                                  {/* <td>
                                 {Val.tenantDoorNo.map((ele) => {
                                   return ele.label;
                                 })}
                               </td> */}
-                            <td>{Val.tenantFileNo}</td>
-                            <td>{Val.Location}</td>
-                            <td>{Number(Val.stampDuty).toFixed(2)}</td>
 
-                            <td>{tenantLeaseEndDate}</td>
-                            <td>{Number(Val.chargesCal).toFixed(2)}</td>
-                            <td>{Val.AgreementStatus}</td>
-                            {Val.AgreementStatus === "Expired" ? (
-                              <td>
-                                <center>
-                                  <button
-                                    variant="success"
-                                    className="rewbtn"
-                                    style={{ backgroudColor: "#e8a317" }}
-                                    onClick={() => onRenewal(Val, idx)}
-                                  >
-                                    Renewal
-                                  </button>
-                                </center>
-                              </td>
-                            ) : (
-                              <td></td>
-                            )}
-                          </tr>
-                        );
-                      })}
-                    {expReport.length < 1 && (
-                      <td className="text-center" colSpan={10}>
-                        No Data Available
-                      </td>
-                    )}
-                  </tbody>
-                  {"Tenant Leases Expiring : " + expReport.length}
-                  {/* <tfoot className="report-footer">
+                                  <td>{Val.tenantFileNo}</td>
+                                  <td>{Val.Location}</td>
+                                  <td>{Number(Val.stampDuty).toFixed(2)}</td>
+
+                                  <td>{tenantLeaseEndDate}</td>
+                                  <td>{Number(Val.chargesCal).toFixed(2)}</td>
+                                  <td>{Val.AgreementStatus}</td>
+                                  {Val.AgreementStatus === "Expired" ? (
+                                    <td>
+                                      <center>
+                                        <button
+                                          variant="success"
+                                          className="rewbtn"
+                                          style={{ backgroudColor: "#e8a317" }}
+                                          onClick={() => onRenewal(Val, idx)}
+                                        >
+                                          Renewal
+                                        </button>
+                                      </center>
+                                    </td>
+                                  ) : (
+                                    <td></td>
+                                  )}
+                                </tr>
+                              );
+                            })}
+                          {expReport.length < 1 && (
+                            <td className="text-center" colSpan={10}>
+                              No Data Available
+                            </td>
+                          )}
+                        </tbody>
+                        {/* <tfoot className="report-footer">
                     <tr>
                       <td className="report-footer-cell">
                         <div className="footer-info">
@@ -298,12 +318,23 @@ const TenantReport = ({
                       </td>
                     </tr>
                   </tfoot> */}
-                </table>
+                      </table>
 
+                      {/* <div className="col-lg-1"></div> */}
+                      {/*link to renewal page */}
+                    </div>
+                    <div className="col-lg-1  col-sm-12 col-md-12"></div>
+                  </div>
+                </div>
+                <div
+                  className="col-lg-12 col-md-12 col-sm-12 text-right font-weight-bold ml-3"
+                  style={{ color: "#095a4a" }}
+                >
+                  {"Tenant Leases Expiring : " + expReport.length}
+                </div>
               </div>
-              {/* <div className="col-lg-1"></div> */}
-              {/*link to renewal page */}
             </div>
+
             {/* <RenewalReportPrint expReport={expReport} ref={componentRef} /> */}
 
             <Modal
