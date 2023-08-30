@@ -245,7 +245,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontWeight: "bold",
                       textDecoration: "none",
                     }}
                   >
@@ -273,7 +273,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontWeight: "bold",
                       textDecoration: "none",
                     }}
                   >
@@ -300,7 +300,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontWeight: "bold",
                       textDecoration: "none",
                     }}
                   >
@@ -323,7 +323,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontWeight: "bold",
                       textDecoration: "none",
                     }}
                   >
@@ -346,7 +346,7 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-
+                      fontWeight: "bold",
                       textDecoration: "none",
                     }}
                   >
@@ -615,8 +615,8 @@ const Header = ({
                   <NavItem></NavItem>
 
                   <Modal
-                  //className="back"
-                   //style={{ background: "red" }}
+                    //className="back"
+                    //style={{ background: "red" }}
                     show={showLogin}
                     backdrop="static"
                     keyboard={false}
@@ -624,7 +624,7 @@ const Header = ({
                     centered
                   >
                     <Modal.Header></Modal.Header>
-                    <Modal.Body >
+                    <Modal.Body>
                       <Login />
                     </Modal.Body>
                   </Modal>
