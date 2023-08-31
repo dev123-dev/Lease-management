@@ -2093,12 +2093,13 @@ input[type="number"]::-webkit-outer-spin-button {
 #hea {
   color: white;
   /* font-size: large; */
-
-  font-weight: 500;
+  font-weight: bold;
   height: 30px;
 }
 #hea:hover {
   color: #e1a117;
+  font-weight: 700;
+  height: 30px;
 }
 .card {
   width: 300px;
@@ -2677,6 +2678,7 @@ div {
   color: #d9d9d9;
 }
 
+
 @media (max-width: 550px) {
   .log_size {
     width: 75px;
@@ -2766,4 +2768,6 @@ i.smallsize::first-line {
   }
   
 } */
+
+
 

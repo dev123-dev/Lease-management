@@ -154,11 +154,12 @@ const Header = ({
                   <NavLink
                     to="/MainSuper"
                     id="hea"
-                    className="navlink headinghover   "
                     activeStyle={{
                       color: "#e8a317",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
+                    className="navlink headinghover"
                   >
                     Dashboard
                   </NavLink>
@@ -198,11 +199,12 @@ const Header = ({
                   <NavLink
                     to="/Super"
                     id="hea"
-                    className="navlink headinghover   "
                     activeStyle={{
                       color: "#e8a317",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
+                    className="navlink headinghover   "
                   >
                     Organization Details
                   </NavLink>
@@ -220,12 +222,12 @@ const Header = ({
                   <NavLink
                     to="/SuperUser"
                     id="hea"
-                    className="navlink"
                     activeStyle={{
                       color: "#e8a317",
-
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
+                    className="navlink"
                   >
                     User Details
                   </NavLink>
@@ -245,8 +247,8 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                      fontWeight: "bold",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
                   >
                     Dashboard
@@ -273,8 +275,8 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                      fontWeight: "bold",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
                   >
                     Property
@@ -300,8 +302,8 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                      fontWeight: "bold",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
                   >
                     Tenant
@@ -323,15 +325,14 @@ const Header = ({
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                      fontWeight: "bold",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
                   >
                     User
                   </NavLink>
                 ) : (
                   <></>
-                  // <NavItem>gg</NavItem>
                 )}
               </NavItem>
 
@@ -342,12 +343,12 @@ const Header = ({
                 user.usergroup === "Admin" ? (
                   <NavLink
                     to="/Report"
-                    className="navlink  headinghover navbar-right"
+                    className="navlink  headinghover navbar-right "
                     id="hea"
                     activeStyle={{
                       color: "#e8a317",
-                      fontWeight: "bold",
                       textDecoration: "none",
+                      fontWeight: "bold",
                     }}
                   >
                     Report
@@ -375,11 +376,15 @@ const Header = ({
                               style={{
                                 position: "relative",
                                 // backgroundColor: "red",
+
                                 bottom: "10px",
                               }}
                             >
                               {" "}
-                              {user.username} &nbsp;
+                              <span style={{ fontWeight: "bold" }}>
+                                {user.username}
+                              </span>{" "}
+                              &nbsp;
                               <i className="fa fa-caret-down" />
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -463,7 +468,10 @@ const Header = ({
                               }}
                             >
                               {" "}
-                              {user.username} &nbsp;
+                              <span style={{ fontWeight: "bold" }}>
+                                {user.username}
+                              </span>{" "}
+                              &nbsp;
                               <i className="fa fa-caret-down" />
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
