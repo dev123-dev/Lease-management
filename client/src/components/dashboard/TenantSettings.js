@@ -17,7 +17,7 @@ const TenantSettings = ({
 }) => {
   //console.log("data", allTenantSetting.leaseTimePeriod);
   const myuser = JSON.parse(localStorage.getItem("user"));
-  console.log("tenant setting", myuser);
+  //console.log("tenant setting", myuser);
 
   useEffect(() => {
     if (myuser) {

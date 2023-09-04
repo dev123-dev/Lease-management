@@ -195,12 +195,42 @@ h5:last-child {
   margin-left: 90px;
 }
 
+/* 30-08-2023 New Navbar Code Not In Use*/
+.navTopMenuText {
+  position: relative; /* Create a positioning context */
+  text-decoration: none;
+  color: #333;
+  margin: 0 10px;
+}
+
+/* Pseudo-element to simulate bold effect */
+.navTopMenuText::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: -1; /* Behind the text */
+  transform: scale(1, 1); /* Default scale */
+  transform-origin: top left; /* Scale from the top left corner */
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect */
+.navTopMenuText:hover::before {
+  background-color: #000; /* Apply background color on hover */
+  transform: scale(1, 1.2); /* Scale vertically for bold effect */
+  opacity: 0.2; /* Adjust opacity for a subtle effect */
+}
+
+
+/*  30-08-2023 commented Joel
 .navbar-brand {
   float: left;
   height: 50px;
   font-size: 18px;
   line-height: 20px;
-}
+} 
 
 .navbar-fixed-bottom .navbar-collapse,
 .navbar-fixed-top .navbar-collapse {
@@ -209,23 +239,27 @@ h5:last-child {
 
 .navbar-fixed-top {
   z-index: 85000;
-}
+} 
+
 .navbar.top_menu {
   border-bottom: 0px;
-}
+} 
+
 .navbar-light .navbar-nav .nav-link,
 .nav-item > a:hover {
   color: #f4eeee;
-  /* transform: scale(1.5); */
 }
 
-.nav-item > a {
-  color: #2a2424;
+.navbar-inverse .navbar-brand,
+.navbar-inverse {
+  color: #fff;
   font-weight: 600;
-  font-size: 16px;
-  position: relative;
-  display: block;
-  padding: 10px 15px;
+  font-size: 13px;
+  line-height: 20px;
+} 
+
+.navbar_height {
+  padding: 0px;
 }
 
 .navbar-brand {
@@ -236,22 +270,19 @@ h5:last-child {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
+} 30-8-2023 commented Joel*/ 
+
+.nav-item > a {
+  color: #2a2424;
+  font-weight: 600;
+  font-size: 16px;
+  position: relative;
+  display: block;
+  padding: 10px 15px;
 }
 
 .show > .dropdown-menu {
   display: block;
-}
-
-.navbar-inverse .navbar-brand,
-.navbar-inverse {
-  color: #fff;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 20px;
-}
-
-.navbar_height {
-  padding: 0px;
 }
 
 ::-moz-selection {
@@ -886,7 +917,7 @@ label {
 }
 
 @media (min-width: 992px) {
-  .dropdown-menu > .nav-item > a {
+  /* 30-08-2023 commented Joel .dropdown-menu > .nav-item > a {
     display: block;
     padding: 3px 20px;
     clear: both;
@@ -902,7 +933,8 @@ label {
   .dropdown-menu > .nav-item > a:hover {
     color: #262626;
     background-color: #e8e8e8;
-  }
+  } */
+
   @media print {
     @page {
       size: 50mm 150mm;
@@ -999,14 +1031,14 @@ label {
 }
 
 @media (min-width: 768px) {
-  .navbar-expand-md .navbar-nav .nav-link {
+  /* .navbar-expand-md .navbar-nav .nav-link {
     padding-right: 15px;
     padding-left: 15px;
   }
   .navbar-right .dropdown-menu {
     right: 0;
     left: auto;
-  }
+  } */
   .ship_head {
     font-size: 25px;
   }
@@ -1033,9 +1065,9 @@ label {
     box-shadow: 0 0px 0px rgba(0, 0, 0, 0.175);
   }
 
-  .navbar-toggler {
+  /* .navbar-toggler {
     display: block;
-  }
+  } */
   #regDes {
     border-right: none;
     height: 22px;
@@ -1121,9 +1153,9 @@ label {
   .heightDiv {
     height: 640px;
   }
-  .navbar-inverse .navbar-toggle {
+  /* .navbar-inverse .navbar-toggle {
     border-color: #fff;
-  }
+  } */
   .chinese_text {
     margin-top: 24.5em;
   }
@@ -1615,9 +1647,9 @@ body{
   .second-level-menu {
     display: none;
   }
-  .navbar_Collapse_content {
+  /* .navbar_Collapse_content {
     display: none;
-  }
+  } */
 }
 
 .top-level-menu {
@@ -1762,8 +1794,28 @@ body{
   width: 130px;
 }
 
-/* Refill css */
+/* DateInput Lease Start Date */
+.output {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
 
+.required {
+  color: orangered;
+}
+
+.invalid-date {
+  color: red;
+}
+
+.valid-date {
+  color: green;
+}
+
+
+
+/* Refill css */
 .cpp-input {
   padding: 8px;
   margin: 0;
@@ -2664,12 +2716,12 @@ div {
   background-color: #095a4a;
   width: fit-content;
 }
+
+/* Right Dropdown Styling */
 .navlink {
   font-size: 20px;
-  /* font-weight: bold; */
 }
 .navlinkitem:hover {
-  /* background-color: rgb(231, 157, 105); */
   color: white;
 }
 

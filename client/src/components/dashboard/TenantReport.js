@@ -78,7 +78,20 @@ const TenantReport = ({
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
 
-    documentTitle: "Tenant Reports",
+    documentTitle: "Tenant Reports (" +
+      (optName.find(
+        (month) =>
+          Number(month.value) ===
+          Number(finalDataRep?.monthSearch)
+      )?.label
+        ? optName.find(
+          (month) =>
+            Number(month.value) ===
+            Number(finalDataRep?.monthSearch)
+        )?.label + " - "
+        : "before ") +
+      finalDataRep?.yearSearch +
+      ")",
     // onAfterPrint: () => alert("print success"),
     //    setShowPrint("black");
   });
@@ -192,10 +205,10 @@ const TenantReport = ({
                           Number(finalDataRep?.monthSearch)
                       )?.label
                         ? optName.find(
-                            (month) =>
-                              Number(month.value) ===
-                              Number(finalDataRep?.monthSearch)
-                          )?.label + " - "
+                          (month) =>
+                            Number(month.value) ===
+                            Number(finalDataRep?.monthSearch)
+                        )?.label + " - "
                         : "before ") +
                       finalDataRep?.yearSearch +
                       ")"}
@@ -253,6 +266,7 @@ const TenantReport = ({
                           {expReport &&
                             expReport[0] &&
                             expReport.map((Val, idx) => {
+                              console.log(Val);
                               var ED = Val.tenantLeaseEndDate.split(/\D/g);
                               var tenantLeaseEndDate = [
                                 ED[2],
@@ -301,17 +315,16 @@ const TenantReport = ({
                             </td>
                           )}
                         </tbody>
-                        {/* <tfoot className="report-footer">
-                    <tr>
-                      <td className="report-footer-cell">
-                        <div className="footer-info">
-                          <div className={"page-footer"}>footer content....</div>
-                        </div>
-                      </td>
-                    </tr>
-                  </tfoot> */}
+                        {/*<tfoot className="report-footer">
+                              <tr>
+                                <td className="report-footer-cell">
+                                  <div className="footer-info">
+                                    <div className={"page-footer"}>footer content....</div>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tfoot>*/}
                       </table>
-
                       {/* <div className="col-lg-1"></div> */}
                       {/*link to renewal page */}
                     </div>

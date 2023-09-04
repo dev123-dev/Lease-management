@@ -292,13 +292,15 @@ const Tenant_Details = ({
         )
     );
   let TenantNames = [];
+  let cntDeActiveTenant = 0;
   sortetenantdetails &&
-    sortetenantdetails.map((ele) =>
+    sortetenantdetails.map((ele) => {
+      if (ele.tenantstatus !== "Active") cntDeActiveTenant++;
       TenantNames.push({
         label: ele.tenantName,
         value: ele._id,
       })
-    );
+    });
   // console.log("currentDatas", currentDatas);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -552,7 +554,7 @@ const Tenant_Details = ({
                       className="text-end h6 font-weight-bold"
                       style={{ color: "#095a4a" }}
                     >
-                      No. of Tenants: {sortetenantdetails.length}
+                      Active Tenants: {sortetenantdetails.length - cntDeActiveTenant} &nbsp;&nbsp;&nbsp;<span style={{ color: "red" }}>Deactive Tenants: {cntDeActiveTenant}</span>
                     </p>
                   </div>
                 </div>

@@ -808,6 +808,7 @@ router.post("/get-particular-Tenant", async (req, res) => {
   let { OrganizationId, LocationName } = req.body;
 
   let query = { OrganizationId: OrganizationId };
+
   if (LocationName) {
     query = {
       ...query,
@@ -852,7 +853,7 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
       _id: mongoose.Types.ObjectId(tenantName),
     };
   }
-  console.log("query", query);
+  //console.log("query", query);
   try {
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
@@ -903,7 +904,7 @@ router.post("/deactive-user", async (req, res) => {
     );
 
     res.json(dltuser);
-  } catch (err) {}
+  } catch (err) { }
 });
 
 //ddeactivating the organization
@@ -931,7 +932,7 @@ router.post("/deactive-Organization", async (req, res) => {
       }
     );
     res.json(dltOrg);
-  } catch (err) {}
+  } catch (err) { }
 });
 
 router.post("/deactive-tenant", async (req, res) => {
@@ -960,7 +961,7 @@ router.post("/deactive-tenant", async (req, res) => {
           //     deactive_reason: data.deactive_reason,
           //   },
           // }
-        ).then((data) => {});
+        ).then((data) => { });
       });
       data.Dno.map((ele) => {
         property

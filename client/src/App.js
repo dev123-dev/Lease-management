@@ -22,6 +22,7 @@ import Login from "./components/auth/Login";
 // import Alert from "./components/layout/Alert";
 
 if (localStorage.token) {
+  localStorage.setItem("monthSearch", new Date().getMonth());
   setAuthToken(localStorage.token);
 }
 var innerW = window.innerWidth;

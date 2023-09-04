@@ -13,25 +13,13 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
     get_particular_org_user({ OrganizationId: user && user.OrganizationId });
   }, [loadUser]);
 
-  // useEffect(() => {
-  //   const myuser = JSON.parse(localStorage.getItem("user"));
-
-  //   return () => {
-  //     get_particular_org_user({
-  //       OrganizationId: myuser && myuser.OrganizationId,
-  //     });
-  //     const myorg = JSON.parse(localStorage.getItem("Org"));
-  //     console.log(myorg, "unmount");
-  //   };
-  // }, [loadUser]);
-
   if (user) {
     if (user.usergroup === "Admin") {
       return <Redirect to="/MainAdmin" />;
-    } else if(user.usergroup === "Super Admin") {
+    } else if (user.usergroup === "Super Admin") {
       return <Redirect to="/MainSuper" />;
-    }else{
-   
+    } else {
+
       return <Redirect to="/PropertyDetail" />;
     }
   }

@@ -42,16 +42,17 @@ const MainAdminPage = ({
     }
   }, []);
 
-  let TotalRenewalCount = 0;
-  get_particular_org_tenant &&
+  const TotalRenewalCount = get_particular_org_tenant &&
     get_particular_org_tenant.filter((ele) => {
       if (
         ele.AgreementStatus === "Expired" &&
         ele.tenantstatus !== "Deactive"
       ) {
-        TotalRenewalCount += 1;
+        return ele;
       }
+
     });
+
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;
   let AvaiableShopCount = 0;
@@ -60,12 +61,6 @@ const MainAdminPage = ({
 
   const [status, setStatus] = useState("");
   let ShopStatus = [];
-  // particular_org_data.map((ele) =>
-  //   ShopStatus.push({
-  //     label: ele.shopStatus,
-  //   })
-  // );
-
   particular_org_data &&
     particular_org_data.map((ele) => {
       ele.shopDoorNo &&
@@ -124,7 +119,7 @@ const MainAdminPage = ({
                         // fontFamily: "Serif",
                         color: "black",
                       }}
-                      // className="h3"
+                    // className="h3"
                     >
                       <b className="h4">
                         Total properties<br></br>{" "}
@@ -151,12 +146,11 @@ const MainAdminPage = ({
                   <center>
                     <p
                       style={{
-                        // fontFamily: "Serif",
                         color: "black",
                       }}
                     >
                       <b className="h4">
-                        Total Tenants <br></br>
+                        Total Active Tenants <br></br>
                         {tenantCount.length}
                       </b>
                     </p>

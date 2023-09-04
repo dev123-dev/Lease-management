@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import NotFound from "../layout/NotFound";
@@ -32,17 +32,20 @@ import Profile from "../dashboard/Profile";
 import AllReport from "../dashboard/AllReport";
 import locationReport from "../dashboard/locationReport";
 import BuildingReport from "../dashboard/BuildingReport";
+import NoContent from "../layout/nocontent";
 
 import {
   getRoutesSetOldRecordsClicked,
   getRoutesSetCurrentYearMonthsRecordsClicked
 } from "../../actions/tenants";
 
+
 const RoutesFile = ({
   getRoutesSetOldRecordsClicked,
   getRoutesSetCurrentYearMonthsRecordsClicked
 }) => {
   const location = useLocation();
+
   // Extract the pathname from the location object
   //This is to handle the css selection of the months and the previous records to the current year
   if (location?.pathname === "/tenant-report" && localStorage.getItem("monthSearch") !== "") {
@@ -120,6 +123,7 @@ const RoutesFile = ({
           component={EditTenantDetails}
         />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
+        <PrivateRoute exact path="/nocontent" component={NoContent} />
         <Route component={NotFound} />
       </Switch>
     </section>

@@ -34,7 +34,7 @@ const AddTenantDetails = ({
   useEffect(() => {
     getAllDoorNos();
   }, [getAllDoorNos]);
-  useEffect(() => {}, [getAllSettings]);
+
   const [doorno, setdno] = useState([]);
 
   const onchangeDoor = (e) => {
@@ -221,20 +221,46 @@ const AddTenantDetails = ({
         break;
     }
   };
+
+  if (leaseEndDate && leaseEndDate !== "") {
+    var ED = leaseEndDate.split(/\D/g);
+    var endDate = [ED[2], ED[1], ED[0]].join("-");
+  }
+
+  const delimiter = "-";
   const [date, setDate] = useState("");
-  const onDateChangeEntry = (e) => {
-    setEntryDate(e.target.value);
-    var newDate = e.target.value;
-    var calDate = new Date(newDate);
-    let d1 = calDate.getDate();
-    let m1 = calDate.getMonth() + 1;
-    let y1 = calDate.getFullYear();
-    if (d1 < 10) {
-      d1 = "0" + d1;
+  //31-08-2023 gets triggered when out of focus and checks validness of the date or required  
+  const checkIfDateEnteredValidWhenFocussedOut = (inputDate) => {
+    if (inputDate.length !== 10) {
+      setOutput("I");
+      return;
     }
-    if (m1 < 10) {
-      m1 = "0" + m1;
+
+    const dateArr = inputDate.split("-");
+    const year = dateArr[2] * 1;
+    const month = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
+    const dateVal = dateArr[0][0] === "0" ? dateArr[0][1] * 1 : dateArr[0] * 1;
+    const value = new Date(`${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`);   //new Date("2023-09-03") YYYY-MM-DD
+
+    let isSame = false;
+    if (
+      value.getFullYear() === year &&
+      value.getMonth() + 1 === month &&
+      value.getDate() === dateVal
+    ) {
+      isSame = true;
     }
+
+    if (!isSame) {
+      setOutput("I");
+    } else {
+      setOutput("V");
+      updatingLeaseEndDateBasedOnStartDate(value);
+    }
+  }
+
+  //31-08-2023 Determining the Lease End Date
+  const updatingLeaseEndDateBasedOnStartDate = (calDate) => {
     var leaseMonth = myuser.output.leaseTimePeriod;
 
     //Calculating lease end date
@@ -283,17 +309,60 @@ const AddTenantDetails = ({
         ? "0" + (calDate.getMonth() + 1).toString()
         : (calDate.getMonth() + 1).toString();
     var yyyy = calDate.getFullYear();
-    setDate(dd + "-" + mm + "-" + yyyy);
+    setDate(dd + delimiter + mm + delimiter + yyyy);
     var leaseEndDate = "";
     if (dd == "31" && mm == "07") {
-      leaseEndDate = "30-07" + "-" + yyyy;
+      leaseEndDate = yyyy + delimiter + `07${delimiter}30`;
     } else {
-      leaseEndDate = dd + "-" + mm + "-" + yyyy;
+      leaseEndDate = yyyy + delimiter + mm + delimiter + dd;
     }
     setLeaseEndDate(leaseEndDate);
-    var newLeaseEndDate = yyyy + "-" + mm + "-" + dd;
-    setNewLeaseEndDate(newLeaseEndDate);
+  }
+
+  const [output, setOutput] = useState("R");
+  useEffect(() => {
+    if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
+  }, [entryDate])
+
+  const onDateChangeEntry = (e) => {
+    const { value } = e.target;
+
+    const lastChar = value[value.length - 1];
+    const checkLength = value.length === 3 || value.length === 6;
+    const regex = /^[A-Za-z]+$/;
+    const specialChar = !regex.test(lastChar) && isNaN(lastChar);
+
+    if (value === "") {
+      setEntryDate(value);
+      setOutput('R');
+    } else if (value.length === 2 && specialChar) {
+      setEntryDate((prevState) => 0 + prevState + delimiter);
+    } else if (value.length === 5 && specialChar) {
+      setEntryDate((prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter);
+    } else if (checkLength && specialChar) {
+      setEntryDate((prevState) => prevState.slice(0, value.length - 1) + delimiter);
+    } else if (value !== " " && !isNaN(lastChar)) {
+      if (checkLength) {
+        setEntryDate((prevState) => prevState + delimiter + lastChar);
+      } else {
+        setEntryDate(value);
+      }
+    }
   };
+
+  let content;
+  let className;
+  if (output === "R") {
+    content = "* Required Field";
+    className = "required";
+  } else if (output === "I") {
+    content = "Invalid Date";
+    className = "invalid-date";
+  } else if (output === "V") {
+    content = `Valid Date`;
+    className = "valid-date";
+  }
+  //02-09-2023 
 
   const [showHide, setShowHide] = useState({
     showChequenoSection: false,
@@ -410,6 +479,8 @@ const AddTenantDetails = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
+    if (output !== "V") return;
+
     if (checkError()) {
       const finalData = {
         OrganizationName: user.OrganizationName,
@@ -431,8 +502,8 @@ const AddTenantDetails = ({
         tenantBankName: tenantBankName,
         tenantchequeDate: startSelectedDate,
         tenantRentAmount: tenantRentAmount,
-        tenantLeaseStartDate: entryDate,
-        tenantLeaseEndDate: newLeaseEndDate,
+        tenantLeaseStartDate: entryDate.split(delimiter)[2] + delimiter + entryDate.split(delimiter)[1] + delimiter + entryDate.split(delimiter)[0],
+        tenantLeaseEndDate: leaseEndDate,
         generatordepoAmt: generatordepoAmt,
         tenantEnteredBy: user && user._id,
         tenantDate: todayDateymd,
@@ -625,7 +696,7 @@ const AddTenantDetails = ({
                   pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
-                  // onKeyDown={(e) => funcKeyDown(e)}
+                // onKeyDown={(e) => funcKeyDown(e)}
                 />
                 <div
                   className="cstm-hint"
@@ -698,7 +769,7 @@ const AddTenantDetails = ({
                 <input
                   type="number"
                   name="generatordepoAmt"
-                  placeholder="GeneratorDeposit Amount"
+                  placeholder="Generator Deposit Amount"
                   value={generatordepoAmt}
                   className="form-control"
                   onChange={(e) => onInputChange(e)}
@@ -779,26 +850,27 @@ const AddTenantDetails = ({
                 <></>
               )}
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Lease Start Date*:</label>
+                <label>Lease Start Date (DD-MM-YYYY)*: </label>
                 <input
-                  type="date"
-                  placeholder="dd-mm-yyyy"
                   className="form-control cpp-input datevalidation"
-                  name="tenantLeaseStartDate"
+                  type="text"
                   value={entryDate}
+                  placeholder="DD-MM-YYYY"
+                  minLength={10}
+                  maxLength={10}
+                  autoComplete="off"
+                  name="tenantLeaseStartDate"
                   onChange={(e) => onDateChangeEntry(e)}
-                  style={{
-                    width: "100%",
-                  }}
-                  required
-                />{" "}
+                />
+                <p className={`output ${className}`}>{content}</p>
                 <br></br>
               </div>{" "}
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-                <label>Lease End Date*:</label>
+                <label>Lease End Date (DD-MM-YYYY)*:</label>
                 <input
+                  placeholder="DD-MM-YYYY"
                   className="form-control cpp-input datevalidation"
-                  value={leaseEndDate}
+                  value={endDate}
                   readOnly
                 ></input>
                 <br></br>
@@ -955,6 +1027,7 @@ const AddTenantDetails = ({
                       className="btn sub_form btn_continue Save float-right"
                       id="savebtn"
                       type="submit"
+                      disabled={output !== "V" ? true : false}
                     >
                       Save
                     </button>

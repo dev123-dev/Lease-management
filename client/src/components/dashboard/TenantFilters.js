@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import DatePicker from "react-datepicker";
 import {
@@ -28,6 +28,8 @@ const TenantFilters = ({
   getOrganizationExpiryReport,
   getPreviousYearsExpCountOfOrg,
 }) => {
+  const history = useHistory();
+
   const logUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     getMonthExpCount({ OrganizationId: logUser && logUser.OrganizationId });
@@ -43,6 +45,7 @@ const TenantFilters = ({
 
   useEffect(() => {
     setMonthStartDate(new Date());
+    localStorage.setItem("monthSearch", new Date().getMonth());
     const finalDataReport = {
       monthSearch: new Date().getMonth() + 1,
       yearSearch: new Date().getFullYear(),
@@ -65,6 +68,7 @@ const TenantFilters = ({
   const [startMonthDate, setMonthStartDate] = useState(new Date());
   const monthYearChange = (dt) => {
     var getYear = new Date(dt).getFullYear();
+    localStorage.setItem("monthSearch", "");
     if (getYear) {
       setMonthStartDate(dt);
       const finalData = {
@@ -79,10 +83,13 @@ const TenantFilters = ({
       getMonthExpCount(finalData); //Done
       getPreviousYearsExpCount(finalData);
     }
+
+    history.push("/nocontent");
   };
 
   const OrgainzationmonthYearChange = (dt) => {
     var getYear = new Date(dt).getFullYear();
+    localStorage.setItem("monthSearch", "");
     if (getYear) {
       setMonthStartDate(dt);
       const finalData = {
@@ -390,7 +397,6 @@ const TenantFilters = ({
                               </label>
                             </div>
                           </div>
-                          <div> </div>
                         </div>
                       );
                     })}
