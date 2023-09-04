@@ -191,7 +191,9 @@ const TenantFilters = ({
                   onClick={() => oldExpCountFetchOrg()}
                 >
                   <div
-                    className={`btn_before_filter text-center ${blnSearchOld ? 'active' : ''}`}
+                    className={`btn_before_filter text-center ${
+                      blnSearchOld ? "active" : ""
+                    }`}
                     title="Previous Year Renewal Count"
                     style={{ cursor: "pointer" }}
                   >
@@ -244,12 +246,13 @@ const TenantFilters = ({
                             name="alphaSearch"
                             onClick={() => onSelectOrgChange(optFiltr.value)}
                             style={
-                              Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
+                              Number(monthSearch) === Number(optFiltr.value) &&
+                              blnSearchCurr
                                 ? {
-                                  fontWeight: "bold",
-                                  color: "#e8a317",
-                                  fontSize: "115%",
-                                }
+                                    fontWeight: "bold",
+                                    color: "#e8a317",
+                                    fontSize: "115%",
+                                  }
                                 : { fontWeight: "", fontSize: "115%" }
                             }
                           >
@@ -261,19 +264,20 @@ const TenantFilters = ({
                           <label
                             className="btn-roun  "
                             style={
-                              Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
+                              Number(monthSearch) === Number(optFiltr.value) &&
+                              blnSearchCurr
                                 ? {
-                                  padding: "2px",
-                                  fontSize: "80%",
-                                  color: "#fff",
-                                  background: "#e8a317",
-                                }
+                                    padding: "2px",
+                                    fontSize: "80%",
+                                    color: "#fff",
+                                    background: "#e8a317",
+                                  }
                                 : {
-                                  padding: "2px",
-                                  fontSize: "80%",
-                                  color: "#095A4A",
-                                  background: "#fff",
-                                }
+                                    padding: "2px",
+                                    fontSize: "80%",
+                                    color: "#095A4A",
+                                    background: "#fff",
+                                  }
                             }
                           >
                             {countVal}
@@ -290,8 +294,8 @@ const TenantFilters = ({
                 <TenantReport />
               </div> */}
             {/* </div> */}
-          </div >
-        </Fragment >
+          </div>
+        </Fragment>
       ) : (
         <>
           {/* TENANT FILTER */}
@@ -305,7 +309,11 @@ const TenantFilters = ({
                       to="/tenant-report"
                       onClick={() => oldExpCountFetch()}
                     >
-                      <div className={`btn_before_filter text-center ${blnSearchOld ? 'active' : ''}`}>
+                      <div
+                        className={`btn_before_filter text-center ${
+                          blnSearchOld ? "active" : ""
+                        }`}
+                      >
                         {yearExpCnt && yearExpCnt.length > 0
                           ? yearExpCnt.length
                           : 0}
@@ -341,12 +349,12 @@ const TenantFilters = ({
                         <div
                           className=" filter_bg "
                           key={idx}
-                        // style={{ border: "5px soild blue" }}
+                          // style={{ border: "5px soild blue" }}
                         >
                           <div
                             className="tenantfil   d-flex flex-row"
                             style={{
-                              // fontWeight: "bold",
+                              fontWeight: "bold",
                               color: "#fff",
                               padding: "0px 0px 0px 5px",
                             }}
@@ -358,16 +366,17 @@ const TenantFilters = ({
                                 name="alphaSearch"
                                 onClick={() => onSelectChange(optFiltr.value)}
                                 style={
-                                  Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
+                                  Number(monthSearch) ===
+                                    Number(optFiltr.value) && blnSearchCurr
                                     ? {
-                                      fontWeight: "bold",
-                                      color: "#e8a317",
-                                      fontSize: "115%",
-                                    }
+                                        fontWeight: "bold",
+                                        color: "#e8a317",
+                                        fontSize: "115%",
+                                      }
                                     : {
-                                      fontWeight: "",
-                                      fontSize: "115%",
-                                    }
+                                        fontWeight: "",
+                                        fontSize: "115%",
+                                      }
                                 }
                               >
                                 {optFiltr.label}
@@ -378,19 +387,20 @@ const TenantFilters = ({
                               <label
                                 className="btn-roun  "
                                 style={
-                                  Number(monthSearch) === Number(optFiltr.value) && blnSearchCurr
+                                  Number(monthSearch) ===
+                                    Number(optFiltr.value) && blnSearchCurr
                                     ? {
-                                      padding: "2px",
-                                      fontSize: "80%",
-                                      color: "#fff",
-                                      background: "#e8a317",
-                                    }
+                                        padding: "2px",
+                                        fontSize: "80%",
+                                        color: "#fff",
+                                        background: "#e8a317",
+                                      }
                                     : {
-                                      padding: "2px",
-                                      fontSize: "80%",
-                                      color: "#095A4A",
-                                      background: "#fff",
-                                    }
+                                        padding: "2px",
+                                        fontSize: "80%",
+                                        color: "#095A4A",
+                                        background: "#fff",
+                                      }
                                 }
                               >
                                 {countVal}
