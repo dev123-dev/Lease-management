@@ -15,7 +15,6 @@ import { useHistory } from "react-router-dom";
 const AddTenantDetails = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenants: { allDoorNos, particular_org_data, allTenantSetting },
-
   getAllDoorNos,
   getParticularProperty,
   AddTenantDetailsform,
@@ -113,7 +112,6 @@ const AddTenantDetails = ({
 
   const [entryDate, setEntryDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState();
-  const [newLeaseEndDate, setNewLeaseEndDate] = useState();
 
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
@@ -236,90 +234,73 @@ const AddTenantDetails = ({
       return;
     }
 
-    const dateArr = inputDate.split("-");
-    const year = dateArr[2] * 1;
-    const month = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
+    const dateArr = inputDate.split(delimiter);
+    const yearVal = dateArr[2] * 1;
+    const monthVal = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
     const dateVal = dateArr[0][0] === "0" ? dateArr[0][1] * 1 : dateArr[0] * 1;
     const value = new Date(`${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`);   //new Date("2023-09-03") YYYY-MM-DD
 
-    let isSame = false;
-    if (
-      value.getFullYear() === year &&
-      value.getMonth() + 1 === month &&
-      value.getDate() === dateVal
-    ) {
-      isSame = true;
-    }
+    const isSame = checkSameDate(value, yearVal, monthVal, dateVal);
 
     if (!isSame) {
       setOutput("I");
     } else {
       setOutput("V");
-      updatingLeaseEndDateBasedOnStartDate(value);
+
+      var leaseMonth = myuser.output.leaseTimePeriod;  //Setting Value
+
+      const newYear = yearVal + 1;
+      const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
+      const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
+
+      const date = expiryDate.getDate();
+      const month = expiryDate.getMonth() + 1;
+      const year = expiryDate.getFullYear();
+
+      setLeaseEndDate(`${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${date < 10 ? "0" + date : date}`);
     }
   }
 
-  //31-08-2023 Determining the Lease End Date
-  const updatingLeaseEndDateBasedOnStartDate = (calDate) => {
-    var leaseMonth = myuser.output.leaseTimePeriod;
+  const checkSameDate = (newDate, yearVal, monthVal, dateVal) => {
+    let isSame = false;
+    if (
+      newDate.getFullYear() === yearVal &&
+      newDate.getMonth() + 1 === monthVal &&
+      newDate.getDate() === dateVal
+    ) {
+      isSame = true;
+    }
 
-    //Calculating lease end date
-    var dateData = calDate.getDate();
-    calDate.setMonth(calDate.getMonth() + +leaseMonth);
-    if (dateData === 1) {
-      calDate.setMonth(calDate.getMonth() - 1);
-      calDate.setDate(
-        getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
+    return isSame;
+  };
+
+  const getLeaseExpiryDate = (year, month, dateVal) => {
+    let isSame = false;
+    let newDate = dateVal;
+
+    isSame = checkSameDate(
+      new Date(year, month - 1, dateVal),
+      year,
+      month,
+      newDate
+    );
+    dateVal--;
+
+    while (!isSame) {
+      isSame = checkSameDate(
+        new Date(year, month - 1, dateVal),
+        year,
+        month,
+        dateVal
       );
-    } else if (dateData === 30 && calDate.getMonth() + 1 === 3) {
-      calDate.setMonth(calDate.getMonth() - 1);
-      calDate.setDate(
-        getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
-      );
-    } else if (dateData === 31) {
-      if (calDate.getMonth() + 1 === 3) {
-        calDate.setMonth(calDate.getMonth() - 1);
-        calDate.setDate(
-          getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
-        );
-      } else {
-        calDate.setMonth(calDate.getMonth() - 1);
-        calDate.setDate(
-          getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
-        );
-      }
-    } else if (dateData === 29) {
-      if (calDate.getMonth() + 1 === 3) {
-        calDate.setMonth(calDate.getMonth() - 1);
-        calDate.setDate(
-          getNoOFDays(calDate.getMonth() + 1, calDate.getFullYear())
-        );
-      } else {
-        calDate.setDate(dateData - 1);
-      }
-    } else {
-      calDate.setDate(dateData - 1);
+      if (!isSame) dateVal--;
     }
-    var dd =
-      calDate.getDate().toString().length === 1
-        ? "0" + calDate.getDate().toString()
-        : calDate.getDate().toString();
-    var mm =
-      (calDate.getMonth() + 1).toString().length === 1
-        ? "0" + (calDate.getMonth() + 1).toString()
-        : (calDate.getMonth() + 1).toString();
-    var yyyy = calDate.getFullYear();
-    setDate(dd + delimiter + mm + delimiter + yyyy);
-    var leaseEndDate = "";
-    if (dd == "31" && mm == "07") {
-      leaseEndDate = yyyy + delimiter + `07${delimiter}30`;
-    } else {
-      leaseEndDate = yyyy + delimiter + mm + delimiter + dd;
-    }
-    setLeaseEndDate(leaseEndDate);
-  }
+
+    return new Date(year, month - 1, dateVal);
+  };
 
   const [output, setOutput] = useState("R");
+  const [key, setKey] = useState();
   useEffect(() => {
     if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
   }, [entryDate])
@@ -332,7 +313,9 @@ const AddTenantDetails = ({
     const regex = /^[A-Za-z]+$/;
     const specialChar = !regex.test(lastChar) && isNaN(lastChar);
 
-    if (value === "") {
+    if (key === "Backspace" || key === "Delete") {
+      setEntryDate(value);
+    } else if (value === "") {
       setEntryDate(value);
       setOutput('R');
     } else if (value.length === 2 && specialChar) {
@@ -535,7 +518,6 @@ const AddTenantDetails = ({
       setEntryDate("");
       getDoorNoData("");
       setLeaseEndDate("");
-      setNewLeaseEndDate("");
       setChequeDate("");
       setFileNoData("");
 
@@ -861,6 +843,7 @@ const AddTenantDetails = ({
                   autoComplete="off"
                   name="tenantLeaseStartDate"
                   onChange={(e) => onDateChangeEntry(e)}
+                  onKeyDown={(e) => setKey(e.key)}
                 />
                 <p className={`output ${className}`}>{content}</p>
                 <br></br>
