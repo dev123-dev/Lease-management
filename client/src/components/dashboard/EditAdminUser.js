@@ -158,11 +158,11 @@ const EditAdminUser = ({
       OrganizationName: org.OrganizationName,
       OrganizationId: org.OrganizationId,
     };
-    console.log(updateUSER);
+    // console.log(updateUSER);
 
-    // UpdateUser(updateUSER);
-    // getalluser();
-    //get_particular_org_user({ orgid: myuser.OrganizationId });
+    UpdateUser(updateUSER);
+    getalluser();
+    get_particular_org_user({ orgid: myuser.OrganizationId });
 
     setRefresh(!refresh);
     setSuperModal(false);
