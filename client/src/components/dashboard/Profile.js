@@ -143,31 +143,6 @@ const Profile = ({
     setShowUpdate(false);
     //windows.location.reload();
   };
-
-  const onUpdate = (e) => {
-    setShowUpdate(true);
-    setrefresh("x");
-
-    const updateUSER = {
-      userid: myuser._id,
-      username: username,
-      userphone: userphone,
-      useraddress: useraddress,
-      useremail: useremail,
-      usergroup: userGroup,
-      OrganizationName: myuser.output.OrganizationName,
-      OrganizationId: myuser.output._id,
-    };
-    // console.log("myuser", myuser);
-    // console.log("done", updateUSER);
-    UpdateUser(updateUSER);
-    // getalluser();
-    //  get_particular_org_user({ orgid: user.OrganizationId });
-    handleClose(true);
-
-    loadUser();
-  };
-  //Name feild validation//
   const [username, setUsername] = useState(myuser && myuser.username);
   const [validationNameMessage, setValidationNameMessage] = useState();
   const handleInputChange = (e) => {
@@ -213,6 +188,32 @@ const Profile = ({
       setValidationEmailMessage("Please enter a valid email address.");
     }
   };
+
+  const onUpdate = (e) => {
+    setShowUpdate(true);
+    setrefresh("x");
+
+    const updateUSER = {
+      userid: myuser._id,
+      username: username,
+      userphone: userphone,
+      useraddress: useraddress,
+      useremail: useremail,
+      usergroup: userGroup,
+      OrganizationName: myuser.output.OrganizationName,
+      OrganizationId: myuser.output._id,
+    };
+    // console.log("myuser", myuser);
+    // console.log("done", updateUSER);
+    UpdateUser(updateUSER);
+    // getalluser();
+    //  get_particular_org_user({ orgid: user.OrganizationId });
+    handleClose(true);
+
+    loadUser();
+  };
+  //Name feild validation//
+
   //disable update button
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   useEffect(() => {
