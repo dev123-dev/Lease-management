@@ -54,6 +54,37 @@ const TenantSettings = ({
       ? myuser.output && myuser.output.leaseTimePeriod
       : ""
   );
+  const [leasePeriod, setLeasePeriod] = useState(
+    myuser.output && myuser.output.leaseTimePeriod
+      ? myuser.output && myuser.output.leaseTimePeriod
+      : ""
+  );
+  const onChangeField = (event) => {
+    console.log("event", event.target.name);
+    const newValue = event.target.value;
+    switch (event.target.name) {
+      case "leaseTimePeriod":
+        if (/^[1-9]\d{0,2}$/.test(newValue) || newValue === "") {
+          setLeasePeriod(newValue);
+        }
+
+        break;
+      case "stampDuty":
+        if (/^[1-9]\d{0,1}$/.test(newValue) || newValue === "") {
+          setStampDuty(newValue);
+        }
+        break;
+      case "hike":
+        if (/^[1-9]\d{0,1}$/.test(newValue) || newValue === "") {
+          setHike(newValue);
+        }
+        break;
+
+      default:
+        break;
+    }
+    // Check if the new value is a positive number
+  };
 
   // const {  stampDuty, leaseTimePeriod } = formData;
 
@@ -62,7 +93,7 @@ const TenantSettings = ({
   // };
   const [Error, SetError] = useState("");
   const onSubmit = () => {
-    if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
+    if (stampDuty === "" || hike === "" || leasePeriod === "") {
       SetError(
         "* Indicates mandatory fields, Please fill mandatory fields before Submit"
       );
@@ -74,8 +105,9 @@ const TenantSettings = ({
         OrganizationName: user.OrganizationName,
         hike: parseInt(hike),
         StampDuty: parseInt(stampDuty),
-        LeaseTimePeriod: parseInt(leaseTimePeriod),
+        LeaseTimePeriod: parseInt(leasePeriod),
       };
+
       AddTenantSettingform(finalData);
       onAddSettingModalChange(true);
       getAllSettings({
@@ -93,7 +125,7 @@ const TenantSettings = ({
     width: "300px",
   };
   const onUpdate = () => {
-    if (stampDuty === "" || hike === "" || leaseTimePeriod === "") {
+    if (stampDuty === "" || hike === "" || leasePeriod === "") {
       SetError(
         "* Indicates mandatory fields, Please fill mandatory fields before Submit"
       );
@@ -102,10 +134,11 @@ const TenantSettings = ({
         OrganizationId: user.OrganizationId,
         userId: user._id,
         userName: user.username,
-        hike: hike,
-        stampDuty: stampDuty,
-        leaseTimePeriod: leaseTimePeriod,
+        hike: parseInt(hike),
+        stampDuty: parseInt(stampDuty),
+        leaseTimePeriod: parseInt(leasePeriod),
       };
+      // console.log("finalData", finalData);
       UpdateTenantSettingform(finalData);
       onAddSettingModalChange(true);
       getAllSettings({
@@ -128,11 +161,12 @@ const TenantSettings = ({
           <div className="col-lg-5 col-md-4 col-sm-4  col-12 ">
             <input
               placeholder="Hike Percentage"
-              type="text"
+              type="number"
               name="hike"
               className="form-control"
               value={hike}
-              onChange={(e) => setHike(e.target.value)}
+              onChange={(e) => onChangeField(e)}
+              // onChange={(e) => setHike(e.target.value)}
               required
             />
             <div
@@ -162,12 +196,13 @@ const TenantSettings = ({
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
-              type="text"
+              type="number"
               name="stampDuty"
               placeholder="Stamp Duty"
               className="form-control"
               value={stampDuty}
-              onChange={(e) => setStampDuty(e.target.value)}
+              onChange={(e) => onChangeField(e)}
+              // onChange={(e) => setStampDuty(e.target.value)}
               required
             />
             <div
@@ -198,20 +233,22 @@ const TenantSettings = ({
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
             <input
-              type="text"
+              type="number"
+              //pattern="/^(?!0+$)(?!-)[0-9]+$/"
               name="leaseTimePeriod"
               placeholder="Time Period"
               className="form-control"
-              value={leaseTimePeriod}
-              onChange={(e) => setLeaseTimePeriod(e.target.value)}
+              value={leasePeriod}
+              // value={leaseTimePeriod}
+              onChange={(e) => onChangeField(e)}
               required
             />
           </div>
         </div>
-        <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
+        {/* <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
           * Indicates mandatory fields, Please fill mandatory fields before
           Submit
-        </div>
+        </div> */}
         <div className="col-lg-12 col-sm-12 col-12 text-danger ">{Error}</div>
         <div className="col-lg-12 col-sm-12 col-12 ">
           {!myuser.OrganizationId ? (

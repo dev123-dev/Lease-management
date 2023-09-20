@@ -89,7 +89,7 @@ const Profile = ({
 
     username: user && user.username,
     useremail: user && user.useremail,
-    usergroup: user && user.usergroup,
+    usergroup: myuser && myuser.usergroup,
     useraddress: user && user.useraddress,
     userphone: user && user.userphone,
     OrganizationName: myuser.output.OrganizationName
@@ -169,9 +169,13 @@ const Profile = ({
   };
   //Name feild validation//
   const [username, setUsername] = useState(myuser && myuser.username);
+  const [validationNameMessage, setValidationNameMessage] = useState();
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    filteredValue === ""
+      ? setValidationNameMessage("Please enter the Name")
+      : setValidationNameMessage("");
 
     setUsername(filteredValue);
   };
@@ -184,10 +188,12 @@ const Profile = ({
     const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
 
     if (cleanedValue.length <= 10) {
+      const isValidPhone = /^[6789]\d{9}$/;
+      isValidPhone.test(cleanedValue)
+        ? setValidationMessage("")
+        : setValidationMessage("enter valid phone number");
+
       setUserphone(cleanedValue);
-      setValidationMessage(
-        cleanedValue.length < 10 ? "Phone number must be 10 digits" : ""
-      );
     }
   };
   //Email //
@@ -214,7 +220,7 @@ const Profile = ({
     const isValidName = username.trim() !== "";
     const isValidEmail =
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(useremail);
-    const isValidPhone = userphone.length === 10;
+    const isValidPhone = /^[6789]\d{9}$/;
 
     if (isValidName && isValidEmail && isValidPhone) {
       setIsButtonDisabled(false);
@@ -406,6 +412,7 @@ const Profile = ({
                       onChange={handleInputChange}
                       required
                     />
+                    <h6 style={{ color: "red" }}>{validationNameMessage}</h6>
                   </div>
                   <div className="col-lg-4 col-md-12 col-sm-12 col-12">
                     <label>Email*:</label>
@@ -426,7 +433,7 @@ const Profile = ({
                       name="userphone"
                       value={userphone}
                       className="form-control"
-                      onChange={handleInputPhoneChange}
+                      onChange={(e) => handleInputPhoneChange(e)}
                     />
                     <h6 style={{ color: "red" }}>{validationMessage}</h6>
                   </div>
