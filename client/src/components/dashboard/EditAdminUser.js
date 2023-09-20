@@ -78,27 +78,68 @@ const EditAdminUser = ({
   //multiple location end
 
   const [userData, setuserData] = useState({
-    //  userid : org[0]._id,
-    username: org.username,
-    useremail: org.useremail,
     usergroup: group,
     useraddress: org.useraddress,
-    userphone: org.userphone,
+
     OrganizationName: org.OrganizationName,
   });
-  const {
-    username,
-    useremail,
-    usergroup,
-    useraddress,
-    userphone,
-    OrganizationName,
-  } = userData;
+  const { usergroup, useraddress, OrganizationName } = userData;
   const onInputChange = (e) => {
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  // const [us, setus] = useState("");
+  //username validation start//////////////////////////////////////////////////
+  const [username, setUsername] = useState(org.username);
+  const [validationNameMessage, setValidationNameMessage] = useState();
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    filteredValue === ""
+      ? setValidationNameMessage("Please enter the Name")
+      : setValidationNameMessage("");
+
+    setUsername(filteredValue);
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////
+
+  //validation for email start///////////////////////////////////////////////////
+  const [useremail, setUseremail] = useState(org.useremail);
+  const [validationEmailMessage, setValidationEmailMessage] = useState("");
+  const handleInputEmailChange = (e) => {
+    const inputValue = e.target.value;
+    setUseremail(inputValue);
+
+    // Regular expression to validate email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (emailRegex.test(inputValue)) {
+      setValidationEmailMessage("");
+    } else {
+      setValidationEmailMessage("Please enter a valid email address.");
+    }
+  };
+
+  ////////////////////////////////////////////////////////////////////////////////
+
+  //user phone number validation/////////////////////////////////
+  const [userphone, setUserphone] = useState(org.userphone);
+  const [validationMessage, setValidationMessage] = useState();
+
+  const handleInputPhoneChange = (e) => {
+    const inputValue = e.target.value;
+    const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+
+    if (cleanedValue.length <= 10) {
+      const isValidPhone = /^[6789]\d{9}$/;
+      isValidPhone.test(cleanedValue)
+        ? setValidationMessage("")
+        : setValidationMessage("enter valid phone number");
+
+      setUserphone(cleanedValue);
+    }
+  };
+  ////////////////////////////////////////////////////////////////
 
   const onuserGroup = (e) => {
     setgroup(e);
@@ -117,8 +158,9 @@ const EditAdminUser = ({
       OrganizationName: org.OrganizationName,
       OrganizationId: org.OrganizationId,
     };
+    console.log(updateUSER);
 
-    UpdateUser(updateUSER);
+    // UpdateUser(updateUSER);
     // getalluser();
     //get_particular_org_user({ orgid: myuser.OrganizationId });
 
@@ -128,6 +170,22 @@ const EditAdminUser = ({
   const onuserchange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  useEffect(() => {
+    // Check validation conditions and enable/disable the button
+    const isValidName = username.trim() !== "";
+    const isValidEmail =
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(useremail);
+    const isValidPhone = /^[6789]\d{9}$/;
+
+    if (isValidName && isValidEmail && isValidPhone) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [username, useremail, userphone]);
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -142,10 +200,11 @@ const EditAdminUser = ({
                 name="username"
                 value={username}
                 className="form-control"
-                onChange={(e) => onInputChange(e)}
+                onChange={(e) => handleInputChange(e)}
                 required
               />
-              <br></br>
+
+              <h6 style={{ color: "red" }}>{validationNameMessage}</h6>
             </div>
             <div className="col-lg-6  col-sm-12 col-md-12">
               <label> Email*: </label>
@@ -154,10 +213,11 @@ const EditAdminUser = ({
                 name="useremail"
                 value={useremail}
                 className="form-control"
-                onChange={(e) => onInputChange(e)}
+                onChange={handleInputEmailChange}
                 required
               />
-              <br></br>
+
+              <h6 style={{ color: "red" }}>{validationEmailMessage}</h6>
             </div>
             <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Phone No:</label>
@@ -166,12 +226,13 @@ const EditAdminUser = ({
                 type="number"
                 name="userphone"
                 pattern="\d{10}"
-                  title=" 10 Digits only"
+                title=" 10 Digits only"
                 value={userphone}
                 className="form-control"
-                onChange={(e) => onInputChange(e)}
+                onChange={(e) => handleInputPhoneChange(e)}
               />
-              <br></br>
+
+              <h6 style={{ color: "red" }}>{validationMessage}</h6>
             </div>
             <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Organization belongs to*: </label>
@@ -229,11 +290,15 @@ const EditAdminUser = ({
           * Indicates mandatory fields, Please fill mandatory fields before
           Submit
         </div>
-        <div className="col-lg-3  col-sm-12 col-md-12 Savebutton float-right " size="lg">
+        <div
+          className="col-lg-3  col-sm-12 col-md-12 Savebutton float-right "
+          size="lg"
+        >
           <button
             id="savebtn"
             variant="success"
             className="btn sub_form btn_continue Save float-right"
+            disabled={isButtonDisabled}
           >
             Save
           </button>
