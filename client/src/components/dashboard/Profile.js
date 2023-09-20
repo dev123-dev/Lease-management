@@ -115,18 +115,17 @@ const Profile = ({
       });
     });
   const {
-    username,
-    useremail,
+    // username,
+    // useremail,
     usergroup,
     useraddress,
-    userphone,
+    // userphone,
     OrganizationName,
   } = userData;
 
-  const[showUpdate,setShowUpdate]=useState(false);
-  
+  const [showUpdate, setShowUpdate] = useState(false);
+
   const onInputChange = (e) => {
- 
     setuserData({ ...userData, [e.target.name]: e.target.value });
   };
 
@@ -138,13 +137,11 @@ const Profile = ({
 
   const [refersh, setrefresh] = useState("");
 
-  const onUpdateclose=(e)=>{
-    
+  const onUpdateclose = (e) => {
     e.preventDefault();
     setShowUpdate(false);
     //windows.location.reload();
-
-  }
+  };
 
   const onUpdate = (e) => {
     setShowUpdate(true);
@@ -161,7 +158,7 @@ const Profile = ({
       OrganizationId: myuser.output._id,
     };
     // console.log("myuser", myuser);
-    console.log("done", updateUSER);
+    // console.log("done", updateUSER);
     UpdateUser(updateUSER);
     // getalluser();
     //  get_particular_org_user({ orgid: user.OrganizationId });
@@ -169,93 +166,148 @@ const Profile = ({
 
     loadUser();
   };
+  //Name feild validation//
+  const [username, setUsername] = useState("");
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+
+    setUsername(filteredValue);
+  };
+  //phone validation//
+  const [userphone, setUserphone] = useState("");
+  const [validationMessage, setValidationMessage] = useState("");
+
+  const handleInputPhoneChange = (e) => {
+    const inputValue = e.target.value;
+    const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+
+    if (cleanedValue.length <= 10) {
+      setUserphone(cleanedValue);
+      setValidationMessage(
+        cleanedValue.length < 10 ? "Phone number must be 10 digits" : ""
+      );
+    }
+  };
+  //Email //
+  const [useremail, setUseremail] = useState("");
+  const [validationEmailMessage, setValidationEmailMessage] = useState("");
+
+  const handleInputEmailChange = (e) => {
+    const inputValue = e.target.value;
+    setUseremail(inputValue);
+
+    // Regular expression to validate email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (emailRegex.test(inputValue)) {
+      setValidationEmailMessage("");
+    } else {
+      setValidationEmailMessage("Please enter a valid email address.");
+    }
+  };
+  //disable update button
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  useEffect(() => {
+    // Check validation conditions and enable/disable the button
+    const isValidName = username.trim() !== "";
+    const isValidEmail =
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(useremail);
+    const isValidPhone = userphone.length === 10;
+
+    if (isValidName && isValidEmail && isValidPhone) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [username, useremail, userphone]);
   return (
     <>
-    <div>
-      {user && user.usergroup === "Super Admin" ? (
-        <div className="container container_align  ">
-          <section className="sub_reg">
-            <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-              <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-                <h2 className="heading_color">Profile </h2>
-              </div>
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label> Name*:</label>
-                  <input
-                    type="text"
-                    name="username"
-                    value={username}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    required
-                  />
-                  <br></br>
+      <div>
+        {user && user.usergroup === "Super Admin" ? (
+          <div className="container container_align  ">
+            <section className="sub_reg">
+              <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+                <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+                  <h2 className="heading_color">Profile </h2>
                 </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label> Email*: </label>
-                  <input
-                    type="email"
-                    name="useremail"
-                    value={useremail}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    required
-                  />
-                  <br></br>
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>Phone No:</label>
+                <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label> Name*:</label>
+                    <input
+                      type="text"
+                      name="username"
+                      value={username}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      required
+                    />
+                    <br></br>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label> Email*: </label>
+                    <input
+                      type="email"
+                      name="useremail"
+                      value={useremail}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      required
+                    />
+                    <br></br>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Phone No:</label>
 
-                  <input
-                    type="number"
-                    name="userphone"
-                    value={userphone}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                  />
-                  <br></br>
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>Organization belongs to *: </label>
-                  <input
-                    type="text"
-                    name="orgname"
-                    value={OrganizationName}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    readOnly
-                  />
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>UserGroup*:</label>
+                    <input
+                      type="number"
+                      name="userphone"
+                      value={userphone}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                    />
+                    <br></br>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Organization belongs to *: </label>
+                    <input
+                      type="text"
+                      name="orgname"
+                      value={OrganizationName}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      readOnly
+                    />
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>UserGroup*:</label>
 
-                  <input
-                    type="text"
-                    name="usergrp"
-                    value={usergroup}
-                    className="form-control"
-                    readOnly
-                  />
+                    <input
+                      type="text"
+                      name="usergrp"
+                      value={usergroup}
+                      className="form-control"
+                      readOnly
+                    />
 
-                  <br></br>
+                    <br></br>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label> Address :</label>
+                    <textarea
+                      name="useraddress"
+                      value={useraddress}
+                      className="textarea form-control"
+                      rows="3"
+                      cols="20"
+                      placeholder="Address"
+                      onChange={(e) => onInputChange(e)}
+                      style={{ width: "100%" }}
+                    ></textarea>
+                    <br></br>
+                  </div>{" "}
                 </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label> Address :</label>
-                  <textarea
-                    name="useraddress"
-                    value={useraddress}
-                    className="textarea form-control"
-                    rows="3"
-                    cols="20"
-                    placeholder="Address"
-                    onChange={(e) => onInputChange(e)}
-                    style={{ width: "100%" }}
-                  ></textarea>
-                  <br></br>
-                </div>{" "}
-              </div>
-              {/* <div
+                {/* <div
                 className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                 size="lg"
               >
@@ -268,171 +320,8 @@ const Profile = ({
                   <b>Update</b>
                 </button>
               </div> */}
-            </div>
-          </section>
-          <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-            <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-              {" "}
-              <h2 className="heading_color">Organization Profile </h2>
-            </div>
-            <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
-              <>
-                <div className=" row col-lg-12">
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Email*: </label>
-                    <input
-                      name="OrganizationEmail"
-                      value={myuser.output.OrganizationEmail}
-                      className="form-control"
-                      readOnly
-                    />
-                    <br></br>
-                  </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Phone No:</label>
-
-                    <input
-                      name="OrganizationNumber"
-                      value={myuser.output.OrganizationNumber}
-                      className="form-control"
-                      readOnly
-                    />
-                    <br></br>
-                  </div>
-                  <div className=" col-lg-6 col-md-12 col-sm-12 col-12 ">
-                    <label>Organization Logo :</label>
-                    <div className="form__img-input-container d-flex justify-content-center align-item-center">
-                      <img src={myuser.output.Logo} alt="OrgLogo" />
-                    </div>
-                  </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12 col-12">
-                    <label>Address:</label>
-
-                    <input
-                      name="OrganizationNumber"
-                      value={myuser.output.OrganizationAddress}
-                      className="form-control"
-                      readOnly
-                    />
-                    <br></br>
-                  </div>
-                </div>
-
-                {/* <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-               <label>Location:</label>
-               {location.map((ele) => {
-                 return <div className=" ml-3 form-control  ">{ele.label}</div>;
-               })}
-
-               <br></br>
-             </div> */}
-
-                <div
-                  className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
-                  size="lg"
-                ></div>
-              </>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="container container_align  ">
-          <section className="sub_reg">
-            <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
-              <div className="col-lg-11 col-md-11 col-sm-12 col-12">
-                <h2 className="heading_color"> Profile </h2>
               </div>
-              <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label> Name*:</label>
-                  <input
-                    type="text"
-                    name="username"
-                    value={username}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    required
-                  />
-                  <br></br>
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label> Email*: </label>
-                  <input
-                    type="email"
-                    name="useremail"
-                    value={useremail}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    required
-                  />
-                  <br></br>
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>Phone No:</label>
-
-                  <input
-                    type="number"
-                    name="userphone"
-                    value={userphone}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                  />
-                  <br></br>
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>Organization belongs to *: </label>
-
-                  <input
-                    type="text"
-                    name="OrganizationName"
-                    value={OrganizationName}
-                    className="form-control"
-                    readOnly
-                  />
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label>UserGroup*:</label>
-
-                  <input
-                    type="text"
-                    name="usergrp"
-                    value={usergroup}
-                    className="form-control"
-                    onChange={(e) => onInputChange(e)}
-                    readOnly
-                  />
-
-                  <br></br>
-                </div>
-                <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                  <label> Address :</label>
-                  <textarea
-                    name="useraddress"
-                    value={useraddress}
-                    className="textarea form-control"
-                    rows="3"
-                    cols="20"
-                    placeholder="Address"
-                    onChange={(e) => onInputChange(e)}
-                    style={{ width: "100%" }}
-                  ></textarea>
-                  <br></br>
-                </div>{" "}
-              </div>
-              <div
-                className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
-                size="lg"
-              >
-                <button
-                  variant="success"
-                  id="savebtn"
-                  className="btn sub_form btn_continue blackbrd Save float-right"
-                  onClick={() => onUpdate()}
-                >
-                  <b>Update</b>
-                </button>
-              </div>
-            </div>
+            </section>
             <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
               <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 {" "}
@@ -440,7 +329,7 @@ const Profile = ({
               </div>
               <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
                 <>
-                  <div className=" row col-lg-8">
+                  <div className=" row col-lg-12">
                     <div className="col-lg-6 col-md-12 col-sm-12 col-12">
                       <label>Email*: </label>
                       <input
@@ -462,24 +351,33 @@ const Profile = ({
                       />
                       <br></br>
                     </div>
-                    <div className=" col-lg-6 col-md-12 col-sm-12 col-12 py-3">
+                    <div className=" col-lg-6 col-md-12 col-sm-12 col-12 ">
                       <label>Organization Logo :</label>
-                      <div className="form__img-input-container d-flex justify-content-center align-item-center ">
+                      <div className="form__img-input-container d-flex justify-content-center align-item-center">
                         <img src={myuser.output.Logo} alt="OrgLogo" />
                       </div>
                     </div>
+                    <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                      <label>Address:</label>
+
+                      <input
+                        name="OrganizationNumber"
+                        value={myuser.output.OrganizationAddress}
+                        className="form-control"
+                        readOnly
+                      />
+                      <br></br>
+                    </div>
                   </div>
 
-                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
-                    <label>Location:</label>
-                    {location.map((ele) => {
-                      return (
-                        <div className=" ml-3 form-control  ">{ele.label}</div>
-                      );
-                    })}
+                  {/* <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+               <label>Location:</label>
+               {location.map((ele) => {
+                 return <div className=" ml-3 form-control  ">{ele.label}</div>;
+               })}
 
-                    <br></br>
-                  </div>
+               <br></br>
+             </div> */}
 
                   <div
                     className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
@@ -488,35 +386,189 @@ const Profile = ({
                 </>
               </div>
             </div>
-          </section>
-        </div>
-      )}
-    </div>
-    <Modal
+          </div>
+        ) : (
+          <div className="container container_align  ">
+            <section className="sub_reg">
+              <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+                <div className="col-lg-11 col-md-11 col-sm-12 col-12">
+                  <h2 className="heading_color"> Profile </h2>
+                </div>
+                <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding">
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Name*:</label>
+                    <input
+                      type="text"
+                      name="username"
+                      value={username}
+                      className="form-control"
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Email*:</label>
+                    <input
+                      type="email"
+                      name="useremail"
+                      value={useremail}
+                      className="form-control"
+                      onChange={handleInputEmailChange}
+                      required
+                    />
+                    <h6 style={{ color: "red" }}>{validationEmailMessage}</h6>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Phone No:</label>
+                    <input
+                      type="number"
+                      name="userphone"
+                      value={userphone}
+                      className="form-control"
+                      onChange={handleInputPhoneChange}
+                    />
+                    <h6 style={{ color: "red" }}>{validationMessage}</h6>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>Organization belongs to *: </label>
+
+                    <input
+                      type="text"
+                      name="OrganizationName"
+                      value={OrganizationName}
+                      className="form-control"
+                      readOnly
+                    />
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label>UserGroup*:</label>
+
+                    <input
+                      type="text"
+                      name="usergrp"
+                      value={usergroup}
+                      className="form-control"
+                      onChange={(e) => onInputChange(e)}
+                      readOnly
+                    />
+
+                    <br></br>
+                  </div>
+                  <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                    <label> Address :</label>
+                    <textarea
+                      name="useraddress"
+                      value={useraddress}
+                      className="textarea form-control"
+                      rows="3"
+                      cols="20"
+                      placeholder="Address"
+                      onChange={(e) => onInputChange(e)}
+                      style={{ width: "100%" }}
+                    ></textarea>
+                    <br></br>
+                  </div>{" "}
+                </div>
+                <div
+                  className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
+                  size="lg"
+                >
+                  <button
+                    variant="success"
+                    id="savebtn"
+                    className="btn sub_form btn_continue blackbrd Save float-right"
+                    onClick={() => onUpdate()}
+                    disabled={isButtonDisabled}
+                  >
+                    <b>Update</b>
+                  </button>
+                </div>
+              </div>
+              <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
+                <div className="col-lg-12 col-md-12 col-sm-12 col-12">
+                  {" "}
+                  <h2 className="heading_color">Organization Profile </h2>
+                </div>
+                <div className="row col-lg-12 col-md-12 col-sm-12 col-12 py-3">
+                  <>
+                    <div className=" row col-lg-8">
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                        <label>Email*: </label>
+                        <input
+                          name="OrganizationEmail"
+                          value={myuser.output.OrganizationEmail}
+                          className="form-control"
+                          readOnly
+                        />
+                        <br></br>
+                      </div>
+                      <div className="col-lg-6 col-md-12 col-sm-12 col-12">
+                        <label>Phone No:</label>
+
+                        <input
+                          name="OrganizationNumber"
+                          value={myuser.output.OrganizationNumber}
+                          className="form-control"
+                          readOnly
+                        />
+                        <br></br>
+                      </div>
+                      <div className=" col-lg-6 col-md-12 col-sm-12 col-12 py-3">
+                        <label>Organization Logo :</label>
+                        <div className="form__img-input-container d-flex justify-content-center align-item-center ">
+                          <img src={myuser.output.Logo} alt="OrgLogo" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="col-lg-4 col-md-12 col-sm-12 col-12">
+                      <label>Location:</label>
+                      {location.map((ele) => {
+                        return (
+                          <div className=" ml-3 form-control  ">
+                            {ele.label}
+                          </div>
+                        );
+                      })}
+
+                      <br></br>
+                    </div>
+
+                    <div
+                      className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
+                      size="lg"
+                    ></div>
+                  </>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
+      </div>
+      <Modal
         show={showUpdate}
         backdrop="static"
         keyboard={false}
-
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
-         <form onSubmit={(e) => onUpdateclose(e)}>
-        <Modal.Header className="confirmbox-heading">
+        <form onSubmit={(e) => onUpdateclose(e)}>
+          <Modal.Header className="confirmbox-heading">
             <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="">
                 <h4
                   style={{
                     color: "white",
                   }}
-                  className=" text-center "
+                  className="text-center"
                 >
                   CONFIRMATION
                 </h4>
               </div>
             </div>
             <div className="col-lg-2  col-sm-12 col-md-12">
-              <button onClick={() =>setShowUpdate(false)} className="close">
+              <button onClick={() => setShowUpdate(false)} className="close">
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -524,21 +576,23 @@ const Profile = ({
                 />
               </button>
             </div>
-
-           
           </Modal.Header>
-          <ModalBody className="h4 text-center">Data Updated Successfully..!!</ModalBody>
+          <ModalBody className="h4 text-center">
+            Data Updated Successfully..!!
+          </ModalBody>
           <Modal.Footer>
-            <Button variant="primary"  id="logoutbtn" type="submit" className=" text-center">
+            <Button
+              variant="primary"
+              id="logoutbtn"
+              type="submit"
+              className=" text-center"
+            >
               <b>OK</b>
             </Button>
           </Modal.Footer>
-          </form>
-       
+        </form>
       </Modal>
-    
     </>
-    
   );
 };
 const mapStateToProps = (state) => ({
