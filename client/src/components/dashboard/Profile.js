@@ -86,6 +86,7 @@ const Profile = ({
 
   const [userData, setuserData] = useState({
     userid: myuser._id,
+
     username: user && user.username,
     useremail: user && user.useremail,
     usergroup: user && user.usergroup,
@@ -167,7 +168,7 @@ const Profile = ({
     loadUser();
   };
   //Name feild validation//
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(myuser && myuser.username);
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
@@ -175,8 +176,8 @@ const Profile = ({
     setUsername(filteredValue);
   };
   //phone validation//
-  const [userphone, setUserphone] = useState("");
-  const [validationMessage, setValidationMessage] = useState("");
+  const [userphone, setUserphone] = useState(myuser && myuser.userphone);
+  const [validationMessage, setValidationMessage] = useState();
 
   const handleInputPhoneChange = (e) => {
     const inputValue = e.target.value;
@@ -190,7 +191,7 @@ const Profile = ({
     }
   };
   //Email //
-  const [useremail, setUseremail] = useState("");
+  const [useremail, setUseremail] = useState(myuser && myuser.useremail);
   const [validationEmailMessage, setValidationEmailMessage] = useState("");
 
   const handleInputEmailChange = (e) => {
