@@ -656,7 +656,7 @@ router.post("/Update-User", async (req, res) => {
           username: data.username,
           userphone: data.userphone,
           useremail: data.useremail,
-          usergroup: data.usergroup,
+          usergroup: data.usergroup.value,
           useraddress: data.useraddress,
           OrganizationName: data.OrganizationName,
           OrganizationId: data.OrganizationId,
@@ -904,7 +904,7 @@ router.post("/deactive-user", async (req, res) => {
     );
 
     res.json(dltuser);
-  } catch (err) { }
+  } catch (err) {}
 });
 
 //ddeactivating the organization
@@ -932,7 +932,7 @@ router.post("/deactive-Organization", async (req, res) => {
       }
     );
     res.json(dltOrg);
-  } catch (err) { }
+  } catch (err) {}
 });
 
 router.post("/deactive-tenant", async (req, res) => {
@@ -961,7 +961,7 @@ router.post("/deactive-tenant", async (req, res) => {
           //     deactive_reason: data.deactive_reason,
           //   },
           // }
-        ).then((data) => { });
+        ).then((data) => {});
       });
       data.Dno.map((ele) => {
         property
