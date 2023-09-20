@@ -200,13 +200,69 @@ const AddAdminUserModal = ({
     return true;
   };
 
+  // validation
+  const [username, setUsername] = useState("");
+  const [validationNameMessage, setValidationNameMessage] = useState();
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    filteredValue === ""
+      ? setValidationNameMessage("Please enter the Name")
+      : setValidationNameMessage("");
+
+    setUsername(filteredValue);
+  };
+
+  const [userphone, setUserphone] = useState("");
+  const [validationMessage, setValidationMessage] = useState();
+
+  const handleInputPhoneChange = (e) => {
+    const inputValue = e.target.value;
+    const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+
+    if (cleanedValue.length <= 10) {
+      const isValidPhone = /^[6789]\d{9}$/;
+      isValidPhone.test(cleanedValue)
+        ? setValidationMessage("")
+        : setValidationMessage("enter valid phone number");
+
+      setUserphone(cleanedValue);
+    }
+  };
+
+  const [useremail, setUseremail] = useState("");
+  const [validationEmailMessage, setValidationEmailMessage] = useState("");
+
+  const handleInputEmailChange = (e) => {
+    const inputValue = e.target.value;
+    setUseremail(inputValue);
+
+    // Regular expression to validate email format
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+    if (emailRegex.test(inputValue)) {
+      setValidationEmailMessage("");
+    } else {
+      setValidationEmailMessage("Please enter a valid email address.");
+    }
+  };
+
+  const [isdisabled, setIsdisabled] = useState(false);
+
+  useEffect(() => {
+    if (password === rePassword) {
+      setIsdisabled(false);
+    } else {
+      setIsdisabled(true);
+    }
+  }, [rePassword]);
   const onsubmitUserData = (e) => {
     e.preventDefault();
     if (checkError()) {
       const finalUserData = {
-        username: name,
-        useremail: email,
-        userphone: phone,
+        username: username,
+        useremail: useremail,
+        userphone: userphone,
         useraddress: address,
         usergroup: User,
         password: rePassword,
@@ -269,46 +325,47 @@ const AddAdminUserModal = ({
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-sm-12 col-md-12">
-                <label> Name*:</label>{" "}
+                <label> Name *:</label>{" "}
                 <input
                   type="text"
-                  name="name"
-                  value={name}
+                  name="username"
+                  value={username}
                   className="form-control"
                   placeholder="Name"
-                  onChange={(e) => onuserchange(e)}
+                  onChange={(e) => handleInputChange(e)}
                   required
                 />
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationNameMessage}</h6>
               </div>
               <div className="col-lg-6  col-sm-12 col-md-12">
-                <label>Email*:</label>{" "}
+                <label>Email *:</label>{" "}
                 <input
                   type="email"
-                  name="email"
+                  name="useremail"
                   placeholder="Email"
                   autoComplete="new-password"
-                  value={email}
+                  value={useremail}
                   className="form-control"
-                  onChange={(e) => onuserchange(e)}
+                  onChange={handleInputEmailChange}
                   required
                 />
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationEmailMessage}</h6>
               </div>
 
               <div className="col-lg-6  col-sm-12 col-md-12">
-                <label>Phone No:</label>
+                <label>Phone No *:</label>
                 <input
                   type="text"
-                  name="phone"
+                  name="userphone"
                   placeholder="Phone No"
-                  value={phone}
+                  value={userphone}
                   pattern="\d{10}"
                   title=" 10 Digits only"
                   className="form-control"
-                  onChange={(e) => onuserchange(e)}
+                  onChange={(e) => handleInputPhoneChange(e)}
+                  required
                 />
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationMessage}</h6>
               </div>
               <div className="col-lg-6  col-sm-12 col-md-12">
                 {" "}
@@ -419,6 +476,7 @@ const AddAdminUserModal = ({
             <button
               id="savebtn"
               className="btn sub_form btn_continue Save float-right  "
+              disabled={isdisabled}
             >
               Save
             </button>
