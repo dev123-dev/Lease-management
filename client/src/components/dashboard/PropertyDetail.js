@@ -129,6 +129,16 @@ const PropertyDetail = ({
       handleShow();
     }
   };
+
+  // TO DISPLAY DOOR NUMBER
+  const [showDoorNo, setShowDoorNo] = useState(false);
+
+  const [doorNumber, setDoorNumber] = useState([]);
+  const openDoorNo = (dNo) => {
+    setDoorNumber(dNo);
+    setShowDoorNo(true);
+    console.log("dno", dNo);
+  };
   const onchangeLocation = (e) => {
     SetLocation(e);
     const OrgainationId_Loc_name = {
@@ -286,7 +296,7 @@ const PropertyDetail = ({
                           <>
                             {" "}
                             <th>Address</th>
-                            <th>Door No</th>
+                            <th>Door No0</th>
                           </>
                         ) : (
                           <>
@@ -294,7 +304,7 @@ const PropertyDetail = ({
                             <th>Stamp Duty</th>
                             <th>Lease Time Period</th> */}
                             <th>Address</th>
-                            <th>Door No</th>
+                            <th>Door No1</th>
                           </>
                         )}
 
@@ -358,9 +368,10 @@ const PropertyDetail = ({
                                   className="img_icon_size log"
                                   src={require("../../static/images/info.png")}
                                   alt="Govt Cards"
-                                  title={
-                                    Val && Val.shopDoorNo.map((e) => e.doorNo)
-                                  }
+                                  onClick={() => openDoorNo(Val.shopDoorNo)}
+                                  // title={
+                                  //   Val && Val.shopDoorNo.map((e) => e.doorNo)
+                                  // }
                                 />
                               </td>
                               {myuser.usergroup === "Admin" ? (
@@ -659,9 +670,46 @@ const PropertyDetail = ({
         </form>
       </Modal>
       {/* modal for Deactivating the mul Property ending */}
+
+      {/* modal for displaying door number starting */}
+
+      <Modal show={showDoorNo} centered>
+        <Modal.Header className="confirmbox-heading">
+          <div className="col-lg-10  col-sm-12 col-md-12">
+            <div className="ml-4">
+              <h4
+                style={{
+                  color: "white",
+                }}
+                className=" text-center "
+              >
+                DOOR NO.
+              </h4>
+            </div>
+          </div>
+          <div className="col-lg-2  col-sm-12 col-md-12">
+            <button onClick={() => setShowDoorNo(false)} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+
+        <Modal.Body>
+          <div className="h5 despace">
+            {doorNumber.map((ele) => {
+              return <label className="ml-2 ">{ele.doorNo}</label>;
+            })}
+          </div>
+        </Modal.Body>
+        <Modal.Footer></Modal.Footer>
+      </Modal>
     </>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   tenants: state.tenants,

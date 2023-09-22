@@ -70,12 +70,12 @@ const AddShopDetails = ({
   //formData
 
   const [formData, setFormData] = useState({
-    BuildingName: "",
+    // BuildingName: "",
     shopDoorNo: [],
     hike: myuser.output && myuser.output.hike,
     stampDuty: myuser.output && myuser.output.stampDuty,
     LeaseTime: myuser.output && myuser.output.leaseTimePeriod,
-    shopAddress: "",
+    // shopAddress: "",
     isSubmitted: false,
   });
 
@@ -83,12 +83,12 @@ const AddShopDetails = ({
   const [items, setitem] = useState([]);
 
   const {
-    BuildingName,
+    // BuildingName,
     shopDoorNo,
     hike,
     stampDuty,
     LeaseTime,
-    shopAddress,
+    // shopAddress,
     shopStatus,
   } = formData;
 
@@ -154,6 +154,38 @@ const AddShopDetails = ({
   };
   const [locError, setLocError] = useState("black");
 
+  // validation for building name
+
+  const [BuildingName, setBuildingName] = useState("");
+  const [validationBuildingMessage, setValidationBuildingMessage] =
+    useState("");
+
+  const handleBuildingNameChange = (e) => {
+    const inputValue = e.target.value;
+    const isValidBuilding = /^(?!([\d\s-]*|\W*)$)[A-Za-z\d\s-]+$/;
+
+    isValidBuilding.test(inputValue)
+      ? setValidationBuildingMessage("")
+      : setValidationBuildingMessage("enter valid building Name");
+
+    setBuildingName(inputValue);
+  };
+  // validation for address
+
+  const [shopAddress, setShopAddress] = useState("");
+  const [validationAddressMessage, setValidationAddressMessage] = useState("");
+
+  const handleAddressChange = (e) => {
+    const inputValue = e.target.value;
+    const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
+
+    isValidBuilding.test(inputValue)
+      ? setValidationAddressMessage("")
+      : setValidationAddressMessage("enter valid Address");
+
+    setShopAddress(inputValue);
+  };
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -175,7 +207,7 @@ const AddShopDetails = ({
       AddShopDetailsform(finalData);
       setFormData({
         ...formData,
-        BuildingName: "",
+        // BuildingName: "",
         inputdata: "",
         hike: "",
         stampDuty: "",
@@ -237,10 +269,10 @@ const AddShopDetails = ({
                   name="BuildingName"
                   value={BuildingName}
                   className="form-control input"
-                  onChange={(e) => onPropertychange(e)}
+                  onChange={(e) => handleBuildingNameChange(e)}
                   required
                 />
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationBuildingMessage}</h6>
               </div>
               <div className="col-lg-6  col-sm-12 col-md-12">
                 <label style={LocErrorStyle}>Location*:</label>
@@ -333,11 +365,11 @@ const AddShopDetails = ({
                       className="textarea form-control"
                       rows="3"
                       placeholder="Address"
-                      onChange={(e) => onPropertychange(e)}
+                      onChange={(e) => handleAddressChange(e)}
                       style={{ width: "100%" }}
                       required
                     ></textarea>
-                    <br></br>
+                    <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
                   </div>
                 </>
               ) : (
@@ -392,11 +424,11 @@ const AddShopDetails = ({
                       className="textarea form-control"
                       rows="3"
                       placeholder="Address"
-                      onChange={(e) => onPropertychange(e)}
+                      onChange={(e) => handleAddressChange(e)}
                       style={{ width: "100%" }}
                       required
                     ></textarea>
-                    <br></br>
+                    <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
                   </div>
                 </>
               )}

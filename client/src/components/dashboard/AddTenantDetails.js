@@ -47,17 +47,17 @@ const AddTenantDetails = ({
   const [formData, setFormData] = useState({
     tenantFileNo: "",
     tenantDoorNo: "",
-    tenantName: "",
-    tenantPhone: "",
+    // tenantName: "",
+    // tenantPhone: "",
     tenantFirmName: "",
-    tenantAddr: "",
-    tenantAdharNo: "",
-    tenantPanNo: "",
+    // tenantAddr: "",
+    // tenantAdharNo: "",
+    // tenantPanNo: "",
     tenantDepositAmt: "",
     tenantPaymentMode: "",
-    tenantBankName: "",
+    // tenantBankName: "",
     tenantchequeDate: "",
-    tenantRentAmount: "",
+    // tenantRentAmount: "",
     tenantLeaseStartDate: "",
     tenantLeaseEndDate: "",
     tenantEnteredBy: "",
@@ -68,17 +68,17 @@ const AddTenantDetails = ({
   const {
     tenantFileNo,
     tenantDoorNo,
-    tenantName,
-    tenantPhone,
+    // tenantName,
+    // tenantPhone,
     tenantFirmName,
-    tenantAddr,
-    tenantAdharNo,
-    tenantPanNo,
+    // tenantAddr,
+    // tenantAdharNo,
+    // tenantPanNo,
     tenantDepositAmt,
     tenantPaymentMode,
-    tenantChequenoOrDdno,
-    tenantBankName,
-    tenantRentAmount,
+    // tenantChequenoOrDdno,
+    // tenantBankName,
+    // tenantRentAmount,
     tenantchequeDate,
     tenantLeaseStartDate,
     tenantLeaseEndDate,
@@ -227,7 +227,7 @@ const AddTenantDetails = ({
 
   const delimiter = "-";
   const [date, setDate] = useState("");
-  //31-08-2023 gets triggered when out of focus and checks validness of the date or required  
+  //31-08-2023 gets triggered when out of focus and checks validness of the date or required
   const checkIfDateEnteredValidWhenFocussedOut = (inputDate) => {
     if (inputDate.length !== 10) {
       setOutput("I");
@@ -238,7 +238,9 @@ const AddTenantDetails = ({
     const yearVal = dateArr[2] * 1;
     const monthVal = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
     const dateVal = dateArr[0][0] === "0" ? dateArr[0][1] * 1 : dateArr[0] * 1;
-    const value = new Date(`${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`);   //new Date("2023-09-03") YYYY-MM-DD
+    const value = new Date(
+      `${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`
+    ); //new Date("2023-09-03") YYYY-MM-DD
 
     const isSame = checkSameDate(value, yearVal, monthVal, dateVal);
 
@@ -247,7 +249,7 @@ const AddTenantDetails = ({
     } else {
       setOutput("V");
 
-      var leaseMonth = myuser.output.leaseTimePeriod;  //Setting Value
+      var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
       const newYear = yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
@@ -257,9 +259,13 @@ const AddTenantDetails = ({
       const month = expiryDate.getMonth() + 1;
       const year = expiryDate.getFullYear();
 
-      setLeaseEndDate(`${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${date < 10 ? "0" + date : date}`);
+      setLeaseEndDate(
+        `${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${
+          date < 10 ? "0" + date : date
+        }`
+      );
     }
-  }
+  };
 
   const checkSameDate = (newDate, yearVal, monthVal, dateVal) => {
     let isSame = false;
@@ -303,7 +309,7 @@ const AddTenantDetails = ({
   const [key, setKey] = useState();
   useEffect(() => {
     if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
-  }, [entryDate])
+  }, [entryDate]);
 
   const onDateChangeEntry = (e) => {
     const { value } = e.target;
@@ -317,13 +323,17 @@ const AddTenantDetails = ({
       setEntryDate(value);
     } else if (value === "") {
       setEntryDate(value);
-      setOutput('R');
+      setOutput("R");
     } else if (value.length === 2 && specialChar) {
       setEntryDate((prevState) => 0 + prevState + delimiter);
     } else if (value.length === 5 && specialChar) {
-      setEntryDate((prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter);
+      setEntryDate(
+        (prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter
+      );
     } else if (checkLength && specialChar) {
-      setEntryDate((prevState) => prevState.slice(0, value.length - 1) + delimiter);
+      setEntryDate(
+        (prevState) => prevState.slice(0, value.length - 1) + delimiter
+      );
     } else if (value !== " " && !isNaN(lastChar)) {
       if (checkLength) {
         setEntryDate((prevState) => prevState + delimiter + lastChar);
@@ -345,7 +355,7 @@ const AddTenantDetails = ({
     content = `Valid Date`;
     className = "valid-date";
   }
-  //02-09-2023 
+  //02-09-2023
 
   const [showHide, setShowHide] = useState({
     showChequenoSection: false,
@@ -460,6 +470,137 @@ const AddTenantDetails = ({
     return true;
   };
 
+  // validation
+  const [tenantName, setTenantName] = useState("");
+  const [validationNameMessage, setValidationNameMessage] = useState("");
+  const handleInputNameChange = (e) => {
+    const inputValue = e.target.value;
+    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    filteredValue === ""
+      ? setValidationNameMessage("Please enter the Name")
+      : setValidationNameMessage("");
+
+    setTenantName(filteredValue);
+  };
+
+  const [tenantPhone, setTenantPhone] = useState("");
+  const [validationPhoneMessage, setValidationPhoneMessage] = useState("");
+
+  const handleInputPhoneChange = (e) => {
+    const inputValue = e.target.value;
+    const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+
+    if (cleanedValue.length <= 10) {
+      const isValidPhone = /^[6789]\d{9}$/;
+      isValidPhone.test(cleanedValue)
+        ? setValidationPhoneMessage("")
+        : setValidationPhoneMessage("enter valid phone number");
+
+      setTenantPhone(cleanedValue);
+    }
+  };
+
+  // validation for rent amt
+  const [tenantRentAmount, setRentAmount] = useState("");
+  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState("");
+
+  const handleRentAmtChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+      setRentAmount(inputValue);
+      setValidationRentAmtMessage("");
+    } else {
+      setValidationRentAmtMessage("enter valid amount");
+    }
+  };
+
+  // validation for adhar number
+  const [tenantAdharNo, setTenantAdharNo] = useState("");
+  const [validationAdharMessage, setValidationAdharMessage] = useState("");
+
+  const handleAdharChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (inputValue.length <= 12) {
+      const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
+      isValidAdhar.test(inputValue)
+        ? setValidationAdharMessage("")
+        : setValidationAdharMessage("enter valid aadhar number");
+
+      setTenantAdharNo(inputValue);
+    }
+  };
+  // validation for pan number
+  const [tenantPanNo, setTenantPanNo] = useState("");
+  const [validationPanMessage, setValidationPanMessage] = useState("");
+
+  const handlePanChange = (e) => {
+    const inputValue = e.target.value;
+    console.log("inputValue", inputValue);
+
+    if (inputValue.length <= 10) {
+      const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
+      isValidPan.test(inputValue)
+        ? setValidationPanMessage("")
+        : setValidationPanMessage("enter valid Pan number");
+
+      setTenantPanNo(inputValue);
+    }
+  };
+
+  // validation for checque number
+
+  const [tenantChequenoOrDdno, setTenantChequenoOrDdno] = useState("");
+  const [validationChequeMessage, setValidationChequeMessage] = useState("");
+
+  const handleChequeChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (inputValue.length <= 6) {
+      const isValidPan = /^(?!000000)\d{6}$/;
+      isValidPan.test(inputValue)
+        ? setValidationChequeMessage("")
+        : setValidationChequeMessage("enter valid Cheque number");
+
+      setTenantChequenoOrDdno(inputValue);
+    }
+  };
+
+  // validation for bank name
+
+  const [tenantBankName, setTenantBankName] = useState("");
+  const [validationBankMessage, setValidationBankMessage] = useState("");
+
+  const handleBankNameChange = (e) => {
+    const inputValue = e.target.value;
+
+    const isValidPan = /^[A-Za-z\s]+$/;
+    isValidPan.test(inputValue)
+      ? setValidationBankMessage("")
+      : setValidationBankMessage("enter valid Bank Name");
+
+    setTenantBankName(inputValue);
+  };
+
+  // validation for address
+
+  const [tenantAddr, setTenantAddr] = useState("");
+  const [validationAddressMessage, setValidationAddressMessage] = useState("");
+
+  const handleAddressChange = (e) => {
+    const inputValue = e.target.value;
+    const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
+
+    isValidBuilding.test(inputValue)
+      ? setValidationAddressMessage("")
+      : setValidationAddressMessage("enter valid Address");
+
+    setTenantAddr(inputValue);
+  };
+
+  /////////////////////////////////////////////////////////////
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (output !== "V") return;
@@ -485,7 +626,12 @@ const AddTenantDetails = ({
         tenantBankName: tenantBankName,
         tenantchequeDate: startSelectedDate,
         tenantRentAmount: tenantRentAmount,
-        tenantLeaseStartDate: entryDate.split(delimiter)[2] + delimiter + entryDate.split(delimiter)[1] + delimiter + entryDate.split(delimiter)[0],
+        tenantLeaseStartDate:
+          entryDate.split(delimiter)[2] +
+          delimiter +
+          entryDate.split(delimiter)[1] +
+          delimiter +
+          entryDate.split(delimiter)[0],
         tenantLeaseEndDate: leaseEndDate,
         generatordepoAmt: generatordepoAmt,
         tenantEnteredBy: user && user._id,
@@ -493,25 +639,26 @@ const AddTenantDetails = ({
         selectedY: finalDataRep.yearSearch,
         selectedVal: dt,
       };
-      AddTenantDetailsform(finalData);
+      console.log("finalData", finalData);
+      // AddTenantDetailsform(finalData);
 
       setFormData({
         ...formData,
         tenantFileNo: "",
         tenantDoorNo: "",
-        tenantName: "",
-        tenantPhone: "",
+        // tenantName: "",
+        // tenantPhone: "",
         tenantFirmName: "",
         tenantAddr: "",
-        tenantAdharNo: "",
-        tenantPanNo: "",
+        // tenantAdharNo: "",
+        // tenantPanNo: "",
         tenantDepositAmt: "",
         tenantPaymentMode: "",
         tenantBankName: "",
         tenantchequeDate: "",
         tenantRentAmount: "",
         tenantLeaseEndDate: "",
-        tenantChequenoOrDdno: "",
+        // tenantChequenoOrDdno: "",
         generatordepoAmt: "",
       });
 
@@ -523,7 +670,7 @@ const AddTenantDetails = ({
 
       // setShowadd(false);
 
-      history.push("/tenant-detail");
+      // history.push("/tenant-detail");
     }
   };
 
@@ -554,10 +701,10 @@ const AddTenantDetails = ({
                   placeholder="Name"
                   value={tenantName}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleInputNameChange(e)}
                   required
                 />{" "}
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationNameMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12  ">
                 <label style={PropertyErrorStyle}>Property Name*:</label>
@@ -613,13 +760,13 @@ const AddTenantDetails = ({
                   name="tenantPhone"
                   placeholder="Phone No"
                   value={tenantPhone}
-                  pattern="\d{10}"
-                  title=" 10 Digits only"
+                  // pattern="\d{10}"
+                  // title=" 10 Digits only"
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleInputPhoneChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
                 />{" "}
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationPhoneMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Firm Name:</label>
@@ -636,16 +783,15 @@ const AddTenantDetails = ({
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Aadhaar No:</label>
                 <input
-                  type="text"
+                  type="number"
                   name="tenantAdharNo"
                   placeholder="Aadhar No"
                   value={tenantAdharNo}
-                  // pattern="^[0-9\b]+$"
-                  pattern="\d{12}"
-                  // minLength="12"
+                  // pattern="\d{12}"
+
                   title="Must Contain 12 digits"
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleAdharChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
                 />{" "}
                 <div
@@ -666,7 +812,7 @@ const AddTenantDetails = ({
                     data-hint=" Must have only 12 digits "
                   ></div>
                 </div>
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationAdharMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Pan Number:</label>
@@ -675,10 +821,10 @@ const AddTenantDetails = ({
                   name="tenantPanNo"
                   placeholder="Pan No"
                   value={tenantPanNo}
-                  pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"
+                  // pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
-                // onKeyDown={(e) => funcKeyDown(e)}
+                  onChange={(e) => handlePanChange(e)}
+                  // onKeyDown={(e) => funcKeyDown(e)}
                 />
                 <div
                   className="cstm-hint"
@@ -698,7 +844,7 @@ const AddTenantDetails = ({
                     data-hint="Must have 5 Alphabets,4 Numbers,1 Alphabet"
                   ></div>
                 </div>
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationPanMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Rent Amount*:</label>
@@ -708,7 +854,7 @@ const AddTenantDetails = ({
                   placeholder="Rent Amount"
                   value={tenantRentAmount}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleRentAmtChange(e)}
                   onKeyDown={(e) => funcKeyDown(e)}
                   required
                 />
@@ -730,7 +876,9 @@ const AddTenantDetails = ({
                     data-hint="Monthly Rent "
                   ></div>
                 </div>
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationRentAmtMessage}</h6>
+
+                {/* <br></br> */}
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Deposit Amount*:</label>
@@ -788,14 +936,14 @@ const AddTenantDetails = ({
                   <div className="  col-lg-3 col-md-12 col-sm-12 col-12 ">
                     <label> Cheque No/DD No*:</label>
                     <input
-                      type="text"
+                      type="number"
                       name="tenantChequenoOrDdno"
                       value={tenantChequenoOrDdno}
                       className="form-control"
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => handleChequeChange(e)}
                       required
                     />
-                    <br></br>
+                    <h6 style={{ color: "red" }}>{validationChequeMessage}</h6>
                   </div>
 
                   <div className=" col-lg-3 col-md-12 col-sm-12 col-12">
@@ -805,13 +953,13 @@ const AddTenantDetails = ({
                       name="tenantBankName"
                       value={tenantBankName}
                       className="form-control"
-                      onChange={(e) => onInputChange(e)}
+                      onChange={(e) => handleBankNameChange(e)}
                       required
                     />
-                    <br></br>
+                    <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
                   <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label>Cheque Date:</label>
+                    <label>Cheque Date*:</label>
                     <input
                       type="date"
                       placeholder="dd/mm/yyyy"
@@ -868,9 +1016,10 @@ const AddTenantDetails = ({
                     // id="tenantAddr"
                     placeholder="Address"
                     className="form-control"
-                    onChange={(e) => onInputChange(e)}
+                    onChange={(e) => handleAddressChange(e)}
                     required
                   ></textarea>
+                  <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
                   <span className="form-input-info"></span>
                 </div>
               </div>

@@ -95,10 +95,9 @@ const EditProperty = ({
 
   //multiple location end
   const [formData, setFormData] = useState({
-    BuildingName: Propertydata.BuildingName,
     shopDoorNo: [],
     Location: Propertydata.Location,
-    shopAddress: Propertydata.shopAddress,
+
     hike: Propertydata.hike,
     stampDuty: Propertydata.stampDuty,
     LeaseTime: Propertydata.leaseTimePeriod,
@@ -106,9 +105,8 @@ const EditProperty = ({
   });
 
   const {
-    BuildingName,
     shopDoorNo,
-    shopAddress,
+
     hike,
     stampDuty,
     LeaseTime,
@@ -117,6 +115,38 @@ const EditProperty = ({
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // validation for building name
+
+  const [BuildingName, setBuildingName] = useState(Propertydata.BuildingName);
+  const [validationBuildingMessage, setValidationBuildingMessage] =
+    useState("");
+
+  const handleBuildingNameChange = (e) => {
+    const inputValue = e.target.value;
+    const isValidBuilding = /^(?!([\d\s-]*|\W*)$)[A-Za-z\d\s-]+$/;
+
+    isValidBuilding.test(inputValue)
+      ? setValidationBuildingMessage("")
+      : setValidationBuildingMessage("enter valid building Name");
+
+    setBuildingName(inputValue);
+  };
+  // validation for address
+
+  const [shopAddress, setShopAddress] = useState(Propertydata.shopAddress);
+  const [validationAddressMessage, setValidationAddressMessage] = useState("");
+
+  const handleAddressChange = (e) => {
+    const inputValue = e.target.value;
+    const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
+
+    isValidBuilding.test(inputValue)
+      ? setValidationAddressMessage("")
+      : setValidationAddressMessage("enter valid Address");
+
+    setShopAddress(inputValue);
   };
 
   const onUpdate = (e) => {
@@ -158,10 +188,10 @@ const EditProperty = ({
                 name="BuildingName"
                 value={BuildingName}
                 className="form-control input"
-                onChange={(e) => onInputChange(e)}
+                onChange={(e) => handleBuildingNameChange(e)}
                 required
               />
-              <br></br>
+              <h6 style={{ color: "red" }}>{validationBuildingMessage}</h6>
             </div>
             {/* <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Stamp Duty*: </label>
@@ -199,7 +229,7 @@ const EditProperty = ({
               />
               <br></br>
             </div> */}
-              <div className="col-lg-6  col-sm-12 col-md-12">
+            <div className="col-lg-6  col-sm-12 col-md-12">
               <label>Location*:</label>
               <Select
                 name="orgLoc"
@@ -233,13 +263,12 @@ const EditProperty = ({
                 className="textarea form-control"
                 rows="3"
                 placeholder="Address"
-                onChange={(e) => onInputChange(e)}
+                onChange={(e) => handleAddressChange(e)}
                 style={{ width: "100%" }}
                 required
               ></textarea>
-              <br></br>
-              </div>
-            
+              <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
+            </div>
 
             <div className="  col-lg-6  col-sm-12 col-md-12 ">
               <label className="ml-2" style={{ color: RoomAlreadyExist }}>

@@ -35,15 +35,10 @@ const RenewTenentAgreement = ({
     isSubmitted: false,
     tenantDoorNo: door,
     tenantFileNo: tenantsData.tenantFileNo,
-    tenantRentAmount: tenantsData.chargesCal,
+    // tenantRentAmount: tenantsData.chargesCal,
   });
 
-  const {
-    isSubmitted,
-    tenantDoorNo,
-    tenantFileNo,
-    tenantRentAmount,
-  } = formData;
+  const { isSubmitted, tenantDoorNo, tenantFileNo } = formData;
 
   var today = new Date();
   var dd = today.getDate();
@@ -63,6 +58,40 @@ const RenewTenentAgreement = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // validation
+  const [tenantRentAmount, setRentAmount] = useState(tenantsData.chargesCal);
+  const [validationMessage, setValidationMessage] = useState();
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+
+    // if (/^[1-9]\d{0,2}$/.test(inputValue) || inputValue === "") {
+    // const isValidate = /^[1-9]\d{0,2}$/;
+    // isValidate.test(inputValue)
+    //   ? setValidationMessage("")
+    //   : setValidationMessage("enter valid amount");
+
+    if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+      setRentAmount(inputValue);
+      setValidationMessage("");
+    } else {
+      setValidationMessage("enter valid amount");
+    }
+
+    // }
+
+    //const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+
+    // if (cleanedValue.length <= 10) {
+    //   const isValidPhone = /^[0-9]{9}$/;
+    //   isValidPhone.test(cleanedValue)
+    //     ? setValidationMessage("")
+    //     : setValidationMessage("enter valid phone number");
+
+    //   setUserphone(cleanedValue);
+    // }
+  };
+
   const ondone = () => {
     if (output !== "V") return;
 
@@ -70,7 +99,12 @@ const RenewTenentAgreement = ({
       tenantRentAmount: tenantRentAmount,
       tenantFileNo: tenantFileNo,
       // tenantDoorNo: door,
-      tenantLeaseStartDate: entryDate.split(delimiter)[2] + delimiter + entryDate.split(delimiter)[1] + delimiter + entryDate.split(delimiter)[0],
+      tenantLeaseStartDate:
+        entryDate.split(delimiter)[2] +
+        delimiter +
+        entryDate.split(delimiter)[1] +
+        delimiter +
+        entryDate.split(delimiter)[0],
       tenantLeaseEndDate: leaseEndDate,
       tdId: tenantsData.tdId,
       OrganizationId: tenantsData.OrganizationId,
@@ -90,7 +124,9 @@ const RenewTenentAgreement = ({
     onReportModalChange(true);
   };
 
-  const [entryDate, setEntryDate] = useState(dd + delimiter + mm + delimiter + yyyy);
+  const [entryDate, setEntryDate] = useState(
+    dd + delimiter + mm + delimiter + yyyy
+  );
   const [leaseEndDate, setLeaseEndDate] = useState("");
   const getNoOFDays = (mnth, year) => {
     switch (mnth) {
@@ -128,7 +164,7 @@ const RenewTenentAgreement = ({
   const [date, setDate] = useState("");
   const [output, setOutput] = useState("R");
   const [key, setKey] = useState();
-  //31-08-2023 gets triggered when out of focus and checks validness of the date or required  
+  //31-08-2023 gets triggered when out of focus and checks validness of the date or required
   const checkIfDateEnteredValidWhenFocussedOut = (inputDate) => {
     if (inputDate.length !== 10) {
       setOutput("I");
@@ -139,7 +175,9 @@ const RenewTenentAgreement = ({
     const yearVal = dateArr[2] * 1;
     const monthVal = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
     const dateVal = dateArr[0][0] === "0" ? dateArr[0][1] * 1 : dateArr[0] * 1;
-    const value = new Date(`${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`);   //new Date("2023-09-03") YYYY-MM-DD
+    const value = new Date(
+      `${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`
+    ); //new Date("2023-09-03") YYYY-MM-DD
 
     const isSame = checkSameDate(value, yearVal, monthVal, dateVal);
 
@@ -148,7 +186,7 @@ const RenewTenentAgreement = ({
     } else {
       setOutput("V");
 
-      var leaseMonth = myuser.output.leaseTimePeriod;  //Setting Value
+      var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
       const newYear = yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
@@ -158,9 +196,13 @@ const RenewTenentAgreement = ({
       const month = expiryDate.getMonth() + 1;
       const year = expiryDate.getFullYear();
 
-      setLeaseEndDate(`${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${date < 10 ? "0" + date : date}`);
+      setLeaseEndDate(
+        `${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${
+          date < 10 ? "0" + date : date
+        }`
+      );
     }
-  }
+  };
 
   const checkSameDate = (newDate, yearVal, monthVal, dateVal) => {
     let isSame = false;
@@ -202,7 +244,7 @@ const RenewTenentAgreement = ({
 
   useEffect(() => {
     if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
-  }, [entryDate])
+  }, [entryDate]);
 
   const onDateChangeEntry = (e) => {
     const { value } = e.target;
@@ -216,13 +258,17 @@ const RenewTenentAgreement = ({
       setEntryDate(value);
     } else if (value === "") {
       setEntryDate(value);
-      setOutput('R');
+      setOutput("R");
     } else if (value.length === 2 && specialChar) {
       setEntryDate((prevState) => 0 + prevState + delimiter);
     } else if (value.length === 5 && specialChar) {
-      setEntryDate((prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter);
+      setEntryDate(
+        (prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter
+      );
     } else if (checkLength && specialChar) {
-      setEntryDate((prevState) => prevState.slice(0, value.length - 1) + delimiter);
+      setEntryDate(
+        (prevState) => prevState.slice(0, value.length - 1) + delimiter
+      );
     } else if (value !== " " && !isNaN(lastChar)) {
       if (checkLength) {
         setEntryDate((prevState) => prevState + delimiter + lastChar);
@@ -244,11 +290,11 @@ const RenewTenentAgreement = ({
     content = `Valid Date`;
     className = "valid-date";
   }
-  //02-09-2023 
+  //02-09-2023
 
   var ED = leaseEndDate.split(/\D/g);
   var endDate = [ED[2], ED[1], ED[0]].join("-");
-  //03-09-2023 
+  //03-09-2023
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -314,15 +360,17 @@ const RenewTenentAgreement = ({
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <input
-              type="text"
+              type="number"
               name="tenantRentAmount"
               className="form-control"
               value={tenantRentAmount}
-              onChange={(e) => onInputChange(e)}
+              // value={tenantRentAmount}
+              onChange={(e) => handleInputChange(e)}
               style={{
                 width: "100%",
               }}
             />
+            <h6 style={{ color: "red" }}>{validationMessage}</h6>
           </div>
         </div>
         <div className="row py-2">

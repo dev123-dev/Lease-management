@@ -268,7 +268,7 @@ const BuildingReport = ({
 
                         <th>Address</th>
                         <th>Location</th>
-                        <th> Unccupied Door No</th>
+                        <th> Unoccupied Door No</th>
                         <th> Occupied Door No</th>
                         <th>Monthly Rent Amount</th>
                         <th>Deposit Amount</th>

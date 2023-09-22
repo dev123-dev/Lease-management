@@ -71,9 +71,9 @@ const EditTenantDetails = ({
     setBuildingName(
       particular_tenant_EditData
         ? allBuildingNames &&
-        allBuildingNames.filter(
-          (x) => x.label === particular_tenant_EditData.BuildingName
-        )[0]
+            allBuildingNames.filter(
+              (x) => x.label === particular_tenant_EditData.BuildingName
+            )[0]
         : ""
     );
   }
@@ -88,9 +88,9 @@ const EditTenantDetails = ({
     setBuildingName(
       particular_tenant_EditData
         ? allBuildingNames &&
-        allBuildingNames.filter(
-          (x) => x.label === particular_tenant_EditData.BuildingName
-        )[0]
+            allBuildingNames.filter(
+              (x) => x.label === particular_tenant_EditData.BuildingName
+            )[0]
         : ""
     );
   }
@@ -138,7 +138,7 @@ const EditTenantDetails = ({
     setBuildingName(e.label ? e : "");
   };
   // location listing end
-  //const [selectedDoorNumber, setSelectedDoorNumber] = useState(particular_tenant_EditData.shopDoorNo);
+
   const [testdno, settestdno] = useState();
 
   const [DnoList, SetDnoList] = useState();
@@ -150,21 +150,16 @@ const EditTenantDetails = ({
       });
   };
 
-  //console.log("pert", particular_tenant_EditData);
-
   const editSelectedProperty = particular_org_data.filter(
     (ele) => ele._id === particular_tenant_EditData.BuildingId
   );
-  //console.log("should be 1 2 3", editSelectedProperty);
 
   const [selectedDno, setSelectedDno] = useState(
     particular_tenant_EditData.shopDoorNo
   );
   const [unselectedDno, setUnselectedDno] = useState(
     editSelectedProperty[0].shopDoorNo.filter(
-      (ele) =>
-        ///ele.status !== "Deleted the Door Number" && ele.status !== "Acquired"
-        ele.status === "Avaiable"
+      (ele) => ele.status === "Avaiable"
     )
   );
 
@@ -231,18 +226,14 @@ const EditTenantDetails = ({
     tenantLocation: particular_tenant_EditData.Location,
     tenantDoorNo: particular_tenant_EditData.shopDoorNo,
     tenantFileNo: particular_tenant_EditData.tenantFileNo,
-    tenantRentAmount: particular_tenant_EditData.tenantRentAmount,
+
     tenantName: particular_tenant_EditData.tenantName,
-    tenantPhone: particular_tenant_EditData.tenantPhone,
+
     tenantFirmName: particular_tenant_EditData.tenantFirmName,
-    tenantAddr: particular_tenant_EditData.tenantAddr,
-    tenantAdharNo: particular_tenant_EditData.tenantAdharNo,
-    tenantPanNo: particular_tenant_EditData.tenantPanNo,
+    // tenantAddr: particular_tenant_EditData.tenantAddr,
+
     tenantDepositAmt: particular_tenant_EditData.tenantDepositAmt,
-    tenantBankName: particular_tenant_EditData.tenantBankName,
-    tenantChequenoOrDdno: particular_tenant_EditData.tenantChequenoOrDdno
-      ? particular_tenant_EditData.tenantChequenoOrDdno
-      : "null",
+
     startSelectedDate: particular_tenant_EditData.tenantchequeDate,
     tenantLeaseStartDate: new Date(
       particular_tenant_EditData.tenantLeaseStartDate
@@ -253,9 +244,9 @@ const EditTenantDetails = ({
     tenantPaymentMode:
       particular_tenant_EditData && particular_tenant_EditData.tenantPaymentMode
         ? {
-          value: particular_tenant_EditData.tenantPaymentMode,
-          label: particular_tenant_EditData.tenantPaymentMode,
-        }
+            value: particular_tenant_EditData.tenantPaymentMode,
+            label: particular_tenant_EditData.tenantPaymentMode,
+          }
         : "null",
   });
   const {
@@ -264,19 +255,15 @@ const EditTenantDetails = ({
     tenantLocation,
     tenantFileNo,
     tenantDoorNo,
-    tenantName,
-    tenantPhone,
+
     tenantFirmName,
-    tenantAddr,
-    tenantAdharNo,
-    tenantPanNo,
+    // tenantAddr,
+
     tenantDepositAmt,
     tenantPaymentMode,
-    tenantChequenoOrDdno,
-    tenantBankName,
+
     generatordepoAmt,
     tenantchequeDate,
-    tenantRentAmount,
     tenantLeaseStartDate,
     tenantLeaseEndDate,
   } = formData;
@@ -285,18 +272,145 @@ const EditTenantDetails = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  //02-09-2023 A delimiter specified for display purposes  
+  ////////////////////////////validation start//////////////////////
+  const [tenantName, setTenantName] = useState(
+    particular_tenant_EditData.tenantName
+  );
+  const [validationNameMessage, setValidationNameMessage] = useState("");
+  const handleInputNameChange = (e) => {
+    const inputValue = e.target.value;
+    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    filteredValue === ""
+      ? setValidationNameMessage("Please enter the Name")
+      : setValidationNameMessage("");
+
+    setTenantName(filteredValue);
+  };
+
+  const [tenantPhone, setTenantPhone] = useState(
+    particular_tenant_EditData.tenantPhone
+  );
+  const [validationPhoneMessage, setValidationPhoneMessage] = useState("");
+
+  const handleInputPhoneChange = (e) => {
+    const inputValue = e.target.value;
+    const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
+
+    if (cleanedValue.length <= 10) {
+      const isValidPhone = /^[6789]\d{9}$/;
+      isValidPhone.test(cleanedValue)
+        ? setValidationPhoneMessage("")
+        : setValidationPhoneMessage("enter valid phone number");
+
+      setTenantPhone(cleanedValue);
+    }
+  };
+
+  const [tenantRentAmount, setRentAmount] = useState(
+    particular_tenant_EditData.tenantRentAmount
+  );
+  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState("");
+
+  const handleRentAmtChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+      setRentAmount(inputValue);
+      setValidationRentAmtMessage("");
+    } else {
+      setValidationRentAmtMessage("enter valid amount");
+    }
+  };
+
+  const [tenantAdharNo, setTenantAdharNo] = useState(
+    particular_tenant_EditData.tenantAdharNo
+  );
+  const [validationAdharMessage, setValidationAdharMessage] = useState("");
+
+  const handleAdharChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (inputValue.length <= 12) {
+      const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
+      isValidAdhar.test(inputValue)
+        ? setValidationAdharMessage("")
+        : setValidationAdharMessage("enter valid aadhar number");
+
+      setTenantAdharNo(inputValue);
+    }
+  };
+
+  const [tenantPanNo, setTenantPanNo] = useState(
+    particular_tenant_EditData.tenantPanNo
+  );
+  const [validationPanMessage, setValidationPanMessage] = useState("");
+
+  const handlePanChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (inputValue.length <= 10) {
+      const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
+      isValidPan.test(inputValue)
+        ? setValidationPanMessage("")
+        : setValidationPanMessage("enter valid Pan number");
+
+      setTenantPanNo(inputValue);
+    }
+  };
+
+  const [tenantChequenoOrDdno, setTenantChequenoOrDdno] = useState(
+    particular_tenant_EditData.tenantChequenoOrDdno
+      ? particular_tenant_EditData.tenantChequenoOrDdno
+      : "null"
+  );
+  const [validationChequeMessage, setValidationChequeMessage] = useState("");
+
+  const handleChequeChange = (e) => {
+    const inputValue = e.target.value;
+
+    if (inputValue.length <= 6) {
+      const isValidPan = /^(?!000000)\d{6}$/;
+      isValidPan.test(inputValue)
+        ? setValidationChequeMessage("")
+        : setValidationChequeMessage("enter valid Cheque number");
+
+      setTenantChequenoOrDdno(inputValue);
+    }
+  };
+
+  const [tenantBankName, setTenantBankName] = useState(
+    particular_tenant_EditData.tenantBankName
+  );
+  const [validationBankMessage, setValidationBankMessage] = useState("");
+
+  const handleBankNameChange = (e) => {
+    const inputValue = e.target.value;
+
+    const isValidPan = /^[A-Za-z\s]+$/;
+    isValidPan.test(inputValue)
+      ? setValidationBankMessage("")
+      : setValidationBankMessage("enter valid Bank Name");
+
+    setTenantBankName(inputValue);
+  };
+  ///////////////////////////////////////////////////////////////////
+
+  //02-09-2023 A delimiter specified for display purposes
   const delimiter = "-";
   const [entryDate, setEntryDate] = useState(
-    particular_tenant_EditData.tenantLeaseStartDate.split(delimiter)[2] + delimiter +
-    particular_tenant_EditData.tenantLeaseStartDate.split(delimiter)[1] + delimiter +
-    particular_tenant_EditData.tenantLeaseStartDate.split(delimiter)[0]
+    particular_tenant_EditData.tenantLeaseStartDate.split(delimiter)[2] +
+      delimiter +
+      particular_tenant_EditData.tenantLeaseStartDate.split(delimiter)[1] +
+      delimiter +
+      particular_tenant_EditData.tenantLeaseStartDate.split(delimiter)[0]
   );
 
   const [leaseEndDate, setLeaseEndDate] = useState(
-    particular_tenant_EditData.tenantLeaseEndDate.split(delimiter)[2] + delimiter +
-    particular_tenant_EditData.tenantLeaseEndDate.split(delimiter)[1] + delimiter +
-    particular_tenant_EditData.tenantLeaseEndDate.split(delimiter)[0]
+    particular_tenant_EditData.tenantLeaseEndDate.split(delimiter)[2] +
+      delimiter +
+      particular_tenant_EditData.tenantLeaseEndDate.split(delimiter)[1] +
+      delimiter +
+      particular_tenant_EditData.tenantLeaseEndDate.split(delimiter)[0]
   );
 
   const getNoOFDays = (mnth, year) => {
@@ -332,7 +446,7 @@ const EditTenantDetails = ({
     }
   };
 
-  //31-08-2023 gets triggered when out of focus and checks validness of the date or required  
+  //31-08-2023 gets triggered when out of focus and checks validness of the date or required
   const checkIfDateEnteredValidWhenFocussedOut = (inputDate) => {
     if (inputDate.length !== 10) {
       setOutput("I");
@@ -343,7 +457,9 @@ const EditTenantDetails = ({
     const yearVal = dateArr[2] * 1;
     const monthVal = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
     const dateVal = dateArr[0][0] === "0" ? dateArr[0][1] * 1 : dateArr[0] * 1;
-    const value = new Date(`${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`);   //new Date("2023-09-03") YYYY-MM-DD
+    const value = new Date(
+      `${dateArr[2]}${delimiter}${dateArr[1]}${delimiter}${dateArr[0]}`
+    ); //new Date("2023-09-03") YYYY-MM-DD
 
     const isSame = checkSameDate(value, yearVal, monthVal, dateVal);
 
@@ -352,7 +468,7 @@ const EditTenantDetails = ({
     } else {
       setOutput("V");
 
-      var leaseMonth = myuser.output.leaseTimePeriod;  //Setting Value
+      var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
       const newYear = yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
@@ -362,9 +478,13 @@ const EditTenantDetails = ({
       const month = expiryDate.getMonth() + 1;
       const year = expiryDate.getFullYear();
 
-      setLeaseEndDate(`${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${date < 10 ? "0" + date : date}`);
+      setLeaseEndDate(
+        `${year}${delimiter}${month < 10 ? "0" + month : month}${delimiter}${
+          date < 10 ? "0" + date : date
+        }`
+      );
     }
-  }
+  };
 
   const checkSameDate = (newDate, yearVal, monthVal, dateVal) => {
     let isSame = false;
@@ -409,7 +529,7 @@ const EditTenantDetails = ({
   const [key, setKey] = useState();
   useEffect(() => {
     if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
-  }, [entryDate])
+  }, [entryDate]);
 
   const onDateChangeEntry = (e) => {
     const { value } = e.target;
@@ -423,13 +543,17 @@ const EditTenantDetails = ({
       setEntryDate(value);
     } else if (value === "") {
       setEntryDate(value);
-      setOutput('R');
+      setOutput("R");
     } else if (value.length === 2 && specialChar) {
       setEntryDate((prevState) => 0 + prevState + delimiter);
     } else if (value.length === 5 && specialChar) {
-      setEntryDate((prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter);
+      setEntryDate(
+        (prevState) => prevState.slice(0, 3) + 0 + prevState[3] + delimiter
+      );
     } else if (checkLength && specialChar) {
-      setEntryDate((prevState) => prevState.slice(0, value.length - 1) + delimiter);
+      setEntryDate(
+        (prevState) => prevState.slice(0, value.length - 1) + delimiter
+      );
     } else if (value !== " " && !isNaN(lastChar)) {
       if (checkLength) {
         setEntryDate((prevState) => prevState + delimiter + lastChar);
@@ -451,8 +575,7 @@ const EditTenantDetails = ({
     content = `Valid Date`;
     className = "valid-date";
   }
-  //02-09-2023 
-
+  //02-09-2023
 
   var ED = leaseEndDate.split(/\D/g);
   var endDate = [ED[2], ED[1], ED[0]].join("-");
@@ -470,11 +593,28 @@ const EditTenantDetails = ({
   }
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
 
+  // validation for address
+
+  const [tenantAddr, setTenantAddr] = useState(
+    particular_tenant_EditData.tenantAddr
+  );
+  const [validationAddressMessage, setValidationAddressMessage] = useState("");
+
+  const handleAddressChange = (e) => {
+    const inputValue = e.target.value;
+    const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
+
+    isValidBuilding.test(inputValue)
+      ? setValidationAddressMessage("")
+      : setValidationAddressMessage("enter valid Address");
+
+    setTenantAddr(inputValue);
+  };
   //For setting mindate as todays date
   const onUpdate = (e) => {
     e.preventDefault();
     if (output !== "V") return;
-
+  
     const finalData = {
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
@@ -495,7 +635,12 @@ const EditTenantDetails = ({
       tenantChequenoOrDdno: tenantChequenoOrDdno,
       tenantPaymentMode: tenantPaymentMode.value,
       tenantchequeDate: startSelectedDate,
-      tenantLeaseStartDate: entryDate.split(delimiter)[2] + delimiter + entryDate.split(delimiter)[1] + delimiter + entryDate.split(delimiter)[0],
+      tenantLeaseStartDate:
+        entryDate.split(delimiter)[2] +
+        delimiter +
+        entryDate.split(delimiter)[1] +
+        delimiter +
+        entryDate.split(delimiter)[0],
       tenantLeaseEndDate: leaseEndDate,
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
@@ -534,9 +679,10 @@ const EditTenantDetails = ({
                   placeholder="Name"
                   value={tenantName}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleInputNameChange(e)}
                   required
                 />
+                <h6 style={{ color: "red" }}>{validationNameMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Property Name*:</label>
@@ -592,13 +738,13 @@ const EditTenantDetails = ({
                   name="tenantPhone"
                   value={tenantPhone}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleInputPhoneChange(e)}
                   onKeyDown={(e) =>
                     (e.keyCode === 69 || e.keyCode === 190) &&
                     e.preventDefault()
                   }
                 />
-                <br></br>
+                <h6 style={{ color: "red" }}>{validationPhoneMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Firm Name: </label>
@@ -617,7 +763,7 @@ const EditTenantDetails = ({
                   name="tenantAdharNo"
                   value={tenantAdharNo}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleAdharChange(e)}
                   onKeyDown={(e) =>
                     (e.keyCode === 69 || e.keyCode === 190) &&
                     e.preventDefault()
@@ -641,6 +787,7 @@ const EditTenantDetails = ({
                     data-hint=" Must have only 12 digits "
                   ></div>
                 </div>
+                <h6 style={{ color: "red" }}>{validationAdharMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label className="ml-2"> Pan Number: </label>
@@ -650,7 +797,7 @@ const EditTenantDetails = ({
                   placeholder="PanNo"
                   value={tenantPanNo}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handlePanChange(e)}
                   onKeyDown={(e) =>
                     (e.keyCode === 69 || e.keyCode === 190) &&
                     e.preventDefault()
@@ -674,6 +821,7 @@ const EditTenantDetails = ({
                     data-hint="Must have 5 Alphabets,4 Numbers,1 Alphabet "
                   ></div>
                 </div>
+                <h6 style={{ color: "red" }}>{validationPanMessage}</h6>
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -684,7 +832,7 @@ const EditTenantDetails = ({
                   placeholder="RentAmount"
                   value={tenantRentAmount}
                   className="form-control"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleRentAmtChange(e)}
                   onKeyDown={(e) =>
                     (e.keyCode === 69 || e.keyCode === 190) &&
                     e.preventDefault()
@@ -709,6 +857,7 @@ const EditTenantDetails = ({
                     data-hint="Monthly Rent "
                   ></div>
                 </div>
+                <h6 style={{ color: "red" }}>{validationRentAmtMessage}</h6>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label className="ml-2">Deposit Amount*: </label>
@@ -775,9 +924,11 @@ const EditTenantDetails = ({
                         name="tenantChequenoOrDdno"
                         value={tenantChequenoOrDdno}
                         className="form-control"
-                        onChange={(e) => onInputChange(e)}
+                        onChange={(e) => handleChequeChange(e)}
                       />
-                      <br></br>
+                      <h6 style={{ color: "red" }}>
+                        {validationChequeMessage}
+                      </h6>
                     </div>
 
                     <div className="col-lg-3 col-md-12 col-sm-12 col-12  col-md-4 col-sm-4 col-12">
@@ -787,8 +938,9 @@ const EditTenantDetails = ({
                         name="tenantBankName"
                         value={tenantBankName}
                         className="form-control"
-                        onChange={(e) => onInputChange(e)}
+                        onChange={(e) => handleBankNameChange(e)}
                       />
+                      <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                     </div>
 
                     <div className="col-lg-3 col-md-12 col-sm-12 col-12  col-md-4 col-sm-4 col-12">
@@ -844,9 +996,10 @@ const EditTenantDetails = ({
                   className=" form-control"
                   rows="3"
                   placeholder="Address"
-                  onChange={(e) => onInputChange(e)}
+                  onChange={(e) => handleAddressChange(e)}
                   required
                 ></textarea>{" "}
+                <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
               </div>
               {/*  switch */}
               <div className="row ml-1 ">

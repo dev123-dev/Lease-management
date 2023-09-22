@@ -36,6 +36,19 @@ const UserDetails = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // validation
+  const [username, setUsername] = useState(myuser && myuser.username);
+  const [validationNameMessage, setValidationNameMessage] = useState();
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    const filteredValue = inputValue.replace(/[^A-Za-z0-9]/g, ""); // Remove non-alphabetic characters
+    filteredValue === ""
+      ? setValidationNameMessage("Please enter the Name")
+      : setValidationNameMessage("");
+
+    setUsername(filteredValue);
+  };
+
   const [showSuperModal, setSuperModal] = useState("");
   const SuperUpdateModalClose = () => setSuperModal(false);
 
@@ -282,7 +295,7 @@ const UserDetails = ({
           <Modal.Body>
             {/* <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-            <div className="h5 despace">Reason For Deactivating </div>
+            <div className="h5 despace">Reason For Deactivating * </div>
             <textarea
               rows="2"
               name="deactive_reason"

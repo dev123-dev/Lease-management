@@ -42,23 +42,24 @@ const config = {
   },
 };
 
-var linkPath = process.env.REACT_APP_BASE_URL;
-//var linkPath = "";
+// var linkPath = process.env.REACT_APP_BASE_URL;
+var linkPath = "";
 
 //Function when call is tenant-report and old records are being searched previous to selected which agreements have not expired
 export const getRoutesSetOldRecordsClicked = (blnOldSearch) => (dispatch) => {
   dispatch({
     type: "TENANT_FILTER_OLD",
-    payload: blnOldSearch
+    payload: blnOldSearch,
   });
-}
+};
 
-export const getRoutesSetCurrentYearMonthsRecordsClicked = (blnCurrYearMonthSearch) => (dispatch) => {
-  dispatch({
-    type: "TENANT_FILTER_CURR",
-    payload: blnCurrYearMonthSearch
-  });
-}
+export const getRoutesSetCurrentYearMonthsRecordsClicked =
+  (blnCurrYearMonthSearch) => (dispatch) => {
+    dispatch({
+      type: "TENANT_FILTER_CURR",
+      payload: blnCurrYearMonthSearch,
+    });
+  };
 
 //tenant setting
 export const AddTenantSettingform = (finalData) => async (dispatch) => {
@@ -179,7 +180,7 @@ export const getParticularOrg = (data) => async (dispatch) => {
       type: PARTICULAR_ORG_LOCATION,
       payload: res.data,
     });
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const getParticularUser = (data) => async (dispatch) => {
@@ -222,7 +223,7 @@ export const updateOrganization = (updatedata) => async (dispatch) => {
       config
     );
     dispatch(getAllOrganization());
-  } catch (err) { }
+  } catch (err) {}
 };
 
 //update Property
@@ -237,7 +238,7 @@ export const updateProperty = (updatedata) => async (dispatch) => {
     dispatch(
       getParticularProperty({ OrganizationId: updatedata.Orgainzation_id })
     );
-  } catch (err) { }
+  } catch (err) {}
 };
 
 //update Super User Form
