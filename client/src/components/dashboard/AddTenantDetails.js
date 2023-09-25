@@ -475,7 +475,7 @@ const AddTenantDetails = ({
   const [validationNameMessage, setValidationNameMessage] = useState("");
   const handleInputNameChange = (e) => {
     const inputValue = e.target.value;
-    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
       ? setValidationNameMessage("Please enter the Name")
       : setValidationNameMessage("");
@@ -499,6 +499,10 @@ const AddTenantDetails = ({
       setTenantPhone(cleanedValue);
     }
   };
+
+
+
+  
 
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
@@ -639,8 +643,8 @@ const AddTenantDetails = ({
         selectedY: finalDataRep.yearSearch,
         selectedVal: dt,
       };
-      console.log("finalData", finalData);
-      // AddTenantDetailsform(finalData);
+       console.log("finalData", finalData);
+      AddTenantDetailsform(finalData);
 
       setFormData({
         ...formData,
