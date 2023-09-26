@@ -93,7 +93,7 @@ const EditAdminUser = ({
   const [validationNameMessage, setValidationNameMessage] = useState();
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-    const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
+    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
       ? setValidationNameMessage("Please enter the Name")
       : setValidationNameMessage("");

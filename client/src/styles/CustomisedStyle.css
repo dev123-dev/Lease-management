@@ -2822,4 +2822,11 @@ i.smallsize::first-line {
 } */
 
 
+.doorNoButton{
+  background-color: #095a4a;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 8px;
+}
+
 
