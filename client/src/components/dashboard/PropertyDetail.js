@@ -399,7 +399,8 @@ const PropertyDetail = ({
                                         />
                                       </>
                                     ) : (
-                                      <td></td>
+                                      // <td></td>
+                                      <></>
                                     )}
                                   </td>
                                 </>
@@ -709,7 +710,7 @@ const PropertyDetail = ({
       </Modal>
     </>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   tenants: state.tenants,
