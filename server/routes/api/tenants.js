@@ -760,9 +760,10 @@ router.post("/get-Property-tenant-details", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
+  console.log(data)
   try {
     if (data.Dno.length === 0) {
-      property
+    await  property
         .updateOne(
           {
             OrganizationId: data.OrganizationId,
@@ -775,10 +776,10 @@ router.post("/deactive-property", async (req, res) => {
             },
           }
         )
-        .then(data);
+        .then((data)=>console.log("inside no ===0",data));
     } else {
-      data.Dno.map((eleDoor) => {
-        property
+      data.Dno.map(async(eleDoor) => {
+       await property
           .updateOne(
             {
               OrganizationId: data.OrganizationId,
@@ -792,7 +793,7 @@ router.post("/deactive-property", async (req, res) => {
               },
             }
           )
-          .then(data);
+          .then((data)=>console.log("inside has dno",data));
       });
     }
 
@@ -827,7 +828,6 @@ router.post("/get-particular-Tenant", async (req, res) => {
 
 router.post("/get-tenant-sort", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
-
   let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
     req.body;
 
@@ -1314,8 +1314,10 @@ router.post("/get-previous-years-exp", async (req, res) => {
   }
 });
 
-router.post("/get-tenant-exp-report", async (req, res) => {
+router.post("/get-tenant-exp-report",auth, async (req, res) => {
   //console.log("problem");
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+  const id = mongoose.Types.ObjectId(req.body.OrganizationId);
   const { monthSearch, yearSearch, OrganizationId } = req.body;
   // console.log("this is it", req.body);
   var monthVal = monthSearch;
@@ -1323,10 +1325,10 @@ router.post("/get-tenant-exp-report", async (req, res) => {
     var monthVal = "0" + monthSearch;
   }
   var yearMonth = yearSearch + "-" + monthVal;
-
+let orgId = OrganizationId ? OrganizationId : id
   try {
     const tenantSettingsData = await OrganizationDetails.find({
-      _id: mongoose.Types.ObjectId(OrganizationId),
+      _id: mongoose.Types.ObjectId(orgId),
     });
     // console.log("tenantSettingsData", tenantSettingsData);
     const tenantExpReport = await TenantDetails.aggregate([

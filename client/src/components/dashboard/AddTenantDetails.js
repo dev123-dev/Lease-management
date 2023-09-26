@@ -674,7 +674,7 @@ const AddTenantDetails = ({
 
       // setShowadd(false);
 
-      // history.push("/tenant-detail");
+      history.push("/tenant-detail");
     }
   };
 

@@ -635,7 +635,7 @@ const Tenant_Details = ({
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               > */}
-            <div className="h5 despace">Reason For Deactivating</div>
+            <div className="h5 despace">Reason For Deactivating *</div>
             <textarea
               rows="2"
               name="deactive_reason"
@@ -723,7 +723,7 @@ const Tenant_Details = ({
                 }
               })}
             </div>
-            <div className=" despace pt-3">Reason For Deactivating</div>
+            <div className=" despace pt-3">Reason For Deactivating *</div>
             <textarea
               rows="2"
               name="deactive_reason"

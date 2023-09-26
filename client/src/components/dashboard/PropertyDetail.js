@@ -117,7 +117,6 @@ const PropertyDetail = ({
   };
 
   const onDelete = (id, Dno) => {
-    console.log(Dno, "DNO");
     const DelDno = Dno.filter((ele) => ele && ele.status === "Avaiable");
     if (DelDno.length >= 1) {
       SetDno(Dno);
@@ -137,7 +136,6 @@ const PropertyDetail = ({
   const openDoorNo = (dNo) => {
     setDoorNumber(dNo);
     setShowDoorNo(true);
-    console.log("dno", dNo);
   };
   const onchangeLocation = (e) => {
     SetLocation(e);
@@ -149,11 +147,11 @@ const PropertyDetail = ({
   };
 
   const onDeactivate = (e) => {
-    // alert(checkData.length );
+   
 
     if (checkData.length !== 0) {
       e.preventDefault();
-      //alert(checkData);
+     
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
@@ -162,6 +160,7 @@ const PropertyDetail = ({
         shopStatus: "Deactive",
         deactive_reason: deactive_reason,
       };
+      console.log(reason)
       deactiveProperty(reason);
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
 
@@ -522,30 +521,11 @@ const PropertyDetail = ({
               </button>
             </div>
 
-            {/* <div className="col-lg-11 ">
-              <div className="modal-title ">
-                <h3
-                  style={{
-                    color: "white",
-                  }}
-                  className="text-center"
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
-            </div>
-            <div className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-                
-              />
-            </div> */}
+           
           </Modal.Header>
 
           <Modal.Body>
-            <div className="h5 despace">Reason For Deactivating</div>
+            <div className="h5 despace">Reason For Deactivating *</div>
             <textarea
               rows="2"
               name="deactive_reason"
@@ -557,7 +537,7 @@ const PropertyDetail = ({
               style={{ width: "100%" }}
               required
             ></textarea>
-            <div>Are you sure You Want To Deactivate123333..?</div>
+            <div>Are you sure You Want To Deactivate..?</div>
           </Modal.Body>
           <Modal.Footer>
             <Button id="deactivebtn" type="submit">
@@ -571,26 +551,7 @@ const PropertyDetail = ({
       <Modal show={selectDno} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header className="confirmbox-heading">
-            {/* <div className="col-lg-11 ">
-              <div className="modal-title ">
-                <h3
-                  style={{
-                    color: "white",
-                  }}
-                  className="text-center mr-3 "
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
-            </div>
-            <div className="close">
-              <img
-                src={require("../../static/images/close.png")}
-                alt="X"
-                style={{ height: "20px", width: "20px" }}
-               
-              />
-            </div> */}
+           
 
             <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-1">
@@ -644,7 +605,7 @@ const PropertyDetail = ({
                 }
               })}
             </div>
-            <div className=" despace pt-3">Reason For Deactivating</div>
+            <div className=" despace pt-3">Reason For Deactivating *</div>
             <textarea
               rows="2"
               name="deactive_reason"
@@ -659,8 +620,7 @@ const PropertyDetail = ({
             <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
               Please Select Any Room
             </p>
-            {/* </Form.Group>
-          </Form> */}
+           
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" id="deactivebtn" type="submit">
@@ -701,7 +661,7 @@ const PropertyDetail = ({
         <Modal.Body>
           <div className="h5 despace">
             {doorNumber.map((ele) => {
-              return <label className="ml-2 ">{ele.doorNo}</label>;
+              return <button className="ml-2 doorNoButton mt-2">{ele.doorNo}</button>;
             })}
           </div>
         </Modal.Body>
