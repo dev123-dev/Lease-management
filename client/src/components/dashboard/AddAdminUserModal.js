@@ -202,7 +202,7 @@ const AddAdminUserModal = ({
 
   // validation
   const [username, setUsername] = useState("");
-  const [validationNameMessage, setValidationNameMessage] = useState();
+  const [validationNameMessage, setValidationNameMessage] = useState("Please enter the Name");
   const handleInputChange = (e) => {
  
     const inputValue = e.target.value;
@@ -215,7 +215,7 @@ const AddAdminUserModal = ({
   };
 
   const [userphone, setUserphone] = useState("");
-  const [validationMessage, setValidationMessage] = useState();
+  const [validationMessage, setValidationMessage] = useState("enter valid phone number");
 
   const handleInputPhoneChange = (e) => {
     const inputValue = e.target.value;
@@ -232,7 +232,7 @@ const AddAdminUserModal = ({
   };
 
   const [useremail, setUseremail] = useState("");
-  const [validationEmailMessage, setValidationEmailMessage] = useState("");
+  const [validationEmailMessage, setValidationEmailMessage] = useState("Please enter a valid email address.");
 
   const handleInputEmailChange = (e) => {
     const inputValue = e.target.value;
@@ -249,6 +249,13 @@ const AddAdminUserModal = ({
   };
 
   const [isdisabled, setIsdisabled] = useState(false);
+  useEffect(()=>{
+    if (validationNameMessage==="" && validationMessage==="" && validationEmailMessage==="") {
+      setIsdisabled(false)
+    } else {
+      setIsdisabled(true)
+    }
+  },[validationNameMessage,validationMessage,validationEmailMessage])
 
   useEffect(() => {
     if (password === rePassword) {

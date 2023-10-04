@@ -90,7 +90,7 @@ const EditAdminUser = ({
 
   //username validation start//////////////////////////////////////////////////
   const [username, setUsername] = useState(org.username);
-  const [validationNameMessage, setValidationNameMessage] = useState();
+  const [validationNameMessage, setValidationNameMessage] = useState("");
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
@@ -124,7 +124,7 @@ const EditAdminUser = ({
 
   //user phone number validation/////////////////////////////////
   const [userphone, setUserphone] = useState(org.userphone);
-  const [validationMessage, setValidationMessage] = useState();
+  const [validationMessage, setValidationMessage] = useState("");
 
   const handleInputPhoneChange = (e) => {
     const inputValue = e.target.value;
@@ -140,6 +140,7 @@ const EditAdminUser = ({
     }
   };
   ////////////////////////////////////////////////////////////////
+
 
   const onuserGroup = (e) => {
     setgroup(e);
@@ -171,21 +172,30 @@ const EditAdminUser = ({
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  useEffect(() => {
-    // Check validation conditions and enable/disable the button
-    const isValidName = username.trim() !== "";
-    const isValidEmail =
-      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(useremail);
-    const isValidPhone = /^[6789]\d{9}$/;
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  // useEffect(() => {
+  //   // Check validation conditions and enable/disable the button
+  //   const isValidName = username.trim() !== "";
+  //   const isValidEmail =
+  //     /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(useremail);
+  //   const isValidPhone = /^[6789]\d{9}$/;
 
-    if (isValidName && isValidEmail && isValidPhone) {
-      setIsButtonDisabled(false);
+  //   if (isValidName && isValidEmail && isValidPhone) {
+  //     setIsButtonDisabled(false);
+  //   } else {
+  //     setIsButtonDisabled(true);
+  //   }
+  // }, [username, useremail, userphone]);
+
+  console.log(validationMessage,validationNameMessage,validationEmailMessage)
+
+  useEffect(()=>{
+    if (validationNameMessage==="" && validationMessage==="" && validationEmailMessage==="" ) {
+      setIsButtonDisabled(false)
     } else {
-      setIsButtonDisabled(true);
+      setIsButtonDisabled(true)
     }
-  }, [username, useremail, userphone]);
-
+  },[validationNameMessage,validationMessage,validationEmailMessage,userphone])
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -220,7 +230,7 @@ const EditAdminUser = ({
               <h6 style={{ color: "red" }}>{validationEmailMessage}</h6>
             </div>
             <div className="col-lg-6  col-sm-12 col-md-12">
-              <label>Phone No:</label>
+              <label>Phone No *:</label>
 
               <input
                 type="number"

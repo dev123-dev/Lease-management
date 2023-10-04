@@ -472,7 +472,7 @@ const AddTenantDetails = ({
 
   // validation
   const [tenantName, setTenantName] = useState("");
-  const [validationNameMessage, setValidationNameMessage] = useState("");
+  const [validationNameMessage, setValidationNameMessage] = useState("Please enter the Name");
   const handleInputNameChange = (e) => {
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
@@ -506,7 +506,7 @@ const AddTenantDetails = ({
 
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
-  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState("");
+  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState("enter valid amount");
 
   const handleRentAmtChange = (e) => {
     const inputValue = e.target.value;
@@ -521,7 +521,7 @@ const AddTenantDetails = ({
 
   // validation for adhar number
   const [tenantAdharNo, setTenantAdharNo] = useState("");
-  const [validationAdharMessage, setValidationAdharMessage] = useState("");
+  const [validationAdharMessage, setValidationAdharMessage] = useState("enter valid aadhar number");
 
   const handleAdharChange = (e) => {
     const inputValue = e.target.value;
@@ -537,7 +537,7 @@ const AddTenantDetails = ({
   };
   // validation for pan number
   const [tenantPanNo, setTenantPanNo] = useState("");
-  const [validationPanMessage, setValidationPanMessage] = useState("");
+  const [validationPanMessage, setValidationPanMessage] = useState("enter valid Pan number");
 
   const handlePanChange = (e) => {
     const inputValue = e.target.value;
@@ -590,7 +590,7 @@ const AddTenantDetails = ({
   // validation for address
 
   const [tenantAddr, setTenantAddr] = useState("");
-  const [validationAddressMessage, setValidationAddressMessage] = useState("");
+  const [validationAddressMessage, setValidationAddressMessage] = useState("enter valid Address");
 
   const handleAddressChange = (e) => {
     const inputValue = e.target.value;
@@ -604,6 +604,41 @@ const AddTenantDetails = ({
   };
 
   /////////////////////////////////////////////////////////////
+  const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
+useEffect(()=>{
+
+
+  if(validationNameMessage===""
+   && validationPhoneMessage==="" 
+  && validationRentAmtMessage==="" 
+  && validationAdharMessage==="" 
+  && validationPanMessage===""
+    && validationChequeMessage==="" 
+    && validationBankMessage==="" &&
+    validationAddressMessage===""
+    )
+  {
+  
+    setNextButtonDisabled(false)
+   
+
+  }
+  else
+  {
+    
+    setNextButtonDisabled(true)
+  }
+},[validationNameMessage,
+  validationPhoneMessage,
+  validationRentAmtMessage,
+  validationAdharMessage,
+  validationPanMessage,
+  validationChequeMessage,
+  validationBankMessage,
+  validationAddressMessage
+])
+
+  
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -758,7 +793,7 @@ const AddTenantDetails = ({
                 <br></br>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Phone No:</label>
+                <label>Phone No :</label>
                 <input
                   type="text"
                   name="tenantPhone"
@@ -1158,15 +1193,37 @@ const AddTenantDetails = ({
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
                     {/* <Link to="/tenant-detail"> */}
-                    <button
+                    {isNextButtonDisabled ?( <button
                       variant="success"
                       className="btn sub_form btn_continue Save float-right"
                       id="savebtn"
                       type="submit"
-                      disabled={output !== "V" ? true : false}
+                      disabled={ true}
+                      // disabled={isNextButtonDisabled}
                     >
                       Save
-                    </button>
+                    </button>):(
+                       <button
+                       variant="success"
+                       className="btn sub_form btn_continue Save float-right"
+                       id="savebtn"
+                       type="submit"
+                       disabled={ output!="V"?true:false}
+                       // disabled={isNextButtonDisabled}
+                     >
+                       Save
+                     </button>
+                    )}
+                    {/* <button
+                      variant="success"
+                      className="btn sub_form btn_continue Save float-right"
+                      id="savebtn"
+                      type="submit"
+                      disabled={ output!="V"?true:false}
+                      // disabled={isNextButtonDisabled}
+                    >
+                      Save
+                    </button> */}
                     {/* </Link> */}
                   </div>
                 </div>

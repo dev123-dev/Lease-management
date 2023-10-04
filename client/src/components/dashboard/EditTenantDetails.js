@@ -610,6 +610,44 @@ const EditTenantDetails = ({
 
     setTenantAddr(inputValue);
   };
+
+
+
+
+  const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
+  useEffect(()=>{
+  
+  
+    if(validationNameMessage===""
+     && validationPhoneMessage==="" 
+    && validationRentAmtMessage==="" 
+    && validationAdharMessage==="" 
+    && validationPanMessage===""
+      && validationChequeMessage==="" 
+      && validationBankMessage==="" &&
+      validationAddressMessage===""
+      )
+    {
+    
+      setNextButtonDisabled(false)
+     
+  
+    }
+    else
+    {
+      
+      setNextButtonDisabled(true)
+    }
+  },[validationNameMessage,
+    validationPhoneMessage,
+    validationRentAmtMessage,
+    validationAdharMessage,
+    validationPanMessage,
+    validationChequeMessage,
+    validationBankMessage,
+    validationAddressMessage
+  ])
+  
   //For setting mindate as todays date
   const onUpdate = (e) => {
     e.preventDefault();
@@ -1117,7 +1155,28 @@ const EditTenantDetails = ({
                     </button>
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                    <button
+                  {isNextButtonDisabled ?( <button
+                      variant="success"
+                      className="btn sub_form btn_continue Save float-right"
+                      id="savebtn"
+                      type="submit"
+                      disabled={ true}
+                      // disabled={isNextButtonDisabled}
+                    >
+                      Save
+                    </button>):(
+                       <button
+                       variant="success"
+                       className="btn sub_form btn_continue Save float-right"
+                       id="savebtn"
+                       type="submit"
+                       disabled={ output!="V"?true:false}
+                       // disabled={isNextButtonDisabled}
+                     >
+                       Save
+                     </button>
+                    )}
+                    {/* <button
                       type="submit"
                       variant="success"
                       className="btn sub_form btn_continue Save float-right"
@@ -1125,7 +1184,7 @@ const EditTenantDetails = ({
                       disabled={output !== "V" ? true : false}
                     >
                       Save
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>

@@ -158,7 +158,7 @@ const AddShopDetails = ({
 
   const [BuildingName, setBuildingName] = useState("");
   const [validationBuildingMessage, setValidationBuildingMessage] =
-    useState("");
+    useState("enter valid building Name");
 
   const handleBuildingNameChange = (e) => {
     const inputValue = e.target.value;
@@ -173,7 +173,7 @@ const AddShopDetails = ({
   // validation for address
 
   const [shopAddress, setShopAddress] = useState("");
-  const [validationAddressMessage, setValidationAddressMessage] = useState("");
+  const [validationAddressMessage, setValidationAddressMessage] = useState("enter valid Address");
 
   const handleAddressChange = (e) => {
     const inputValue = e.target.value;
@@ -185,7 +185,18 @@ const AddShopDetails = ({
 
     setShopAddress(inputValue);
   };
+//////////////////
+const [isdisabled,setisdisabled]=useState(false)
+useEffect(()=>{
+  if(validationBuildingMessage==="" && validationAddressMessage===""){
 
+    setisdisabled(false)
+
+  }
+  else{
+    setisdisabled(true)
+  }
+},[validationBuildingMessage,validationAddressMessage])
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -515,6 +526,7 @@ const AddShopDetails = ({
                   type="submit"
                   className="btn sub_form btn_continue Save float-right  "
                   id="savebtn"
+                  disabled={isdisabled}
                 >
                   Save
                 </button>
