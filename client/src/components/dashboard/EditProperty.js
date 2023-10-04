@@ -154,6 +154,18 @@ const EditProperty = ({
     setShopAddress(inputValue);
   };
 
+
+  const [isdisabled,setisdisabled]=useState(false)
+useEffect(()=>{
+  if(validationBuildingMessage==="" && validationAddressMessage===""){
+
+    setisdisabled(false)
+
+  }
+  else{
+    setisdisabled(true)
+  }
+},[validationBuildingMessage,validationAddressMessage])
   const onUpdate = (e) => {
     e.preventDefault();
 
@@ -337,6 +349,7 @@ const EditProperty = ({
               <button
                 className="btn sub_form btn_continue Save float-right"
                 id="savebtn"
+                disabled={isdisabled}
               >
                 Save
               </button>
