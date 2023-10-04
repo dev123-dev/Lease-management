@@ -203,7 +203,7 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
-  console.log(currentDatas);
+ 
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   return (
     <>

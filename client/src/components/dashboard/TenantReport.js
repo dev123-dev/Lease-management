@@ -75,25 +75,27 @@ const TenantReport = ({
     color: "white",
     fontWeight: "bold",
   });
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
 
-    documentTitle: "Tenant Reports (" +
+    documentTitle:
+      "Tenant Reports (" +
       (optName.find(
-        (month) =>
-          Number(month.value) ===
-          Number(finalDataRep?.monthSearch)
+        (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
       )?.label
         ? optName.find(
-          (month) =>
-            Number(month.value) ===
-            Number(finalDataRep?.monthSearch)
-        )?.label + " - "
+            (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
+          )?.label + " - "
         : "before ") +
       finalDataRep?.yearSearch +
       ")",
-    // onAfterPrint: () => alert("print success"),
-    //    setShowPrint("black");
+    onAfterPrint: () =>
+      setShowPrint({
+        backgroundColor: "#095a4a",
+        color: "white",
+        fontWeight: "bold",
+      }),
   });
   //console.log("finalDataRep", finalDataRep);
   return !isAuthenticated || !user || !users ? (
@@ -205,10 +207,10 @@ const TenantReport = ({
                           Number(finalDataRep?.monthSearch)
                       )?.label
                         ? optName.find(
-                          (month) =>
-                            Number(month.value) ===
-                            Number(finalDataRep?.monthSearch)
-                        )?.label + " - "
+                            (month) =>
+                              Number(month.value) ===
+                              Number(finalDataRep?.monthSearch)
+                          )?.label + " - "
                         : "before ") +
                       finalDataRep?.yearSearch +
                       ")"}
@@ -219,7 +221,17 @@ const TenantReport = ({
              
             </div> */}
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4 pt-3">
-                  <button onClick={handlePrint}>
+                  <button
+                    onClick={async () => {
+                      await setShowPrint({
+                        backgroundColor: "#095a4a",
+                        color: "black",
+                        fontWeight: "bold",
+                      });
+
+                      handlePrint();
+                    }}
+                  >
                     <img
                       height="20px"
                       //  onClick={() => refresh()}
@@ -249,17 +261,17 @@ const TenantReport = ({
                         id="datatable2"
                       >
                         <thead>
-                          <tr style={showPrint}>
-                            <th>Name</th>
-                            <th>Building Name</th>
-                            {/* <th>Door No</th> */}
-                            <th>File No</th>
-                            <th>Location</th>
-                            <th>Stamp Duty</th>
-                            <th>Expiry Date</th>
-                            <th>Next Rent Amount</th>
-                            <th>Agreement Status</th>
-                            <th>Expired</th>
+                          <tr>
+                            <th style={showPrint}>Name</th>
+                            <th style={showPrint}>Building Name</th>
+
+                            <th style={showPrint}>File No</th>
+                            <th style={showPrint}>Location</th>
+                            <th style={showPrint}>Stamp Duty</th>
+                            <th style={showPrint}>Expiry Date</th>
+                            <th style={showPrint}>Next Rent Amount</th>
+                            <th style={showPrint}>Agreement Status</th>
+                            <th style={showPrint}>Expired</th>
                           </tr>
                         </thead>
                         <tbody className="text-center">

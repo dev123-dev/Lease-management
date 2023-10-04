@@ -224,6 +224,7 @@ const Tenant_Details = ({
     getParticularOrg("");
     getParticularProperty("");
     fun();
+    SetDoorNumber("");
     setselLoction(null);
     SetTenantName("");
     SetPropertyName("");
@@ -299,7 +300,7 @@ const Tenant_Details = ({
       TenantNames.push({
         label: ele.tenantName,
         value: ele._id,
-      })
+      });
     });
   // console.log("currentDatas", currentDatas);
   return !isAuthenticated || !user || !users ? (
@@ -554,7 +555,12 @@ const Tenant_Details = ({
                       className="text-end h6 font-weight-bold"
                       style={{ color: "#095a4a" }}
                     >
-                      Active Tenants: {sortetenantdetails.length - cntDeActiveTenant} &nbsp;&nbsp;&nbsp;<span style={{ color: "red" }}>Deactive Tenants: {cntDeActiveTenant}</span>
+                      Active Tenants:{" "}
+                      {sortetenantdetails.length - cntDeActiveTenant}{" "}
+                      &nbsp;&nbsp;&nbsp;
+                      <span style={{ color: "red" }}>
+                        Deactive Tenants: {cntDeActiveTenant}
+                      </span>
                     </p>
                   </div>
                 </div>

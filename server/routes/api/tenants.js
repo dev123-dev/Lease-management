@@ -701,7 +701,7 @@ router.post("/add-Property-details", async (req, res) => {
 
 router.post("/get-Particular-Property", async (req, res) => {
   let { OrganizationId, LocationName } = req.body;
-  let query = { OrganizationId: OrganizationId };
+  let query = { OrganizationId: mongoose.Types.ObjectId(OrganizationId) };
 
   if (LocationName) {
     query = {
@@ -760,10 +760,9 @@ router.post("/get-Property-tenant-details", async (req, res) => {
 //deactive property
 router.post("/deactive-property", async (req, res) => {
   let data = req.body;
-  console.log(data)
   try {
     if (data.Dno.length === 0) {
-    await  property
+      await property
         .updateOne(
           {
             OrganizationId: data.OrganizationId,
@@ -776,10 +775,10 @@ router.post("/deactive-property", async (req, res) => {
             },
           }
         )
-        .then((data)=>console.log("inside no ===0",data));
+        .then();
     } else {
-      data.Dno.map(async(eleDoor) => {
-       await property
+      data.Dno.map(async (eleDoor) => {
+        await property
           .updateOne(
             {
               OrganizationId: data.OrganizationId,
@@ -793,7 +792,7 @@ router.post("/deactive-property", async (req, res) => {
               },
             }
           )
-          .then((data)=>console.log("inside has dno",data));
+          .then();
       });
     }
 
@@ -853,7 +852,7 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
       _id: mongoose.Types.ObjectId(tenantName),
     };
   }
-  //console.log("query", query);
+
   try {
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
@@ -1136,6 +1135,7 @@ router.post("/get-month-exp-count", async (req, res) => {
     //change
     yearVal = selectedY;
   }
+
   try {
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
@@ -1170,6 +1170,7 @@ router.post("/get-month-exp-count", async (req, res) => {
         },
       },
     ]);
+
     res.json(MonthExpCntData);
   } catch (err) {
     console.error(err.message);
@@ -1268,7 +1269,6 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
       //   },
       // },
     ]);
-    // console.log("rrr", yeardata);
     res.json(yeardata);
   } catch (err) {
     res.status(500).send("Internal Server Error.");
@@ -1278,7 +1278,7 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
 //Exp Year Count filter
 router.post("/get-previous-years-exp", async (req, res) => {
   const { selectedVal, OrganizationId } = req.body;
-  // console.log("body okey x", req.body);
+
   var date = new Date(selectedVal);
   var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
 
@@ -1314,9 +1314,9 @@ router.post("/get-previous-years-exp", async (req, res) => {
   }
 });
 
-router.post("/get-tenant-exp-report",auth, async (req, res) => {
-  //console.log("problem");
+router.post("/get-tenant-exp-report", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
   const id = mongoose.Types.ObjectId(req.body.OrganizationId);
   const { monthSearch, yearSearch, OrganizationId } = req.body;
   // console.log("this is it", req.body);
@@ -1325,9 +1325,9 @@ router.post("/get-tenant-exp-report",auth, async (req, res) => {
     var monthVal = "0" + monthSearch;
   }
   var yearMonth = yearSearch + "-" + monthVal;
-let orgId = OrganizationId ? OrganizationId : id
+  let orgId = OrganizationId ? OrganizationId : userInfo.OrganizationId;
   try {
-    const tenantSettingsData = await OrganizationDetails.find({
+    const tenantSettingsData = await OrganizationDetails.findOne({
       _id: mongoose.Types.ObjectId(orgId),
     });
     // console.log("tenantSettingsData", tenantSettingsData);
@@ -1362,7 +1362,7 @@ let orgId = OrganizationId ? OrganizationId : id
                   {
                     $multiply: [
                       "$output.tenantRentAmount",
-                      tenantSettingsData[0].hike,
+                      tenantSettingsData.hike,
                     ],
                   },
                   100,
@@ -1384,7 +1384,7 @@ let orgId = OrganizationId ? OrganizationId : id
                               {
                                 $multiply: [
                                   "$output.tenantRentAmount",
-                                  tenantSettingsData[0].hike,
+                                  tenantSettingsData.hike,
                                 ],
                               },
                               100,
@@ -1393,10 +1393,10 @@ let orgId = OrganizationId ? OrganizationId : id
                           "$output.tenantRentAmount",
                         ],
                       },
-                      tenantSettingsData[0].stampDuty,
+                      tenantSettingsData.stampDuty,
                     ],
                   },
-                  tenantSettingsData[0].leaseTimePeriod,
+                  tenantSettingsData.leaseTimePeriod,
                 ],
               },
               100,
@@ -1647,6 +1647,7 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
 });
 
 router.get("/get-all-tenants", async (req, res) => {
+  //console.log("hey hitting api of get-all-tenants");
   try {
     const tenanatData = await TenantDetails.aggregate([
       {
@@ -1871,7 +1872,7 @@ router.post("/update-tenant-details", async (req, res) => {
     let data = req.body;
     // console.log(data.tenantLeaseEndDate);
     //  console.log("", todayDateymd);
-    if (console.log(data.tenantLeaseEndDate < todayDateymd)) {
+    if (data.tenantLeaseEndDate < todayDateymd) {
       //console.log(":hit update");
       const updatetenantdetails = await TenantDetails.updateOne(
         { _id: data.recordId },
@@ -1917,7 +1918,7 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log("data 1", data));
+          .then();
       });
       // console.log(":hit unavai");
       data.unseletedDoorno.map((eleDoor) => {
@@ -1934,7 +1935,7 @@ router.post("/update-tenant-details", async (req, res) => {
               },
             }
           )
-          .then((data) => console.log("data 2", data));
+          .then();
       });
       res.json(updatetenantdetails);
 

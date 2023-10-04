@@ -11,7 +11,6 @@ import {
   YEAR_EXP_CNT,
   EXP_REPORT,
   GET_ALL_USER,
-  // OTP_SENT,
   SET_LOADING_TRUE,
   SET_LOADING_FALSE,
   FINAL_DATA_REP,
@@ -25,15 +24,9 @@ const initialState = {
   users: [],
   errorResponse: "",
   successResponse: "",
-
-  // alllevels: [""],
-  // alltenants: [""],
-  // allTenantSetting: [""],
-
   monthExpCnt: [],
   yearExpCnt: [],
   expReport: [],
-  //otpMessage: "",
   finalDataRep: [],
   optName: [
     { value: "01", label: "Jan" },
@@ -48,7 +41,7 @@ const initialState = {
     { value: "10", label: "Oct" },
     { value: "11", label: "Nov" },
     { value: "12", label: "Dec" },
-  ]
+  ],
 };
 
 const auth = (state = initialState, action) => {
@@ -78,7 +71,6 @@ const auth = (state = initialState, action) => {
     case LOGIN_FAIL:
       return {
         ...state,
-
         errorResponse: "Invalid Email or Password",
       };
     case AUTH_ERROR:

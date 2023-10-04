@@ -35,6 +35,21 @@ const PropertyDetail = ({
     });
   }, []);
 
+  let ActivePCount =
+    particular_org_data &&
+    particular_org_data.filter((ele) => {
+      if (ele.shopStatus === "Active") {
+        return ele;
+      }
+    });
+  let DeactivePCount =
+    particular_org_data &&
+    particular_org_data.filter((ele) => {
+      if (ele.shopStatus === "Deactive") {
+        return ele;
+      }
+    });
+
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
     color: "white",
 
@@ -147,11 +162,9 @@ const PropertyDetail = ({
   };
 
   const onDeactivate = (e) => {
-   
+    e.preventDefault();
 
     if (checkData.length !== 0) {
-      e.preventDefault();
-     
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
@@ -160,10 +173,10 @@ const PropertyDetail = ({
         shopStatus: "Deactive",
         deactive_reason: deactive_reason,
       };
-      console.log(reason)
+
       deactiveProperty(reason);
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
-
+      getParticularProperty({ OrganizationId: user && user.OrganizationId });
       handleShowDno();
       setCheckData([]);
     } else {
@@ -175,9 +188,8 @@ const PropertyDetail = ({
   };
 
   const onDeactivateall = (e) => {
+    e.preventDefault();
     if (checkData.length === 0) {
-      e.preventDefault();
-
       setShow(false);
       const reason = {
         PropertyId: PropertyId,
@@ -188,7 +200,10 @@ const PropertyDetail = ({
       };
       deactiveProperty(reason);
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
-
+      SetRoomAlreadyExist({
+        display: "none",
+        color: "",
+      });
       handleShowDno();
     } else {
     }
@@ -433,8 +448,18 @@ const PropertyDetail = ({
                     className="text-end h6 font-weight-bold"
                     style={{ color: "#095a4a" }}
                   >
-                    No. of Property : {particular_org_data.length}
+                    Active Property: {ActivePCount.length} &nbsp;&nbsp;&nbsp;
+                    <span style={{ color: "red" }}>
+                      Deactive Property: {DeactivePCount.length}
+                    </span>
                   </p>
+
+                  {/* <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
+                    No. of Property : {particular_org_data.length}
+                  </p> */}
                 </div>
               </div>
             </div>
@@ -521,8 +546,6 @@ const PropertyDetail = ({
                 />
               </button>
             </div>
-
-           
           </Modal.Header>
 
           <Modal.Body>
@@ -552,8 +575,6 @@ const PropertyDetail = ({
       <Modal show={selectDno} centered>
         <form onSubmit={(e) => onDeactivate(e)}>
           <Modal.Header className="confirmbox-heading">
-           
-
             <div className="col-lg-10  col-sm-12 col-md-12">
               <div className="ml-1">
                 <h4
@@ -621,7 +642,6 @@ const PropertyDetail = ({
             <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
               Please Select Any Room
             </p>
-           
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" id="deactivebtn" type="submit">
@@ -662,7 +682,9 @@ const PropertyDetail = ({
         <Modal.Body>
           <div className="h5 despace">
             {doorNumber.map((ele) => {
-              return <button className="ml-2 doorNoButton mt-2">{ele.doorNo}</button>;
+              return (
+                <button className="ml-2 doorNoButton mt-2">{ele.doorNo}</button>
+              );
             })}
           </div>
         </Modal.Body>

@@ -1,7 +1,11 @@
 import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { updateProperty, getParticularOrg } from "../../actions/tenants";
+import {
+  updateProperty,
+  getParticularOrg,
+  getParticularProperty,
+} from "../../actions/tenants";
 import Select from "react-select";
 const EditProperty = ({
   auth: { user },
@@ -9,6 +13,7 @@ const EditProperty = ({
   Propertydata,
   setShowUpdateModal,
   updateProperty,
+  getParticularProperty,
   getParticularOrg,
 }) => {
   useEffect(() => {
@@ -168,6 +173,7 @@ const EditProperty = ({
         shopStatus: "Active",
       };
       updateProperty(update);
+      getParticularProperty({ OrganizationId: user.OrganizationId });
       handleEditModalClose();
       setShowUpdateModal(false);
     } else {
@@ -351,4 +357,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   updateProperty,
   getParticularOrg,
+  getParticularProperty,
 })(EditProperty);

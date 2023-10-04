@@ -6,6 +6,7 @@ import {
   getAllDoorNos,
   getAllTenants,
   getAllSettings,
+  ParticularTenantFilter,
 } from "../../actions/tenants";
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
@@ -17,6 +18,7 @@ const AddTenantDetails = ({
   tenants: { allDoorNos, particular_org_data, allTenantSetting },
   getAllDoorNos,
   getParticularProperty,
+  ParticularTenantFilter,
   AddTenantDetailsform,
   getAllSettings,
 }) => {
@@ -28,6 +30,7 @@ const AddTenantDetails = ({
       OrganizationId: myuser && myuser.OrganizationId,
       userId: myuser && myuser._id,
     });
+    ParticularTenantFilter();
   }, []);
 
   useEffect(() => {
@@ -500,10 +503,6 @@ const AddTenantDetails = ({
     }
   };
 
-
-
-  
-
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
   const [validationRentAmtMessage, setValidationRentAmtMessage] = useState("");
@@ -643,9 +642,9 @@ const AddTenantDetails = ({
         selectedY: finalDataRep.yearSearch,
         selectedVal: dt,
       };
-       console.log("finalData", finalData);
+      // console.log("finalData", finalData);
       AddTenantDetailsform(finalData);
-
+      ParticularTenantFilter();
       setFormData({
         ...formData,
         tenantFileNo: "",
@@ -1192,4 +1191,5 @@ export default connect(mapStateToProps, {
   getAllSettings,
   getAllTenants,
   getParticularProperty,
+  ParticularTenantFilter,
 })(AddTenantDetails);
