@@ -17,7 +17,7 @@ const TenantSettings = ({
 }) => {
   //console.log("data", allTenantSetting.leaseTimePeriod);
   const myuser = JSON.parse(localStorage.getItem("user"));
-  //console.log("tenant setting", myuser);
+  // console.log("tenant setting", myuser);
 
   useEffect(() => {
     if (myuser) {
@@ -33,11 +33,11 @@ const TenantSettings = ({
   }, []);
   //formData
 
-  const [formData, setFormData] = useState({
-    hike: myuser.output.hike,
-    stampDuty: myuser.output && myuser.output.ltampDuty,
-    leaseTimePeriod: myuser.output && myuser.output.leaseTimePeriod,
-  });
+  // const [formData, setFormData] = useState({
+  //   hike: myuser.output.hike,
+  //   stampDuty: myuser.output && myuser.output.ltampDuty,
+  //   leaseTimePeriod: myuser.output && myuser.output.leaseTimePeriod,
+  // });
 
   const [hike, setHike] = useState(
     myuser.output && myuser.output.hike
@@ -59,33 +59,190 @@ const TenantSettings = ({
       ? myuser.output && myuser.output.leaseTimePeriod
       : ""
   );
-  const onChangeField = (event) => {
-    console.log("event", event.target.name);
-    const newValue = event.target.value;
-    switch (event.target.name) {
-      case "leaseTimePeriod":
-        if (/^[1-9]\d{0,2}$/.test(newValue) || newValue === "") {
-          setLeasePeriod(newValue);
-        }
+  // const onChangeField = (event) => {
+  //   console.log("event", event.target.name);
+  //   const newValue = event.target.value;
+  //   switch (event.target.name) {
+  //     case "leaseTimePeriod":
+  //       if (/^[1-9]\d{0,2}$/.test(newValue) || newValue === "") {
+  //         setLeasePeriod(newValue);
+  //       }
 
-        break;
-      case "stampDuty":
-        if (/^[1-9]\d{0,1}$/.test(newValue) || newValue === "") {
-          setStampDuty(newValue);
-        }
-        break;
-      case "hike":
-        if (/^[1-9]\d{0,1}$/.test(newValue) || newValue === "") {
-          setHike(newValue);
-        }
-        break;
+  //       break;
+  //     case "stampDuty":
+  //       if (/^[1-9]\d{0,1}$/.test(newValue) || newValue === "") {
+  //         setStampDuty(newValue);
+  //       }
+  //       break;
+  //     case "hike":
+  //       if (/^[1-9]\d{0,1}$/.test(newValue) || newValue === "") {
+  //         setHike(newValue);
+  //       }
+  //       break;
 
-      default:
-        break;
+  //     default:
+  //       break;
+  //   }
+  //   // Check if the new value is a positive number
+  // };
+
+  // const onChangeField = (event) => {
+  //   console.log("event", event.target.name);
+  //   const newValue = event.target.value;
+  //   // Use regex to allow only positive integers with 1 or 2 digits (excluding 0), and no hyphen
+  //   const positiveIntegerRegex = /^[1-9][0-9]?$/;
+  
+  //   switch (event.target.name) {
+  //     case "leaseTimePeriod":
+  //       if (positiveIntegerRegex.test(newValue) || newValue === "") {
+  //         setLeasePeriod(newValue);
+  //       }
+  //       break;
+  //     case "stampDuty":
+  //       if (positiveIntegerRegex.test(newValue) || newValue === "") {
+  //         setStampDuty(newValue);
+  //       }
+  //       break;
+  //     case "hike":
+  //       if (positiveIntegerRegex.test(newValue) || newValue === "") {
+  //         setHike(newValue);
+  //       }
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   // Check if the new value is a positive number with 1 or 2 digits (excluding 0) and no hyphen
+  // };
+ const[isButtonDisabled,setisButtonDisabled]=useState(false)
+  const [
+    validationHikeMessage,
+    setValidationHikeMessage,
+  ] = useState("");
+  const handleHikeChange = (e) => {
+    const inputValue = e.target.value;
+    const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+    const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
+    // const inputValue = e.target.value;
+    // const isValid = /^[^a-zA-Z-]*$/;
+
+    // isValid.test(inputValue)
+    //   ? setValidationshgSavingPerMeetingMessage("")
+    //   : setValidationshgSavingPerMeetingMessage("enter saving per meeting");
+    if(filteredValue==="0" || filteredValue.length>2 || filteredValue==="00"){
+      setValidationHikeMessage("Enter valid hike")
     }
-    // Check if the new value is a positive number
+    else{
+      filteredValue === ""
+      ? setValidationHikeMessage("enter hike")
+      : setValidationHikeMessage("");
+    }
+   
+
+    setHike(inputValue);
+  };
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  // const [
+  //   validationHikeMessage,
+  //   setValidationHikeMessage,
+  // ] = useState("");
+  // const handleHikeChange = (e) => {
+  //   const inputValue = e.target.value;
+  //   const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+  //   const filteredValue = trimmedValue.replace(/[^0-9\s]/g, ""); // Remove non-numeric characters
+  
+  //   if (filteredValue === "") {
+  //     setValidationHikeMessage("Enter saving amount");
+  //   } else {
+  //     setValidationHikeMessage("");
+    
+  //   }
+  //   setHike(inputValue);
+  // };
+  
+
+  const [
+    validationStampMessage,
+    setValidationStampMessage,
+  ] = useState("");
+  const handleStampChange = (e) => {
+    const inputValue = e.target.value;
+    const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+    const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
+   
+    if(filteredValue==="0" || filteredValue.length>2 || filteredValue==="00"){
+      setValidationStampMessage("Enter valid stamp duty")
+    }
+    else{
+      filteredValue === ""
+      ? setValidationStampMessage("enter stamp duty")
+      : setValidationStampMessage("");
+    }
+   
+    setStampDuty(inputValue);
   };
 
+  const [
+    validationTimePeriodMessage,
+    setValidationTimePeriodMessage
+  ] = useState("");
+  const handleTimePeriodChange = (e) => {
+    const inputValue = e.target.value;
+    const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+    const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
+   
+    if(filteredValue==="0" || filteredValue.length>2 || filteredValue==="00"){
+      setValidationTimePeriodMessage("Enter valid Time Period")
+    }
+    else{
+      filteredValue === ""
+      ? setValidationTimePeriodMessage("enter Time Period")
+      : setValidationTimePeriodMessage("");
+    }
+   
+    setLeasePeriod(inputValue);
+  };
+  // const [
+  //   validationTimePeriodMessage,
+  //   setValidationTimePeriodMessage
+  // ] = useState("");
+  
+  // const handleTimePeriodChange = (e) => {
+  //   const inputValue = e.target.value;
+  //   const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+  //   const filteredValue = trimmedValue.replace(/[^0-9\s]/g, ""); // Remove non-alphabetic characters
+  
+  //   if (filteredValue === "") {
+  //     // If the input is empty, clear the validation message and update the state
+  //     setValidationTimePeriodMessage("");
+  //     setLeasePeriod(filteredValue);
+  //   } else if (/^[1-9][0-9]?$/.test(filteredValue)) {
+  //     setValidationTimePeriodMessage("");
+  //     setLeasePeriod(filteredValue);
+  //   } else {
+  //     setValidationTimePeriodMessage("Enter a valid Time Period");
+  //   }
+  // };
+  
+  
+  
+
+  useEffect(()=>{
+    if(validationHikeMessage==="" && validationStampMessage==="" && validationTimePeriodMessage===""){
+      setisButtonDisabled(false)
+    }
+    else{
+      setisButtonDisabled(true)
+    }
+
+  },[validationHikeMessage,validationStampMessage,validationTimePeriodMessage])
   // const {  stampDuty, leaseTimePeriod } = formData;
 
   // const onInputChange = (e) => {
@@ -138,7 +295,7 @@ const TenantSettings = ({
         stampDuty: parseInt(stampDuty),
         leaseTimePeriod: parseInt(leasePeriod),
       };
-      // console.log("finalData", finalData);
+      
       UpdateTenantSettingform(finalData);
       onAddSettingModalChange(true);
       getAllSettings({
@@ -165,10 +322,11 @@ const TenantSettings = ({
               name="hike"
               className="form-control"
               value={hike}
-              onChange={(e) => onChangeField(e)}
+              onChange={(e) => handleHikeChange(e)}
               // onChange={(e) => setHike(e.target.value)}
               required
             />
+
             <div
               className="cstm-hint"
               id="pass_admin_help"
@@ -187,11 +345,12 @@ const TenantSettings = ({
                 data-hint="Only enter Number "
               ></div>
             </div>
+            <h6 style={{color:"red"}}>{validationHikeMessage}</h6>
           </div>
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label>Stamp Duty*:</label>
+            <label>Stamp Duty % *:</label>
           </div>
 
           <div className="col-lg-5  col-md-4 col-sm-4 col-12">
@@ -201,7 +360,7 @@ const TenantSettings = ({
               placeholder="Stamp Duty"
               className="form-control"
               value={stampDuty}
-              onChange={(e) => onChangeField(e)}
+              onChange={(e) => handleStampChange(e)}
               // onChange={(e) => setStampDuty(e.target.value)}
               required
             />
@@ -223,6 +382,7 @@ const TenantSettings = ({
                 data-hint=" Dont Enter fractional number (Eg:1.2),(2.2) "
               ></div>
             </div>
+            <h6 style={{color:"red"}}>{validationStampMessage}</h6>
           </div>
         </div>
 
@@ -240,9 +400,10 @@ const TenantSettings = ({
               className="form-control"
               value={leasePeriod}
               // value={leaseTimePeriod}
-              onChange={(e) => onChangeField(e)}
+              onChange={(e) => handleTimePeriodChange(e)}
               required
             />
+            <h6 style={{color:"red"}}>{validationTimePeriodMessage}</h6>
           </div>
         </div>
         {/* <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
@@ -256,6 +417,7 @@ const TenantSettings = ({
               variant="success"
               className="btn sub_form btn_continue Save float-right"
               id="TenantSettingBtn"
+              disabled={isButtonDisabled}
               onClick={() => onSubmit()}
             >
               <b>Save</b>
@@ -265,6 +427,7 @@ const TenantSettings = ({
               variant="success"
               className="btn sub_form btn_continue Save float-right"
               id="TenantSettingBtn"
+              disabled={isButtonDisabled}
               onClick={() => onUpdate()}
             >
               <b>Update</b>
