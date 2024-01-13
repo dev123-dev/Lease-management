@@ -102,6 +102,39 @@ const AddShopDetails = ({
       setshowscroll("none");
     }
   };
+  const [isdisabled, setisdisabled] = useState(false);
+
+  const [validationMessage, setValidationMessage] = useState(
+    "Please enter a valid Door No"
+  );
+
+  useEffect(() => {
+    if (validationMessage === "") {
+      setisdisabled(false);
+    } else {
+      setisdisabled(true);
+    }
+  }, [validationMessage]);
+
+  const validateRoomNumber = (e) => {
+    const inputValue = e.target.value;
+
+    // Check if the input consists only of alphabets or is "0"
+    if (/^[A-Za-z\s]+$/.test(inputValue) || inputValue === "0") {
+      setValidationMessage(
+        "Name must contain at least one non-alphabet character or not be '0'"
+      );
+    } else if (/^[-0][A-Za-z\d]*$/.test(inputValue)) {
+      // Check if the input starts with "0" or "-" followed by alphanumeric characters
+      setValidationMessage("Invalid input");
+    } else if (/[^A-Za-z\d\s-]/.test(inputValue)) {
+      // Check if the input contains any character that is not alphanumeric, space, or hyphen
+      setValidationMessage("Invalid character detected");
+    } else {
+      setValidationMessage("");
+    }
+    setinput(inputValue);
+  };
 
   const addItem = () => {
     if (!inputdata) {
@@ -157,8 +190,9 @@ const AddShopDetails = ({
   // validation for building name
 
   const [BuildingName, setBuildingName] = useState("");
-  const [validationBuildingMessage, setValidationBuildingMessage] =
-    useState("enter valid building Name");
+  const [validationBuildingMessage, setValidationBuildingMessage] = useState(
+    "enter valid building Name"
+  );
 
   const handleBuildingNameChange = (e) => {
     const inputValue = e.target.value;
@@ -173,7 +207,9 @@ const AddShopDetails = ({
   // validation for address
 
   const [shopAddress, setShopAddress] = useState("");
-  const [validationAddressMessage, setValidationAddressMessage] = useState("enter valid Address");
+  const [validationAddressMessage, setValidationAddressMessage] = useState(
+    "enter valid Address"
+  );
 
   const handleAddressChange = (e) => {
     const inputValue = e.target.value;
@@ -185,18 +221,14 @@ const AddShopDetails = ({
 
     setShopAddress(inputValue);
   };
-//////////////////
-const [isdisabled,setisdisabled]=useState(false)
-useEffect(()=>{
-  if(validationBuildingMessage==="" && validationAddressMessage===""){
-
-    setisdisabled(false)
-
-  }
-  else{
-    setisdisabled(true)
-  }
-},[validationBuildingMessage,validationAddressMessage])
+  //////////////////
+  useEffect(() => {
+    if (validationBuildingMessage === "" && validationAddressMessage === "") {
+      setisdisabled(false);
+    } else {
+      setisdisabled(true);
+    }
+  }, [validationBuildingMessage, validationAddressMessage]);
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -470,7 +502,10 @@ useEffect(()=>{
                   type="text"
                   name="shopDoorNo"
                   value={inputdata}
-                  onChange={(e) => setinput(e.target.value)}
+                  onChange={
+                    (e) => validateRoomNumber(e)
+                    // setinput(e.target.value)
+                  }
                   placeholder="Door Number"
                   id="Door Number"
                 ></input>
@@ -515,6 +550,7 @@ useEffect(()=>{
                 {/* <p className="RoomAlreadyExist" style={RoomAlreadyExist}>
                   RoomAlreadyExist
                 </p> */}
+                <h6 style={{ color: "red" }}>{validationMessage}</h6>
               </div>
               <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields

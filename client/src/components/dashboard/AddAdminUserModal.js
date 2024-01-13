@@ -202,11 +202,14 @@ const AddAdminUserModal = ({
 
   // validation
   const [username, setUsername] = useState("");
-  const [validationNameMessage, setValidationNameMessage] = useState("Please enter the Name");
+  const [validationNameMessage, setValidationNameMessage] = useState(
+    "Please enter the Name"
+  );
   const handleInputChange = (e) => {
- 
     const inputValue = e.target.value;
-    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
+    const filteredValue = inputValue
+      .replace(/[^A-Za-z ]+/g, "")
+      .replace(/ +/g, " "); // Remove non-alphabetic characters
     filteredValue === ""
       ? setValidationNameMessage("Please enter the Name")
       : setValidationNameMessage("");
@@ -215,7 +218,9 @@ const AddAdminUserModal = ({
   };
 
   const [userphone, setUserphone] = useState("");
-  const [validationMessage, setValidationMessage] = useState("enter valid phone number");
+  const [validationMessage, setValidationMessage] = useState(
+    "enter valid phone number"
+  );
 
   const handleInputPhoneChange = (e) => {
     const inputValue = e.target.value;
@@ -232,7 +237,9 @@ const AddAdminUserModal = ({
   };
 
   const [useremail, setUseremail] = useState("");
-  const [validationEmailMessage, setValidationEmailMessage] = useState("Please enter a valid email address.");
+  const [validationEmailMessage, setValidationEmailMessage] = useState(
+    "Please enter a valid email address."
+  );
 
   const handleInputEmailChange = (e) => {
     const inputValue = e.target.value;
@@ -249,13 +256,17 @@ const AddAdminUserModal = ({
   };
 
   const [isdisabled, setIsdisabled] = useState(false);
-  useEffect(()=>{
-    if (validationNameMessage==="" && validationMessage==="" && validationEmailMessage==="") {
-      setIsdisabled(false)
+  useEffect(() => {
+    if (
+      validationNameMessage === "" &&
+      validationMessage === "" &&
+      validationEmailMessage === ""
+    ) {
+      setIsdisabled(false);
     } else {
-      setIsdisabled(true)
+      setIsdisabled(true);
     }
-  },[validationNameMessage,validationMessage,validationEmailMessage])
+  }, [validationNameMessage, validationMessage, validationEmailMessage]);
 
   useEffect(() => {
     if (password === rePassword) {
@@ -277,7 +288,7 @@ const AddAdminUserModal = ({
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
       };
-      // console.log(finalUserData);
+      console.log(finalUserData);
 
       AddAdminuser(finalUserData);
       setShowadd(false);

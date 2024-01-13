@@ -103,6 +103,7 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const getAllSettings = (data) => async (dispatch) => {
+  console.log("hey  getAllSettings");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenantSetting/get-all-settings`,
@@ -139,6 +140,7 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) => async (dispatch) => {
+  console.log("hey getParticularProperty");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-Particular-Property`,
@@ -167,6 +169,7 @@ export const getParticularProperty = (data) => async (dispatch) => {
 // };
 
 export const getParticularOrg = (data) => async (dispatch) => {
+  console.log("hey getParticularOrg");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-org`,
@@ -305,6 +308,7 @@ export const ParticularTenant = (data) => async (dispatch) => {
 };
 
 export const getDoorNo = () => async (dispatch) => {
+  console.log("hey  ge door");
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
 
@@ -526,9 +530,9 @@ export const deactiveProperty = (finalData) => async (dispatch) => {
       config
     );
 
-    dispatch(
-      getParticularProperty({ OrganizationId: finalData.OrganizationId })
-    );
+    // dispatch(
+    //   getParticularProperty({ OrganizationId: finalData.OrganizationId })
+    // );
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,

@@ -86,7 +86,6 @@ const SuperUserDashboard = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-  console.log(allsuperuser);
   //refresh
   return (
     <div>
@@ -108,7 +107,7 @@ const SuperUserDashboard = ({
                   className="heading_color  headsize  ml-3"
                 >
                   {" "}
-                  User Details
+                  User Details 
                 </h2>
               </div>
             

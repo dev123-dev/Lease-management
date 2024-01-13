@@ -25,17 +25,36 @@ const UserDetails = ({
   useEffect(() => {
     get_particular_org_user({ OrganizationId: myuser.OrganizationId });
   }, []);
+
   const [formData, setFormData] = useState({
     deactive_reason: "",
     isSubmitted: false,
   });
 
-  const { deactive_reason } = formData;
-
+  const [deactive_reason, setDeactive_reason] = useState("");
+  const [validationMessage, setValidationMessage] =
+    useState("Enter valid reason");
   const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const inputValue = e.target.value;
+    const isValid =
+      /^(?![!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|0-9]+$)(?![!@#$%^&*()_+={}\[\]:;"'<>,.?/\\|]+$).*/;
+    // const isValid =/^(?![A-Za-z]+$)(?![\W\d\s]+$)[A-Za-z\d\s]+$/;
+
+    isValid.test(inputValue)
+      ? setValidationMessage("")
+      : setValidationMessage("Enter valid reason");
+
+    setDeactive_reason(inputValue);
   };
 
+  const [isButtonDisabled, setisButtonDisabled] = useState(false);
+  useEffect(() => {
+    if (validationMessage === "") {
+      setisButtonDisabled(false);
+    } else {
+      setisButtonDisabled(true);
+    }
+  });
   // validation
   const [username, setUsername] = useState(myuser && myuser.username);
   const [validationNameMessage, setValidationNameMessage] = useState();
@@ -104,7 +123,7 @@ const UserDetails = ({
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5 ">
             <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
-              <h2 className="heading_color  headsize  ml-4">User Details</h2>
+              <h2 className="heading_color  headsize  ml-4">User Details </h2>
             </div>
 
             <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-3 pt-4 ">
@@ -114,6 +133,7 @@ const UserDetails = ({
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}
                 alt="Add User"
+                style={{cursor:"pointer"}}
                 title="Add User"
               />
             </div>
@@ -168,8 +188,8 @@ const UserDetails = ({
                                     className="Cursor"
                                     onClick={() => onDelete(alluser._id)}
                                     src={require("../../static/images/delete.png")}
-                                    alt="Delete"
-                                    title="Delete"
+                                    alt="Deactivate"
+                                    title="Deactivate"
                                   />
                                 </td>
                               )}
@@ -282,7 +302,11 @@ const UserDetails = ({
               </div>
             </div>
             <div className="col-lg-2  col-sm-12 col-md-12">
-              <button onClick={() => setDeactiveShow(false)} className="close">
+              <button
+                type="button"
+                onClick={() => setDeactiveShow(false)}
+                className="close"
+              >
                 <img
                   src={require("../../static/images/close.png")}
                   alt="X"
@@ -305,12 +329,13 @@ const UserDetails = ({
               className="form-control "
               required
             ></textarea>
+            <h6 style={{ color: "red" }}>{validationMessage}</h6>
             <div>Are you sure You Want To Deactivate..?</div>
             {/* </Form.Group>
           </Form> */}
           </Modal.Body>
           <Modal.Footer>
-            <Button id="deactivebtn" type="submit">
+            <Button id="deactivebtn" type="submit" disabled={isButtonDisabled}>
               <b>Deactive</b>
             </Button>
           </Modal.Footer>

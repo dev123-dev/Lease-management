@@ -249,8 +249,8 @@ const LocationReport = ({
                 height="20px"
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
-                alt="refresh"
-                title="refresh"
+                alt="Refresh"
+                title="Refresh"
               />
             </div>
           </div>

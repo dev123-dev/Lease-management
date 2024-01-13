@@ -475,15 +475,33 @@ const AddTenantDetails = ({
 
   // validation
   const [tenantName, setTenantName] = useState("");
-  const [validationNameMessage, setValidationNameMessage] = useState("Please enter the Name");
+  const [validationNameMessage, setValidationNameMessage] = useState(
+    "Please enter the Name"
+  );
   const handleInputNameChange = (e) => {
-    const inputValue = e.target.value;
-    const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
-    filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
-      : setValidationNameMessage("");
+    // const inputValue = e.target.value;
+    // const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
+    // filteredValue === ""
+    //   ? setValidationNameMessage("Please enter the Name")
+    //   : setValidationNameMessage("");
 
-    setTenantName(filteredValue);
+    // setTenantName(filteredValue);
+    const inputValue = e.target.value;
+    const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+
+    if (/^\d+$/.test(trimmedValue)) {
+      setValidationNameMessage(
+        "Name must contain at least one non-digit character"
+      );
+    } else {
+      const filteredValue = trimmedValue.replace(/[^A-Za-z\d\s]/g, ""); // Remove non-alphabetic characters
+      if (filteredValue === "") {
+        setValidationNameMessage("Please enter a valid Name");
+      } else {
+        setValidationNameMessage("");
+      }
+      setTenantName(filteredValue);
+    }
   };
 
   const [tenantPhone, setTenantPhone] = useState("");
@@ -505,7 +523,8 @@ const AddTenantDetails = ({
 
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
-  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState("enter valid amount");
+  const [validationRentAmtMessage, setValidationRentAmtMessage] =
+    useState("enter valid amount");
 
   const handleRentAmtChange = (e) => {
     const inputValue = e.target.value;
@@ -520,7 +539,9 @@ const AddTenantDetails = ({
 
   // validation for adhar number
   const [tenantAdharNo, setTenantAdharNo] = useState("");
-  const [validationAdharMessage, setValidationAdharMessage] = useState("enter valid aadhar number");
+  const [validationAdharMessage, setValidationAdharMessage] = useState(
+    "enter valid aadhar number"
+  );
 
   const handleAdharChange = (e) => {
     const inputValue = e.target.value;
@@ -536,7 +557,9 @@ const AddTenantDetails = ({
   };
   // validation for pan number
   const [tenantPanNo, setTenantPanNo] = useState("");
-  const [validationPanMessage, setValidationPanMessage] = useState("enter valid Pan number");
+  const [validationPanMessage, setValidationPanMessage] = useState(
+    "enter valid Pan number"
+  );
 
   const handlePanChange = (e) => {
     const inputValue = e.target.value;
@@ -589,7 +612,9 @@ const AddTenantDetails = ({
   // validation for address
 
   const [tenantAddr, setTenantAddr] = useState("");
-  const [validationAddressMessage, setValidationAddressMessage] = useState("enter valid Address");
+  const [validationAddressMessage, setValidationAddressMessage] = useState(
+    "enter valid Address"
+  );
 
   const handleAddressChange = (e) => {
     const inputValue = e.target.value;
@@ -604,40 +629,31 @@ const AddTenantDetails = ({
 
   /////////////////////////////////////////////////////////////
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-useEffect(()=>{
-
-
-  if(validationNameMessage===""
-   && validationPhoneMessage==="" 
-  && validationRentAmtMessage==="" 
-  && validationAdharMessage==="" 
-  && validationPanMessage===""
-    && validationChequeMessage==="" 
-    && validationBankMessage==="" &&
-    validationAddressMessage===""
-    )
-  {
-  
-    setNextButtonDisabled(false)
-   
-
-  }
-  else
-  {
-    
-    setNextButtonDisabled(true)
-  }
-},[validationNameMessage,
-  validationPhoneMessage,
-  validationRentAmtMessage,
-  validationAdharMessage,
-  validationPanMessage,
-  validationChequeMessage,
-  validationBankMessage,
-  validationAddressMessage
-])
-
-  
+  useEffect(() => {
+    if (
+      validationNameMessage === "" &&
+      validationPhoneMessage === "" &&
+      validationRentAmtMessage === "" &&
+      validationAdharMessage === "" &&
+      validationPanMessage === "" &&
+      validationChequeMessage === "" &&
+      validationBankMessage === "" &&
+      validationAddressMessage === ""
+    ) {
+      setNextButtonDisabled(false);
+    } else {
+      setNextButtonDisabled(true);
+    }
+  }, [
+    validationNameMessage,
+    validationPhoneMessage,
+    validationRentAmtMessage,
+    validationAdharMessage,
+    validationPanMessage,
+    validationChequeMessage,
+    validationBankMessage,
+    validationAddressMessage,
+  ]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -1192,26 +1208,28 @@ useEffect(()=>{
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
                     {/* <Link to="/tenant-detail"> */}
-                    {isNextButtonDisabled ?( <button
-                      variant="success"
-                      className="btn sub_form btn_continue Save float-right"
-                      id="savebtn"
-                      type="submit"
-                      disabled={ true}
-                      // disabled={isNextButtonDisabled}
-                    >
-                      Save
-                    </button>):(
-                       <button
-                       variant="success"
-                       className="btn sub_form btn_continue Save float-right"
-                       id="savebtn"
-                       type="submit"
-                       disabled={ output!="V"?true:false}
-                       // disabled={isNextButtonDisabled}
-                     >
-                       Save
-                     </button>
+                    {isNextButtonDisabled ? (
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right"
+                        id="savebtn"
+                        type="submit"
+                        disabled={true}
+                        // disabled={isNextButtonDisabled}
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right"
+                        id="savebtn"
+                        type="submit"
+                        disabled={output != "V" ? true : false}
+                        // disabled={isNextButtonDisabled}
+                      >
+                        Save
+                      </button>
                     )}
                     {/* <button
                       variant="success"

@@ -28,6 +28,8 @@ const PropertyDetail = ({
   useEffect(() => {
     getDoorNo();
     fun();
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getAllSettings({
       OrganizationId: myuser && myuser.OrganizationId,
@@ -199,6 +201,7 @@ const PropertyDetail = ({
         deactive_reason: deactive_reason,
       };
       deactiveProperty(reason);
+      getParticularProperty({ OrganizationId: user && user.OrganizationId });
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
       SetRoomAlreadyExist({
         display: "none",
@@ -272,8 +275,8 @@ const PropertyDetail = ({
                 style={{ cursor: "pointer" }}
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}
-                alt="Add Prop"
-                title="Add Prop"
+                alt="Add Property"
+                title="Add Property"
               />
               <img
                 className="ml-2"
@@ -282,7 +285,7 @@ const PropertyDetail = ({
                 onClick={() => refresh()}
                 src={require("../../static/images/refresh-icon.png")}
                 alt="refresh"
-                title="refresh"
+                title="Refresh"
               />
             </div>
           </div>
@@ -408,8 +411,8 @@ const PropertyDetail = ({
                                             onDelete(Val._id, Val.shopDoorNo)
                                           }
                                           src={require("../../static/images/delete.png")}
-                                          alt="Delete Property "
-                                          title="Delete Property"
+                                          alt="Deactivate "
+                                          title="Deactivate"
                                         />
                                       </>
                                     ) : (

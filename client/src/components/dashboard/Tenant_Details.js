@@ -411,7 +411,7 @@ const Tenant_Details = ({
                   onClick={() => refresh()}
                   src={require("../../static/images/refresh-icon.png")}
                   alt="refresh"
-                  title="refresh"
+                  title="Refresh"
                 />
               </div>
             </div>
@@ -517,8 +517,8 @@ const Tenant_Details = ({
                                             )
                                           }
                                           src={require("../../static/images/delete.png")}
-                                          alt="Delete"
-                                          title="Delete"
+                                          alt="Deactivate"
+                                          title="Deactivate"
                                         />
                                       </td>
                                     ) : (
