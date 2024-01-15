@@ -13,161 +13,23 @@ import Pagination from "../layout/Pagination";
 
 const ContactReport = ({
   auth: { user },
-  tenants: { particular_org_data, sortetenantdetails, particular_org_loc },
-
+  tenants: { sortetenantdetails },
+  ParticularTenantFilter,
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
-  deactiveTenantsDetails,
 }) => {
   const [freshpage, setFreshPage] = useState(true);
-  const checkboxRef = useRef(null);
-  const myuser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     ParticularTenantFilter();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
-
-    fun();
   }, [freshpage]);
-
-  const [doorNumber, SetDoorNumber] = useState("");
-  const [tenantName, SetTenantName] = useState("");
-  const [PropertyName, SetPropertyName] = useState("");
-  const [sellocation, setselLoction] = useState(null);
-  const [location, setlocation] = useState([]);
-  const Loc = [];
-  const { Location } = particular_org_loc[0];
-
-  const fun = () => {
-    getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    particular_org_loc[0] &&
-      Location.map((ele) => {
-        Loc.push({
-          label: ele,
-          value: ele,
-        });
-        setlocation(Loc);
-      });
-  };
-
-  // Modal for Deactivation
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  const [selectDno, SetDoornumber] = useState();
-  const handleShowDno = () => SetDoornumber(false);
-  const [DeactiveThisBiuldingID, setDeactiveThisBiuldingID] = useState("");
-  const handleCloseDno = () => {
-    SetDoornumber(false);
-    setCheckData([]);
-  };
-
-  const [tId, setId] = useState("");
-  const [dno, SetDno] = useState([]);
-  const onDelete = (id, Dno, Val) => {
-    setId(id);
-
-    setDeactiveThisBiuldingID(Val.BuildingId);
-    if (Dno.length >= 1) {
-      SetDno(Dno);
-      SetDoornumber(true);
-    } else {
-      SetDno(Dno);
-      handleShow();
-    }
-  };
-  // Edit model state
-  const [EditTenant, setEditTenant] = useState(null);
-
-  const [showEditModal, setShowEditModal] = useState(false);
-  const onEdit = (val) => {
-    getTenantDetails(val);
-    setEditTenant(val);
-  };
-
-  // const [showEditModal, setShowEditModal] = useState(false);
-  const handleEditModalClose = () => setShowEditModal(false);
-  const handleOpen = () => setShowEditModal(true);
-
-  const [formData, setFormData] = useState({
-    deactive_reason: "",
-    DoorNumber: "",
-    isSubmitted: false,
-  });
-  const { deactive_reason } = formData;
-
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-  const [selectedDoorNumber, SetSelectedDoorNumber] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
-  const handleOnChange = () => {
-    setIsChecked(!isChecked);
-  };
-
-  const [checkData, setCheckData] = useState([]);
-  const HandelCheck = (e) => {
-    var updatedlist = [...checkData];
-    if (e.target.checked) {
-      updatedlist = [...checkData, { label: e.target.value }];
-    } else {
-      updatedlist.splice(checkData.indexOf(e.target.value), 1);
-    }
-    setCheckData(updatedlist);
-  };
-
-  const onchangeLocation = (loc) => {
-    setselLoction(loc);
-    ParticularTenantFilter({
-      LocationName: loc.label,
-    });
-    SetDoorNumber("");
-  };
-
-  const onDeactivateall = (e) => {
-    e.preventDefault();
-    SetDoornumber(false);
-    const reason = {
-      OrganizationId: user && user.OrganizationId,
-      Dno: checkData.length !== 0 ? checkData : dno,
-      deactive_reason: deactive_reason,
-      tid: tId,
-      isSubmitted: "true",
-      BiuldingID: DeactiveThisBiuldingID,
-    };
-
-    deactiveTenantsDetails(reason);
-    handleClose();
-    setFreshPage(!freshpage);
-    setCheckData([]);
-  };
-  const [Error, setError] = useState("");
-  const onDeactivate = (e) => {
-    e.preventDefault();
-    if (checkData.length == 0) {
-      setError("Please Select DoorNumber");
-      //alert();
-    } else {
-      SetDoornumber(false);
-      const reason = {
-        OrganizationId: user && user.OrganizationId,
-        Dno: checkData.length !== 0 ? checkData : dno,
-        deactive_reason: deactive_reason,
-        tid: tId,
-        isSubmitted: "true",
-        BiuldingID: DeactiveThisBiuldingID,
-      };
-
-      deactiveTenantsDetails(reason);
-      handleClose();
-      setFreshPage(!freshpage);
-      setCheckData([]);
-    }
-  };
-
-  const [showadd, setShowadd] = useState(false);
+  useEffect(() => {
+    getTenantDetails();
+    getParticularProperty();
+  }, []);
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
@@ -182,87 +44,7 @@ const ContactReport = ({
     //nmbr is page  number
     setCurrentData(nmbr);
   };
-  const refresh = () => {
-    // ParticularTenant("");
-    ParticularTenantFilter("");
-    getParticularOrg("");
-    getParticularProperty("");
-    fun();
-    SetDoorNumber("");
-    setselLoction(null);
-    SetTenantName("");
-    SetPropertyName("");
-  };
 
-  const onchangeDoorNumberChange = (e) => {
-    SetDoorNumber(e);
-
-    ParticularTenantFilter({
-      // LocationName: sellocation,
-      DoorNumber: e.value,
-    });
-    setselLoction(null);
-    SetTenantName("");
-    SetPropertyName("");
-  };
-
-  //propertywise
-
-  const onchangePrperty = (e) => {
-    SetPropertyName(e);
-    console.log(e);
-    ParticularTenantFilter({
-      propertyname: e.label,
-    });
-
-    SetDoorNumber("");
-    setselLoction("");
-    SetTenantName("");
-  };
-
-  //namewise
-
-  const onchangeTenantNames = (e) => {
-    SetTenantName(e);
-    ParticularTenantFilter({
-      tenantName: e.value,
-    });
-    SetPropertyName("");
-    SetDoorNumber("");
-    setselLoction("");
-  };
-
-  //propertywise
-  const propertyname = [];
-  particular_org_data &&
-    particular_org_data.map((ele) =>
-      propertyname.push({
-        label: ele.BuildingName,
-        value: ele.BuildingId,
-      })
-    );
-  let Dno = [];
-  particular_org_data &&
-    particular_org_data.map(
-      (ele) =>
-        ele.shopDoorNo &&
-        ele.shopDoorNo.map((dno) =>
-          Dno.push({
-            label: dno.doorNo,
-            value: dno.doorNo,
-          })
-        )
-    );
-  let TenantNames = [];
-  let cntDeActiveTenant = 0;
-  sortetenantdetails &&
-    sortetenantdetails.map((ele) => {
-      if (ele.tenantstatus !== "Active") cntDeActiveTenant++;
-      TenantNames.push({
-        label: ele.tenantName,
-        value: ele._id,
-      });
-    });
   console.log("currentDatas", currentDatas);
   return (
     <>
@@ -371,6 +153,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   //getAllShops,
   // deactiveProperty,
+  ParticularTenantFilter,
   getParticularOrg,
   //getAllSettings,
   getParticularProperty,
