@@ -423,7 +423,7 @@ const AddAdminUserModal = ({
               </div>
               <div className="col-lg-6  col-sm-12 col-md-12">
                 {" "}
-                <label>Confirm Password*:</label>
+                <label>Confirm Password *:</label>
                 <input
                   placeholder="Confirm Password"
                   type="password"
