@@ -160,7 +160,35 @@ const AllReport = ({
                 </p>
               </div>
             </div>
-            <div className="col-lg-3  col-sm-12 col-md-12"></div>
+            <div
+              className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+              id="shadow-bck"
+            >
+              <div className="text-center">
+                <Link to="/Contact-Report">
+                  {" "}
+                  <img
+                    className="img_icon_repDashboard log "
+                    src={propreport}
+                    alt="IMG1"
+                  />
+                </Link>
+
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        color: "black",
+                      }}
+                    >
+                      <b className="h4">
+                        Contact Report<br></br> {""}
+                      </b>
+                    </p>
+                  </center>
+                </p>
+              </div>
+            </div>
             <div className="col-lg-3  col-sm-12 col-md-12"></div>
           </div>
         </section>
