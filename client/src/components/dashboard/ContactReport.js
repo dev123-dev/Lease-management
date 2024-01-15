@@ -1,11 +1,8 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
-
+import { CSVLink } from "react-csv";
 import { connect } from "react-redux";
 import {
-  // ParticularTenant,
-  getParticularOrg,
-  getParticularProperty,
-  getTenantDetails,
+
   ParticularTenantFilter,
 } from "../../actions/tenants";
 
@@ -15,21 +12,15 @@ const ContactReport = ({
   auth: { user },
   tenants: { sortetenantdetails },
   ParticularTenantFilter,
-  getParticularOrg,
-  getParticularProperty,
-  getTenantDetails,
+ 
 }) => {
   const [freshpage, setFreshPage] = useState(true);
 
   useEffect(() => {
     ParticularTenantFilter();
-    getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+  
   }, [freshpage]);
-  useEffect(() => {
-    getTenantDetails();
-    getParticularProperty();
-  }, []);
+  
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
@@ -44,6 +35,41 @@ const ContactReport = ({
     //nmbr is page  number
     setCurrentData(nmbr);
   };
+  const csvFreeZonedData = [
+    [
+      "Tenant Name",
+      "Building Name",
+      "Location",
+      "Door No.",
+      "Rent Amount",
+      "leaseEndDate",
+      "Firm Name",
+      "Phone No",
+      "Pan No",
+      "Aadhar No.",
+    
+
+    ],
+  ];
+  sortetenantdetails.map((sortetenantdetails) => {
+    var doorNo = sortetenantdetails.shopDoorNo.map((e) => e.value).join(', '); // Join door numbers into a single string
+    var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
+    var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
+    return csvFreeZonedData.push([
+      sortetenantdetails.tenantName,
+      sortetenantdetails.BuildingName,
+      sortetenantdetails.Location,
+      doorNo,
+      sortetenantdetails.tenantRentAmount,
+      tenantLeaseEndDate,
+      sortetenantdetails.tenantFirmName,
+      sortetenantdetails.tenantPhone,
+      sortetenantdetails.tenantPanNo,
+       sortetenantdetails.tenantAdharNo,
+     
+    ]);
+  });
+
 
   console.log("currentDatas", currentDatas);
   return (
@@ -54,8 +80,18 @@ const ContactReport = ({
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">Contact Report</h2>
             </div>
+            <div className="col-lg-7 mt-5 text-right ">
+            <CSVLink data={csvFreeZonedData}>
+                <img
+                  className="img_icon_size log float-right ml-4"
+                  src={require("../../static/images/excel_icon.png")}
+                  alt="Excel-Export"
+                  title="Excel-Export"
+                />
+              </CSVLink>
+            </div>
           </div>
-
+         
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
               <div className="row ">
@@ -73,7 +109,7 @@ const ContactReport = ({
                         >
                           Tenant Name
                         </th>
-                        {/* <th>Door Number</th> */}
+                   
                         <th>Building Name</th>
                         <th>Door No</th>
                         <th> Location</th>
@@ -108,7 +144,7 @@ const ContactReport = ({
                               <td>{Val.tenantPanNo}</td>
                               <td>{Val.tenantAdharNo}</td>
                               <td>{Val.tenantFirmName}</td>
-                              {/* <td title={AddDetail.shopDoorNo}> */}
+                         
                               <td>{Val.tenantLeaseEndDate}</td>
                             </tr>
                           );
@@ -151,11 +187,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 export default connect(mapStateToProps, {
-  //getAllShops,
-  // deactiveProperty,
+  
   ParticularTenantFilter,
-  getParticularOrg,
-  //getAllSettings,
-  getParticularProperty,
-  getTenantDetails,
+
+  
 })(ContactReport);
