@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import locreport from "../../static/images/locrep.png";
 
 import propreport from "../../static/images/propreport.png";
+import Contactreport from "../../static/images/contactreport.png";
 // import { Roller } from "react-awesome-spinners";
 import { ParticularTenant, getPropertyTenantData } from "../../actions/tenants";
 const AllReport = ({
@@ -169,7 +170,7 @@ const AllReport = ({
                   {" "}
                   <img
                     className="img_icon_repDashboard log "
-                    src={propreport}
+                    src={Contactreport}
                     alt="IMG1"
                   />
                 </Link>

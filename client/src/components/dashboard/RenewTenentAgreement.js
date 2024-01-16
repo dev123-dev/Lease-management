@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
-
+import Select from "react-select";
 const RenewTenentAgreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenantsData,
@@ -401,6 +401,35 @@ const RenewTenentAgreement = ({
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
             <label>{endDate}</label>
+          </div>
+        </div>
+        <div className="row py-2">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+            <label> Payment Mode:</label>
+          </div>
+
+          <div className="col-lg-6  col-md-4 col-sm-4 col-12">
+          <Select
+                  name="usergroup"
+                  // options={UserGroups}
+                  isSearchable={false}
+                  placeholder="Select"
+                  // onChange={(e) => onuser(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 20,
+                    minHeight: 20,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                  required
+                />
+            <h6 style={{ color: "red" }}>
+            </h6>
           </div>
         </div>
         <div className="row py-2">

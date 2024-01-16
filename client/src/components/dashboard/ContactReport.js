@@ -61,22 +61,42 @@ const ContactReport = ({
       sortetenantdetails.tenantAdharNo,
     ]);
   });
+
+    //Print 
+  const [isPrinting, setIsPrinting] = useState(false);
+  useEffect(() => {
+    // Clean up after component unmounts
+    return () => {
+      setIsPrinting(false);
+    };
+  }, []);
+
+
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
     color: "white",
     fontWeight: "bold",
   });
+
+  const OnPrint = () => {
+    setIsPrinting(true);
+    handlePrint();
+  };
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: "Contact Report",
-    //onAfterPrint: () => alert("print success"),
-    onAfterPrint: () =>
-      setShowPrint({
-        backgroundColor: "#095a4a",
-        color: "white",
-        fontWeight: "bold",
-      }),
+
+    onAfterPrint: () => {
+      setTimeout(() => {
+        setIsPrinting(false);
+        setShowPrint({
+          backgroundColor: "#095a4a",
+          color: "white",
+          fontWeight: "bold",
+        });
+      }, 200);
+    },
   });
 
   return (
@@ -101,8 +121,7 @@ const ContactReport = ({
                 <></>
               )}
 
-              <button
-                className="img_icon_size log  ml-2"
+<button
                 style={{ border: "none" }}
                 onClick={async () => {
                   await setShowPrint({
@@ -111,11 +130,12 @@ const ContactReport = ({
                     fontWeight: "bold",
                   });
 
-                  handlePrint();
+                  OnPrint();
                 }}
               >
                 <img
                   height="20px"
+                  //  onClick={() => refresh()}
                   src={require("../../static/images/print.png")}
                   alt="Print"
                   title="Print"
@@ -123,9 +143,10 @@ const ContactReport = ({
               </button>
             </div>
           </div>
-          <div ref={componentRef}>
+         
             <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
               <div className="col">
+              <div ref={componentRef}>
                 <div className="row ">
                   <div className="col-lg-1"></div>
                   <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -163,13 +184,27 @@ const ContactReport = ({
                                   {Val.tenantName}
                                 </td>
                                 <td>{Val.BuildingName}</td>
-                                <td>
+                                {/* <td>
                                   <img
                                     className="img_icon_size log"
                                     src={require("../../static/images/info.png")}
                                     alt="Govt Cards"
                                     title={Val.shopDoorNo.map((e) => e.value)}
                                   />
+                                </td> */}
+                                <td>
+                                  {isPrinting ? (
+                                    Val.shopDoorNo
+                                      .map((e) => e.value)
+                                      .join(", ")
+                                  ) : (
+                                    <img
+                                      className="img_icon_size log"
+                                      src={require("../../static/images/info.png")}
+                                      alt="shop no."
+                                      title={Val.shopDoorNo.map((e) => e.value)}
+                                    />
+                                  )}
                                 </td>
                                 <td>{Val.Location}</td>
                                 <td>{Val.tenantRentAmount}</td>
@@ -187,7 +222,7 @@ const ContactReport = ({
                   </div>
                   <div className="col-lg-1"></div>
                 </div>
-
+</div>
                 <div className="row">
                   <div className="col-lg-6">
                     {sortetenantdetails && sortetenantdetails.length !== 0 ? (
@@ -209,7 +244,7 @@ const ContactReport = ({
                 </div>
               </div>
             </div>
-          </div>
+     
         </div>
       </div>
     </>

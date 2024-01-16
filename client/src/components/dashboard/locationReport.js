@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment,useRef } from "react";
 import { connect } from "react-redux";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
@@ -14,6 +14,7 @@ import {
 } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+import { useReactToPrint } from "react-to-print";
 const LocationReport = ({
   auth: { user },
   tenants: { particular_org_data, particular_org_loc },
@@ -230,7 +231,41 @@ const LocationReport = ({
     ]);
   });
 
+  //Print 
+  const [isPrinting, setIsPrinting] = useState(false);
+  useEffect(() => {
+    // Clean up after component unmounts
+    return () => {
+      setIsPrinting(false);
+    };
+  }, []);
 
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
+  
+  const OnPrint = () => {
+    setIsPrinting(true);
+    handlePrint();
+  };
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Location Report",
+
+    onAfterPrint: () => {
+      setTimeout(() => {
+        setIsPrinting(false);
+        setShowPrint({
+          backgroundColor: "#095a4a",
+          color: "white",
+          fontWeight: "bold",
+        });
+      }, 200);
+    },
+  });
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -273,6 +308,26 @@ const LocationReport = ({
                               
                             />
                           </CSVLink>
+                          <button
+                style={{ border: "none" }}
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  OnPrint();
+                }}
+              >
+                <img
+                  height="20px"
+                  //  onClick={() => refresh()}
+                  src={require("../../static/images/print.png")}
+                  alt="Print"
+                  title="Print"
+                />
+              </button>
                           </>
                           ) : (
                             <>
@@ -297,6 +352,7 @@ const LocationReport = ({
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
+            <div ref={componentRef}>
               <div className="row ">
                 <div className="col-lg-1"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -308,15 +364,16 @@ const LocationReport = ({
                       <tr>
                         <th
                           className="headcolstatic"
-                          style={{ height: "-10px !important" }}
+                          style={showPrint}
+                          // style={{ height: "-10px !important" }}
                         >
                           Building Name
                         </th>
                         {/* <th>Door Number</th> */}
 
-                        <th>Address</th>
-                        <th>Location</th>
-                        <th> Total Door No</th>
+                        <th style={showPrint}>Address</th>
+                        <th style={showPrint}>Location</th>
+                        <th style={showPrint}> Total Door No</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -344,25 +401,21 @@ const LocationReport = ({
                                   })} */}
                                 {Val.Location}
                               </td>
-                              <td>
-                                <img
-                                  className="img_icon_size log"
-                                  src={require("../../static/images/info.png")}
-                                  alt="shop no."
-                                  title={Val.shopDoorNo.map((e) => e.doorNo)}
-                                />
-                                {/* {Val.shopDoorNo &&
-                                  Val.shopDoorNo.map((ele) => {
-                                    <p key={idx}></p>;
-                                    if (ele.status === "Acquired") {
-                                      return (
-                                        <div className="dno">
-                                          {ele.doorNo + ","}
-                                        </div>
-                                      );
-                                    }
-                                  })} */}
-                              </td>
+                            
+                               <td>
+                                  {isPrinting ? (
+                                    Val.shopDoorNo
+                                      .map((e) => e.doorNo)
+                                      .join(", ")
+                                  ) : (
+                                    <img
+                                      className="img_icon_size log"
+                                      src={require("../../static/images/info.png")}
+                                      alt="shop no."
+                                      title={Val.shopDoorNo.map((e) => e.doorNo)}
+                                    />
+                                  )}
+                                </td>
                             </tr>
                           );
                         })}
@@ -371,7 +424,7 @@ const LocationReport = ({
                 </div>
                 <div className="col-lg-1"></div>
               </div>
-
+</div>
               <div className="row">
                 <div className="col-lg-6">
                   {particular_org_data && particular_org_data.length !== 0 ? (
