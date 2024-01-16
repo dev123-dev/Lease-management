@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Fragment } from "react";
 import { connect } from "react-redux";
+import { CSVLink } from "react-csv";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
@@ -35,9 +36,9 @@ const BuildingReport = ({
     particular_org_data.map((ele) => {
       return ele._id;
     });
-
-  useEffect(() => {
     const myuser = JSON.parse(localStorage.getItem("user"));
+  useEffect(() => {
+ 
     fun();
     getPropertyTenantData({
       PropertyId: propertyId,
@@ -205,6 +206,41 @@ const BuildingReport = ({
   };
  
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
+  const csvPropertyReportData = [
+    [    
+      "Building Name",
+      "Address",
+      "Location",
+      "Unoccupied Door No.",
+      "occupied Door No.",
+      "Monthly Rent Amount",
+      "Deposit Amount",
+    ],
+  ];
+
+  get_property_related_tenant.map((get_property_related_tenant) => {
+    var unOccdoorNo = get_property_related_tenant.UnOccupied
+      .filter((e) => e.status === "Avaiable")
+      .map((ele) => ele.doorNo)
+      .join(', '); // Join door numbers into a single string
+      var OccdoorNo = get_property_related_tenant.shopDoorNo
+      .filter((e) => e.status === "Acquired")
+      .map((ele) => ele.label)
+      .join(', '); // Join door numbers into a single string
+  
+   // You can use console.log or do something else with the result
+    return csvPropertyReportData.push([
+      get_property_related_tenant.BuildingName,
+      get_property_related_tenant.Location,
+      get_property_related_tenant.Location,
+      unOccdoorNo,
+      OccdoorNo,
+      get_property_related_tenant.tenantRentAmount,
+      get_property_related_tenant.tenantDepositAmt,
+   
+     
+    ]);
+  });
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -212,6 +248,20 @@ const BuildingReport = ({
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">Property Report</h2>
+            </div>
+            <div className="col-lg-7 mt-5 text-right ">
+            {myuser.usergroup === "Admin" ? (
+                            <>  
+            <CSVLink data={csvPropertyReportData}>
+                <img
+                  className="img_icon_size log float-right ml-4"
+                  src={require("../../static/images/excel_icon.png")}
+                  alt="Excel-Export"
+                  title="Excel-Export"
+                />
+              </CSVLink>
+              </>
+              ):(<></>)}
             </div>
             {/* <div className="col-lg-5 mt-3">
               <Select

@@ -10,6 +10,7 @@ import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
+import { CSVLink } from "react-csv";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
   tenants: { allorg },
@@ -97,6 +98,42 @@ const TenantReport = ({
         fontWeight: "bold",
       }),
   });
+  const csvTenantReportData = [
+    [
+      " Name",
+      "Building Name",
+      "File No.",
+      "Location",
+      "Stamp Duty",
+      "Expiry Date",
+      "Next Rent Amount",
+      "Agreement Status",
+   
+     
+    
+
+    ],
+  ];
+  expReport.map((expReport) => {
+    // var doorNo = expReport.shopDoorNo.map((e) => e.value).join(', '); // Join door numbers into a single string
+    var ED = expReport.tenantLeaseEndDate.split(/\D/g);
+    var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
+    return csvTenantReportData.push([
+      expReport.tenantName,
+      expReport.BuildingName,
+      expReport.tenantFileNo,
+    
+      expReport.Location,
+            expReport.stampDuty,
+      tenantLeaseEndDate,
+      expReport.chargesCal,
+      expReport.AgreementStatus,
+
+   
+     
+    ]);
+  });
+
   //console.log("finalDataRep", finalDataRep);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -240,6 +277,16 @@ const TenantReport = ({
                       title="Print"
                     />
                   </button>
+                  {myuser.usergroup === "Admin" ? (
+                  <CSVLink data={csvTenantReportData}>
+                <img
+                  className="img_icon_size log float-right ml-4"
+                  src={require("../../static/images/excel_icon.png")}
+                  alt="Excel-Export"
+                  title="Excel-Export"
+                  />
+              </CSVLink>
+              ):(<></>)}
                 </div>
               </div>
 

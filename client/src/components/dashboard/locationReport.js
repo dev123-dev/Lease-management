@@ -4,6 +4,7 @@ import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import EditProperty from "../dashboard/EditProperty";
+import { CSVLink } from "react-csv";
 import {
   getParticularProperty,
   getParticularOrg,
@@ -22,8 +23,9 @@ const LocationReport = ({
   getParticularProperty,
 }) => {
   // console.log("data", particular_org_data);
+  const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    const myuser = JSON.parse(localStorage.getItem("user"));
+   
 
     fun();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
@@ -32,6 +34,7 @@ const LocationReport = ({
       userId: myuser && myuser._id,
     });
   }, []);
+
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
     color: "white",
@@ -204,6 +207,30 @@ const LocationReport = ({
     SetLocation(null);
   };
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
+
+  const csvLocationData = [
+    [
+ 
+      "Building Name",
+      "Address",
+      "Location",
+      "Door No.",  
+
+    ],
+  ];
+  particular_org_data.map((particular_org_data) => {
+    var doorNo = particular_org_data.shopDoorNo.map((e) => e.doorNo).join(', '); // Join door numbers into a single string
+    return csvLocationData.push([
+      particular_org_data.BuildingName,
+      particular_org_data.shopAddress,
+      particular_org_data.Location,
+      doorNo,
+     
+     
+    ]);
+  });
+
+
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -235,15 +262,25 @@ const LocationReport = ({
             </div>
             <div className="col-lg-2 text-end mt-sm-5">
               {" "}
-              {/* <img
-                height="20px"
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add Prop"
-                title="Add Prop"
-              /> */}
-              <img
+              {myuser.usergroup === "Admin" ? (
+                            <>  
+                             <CSVLink data={csvLocationData}>
+                            <img
+                              className="img_icon_size log  ml-4"
+                              src={require("../../static/images/excel_icon.png")}
+                              alt="Excel-Export"
+                              title="Excel-Export"
+                              
+                            />
+                          </CSVLink>
+                          </>
+                          ) : (
+                            <>
+                             
+                            </>
+                          )}
+            
+                <img
                 className="ml-2"
                 style={{ cursor: "pointer" }}
                 height="20px"
@@ -252,6 +289,9 @@ const LocationReport = ({
                 alt="Refresh"
                 title="Refresh"
               />
+           
+            
+             
             </div>
           </div>
 
@@ -308,7 +348,7 @@ const LocationReport = ({
                                 <img
                                   className="img_icon_size log"
                                   src={require("../../static/images/info.png")}
-                                  alt="Govt Cards"
+                                  alt="shop no."
                                   title={Val.shopDoorNo.map((e) => e.doorNo)}
                                 />
                                 {/* {Val.shopDoorNo &&
