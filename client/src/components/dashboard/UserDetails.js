@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment,useRef } from "react";
 import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -13,7 +13,7 @@ import {
   get_particular_org_user,
 } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
-
+import { useReactToPrint } from "react-to-print";
 const UserDetails = ({
   auth: { user },
   tenants: { get_particularOrg_user }, //this is a reudcer
@@ -133,6 +133,23 @@ const UserDetails = ({
       get_particularOrg_user.useraddress,
     ]);
   });
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Contact Report",
+    //onAfterPrint: () => alert("print success"),
+    onAfterPrint: () =>
+      setShowPrint({
+        backgroundColor: "#095a4a",
+        color: "white",
+        fontWeight: "bold",
+      }),
+  });
 
   // console.log(get_particularOrg_user, "get_particularOrg_user");
   return (
@@ -154,7 +171,7 @@ const UserDetails = ({
                 style={{ cursor: "pointer" }}
                 title="Add User"
               />
-              {myuser.usergroup === "Admin" ? (
+              {myuser.usergroup === "Admin" ? (<>
                 <CSVLink data={csvUserData}>
                   <img
                     className="img_icon_size log float-right ml-2 mt-1"
@@ -163,14 +180,36 @@ const UserDetails = ({
                     title="Excel-Export"
                   />
                 </CSVLink>
+                <button
+                  style={{ border: "none" }}
+                  onClick={async () => {
+                    await setShowPrint({
+                      backgroundColor: "#095a4a",
+                      color: "black",
+                      fontWeight: "bold",
+                    });
+
+                    handlePrint();
+                  }}
+                >
+                  <img
+                    height="20px"
+                    //  onClick={() => refresh()}
+                    src={require("../../static/images/print.png")}
+                    alt="Print"
+                    title="Print"
+                  />
+                </button>
+                </>
               ) : (
                 <></>
               )}
             </div>
           </div>
-
+         
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col">
+            <div ref={componentRef}>
               <div className="row ">
                 <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -180,13 +219,13 @@ const UserDetails = ({
                   >
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Group</th>
-                        <th>Organization</th>
-                        <th>Address</th>
-                        <th>Operation</th>
+                        <th style={showPrint}>Name</th>
+                        <th style={showPrint}>Email</th>
+                        <th style={showPrint}>Phone</th>
+                        <th style={showPrint}>Group</th>
+                        <th style={showPrint}>Organization</th>
+                        <th style={showPrint}>Address</th>
+                        <th style={showPrint}>Operation</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -231,7 +270,7 @@ const UserDetails = ({
                 </div>
                 <div className="col-lg-1  col-sm-12 col-md-12"></div>
               </div>
-
+</div>
               <div className="row">
                 <div className="col-lg-6  col-sm-12 col-md-12 ">
                   {get_particularOrg_user &&
@@ -258,6 +297,7 @@ const UserDetails = ({
               </div>
             </div>
           </div>
+         
         </div>
       </div>
       {/* add model start */}

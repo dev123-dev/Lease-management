@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment ,useRef} from "react";
 import { connect } from "react-redux";
 import { CSVLink } from "react-csv";
 import AddShopDetails from "./AddShopDetails";
@@ -14,7 +14,7 @@ import {
   getAllShops,
   getPropertyTenantData,
 } from "../../actions/tenants";
-
+import { useReactToPrint } from "react-to-print";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
 const BuildingReport = ({
@@ -241,6 +241,23 @@ const BuildingReport = ({
      
     ]);
   });
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Contact Report",
+    //onAfterPrint: () => alert("print success"),
+    onAfterPrint: () =>
+      setShowPrint({
+        backgroundColor: "#095a4a",
+        color: "white",
+        fontWeight: "bold",
+      }),
+  });
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -254,12 +271,33 @@ const BuildingReport = ({
                             <>  
             <CSVLink data={csvPropertyReportData}>
                 <img
-                  className="img_icon_size log float-right ml-4"
+                  className="img_icon_size log float-right ml-2 mt-1"
                   src={require("../../static/images/excel_icon.png")}
                   alt="Excel-Export"
                   title="Excel-Export"
                 />
               </CSVLink>
+              <button
+             
+                  style={{ border: "none" }}
+                  onClick={async () => {
+                    await setShowPrint({
+                      backgroundColor: "#095a4a",
+                      color: "black",
+                      fontWeight: "bold",
+                    });
+
+                    handlePrint();
+                  }}
+                >
+                  <img
+                    height="20px"
+                    //  onClick={() => refresh()}
+                    src={require("../../static/images/print.png")}
+                    alt="Print"
+                    title="Print"
+                  />
+                </button>
               </>
               ):(<></>)}
             </div>
@@ -300,6 +338,7 @@ const BuildingReport = ({
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
+            <div ref={componentRef}>
               <div className="row ">
                 <div className="col-lg-1"></div>
                 <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -309,19 +348,20 @@ const BuildingReport = ({
                   >
                     <thead>
                       <tr>
-                        <th
-                          className="headcolstatic"
-                          style={{ height: "-10px !important" }}
+                        <th 
+                     
+                          className="headcolstatic "
+                          style={ showPrint }
                         >
                           Building Name
                         </th>
 
-                        <th>Address</th>
-                        <th>Location</th>
-                        <th> Unoccupied Door No</th>
-                        <th> Occupied Door No</th>
-                        <th>Monthly Rent Amount</th>
-                        <th>Deposit Amount</th>
+                        <th style={showPrint}>Address</th>
+                        <th style={showPrint}>Location</th>
+                        <th style={showPrint}> Unoccupied Door No</th>
+                        <th style={showPrint}> Occupied Door No</th>
+                        <th style={showPrint}>Monthly Rent Amount</th>
+                        <th style={showPrint}>Deposit Amount</th>
                       </tr>
                     </thead>
                     <tbody className="text-center">
@@ -387,7 +427,8 @@ const BuildingReport = ({
                 </div>
                 <div className="col-lg-1"></div>
               </div>
-
+              </div>
+             
               <div className="row">
                 <div className="col-lg-6">
                   {get_property_related_tenant &&
