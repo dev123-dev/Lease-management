@@ -1,9 +1,10 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import { connect } from "react-redux";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { CSVLink } from "react-csv";
+import { useReactToPrint } from "react-to-print";
 import EditProperty from "../dashboard/EditProperty";
 import {
   getParticularProperty,
@@ -253,6 +254,41 @@ const PropertyDetail = ({
       doorNo,
     ]);
   });
+  const [isPrinting, setIsPrinting] = useState(false);
+  useEffect(() => {
+    // Clean up after component unmounts
+    return () => {
+      setIsPrinting(false);
+    };
+  }, []);
+
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
+  //Print Property Detail
+  const OnPrint = () => {
+    setIsPrinting(true);
+    handlePrint();
+  };
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Property Detail",
+
+    onAfterPrint: () => {
+      setTimeout(() => {
+        setIsPrinting(false);
+        setShowPrint({
+          backgroundColor: "#095a4a",
+          color: "white",
+          fontWeight: "bold",
+        });
+      }, 200);
+    },
+  });
+
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -310,6 +346,26 @@ const PropertyDetail = ({
               ) : (
                 <></>
               )}
+              <button
+                style={{ border: "none" }}
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  OnPrint();
+                }}
+              >
+                <img
+                  height="20px"
+                  //  onClick={() => refresh()}
+                  src={require("../../static/images/print.png")}
+                  alt="Print"
+                  title="Print"
+                />
+              </button>
               <img
                 className="ml-2 float-right mt-1"
                 style={{ cursor: "pointer" }}
@@ -324,68 +380,66 @@ const PropertyDetail = ({
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col">
-              <div className="row ">
-                <div className="col-lg-1  col-sm-12 col-md-12"></div>
-                <div className="firstrowsticky body-inner no-padding table-responsive">
-                  <table
-                    className="table table-bordered table-striped table-hover mt-1"
-                    id="datatable2"
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          className="headcolstatic"
-                          style={{ height: "-10px !important" }}
-                        >
-                          Building Name
-                        </th>
-                        {/* <th>Door Number</th> */}
-                        <th>Location</th>
-                        {myuser.usergroup === "IT Department" ? (
-                          <>
-                            {" "}
-                            <th>Address</th>
-                            <th>Door No0</th>
-                          </>
-                        ) : (
-                          <>
-                            {/* <th>Hike %</th>
+              <div ref={componentRef}>
+                <div className="row ">
+                  <div className="col-lg-1  col-sm-12 col-md-12"></div>
+                  <div className="firstrowsticky body-inner no-padding table-responsive">
+                    <table
+                      className="table table-bordered table-striped table-hover mt-1"
+                      id="datatable2"
+                    >
+                      <thead>
+                        <tr>
+                          <th className="headcolstatic" style={showPrint}>
+                            Building Name
+                          </th>
+                          {/* <th>Door Number</th> */}
+                          <th style={showPrint}>Location</th>
+                          {myuser.usergroup === "IT Department" ? (
+                            <>
+                              {" "}
+                              <th style={showPrint}>Address</th>
+                              <th style={showPrint}>Door No0</th>
+                            </>
+                          ) : (
+                            <>
+                              {/* <th>Hike %</th>
                             <th>Stamp Duty</th>
                             <th>Lease Time Period</th> */}
-                            <th>Address</th>
-                            <th>Door No1</th>
-                          </>
-                        )}
+                              <th style={showPrint}>Address</th>
+                              <th style={showPrint}>Door No1</th>
+                            </>
+                          )}
 
-                        {myuser.usergroup === "IT Department" ? (
-                          <></>
-                        ) : (
-                          <>
-                            {" "}
-                            <th>Operation</th>
-                          </>
-                        )}
-                      </tr>
-                    </thead>
-                    <tbody className="text-center">
-                      {currentDatas &&
-                        currentDatas.map((Val, idx) => {
-                          return (
-                            <tr key={idx}>
-                              {Val.shopStatus === "Active" ? (
-                                <td className="headcolstatic secondlinebreak1">
-                                  {Val.BuildingName}
-                                </td>
-                              ) : (
-                                <td
-                                  style={{ backgroundColor: "#dda6a6" }}
-                                  className="headcolstatic secondlinebreak1"
-                                >
-                                  {Val.BuildingName}
-                                </td>
-                              )}
+                          {myuser.usergroup === "IT Department" ? (
+                            <></>
+                          ) : (
+                            <>
+                              {" "}
+                              <th style={showPrint}>Operation</th>
+                            </>
+                          )}
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        {currentDatas &&
+                          currentDatas.map((Val, idx) => {
+                            return (
+                              <tr key={idx}>
+                                {Val.shopStatus === "Active" ? (
+                                  <td className="headcolstatic secondlinebreak1">
+                                    {Val.BuildingName}
+                                  </td>
+                                ) : (
+                                  <td
+                                    style={{ backgroundColor: "#dda6a6" }}
+                                    className="headcolstatic secondlinebreak1"
+                                  >
+                                    {Val.BuildingName}
+                                  </td>
+                                )}
 
-                              {/* <td>
+                                {/* <td>
                                 {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
@@ -400,69 +454,75 @@ const PropertyDetail = ({
                                     }
                                   })}
                               </td> */}
-                              <td>{Val.Location}</td>
-                              {myuser.usergroup === "IT Department" ? (
-                                <></>
-                              ) : (
-                                <>
-                                  {/* <td>{Val.hike}</td>
+                                <td>{Val.Location}</td>
+                                {myuser.usergroup === "IT Department" ? (
+                                  <></>
+                                ) : (
+                                  <>
+                                    {/* <td>{Val.hike}</td>
                                   <td>{Val.stampDuty}</td>
                                   <td>{Val.leaseTimePeriod}</td> */}
-                                </>
-                              )}
+                                  </>
+                                )}
 
-                              <td>{Val.shopAddress}</td>
-                              <td>
-                                <img
-                                  className="img_icon_size log"
-                                  src={require("../../static/images/info.png")}
-                                  alt="Govt Cards"
-                                  onClick={() => openDoorNo(Val.shopDoorNo)}
-                                  // title={
-                                  //   Val && Val.shopDoorNo.map((e) => e.doorNo)
-                                  // }
-                                />
-                              </td>
-                              {myuser.usergroup === "Admin" ? (
-                                <>
-                                  {" "}
-                                  <td className=" text-center">
-                                    {Val.shopStatus === "Active" ? (
-                                      <>
-                                        <img
-                                          className="Cursor"
-                                          onClick={() => onEdit(Val)}
-                                          src={require("../../static/images/edit_icon.png")}
-                                          alt="Edit Property"
-                                          title="Edit Property"
-                                        />
-                                        &nbsp;
-                                        <img
-                                          className=" Cursor"
-                                          onClick={() =>
-                                            onDelete(Val._id, Val.shopDoorNo)
-                                          }
-                                          src={require("../../static/images/delete.png")}
-                                          alt="Deactivate "
-                                          title="Deactivate"
-                                        />
-                                      </>
-                                    ) : (
-                                      // <td></td>
-                                      <></>
-                                    )}
-                                  </td>
-                                </>
-                              ) : (
-                                <></>
-                              )}
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </table>
+                                <td>{Val.shopAddress}</td>
+                                <td>
+                                  {isPrinting ? (
+                                    Val.shopDoorNo
+                                      .map((e) => e.doorNo)
+                                      .join(", ")
+                                  ) : (
+                                    <img
+                                      className="img_icon_size log"
+                                      src={require("../../static/images/info.png")}
+                                      alt="shop no."
+                                      title={Val.shopDoorNo.map(
+                                        (e) => e.doorNo
+                                      )}
+                                    />
+                                  )}
+                                </td>
+                                {myuser.usergroup === "Admin" ? (
+                                  <>
+                                    {" "}
+                                    <td className=" text-center">
+                                      {Val.shopStatus === "Active" ? (
+                                        <>
+                                          <img
+                                            className="Cursor"
+                                            onClick={() => onEdit(Val)}
+                                            src={require("../../static/images/edit_icon.png")}
+                                            alt="Edit Property"
+                                            title="Edit Property"
+                                          />
+                                          &nbsp;
+                                          <img
+                                            className=" Cursor"
+                                            onClick={() =>
+                                              onDelete(Val._id, Val.shopDoorNo)
+                                            }
+                                            src={require("../../static/images/delete.png")}
+                                            alt="Deactivate "
+                                            title="Deactivate"
+                                          />
+                                        </>
+                                      ) : (
+                                        // <td></td>
+                                        <></>
+                                      )}
+                                    </td>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 </div>
-                <div className="col-lg-1  col-sm-12 col-md-12"></div>
               </div>
 
               <div className="row">
