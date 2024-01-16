@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
+import { CSVLink } from "react-csv";
 import EditProperty from "../dashboard/EditProperty";
 import {
   getParticularProperty,
@@ -236,6 +237,22 @@ const PropertyDetail = ({
     SetLocation(null);
   };
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
+
+  const csvPropertyData = [
+    ["Building Name", "Address", "Location", "Door No."],
+  ];
+
+  particular_org_data.map((particular_org_data) => {
+    var doorNo = particular_org_data.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
+
+    return csvPropertyData.push([
+      particular_org_data.BuildingName,
+      particular_org_data.shopAddress,
+      particular_org_data.Location,
+
+      doorNo,
+    ]);
+  });
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -272,14 +289,29 @@ const PropertyDetail = ({
               {" "}
               <img
                 height="20px"
+                className="img_icon_size log  ml-2"
                 style={{ cursor: "pointer" }}
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}
                 alt="Add Property"
                 title="Add Property"
               />
+              {myuser.usergroup === "Admin" ? (
+                <CSVLink data={csvPropertyData}>
+                  <img
+                    className="img_icon_size log  ml-2"
+                    src={require("../../static/images/excel_icon.png")}
+                    alt="Excel-Export"
+                    style={{ cursor: "pointer" }}
+                    height="20px"
+                    title="Excel-Export"
+                  />
+                </CSVLink>
+              ) : (
+                <></>
+              )}
               <img
-                className="ml-2"
+                className="ml-2 float-right mt-1"
                 style={{ cursor: "pointer" }}
                 height="20px"
                 onClick={() => refresh()}

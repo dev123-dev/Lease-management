@@ -1,6 +1,7 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { CSVLink } from "react-csv";
 import {
   // ParticularTenant,
   getParticularOrg,
@@ -302,7 +303,38 @@ const Tenant_Details = ({
         value: ele._id,
       });
     });
-  // console.log("currentDatas", currentDatas);
+  const csvTenantData = [
+    [
+      "Tenant Name",
+      "Building Name",
+      "Location",
+      "Door No.",
+      "Rent Amount",
+      "leaseEndDate",
+      "Firm Name",
+      "Phone No",
+      "Pan No",
+      "Aadhar No.",
+    ],
+  ];
+
+  sortetenantdetails.map((sortetenantdetails) => {
+    var doorNo = sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
+    var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
+    var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
+    return csvTenantData.push([
+      sortetenantdetails.tenantName,
+      sortetenantdetails.BuildingName,
+      sortetenantdetails.Location,
+      doorNo,
+      sortetenantdetails.tenantRentAmount,
+      tenantLeaseEndDate,
+      sortetenantdetails.tenantFirmName,
+      sortetenantdetails.tenantPhone,
+      sortetenantdetails.tenantPanNo,
+      sortetenantdetails.tenantAdharNo,
+    ]);
+  });
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -404,6 +436,21 @@ const Tenant_Details = ({
                     title="Add Tenant"
                   />
                 </Link>
+                {myuser.usergroup === "Admin" ? (
+                  <CSVLink data={csvTenantData}>
+                    <img
+                      className="img_icon_size log  ml-2"
+                      src={require("../../static/images/excel_icon.png")}
+                      alt="Excel-Export"
+                      style={{ cursor: "pointer" }}
+                      height="20px"
+                      title="Excel-Export"
+                    />
+                  </CSVLink>
+                ) : (
+                  <></>
+                )}
+
                 <img
                   className="ml-2"
                   style={{ cursor: "pointer" }}

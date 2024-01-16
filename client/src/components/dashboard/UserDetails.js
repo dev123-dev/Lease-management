@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
+import { CSVLink } from "react-csv";
 import "../../../src/styles/CustomisedStyle.css";
 import Pagination from "../layout/Pagination";
 import {
@@ -116,6 +117,23 @@ const UserDetails = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
+
+  const csvUserData = [
+    ["Name", "Email", "Phone", "Group", "Organization", "Address"],
+  ];
+  get_particularOrg_user.map((get_particularOrg_user) => {
+    return csvUserData.push([
+      get_particularOrg_user.username,
+      get_particularOrg_user.useremail,
+      get_particularOrg_user.userphone,
+      get_particularOrg_user.usergroup,
+
+      get_particularOrg_user.OrganizationName,
+
+      get_particularOrg_user.useraddress,
+    ]);
+  });
+
   // console.log(get_particularOrg_user, "get_particularOrg_user");
   return (
     <>
@@ -133,9 +151,21 @@ const UserDetails = ({
                 onClick={() => setShowadd(true)}
                 src={require("../../static/images/add-icon.png")}
                 alt="Add User"
-                style={{cursor:"pointer"}}
+                style={{ cursor: "pointer" }}
                 title="Add User"
               />
+              {myuser.usergroup === "Admin" ? (
+                <CSVLink data={csvUserData}>
+                  <img
+                    className="img_icon_size log float-right ml-2 mt-1"
+                    src={require("../../static/images/excel_icon.png")}
+                    alt="Excel-Export"
+                    title="Excel-Export"
+                  />
+                </CSVLink>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
 
