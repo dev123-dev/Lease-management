@@ -61,11 +61,22 @@ const ContactReport = ({
       sortetenantdetails.tenantAdharNo,
     ]);
   });
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: "Contact Report",
     //onAfterPrint: () => alert("print success"),
+    onAfterPrint: () =>
+      setShowPrint({
+        backgroundColor: "#095a4a",
+        color: "white",
+        fontWeight: "bold",
+      }),
   });
 
   return (
@@ -80,7 +91,7 @@ const ContactReport = ({
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvContactReportData}>
                   <img
-                    className="img_icon_size log float-right ml-4"
+                    className="img_icon_size log  ml-4"
                     src={require("../../static/images/excel_icon.png")}
                     alt="Excel-Export"
                     title="Excel-Export"
@@ -90,14 +101,26 @@ const ContactReport = ({
                 <></>
               )}
 
-              {/* <button
-                className="btn btn-outline-secondary btnall"
-                style={{ backgroundColor: "white", color: "black" }}
-                type="submit"
-                onClick={handlePrint}
+              <button
+                className="img_icon_size log  ml-2"
+                style={{ border: "none" }}
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  handlePrint();
+                }}
               >
-                PRINT
-              </button> */}
+                <img
+                  height="20px"
+                  src={require("../../static/images/print.png")}
+                  alt="Print"
+                  title="Print"
+                />
+              </button>
             </div>
           </div>
           <div ref={componentRef}>
@@ -114,20 +137,21 @@ const ContactReport = ({
                         <tr>
                           <th
                             className="headcolstatic"
-                            style={{ height: "-10px !important" }}
+                            // style={{ height: "-10px !important"}}
+                            style={showPrint}
                           >
                             Tenant Name
                           </th>
 
-                          <th>Building Name</th>
-                          <th>Door No</th>
-                          <th> Location</th>
-                          <th>Rent Amount</th>
-                          <th>Phone No</th>
-                          <th>Pan No</th>
-                          <th>Aadhaar no</th>
-                          <th>Firm Name</th>
-                          <th>leaseEndDate</th>
+                          <th style={showPrint}>Building Name</th>
+                          <th style={showPrint}>Door No</th>
+                          <th style={showPrint}> Location</th>
+                          <th style={showPrint}>Rent Amount</th>
+                          <th style={showPrint}>Phone No</th>
+                          <th style={showPrint}>Pan No</th>
+                          <th style={showPrint}>Aadhaar no</th>
+                          <th style={showPrint}>Firm Name</th>
+                          <th style={showPrint}>leaseEndDate</th>
                         </tr>
                       </thead>
                       <tbody className="text-center">

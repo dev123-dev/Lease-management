@@ -108,10 +108,6 @@ const TenantReport = ({
       "Expiry Date",
       "Next Rent Amount",
       "Agreement Status",
-   
-     
-    
-
     ],
   ];
   expReport.map((expReport) => {
@@ -122,15 +118,12 @@ const TenantReport = ({
       expReport.tenantName,
       expReport.BuildingName,
       expReport.tenantFileNo,
-    
+
       expReport.Location,
-            expReport.stampDuty,
+      expReport.stampDuty,
       tenantLeaseEndDate,
       expReport.chargesCal,
       expReport.AgreementStatus,
-
-   
-     
     ]);
   });
 
@@ -259,6 +252,7 @@ const TenantReport = ({
             </div> */}
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4 pt-3">
                   <button
+                    style={{ border: "none" }}
                     onClick={async () => {
                       await setShowPrint({
                         backgroundColor: "#095a4a",
@@ -278,15 +272,17 @@ const TenantReport = ({
                     />
                   </button>
                   {myuser.usergroup === "Admin" ? (
-                  <CSVLink data={csvTenantReportData}>
-                <img
-                  className="img_icon_size log float-right ml-4"
-                  src={require("../../static/images/excel_icon.png")}
-                  alt="Excel-Export"
-                  title="Excel-Export"
-                  />
-              </CSVLink>
-              ):(<></>)}
+                    <CSVLink data={csvTenantReportData}>
+                      <img
+                        className="img_icon_size log float-right ml-2 mt-1"
+                        src={require("../../static/images/excel_icon.png")}
+                        alt="Excel-Export"
+                        title="Excel-Export"
+                      />
+                    </CSVLink>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </div>
 

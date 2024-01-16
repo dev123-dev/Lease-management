@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { CSVLink } from "react-csv";
+import { useReactToPrint } from "react-to-print";
 import {
   // ParticularTenant,
   getParticularOrg,
@@ -335,6 +336,24 @@ const Tenant_Details = ({
       sortetenantdetails.tenantAdharNo,
     ]);
   });
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Contact Report",
+    //onAfterPrint: () => alert("print success"),
+    onAfterPrint: () =>
+      setShowPrint({
+        backgroundColor: "#095a4a",
+        color: "white",
+        fontWeight: "bold",
+      }),
+  });
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -450,6 +469,26 @@ const Tenant_Details = ({
                 ) : (
                   <></>
                 )}
+                <button
+                  style={{ border: "none" }}
+                  onClick={async () => {
+                    await setShowPrint({
+                      backgroundColor: "#095a4a",
+                      color: "black",
+                      fontWeight: "bold",
+                    });
+
+                    handlePrint();
+                  }}
+                >
+                  <img
+                    height="20px"
+                    //  onClick={() => refresh()}
+                    src={require("../../static/images/print.png")}
+                    alt="Print"
+                    title="Print"
+                  />
+                </button>
 
                 <img
                   className="ml-2"
@@ -466,119 +505,121 @@ const Tenant_Details = ({
             <div className="container-fluid d-flex align-items-center justify-content-center ">
               <div className="col">
                 {/* <div className="refreshbtn"></div> */}
+                <div ref={componentRef}>
+                  <div className="row">
+                    <div className="col-lg-1  col-sm-12 col-md-12"></div>
 
-                <div className="row">
-                  <div className="col-lg-1  col-sm-12 col-md-12"></div>
+                    <div className="body-inner no-padding table-responsive">
+                      <table
+                        className="table table-bordered table-striped table-hover mt-1  "
+                        id="datatable2"
+                      >
+                        <thead>
+                          <tr>
+                            <th style={showPrint}>Name</th>
+                            <th style={showPrint}>Building Name</th>
 
-                  <div className="body-inner no-padding table-responsive">
-                    <table
-                      className="table table-bordered table-striped table-hover mt-1  "
-                      id="datatable2"
-                    >
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Building Name</th>
-                          <th>Door No</th>
-                          <th>File No</th>
-                          <th>Location</th>
-                          <th>Phone Number</th>
-                          <th>Expiry Date</th>
-                          <th>Rent Amount</th>
-                          {myuser.usergroup === "IT Department" ? (
-                            <></>
-                          ) : (
-                            <>
-                              {" "}
-                              <th>Operation</th>
-                            </>
-                          )}
-                        </tr>
-                      </thead>
-                      <tbody className="text-center  ">
-                        {currentDatas &&
-                          currentDatas.map((Val, idx) => {
-                            var ED =
-                              Val.tenantLeaseEndDate &&
-                              Val.tenantLeaseEndDate.split(/\D/g);
-                            var tenant = [
-                              ED && ED[2],
-                              ED && ED[1],
-                              ED && ED[0],
-                            ].join("-");
+                            <th style={showPrint}>Door No</th>
+                            <th style={showPrint}>File No</th>
+                            <th style={showPrint}>Location</th>
+                            <th style={showPrint}>Phone Number</th>
+                            <th style={showPrint}>Expiry Date</th>
+                            <th style={showPrint}>Rent Amount</th>
+                            {myuser.usergroup === "IT Department" ? (
+                              <></>
+                            ) : (
+                              <>
+                                {" "}
+                                <th style={showPrint}>Operation</th>
+                              </>
+                            )}
+                          </tr>
+                        </thead>
+                        <tbody className="text-center  ">
+                          {currentDatas &&
+                            currentDatas.map((Val, idx) => {
+                              var ED =
+                                Val.tenantLeaseEndDate &&
+                                Val.tenantLeaseEndDate.split(/\D/g);
+                              var tenant = [
+                                ED && ED[2],
+                                ED && ED[1],
+                                ED && ED[0],
+                              ].join("-");
 
-                            // if (Val.tenantstatus === "Active") {
-                            return (
-                              <tr key={idx}>
-                                {Val.tenantstatus === "Deactive" ? (
-                                  <td style={{ backgroundColor: "#dda6a6" }}>
-                                    {Val.tenantName}
+                              // if (Val.tenantstatus === "Active") {
+                              return (
+                                <tr key={idx}>
+                                  {Val.tenantstatus === "Deactive" ? (
+                                    <td style={{ backgroundColor: "#dda6a6" }}>
+                                      {Val.tenantName}
+                                    </td>
+                                  ) : (
+                                    <td>{Val.tenantName}</td>
+                                  )}
+
+                                  <td>{Val.BuildingName}</td>
+                                  <td>
+                                    {Val.shopDoorNo.map((ele) => {
+                                      <p key={idx}></p>;
+                                      if (
+                                        ele.status === "Avaiable" ||
+                                        ele.status === "Acquired"
+                                      ) {
+                                        return <>{ele.label + ","}</>;
+                                      } else {
+                                        return <>{""}</>;
+                                      }
+                                    })}
                                   </td>
-                                ) : (
-                                  <td>{Val.tenantName}</td>
-                                )}
-
-                                <td>{Val.BuildingName}</td>
-                                <td>
-                                  {Val.shopDoorNo.map((ele) => {
-                                    <p key={idx}></p>;
-                                    if (
-                                      ele.status === "Avaiable" ||
-                                      ele.status === "Acquired"
-                                    ) {
-                                      return <>{ele.label + ","}</>;
-                                    } else {
-                                      return <>{""}</>;
-                                    }
-                                  })}
-                                </td>
-                                <td>{Val.tenantFileNo}</td>
-                                <td>{Val.Location}</td>
-                                <td>{Val.tenantPhone}</td>
-                                <td>{tenant}</td>
-                                <td>{Val.tenantRentAmount}</td>
-                                {myuser.usergroup === "IT Department" ? (
-                                  <></>
-                                ) : (
-                                  <>
-                                    {" "}
-                                    {Val.tenantstatus === "Active" ? (
-                                      <td className=" text-center">
-                                        <Link to="/edit-tenant-details">
+                                  <td>{Val.tenantFileNo}</td>
+                                  <td>{Val.Location}</td>
+                                  <td>{Val.tenantPhone}</td>
+                                  <td>{tenant}</td>
+                                  <td>{Val.tenantRentAmount}</td>
+                                  {myuser.usergroup === "IT Department" ? (
+                                    <></>
+                                  ) : (
+                                    <>
+                                      {" "}
+                                      {Val.tenantstatus === "Active" ? (
+                                        <td className=" text-center">
+                                          <Link to="/edit-tenant-details">
+                                            <img
+                                              className="Cursor  "
+                                              onClick={() => onEdit(Val)}
+                                              src={require("../../static/images/edit_icon.png")}
+                                              alt="Edit"
+                                              title="Edit"
+                                            />{" "}
+                                            &nbsp;
+                                          </Link>
                                           <img
-                                            className="Cursor  "
-                                            onClick={() => onEdit(Val)}
-                                            src={require("../../static/images/edit_icon.png")}
-                                            alt="Edit"
-                                            title="Edit"
-                                          />{" "}
-                                          &nbsp;
-                                        </Link>
-                                        <img
-                                          className="Cursor "
-                                          onClick={() =>
-                                            onDelete(
-                                              Val._id,
-                                              Val.shopDoorNo,
-                                              Val
-                                            )
-                                          }
-                                          src={require("../../static/images/delete.png")}
-                                          alt="Deactivate"
-                                          title="Deactivate"
-                                        />
-                                      </td>
-                                    ) : (
-                                      <td></td>
-                                    )}
-                                  </>
-                                )}
-                              </tr>
-                            );
-                            // }
-                          })}
-                      </tbody>
-                    </table>
+                                            className="Cursor "
+                                            onClick={() =>
+                                              onDelete(
+                                                Val._id,
+                                                Val.shopDoorNo,
+                                                Val
+                                              )
+                                            }
+                                            src={require("../../static/images/delete.png")}
+                                            alt="Deactivate"
+                                            title="Deactivate"
+                                          />
+                                        </td>
+                                      ) : (
+                                        <td></td>
+                                      )}
+                                    </>
+                                  )}
+                                </tr>
+                              );
+                              // }
+                            })}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
                 <div className="row">
