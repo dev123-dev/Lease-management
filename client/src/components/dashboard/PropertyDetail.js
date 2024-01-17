@@ -244,7 +244,9 @@ const PropertyDetail = ({
   ];
 
   particular_org_data.map((particular_org_data) => {
-    var doorNo = particular_org_data.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
+    var doorNo =
+      particular_org_data &&
+      particular_org_data.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
 
     return csvPropertyData.push([
       particular_org_data.BuildingName,

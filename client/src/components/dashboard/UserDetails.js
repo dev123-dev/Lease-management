@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment,useRef } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import AddAdminUserModal from "./AddAdminUserModal";
 import { Modal, Button, Form } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -121,18 +121,19 @@ const UserDetails = ({
   const csvUserData = [
     ["Name", "Email", "Phone", "Group", "Organization", "Address"],
   ];
-  get_particularOrg_user.map((get_particularOrg_user) => {
-    return csvUserData.push([
-      get_particularOrg_user.username,
-      get_particularOrg_user.useremail,
-      get_particularOrg_user.userphone,
-      get_particularOrg_user.usergroup,
+  get_particularOrg_user &&
+    get_particularOrg_user.map((get_particularOrg_user) => {
+      return csvUserData.push([
+        get_particularOrg_user.username,
+        get_particularOrg_user.useremail,
+        get_particularOrg_user.userphone,
+        get_particularOrg_user.usergroup,
 
-      get_particularOrg_user.OrganizationName,
+        get_particularOrg_user.OrganizationName,
 
-      get_particularOrg_user.useraddress,
-    ]);
-  });
+        get_particularOrg_user.useraddress,
+      ]);
+    });
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
     color: "white",
@@ -171,106 +172,109 @@ const UserDetails = ({
                 style={{ cursor: "pointer" }}
                 title="Add User"
               />
-              {myuser.usergroup === "Admin" ? (<>
-                <CSVLink data={csvUserData}>
-                  <img
-                    className="img_icon_size log float-right ml-2 mt-1"
-                    src={require("../../static/images/excel_icon.png")}
-                    alt="Excel-Export"
-                    title="Excel-Export"
-                  />
-                </CSVLink>
-                <button
-                  style={{ border: "none" }}
-                  onClick={async () => {
-                    await setShowPrint({
-                      backgroundColor: "#095a4a",
-                      color: "black",
-                      fontWeight: "bold",
-                    });
+              {myuser.usergroup === "Admin" ? (
+                <>
+                  <CSVLink data={csvUserData}>
+                    <img
+                      className="img_icon_size log float-right ml-1 mt-1"
+                      src={require("../../static/images/excel_icon.png")}
+                      alt="Excel-Export"
+                      title="Excel-Export"
+                    />
+                  </CSVLink>
+                  <button
+                    style={{ border: "none" }}
+                    onClick={async () => {
+                      await setShowPrint({
+                        backgroundColor: "#095a4a",
+                        color: "black",
+                        fontWeight: "bold",
+                      });
 
-                    handlePrint();
-                  }}
-                >
-                  <img
-                    height="20px"
-                    //  onClick={() => refresh()}
-                    src={require("../../static/images/print.png")}
-                    alt="Print"
-                    title="Print"
-                  />
-                </button>
+                      handlePrint();
+                    }}
+                  >
+                    <img
+                      height="20px"
+                      //  onClick={() => refresh()}
+                      src={require("../../static/images/print.png")}
+                      alt="Print"
+                      title="Print"
+                    />
+                  </button>
                 </>
               ) : (
                 <></>
               )}
             </div>
           </div>
-         
+
           <div className="container-fluid d-flex align-items-center justify-content-center ">
             <div className="col">
-            <div ref={componentRef}>
-              <div className="row ">
-                <div className="col-lg-1  col-sm-12 col-md-12"></div>
-                <div className="firstrowsticky body-inner no-padding table-responsive">
-                  <table
-                    className="table table-bordered table-striped table-hover   mt-1"
-                    id="datatable2"
-                  >
-                    <thead>
-                      <tr>
-                        <th style={showPrint}>Name</th>
-                        <th style={showPrint}>Email</th>
-                        <th style={showPrint}>Phone</th>
-                        <th style={showPrint}>Group</th>
-                        <th style={showPrint}>Organization</th>
-                        <th style={showPrint}>Address</th>
-                        <th style={showPrint}>Operation</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-center">
-                      {currentDatas &&
-                        currentDatas[0] &&
-                        currentDatas.map((alluser, idx) => {
-                          return (
-                            <tr key={idx}>
-                              <td>{alluser.username}</td>
-                              <td>{alluser.useremail}</td>
-                              <td>{alluser.userphone}</td>
-                              <td>{alluser.usergroup}</td>
-                              <td>{alluser.OrganizationName}</td>
-                              <td>{alluser.useraddress}</td>
+              <div ref={componentRef}>
+                <div className="row ">
+                  <div className="col-lg-1  col-sm-12 col-md-12"></div>
+                  <div className="firstrowsticky body-inner no-padding table-responsive">
+                    <table
+                      className="table table-bordered table-striped table-hover   mt-1"
+                      id="datatable2"
+                    >
+                      <thead>
+                        <tr>
+                          <th style={showPrint}>Name</th>
+                          <th style={showPrint}>Email</th>
+                          <th style={showPrint}>Phone</th>
+                          <th style={showPrint}>Group</th>
+                          <th style={showPrint}>Organization</th>
+                          <th style={showPrint}>Address</th>
+                          <th style={showPrint}>Operation</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        {currentDatas &&
+                          currentDatas[0] &&
+                          currentDatas.map((alluser, idx) => {
+                            return (
+                              <tr key={idx}>
+                                <td>{alluser.username}</td>
+                                <td>{alluser.useremail}</td>
+                                <td>{alluser.userphone}</td>
+                                <td>{alluser.usergroup}</td>
+                                <td>{alluser.OrganizationName}</td>
+                                <td>{alluser.useraddress}</td>
 
-                              {alluser.userStatus === "Deactive" ? (
-                                <td className="blank text-center">Deactived</td>
-                              ) : (
-                                <td className="text-center">
-                                  <img
-                                    className="Cursor"
-                                    onClick={() => onEdit(alluser, idx)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit"
-                                  />
-                                  &nbsp;
-                                  <img
-                                    className="Cursor"
-                                    onClick={() => onDelete(alluser._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="Deactivate"
-                                    title="Deactivate"
-                                  />
-                                </td>
-                              )}
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </table>
+                                {alluser.userStatus === "Deactive" ? (
+                                  <td className="blank text-center">
+                                    Deactived
+                                  </td>
+                                ) : (
+                                  <td className="text-center">
+                                    <img
+                                      className="Cursor"
+                                      onClick={() => onEdit(alluser, idx)}
+                                      src={require("../../static/images/edit_icon.png")}
+                                      alt="Edit"
+                                      title="Edit"
+                                    />
+                                    &nbsp;
+                                    <img
+                                      className="Cursor"
+                                      onClick={() => onDelete(alluser._id)}
+                                      src={require("../../static/images/delete.png")}
+                                      alt="Deactivate"
+                                      title="Deactivate"
+                                    />
+                                  </td>
+                                )}
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="col-lg-1  col-sm-12 col-md-12"></div>
                 </div>
-                <div className="col-lg-1  col-sm-12 col-md-12"></div>
               </div>
-</div>
               <div className="row">
                 <div className="col-lg-6  col-sm-12 col-md-12 ">
                   {get_particularOrg_user &&
@@ -297,7 +301,6 @@ const UserDetails = ({
               </div>
             </div>
           </div>
-         
         </div>
       </div>
       {/* add model start */}
