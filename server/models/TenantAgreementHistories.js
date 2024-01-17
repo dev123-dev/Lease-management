@@ -49,6 +49,24 @@ const TenantAgreementHistory = new mongoose.Schema({
   tenantFileNo: {
     type: String,
   },
+  tenantPaymentMode: {
+    type: String,
+  },
+  tenantChequenoOrDdno: {
+    type: String,
+  },
+  tenantBankName: {
+    type: String,
+  },
+  tenantchequeDate: {
+    type: String,
+  },
+  tenantCardType: {
+    type: String,
+  },
+  tenantTransId: {
+    type: String,
+  },
   tenantDoorNo: {},
   AgreementStatus: {
     type: String,

@@ -63,6 +63,12 @@ const TenantDetails = new mongoose.Schema({
   tenantchequeDate: {
     type: String,
   },
+  tenantCardType: {
+    type: String,
+  },
+  tenantTransId: {
+    type: String,
+  },
   tenantstatus: {
     type: String,
 

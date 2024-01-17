@@ -902,6 +902,14 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     agreementId: finalData.agreementId,
     tenantEnteredBy: finalData.tenantEnteredBy,
     tenantDate: finalData.tenantDate,
+    //new
+    tenantPaymentMode:finalData.tenantPaymentMode,
+    tenantChequenoOrDdno:finalData.tenantChequenoOrDdno,
+    tenantBankName:finalData.tenantBankName,
+    tenantchequeDate:finalData.tenantchequeDate,
+    tenantTransId:finalData.tenantTransId,
+    tenantCardType:finalData.tenantCardType,
+
   };
 
   try {
