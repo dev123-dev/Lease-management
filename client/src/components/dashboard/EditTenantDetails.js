@@ -33,7 +33,6 @@ const EditTenantDetails = ({
       userId: myuser && myuser._id,
     });
   }, []);
-
   const [AvaiableRoomBuilding, setAvaiableRoomBuilding] = useState([]);
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data;
@@ -184,22 +183,66 @@ const EditTenantDetails = ({
       { doorNo: Doornumber.label, status: "Avaiable" },
     ]);
   };
+  //////////////////////////payment section start
 
+  const [paymentMode, setPaymentMode] = useState([]);
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
+    { value: "Card", label: "Card" },
+    { value: "Neft", label: "Neft" },
+    { value: "Upi", label: "Upi" },
   ];
+  // for type of card
+  const [selectedCard, setSelectedCard] = useState(
+    particular_tenant_EditData.tenantCardType
+  );
+
+  const HandleCheck = (e) => {
+    setSelectedCard(e.target.value);
+  };
+
+  // validation for trancation id
+  const [transId, setTransId] = useState(
+    particular_tenant_EditData.tenantTransId
+  );
+  const [validationTransIdMessage, setValidationTransIdMessage] = useState("");
+  const handleTransIdChange = (e) => {
+    const inputValue = e.target.value;
+
+    const isAlphanumeric = /^[A-Za-z0-9]+$/;
+    const isWithinLength = inputValue.length >= 12 && inputValue.length <= 18;
+    const hasNoDotsOrHyphens = /^[^.\\-]*$/.test(inputValue);
+
+    if (
+      isWithinLength &&
+      isAlphanumeric.test(inputValue) &&
+      hasNoDotsOrHyphens &&
+      !/^[0-9]+$/.test(inputValue) &&
+      !/^[a-zA-Z]+$/.test(inputValue)
+    ) {
+      setValidationTransIdMessage("");
+    } else {
+      setValidationTransIdMessage("Please enter a valid  Transcation id");
+    }
+
+    setTransId(inputValue);
+  };
+  ///////////////////////payment section end
   const [showHide, setShowHide] = useState({
     showChequenoSection:
       tenants && tenants.tenantPaymentMode === "Cheque" ? true : false,
     showChequenoSection: false,
   });
   const { showChequenoSection } = showHide;
-  const [startSelectedDate, setStartDate] = useState(tenants.tenantchequeDate);
+  const [startSelectedDate, setStartDate] = useState(
+    particular_tenant_EditData.tenantchequeDate
+  );
   const onDateChange = (e) => {
     setStartDate(e.target.value);
   };
   const onPaymentModeChange = (e) => {
+    setPaymentMode(e);
     if (e) {
       setFormData({
         ...formData,
@@ -611,48 +654,38 @@ const EditTenantDetails = ({
     setTenantAddr(inputValue);
   };
 
-
-
-
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-  useEffect(()=>{
-  
-  
-    if(validationNameMessage===""
-     && validationPhoneMessage==="" 
-    && validationRentAmtMessage==="" 
-    && validationAdharMessage==="" 
-    && validationPanMessage===""
-      && validationChequeMessage==="" 
-      && validationBankMessage==="" &&
-      validationAddressMessage===""
-      )
-    {
-    
-      setNextButtonDisabled(false)
-     
-  
+  useEffect(() => {
+    if (
+      validationNameMessage === "" &&
+      validationPhoneMessage === "" &&
+      validationRentAmtMessage === "" &&
+      validationAdharMessage === "" &&
+      validationPanMessage === "" &&
+      validationChequeMessage === "" &&
+      validationBankMessage === "" &&
+      validationAddressMessage === ""
+    ) {
+      setNextButtonDisabled(false);
+    } else {
+      setNextButtonDisabled(true);
     }
-    else
-    {
-      
-      setNextButtonDisabled(true)
-    }
-  },[validationNameMessage,
+  }, [
+    validationNameMessage,
     validationPhoneMessage,
     validationRentAmtMessage,
     validationAdharMessage,
     validationPanMessage,
     validationChequeMessage,
     validationBankMessage,
-    validationAddressMessage
-  ])
-  
+    validationAddressMessage,
+  ]);
+
   //For setting mindate as todays date
   const onUpdate = (e) => {
     e.preventDefault();
     if (output !== "V") return;
-  
+
     const finalData = {
       recordId: tenantId,
       OrganizationId: user && user.OrganizationId,
@@ -684,12 +717,19 @@ const EditTenantDetails = ({
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
       unseletedDoorno: unselectedDno,
+      tenantTransId: transId ? transId : "",
+      tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
     };
-    console.log("file", finalData);
+    //console.log("edittenant", finalData);
     UpdateTenantsDetails(finalData);
     histroy.push("/tenant-detail");
   };
-
+  // useEffect(() => {
+  //   setStartDate("");
+  //   setTenantBankName("");
+  //   setTransId("");
+  //   setTenantChequenoOrDdno("");
+  // }, [paymentMode]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -957,7 +997,7 @@ const EditTenantDetails = ({
                     <div className="  col-lg-3 col-md-12 col-sm-12 col-12">
                       <label>Cheque No/DD No:</label>
                       <input
-                        placeholder="Cheque Date"
+                        // placeholder="Cheque Date"
                         type="text"
                         name="tenantChequenoOrDdno"
                         value={tenantChequenoOrDdno}
@@ -997,6 +1037,116 @@ const EditTenantDetails = ({
                     </div>
                   </div>
                 </>
+              ) : (
+                <></>
+              )}
+              {paymentMode.value === "Card" ? (
+                <div className="row">
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Choose card:</label>
+                    <br />
+                    <input
+                      type="radio"
+                      name="cardType"
+                      id="debit"
+                      value="debit"
+                      checked={selectedCard === "debit" ? true : false}
+                      onChange={(e) => HandleCheck(e)}
+                    />
+                    <label htmlFor="debit">&nbsp;Debit card&nbsp; &nbsp;</label>
+
+                    <input
+                      type="radio"
+                      name="cardType"
+                      id="credit"
+                      checked={selectedCard === "credit" ? true : false}
+                      value="credit"
+                      onChange={(e) => HandleCheck(e)}
+                    />
+                    <label htmlFor="credit">
+                      &nbsp;Credit Card&nbsp; &nbsp;
+                    </label>
+                  </div>
+
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Transcation Id:</label>
+                    <input
+                      type="text"
+                      name="transcationId"
+                      className="form-control"
+                      value={transId}
+                      onChange={(e) => handleTransIdChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
+                  </div>
+
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Bank Name:</label>
+                    <input
+                      type="text"
+                      name="bankName"
+                      className="form-control"
+                      value={tenantBankName}
+                      onChange={(e) => handleBankNameChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
+                  </div>
+                </div>
+              ) : paymentMode.value === "Neft" ? (
+                <div className="row">
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Transcation Id:</label>
+                    <input
+                      type="text"
+                      name="transcationId"
+                      className="form-control"
+                      value={transId}
+                      onChange={(e) => handleTransIdChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
+                  </div>
+
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Bank Name:</label>
+                    <input
+                      type="text"
+                      name="bankName"
+                      className="form-control"
+                      value={tenantBankName}
+                      onChange={(e) => handleBankNameChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
+                  </div>
+                </div>
+              ) : paymentMode.value === "Upi" ? (
+                <div className="row">
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Transaction Id:</label>
+                    <input
+                      type="text"
+                      name="transactionId"
+                      className="form-control"
+                      value={transId}
+                      onChange={(e) => handleTransIdChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
+                  </div>
+                </div>
               ) : (
                 <></>
               )}
@@ -1155,26 +1305,28 @@ const EditTenantDetails = ({
                     </button>
                   </div>
                   <div className="col-lg-6 col-md-12 col-sm-12">
-                  {isNextButtonDisabled ?( <button
-                      variant="success"
-                      className="btn sub_form btn_continue Save float-right"
-                      id="savebtn"
-                      type="submit"
-                      disabled={ true}
-                      // disabled={isNextButtonDisabled}
-                    >
-                      Save
-                    </button>):(
-                       <button
-                       variant="success"
-                       className="btn sub_form btn_continue Save float-right"
-                       id="savebtn"
-                       type="submit"
-                       disabled={ output!="V"?true:false}
-                       // disabled={isNextButtonDisabled}
-                     >
-                       Save
-                     </button>
+                    {isNextButtonDisabled ? (
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right"
+                        id="savebtn"
+                        type="submit"
+                        disabled={true}
+                        // disabled={isNextButtonDisabled}
+                      >
+                        Save
+                      </button>
+                    ) : (
+                      <button
+                        variant="success"
+                        className="btn sub_form btn_continue Save float-right"
+                        id="savebtn"
+                        type="submit"
+                        disabled={output != "V" ? true : false}
+                        // disabled={isNextButtonDisabled}
+                      >
+                        Save
+                      </button>
                     )}
                     {/* <button
                       type="submit"

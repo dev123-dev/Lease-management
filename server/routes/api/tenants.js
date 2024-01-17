@@ -55,8 +55,8 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantDate: data.todayDateymd,
         selectedY: data.selectedY,
         selectedVal: data.selectedVal,
-        tenantTransId:data.tenantTransId,
-        tenantCardType:data.tenantCardType,
+        tenantTransId: data.tenantTransId,
+        tenantCardType: data.tenantCardType,
       };
       let tenantdata = await new TenantDetails(tenantDetails);
       tenantdata.save();
@@ -110,7 +110,6 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tenantAgreementEntredBy: data.tenantEnteredBy,
         tenantAgreementDate: data.tenantDate,
-
       };
       const finalDataHistory = {
         tdId: tenantdata._id,
@@ -128,13 +127,12 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantAgreementEntredBy: data.tenantEnteredBy,
         tenantAgreementDate: data.tenantDate,
         //new
-        tenantPaymentMode:data.tenantPaymentMode,
-        tenantChequenoOrDdno:data.tenantChequenoOrDdno,
-        tenantBankName:data.tenantBankName,
-        tenantchequeDate:data.tenantchequeDate,
-        tenantTransId:data.tenantTransId,
-        tenantCardType:data.tenantCardType,
-        
+        tenantPaymentMode: data.tenantPaymentMode,
+        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+        tenantBankName: data.tenantBankName,
+        tenantchequeDate: data.tenantchequeDate,
+        tenantTransId: data.tenantTransId,
+        tenantCardType: data.tenantCardType,
       };
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
@@ -171,8 +169,8 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantDate: data.todayDateymd,
         selectedY: data.selectedY,
         selectedVal: data.selectedVal,
-        tenantTransId:data.tenantTransId,
-        tenantCardType:data.tenantCardType,
+        tenantTransId: data.tenantTransId,
+        tenantCardType: data.tenantCardType,
       };
       let tenantdata = await new TenantDetails(tenantDetails);
       tenantdata.save();
@@ -227,7 +225,6 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tenantAgreementEntredBy: data.tenantEnteredBy,
         tenantAgreementDate: data.tenantDate,
-
       };
 
       const finalDataHistory = {
@@ -245,18 +242,15 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tenantAgreementEntredBy: data.tenantEnteredBy,
         tenantAgreementDate: data.tenantDate,
-         //new
-         tenantPaymentMode:data.tenantPaymentMode,
-         tenantChequenoOrDdno:data.tenantChequenoOrDdno,
-         tenantBankName:data.tenantBankName,
-         tenantchequeDate:data.tenantchequeDate,
-         tenantTransId:data.tenantTransId,
-         tenantCardType:data.tenantCardType,
+        //new
+        tenantPaymentMode: data.tenantPaymentMode,
+        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+        tenantBankName: data.tenantBankName,
+        tenantchequeDate: data.tenantchequeDate,
+        tenantTransId: data.tenantTransId,
+        tenantCardType: data.tenantCardType,
       };
 
-
-
-         
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
       let TenantAgreement = new TenantAgreementHistory(finalDataHistory);
@@ -1412,7 +1406,7 @@ router.post("/get-tenant-exp-report", auth, async (req, res) => {
           agreementId: "$output._id",
           tenantDoorNo: "$shopDoorNo",
           tenantFileNo: "$output.tenantFileNo",
-          Location: "$Location",     
+          Location: "$Location",
           chargesCal: {
             $add: [
               {
@@ -1571,10 +1565,10 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           tenantDoorNo: "$shopDoorNo",
           BuildingName: "$BuildingName",
           BuildingId: "$BuildingId",
-          tenantPaymentMode:"$tenantPaymentMode",
-          tenantBankName:"$tenantBankName",
-          tenantChequenoOrDdno:"$tenantChequenoOrDdno",
-          tenantchequeDate:"$tenantchequeDate",
+          tenantPaymentMode: "$tenantPaymentMode",
+          tenantBankName: "$tenantBankName",
+          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantchequeDate: "$tenantchequeDate",
           chargesCal: {
             $add: [
               {
@@ -1842,12 +1836,12 @@ router.post("/renew-tenant-details", async (req, res) => {
         tenantEnteredBy: data.tenantEnteredBy,
         tenantDate: data.tenantDate,
         //new
-        tenantPaymentMode:data.tenantPaymentMode,
-        tenantChequenoOrDdno:data.tenantChequenoOrDdno,
-        tenantBankName:data.tenantBankName,
-        tenantchequeDate:data.tenantchequeDate,
-        tenantTransId:data.tenantTransId,
-        tenantCardType:data.tenantCardType,
+        tenantPaymentMode: data.tenantPaymentMode,
+        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+        tenantBankName: data.tenantBankName,
+        tenantchequeDate: data.tenantchequeDate,
+        tenantTransId: data.tenantTransId,
+        tenantCardType: data.tenantCardType,
       };
       let aggdata = await new TenantAgreementHistory(
         TenantAgreementHistorydata
@@ -1862,12 +1856,12 @@ router.post("/renew-tenant-details", async (req, res) => {
             tenantLeaseEndDate: data.tenantLeaseEndDate,
             tenantRentAmount: data.tenantRentAmount,
             //new
-            tenantPaymentMode:data.tenantPaymentMode,
-            tenantChequenoOrDdno:data.tenantChequenoOrDdno,
-            tenantBankName:data.tenantBankName,
-            tenantchequeDate:data.tenantchequeDate,
-            tenantTransId:data.tenantTransId,
-            tenantCardType:data.tenantCardType,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantTransId: data.tenantTransId,
+            tenantCardType: data.tenantCardType,
           },
         }
       );
@@ -1902,12 +1896,12 @@ router.post("/renew-tenant-details", async (req, res) => {
         tenantEnteredBy: data.tenantEnteredBy,
         tenantDate: data.tenantDate,
         //new
-        tenantPaymentMode:data.tenantPaymentMode,
-        tenantChequenoOrDdno:data.tenantChequenoOrDdno,
-        tenantBankName:data.tenantBankName,
-        tenantchequeDate:data.tenantchequeDate,
-        tenantTransId:data.tenantTransId,
-        tenantCardType:data.tenantCardType,
+        tenantPaymentMode: data.tenantPaymentMode,
+        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+        tenantBankName: data.tenantBankName,
+        tenantchequeDate: data.tenantchequeDate,
+        tenantTransId: data.tenantTransId,
+        tenantCardType: data.tenantCardType,
       };
       let aggdata = await new TenantAgreementHistory(
         TenantAgreementHistorydata
@@ -1922,12 +1916,12 @@ router.post("/renew-tenant-details", async (req, res) => {
             tenantLeaseEndDate: data.tenantLeaseEndDate,
             tenantRentAmount: data.tenantRentAmount,
             //new
-            tenantPaymentMode:data.tenantPaymentMode,
-            tenantChequenoOrDdno:data.tenantChequenoOrDdno,
-            tenantBankName:data.tenantBankName,
-            tenantchequeDate:data.tenantchequeDate,
-            tenantTransId:data.tenantTransId,
-            tenantCardType:data.tenantCardType,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantTransId: data.tenantTransId,
+            tenantCardType: data.tenantCardType,
           },
         }
       );
@@ -1990,6 +1984,8 @@ router.post("/update-tenant-details", async (req, res) => {
             generatordepoAmt: data.generatordepoAmt,
             BuildingName: data.BuildingName.label,
             BuildingId: data.BuildingName.buildingId,
+            tenantTransId: data.tenantTransId,
+            tenantCardType: data.tenantCardType,
           },
         }
       );
@@ -2067,6 +2063,8 @@ router.post("/update-tenant-details", async (req, res) => {
             generatordepoAmt: data.generatordepoAmt,
             BuildingName: data.BuildingName.label,
             BuildingId: data.BuildingName.buildingId,
+            tenantTransId: data.tenantTransId,
+            tenantCardType: data.tenantCardType,
           },
         }
       );
