@@ -222,7 +222,7 @@ const [startSelectedDate, setChequeDate] = useState("");
       selectedVal: dt,
 
       tenantPaymentMode:paymentMode.value?paymentMode.value:"",
-      tenantChequenoOrDdno:tenantChequenoOrDdno?tenantChequenoOrDdno:"",
+      tenantChequenoOrDdno:tenantChequenoOrDdno?tenantChequenoOrDdno:0,
       tenantBankName:tenantBankName?tenantBankName:"",
       tenantchequeDate:startSelectedDate?startSelectedDate:"",
       tenantTransId:transId?transId:"",

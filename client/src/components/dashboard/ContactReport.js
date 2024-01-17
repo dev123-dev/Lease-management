@@ -44,8 +44,8 @@ const ContactReport = ({
       "Aadhar No.",
     ],
   ];
-  sortetenantdetails.map((sortetenantdetails) => {
-    var doorNo = sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
+  sortetenantdetails && sortetenantdetails.map((sortetenantdetails) => {
+    var doorNo = sortetenantdetails && sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
     var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
     var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
     return csvContactReportData.push([
