@@ -43,10 +43,66 @@ const AddTenantDetails = ({
     setdno(e);
   };
 
+
+///////////////////////payment////////////////////
+
+const [paymentMode, setPaymentMode] = useState([]);
+
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
+    { value: "Card", label: "Card" },
+    { value: "Neft", label: "Neft" },
+    { value: "Upi", label: "Upi" },
   ];
+
+
+ // for type of card
+ const [selectedCard, setSelectedCard] = useState("");
+
+ const HandleCheck = (e) => {
+   setSelectedCard(e.target.value);
+ };
+
+
+
+
+
+ // validation for trancation id
+ const [transId, setTransId] = useState("");
+ const [validationTransIdMessage, setValidationTransIdMessage] = useState(
+   "Please enter the valid Transcation id"
+ );
+ const handleTransIdChange = (e) => {
+   const inputValue = e.target.value;
+
+   const isAlphanumeric = /^[A-Za-z0-9]+$/;
+   const isWithinLength = inputValue.length >= 12 && inputValue.length <= 18;
+   const hasNoDotsOrHyphens = /^[^.\\-]*$/.test(inputValue);
+
+   if (
+     isWithinLength &&
+     isAlphanumeric.test(inputValue) &&
+     hasNoDotsOrHyphens &&
+     !/^[0-9]+$/.test(inputValue) &&
+     !/^[a-zA-Z]+$/.test(inputValue)
+   ) {
+     setValidationTransIdMessage("");
+   } else {
+     setValidationTransIdMessage("Please enter a valid  Transcation id");
+   }
+
+   setTransId(inputValue);
+ };
+
+
+
+
+
+
+
+
+
   const [formData, setFormData] = useState({
     tenantFileNo: "",
     tenantDoorNo: "",
@@ -389,6 +445,7 @@ const AddTenantDetails = ({
   };
 
   const onPaymentModeChange = (e) => {
+    setPaymentMode(e);
     setErrors({
       ...errors,
       PaymentChecker: true,
@@ -692,8 +749,13 @@ const AddTenantDetails = ({
         tenantDate: todayDateymd,
         selectedY: finalDataRep.yearSearch,
         selectedVal: dt,
+        tenantTransId: transId ? transId : "",
+        tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
+
+
+
       };
-      // console.log("finalData", finalData);
+      console.log("finalData", finalData);
       AddTenantDetailsform(finalData);
       ParticularTenantFilter();
       setFormData({
@@ -727,7 +789,12 @@ const AddTenantDetails = ({
       history.push("/tenant-detail");
     }
   };
-
+  useEffect(() => {
+    setChequeDate("");
+    setTenantBankName("");
+    setTransId("");
+    setTenantChequenoOrDdno("");
+  }, [paymentMode]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -1030,6 +1097,114 @@ const AddTenantDetails = ({
                   </div>
                   {/* </div> */}
                 </>
+              ) : (
+                <></>
+              )}
+              {paymentMode.value === "Card" ? (
+                <div className="row">
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Choose card:</label>
+                    <br />
+                    <input
+                      type="radio"
+                      name="cardType"
+                      id="debit"
+                      value="debit"
+                      onChange={(e) => HandleCheck(e)}
+                    />
+                    <label htmlFor="debit">&nbsp;Debit card&nbsp; &nbsp;</label>
+
+                    <input
+                      type="radio"
+                      name="cardType"
+                      id="credit"
+                      value="credit"
+                      onChange={(e) => HandleCheck(e)}
+                    />
+                    <label htmlFor="credit">
+                      &nbsp;Credit Card&nbsp; &nbsp;
+                    </label>
+                  </div>
+
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Transcation Id:</label>
+                    <input
+                      type="text"
+                      name="transcationId"
+                      className="form-control"
+                      value={transId}
+                      onChange={(e) => handleTransIdChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
+                  </div>
+
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Bank Name:</label>
+                    <input
+                      type="text"
+                      name="bankName"
+                      className="form-control"
+                      value={tenantBankName}
+                      onChange={(e) => handleBankNameChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
+                  </div>
+                </div>
+              ) : paymentMode.value === "Neft" ? (
+                <div className="row">
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Transcation Id:</label>
+                    <input
+                      type="text"
+                      name="transcationId"
+                      className="form-control"
+                       value={transId}
+                      onChange={(e) => handleTransIdChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
+                  </div>
+
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Bank Name:</label>
+                    <input
+                      type="text"
+                      name="bankName"
+                      className="form-control"
+                      value={tenantBankName}
+                      onChange={(e) => handleBankNameChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
+                  </div>
+                </div>
+              ) : paymentMode.value === "Upi" ? (
+                <div className="row">
+                  <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                    <label> Transaction Id:</label>
+                    <input
+                      type="text"
+                      name="transactionId"
+                      className="form-control"
+                      value={transId}
+                      onChange={(e) => handleTransIdChange(e)}
+                      style={{
+                        width: "100%",
+                      }}
+                    />
+                    <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
+                  </div>
+                </div>
               ) : (
                 <></>
               )}

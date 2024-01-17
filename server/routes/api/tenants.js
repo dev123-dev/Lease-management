@@ -55,6 +55,8 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantDate: data.todayDateymd,
         selectedY: data.selectedY,
         selectedVal: data.selectedVal,
+        tenantTransId:data.tenantTransId,
+        tenantCardType:data.tenantCardType,
       };
       let tenantdata = await new TenantDetails(tenantDetails);
       tenantdata.save();
@@ -108,11 +110,36 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tenantAgreementEntredBy: data.tenantEnteredBy,
         tenantAgreementDate: data.tenantDate,
+
+      };
+      const finalDataHistory = {
+        tdId: tenantdata._id,
+        OrganizationName: data.OrganizationName,
+        OrganizationId: data.OrganizationId,
+        BuildingName: data.BuildingName,
+        BuildingId: data.BuildingId,
+        tenantstatus: "Active",
+        AgreementStatus: "Expired",
+        tenantFileNo: data.tenantFileNo,
+        tenantDoorNo: data.tenantDoorNo,
+        tenantRentAmount: data.tenantRentAmount,
+        tenantLeaseStartDate: data.tenantLeaseStartDate,
+        tenantLeaseEndDate: data.tenantLeaseEndDate,
+        tenantAgreementEntredBy: data.tenantEnteredBy,
+        tenantAgreementDate: data.tenantDate,
+        //new
+        tenantPaymentMode:data.tenantPaymentMode,
+        tenantChequenoOrDdno:data.tenantChequenoOrDdno,
+        tenantBankName:data.tenantBankName,
+        tenantchequeDate:data.tenantchequeDate,
+        tenantTransId:data.tenantTransId,
+        tenantCardType:data.tenantCardType,
+        
       };
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
-      let TenantAgreement = new TenantAgreementHistory(finalData1);
-      output1 = await TenantAgreement.save();
+      let TenantAgreement = new TenantAgreementHistory(finalDataHistory);
+      output2 = await TenantAgreement.save();
 
       //adding new data end----------------------------------------------------------------------------
     } else {
@@ -144,6 +171,8 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantDate: data.todayDateymd,
         selectedY: data.selectedY,
         selectedVal: data.selectedVal,
+        tenantTransId:data.tenantTransId,
+        tenantCardType:data.tenantCardType,
       };
       let tenantdata = await new TenantDetails(tenantDetails);
       tenantdata.save();
@@ -198,11 +227,40 @@ router.post("/add-tenant-details", async (req, res) => {
         tenantLeaseEndDate: data.tenantLeaseEndDate,
         tenantAgreementEntredBy: data.tenantEnteredBy,
         tenantAgreementDate: data.tenantDate,
+
       };
+
+      const finalDataHistory = {
+        tdId: tenantdata._id,
+        OrganizationName: data.OrganizationName,
+        OrganizationId: data.OrganizationId,
+        BuildingName: data.BuildingName,
+        BuildingId: data.BuildingId,
+        tenantstatus: "Active",
+        AgreementStatus: "Active",
+        tenantFileNo: data.tenantFileNo,
+        tenantDoorNo: data.tenantDoorNo,
+        tenantRentAmount: data.tenantRentAmount,
+        tenantLeaseStartDate: data.tenantLeaseStartDate,
+        tenantLeaseEndDate: data.tenantLeaseEndDate,
+        tenantAgreementEntredBy: data.tenantEnteredBy,
+        tenantAgreementDate: data.tenantDate,
+         //new
+         tenantPaymentMode:data.tenantPaymentMode,
+         tenantChequenoOrDdno:data.tenantChequenoOrDdno,
+         tenantBankName:data.tenantBankName,
+         tenantchequeDate:data.tenantchequeDate,
+         tenantTransId:data.tenantTransId,
+         tenantCardType:data.tenantCardType,
+      };
+
+
+
+         
       let tenantAgreementDetails = new TenentAgreement(finalData1);
       output1 = await tenantAgreementDetails.save();
-      let TenantAgreement = new TenantAgreementHistory(finalData1);
-      output1 = await TenantAgreement.save();
+      let TenantAgreement = new TenantAgreementHistory(finalDataHistory);
+      output2 = await TenantAgreement.save();
     }
   } catch (err) {
     console.error(err.message);
