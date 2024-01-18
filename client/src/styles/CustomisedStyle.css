@@ -205,7 +205,7 @@ h5:last-child {
 
 /* Pseudo-element to simulate bold effect */
 .navTopMenuText::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
@@ -222,7 +222,6 @@ h5:last-child {
   transform: scale(1, 1.2); /* Scale vertically for bold effect */
   opacity: 0.2; /* Adjust opacity for a subtle effect */
 }
-
 
 /*  30-08-2023 commented Joel
 .navbar-brand {
@@ -270,7 +269,7 @@ h5:last-child {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
-} 30-8-2023 commented Joel*/ 
+} 30-8-2023 commented Joel*/
 
 .nav-item > a {
   color: #2a2424;
@@ -653,8 +652,8 @@ p {
 
 .btn_before_filter {
   background-color: #ffffff;
-  color: #095A4A;
-  font-weight: bold;  
+  color: #095a4a;
+  font-weight: bold;
   margin-top: 50%;
   margin-left: -45%;
   width: 200%;
@@ -663,13 +662,12 @@ p {
 
 .btn_before_filter:hover {
   background-color: #e8a317;
-  color: #ffffff;  
+  color: #ffffff;
   margin-top: 50%;
   margin-left: -45%;
   width: 200%;
   padding: 5%;
 }
-
 
 .btn_before_filter.active {
   background-color: #e8a317;
@@ -678,7 +676,7 @@ p {
   margin-left: -45%;
   width: 200%;
   padding: 5%;
-}  
+}
 
 @media screen and (min-width: 768px) {
   .otherPract .register_form {
@@ -1414,7 +1412,7 @@ input[type="radio"].error {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #fff;
+  background-color: #ffffff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 15px rgba(15, 212, 74, 0.05);
@@ -1514,11 +1512,9 @@ input[type="radio"].error {
   padding: 1.5em 2em;
   top: 50%;
 }
-body{
+body {
   overflow-x: hidden;
 }
-
-
 
 .confirmbox-heading {
   font-family: Verdana, Arial, sans-serif;
@@ -1813,8 +1809,6 @@ body{
   color: green;
 }
 
-
-
 /* Refill css */
 .cpp-input {
   padding: 8px;
@@ -1824,7 +1818,7 @@ body{
   border-radius: 0px;
   width: 25%;
   background: #fff;
-  color:#524f4f;
+  color: #524f4f;
   outline: none;
   display: inline-block;
   -webkit-appearance: none;
@@ -2730,7 +2724,6 @@ div {
   color: #d9d9d9;
 }
 
-
 @media (max-width: 550px) {
   .log_size {
     width: 75px;
@@ -2798,18 +2791,18 @@ i.smallsize::first-line {
   background: #095a4a;
 }
 
-.react-datepicker__current-month{
-  color:green;
+.react-datepicker__current-month {
+  color: green;
   background-color: rgb(255, 255, 255);
 }
 .react-datepicker__header__dropdown {
-  color:green;
+  color: green;
   background-color: rgb(255, 255, 255);
 }
 
-.react-datepicker__header__dropdown--scroll{
-  color:green;
-   background-color: rgb(255, 254, 254);
+.react-datepicker__header__dropdown--scroll {
+  color: green;
+  background-color: rgb(255, 254, 254);
 }
 ::-webkit-input-placeholder {
   color: #c66d6d; /* Custom color (red) for WebKit browsers */
@@ -2821,12 +2814,85 @@ i.smallsize::first-line {
   
 } */
 
-
-.doorNoButton{
+.doorNoButton {
   background-color: #095a4a;
   color: white;
   padding: 4px 16px;
   border-radius: 8px;
 }
+.receiptHeaderTable tr td:first-child {
+  width: 30%;
+}
+.receiptHeaderTable tr td {
+  padding-left: 25px;
+}
 
 
+.receiptBodyTable th:first-child{
+  width: 100%;
+  min-width: 100px;
+  text-align: left;
+
+}
+.receiptBodyTable th:last-child{
+  width: 100%;
+  min-width: 100px;
+  text-align: left;
+
+}
+.receiptBodyTable th{
+  width: 100%;
+  min-width: 500px;
+  text-align: left;
+ 
+}
+.receiptBodyTable tr td{
+  width: 100%;
+  min-width: 500px;
+  /* padding-right: 200px; */
+  text-align: left;
+ 
+}
+.receiptBodyTable tr td:first-child {
+  /* width: 100%; */
+  min-width: 100px !important;
+  /* padding-right: 200px; */
+  text-align: left;
+
+
+}
+.receiptBodyTable tr td:last-child {
+  /* width: 100%; */
+  min-width: 100px !important;
+  /* padding-right: 200px; */
+  text-align: left;
+
+
+}
+
+.my-modal1 {
+  width: 95vw; /* Increase the width to 95% of the screen width */
+  max-width: 100vw;
+  min-width: 80vw;
+}
+
+.custom-modal {
+  overflow: hidden;
+  border-radius: 25px !important;
+}
+.receiptHeader{
+  font-weight: 600;
+  font-size: 28px;
+}
+.receiptTable td:first-child{
+  width:50px
+
+}
+.receiptTable td:last-child{
+  width:50px
+
+}
+.customHr {
+  border: 1px solid black; /* Border color */
+
+}
