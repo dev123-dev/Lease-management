@@ -1371,7 +1371,7 @@ router.post("/get-tenant-exp-report", auth, async (req, res) => {
 
   const id = mongoose.Types.ObjectId(req.body.OrganizationId);
   const { monthSearch, yearSearch, OrganizationId } = req.body;
-  // console.log("this is it", req.body);
+  //console.log("this is it", req.body);
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;
@@ -1569,6 +1569,12 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
           tenantBankName: "$tenantBankName",
           tenantChequenoOrDdno: "$tenantChequenoOrDdno",
           tenantchequeDate: "$tenantchequeDate",
+          tenantPhone: "$tenantPhone",
+          tenantFirmName: "$tenantFirmName",
+          tenantAddr: "$tenantAddr",
+          tenantRentAmount: "$tenantRentAmount",
+          tenantTransId: "$tenantTransId",
+          tenantCardType: "$tenantCardType",
           chargesCal: {
             $add: [
               {
