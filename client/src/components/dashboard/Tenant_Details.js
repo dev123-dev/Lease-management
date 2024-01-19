@@ -17,6 +17,7 @@ import { Modal } from "react-bootstrap";
 import EditTenantDetails from "./EditTenantDetails";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+import TenantLeaseTransfer from "./TenantLeaseTransfer";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
@@ -89,6 +90,36 @@ const Tenant_Details = ({
   //     item.shopDoorNo &&
   //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   // );
+
+
+
+//modal for lease transfer
+
+const [userData, setUserData] = useState(null);
+
+const [showLeaseTranferModal, setshowLeaseTranferModal] = useState(false);
+const handleLeaseTranferModalClose = () => setshowLeaseTranferModal(false);
+const onLeaseTransfer = ( Val) => {
+  setshowLeaseTranferModal(true);
+  setUserData(Val);
+  // setId(id);
+
+  // setDeactiveThisBiuldingID(Val.BuildingId);
+  // if (Dno.length >= 1) {
+  //   SetDno(Dno);
+  //   SetDoornumber(true);
+  // } else {
+  //   SetDno(Dno);
+  //   handleShow();
+  // }
+};
+
+
+
+
+
+
+
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -607,6 +638,17 @@ const Tenant_Details = ({
                                             alt="Deactivate"
                                             title="Deactivate"
                                           />
+                                           <img
+                                            className="Cursor "
+                                            onClick={() =>
+                                              onLeaseTransfer(
+                                                Val
+                                              )
+                                            }
+                                            src={require("../../static/images/delete.png")}
+                                            alt="lease transfer"
+                                            title="lease transfer"
+                                          />
                                         </td>
                                       ) : (
                                         <td></td>
@@ -841,6 +883,57 @@ const Tenant_Details = ({
         </form>
       </Modal>
       {/* deactivate end */}
+
+
+
+
+
+
+
+
+
+
+
+      {/* lease transfer start  */}
+
+      <Modal
+              show={showLeaseTranferModal}
+              backdrop="static"
+              keyboard={false}
+              // size="lg"
+              dialogClassName="my-modal2"
+              aria-labelledby="contained-modal-title-vcenter"
+              centered
+            >
+              <Modal.Header className="confirmbox-heading">
+                <div className="col-lg-10  col-sm-12 col-md-12">
+                  <h3
+                    style={{
+                      color: "white",
+                    }}
+                  >
+                    Lease Transfer
+                  </h3>
+                </div>
+                <div className="col-lg-2  col-sm-12 col-md-12">
+                  <button onClick={handleLeaseTranferModalClose} className="close">
+                    <img
+                      src={require("../../static/images/close.png")}
+                      alt="X"
+                      style={{ height: "20px", width: "20px" }}
+                    />
+                  </button>
+                </div>
+              </Modal.Header>
+              <Modal.Body>
+                <TenantLeaseTransfer leaseTransferData={userData}/>
+                {/* <RenewTenentAgreement
+                  tenantsData={userData}
+                  onReportModalChange={onReportModalChange}
+                /> */}
+              </Modal.Body>
+            </Modal>
+      {/* lease transfer end  */}
     </>
   );
 };

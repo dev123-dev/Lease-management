@@ -2888,7 +2888,11 @@ i.smallsize::first-line {
   max-width: 100vw;
   min-width: 80vw;
 }
-
+.my-modal2 {
+  width: 95vw; /* Increase the width to 95% of the screen width */
+  max-width: 100vw;
+  min-width: 60vw;
+}
 .custom-modal {
   overflow: hidden;
   border-radius: 25px !important;

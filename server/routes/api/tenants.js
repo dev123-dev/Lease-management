@@ -914,7 +914,44 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
     console.log(error.message);
   }
 });
+//for lease transfer dropdown
+router.post("/get-tenantLeaseTransfer-sort", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
+    req.body;
 
+  let query = { OrganizationId: userInfo.OrganizationId };
+  if (LocationName) {
+    query = {
+      ...query,
+      Location: LocationName,
+    };
+  } else if (DoorNumber) {
+    query = {
+      ...query,
+      shopDoorNo: { $elemMatch: { label: DoorNumber } },
+    };
+  } else if (propertyname) {
+    query = {
+      ...query,
+      BuildingName: propertyname,
+    };
+  } else if (tenantName) {
+    query = {
+      ...query,
+      _id: mongoose.Types.ObjectId(tenantName),
+    };
+  }
+
+  try {
+    const tenantdata = await TenantDetails.find(query).sort({
+      tenantstatus: 1,
+    });
+    res.json(tenantdata);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 // Get Exp Month Count
 router.get("/get-tenant-report", async (req, res) => {
   try {

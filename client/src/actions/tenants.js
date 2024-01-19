@@ -33,6 +33,7 @@ import {
   EXP_ORG_,
   PROPERTY_RELATED_TENANT,
   PARTICULAR_ORG_TENANT_SORT,
+  PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -337,6 +338,24 @@ export const ParticularTenantFilter = (data) => async (dispatch) => {
   }
 };
 
+//tenantLeaseTransfer sort
+
+export const ParticularTenantLeaseTransferFilter = (data) => async (dispatch) => {
+  console.log("actioonnn,",data)
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-tenantLeaseTransfer-sort`,
+      data
+    );
+
+    dispatch({
+      type: PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 //add admin user
 export const AddAdminuser = (userData) => async (dispatch) => {
   try {

@@ -624,11 +624,13 @@ const TenantReport = ({
                       <td>Name</td>
                       <td>Mother of Sorrows Church</td>
                       <td></td>
-                      <td colSpan={2} rowSpan={5}>
+                      <td colSpan={2} rowSpan={5} className="text-center">
                         <img
                           src={require("../../static/images/MOSLogo.png")}
                           alt=""
                           className="img-fluid"
+                          height={140}
+                          width={140}
                         />
                       </td>
 

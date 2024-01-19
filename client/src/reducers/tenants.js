@@ -25,6 +25,7 @@ import {
   GET_EDIT_TENANT_DETAILS,
   PROPERTY_RELATED_TENANT,
   PARTICULAR_ORG_TENANT_SORT,
+  PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
 } from "../actions/types";
 
 const initialState = {
@@ -60,6 +61,7 @@ const initialState = {
   get_particular_org_tenant: [""],
   exp_org_count: [],
   ext_year_count_org: [],
+  sortleasetransferdetails:[],
   blnSearchOld: false,
   blnSearchCurr: true
 };
@@ -93,6 +95,11 @@ const tenants = (state = initialState, action) => {
         ...state,
         sortetenantdetails: payload,
       };
+      case PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT:
+        return{
+          ...state,
+          sortleasetransferdetails:payload,
+        };
     case GET_DOORNOS:
       return {
         ...state,
