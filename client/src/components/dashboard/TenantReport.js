@@ -118,7 +118,7 @@ const TenantReport = ({
     setviewdata(Val);
   };
 
-  console.log("viewdata", viewdata);
+  console.log("viewdataaaaaaa", viewdata);
   //////////////end ///////////////////////
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
@@ -811,6 +811,7 @@ const TenantReport = ({
                       <th>10,000</th>
                       <td></td>
                     </tr>
+                    <br/>
                     <tr>
                       <td></td>
                       <td></td>
@@ -840,24 +841,35 @@ const TenantReport = ({
                     <tr>
                       <td></td>
                       <td>Payment Mode</td>
-                      <td>{viewdata.tenantPaymentMode}</td>
+                   {viewdata.tenantPaymentMode==="Cash"?(<>
+                   <td>cash</td>
+                     <td></td>
                       <td></td>
+                      <td></td></>):viewdata.tenantPaymentMode==="Cheque"?(<>
+                    <td>Cheque</td>
+                    <td></td>
+                      <td>ChequeNo.<br/>{viewdata.tenantChequenoOrDdno}</td>
+                      <td>Date<br/>{viewdata.tenantchequeDate}</td>
+                   </>):viewdata.tenantPaymentMode==="Neft"?(<>
+                    <td>Neft</td>
+                     <td></td>
+                      <td>Bank Name<br/>{viewdata.tenantBankName}</td>
+                      <td>Trans Id<br/>{viewdata.tenantTransId}</td>
+                   </>):viewdata.tenantPaymentMode==="Card"?(<>
+                    <td>{viewdata.tenantCardType}</td>
+                     <td></td>
+                     <td>Bank Name<br/>{viewdata.tenantBankName}</td>
+                      <td>Trans Id<br/>{viewdata.tenantTransId}</td>
+                   </>):viewdata.tenantPaymentMode==="Upi"?(<>
+                    <td>UPI</td>
+                     <td></td>
                       <td></td>
-                      <td></td>
+                      <td>Trans Id<br/>{viewdata.tenantTransId}</td>
+                   </>):(<></>)}
+                    
                       <td></td>
                     </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td>Cheque (No Dt)</td>
-                      <td></td>
-                      <td>No.</td>
-                      <td>Date</td>
-                      <td></td>
-                    </tr>
-                    {/* </>
-                        );
-                      })} */}
+                 
                   </table>
 
                   {/* receipt generation  */}
