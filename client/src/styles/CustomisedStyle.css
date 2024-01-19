@@ -2272,6 +2272,19 @@ button {
   color: white;
   cursor: pointer;
 }
+.printBtn{
+  background-color: #095a4a;
+  color: white;
+  width: 7% ;
+  height: 45px;
+  border-radius: 0%;
+  border-color: transparent;
+}
+.printBtn:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
 .userhea {
   background-color: red;
   margin-left: -6%;

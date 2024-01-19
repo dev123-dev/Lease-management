@@ -884,6 +884,7 @@ const TenantReport = ({
             </Modal.Body>
             <Modal.Footer>
               <button
+              className="printBtn"
                 onClick={async () => {
                   await setShowPrint({
                     backgroundColor: "#095a4a",
@@ -899,9 +900,9 @@ const TenantReport = ({
               {/* <Button variant="primary" onClick={onPrint}>
                Print
               </Button> */}
-              <Button variant="primary" onClick={handleClosePrint}>
+              <button  onClick={handleClosePrint}  className=" sub_form    ">
                 close
-              </Button>
+              </button>
             </Modal.Footer>
           </Modal>
 
