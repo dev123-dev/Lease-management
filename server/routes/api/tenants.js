@@ -2179,4 +2179,42 @@ router.post("/tenant-update-history", async (req, res) => {
   }
 });
 
+// tenant receipt details
+router.post("/update-tenant-Receiptdetails", async (req, res) => {
+
+try{
+  let data = req.body;
+  const updateTenantReceipt = await TenentAgreement.updateOne(
+    { OrganizationId:mongoose.Types.ObjectId(data.OrganizationId),
+      tdId: mongoose.Types.ObjectId(data.tenantId )
+      
+    },
+    {
+      $set: {
+        tenantsubTotal:data.tenantsubTotal,
+        tenantDiscount:data.tenantDiscount,
+        tenantOtherCharges:data.tenantOtherCharges,
+        tenantGst:data.tenantGst,
+        tenantGrandTotal:data.tenantGrandTotal,
+        tenantReceiptNotes:data.tenantReceiptNotes,
+        tenantReceiptDateTime:data.tenantReceiptDateTime,
+        tenantPaymentMode:data.tenantPaymentMode,
+        tenantReceiptEnteredBy:data.tenantReceiptEnteredBy,
+        // tenantReceiptNo:data.tenantReceiptNo,
+        
+      },
+    }
+  )
+  
+
+res.json(updateTenantReceipt)
+
+}catch (error) {
+  console.log(error.message);
+  res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
+}
+
+ 
+});
+
 module.exports = router;

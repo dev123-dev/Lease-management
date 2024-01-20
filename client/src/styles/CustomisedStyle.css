@@ -2913,3 +2913,7 @@ i.smallsize::first-line {
   border: 1px solid black; /* Border color */
 
 }
+.textBoxWidth{
+width:80px;
+resize: "none";
+}

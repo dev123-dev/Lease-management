@@ -5,17 +5,20 @@ import {
   deactiveTenantsDetails,
   ParticularTenant,
   getAllTenants,
+  AddTenantReceiptDetails,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 import { CSVLink } from "react-csv";
+import DropdownContext from "react-bootstrap/esm/DropdownContext";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
   tenants: { allorg },
   ParticularTenant,
   deactiveTenantsDetails,
+  AddTenantReceiptDetails,
 }) => {
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
@@ -74,9 +77,6 @@ const TenantReport = ({
 
   ///////////////////////receipt generation ////////////////////////
   const componentRef1 = useRef();
-  // Modal for receipt generation
-  const [showReceipt, setShowReceipt] = useState(false);
-  const handleClosePrint = () => setShowReceipt(false);
 
   const handleGenerateReceipt = useReactToPrint({
     content: () => componentRef1.current,
@@ -92,12 +92,11 @@ const TenantReport = ({
         : "before ") +
       finalDataRep?.yearSearch +
       ")",
+    
     onAfterPrint: () =>
-      setShowPrint({
-        backgroundColor: "#095a4a",
-        color: "white",
-        fontWeight: "bold",
-      }),
+    setShowOnPrint({
+     border:"1px solid black",
+    }),
   });
   var today = new Date();
   var dd = today.getDate();
@@ -110,7 +109,7 @@ const TenantReport = ({
     mm = "0" + mm;
   }
   var todayDateymd = dd + "-" + mm + "-" + yyyy;
-
+var todatDatedmy= yyyy + "-" + mm + "-" + dd;
   const [viewdata, setviewdata] = useState([]);
   const handlePrintReceipt = (Val) => {
     console.log("Val", Val);
@@ -118,7 +117,113 @@ const TenantReport = ({
     setviewdata(Val);
   };
 
-  console.log("viewdataaaaaaa", viewdata);
+//  useEffect////////////////////////////////
+const [tenantDiscount, setTenantDiscount] = useState(0);
+const [tenantOtherCharges, setTenantOtherCharges] = useState(0);
+const[tenantSubTotalAfterAdjustments,SettenantSubTotalAfterAdjustments] = useState(0);
+const[tenantsubTotal,settenantsubTotal] = useState(0);
+const [tenantGst, setTenantGst] = useState(0);
+const[tenantGrandTotal,setTenantGrandTotal]=useState(0);
+useEffect(()=>{
+   settenantsubTotal((viewdata.tenantRentAmount) * (Doorlength))
+  SettenantSubTotalAfterAdjustments((tenantsubTotal)-  parseFloat(tenantDiscount)  + parseFloat(tenantOtherCharges));
+  setTenantGst((tenantSubTotalAfterAdjustments*18)/100);
+  
+},
+[tenantDiscount,tenantOtherCharges,viewdata,tenantSubTotalAfterAdjustments])
+
+//////////////////////////////////////////
+
+
+
+
+console.log("tenantGst",tenantGst)
+
+useEffect(()=>{
+  
+  setTenantGrandTotal(parseFloat(tenantSubTotalAfterAdjustments)+parseFloat(tenantGst));
+},[tenantGst])
+
+
+  // Modal for receipt generation
+  const [showReceipt, setShowReceipt] = useState(false);
+  const handleClosePrint = () =>{
+    settenantsubTotal(0);
+    setTenantDiscount(0);
+    setTenantOtherCharges(0);
+    setTenantGst(0);
+    setTenantGrandTotal(0);
+    setTenantReceiptNotes("");
+    SettenantSubTotalAfterAdjustments(0);
+    setShowReceipt(false);
+ 
+  } 
+
+ // validation for discount amt
+
+
+
+ const handletenantDiscountChange = (e) => {
+   const inputValue = e.target.value;
+    setTenantDiscount(inputValue);
+
+ };
+
+
+ // validation for othercharges amt
+
+
+ const handleotherChangesChange = (e) => {
+   const inputValue = e.target.value;
+
+    setTenantOtherCharges(inputValue);
+   
+ };
+
+ // validation for GST amt
+
+//  const [validationTenantGstMessage, setValidationTenantGstMessage] =
+//    useState("enter valid amount");
+
+ const handleGSTChange = (e) => {
+   const inputValue = e.target.value;
+
+  //  if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+    setTenantGst(inputValue);
+  //   setValidationTenantGstMessage("");
+  //  } else {
+  //   setValidationTenantGstMessage("enter valid amount");
+  //  }
+ };
+
+
+ // validation for notes
+
+ const [tenantReceiptNotes, setTenantReceiptNotes] = useState("");
+ const [validationTenantReceiptNotesMessage, setValidationTenantReceiptNotesMessage] = useState(
+   "enter valid Notes"
+ );
+
+ const handleNotesChange = (e) => {
+   const inputValue = e.target.value;
+   const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
+
+   isValidBuilding.test(inputValue)
+     ? setValidationTenantReceiptNotesMessage("")
+     : setValidationTenantReceiptNotesMessage("enter valid Notes");
+
+     setTenantReceiptNotes(inputValue);
+ };
+
+
+
+//to calulate subtotal amt
+var Doorlength = viewdata && viewdata.tenantDoorNo && viewdata.tenantDoorNo.length;
+
+//to calculate Sub-Total After Adjustments
+
+
+// Calculate Sub-Total After Adjustments
   //////////////end ///////////////////////
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
@@ -175,7 +280,49 @@ const TenantReport = ({
       expReport.AgreementStatus,
     ]);
   });
-  //console.log("finalDataRep", finalDataRep);
+
+
+// onsubmit
+const [showOnPrint, setShowOnPrint] = useState({
+ border:"1px solid black",
+});
+  const onPrint=()=>{
+    handleGenerateReceipt() ;
+  
+  
+    const finalData = {
+      OrganizationName: user.OrganizationName,
+      OrganizationId: user.OrganizationId,
+      tenantId: viewdata && viewdata._id ,
+  
+      tenantsubTotal:tenantsubTotal,
+  tenantDiscount:tenantDiscount,
+  tenantOtherCharges:tenantOtherCharges,
+  tenantGst:tenantGst,
+  tenantGrandTotal:tenantGrandTotal,
+  tenantReceiptNotes:tenantReceiptNotes,
+  // tenantReceiptNo:tenantReceiptNo,
+
+  tenantReceiptDateTime:today,
+  tenantPaymentMode:viewdata && viewdata.tenantPaymentMode,
+  tenantReceiptEnteredBy: user && user._id,
+  
+
+  
+    };
+    console.log("finalData", finalData);
+     AddTenantReceiptDetails(finalData);
+  
+    //  settenantsubTotal(0);
+    //  setTenantDiscount(0);
+    //  setTenantOtherCharges(0);
+    //  setTenantGst(0);
+    //  setTenantGrandTotal(0);
+    //  setTenantReceiptNotes("");
+    //  SettenantSubTotalAfterAdjustments(0);
+  
+  }
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -369,7 +516,7 @@ const TenantReport = ({
                           {expReport &&
                             expReport[0] &&
                             expReport.map((Val, idx) => {
-                              console.log("newwww", Val);
+                              // console.log("newwww", Val);
                               var ED = Val.tenantLeaseEndDate.split(/\D/g);
                               var tenantLeaseEndDate = [
                                 ED[2],
@@ -782,7 +929,7 @@ const TenantReport = ({
                       <th>Sub-Total</th>
                       <th></th>
                       <th></th>
-                      <th>8,000</th>
+                      <th>{tenantsubTotal}</th>
                       <td></td>
                     </tr>
                     <tr>
@@ -791,7 +938,14 @@ const TenantReport = ({
                       <td>Less: Discounts</td>
                       <td></td>
                       <td></td>
-                      <td>1,000</td>
+                      <td>  <input
+                      type="number"
+                      name="tenantDiscount"
+                      className="textBoxWidth"
+                      value={tenantDiscount}
+                      onChange={(e) => handletenantDiscountChange(e)}
+                      style={showOnPrint}
+                    /></td>
                       <td></td>
                     </tr>
                     <tr>
@@ -800,7 +954,14 @@ const TenantReport = ({
                       <td>Add: Other Charges</td>
                       <td></td>
                       <td></td>
-                      <td>3,000</td>
+                      <td><input
+                      type="number"
+                      name="tenantOtherCharges"
+                      className="textBoxWidth"
+                     value={tenantOtherCharges}
+                      onChange={(e) => handleotherChangesChange(e)}
+                      style={showOnPrint}
+                    /></td>
                       <td></td>
                     </tr>
                     <br />
@@ -810,7 +971,9 @@ const TenantReport = ({
                       <th>Sub-Total After Adjustments</th>
                       <th></th>
                       <th></th>
-                      <th>10,000</th>
+                  
+                    <th>{isNaN(parseFloat(tenantSubTotalAfterAdjustments)) || parseFloat(tenantSubTotalAfterAdjustments) === 0 ? " " : tenantSubTotalAfterAdjustments}
+</th> 
                       <td></td>
                     </tr>
                     <br/>
@@ -820,7 +983,14 @@ const TenantReport = ({
                       <td>GST (18%)</td>
                       <td></td>
                       <td></td>
-                      <td>1800</td>
+                      <td><input
+                      type="number"
+                      name="tenantGST"
+                      className="textBoxWidth"
+                     value={isNaN(parseFloat(tenantGst)) || parseFloat(tenantGst) === 0 ? " " : tenantGst}
+                     onChange={(e) => handleGSTChange(e)}
+                     style={showOnPrint}
+                    /></td>
                       <td></td>
                     </tr>
                     <br />
@@ -830,7 +1000,9 @@ const TenantReport = ({
                       <th>Grand Total</th>
                       <td></td>
                       <td></td>
-                      <th>11800</th>
+                      <th>{isNaN(parseFloat(tenantGrandTotal)) || parseFloat(tenantGrandTotal) === 0 ? " " : tenantGrandTotal}
+                    </th>
+                     
                       <td></td>
                     </tr>
                     <br />
@@ -871,7 +1043,30 @@ const TenantReport = ({
                     
                       <td></td>
                     </tr>
-                 
+                 <br/>
+                 <tr>
+                      <td colSpan={7}>
+                        <hr className="customHr" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td>Notes :</td>
+                      <td colSpan={3}><textarea
+                      rows={2}
+                  
+                      type="text"
+                      name="tenantNotes"
+                      className="form-control"
+                     value={tenantReceiptNotes}
+                     onChange={(e) => handleNotesChange(e)}
+                      style={showOnPrint}
+                    /></td>
+                     
+                      {/* <td></td> */}
+                      <td></td>
+                      <td></td>
+                    </tr>
                   </table>
 
                   {/* receipt generation  */}
@@ -887,15 +1082,13 @@ const TenantReport = ({
             <Modal.Footer>
               <button
               className="printBtn"
-                onClick={async () => {
-                  await setShowPrint({
-                    backgroundColor: "#095a4a",
-                    color: "black",
-                    fontWeight: "bold",
-                  });
+              onClick={async () => {
+                await setShowOnPrint({
+                 border:"none",
+                });
 
-                  handleGenerateReceipt();
-                }}
+                onPrint();
+              }}
               >
                 Print
               </button>
@@ -924,4 +1117,5 @@ export default connect(mapStateToProps, {
   getAllTenants,
   deactiveTenantsDetails,
   ParticularTenant,
+  AddTenantReceiptDetails,
 })(TenantReport);

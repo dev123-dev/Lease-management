@@ -34,6 +34,7 @@ import {
   PROPERTY_RELATED_TENANT,
   PARTICULAR_ORG_TENANT_SORT,
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
+
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -774,6 +775,26 @@ export const getAllTenants = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
+    });
+  }
+};
+
+
+
+//add tenant receipt details 
+
+export const AddTenantReceiptDetails = (finalData) => async (dispatch) => {
+  try {
+    await axios.post(
+      `${linkPath}/api/tenants/update-tenant-Receiptdetails`,
+      finalData,
+      config
+    );
+    
+  } catch (err) {
+    console.log(err.message);
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
     });
   }
 };

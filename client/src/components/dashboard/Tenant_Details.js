@@ -645,7 +645,7 @@ const onLeaseTransfer = ( Val) => {
                                                 Val
                                               )
                                             }
-                                            src={require("../../static/images/delete.png")}
+                                            src={require("../../static/images/info.png")}
                                             alt="lease transfer"
                                             title="lease transfer"
                                           />
@@ -883,13 +883,6 @@ const onLeaseTransfer = ( Val) => {
         </form>
       </Modal>
       {/* deactivate end */}
-
-
-
-
-
-
-
 
 
 
