@@ -1082,19 +1082,17 @@ const [showOnPrint, setShowOnPrint] = useState({
             <Modal.Footer>
               <button
               className="printBtn"
-              onClick={async () => {
-                await setShowOnPrint({
-                 border:"none",
-                });
+              // onClick={async () => {
+              //   await setShowOnPrint({
+              //    border:"none",
+              //   });
 
-                onPrint();
-              }}
+              //   onPrint();
+              // }}
               >
                 Print
               </button>
-              {/* <Button variant="primary" onClick={onPrint}>
-               Print
-              </Button> */}
+             
               <button  onClick={handleClosePrint}  className=" sub_form    ">
                 close
               </button>
