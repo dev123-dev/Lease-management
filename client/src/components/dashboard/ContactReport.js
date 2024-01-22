@@ -178,6 +178,18 @@ const ContactReport = ({
                       <tbody className="text-center">
                         {currentDatas &&
                           currentDatas.map((Val, idx) => {
+
+                            var ED =
+                            Val.tenantLeaseEndDate &&
+                            Val.tenantLeaseEndDate.split(/\D/g);
+                          var tenant = [
+                            ED && ED[2],
+                            ED && ED[1],
+                            ED && ED[0],
+                          ].join("-");
+
+
+
                             return (
                               <tr key={idx}>
                                 <td className="headcolstatic secondlinebreak1">
@@ -213,7 +225,7 @@ const ContactReport = ({
                                 <td>{Val.tenantAdharNo}</td>
                                 <td>{Val.tenantFirmName}</td>
 
-                                <td>{Val.tenantLeaseEndDate}</td>
+                                <td>{tenant}</td>
                               </tr>
                             );
                           })}
