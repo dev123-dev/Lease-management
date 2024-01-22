@@ -130,7 +130,7 @@ useEffect(()=>{
   setTenantGst((tenantSubTotalAfterAdjustments*18)/100);
   
 },
-[tenantDiscount,tenantOtherCharges,viewdata,tenantSubTotalAfterAdjustments])
+[tenantDiscount,tenantOtherCharges,viewdata,tenantSubTotalAfterAdjustments,handlePrintReceipt])
 
 //////////////////////////////////////////
 
@@ -1000,7 +1000,7 @@ const [showOnPrint, setShowOnPrint] = useState({
                       <th>Grand Total</th>
                       <td></td>
                       <td></td>
-                      <th>{isNaN(parseFloat(tenantGrandTotal)) || parseFloat(tenantGrandTotal) === 0 ? " " : tenantGrandTotal}
+                      <th>{isNaN(parseFloat(tenantGrandTotal)) || parseFloat(tenantGrandTotal) === 0 ? " " : Number(tenantGrandTotal).toFixed(2)}
                     </th>
                      
                       <td></td>
