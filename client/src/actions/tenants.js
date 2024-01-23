@@ -34,6 +34,7 @@ import {
   PROPERTY_RELATED_TENANT,
   PARTICULAR_ORG_TENANT_SORT,
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
+  GET_TENANT_RECEIPTNO,
 
 } from "./types";
 import { loadUser } from "./auth";
@@ -590,6 +591,34 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
   }
 };
 
+
+
+//edit tenant lease transfer
+
+export const EditTenantLeaseTransferDetails = (finalData) => async (dispatch) => {
+  try {
+    await axios.post(
+      `${linkPath}/api/tenants/edit-tenant-leasetransfer-details`,
+      finalData,
+      config
+    );
+    dispatch(
+      getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
+   
+    );
+    dispatch(getAllTenants());
+  } catch (err) {
+    console.log(err.message);
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
+
+
+
+
+
 export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
   try {
     await axios.post(
@@ -778,6 +807,25 @@ export const getAllTenants = () => async (dispatch) => {
     });
   }
 };
+
+//get tenant receipt number
+export const getTenantReceiptNo = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-tenant-receiptnumber`,
+      data
+    );
+    dispatch({
+      type: GET_TENANT_RECEIPTNO,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
 
 
 

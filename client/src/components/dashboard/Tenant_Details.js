@@ -638,17 +638,19 @@ const onLeaseTransfer = ( Val) => {
                                             alt="Deactivate"
                                             title="Deactivate"
                                           />
-                                           <img
-                                            className="Cursor "
-                                            onClick={() =>
-                                              onLeaseTransfer(
-                                                Val
-                                              )
-                                            }
-                                            src={require("../../static/images/info.png")}
-                                            alt="lease transfer"
-                                            title="lease transfer"
-                                          />
+                                          &nbsp;
+                                          {Val.shopDoorNo.length===0?(<></>):(
+ <img
+ className="Cursor "
+ onClick={() => onLeaseTransfer(Val)}
+ height="30px"
+ width="30px"
+ src={require("../../static/images/leaseTrans.png")}
+ alt="lease transfer"
+ title="lease transfer"
+/>
+                                          )}
+                                          
                                         </td>
                                       ) : (
                                         <td></td>
@@ -919,7 +921,7 @@ const onLeaseTransfer = ( Val) => {
                 </div>
               </Modal.Header>
               <Modal.Body>
-                <TenantLeaseTransfer leaseTransferData={userData}/>
+                <TenantLeaseTransfer leaseTransferData={userData} ModalClose={handleLeaseTranferModalClose}/>
                 {/* <RenewTenentAgreement
                   tenantsData={userData}
                   onReportModalChange={onReportModalChange}

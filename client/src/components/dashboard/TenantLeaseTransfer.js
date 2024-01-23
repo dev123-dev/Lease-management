@@ -8,15 +8,21 @@ import {
     getParticularProperty,
     // getTenantDetails,
    
+    ParticularTenantFilter,
     ParticularTenantLeaseTransferFilter,
     deactiveTenantsDetails,
+    EditTenantLeaseTransferDetails,
   } from "../../actions/tenants";
+import EditTenantDetails from "./EditTenantDetails";
 const TenantLeaseTransfer = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   leaseTransferData,
+  ModalClose,
   tenants: { allTenantSetting , particular_org_data, sortleasetransferdetails,},
   ParticularTenantLeaseTransferFilter,
+  ParticularTenantFilter,
   getAllSettings,
+  EditTenantLeaseTransferDetails,
 
 }) => {
  
@@ -61,8 +67,10 @@ const onchangePrperty = (e) => {
       })
     );
 
-
+   
     // tenant dropdown 
+
+    const [existingTenantDoorno,setExistingTenantDoorno]=useState(false)
     const [tenantName, SetTenantName] = useState("");
     let TenantNames = [];
    
@@ -75,15 +83,20 @@ const onchangePrperty = (e) => {
         });
       });
       const onchangeTenantNames = (e) => {
+        setErrors({
+          ...errors,
+          tenantChecker: true,
+          tenantErrorStyle: { color: "#000" },
+        });
         SetTenantName(e);
         ParticularTenantLeaseTransferFilter({
         
           tenantName: e.value,
         });
-console.log("eeeee",e)
+        setExistingTenantDoorno(true);
        
     }
-    
+    console.log("existingTenantDoorno",existingTenantDoorno)
 const[leaseTranferArr,setLeaseTrasferArr]=useState(leaseTransferData.shopDoorNo);
 console.log("leaseTranferArr",leaseTranferArr)
 
@@ -121,6 +134,56 @@ const onRemoveChange = (Doornumber) => {
     // });
   };
       console.log("selectedDoorNumber",selectedDoorNumber)
+
+
+
+
+      //validation for select
+      const [errors, setErrors] = useState({
+        tenantChecker: false,
+        tenantErrorStyle: {},
+      });
+      const { tenantChecker, tenantErrorStyle } = errors;
+      const checkError = () => {
+        if (!tenantChecker) {
+          setErrors({
+            ...errors,
+            tenantErrorStyle: { color: "#F00" },
+          });
+          return false;
+        }
+    
+        return true;
+      };
+
+
+
+      const onSubmit = () => {
+        // e.preventDefault();
+        if (checkError()  && selectedDoorNumber&& selectedDoorNumber.length>0) {
+        const finalData = {
+        OrganizationName: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+        fromId:leaseTransferData._id,
+        fromTenantName:leaseTransferData.tenantName,
+        toId:sortleasetransferdetails && sortleasetransferdetails[0] && sortleasetransferdetails[0]._id,
+        Dno:leaseTransferData.shopDoorNo,
+        transferShoopDoorNo:selectedDoorNumber,
+
+        }
+
+console.log("finalData submitttttttt",finalData)
+EditTenantLeaseTransferDetails(finalData);
+ModalClose();
+ParticularTenantFilter("");
+setExistingTenantDoorno(false)
+
+      }
+      }
+      
+
+  
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -134,7 +197,12 @@ From :
 {leaseTransferData.tenantName}
 </div>
 <div className="col-lg-3 py-3">
-To :
+<label
+                        // className="control-label"
+                        style={tenantErrorStyle}
+                      >
+                        To<span style={{ color: "red" }}>*</span>
+                      </label>
 </div>
 <div className="col-lg-9">
 <div className="row ">
@@ -164,6 +232,17 @@ To :
 
 </div>
 </div>
+{existingTenantDoorno?(<><div className="col-lg-3 font-weight-bold" style={{color:"#095a4a"}}>
+Existing Rooms of {sortleasetransferdetails && sortleasetransferdetails[0] &&  sortleasetransferdetails[0].tenantName } :
+</div>
+<div className="col-lg-9">
+{sortleasetransferdetails && sortleasetransferdetails[0] &&  sortleasetransferdetails[0].shopDoorNo.map((ele)=>{
+return(
+  <span className=" font-weight-bold"style={{color:"#095a4a"}}>{ele.value}&nbsp;,</span>
+)
+}) }
+</div></>):(<></>)}
+
 
 
 <div className="row ">
@@ -188,7 +267,7 @@ To :
                         className="h4 "
                         style={{ fontFamily: "Serif", color: "#095a4a" }}
                       >
-                        Available:
+                        Transfer:
                       </div>{" "}
                       <br></br>
                       { leaseTranferArr &&
@@ -228,7 +307,7 @@ To :
                         className="h4"
                         style={{ fontFamily: "Serif", color: "#095a4a" }}
                       >
-                        Selected:
+                        Transferred:
                       </div>
                       <br></br>
                       {selectedDoorNumber &&
@@ -276,7 +355,11 @@ To :
 
 
 
-
+<div className="float-right  text-right d-flex justify-content-end">
+<button  className="rewbtn float-right w-25" onClick={onSubmit}>
+  Transfer
+</button>
+</div>
 
 
       </div>
@@ -293,5 +376,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
     ParticularTenantLeaseTransferFilter,
     getParticularOrg,
+    EditTenantLeaseTransferDetails,
+    ParticularTenantFilter
 
 })(TenantLeaseTransfer);

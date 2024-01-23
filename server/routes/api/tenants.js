@@ -13,6 +13,7 @@ const TenantAgreementHistory = require("../../models/TenantAgreementHistories");
 const auth = require("../../middleware/auth");
 const mongoose = require("mongoose");
 
+
 router.post("/add-tenant-details", async (req, res) => {
   var today = new Date();
   var dd = today.getDate();
@@ -920,7 +921,8 @@ router.post("/get-tenantLeaseTransfer-sort", auth, async (req, res) => {
   let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
     req.body;
 
-  let query = { OrganizationId: userInfo.OrganizationId };
+  let query = { OrganizationId: userInfo.OrganizationId ,
+  tenantstatus:"Active"};
   if (LocationName) {
     query = {
       ...query,
@@ -2179,6 +2181,28 @@ router.post("/tenant-update-history", async (req, res) => {
   }
 });
 
+//get tenant receipt number
+
+router.post("/get-tenant-receiptnumber", async (req, res) => {
+  let data = req.body;
+  try {
+    const tenanatReceiptNoData = await TenentAgreement.findOne({
+      OrganizationId: data.OrganizationId,
+      tenantReceiptNo: { $ne: "" }
+    })
+    // .sort({ tenantReceiptNo: -1 }).limit(1).collation({ locale: "en_US", numericOrdering: true });
+    .sort({ tenantReceiptNo: -1 }).limit(1);
+    // to store alphanumberic 
+   
+    res.json(tenanatReceiptNoData.tenantReceiptNo)
+  } catch (error) {
+    console.error("Error occurred:", error);
+  }
+ 
+  
+
+});
+
 // tenant receipt details
 router.post("/update-tenant-Receiptdetails", async (req, res) => {
 
@@ -2200,7 +2224,7 @@ try{
         tenantReceiptDateTime:data.tenantReceiptDateTime,
         tenantPaymentMode:data.tenantPaymentMode,
         tenantReceiptEnteredBy:data.tenantReceiptEnteredBy,
-        // tenantReceiptNo:data.tenantReceiptNo,
+        tenantReceiptNo:data.tenantReceiptNo,
         
       },
     }
@@ -2215,6 +2239,181 @@ res.json(updateTenantReceipt)
 }
 
  
+});
+
+//tenant lease transfer
+
+router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
+  try {
+    let data = req.body;
+     console.log( "len",data);
+    if (data.Dno.length > 1) {
+      console.log("rvced data > 0", data);
+      //pull
+       data.transferShoopDoorNo.map((ele) => {
+        TenantDetails.updateOne(
+          {
+            _id: data.fromId,
+          
+          },
+          {
+            $pull: {
+              shopDoorNo: { label: ele.label },
+             
+            },
+          }
+          ).then((data) => {});
+      });
+      data.transferShoopDoorNo.map((ele) => {
+        TenentAgreement.updateOne(
+          {
+            tdId: data.fromId,
+          
+          },
+          {
+
+            $pull: {
+              tenantDoorNo: { label: ele.label },
+             
+            },
+          }
+       
+        ).then((data) => {});
+          
+      });
+
+
+//push 
+       data.transferShoopDoorNo.map((ele) => {
+        TenantDetails.updateOne(
+          {
+            _id: data.toId,
+          
+          },
+         
+          {
+            $push: {
+             shopDoorNo:data.transferShoopDoorNo,
+            },
+          }
+        ).then((data) => {});
+      });
+      data.transferShoopDoorNo.map((ele) => {
+        console.log("inside aggrement",ele)
+        TenentAgreement.updateOne(
+          {
+            tdId: data.toId,
+          
+          },
+          {
+            $push: {
+              tenantDoorNo:ele,
+            },
+          }
+         
+        ).then((data) => {console.log(data)});
+          
+      });
+
+
+    } 
+    else if(data.Dno.length === 1){
+     
+      console.log("rvced data === 1", data);
+    
+  //pull
+  data.transferShoopDoorNo.map((ele) => {
+    const fromId = data.fromId;
+    TenantDetails.updateOne(
+      {
+        _id: fromId,
+      },
+      {
+        $pull: {
+          shopDoorNo: { label: ele.label },
+        },
+      }
+    ).then((pullResult) => {
+      TenantDetails.updateOne(
+        {
+          _id: fromId,
+        },
+        {
+          $set: {
+            tenantstatus: "Deactive",
+            deactive_reason: "lease transfer from " + data.fromTenantName,
+          },
+        }
+      ).then((setResult) => {
+      });
+    });
+  });
+  
+  data.transferShoopDoorNo.map((ele) => {
+    const fromId = data.fromId;
+    TenentAgreement.updateOne(
+      {
+        tdId: fromId,
+      },
+      {
+        $pull: {
+          tenantDoorNo: { label: ele.label },
+        },
+      }
+    ).then((pullResult) => {
+      TenentAgreement.updateOne(
+        {
+          tdId: fromId,
+        },
+        {
+          $set: {
+            tenantstatus: "Deactive",
+            // deactive_reason: "lease transfer from " + data.fromTenantName,
+          },
+        }
+      ).then((setResult) => {
+      
+      });
+    });
+  });
+  
+
+
+//push 
+  data.transferShoopDoorNo.map((ele) => {
+    TenantDetails.updateOne(
+      {
+        _id: data.toId,
+      
+      },
+     
+      {
+        $push: {
+         shopDoorNo:ele,
+        },
+      }
+    ).then((data) => {});
+  });
+  data.transferShoopDoorNo.map((ele) => {
+    TenentAgreement.updateOne(
+      {
+        tdId: data.toId,
+      
+      },
+      {
+        $push: {
+          tenantDoorNo:ele,
+        },
+      }
+     
+    ).then((data) => {});
+      
+  });
+     
+    }
+  } catch (error) {
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
+  }
 });
 
 module.exports = router;

@@ -6,6 +6,7 @@ import {
   ParticularTenant,
   getAllTenants,
   AddTenantReceiptDetails,
+  getTenantReceiptNo,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
@@ -15,10 +16,11 @@ import { CSVLink } from "react-csv";
 import DropdownContext from "react-bootstrap/esm/DropdownContext";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
-  tenants: { allorg },
+  tenants: { allorg, tenantreceiptno },
   ParticularTenant,
   deactiveTenantsDetails,
   AddTenantReceiptDetails,
+  getTenantReceiptNo,
 }) => {
   useEffect(() => {
     ParticularTenant({ OrganizationId: user && user.OrganizationId });
@@ -71,9 +73,6 @@ const TenantReport = ({
     deactiveTenantsDetails(reason);
     handleClose();
   };
-  // const handlePrint = () => {
-  //   alert();
-  // };
 
   ///////////////////////receipt generation ////////////////////////
   const componentRef1 = useRef();
@@ -92,11 +91,11 @@ const TenantReport = ({
         : "before ") +
       finalDataRep?.yearSearch +
       ")",
-    
+
     onAfterPrint: () =>
-    setShowOnPrint({
-     border:"1px solid black",
-    }),
+      setShowOnPrint({
+        border: "1px solid black",
+      }),
   });
   var today = new Date();
   var dd = today.getDate();
@@ -109,45 +108,48 @@ const TenantReport = ({
     mm = "0" + mm;
   }
   var todayDateymd = dd + "-" + mm + "-" + yyyy;
-var todatDatedmy= yyyy + "-" + mm + "-" + dd;
+  var todatDatedmy = yyyy + "-" + mm + "-" + dd;
   const [viewdata, setviewdata] = useState([]);
   const handlePrintReceipt = (Val) => {
-    console.log("Val", Val);
     setShowReceipt(true);
     setviewdata(Val);
   };
 
-//  useEffect////////////////////////////////
-const [tenantDiscount, setTenantDiscount] = useState(0);
-const [tenantOtherCharges, setTenantOtherCharges] = useState(0);
-const[tenantSubTotalAfterAdjustments,SettenantSubTotalAfterAdjustments] = useState(0);
-const[tenantsubTotal,settenantsubTotal] = useState(0);
-const [tenantGst, setTenantGst] = useState(0);
-const[tenantGrandTotal,setTenantGrandTotal]=useState(0);
-useEffect(()=>{
-   settenantsubTotal((viewdata.tenantRentAmount) * (Doorlength))
-  SettenantSubTotalAfterAdjustments((tenantsubTotal)-  parseFloat(tenantDiscount)  + parseFloat(tenantOtherCharges));
-  setTenantGst((tenantSubTotalAfterAdjustments*18)/100);
-  
-},
-[tenantDiscount,tenantOtherCharges,viewdata,tenantSubTotalAfterAdjustments,handlePrintReceipt])
+  // /////////////////// calculation////////////////////////////////
+  const [tenantDiscount, setTenantDiscount] = useState(0);
+  const [tenantOtherCharges, setTenantOtherCharges] = useState(0);
+  const [tenantSubTotalAfterAdjustments, SettenantSubTotalAfterAdjustments] =
+    useState(0);
+  const [tenantsubTotal, settenantsubTotal] = useState(0);
+  const [tenantGst, setTenantGst] = useState(0);
+  const [tenantGrandTotal, setTenantGrandTotal] = useState(0);
+  useEffect(() => {
+    settenantsubTotal(viewdata.tenantRentAmount * Doorlength);
+    SettenantSubTotalAfterAdjustments(
+      tenantsubTotal -
+        parseFloat(tenantDiscount) +
+        parseFloat(tenantOtherCharges)
+    );
+    setTenantGst((tenantSubTotalAfterAdjustments * 18) / 100);
+  }, [
+    tenantDiscount,
+    tenantOtherCharges,
+    viewdata,
+    tenantSubTotalAfterAdjustments,
+    handlePrintReceipt,
+  ]);
 
-//////////////////////////////////////////
+  useEffect(() => {
+    setTenantGrandTotal(
+      parseFloat(tenantSubTotalAfterAdjustments) + parseFloat(tenantGst)
+    );
+  }, [tenantGst]);
 
-
-
-
-console.log("tenantGst",tenantGst)
-
-useEffect(()=>{
-  
-  setTenantGrandTotal(parseFloat(tenantSubTotalAfterAdjustments)+parseFloat(tenantGst));
-},[tenantGst])
-
+  //////////////////////////////////////////
 
   // Modal for receipt generation
   const [showReceipt, setShowReceipt] = useState(false);
-  const handleClosePrint = () =>{
+  const handleClosePrint = () => {
     settenantsubTotal(0);
     setTenantDiscount(0);
     setTenantOtherCharges(0);
@@ -156,74 +158,70 @@ useEffect(()=>{
     setTenantReceiptNotes("");
     SettenantSubTotalAfterAdjustments(0);
     setShowReceipt(false);
- 
-  } 
+  };
 
- // validation for discount amt
+  //  useeffect to load receipt number
+  useEffect(() => {
+    getTenantReceiptNo({ OrganizationId: user && user.OrganizationId });
+  }, [showReceipt]);
 
+  // validation for discount amt
 
-
- const handletenantDiscountChange = (e) => {
-   const inputValue = e.target.value;
+  const handletenantDiscountChange = (e) => {
+    const inputValue = e.target.value;
     setTenantDiscount(inputValue);
+  };
 
- };
+  // validation for othercharges amt
 
-
- // validation for othercharges amt
-
-
- const handleotherChangesChange = (e) => {
-   const inputValue = e.target.value;
+  const handleotherChangesChange = (e) => {
+    const inputValue = e.target.value;
 
     setTenantOtherCharges(inputValue);
-   
- };
+  };
 
- // validation for GST amt
+  // validation for GST amt
 
-//  const [validationTenantGstMessage, setValidationTenantGstMessage] =
-//    useState("enter valid amount");
+  //  const [validationTenantGstMessage, setValidationTenantGstMessage] =
+  //    useState("enter valid amount");
 
- const handleGSTChange = (e) => {
-   const inputValue = e.target.value;
+  const handleGSTChange = (e) => {
+    const inputValue = e.target.value;
 
-  //  if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+    //  if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
     setTenantGst(inputValue);
-  //   setValidationTenantGstMessage("");
-  //  } else {
-  //   setValidationTenantGstMessage("enter valid amount");
-  //  }
- };
+    //   setValidationTenantGstMessage("");
+    //  } else {
+    //   setValidationTenantGstMessage("enter valid amount");
+    //  }
+  };
 
+  // validation for notes
 
- // validation for notes
+  const [tenantReceiptNotes, setTenantReceiptNotes] = useState("");
+  // const [
+  //   validationTenantReceiptNotesMessage,
+  //   setValidationTenantReceiptNotesMessage,
+  // ] = useState("enter valid Notes");
 
- const [tenantReceiptNotes, setTenantReceiptNotes] = useState("");
- const [validationTenantReceiptNotesMessage, setValidationTenantReceiptNotesMessage] = useState(
-   "enter valid Notes"
- );
+  const handleNotesChange = (e) => {
+    const inputValue = e.target.value;
+    // const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
 
- const handleNotesChange = (e) => {
-   const inputValue = e.target.value;
-   const isValidBuilding = /^(?!([\d\s-]*|[\W\\\/\,]*)$)[A-Za-z\d\s\\\/\,-]+$/;
+    // isValidBuilding.test(inputValue)
+    //   ? setValidationTenantReceiptNotesMessage("")
+    //   : setValidationTenantReceiptNotesMessage("enter valid Notes");
 
-   isValidBuilding.test(inputValue)
-     ? setValidationTenantReceiptNotesMessage("")
-     : setValidationTenantReceiptNotesMessage("enter valid Notes");
+    setTenantReceiptNotes(inputValue);
+  };
 
-     setTenantReceiptNotes(inputValue);
- };
+  //to calulate subtotal amt
+  var Doorlength =
+    viewdata && viewdata.tenantDoorNo && viewdata.tenantDoorNo.length;
 
+  //to calculate Sub-Total After Adjustments
 
-
-//to calulate subtotal amt
-var Doorlength = viewdata && viewdata.tenantDoorNo && viewdata.tenantDoorNo.length;
-
-//to calculate Sub-Total After Adjustments
-
-
-// Calculate Sub-Total After Adjustments
+  // Calculate Sub-Total After Adjustments
   //////////////end ///////////////////////
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
@@ -281,47 +279,49 @@ var Doorlength = viewdata && viewdata.tenantDoorNo && viewdata.tenantDoorNo.leng
     ]);
   });
 
+  // onsubmit
+  const [showOnPrint, setShowOnPrint] = useState({
+    border: "1px solid black",
+  });
 
-// onsubmit
-const [showOnPrint, setShowOnPrint] = useState({
- border:"1px solid black",
-});
-  const onPrint=()=>{
-    handleGenerateReceipt() ;
-  
-  
+  // increment the receipt number  for string (ex :MOS0001)
+  // const tenantReceiptNo1 = tenantreceiptno.toString();
+  // const numericPart =  tenantReceiptNo1.replace(/^\D+/g, '');
+  // const nextNumericValue = (parseInt(numericPart, 10) + 1).toString().padStart(numericPart.length, '0');
+  // const nextTenantReceiptNo = tenantReceiptNo1.replace(/\d+/g, '') + nextNumericValue;
+
+  //increment receipt number
+  const tenantReceiptNo1 = tenantreceiptno.toString();
+  const numericPart = tenantReceiptNo1.replace(/^\D+/g, "");
+  const nextNumericValue = (parseInt(numericPart, 10) + 1)
+    .toString()
+    .padStart(numericPart.length, "0");
+  const nextTenantReceiptNo =
+    tenantReceiptNo1.replace(/\d+/g, "") + nextNumericValue;
+
+  const onPrint = () => {
+    handleGenerateReceipt();
     const finalData = {
       OrganizationName: user.OrganizationName,
       OrganizationId: user.OrganizationId,
-      tenantId: viewdata && viewdata._id ,
-  
-      tenantsubTotal:tenantsubTotal,
-  tenantDiscount:tenantDiscount,
-  tenantOtherCharges:tenantOtherCharges,
-  tenantGst:tenantGst,
-  tenantGrandTotal:tenantGrandTotal,
-  tenantReceiptNotes:tenantReceiptNotes,
-  // tenantReceiptNo:tenantReceiptNo,
+      tenantId: viewdata && viewdata._id,
 
-  tenantReceiptDateTime:today,
-  tenantPaymentMode:viewdata && viewdata.tenantPaymentMode,
-  tenantReceiptEnteredBy: user && user._id,
-  
-
-  
+      tenantsubTotal: tenantsubTotal,
+      tenantDiscount: tenantDiscount,
+      tenantOtherCharges: tenantOtherCharges,
+      tenantGst: tenantGst,
+      tenantGrandTotal: tenantGrandTotal,
+      tenantReceiptNotes: tenantReceiptNotes,
+      tenantReceiptNo:
+        tenantreceiptno.length === 0 ? "0001" : nextTenantReceiptNo,
+      // tenantReceiptNo:tenantreceiptno.length===0?"MOS0001" :nextTenantReceiptNo,
+      tenantReceiptDateTime: today,
+      tenantPaymentMode: viewdata && viewdata.tenantPaymentMode,
+      tenantReceiptEnteredBy: user && user._id,
     };
-    console.log("finalData", finalData);
-     AddTenantReceiptDetails(finalData);
-  
-    //  settenantsubTotal(0);
-    //  setTenantDiscount(0);
-    //  setTenantOtherCharges(0);
-    //  setTenantGst(0);
-    //  setTenantGrandTotal(0);
-    //  setTenantReceiptNotes("");
-    //  SettenantSubTotalAfterAdjustments(0);
-  
-  }
+    // console.log("finalData", finalData);
+    AddTenantReceiptDetails(finalData);
+  };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -845,7 +845,12 @@ const [showOnPrint, setShowOnPrint] = useState({
                       <td>{viewdata.tenantName}</td>
                       <td></td>
                       <td>Receipt No</td>
-                      <td>12345</td>
+                      <td>
+                        {tenantreceiptno.length === 0
+                          ? "0001"
+                          : nextTenantReceiptNo}
+                      </td>
+                      {/* <td>{tenantreceiptno.length===0?"MOS0001" :nextTenantReceiptNo}</td> */}
                       <td></td>
                     </tr>
                     <tr>
@@ -938,14 +943,17 @@ const [showOnPrint, setShowOnPrint] = useState({
                       <td>Less: Discounts</td>
                       <td></td>
                       <td></td>
-                      <td>  <input
-                      type="number"
-                      name="tenantDiscount"
-                      className="textBoxWidth"
-                      value={tenantDiscount}
-                      onChange={(e) => handletenantDiscountChange(e)}
-                      style={showOnPrint}
-                    /></td>
+                      <td>
+                        {" "}
+                        <input
+                          type="number"
+                          name="tenantDiscount"
+                          className="textBoxWidth"
+                          value={tenantDiscount}
+                          onChange={(e) => handletenantDiscountChange(e)}
+                          style={showOnPrint}
+                        />
+                      </td>
                       <td></td>
                     </tr>
                     <tr>
@@ -954,14 +962,16 @@ const [showOnPrint, setShowOnPrint] = useState({
                       <td>Add: Other Charges</td>
                       <td></td>
                       <td></td>
-                      <td><input
-                      type="number"
-                      name="tenantOtherCharges"
-                      className="textBoxWidth"
-                     value={tenantOtherCharges}
-                      onChange={(e) => handleotherChangesChange(e)}
-                      style={showOnPrint}
-                    /></td>
+                      <td>
+                        <input
+                          type="number"
+                          name="tenantOtherCharges"
+                          className="textBoxWidth"
+                          value={tenantOtherCharges}
+                          onChange={(e) => handleotherChangesChange(e)}
+                          style={showOnPrint}
+                        />
+                      </td>
                       <td></td>
                     </tr>
                     <br />
@@ -971,26 +981,37 @@ const [showOnPrint, setShowOnPrint] = useState({
                       <th>Sub-Total After Adjustments</th>
                       <th></th>
                       <th></th>
-                  
-                    <th>{isNaN(parseFloat(tenantSubTotalAfterAdjustments)) || parseFloat(tenantSubTotalAfterAdjustments) === 0 ? " " : tenantSubTotalAfterAdjustments}
-</th> 
+
+                      <th>
+                        {isNaN(parseFloat(tenantSubTotalAfterAdjustments)) ||
+                        parseFloat(tenantSubTotalAfterAdjustments) === 0
+                          ? " "
+                          : tenantSubTotalAfterAdjustments}
+                      </th>
                       <td></td>
                     </tr>
-                    <br/>
+                    <br />
                     <tr>
                       <td></td>
                       <td></td>
                       <td>GST (18%)</td>
                       <td></td>
                       <td></td>
-                      <td><input
-                      type="number"
-                      name="tenantGST"
-                      className="textBoxWidth"
-                     value={isNaN(parseFloat(tenantGst)) || parseFloat(tenantGst) === 0 ? " " : tenantGst}
-                     onChange={(e) => handleGSTChange(e)}
-                     style={showOnPrint}
-                    /></td>
+                      <td>
+                        <input
+                          type="number"
+                          name="tenantGST"
+                          className="textBoxWidth"
+                          value={
+                            isNaN(parseFloat(tenantGst)) ||
+                            parseFloat(tenantGst) === 0
+                              ? " "
+                              : tenantGst
+                          }
+                          onChange={(e) => handleGSTChange(e)}
+                          style={showOnPrint}
+                        />
+                      </td>
                       <td></td>
                     </tr>
                     <br />
@@ -1000,9 +1021,13 @@ const [showOnPrint, setShowOnPrint] = useState({
                       <th>Grand Total</th>
                       <td></td>
                       <td></td>
-                      <th>{isNaN(parseFloat(tenantGrandTotal)) || parseFloat(tenantGrandTotal) === 0 ? " " : Number(tenantGrandTotal).toFixed(2)}
-                    </th>
-                     
+                      <th>
+                        {isNaN(parseFloat(tenantGrandTotal)) ||
+                        parseFloat(tenantGrandTotal) === 0
+                          ? " "
+                          : Number(tenantGrandTotal).toFixed(2)}
+                      </th>
+
                       <td></td>
                     </tr>
                     <br />
@@ -1015,36 +1040,77 @@ const [showOnPrint, setShowOnPrint] = useState({
                     <tr>
                       <td></td>
                       <td>Payment Mode</td>
-                   {viewdata.tenantPaymentMode==="Cash"?(<>
-                   <td>cash</td>
-                     <td></td>
-                      <td></td>
-                      <td></td></>):viewdata.tenantPaymentMode==="Cheque"?(<>
-                    <td>Cheque</td>
-                    <td></td>
-                      <td>ChequeNo.<br/>{viewdata.tenantChequenoOrDdno}</td>
-                      <td>Date<br/>{viewdata.tenantchequeDate}</td>
-                   </>):viewdata.tenantPaymentMode==="Neft"?(<>
-                    <td>Neft</td>
-                     <td></td>
-                      <td>Bank Name<br/>{viewdata.tenantBankName}</td>
-                      <td>Trans Id<br/>{viewdata.tenantTransId}</td>
-                   </>):viewdata.tenantPaymentMode==="Card"?(<>
-                    <td>{viewdata.tenantCardType}</td>
-                     <td></td>
-                     <td>Bank Name<br/>{viewdata.tenantBankName}</td>
-                      <td>Trans Id<br/>{viewdata.tenantTransId}</td>
-                   </>):viewdata.tenantPaymentMode==="Upi"?(<>
-                    <td>UPI</td>
-                     <td></td>
-                      <td></td>
-                      <td>Trans Id<br/>{viewdata.tenantTransId}</td>
-                   </>):(<></>)}
-                    
+                      {viewdata.tenantPaymentMode === "Cash" ? (
+                        <>
+                          <td>cash</td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </>
+                      ) : viewdata.tenantPaymentMode === "Cheque" ? (
+                        <>
+                          <td>Cheque</td>
+                          <td></td>
+                          <td>
+                            ChequeNo.
+                            <br />
+                            {viewdata.tenantChequenoOrDdno}
+                          </td>
+                          <td>
+                            Date
+                            <br />
+                            {viewdata.tenantchequeDate}
+                          </td>
+                        </>
+                      ) : viewdata.tenantPaymentMode === "Neft" ? (
+                        <>
+                          <td>Neft</td>
+                          <td></td>
+                          <td>
+                            Bank Name
+                            <br />
+                            {viewdata.tenantBankName}
+                          </td>
+                          <td>
+                            Trans Id
+                            <br />
+                            {viewdata.tenantTransId}
+                          </td>
+                        </>
+                      ) : viewdata.tenantPaymentMode === "Card" ? (
+                        <>
+                          <td>{viewdata.tenantCardType}</td>
+                          <td></td>
+                          <td>
+                            Bank Name
+                            <br />
+                            {viewdata.tenantBankName}
+                          </td>
+                          <td>
+                            Trans Id
+                            <br />
+                            {viewdata.tenantTransId}
+                          </td>
+                        </>
+                      ) : viewdata.tenantPaymentMode === "Upi" ? (
+                        <>
+                          <td>UPI</td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            Trans Id
+                            <br />
+                            {viewdata.tenantTransId}
+                          </td>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+
                       <td></td>
                     </tr>
-                 <br/>
-                 <tr>
+                    <br />
+                    <tr>
                       <td colSpan={7}>
                         <hr className="customHr" />
                       </td>
@@ -1052,17 +1118,19 @@ const [showOnPrint, setShowOnPrint] = useState({
                     <tr>
                       <td></td>
                       <td>Notes :</td>
-                      <td colSpan={3}><textarea
-                      rows={2}
-                  
-                      type="text"
-                      name="tenantNotes"
-                      className="form-control"
-                     value={tenantReceiptNotes}
-                     onChange={(e) => handleNotesChange(e)}
-                      style={showOnPrint}
-                    /></td>
-                     
+                      <td colSpan={3}>
+                        <textarea
+                          rows={2}
+                          type="text"
+                          name="tenantNotes"
+                          className="form-control"
+                          value={tenantReceiptNotes}
+                          onChange={(e) => handleNotesChange(e)}
+                          style={showOnPrint}
+                        />
+                       
+                      </td>
+
                       {/* <td></td> */}
                       <td></td>
                       <td></td>
@@ -1081,19 +1149,19 @@ const [showOnPrint, setShowOnPrint] = useState({
             </Modal.Body>
             <Modal.Footer>
               <button
-              className="printBtn"
-              // onClick={async () => {
-              //   await setShowOnPrint({
-              //    border:"none",
-              //   });
+                className="printBtn"
+                onClick={async () => {
+                  await setShowOnPrint({
+                    border: "none",
+                  });
 
-              //   onPrint();
-              // }}
+                  onPrint();
+                }}
               >
                 Print
               </button>
-             
-              <button  onClick={handleClosePrint}  className=" sub_form    ">
+
+              <button onClick={handleClosePrint} className=" sub_form    ">
                 close
               </button>
             </Modal.Footer>
@@ -1116,4 +1184,5 @@ export default connect(mapStateToProps, {
   deactiveTenantsDetails,
   ParticularTenant,
   AddTenantReceiptDetails,
+  getTenantReceiptNo,
 })(TenantReport);

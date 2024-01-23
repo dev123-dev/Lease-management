@@ -125,6 +125,9 @@ const TenantAgreementDetails = new mongoose.Schema({
   tenantReceiptEnteredBy:{
     type:ObjectId,
   },
+  tenantReceiptNo:{
+    type:String,
+  },
 });
 
 module.exports = mongoose.model(
