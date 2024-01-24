@@ -6,6 +6,7 @@ import {
   tenantsDetailsHistory,
   getAllSettings,
   UpdateTenantsDetails,
+  AddUserActivity,
 } from "../../actions/tenants";
 import { useHistory } from "react-router-dom";
 import { Modal } from "react-bootstrap";
@@ -18,6 +19,7 @@ const EditTenantDetails = ({
     allTenantSetting,
     particular_tenant_EditData,
   },
+  AddUserActivity,
   UpdateTenantsDetails,
   getAllSettings,
   getParticularProperty,
@@ -720,7 +722,17 @@ const EditTenantDetails = ({
       tenantTransId: transId ? transId : "",
       tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
     };
+    const EditUserActivity = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "Tenant",
+      Operation: "Edit",
+      Name: tenantName,
+      OrganizationId: user.OrganizationId,
+      NameId: tenantId,
+    };
     //console.log("edittenant", finalData);
+    AddUserActivity(EditUserActivity);
     UpdateTenantsDetails(finalData);
     histroy.push("/tenant-detail");
   };
@@ -1359,5 +1371,6 @@ export default connect(mapStateToProps, {
   getAllTenants,
   getParticularProperty,
   getAllSettings,
+  AddUserActivity,
   tenantsDetailsHistory,
 })(EditTenantDetails);

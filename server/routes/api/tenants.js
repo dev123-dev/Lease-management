@@ -10,9 +10,9 @@ const property = require("../../models/PropertyDetails");
 const TenentAgreement = require("../../models/TenantAgreementDetails");
 const TenentHistories = require("../../models/TenantHistories");
 const TenantAgreementHistory = require("../../models/TenantAgreementHistories");
+const UserActivity = require("../../models/UserActivity");
 const auth = require("../../middleware/auth");
 const mongoose = require("mongoose");
-
 
 router.post("/add-tenant-details", async (req, res) => {
   var today = new Date();
@@ -921,8 +921,10 @@ router.post("/get-tenantLeaseTransfer-sort", auth, async (req, res) => {
   let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
     req.body;
 
-  let query = { OrganizationId: userInfo.OrganizationId ,
-  tenantstatus:"Active"};
+  let query = {
+    OrganizationId: userInfo.OrganizationId,
+    tenantstatus: "Active",
+  };
   if (LocationName) {
     query = {
       ...query,
@@ -2181,6 +2183,18 @@ router.post("/tenant-update-history", async (req, res) => {
   }
 });
 
+router.post("/add-user-activity-details", async (req, res) => {
+  let data = req.body;
+  try {
+    let userActivity = new UserActivity(data);
+    output = await userActivity.save();
+    res.send(output);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
 //get tenant receipt number
 
 router.post("/get-tenant-receiptnumber", async (req, res) => {
@@ -2188,57 +2202,49 @@ router.post("/get-tenant-receiptnumber", async (req, res) => {
   try {
     const tenanatReceiptNoData = await TenentAgreement.findOne({
       OrganizationId: data.OrganizationId,
-      tenantReceiptNo: { $ne: "" }
+      tenantReceiptNo: { $ne: "" },
     })
-    // .sort({ tenantReceiptNo: -1 }).limit(1).collation({ locale: "en_US", numericOrdering: true });
-    .sort({ tenantReceiptNo: -1 }).limit(1);
-    // to store alphanumberic 
-   
-    res.json(tenanatReceiptNoData.tenantReceiptNo)
+      // .sort({ tenantReceiptNo: -1 }).limit(1).collation({ locale: "en_US", numericOrdering: true });
+      .sort({ tenantReceiptNo: -1 })
+      .limit(1);
+    // to store alphanumberic
+
+    res.json(tenanatReceiptNoData.tenantReceiptNo);
   } catch (error) {
     console.error("Error occurred:", error);
   }
- 
-  
-
 });
 
 // tenant receipt details
 router.post("/update-tenant-Receiptdetails", async (req, res) => {
-
-try{
-  let data = req.body;
-  const updateTenantReceipt = await TenentAgreement.updateOne(
-    { OrganizationId:mongoose.Types.ObjectId(data.OrganizationId),
-      tdId: mongoose.Types.ObjectId(data.tenantId )
-      
-    },
-    {
-      $set: {
-        tenantsubTotal:data.tenantsubTotal,
-        tenantDiscount:data.tenantDiscount,
-        tenantOtherCharges:data.tenantOtherCharges,
-        tenantGst:data.tenantGst,
-        tenantGrandTotal:data.tenantGrandTotal,
-        tenantReceiptNotes:data.tenantReceiptNotes,
-        tenantReceiptDateTime:data.tenantReceiptDateTime,
-        tenantPaymentMode:data.tenantPaymentMode,
-        tenantReceiptEnteredBy:data.tenantReceiptEnteredBy,
-        tenantReceiptNo:data.tenantReceiptNo,
-        
+  try {
+    let data = req.body;
+    const updateTenantReceipt = await TenentAgreement.updateOne(
+      {
+        OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+        tdId: mongoose.Types.ObjectId(data.tenantId),
       },
-    }
-  )
-  
+      {
+        $set: {
+          tenantsubTotal: data.tenantsubTotal,
+          tenantDiscount: data.tenantDiscount,
+          tenantOtherCharges: data.tenantOtherCharges,
+          tenantGst: data.tenantGst,
+          tenantGrandTotal: data.tenantGrandTotal,
+          tenantReceiptNotes: data.tenantReceiptNotes,
+          tenantReceiptDateTime: data.tenantReceiptDateTime,
+          tenantPaymentMode: data.tenantPaymentMode,
+          tenantReceiptEnteredBy: data.tenantReceiptEnteredBy,
+          tenantReceiptNo: data.tenantReceiptNo,
+        },
+      }
+    );
 
-res.json(updateTenantReceipt)
-
-}catch (error) {
-  console.log(error.message);
-  res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
-}
-
- 
+    res.json(updateTenantReceipt);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
+  }
 });
 
 //tenant lease transfer
@@ -2246,173 +2252,164 @@ res.json(updateTenantReceipt)
 router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   try {
     let data = req.body;
-     console.log( "len",data);
+    console.log("len", data);
     if (data.Dno.length > 1) {
       console.log("rvced data > 0", data);
       //pull
-       data.transferShoopDoorNo.map((ele) => {
+      data.transferShoopDoorNo.map((ele) => {
         TenantDetails.updateOne(
           {
             _id: data.fromId,
-          
           },
           {
             $pull: {
               shopDoorNo: { label: ele.label },
-             
             },
           }
-          ).then((data) => {});
+        ).then((data) => {});
       });
       data.transferShoopDoorNo.map((ele) => {
         TenentAgreement.updateOne(
           {
             tdId: data.fromId,
-          
           },
           {
-
             $pull: {
               tenantDoorNo: { label: ele.label },
-             
             },
           }
-       
         ).then((data) => {});
-          
       });
 
-
-//push 
-       data.transferShoopDoorNo.map((ele) => {
+      //push
+      data.transferShoopDoorNo.map((ele) => {
         TenantDetails.updateOne(
           {
             _id: data.toId,
-          
           },
-         
+
           {
             $push: {
-             shopDoorNo:data.transferShoopDoorNo,
+              shopDoorNo: data.transferShoopDoorNo,
             },
           }
         ).then((data) => {});
       });
       data.transferShoopDoorNo.map((ele) => {
-        console.log("inside aggrement",ele)
+        console.log("inside aggrement", ele);
         TenentAgreement.updateOne(
           {
             tdId: data.toId,
-          
           },
           {
             $push: {
-              tenantDoorNo:ele,
+              tenantDoorNo: ele,
             },
           }
-         
-        ).then((data) => {console.log(data)});
-          
+        ).then((data) => {
+          console.log(data);
+        });
       });
-
-
-    } 
-    else if(data.Dno.length === 1){
-     
+    } else if (data.Dno.length === 1) {
       console.log("rvced data === 1", data);
-    
-  //pull
-  data.transferShoopDoorNo.map((ele) => {
-    const fromId = data.fromId;
-    TenantDetails.updateOne(
-      {
-        _id: fromId,
-      },
-      {
-        $pull: {
-          shopDoorNo: { label: ele.label },
-        },
-      }
-    ).then((pullResult) => {
-      TenantDetails.updateOne(
-        {
-          _id: fromId,
-        },
-        {
-          $set: {
-            tenantstatus: "Deactive",
-            deactive_reason: "lease transfer from " + data.fromTenantName,
-          },
-        }
-      ).then((setResult) => {
-      });
-    });
-  });
-  
-  data.transferShoopDoorNo.map((ele) => {
-    const fromId = data.fromId;
-    TenentAgreement.updateOne(
-      {
-        tdId: fromId,
-      },
-      {
-        $pull: {
-          tenantDoorNo: { label: ele.label },
-        },
-      }
-    ).then((pullResult) => {
-      TenentAgreement.updateOne(
-        {
-          tdId: fromId,
-        },
-        {
-          $set: {
-            tenantstatus: "Deactive",
-            // deactive_reason: "lease transfer from " + data.fromTenantName,
-          },
-        }
-      ).then((setResult) => {
-      
-      });
-    });
-  });
-  
 
+      //pull
+      data.transferShoopDoorNo.map((ele) => {
+        const fromId = data.fromId;
+        TenantDetails.updateOne(
+          {
+            _id: fromId,
+          },
+          {
+            $pull: {
+              shopDoorNo: { label: ele.label },
+            },
+          }
+        ).then((pullResult) => {
+          TenantDetails.updateOne(
+            {
+              _id: fromId,
+            },
+            {
+              $set: {
+                tenantstatus: "Deactive",
+                deactive_reason: "lease transfer from " + data.fromTenantName,
+              },
+            }
+          ).then((setResult) => {});
+        });
+      });
 
-//push 
-  data.transferShoopDoorNo.map((ele) => {
-    TenantDetails.updateOne(
-      {
-        _id: data.toId,
-      
-      },
-     
-      {
-        $push: {
-         shopDoorNo:ele,
-        },
-      }
-    ).then((data) => {});
-  });
-  data.transferShoopDoorNo.map((ele) => {
-    TenentAgreement.updateOne(
-      {
-        tdId: data.toId,
-      
-      },
-      {
-        $push: {
-          tenantDoorNo:ele,
-        },
-      }
-     
-    ).then((data) => {});
-      
-  });
-     
+      data.transferShoopDoorNo.map((ele) => {
+        const fromId = data.fromId;
+        TenentAgreement.updateOne(
+          {
+            tdId: fromId,
+          },
+          {
+            $pull: {
+              tenantDoorNo: { label: ele.label },
+            },
+          }
+        ).then((pullResult) => {
+          TenentAgreement.updateOne(
+            {
+              tdId: fromId,
+            },
+            {
+              $set: {
+                tenantstatus: "Deactive",
+                // deactive_reason: "lease transfer from " + data.fromTenantName,
+              },
+            }
+          ).then((setResult) => {});
+        });
+      });
+
+      //push
+      data.transferShoopDoorNo.map((ele) => {
+        TenantDetails.updateOne(
+          {
+            _id: data.toId,
+          },
+
+          {
+            $push: {
+              shopDoorNo: ele,
+            },
+          }
+        ).then((data) => {});
+      });
+      data.transferShoopDoorNo.map((ele) => {
+        TenentAgreement.updateOne(
+          {
+            tdId: data.toId,
+          },
+          {
+            $push: {
+              tenantDoorNo: ele,
+            },
+          }
+        ).then((data) => {});
+      });
     }
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
+  }
+});
+
+router.post("/get-user-activity", async (req, res) => {
+  let data = req.body;
+
+  try {
+    const userActivityData = await UserActivity.find({
+      Organization_id: data.OrganizationId,
+    }).sort({ _id: -1 });
+    // .sort({ _id: -1 });
+    console.log("userActivityData", userActivityData);
+    res.json(userActivityData);
+  } catch (err) {
+    res.status(500).send("Internal Server Error.");
   }
 });
 

@@ -3,12 +3,17 @@ import { Modal } from "react-bootstrap";
 import { useState, Fragment } from "react";
 import Select from "react-select";
 import { connect } from "react-redux";
-import { get_particular_org_user, AddAdminuser } from "../../actions/tenants";
+import {
+  get_particular_org_user,
+  AddAdminuser,
+  AddUserActivity,
+} from "../../actions/tenants";
 
 const AddAdminUserModal = ({
   auth: { isAuthenticated, user, users },
   tenants: { allorg },
   AddAdminuser,
+  AddUserActivity,
   setShowadd,
 }) => {
   const orglist = [];
@@ -288,6 +293,16 @@ const AddAdminUserModal = ({
         OrganizationName: user.OrganizationName,
         OrganizationId: user.OrganizationId,
       };
+      const AdduserActivity = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "User",
+        Operation: "Add",
+        Name: username,
+        OrganizationId: user.OrganizationId,
+      };
+
+      AddUserActivity(AdduserActivity);
       console.log(finalUserData);
 
       AddAdminuser(finalUserData);
@@ -516,4 +531,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   AddAdminuser,
   get_particular_org_user,
+  AddUserActivity,
 })(AddAdminUserModal);

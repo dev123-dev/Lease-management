@@ -35,7 +35,8 @@ import {
   PARTICULAR_ORG_TENANT_SORT,
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
   GET_TENANT_RECEIPTNO,
-
+  USER_ACTIVITY_DETAIL,
+  NEW_USER_ACTIVITY,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -342,22 +343,23 @@ export const ParticularTenantFilter = (data) => async (dispatch) => {
 
 //tenantLeaseTransfer sort
 
-export const ParticularTenantLeaseTransferFilter = (data) => async (dispatch) => {
-  console.log("actioonnn,",data)
-  try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/get-tenantLeaseTransfer-sort`,
-      data
-    );
+export const ParticularTenantLeaseTransferFilter =
+  (data) => async (dispatch) => {
+    console.log("actioonnn,", data);
+    try {
+      const res = await axios.post(
+        `${linkPath}/api/tenants/get-tenantLeaseTransfer-sort`,
+        data
+      );
 
-    dispatch({
-      type: PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
-      payload: res.data,
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+      dispatch({
+        type: PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 //add admin user
 export const AddAdminuser = (userData) => async (dispatch) => {
   try {
@@ -493,6 +495,26 @@ export const AddTenantDetailsform = (finalData) => async (dispatch) => {
   }
 };
 
+//User Activity
+
+export const AddUserActivity = (finalData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/add-user-activity-details`,
+      finalData,
+      config
+    );
+    dispatch({
+      type: NEW_USER_ACTIVITY,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
 export const getTenantDetails = (data) => async (dispatch) => {
   try {
     dispatch({
@@ -591,33 +613,27 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
   }
 };
 
-
-
 //edit tenant lease transfer
 
-export const EditTenantLeaseTransferDetails = (finalData) => async (dispatch) => {
-  try {
-    await axios.post(
-      `${linkPath}/api/tenants/edit-tenant-leasetransfer-details`,
-      finalData,
-      config
-    );
-    dispatch(
-      getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
-   
-    );
-    dispatch(getAllTenants());
-  } catch (err) {
-    console.log(err.message);
-    dispatch({
-      type: TENANT_FEEDBACK_ERROR,
-    });
-  }
-};
-
-
-
-
+export const EditTenantLeaseTransferDetails =
+  (finalData) => async (dispatch) => {
+    try {
+      await axios.post(
+        `${linkPath}/api/tenants/edit-tenant-leasetransfer-details`,
+        finalData,
+        config
+      );
+      dispatch(
+        getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
+      );
+      dispatch(getAllTenants());
+    } catch (err) {
+      console.log(err.message);
+      dispatch({
+        type: TENANT_FEEDBACK_ERROR,
+      });
+    }
+  };
 
 export const tenantsDetailsHistory = (historyData) => async (dispatch) => {
   try {
@@ -711,6 +727,26 @@ export const getAllShops = (data) => async (dispatch) => {
     const res = await axios.post(`${linkPath}/api/tenants/get-all-shops`, data);
     dispatch({
       type: GET_ALL_SHOPS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};
+
+//get user activity
+
+export const getUserActivity = (data) => async (dispatch) => {
+  console.log("dataaction", data);
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-user-activity`,
+      data
+    );
+    dispatch({
+      type: USER_ACTIVITY_DETAIL,
       payload: res.data,
     });
   } catch (err) {
@@ -826,10 +862,7 @@ export const getTenantReceiptNo = (data) => async (dispatch) => {
   }
 };
 
-
-
-
-//add tenant receipt details 
+//add tenant receipt details
 
 export const AddTenantReceiptDetails = (finalData) => async (dispatch) => {
   try {
@@ -838,7 +871,6 @@ export const AddTenantReceiptDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    
   } catch (err) {
     console.log(err.message);
     dispatch({
@@ -991,13 +1023,12 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     tenantEnteredBy: finalData.tenantEnteredBy,
     tenantDate: finalData.tenantDate,
     //new
-    tenantPaymentMode:finalData.tenantPaymentMode,
-    tenantChequenoOrDdno:finalData.tenantChequenoOrDdno,
-    tenantBankName:finalData.tenantBankName,
-    tenantchequeDate:finalData.tenantchequeDate,
-    tenantTransId:finalData.tenantTransId,
-    tenantCardType:finalData.tenantCardType,
-
+    tenantPaymentMode: finalData.tenantPaymentMode,
+    tenantChequenoOrDdno: finalData.tenantChequenoOrDdno,
+    tenantBankName: finalData.tenantBankName,
+    tenantchequeDate: finalData.tenantchequeDate,
+    tenantTransId: finalData.tenantTransId,
+    tenantCardType: finalData.tenantCardType,
   };
 
   try {

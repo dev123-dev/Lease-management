@@ -23,9 +23,12 @@ const ContactReport = ({
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
-  const currentDatas =
+  const activeData =
     sortetenantdetails &&
-    sortetenantdetails.slice(indexOfFirstData, indexOfLastData);
+    sortetenantdetails.filter((ele) => ele.tenantstatus === "Active");
+
+  const currentDatas =
+    activeData && activeData.slice(indexOfFirstData, indexOfLastData);
   const paginate = (nmbr) => {
     //nmbr is page  number
     setCurrentData(nmbr);
@@ -44,25 +47,28 @@ const ContactReport = ({
       "Aadhar No.",
     ],
   ];
-  sortetenantdetails && sortetenantdetails.map((sortetenantdetails) => {
-    var doorNo = sortetenantdetails && sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
-    var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
-    var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
-    return csvContactReportData.push([
-      sortetenantdetails.tenantName,
-      sortetenantdetails.BuildingName,
-      sortetenantdetails.Location,
-      doorNo,
-      sortetenantdetails.tenantRentAmount,
-      tenantLeaseEndDate,
-      sortetenantdetails.tenantFirmName,
-      sortetenantdetails.tenantPhone,
-      sortetenantdetails.tenantPanNo,
-      sortetenantdetails.tenantAdharNo,
-    ]);
-  });
+  sortetenantdetails &&
+    sortetenantdetails.map((sortetenantdetails) => {
+      var doorNo =
+        sortetenantdetails &&
+        sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
+      var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
+      var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
+      return csvContactReportData.push([
+        sortetenantdetails.tenantName,
+        sortetenantdetails.BuildingName,
+        sortetenantdetails.Location,
+        doorNo,
+        sortetenantdetails.tenantRentAmount,
+        tenantLeaseEndDate,
+        sortetenantdetails.tenantFirmName,
+        sortetenantdetails.tenantPhone,
+        sortetenantdetails.tenantPanNo,
+        sortetenantdetails.tenantAdharNo,
+      ]);
+    });
 
-    //Print 
+  //Print
   const [isPrinting, setIsPrinting] = useState(false);
   useEffect(() => {
     // Clean up after component unmounts
@@ -70,7 +76,6 @@ const ContactReport = ({
       setIsPrinting(false);
     };
   }, []);
-
 
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
@@ -121,7 +126,7 @@ const ContactReport = ({
                 <></>
               )}
 
-<button
+              <button
                 style={{ border: "none" }}
                 onClick={async () => {
                   await setShowPrint({
@@ -143,9 +148,9 @@ const ContactReport = ({
               </button>
             </div>
           </div>
-         
-            <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
-              <div className="col">
+
+          <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
+            <div className="col">
               <div ref={componentRef}>
                 <div className="row ">
                   <div className="col-lg-1"></div>
@@ -178,25 +183,23 @@ const ContactReport = ({
                       <tbody className="text-center">
                         {currentDatas &&
                           currentDatas.map((Val, idx) => {
-
                             var ED =
-                            Val.tenantLeaseEndDate &&
-                            Val.tenantLeaseEndDate.split(/\D/g);
-                          var tenant = [
-                            ED && ED[2],
-                            ED && ED[1],
-                            ED && ED[0],
-                          ].join("-");
-
-
+                              Val.tenantLeaseEndDate &&
+                              Val.tenantLeaseEndDate.split(/\D/g);
+                            var tenant = [
+                              ED && ED[2],
+                              ED && ED[1],
+                              ED && ED[0],
+                            ].join("-");
 
                             return (
-                              <tr key={idx}>
-                                <td className="headcolstatic secondlinebreak1">
-                                  {Val.tenantName}
-                                </td>
-                                <td>{Val.BuildingName}</td>
-                                {/* <td>
+                              <>
+                                <tr key={idx}>
+                                  <td className="headcolstatic secondlinebreak1">
+                                    {Val.tenantName}
+                                  </td>
+                                  <td>{Val.BuildingName}</td>
+                                  {/* <td>
                                   <img
                                     className="img_icon_size log"
                                     src={require("../../static/images/info.png")}
@@ -204,29 +207,32 @@ const ContactReport = ({
                                     title={Val.shopDoorNo.map((e) => e.value)}
                                   />
                                 </td> */}
-                                <td>
-                                  {isPrinting ? (
-                                    Val.shopDoorNo
-                                      .map((e) => e.value)
-                                      .join(", ")
-                                  ) : (
-                                    <img
-                                      className="img_icon_size log"
-                                      src={require("../../static/images/info.png")}
-                                      alt="shop no."
-                                      title={Val.shopDoorNo.map((e) => e.value)}
-                                    />
-                                  )}
-                                </td>
-                                <td>{Val.Location}</td>
-                                <td>{Val.tenantRentAmount}</td>
-                                <td>{Val.tenantPhone}</td>
-                                <td>{Val.tenantPanNo}</td>
-                                <td>{Val.tenantAdharNo}</td>
-                                <td>{Val.tenantFirmName}</td>
+                                  <td>
+                                    {isPrinting ? (
+                                      Val.shopDoorNo
+                                        .map((e) => e.value)
+                                        .join(", ")
+                                    ) : (
+                                      <img
+                                        className="img_icon_size log"
+                                        src={require("../../static/images/info.png")}
+                                        alt="shop no."
+                                        title={Val.shopDoorNo.map(
+                                          (e) => e.value
+                                        )}
+                                      />
+                                    )}
+                                  </td>
+                                  <td>{Val.Location}</td>
+                                  <td>{Val.tenantRentAmount}</td>
+                                  <td>{Val.tenantPhone}</td>
+                                  <td>{Val.tenantPanNo}</td>
+                                  <td>{Val.tenantAdharNo}</td>
+                                  <td>{Val.tenantFirmName}</td>
 
-                                <td>{tenant}</td>
-                              </tr>
+                                  <td>{tenant}</td>
+                                </tr>
+                              </>
                             );
                           })}
                       </tbody>
@@ -234,29 +240,28 @@ const ContactReport = ({
                   </div>
                   <div className="col-lg-1"></div>
                 </div>
-</div>
-                <div className="row">
-                  <div className="col-lg-6">
-                    {sortetenantdetails && sortetenantdetails.length !== 0 ? (
-                      <Pagination
-                        dataPerPage={dataPerPage}
-                        totalData={sortetenantdetails.length}
-                        paginate={paginate}
-                        currentPage={currentData}
-                      />
-                    ) : (
-                      <Fragment />
-                    )}
-                  </div>
-                  <div className="col-lg-6">
-                    <p className="text-end h6">
-                      No. of Property : {sortetenantdetails.length}
-                    </p>
-                  </div>
+              </div>
+              <div className="row">
+                <div className="col-lg-6">
+                  {activeData && activeData.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={activeData.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <Fragment />
+                  )}
+                </div>
+                <div className="col-lg-6">
+                  <p className="text-end h6">
+                    No. of Tenants : {activeData.length}
+                  </p>
                 </div>
               </div>
             </div>
-     
+          </div>
         </div>
       </div>
     </>

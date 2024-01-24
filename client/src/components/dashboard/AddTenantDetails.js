@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import {
   AddTenantDetailsform,
+  AddUserActivity,
   getParticularProperty,
   getAllDoorNos,
   getAllTenants,
@@ -19,6 +20,8 @@ const AddTenantDetails = ({
   getAllDoorNos,
   getParticularProperty,
   ParticularTenantFilter,
+  AddUserActivity,
+
   AddTenantDetailsform,
   getAllSettings,
 }) => {
@@ -43,10 +46,9 @@ const AddTenantDetails = ({
     setdno(e);
   };
 
+  ///////////////////////payment////////////////////
 
-///////////////////////payment////////////////////
-
-const [paymentMode, setPaymentMode] = useState([]);
+  const [paymentMode, setPaymentMode] = useState([]);
 
   const PaymentMethods = [
     { value: "Cash", label: "Cash" },
@@ -56,52 +58,39 @@ const [paymentMode, setPaymentMode] = useState([]);
     { value: "Upi", label: "Upi" },
   ];
 
+  // for type of card
+  const [selectedCard, setSelectedCard] = useState("");
 
- // for type of card
- const [selectedCard, setSelectedCard] = useState("");
+  const HandleCheck = (e) => {
+    setSelectedCard(e.target.value);
+  };
 
- const HandleCheck = (e) => {
-   setSelectedCard(e.target.value);
- };
+  // validation for trancation id
+  const [transId, setTransId] = useState("");
+  const [validationTransIdMessage, setValidationTransIdMessage] = useState(
+    "Please enter the valid Transcation id"
+  );
+  const handleTransIdChange = (e) => {
+    const inputValue = e.target.value;
 
+    const isAlphanumeric = /^[A-Za-z0-9]+$/;
+    const isWithinLength = inputValue.length >= 12 && inputValue.length <= 18;
+    const hasNoDotsOrHyphens = /^[^.\\-]*$/.test(inputValue);
 
+    if (
+      isWithinLength &&
+      isAlphanumeric.test(inputValue) &&
+      hasNoDotsOrHyphens &&
+      !/^[0-9]+$/.test(inputValue) &&
+      !/^[a-zA-Z]+$/.test(inputValue)
+    ) {
+      setValidationTransIdMessage("");
+    } else {
+      setValidationTransIdMessage("Please enter a valid  Transcation id");
+    }
 
-
-
- // validation for trancation id
- const [transId, setTransId] = useState("");
- const [validationTransIdMessage, setValidationTransIdMessage] = useState(
-   "Please enter the valid Transcation id"
- );
- const handleTransIdChange = (e) => {
-   const inputValue = e.target.value;
-
-   const isAlphanumeric = /^[A-Za-z0-9]+$/;
-   const isWithinLength = inputValue.length >= 12 && inputValue.length <= 18;
-   const hasNoDotsOrHyphens = /^[^.\\-]*$/.test(inputValue);
-
-   if (
-     isWithinLength &&
-     isAlphanumeric.test(inputValue) &&
-     hasNoDotsOrHyphens &&
-     !/^[0-9]+$/.test(inputValue) &&
-     !/^[a-zA-Z]+$/.test(inputValue)
-   ) {
-     setValidationTransIdMessage("");
-   } else {
-     setValidationTransIdMessage("Please enter a valid  Transcation id");
-   }
-
-   setTransId(inputValue);
- };
-
-
-
-
-
-
-
-
+    setTransId(inputValue);
+  };
 
   const [formData, setFormData] = useState({
     tenantFileNo: "",
@@ -711,7 +700,7 @@ const [paymentMode, setPaymentMode] = useState([]);
     validationBankMessage,
     validationAddressMessage,
   ]);
-
+  console.log("user", user);
   const onSubmit = (e) => {
     e.preventDefault();
     if (output !== "V") return;
@@ -751,12 +740,19 @@ const [paymentMode, setPaymentMode] = useState([]);
         selectedVal: dt,
         tenantTransId: transId ? transId : "",
         tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
-
-
-
       };
+      const ActivityDetail = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Tenant",
+        Operation: "Add",
+        Name: tenantName,
+        OrganizationId: user.OrganizationId,
+      };
+      console.log("ActivityDetail", ActivityDetail);
       console.log("finalData", finalData);
       AddTenantDetailsform(finalData);
+      AddUserActivity(ActivityDetail);
       ParticularTenantFilter();
       setFormData({
         ...formData,
@@ -1164,7 +1160,7 @@ const [paymentMode, setPaymentMode] = useState([]);
                       type="text"
                       name="transcationId"
                       className="form-control"
-                       value={transId}
+                      value={transId}
                       onChange={(e) => handleTransIdChange(e)}
                       style={{
                         width: "100%",
@@ -1441,5 +1437,7 @@ export default connect(mapStateToProps, {
   getAllSettings,
   getAllTenants,
   getParticularProperty,
+  AddUserActivity,
+
   ParticularTenantFilter,
 })(AddTenantDetails);

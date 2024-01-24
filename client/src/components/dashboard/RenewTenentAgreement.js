@@ -1,12 +1,17 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
+import {
+  RenewTenantDetailsform,
+  getAllSettings,
+  AddUserActivity,
+} from "../../actions/tenants";
 import Select from "react-select";
 const RenewTenentAgreement = ({
   auth: { isAuthenticated, user, users, finalDataRep },
   tenantsData,
   tenants: { allTenantSetting },
   RenewTenantDetailsform,
+  AddUserActivity,
   getAllSettings,
   onReportModalChange,
 }) => {
@@ -218,6 +223,17 @@ const RenewTenentAgreement = ({
       tenantTransId: transId ? transId : "",
       tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
     };
+    const ActivityDetail = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "Tenant",
+      Operation: "Renewal",
+      Name: tenantsData.tenantName,
+      NameId: tenantsData.tdId,
+      OrganizationId: user.OrganizationId,
+    };
+    AddUserActivity(ActivityDetail);
+
     // console.log("this is sothing", finalData);
     RenewTenantDetailsform(finalData);
     setFormData({ ...formData, isSubmitted: true });
@@ -732,4 +748,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   RenewTenantDetailsform,
   getAllSettings,
+  AddUserActivity,
 })(RenewTenentAgreement);

@@ -5,13 +5,18 @@ import { Modal, Button } from "react-bootstrap";
 import { getParticularProperty } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import Select from "react-select";
-import { getParticularOrg, getAllSettings } from "../../actions/tenants";
+import {
+  getParticularOrg,
+  getAllSettings,
+  AddUserActivity,
+} from "../../actions/tenants";
 
 const AddShopDetails = ({
   auth: { isAuthenticated, user, users },
   tenants: { particular_org_loc, allTenantSetting },
   AddShopDetailsform,
   getParticularOrg,
+  AddUserActivity,
   setShowadd,
   getAllSettings,
   getParticularProperty,
@@ -246,6 +251,16 @@ const AddShopDetails = ({
         Location: orgLoc.value,
         shopStatus: "Active",
       };
+      const AdduserActivity = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Property",
+        Operation: "Add",
+        Name: BuildingName,
+        OrganizationId: user.OrganizationId,
+      };
+
+      AddUserActivity(AdduserActivity);
       // console.log(finalData)
       AddShopDetailsform(finalData);
       setFormData({
@@ -584,5 +599,6 @@ export default connect(mapStateToProps, {
   AddShopDetailsform,
   getParticularProperty,
   getAllSettings,
+  AddUserActivity,
   getParticularOrg,
 })(AddShopDetails);

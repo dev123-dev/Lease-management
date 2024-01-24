@@ -4,12 +4,14 @@ import { AddTenantSettingform } from "../../actions/tenants";
 import {
   UpdateTenantSettingform,
   getParticularTenantSetting,
+  AddUserActivity,
 } from "../../actions/tenants";
 
 import { getAllSettings } from "../../actions/tenants";
 const TenantSettings = ({
   AddTenantSettingform,
   UpdateTenantSettingform,
+  AddUserActivity,
   tenants: { allTenantSetting },
   auth: { isAuthenticated, user, users },
   getAllSettings,
@@ -91,7 +93,7 @@ const TenantSettings = ({
   //   const newValue = event.target.value;
   //   // Use regex to allow only positive integers with 1 or 2 digits (excluding 0), and no hyphen
   //   const positiveIntegerRegex = /^[1-9][0-9]?$/;
-  
+
   //   switch (event.target.name) {
   //     case "leaseTimePeriod":
   //       if (positiveIntegerRegex.test(newValue) || newValue === "") {
@@ -113,11 +115,8 @@ const TenantSettings = ({
   //   }
   //   // Check if the new value is a positive number with 1 or 2 digits (excluding 0) and no hyphen
   // };
- const[isButtonDisabled,setisButtonDisabled]=useState(false)
-  const [
-    validationHikeMessage,
-    setValidationHikeMessage,
-  ] = useState("");
+  const [isButtonDisabled, setisButtonDisabled] = useState(false);
+  const [validationHikeMessage, setValidationHikeMessage] = useState("");
   const handleHikeChange = (e) => {
     const inputValue = e.target.value;
     const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
@@ -128,27 +127,21 @@ const TenantSettings = ({
     // isValid.test(inputValue)
     //   ? setValidationshgSavingPerMeetingMessage("")
     //   : setValidationshgSavingPerMeetingMessage("enter saving per meeting");
-    if(filteredValue==="0" || filteredValue.length>2 || filteredValue==="00"){
-      setValidationHikeMessage("Enter valid hike")
-    }
-    else{
+    if (
+      filteredValue === "0" ||
+      filteredValue.length > 2 ||
+      filteredValue === "00"
+    ) {
+      setValidationHikeMessage("Enter valid hike");
+    } else {
       filteredValue === ""
-      ? setValidationHikeMessage("enter hike")
-      : setValidationHikeMessage("");
+        ? setValidationHikeMessage("enter hike")
+        : setValidationHikeMessage("");
     }
-   
 
     setHike(inputValue);
   };
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
   // const [
   //   validationHikeMessage,
   //   setValidationHikeMessage,
@@ -157,68 +150,68 @@ const TenantSettings = ({
   //   const inputValue = e.target.value;
   //   const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
   //   const filteredValue = trimmedValue.replace(/[^0-9\s]/g, ""); // Remove non-numeric characters
-  
+
   //   if (filteredValue === "") {
   //     setValidationHikeMessage("Enter saving amount");
   //   } else {
   //     setValidationHikeMessage("");
-    
+
   //   }
   //   setHike(inputValue);
   // };
-  
 
-  const [
-    validationStampMessage,
-    setValidationStampMessage,
-  ] = useState("");
+  const [validationStampMessage, setValidationStampMessage] = useState("");
   const handleStampChange = (e) => {
     const inputValue = e.target.value;
     const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
     const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
-   
-    if(filteredValue==="0" || filteredValue.length>2 || filteredValue==="00"){
-      setValidationStampMessage("Enter valid stamp duty")
-    }
-    else{
+
+    if (
+      filteredValue === "0" ||
+      filteredValue.length > 2 ||
+      filteredValue === "00"
+    ) {
+      setValidationStampMessage("Enter valid stamp duty");
+    } else {
       filteredValue === ""
-      ? setValidationStampMessage("enter stamp duty")
-      : setValidationStampMessage("");
+        ? setValidationStampMessage("enter stamp duty")
+        : setValidationStampMessage("");
     }
-   
+
     setStampDuty(inputValue);
   };
 
-  const [
-    validationTimePeriodMessage,
-    setValidationTimePeriodMessage
-  ] = useState("");
+  const [validationTimePeriodMessage, setValidationTimePeriodMessage] =
+    useState("");
   const handleTimePeriodChange = (e) => {
     const inputValue = e.target.value;
     const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
     const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
-   
-    if(filteredValue==="0" || filteredValue.length>2 || filteredValue==="00"){
-      setValidationTimePeriodMessage("Enter valid Time Period")
-    }
-    else{
+
+    if (
+      filteredValue === "0" ||
+      filteredValue.length > 2 ||
+      filteredValue === "00"
+    ) {
+      setValidationTimePeriodMessage("Enter valid Time Period");
+    } else {
       filteredValue === ""
-      ? setValidationTimePeriodMessage("enter Time Period")
-      : setValidationTimePeriodMessage("");
+        ? setValidationTimePeriodMessage("enter Time Period")
+        : setValidationTimePeriodMessage("");
     }
-   
+
     setLeasePeriod(inputValue);
   };
   // const [
   //   validationTimePeriodMessage,
   //   setValidationTimePeriodMessage
   // ] = useState("");
-  
+
   // const handleTimePeriodChange = (e) => {
   //   const inputValue = e.target.value;
   //   const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
   //   const filteredValue = trimmedValue.replace(/[^0-9\s]/g, ""); // Remove non-alphabetic characters
-  
+
   //   if (filteredValue === "") {
   //     // If the input is empty, clear the validation message and update the state
   //     setValidationTimePeriodMessage("");
@@ -230,19 +223,22 @@ const TenantSettings = ({
   //     setValidationTimePeriodMessage("Enter a valid Time Period");
   //   }
   // };
-  
-  
-  
 
-  useEffect(()=>{
-    if(validationHikeMessage==="" && validationStampMessage==="" && validationTimePeriodMessage===""){
-      setisButtonDisabled(false)
+  useEffect(() => {
+    if (
+      validationHikeMessage === "" &&
+      validationStampMessage === "" &&
+      validationTimePeriodMessage === ""
+    ) {
+      setisButtonDisabled(false);
+    } else {
+      setisButtonDisabled(true);
     }
-    else{
-      setisButtonDisabled(true)
-    }
-
-  },[validationHikeMessage,validationStampMessage,validationTimePeriodMessage])
+  }, [
+    validationHikeMessage,
+    validationStampMessage,
+    validationTimePeriodMessage,
+  ]);
   // const {  stampDuty, leaseTimePeriod } = formData;
 
   // const onInputChange = (e) => {
@@ -264,7 +260,15 @@ const TenantSettings = ({
         StampDuty: parseInt(stampDuty),
         LeaseTimePeriod: parseInt(leasePeriod),
       };
-
+      const ActivityDetail = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Tenant Setting",
+        Operation: "Update",
+        Name: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+      };
+      AddUserActivity(ActivityDetail);
       AddTenantSettingform(finalData);
       onAddSettingModalChange(true);
       getAllSettings({
@@ -295,7 +299,16 @@ const TenantSettings = ({
         stampDuty: parseInt(stampDuty),
         leaseTimePeriod: parseInt(leasePeriod),
       };
-      
+      const ActivityDetail = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Tenant Setting",
+        Operation: "Update",
+        Name: user.OrganizationName,
+        OrganizationId: user.OrganizationId,
+      };
+      AddUserActivity(ActivityDetail);
+
       UpdateTenantSettingform(finalData);
       onAddSettingModalChange(true);
       getAllSettings({
@@ -345,7 +358,7 @@ const TenantSettings = ({
                 data-hint="Only enter Number "
               ></div>
             </div>
-            <h6 style={{color:"red"}}>{validationHikeMessage}</h6>
+            <h6 style={{ color: "red" }}>{validationHikeMessage}</h6>
           </div>
         </div>
         <div className="row col-lg-12 col-md-9 col-sm-9 col-12 py-3">
@@ -382,7 +395,7 @@ const TenantSettings = ({
                 data-hint=" Dont Enter fractional number (Eg:1.2),(2.2) "
               ></div>
             </div>
-            <h6 style={{color:"red"}}>{validationStampMessage}</h6>
+            <h6 style={{ color: "red" }}>{validationStampMessage}</h6>
           </div>
         </div>
 
@@ -403,7 +416,7 @@ const TenantSettings = ({
               onChange={(e) => handleTimePeriodChange(e)}
               required
             />
-            <h6 style={{color:"red"}}>{validationTimePeriodMessage}</h6>
+            <h6 style={{ color: "red" }}>{validationTimePeriodMessage}</h6>
           </div>
         </div>
         {/* <div className="col-lg-9  col-sm-12 col-md-12 text-danger">
@@ -449,4 +462,5 @@ export default connect(mapStateToProps, {
   AddTenantSettingform,
   getParticularTenantSetting,
   UpdateTenantSettingform,
+  AddUserActivity,
 })(TenantSettings);

@@ -7,6 +7,7 @@ import {
   getAllTenants,
   AddTenantReceiptDetails,
   getTenantReceiptNo,
+  AddUserActivity,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
@@ -18,6 +19,7 @@ const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
   tenants: { allorg, tenantreceiptno },
   ParticularTenant,
+  AddUserActivity,
   deactiveTenantsDetails,
   AddTenantReceiptDetails,
   getTenantReceiptNo,
@@ -319,8 +321,18 @@ const TenantReport = ({
       tenantPaymentMode: viewdata && viewdata.tenantPaymentMode,
       tenantReceiptEnteredBy: user && user._id,
     };
+    const ActivityDetail = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "Tenant",
+      Operation: "Receipt Generation",
+      Name: viewdata && viewdata.tenantName,
+      NameId: viewdata && viewdata._id,
+      OrganizationId: user.OrganizationId,
+    };
     // console.log("finalData", finalData);
     AddTenantReceiptDetails(finalData);
+    AddUserActivity(ActivityDetail);
   };
 
   return !isAuthenticated || !user || !users ? (
@@ -1128,7 +1140,6 @@ const TenantReport = ({
                           onChange={(e) => handleNotesChange(e)}
                           style={showOnPrint}
                         />
-                       
                       </td>
 
                       {/* <td></td> */}
@@ -1185,4 +1196,5 @@ export default connect(mapStateToProps, {
   ParticularTenant,
   AddTenantReceiptDetails,
   getTenantReceiptNo,
+  AddUserActivity,
 })(TenantReport);

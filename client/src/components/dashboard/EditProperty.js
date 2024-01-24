@@ -5,6 +5,7 @@ import {
   updateProperty,
   getParticularOrg,
   getParticularProperty,
+  AddUserActivity,
 } from "../../actions/tenants";
 import Select from "react-select";
 const EditProperty = ({
@@ -12,6 +13,7 @@ const EditProperty = ({
   tenants: { particular_org_loc },
   Propertydata,
   setShowUpdateModal,
+  AddUserActivity,
   updateProperty,
   getParticularProperty,
   getParticularOrg,
@@ -154,18 +156,14 @@ const EditProperty = ({
     setShopAddress(inputValue);
   };
 
-
-  const [isdisabled,setisdisabled]=useState(false)
-useEffect(()=>{
-  if(validationBuildingMessage==="" && validationAddressMessage===""){
-
-    setisdisabled(false)
-
-  }
-  else{
-    setisdisabled(true)
-  }
-},[validationBuildingMessage,validationAddressMessage])
+  const [isdisabled, setisdisabled] = useState(false);
+  useEffect(() => {
+    if (validationBuildingMessage === "" && validationAddressMessage === "") {
+      setisdisabled(false);
+    } else {
+      setisdisabled(true);
+    }
+  }, [validationBuildingMessage, validationAddressMessage]);
   const onUpdate = (e) => {
     e.preventDefault();
 
@@ -184,6 +182,17 @@ useEffect(()=>{
         isSubmitted: true,
         shopStatus: "Active",
       };
+      const EditUserActivity = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Property",
+        Operation: "Edit",
+        Name: BuildingName,
+        OrganizationId: user.OrganizationId,
+        NameId: Propertydata.PropertyId,
+      };
+
+      AddUserActivity(EditUserActivity);
       updateProperty(update);
       getParticularProperty({ OrganizationId: user.OrganizationId });
       handleEditModalClose();
@@ -371,4 +380,5 @@ export default connect(mapStateToProps, {
   updateProperty,
   getParticularOrg,
   getParticularProperty,
+  AddUserActivity,
 })(EditProperty);

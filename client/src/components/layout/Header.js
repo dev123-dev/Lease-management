@@ -517,6 +517,22 @@ const Header = ({
                             user.usergroup === "Admin" ? (
                               <li className="hwhite">
                                 <Link
+                                  to="/user-activity"
+                                  className="navlinkitem"
+                                  // onClick={() => handleTenantSettingModalShow()}
+                                >
+                                  User Activity
+                                </Link>
+                              </li>
+                            ) : (
+                              <></>
+                            )}
+                            {!loading &&
+                            isAuthenticated &&
+                            user &&
+                            user.usergroup === "Admin" ? (
+                              <li className="hwhite">
+                                <Link
                                   to="/change-password"
                                   className="navlinkitem"
                                 >

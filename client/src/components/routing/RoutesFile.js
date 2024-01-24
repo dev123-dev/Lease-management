@@ -33,26 +33,32 @@ import AllReport from "../dashboard/AllReport";
 import locationReport from "../dashboard/locationReport";
 import BuildingReport from "../dashboard/BuildingReport";
 import NoContent from "../layout/nocontent";
+import UserActivityDetails from "../dashboard/UserActivityDetails";
 
 import {
   getRoutesSetOldRecordsClicked,
-  getRoutesSetCurrentYearMonthsRecordsClicked
+  getRoutesSetCurrentYearMonthsRecordsClicked,
 } from "../../actions/tenants";
 import ContactReport from "../dashboard/ContactReport";
 
-
 const RoutesFile = ({
   getRoutesSetOldRecordsClicked,
-  getRoutesSetCurrentYearMonthsRecordsClicked
+  getRoutesSetCurrentYearMonthsRecordsClicked,
 }) => {
   const location = useLocation();
 
   // Extract the pathname from the location object
   //This is to handle the css selection of the months and the previous records to the current year
-  if (location?.pathname === "/tenant-report" && localStorage.getItem("monthSearch") !== "") {
+  if (
+    location?.pathname === "/tenant-report" &&
+    localStorage.getItem("monthSearch") !== ""
+  ) {
     getRoutesSetOldRecordsClicked(false);
     getRoutesSetCurrentYearMonthsRecordsClicked(true);
-  } else if (location?.pathname === "/tenant-report" && localStorage.getItem("monthSearch") === "") {
+  } else if (
+    location?.pathname === "/tenant-report" &&
+    localStorage.getItem("monthSearch") === ""
+  ) {
     getRoutesSetOldRecordsClicked(true);
     getRoutesSetCurrentYearMonthsRecordsClicked(false);
   } else {
@@ -124,6 +130,11 @@ const RoutesFile = ({
           path="/edit-tenant-details"
           component={EditTenantDetails}
         />
+        <PrivateRoute
+          exact
+          path="/user-activity"
+          component={UserActivityDetails}
+        />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
         <PrivateRoute exact path="/nocontent" component={NoContent} />
         <Route component={NotFound} />
@@ -132,11 +143,9 @@ const RoutesFile = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-
-});
+const mapStateToProps = (state) => ({});
 
 export default connect(mapStateToProps, {
   getRoutesSetOldRecordsClicked,
-  getRoutesSetCurrentYearMonthsRecordsClicked
+  getRoutesSetCurrentYearMonthsRecordsClicked,
 })(RoutesFile);

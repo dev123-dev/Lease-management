@@ -2,7 +2,11 @@ import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import "../../../../client/src/styles/CustomisedStyle.css";
-import { UpdateUser, get_particular_org_user } from "../../actions/tenants";
+import {
+  UpdateUser,
+  get_particular_org_user,
+  AddUserActivity,
+} from "../../actions/tenants";
 import { getalluser } from "../../actions/tenants";
 
 const EditAdminUser = ({
@@ -11,6 +15,7 @@ const EditAdminUser = ({
   org,
   UpdateUser,
   setRefresh,
+  AddUserActivity,
   refresh,
   setSuperModal,
   get_particular_org_user,
@@ -141,7 +146,6 @@ const EditAdminUser = ({
   };
   ////////////////////////////////////////////////////////////////
 
-
   const onuserGroup = (e) => {
     setgroup(e);
     // setus(e);
@@ -161,6 +165,17 @@ const EditAdminUser = ({
     };
     // console.log(updateUSER);
 
+    const EditUserActivity = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "User",
+      Operation: "Edit",
+      Name: username,
+      NameId: org._id,
+      OrganizationId: user.OrganizationId,
+    };
+
+    AddUserActivity(EditUserActivity);
     UpdateUser(updateUSER);
     getalluser();
     get_particular_org_user({ orgid: myuser.OrganizationId });
@@ -187,15 +202,24 @@ const EditAdminUser = ({
   //   }
   // }, [username, useremail, userphone]);
 
-  console.log(validationMessage,validationNameMessage,validationEmailMessage)
+  console.log(validationMessage, validationNameMessage, validationEmailMessage);
 
-  useEffect(()=>{
-    if (validationNameMessage==="" && validationMessage==="" && validationEmailMessage==="" ) {
-      setIsButtonDisabled(false)
+  useEffect(() => {
+    if (
+      validationNameMessage === "" &&
+      validationMessage === "" &&
+      validationEmailMessage === ""
+    ) {
+      setIsButtonDisabled(false);
     } else {
-      setIsButtonDisabled(true)
+      setIsButtonDisabled(true);
     }
-  },[validationNameMessage,validationMessage,validationEmailMessage,userphone])
+  }, [
+    validationNameMessage,
+    validationMessage,
+    validationEmailMessage,
+    userphone,
+  ]);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -324,5 +348,6 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   UpdateUser,
   getalluser,
+  AddUserActivity,
   get_particular_org_user,
 })(EditAdminUser);

@@ -13,6 +13,7 @@ import {
   getAllSettings,
   getAllShops,
   getDoorNo,
+  AddUserActivity,
 } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
@@ -22,6 +23,7 @@ const PropertyDetail = ({
   deactiveProperty,
   getParticularOrg,
   getAllSettings,
+  AddUserActivity,
   getDoorNo,
   getParticularProperty,
 }) => {
@@ -134,15 +136,18 @@ const PropertyDetail = ({
     SetDoornumber(false);
     setCheckData([]);
   };
-
-  const onDelete = (id, Dno) => {
+  const [propertyname, setPropertyname] = useState("");
+  const onDelete = (id, Dno, Val) => {
+    console.log("propertdeleteVal", Val);
     const DelDno = Dno.filter((ele) => ele && ele.status === "Avaiable");
     if (DelDno.length >= 1) {
       SetDno(Dno);
+      setPropertyname(Val.BuildingName);
       setPropertyId(id);
       SetDoornumber(true);
     } else {
       SetDno(Dno);
+      setPropertyname(Val.BuildingName);
       setPropertyId(id);
       handleShow();
     }
@@ -177,7 +182,17 @@ const PropertyDetail = ({
         shopStatus: "Deactive",
         deactive_reason: deactive_reason,
       };
-
+      const addUserActivity = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "property",
+        Operation: "Deactive",
+        Dno: checkData,
+        OrganizationId: user.OrganizationId,
+        NameId: PropertyId,
+        Name: propertyname,
+      };
+      AddUserActivity(addUserActivity);
       deactiveProperty(reason);
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
       getParticularProperty({ OrganizationId: user && user.OrganizationId });
@@ -202,6 +217,17 @@ const PropertyDetail = ({
         shopStatus: "Deactive",
         deactive_reason: deactive_reason,
       };
+      const addUserActivity = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "property",
+        Operation: "Deactive",
+        Dno: [],
+        Name: propertyname,
+        OrganizationId: user.OrganizationId,
+        NameId: PropertyId,
+      };
+      AddUserActivity(addUserActivity);
       deactiveProperty(reason);
       getParticularProperty({ OrganizationId: user && user.OrganizationId });
       getParticularOrg({ OrganizationId: user && user.OrganizationId });
@@ -501,7 +527,11 @@ const PropertyDetail = ({
                                           <img
                                             className=" Cursor"
                                             onClick={() =>
-                                              onDelete(Val._id, Val.shopDoorNo)
+                                              onDelete(
+                                                Val._id,
+                                                Val.shopDoorNo,
+                                                Val
+                                              )
                                             }
                                             src={require("../../static/images/delete.png")}
                                             alt="Deactivate "
@@ -802,4 +832,5 @@ export default connect(mapStateToProps, {
   getAllSettings,
   getDoorNo,
   getParticularProperty,
+  AddUserActivity,
 })(PropertyDetail);

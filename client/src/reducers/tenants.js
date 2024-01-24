@@ -27,6 +27,7 @@ import {
   PARTICULAR_ORG_TENANT_SORT,
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
   GET_TENANT_RECEIPTNO,
+  USER_ACTIVITY_DETAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -62,10 +63,11 @@ const initialState = {
   get_particular_org_tenant: [""],
   exp_org_count: [],
   ext_year_count_org: [],
-  sortleasetransferdetails:[],
-  tenantreceiptno:[],
+  sortleasetransferdetails: [],
+  tenantreceiptno: [],
   blnSearchOld: false,
-  blnSearchCurr: true
+  blnSearchCurr: true,
+  useractivitydetail: [],
 };
 
 const tenants = (state = initialState, action) => {
@@ -75,12 +77,12 @@ const tenants = (state = initialState, action) => {
     case "TENANT_FILTER_OLD":
       return {
         ...state,
-        blnSearchOld: payload
+        blnSearchOld: payload,
       };
     case "TENANT_FILTER_CURR":
       return {
         ...state,
-        blnSearchCurr: payload
+        blnSearchCurr: payload,
       };
     case EXP_REPORT:
       return {
@@ -97,17 +99,16 @@ const tenants = (state = initialState, action) => {
         ...state,
         sortetenantdetails: payload,
       };
-      case PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT:
-        return{
-          ...state,
-          sortleasetransferdetails:payload,
-        };
-        case GET_TENANT_RECEIPTNO:
-          return {
-            ...state,
-            tenantreceiptno:payload,
-
-          };
+    case PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT:
+      return {
+        ...state,
+        sortleasetransferdetails: payload,
+      };
+    case GET_TENANT_RECEIPTNO:
+      return {
+        ...state,
+        tenantreceiptno: payload,
+      };
     case GET_DOORNOS:
       return {
         ...state,
@@ -193,6 +194,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         get_particular_org_tenant: payload,
+      };
+    case USER_ACTIVITY_DETAIL:
+      return {
+        ...state,
+        useractivitydetail: payload,
       };
     case EXP_ORG_DETAIL:
       return {

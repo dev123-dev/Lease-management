@@ -10,6 +10,7 @@ import {
   getAllSettings,
   // getalluser,
   deactivateUser,
+  AddUserActivity,
   get_particular_org_user,
 } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
@@ -18,6 +19,7 @@ const UserDetails = ({
   auth: { user },
   tenants: { get_particularOrg_user }, //this is a reudcer
   get_particular_org_user,
+  AddUserActivity,
   deactivateUser, //this is a action function to call
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
@@ -83,9 +85,10 @@ const UserDetails = ({
     setAdmin(alluser);
     setSuperModal(true);
   };
-
-  const onDelete = (id) => {
+  const [uname, setuname] = useState("");
+  const onDelete = (id, alluser) => {
     Setid(id);
+    setuname(alluser.username);
     setDeactiveShow(true);
   };
 
@@ -98,6 +101,18 @@ const UserDetails = ({
       userStatus: "Deactive",
       deactive_reason: deactive_reason,
     };
+    const AdduserActivity = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "User",
+      Operation: "Deactive",
+      Name: uname,
+      NameId: AdminId,
+      OrganizationId: user.OrganizationId,
+    };
+
+    AddUserActivity(AdduserActivity);
+
     deactivateUser(reason);
     get_particular_org_user({ OrganizationId: myuser.OrganizationId });
   };
@@ -259,7 +274,9 @@ const UserDetails = ({
                                     &nbsp;
                                     <img
                                       className="Cursor"
-                                      onClick={() => onDelete(alluser._id)}
+                                      onClick={() =>
+                                        onDelete(alluser._id, alluser)
+                                      }
                                       src={require("../../static/images/delete.png")}
                                       alt="Deactivate"
                                       title="Deactivate"
@@ -429,4 +446,5 @@ export default connect(mapStateToProps, {
   deactivateUser,
   getParticularUser,
   get_particular_org_user,
+  AddUserActivity,
 })(UserDetails); // to connect to particular function which is getalluser

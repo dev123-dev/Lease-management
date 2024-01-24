@@ -10,6 +10,7 @@ import {
   getTenantDetails,
   ParticularTenantFilter,
   deactiveTenantsDetails,
+  AddUserActivity,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
@@ -28,6 +29,7 @@ const Tenant_Details = ({
     allTenantSetting,
   },
   ParticularTenant,
+  AddUserActivity,
   ParticularTenantFilter,
   getParticularOrg,
   getParticularProperty,
@@ -91,35 +93,26 @@ const Tenant_Details = ({
   //     !item.shopDoorNo.every((nameItem) => nameItem.status !== "Acquired")
   // );
 
+  //modal for lease transfer
 
+  const [userData, setUserData] = useState(null);
 
-//modal for lease transfer
+  const [showLeaseTranferModal, setshowLeaseTranferModal] = useState(false);
+  const handleLeaseTranferModalClose = () => setshowLeaseTranferModal(false);
+  const onLeaseTransfer = (Val) => {
+    setshowLeaseTranferModal(true);
+    setUserData(Val);
+    // setId(id);
 
-const [userData, setUserData] = useState(null);
-
-const [showLeaseTranferModal, setshowLeaseTranferModal] = useState(false);
-const handleLeaseTranferModalClose = () => setshowLeaseTranferModal(false);
-const onLeaseTransfer = ( Val) => {
-  setshowLeaseTranferModal(true);
-  setUserData(Val);
-  // setId(id);
-
-  // setDeactiveThisBiuldingID(Val.BuildingId);
-  // if (Dno.length >= 1) {
-  //   SetDno(Dno);
-  //   SetDoornumber(true);
-  // } else {
-  //   SetDno(Dno);
-  //   handleShow();
-  // }
-};
-
-
-
-
-
-
-
+    // setDeactiveThisBiuldingID(Val.BuildingId);
+    // if (Dno.length >= 1) {
+    //   SetDno(Dno);
+    //   SetDoornumber(true);
+    // } else {
+    //   SetDno(Dno);
+    //   handleShow();
+    // }
+  };
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -134,9 +127,12 @@ const onLeaseTransfer = ( Val) => {
   };
 
   const [tId, setId] = useState("");
+  const [tName, settname] = useState("");
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno, Val) => {
+    console.log("deactiveval", Val);
     setId(id);
+    settname(Val.tenantName);
 
     setDeactiveThisBiuldingID(Val.BuildingId);
     if (Dno.length >= 1) {
@@ -206,6 +202,17 @@ const onLeaseTransfer = ( Val) => {
       isSubmitted: "true",
       BiuldingID: DeactiveThisBiuldingID,
     };
+    const AdduserActivity = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "Tenant",
+      Operation: "Deactive",
+      NameId: tId,
+      Name: tName,
+      Dno: checkData.length !== 0 ? checkData : dno,
+      OrganizationId: user.OrganizationId,
+    };
+    AddUserActivity(AdduserActivity);
 
     deactiveTenantsDetails(reason);
     handleClose();
@@ -228,6 +235,17 @@ const onLeaseTransfer = ( Val) => {
         isSubmitted: "true",
         BiuldingID: DeactiveThisBiuldingID,
       };
+      const AdduserActivity = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Tenant",
+        Operation: "Deactive",
+        Dno: checkData.length !== 0 ? checkData : dno,
+        NameId: tId,
+        Name: tName,
+        OrganizationId: user.OrganizationId,
+      };
+      AddUserActivity(AdduserActivity);
 
       deactiveTenantsDetails(reason);
       handleClose();
@@ -639,18 +657,21 @@ const onLeaseTransfer = ( Val) => {
                                             title="Deactivate"
                                           />
                                           &nbsp;
-                                          {Val.shopDoorNo.length===0?(<></>):(
- <img
- className="Cursor "
- onClick={() => onLeaseTransfer(Val)}
- height="30px"
- width="30px"
- src={require("../../static/images/leaseTrans.png")}
- alt="lease transfer"
- title="lease transfer"
-/>
+                                          {Val.shopDoorNo.length === 0 ? (
+                                            <></>
+                                          ) : (
+                                            <img
+                                              className="Cursor "
+                                              onClick={() =>
+                                                onLeaseTransfer(Val)
+                                              }
+                                              height="25px"
+                                              width="25px"
+                                              src={require("../../static/images/leaseTrans.png")}
+                                              alt="lease transfer"
+                                              title="lease transfer"
+                                            />
                                           )}
-                                          
                                         </td>
                                       ) : (
                                         <td></td>
@@ -886,48 +907,48 @@ const onLeaseTransfer = ( Val) => {
       </Modal>
       {/* deactivate end */}
 
-
-
-
       {/* lease transfer start  */}
 
       <Modal
-              show={showLeaseTranferModal}
-              backdrop="static"
-              keyboard={false}
-              // size="lg"
-              dialogClassName="my-modal2"
-              aria-labelledby="contained-modal-title-vcenter"
-              centered
+        show={showLeaseTranferModal}
+        backdrop="static"
+        keyboard={false}
+        // size="lg"
+        dialogClassName="my-modal2"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header className="confirmbox-heading">
+          <div className="col-lg-10  col-sm-12 col-md-12">
+            <h3
+              style={{
+                color: "white",
+              }}
             >
-              <Modal.Header className="confirmbox-heading">
-                <div className="col-lg-10  col-sm-12 col-md-12">
-                  <h3
-                    style={{
-                      color: "white",
-                    }}
-                  >
-                    Lease Transfer
-                  </h3>
-                </div>
-                <div className="col-lg-2  col-sm-12 col-md-12">
-                  <button onClick={handleLeaseTranferModalClose} className="close">
-                    <img
-                      src={require("../../static/images/close.png")}
-                      alt="X"
-                      style={{ height: "20px", width: "20px" }}
-                    />
-                  </button>
-                </div>
-              </Modal.Header>
-              <Modal.Body>
-                <TenantLeaseTransfer leaseTransferData={userData} ModalClose={handleLeaseTranferModalClose}/>
-                {/* <RenewTenentAgreement
+              Lease Transfer
+            </h3>
+          </div>
+          <div className="col-lg-2  col-sm-12 col-md-12">
+            <button onClick={handleLeaseTranferModalClose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <TenantLeaseTransfer
+            leaseTransferData={userData}
+            ModalClose={handleLeaseTranferModalClose}
+          />
+          {/* <RenewTenentAgreement
                   tenantsData={userData}
                   onReportModalChange={onReportModalChange}
                 /> */}
-              </Modal.Body>
-            </Modal>
+        </Modal.Body>
+      </Modal>
       {/* lease transfer end  */}
     </>
   );
@@ -944,5 +965,6 @@ export default connect(mapStateToProps, {
   getParticularOrg,
   getParticularProperty,
   getTenantDetails,
+  AddUserActivity,
   deactiveTenantsDetails,
 })(Tenant_Details);
