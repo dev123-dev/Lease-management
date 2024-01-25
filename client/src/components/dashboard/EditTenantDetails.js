@@ -730,6 +730,7 @@ const EditTenantDetails = ({
       Name: tenantName,
       OrganizationId: user.OrganizationId,
       NameId: tenantId,
+      expireAt: new Date().getTime() + 80,
     };
     //console.log("edittenant", finalData);
     AddUserActivity(EditUserActivity);
