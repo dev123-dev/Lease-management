@@ -42,7 +42,7 @@ const UserActivityDetails = ({
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                User Activity of <span></span>
+                User Activity of <span>{myuser.username}</span>
               </h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">
@@ -59,26 +59,18 @@ const UserActivityDetails = ({
                     <></>
                   )} */}
 
-              <button
+              {/* <button
                 style={{ border: "none" }}
-                // onClick={async () => {
-                //   await setShowPrint({
-                //     backgroundColor: "#095a4a",
-                //     color: "black",
-                //     fontWeight: "bold",
-                //   });
-
-                //   OnPrint();
-                // }}
+                
               >
                 <img
                   height="20px"
-                  //  onClick={() => refresh()}
+                 
                   src={require("../../static/images/print.png")}
                   alt="Print"
                   title="Print"
                 />
-              </button>
+              </button> */}
             </div>
           </div>
 

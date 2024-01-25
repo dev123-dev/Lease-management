@@ -218,8 +218,8 @@ const BuildingReport = ({
     ],
   ];
 
-  get_property_related_tenant.map((get_property_related_tenant) => {
-    var unOccdoorNo = get_property_related_tenant.UnOccupied
+  get_property_related_tenant && get_property_related_tenant.map((get_property_related_tenant) => {
+    var unOccdoorNo =get_property_related_tenant && get_property_related_tenant.UnOccupied
       .filter((e) => e.status === "Avaiable")
       .map((ele) => ele.doorNo)
       .join(', '); // Join door numbers into a single string

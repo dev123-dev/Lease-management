@@ -511,7 +511,7 @@ const Header = ({
                             ) : (
                               <></>
                             )}
-                            {!loading &&
+                            {/* {!loading &&
                             isAuthenticated &&
                             user &&
                             user.usergroup === "Admin" ? (
@@ -519,14 +519,14 @@ const Header = ({
                                 <Link
                                   to="/user-activity"
                                   className="navlinkitem"
-                                  // onClick={() => handleTenantSettingModalShow()}
+                                 
                                 >
                                   User Activity
                                 </Link>
                               </li>
                             ) : (
                               <></>
-                            )}
+                            )} */}
                             {!loading &&
                             isAuthenticated &&
                             user &&

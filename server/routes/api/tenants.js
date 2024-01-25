@@ -2183,17 +2183,7 @@ router.post("/tenant-update-history", async (req, res) => {
   }
 });
 
-router.post("/add-user-activity-details", async (req, res) => {
-  let data = req.body;
-  try {
-    let userActivity = new UserActivity(data);
-    output = await userActivity.save();
-    res.send(output);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Internal Server Error.");
-  }
-});
+
 
 //get tenant receipt number
 
@@ -2398,12 +2388,31 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   }
 });
 
+
+
+//user activity
+
+
+router.post("/add-user-activity-details", async (req, res) => {
+  let data = req.body;
+  try {
+    let userActivity = new UserActivity(data);
+    output = await userActivity.save();
+    res.send(output);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
+
+
 router.post("/get-user-activity", async (req, res) => {
   let data = req.body;
 
   try {
     const userActivityData = await UserActivity.find({
-      Organization_id: data.OrganizationId,
+      OrganizationId: data.OrganizationId,
     }).sort({ _id: -1 });
     // .sort({ _id: -1 });
     console.log("userActivityData", userActivityData);
