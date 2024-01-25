@@ -267,6 +267,7 @@ const TenantSettings = ({
         Operation: "Update",
         Name: user.OrganizationName,
         OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(ActivityDetail);
       AddTenantSettingform(finalData);
@@ -306,6 +307,7 @@ const TenantSettings = ({
         Operation: "Update",
         Name: user.OrganizationName,
         OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(ActivityDetail);
 

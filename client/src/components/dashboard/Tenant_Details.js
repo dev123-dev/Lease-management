@@ -211,6 +211,7 @@ const Tenant_Details = ({
       Name: tName,
       Dno: checkData.length !== 0 ? checkData : dno,
       OrganizationId: user.OrganizationId,
+      expireAt: new Date().getTime() + 80,
     };
     AddUserActivity(AdduserActivity);
 
@@ -244,6 +245,7 @@ const Tenant_Details = ({
         NameId: tId,
         Name: tName,
         OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(AdduserActivity);
 

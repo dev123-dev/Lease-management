@@ -329,6 +329,7 @@ const TenantReport = ({
       Name: viewdata && viewdata.tenantName,
       NameId: viewdata && viewdata._id,
       OrganizationId: user.OrganizationId,
+      expireAt: new Date().getTime() + 80,
     };
     // console.log("finalData", finalData);
     AddTenantReceiptDetails(finalData);

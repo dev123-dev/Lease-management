@@ -666,7 +666,8 @@ const EditTenantDetails = ({
       validationPanMessage === "" &&
       validationChequeMessage === "" &&
       validationBankMessage === "" &&
-      validationAddressMessage === ""
+      validationAddressMessage === "" &&
+      validationTransIdMessage===""
     ) {
       setNextButtonDisabled(false);
     } else {
@@ -681,6 +682,7 @@ const EditTenantDetails = ({
     validationChequeMessage,
     validationBankMessage,
     validationAddressMessage,
+    validationTransIdMessage
   ]);
 
   //For setting mindate as todays date
@@ -732,7 +734,7 @@ const EditTenantDetails = ({
       NameId: tenantId,
       expireAt: new Date().getTime() + 80,
     };
-    //console.log("edittenant", finalData);
+    // console.log("edittenant", finalData);
     AddUserActivity(EditUserActivity);
     UpdateTenantsDetails(finalData);
     histroy.push("/tenant-detail");
@@ -1016,6 +1018,7 @@ const EditTenantDetails = ({
                         value={tenantChequenoOrDdno}
                         className="form-control"
                         onChange={(e) => handleChequeChange(e)}
+                        required
                       />
                       <h6 style={{ color: "red" }}>
                         {validationChequeMessage}
@@ -1030,6 +1033,7 @@ const EditTenantDetails = ({
                         value={tenantBankName}
                         className="form-control"
                         onChange={(e) => handleBankNameChange(e)}
+                        required
                       />
                       <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                     </div>
@@ -1046,6 +1050,7 @@ const EditTenantDetails = ({
                         style={{
                           width: "100%",
                         }}
+                        required
                       />
                     </div>
                   </div>
@@ -1092,6 +1097,7 @@ const EditTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
                   </div>
@@ -1107,6 +1113,7 @@ const EditTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
@@ -1124,6 +1131,7 @@ const EditTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
                   </div>
@@ -1139,6 +1147,7 @@ const EditTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
@@ -1156,6 +1165,7 @@ const EditTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
                   </div>

@@ -300,10 +300,11 @@ const AddAdminUserModal = ({
         Operation: "Add",
         Name: username,
         OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
       };
 
       AddUserActivity(AdduserActivity);
-      console.log(finalUserData);
+      // console.log(finalUserData);
 
       AddAdminuser(finalUserData);
       setShowadd(false);

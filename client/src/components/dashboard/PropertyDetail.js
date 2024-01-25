@@ -191,6 +191,7 @@ const PropertyDetail = ({
         OrganizationId: user.OrganizationId,
         NameId: PropertyId,
         Name: propertyname,
+        expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(addUserActivity);
       deactiveProperty(reason);
@@ -226,6 +227,7 @@ const PropertyDetail = ({
         Name: propertyname,
         OrganizationId: user.OrganizationId,
         NameId: PropertyId,
+        expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(addUserActivity);
       deactiveProperty(reason);

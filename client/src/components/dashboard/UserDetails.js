@@ -109,6 +109,7 @@ const UserDetails = ({
       Name: uname,
       NameId: AdminId,
       OrganizationId: user.OrganizationId,
+      expireAt: new Date().getTime() + 80,
     };
 
     AddUserActivity(AdduserActivity);

@@ -258,6 +258,7 @@ const AddShopDetails = ({
         Operation: "Add",
         Name: BuildingName,
         OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
       };
 
       AddUserActivity(AdduserActivity);

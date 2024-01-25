@@ -68,7 +68,7 @@ const AddTenantDetails = ({
   // validation for trancation id
   const [transId, setTransId] = useState("");
   const [validationTransIdMessage, setValidationTransIdMessage] = useState(
-    "Please enter the valid Transcation id"
+    ""
   );
   const handleTransIdChange = (e) => {
     const inputValue = e.target.value;
@@ -684,7 +684,9 @@ const AddTenantDetails = ({
       validationPanMessage === "" &&
       validationChequeMessage === "" &&
       validationBankMessage === "" &&
-      validationAddressMessage === ""
+      validationAddressMessage === "" 
+      &&
+      validationTransIdMessage===""
     ) {
       setNextButtonDisabled(false);
     } else {
@@ -699,8 +701,9 @@ const AddTenantDetails = ({
     validationChequeMessage,
     validationBankMessage,
     validationAddressMessage,
+    validationTransIdMessage
   ]);
-  console.log("user", user);
+ 
   const onSubmit = (e) => {
     e.preventDefault();
     if (output !== "V") return;
@@ -748,9 +751,9 @@ const AddTenantDetails = ({
         Operation: "Add",
         Name: tenantName,
         OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
       };
-      console.log("ActivityDetail", ActivityDetail);
-      console.log("finalData", finalData);
+     
       AddTenantDetailsform(finalData);
       AddUserActivity(ActivityDetail);
       ParticularTenantFilter();
@@ -1133,6 +1136,7 @@ const AddTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
                   </div>
@@ -1148,6 +1152,7 @@ const AddTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
@@ -1165,6 +1170,7 @@ const AddTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
                   </div>
@@ -1180,6 +1186,7 @@ const AddTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
@@ -1197,6 +1204,7 @@ const AddTenantDetails = ({
                       style={{
                         width: "100%",
                       }}
+                      required
                     />
                     <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
                   </div>

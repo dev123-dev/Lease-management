@@ -190,6 +190,7 @@ const EditProperty = ({
         Name: BuildingName,
         OrganizationId: user.OrganizationId,
         NameId: Propertydata.PropertyId,
+        expireAt: new Date().getTime() + 80,
       };
 
       AddUserActivity(EditUserActivity);

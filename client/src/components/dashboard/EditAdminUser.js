@@ -173,6 +173,7 @@ const EditAdminUser = ({
       Name: username,
       NameId: org._id,
       OrganizationId: user.OrganizationId,
+      expireAt: new Date().getTime() + 80,
     };
 
     AddUserActivity(EditUserActivity);

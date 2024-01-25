@@ -174,9 +174,10 @@ const TenantLeaseTransfer = ({
         NameId: leaseTransferData._id,
         OrganizationId: user.OrganizationId,
         Dno: selectedDoorNumber,
+        expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(ActivityDetail);
-      console.log("finalData submitttttttt", finalData);
+      // console.log("finalData submitttttttt", finalData);
       EditTenantLeaseTransferDetails(finalData);
       ModalClose();
       ParticularTenantFilter("");
