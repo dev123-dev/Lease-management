@@ -62,14 +62,17 @@ const AddTenantDetails = ({
   const [selectedCard, setSelectedCard] = useState("");
 
   const HandleCheck = (e) => {
+    setErrors({
+      ...errors,
+      cardChecker: true,
+      cardErrorStyle: { color: "#000" },
+    });
     setSelectedCard(e.target.value);
   };
 
   // validation for trancation id
   const [transId, setTransId] = useState("");
-  const [validationTransIdMessage, setValidationTransIdMessage] = useState(
-    ""
-  );
+  const [validationTransIdMessage, setValidationTransIdMessage] = useState("");
   const handleTransIdChange = (e) => {
     const inputValue = e.target.value;
 
@@ -493,12 +496,16 @@ const AddTenantDetails = ({
     PropertyErrorStyle: {},
     PaymentChecker: false,
     PaymentErrorStyle: {},
+    cardChecker: false,
+    cardErrorStyle: {},
   });
   const {
     PropertyChecker,
     PropertyErrorStyle,
     PaymentChecker,
     PaymentErrorStyle,
+    cardChecker,
+    cardErrorStyle,
   } = errors;
   const checkError = () => {
     if (!PaymentChecker) {
@@ -512,6 +519,13 @@ const AddTenantDetails = ({
       setErrors({
         ...errors,
         PropertyErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!cardChecker && paymentMode.value === "Card") {
+      setErrors({
+        ...errors,
+        cardErrorStyle: { color: "#F00" },
       });
       return false;
     }
@@ -684,9 +698,8 @@ const AddTenantDetails = ({
       validationPanMessage === "" &&
       validationChequeMessage === "" &&
       validationBankMessage === "" &&
-      validationAddressMessage === "" 
-      &&
-      validationTransIdMessage===""
+      validationAddressMessage === "" &&
+      validationTransIdMessage === ""
     ) {
       setNextButtonDisabled(false);
     } else {
@@ -701,9 +714,9 @@ const AddTenantDetails = ({
     validationChequeMessage,
     validationBankMessage,
     validationAddressMessage,
-    validationTransIdMessage
+    validationTransIdMessage,
   ]);
- 
+
   const onSubmit = (e) => {
     e.preventDefault();
     if (output !== "V") return;
@@ -753,7 +766,6 @@ const AddTenantDetails = ({
         OrganizationId: user.OrganizationId,
         expireAt: new Date().getTime() + 80,
       };
-     
       AddTenantDetailsform(finalData);
       AddUserActivity(ActivityDetail);
       ParticularTenantFilter();
@@ -1102,7 +1114,7 @@ const AddTenantDetails = ({
               {paymentMode.value === "Card" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Choose card:</label>
+                    <label style={cardErrorStyle}> Choose card*:</label>
                     <br />
                     <input
                       type="radio"
@@ -1126,7 +1138,7 @@ const AddTenantDetails = ({
                   </div>
 
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id:</label>
+                    <label> Transcation Id*:</label>
                     <input
                       type="text"
                       name="transcationId"
@@ -1142,7 +1154,7 @@ const AddTenantDetails = ({
                   </div>
 
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Bank Name:</label>
+                    <label> Bank Name*:</label>
                     <input
                       type="text"
                       name="bankName"
@@ -1160,7 +1172,7 @@ const AddTenantDetails = ({
               ) : paymentMode.value === "Neft" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id:</label>
+                    <label> Transaction Id*:</label>
                     <input
                       type="text"
                       name="transcationId"
@@ -1176,7 +1188,7 @@ const AddTenantDetails = ({
                   </div>
 
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Bank Name:</label>
+                    <label> Bank Name*:</label>
                     <input
                       type="text"
                       name="bankName"
@@ -1194,7 +1206,7 @@ const AddTenantDetails = ({
               ) : paymentMode.value === "Upi" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transaction Id:</label>
+                    <label> Transaction Id*:</label>
                     <input
                       type="text"
                       name="transactionId"

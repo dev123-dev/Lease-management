@@ -59,19 +59,27 @@ const RenewTenentAgreement = ({
 
   const HandleCheck = (e) => {
     setSelectedCard(e.target.value);
+    setErrors({
+      ...errors,
+      cardChecker: true,
+      cardErrorStyle: { color: "#000" },
+    });
   };
 
   const [startSelectedDate, setChequeDate] = useState("");
+  const [validationChequeDateMessage, setValidationChequeDateMessage] =
+    useState("");
   const onDateChange = (e) => {
     setChequeDate(e.target.value);
+    e
+      ? setValidationChequeDateMessage("")
+      : setValidationChequeDateMessage("please enter date");
   };
 
   // validation for bank name
 
   const [tenantBankName, setTenantBankName] = useState("");
-  const [validationBankMessage, setValidationBankMessage] = useState(
-    "please enter valid Bank Name"
-  );
+  const [validationBankMessage, setValidationBankMessage] = useState("");
 
   const handleBankNameChange = (e) => {
     const inputValue = e.target.value;
@@ -79,16 +87,14 @@ const RenewTenentAgreement = ({
     const isValidPan = /^[A-Za-z\s]+$/;
     isValidPan.test(inputValue)
       ? setValidationBankMessage("")
-      : setValidationBankMessage("");
+      : setValidationBankMessage("enter valid Bank Name");
 
     setTenantBankName(inputValue);
   };
 
   // validation for trancation id
   const [transId, setTransId] = useState("");
-  const [validationTransIdMessage, setValidationTransIdMessage] = useState(
-    "Please enter the valid Transcation id"
-  );
+  const [validationTransIdMessage, setValidationTransIdMessage] = useState("");
   const handleTransIdChange = (e) => {
     const inputValue = e.target.value;
 
@@ -145,7 +151,39 @@ const RenewTenentAgreement = ({
   //   validationTransIdMessage,
   // ]);
   const onPaymentModeChange = (e) => {
+    setErrors({
+      ...errors,
+      paymentmodeChecker: true,
+      paymentmodeErrorStyle: { color: "#000" },
+    });
+
     setPaymentMode(e);
+    if (e.value === "Upi") {
+      setValidationTransIdMessage("Please enter transaction");
+      setValidationBankMessage("");
+      setValidationChequeMessage("");
+      setValidationChequeDateMessage("");
+    } else if (e.value === "Neft") {
+      setValidationBankMessage("please enter bank name");
+      setValidationTransIdMessage("Please enter transaction");
+      setValidationChequeMessage("");
+      setValidationChequeDateMessage("");
+    } else if (e.value === "Card") {
+      setValidationBankMessage("please enter bank name");
+      setValidationTransIdMessage("Please enter transaction");
+      setValidationChequeMessage("");
+      setValidationChequeDateMessage("");
+    } else if (e.value === "Cheque") {
+      setValidationBankMessage("please enter bank name");
+      setValidationTransIdMessage("");
+      setValidationChequeMessage("Please Enter cheque/DD No");
+      setValidationChequeDateMessage("Please Enter Date");
+    } else if (e.value === "Cash") {
+      setValidationBankMessage("");
+      setValidationTransIdMessage("");
+      setValidationChequeMessage("");
+      setValidationChequeDateMessage("");
+    }
   };
 
   useEffect(() => {
@@ -188,56 +226,57 @@ const RenewTenentAgreement = ({
       setValidationMessage("enter valid amount");
     }
   };
-  console.log("tenantsData", tenantsData);
 
   const ondone = () => {
     if (output !== "V") return;
+    if (checkError()) {
+      const finalData = {
+        tenantRentAmount: tenantRentAmount,
+        tenantFileNo: tenantFileNo,
+        // tenantDoorNo: door,
+        tenantLeaseStartDate:
+          entryDate.split(delimiter)[2] +
+          delimiter +
+          entryDate.split(delimiter)[1] +
+          delimiter +
+          entryDate.split(delimiter)[0],
+        tenantLeaseEndDate: leaseEndDate,
+        tdId: tenantsData.tdId,
+        OrganizationId: tenantsData.OrganizationId,
+        BuildingName: tenantsData.BuildingName,
+        BuildingId: tenantsData.BuildingId,
+        agreementId: tenantsData.agreementId,
+        tenantEnteredBy: user && user._id,
+        tenantDate: todayDateymd,
+        monthSearch: finalDataRep.monthSearch,
+        yearSearch: finalDataRep.yearSearch,
+        selectedY: finalDataRep.yearSearch,
+        selectedVal: dt,
 
-    const finalData = {
-      tenantRentAmount: tenantRentAmount,
-      tenantFileNo: tenantFileNo,
-      // tenantDoorNo: door,
-      tenantLeaseStartDate:
-        entryDate.split(delimiter)[2] +
-        delimiter +
-        entryDate.split(delimiter)[1] +
-        delimiter +
-        entryDate.split(delimiter)[0],
-      tenantLeaseEndDate: leaseEndDate,
-      tdId: tenantsData.tdId,
-      OrganizationId: tenantsData.OrganizationId,
-      BuildingName: tenantsData.BuildingName,
-      BuildingId: tenantsData.BuildingId,
-      agreementId: tenantsData.agreementId,
-      tenantEnteredBy: user && user._id,
-      tenantDate: todayDateymd,
-      monthSearch: finalDataRep.monthSearch,
-      yearSearch: finalDataRep.yearSearch,
-      selectedY: finalDataRep.yearSearch,
-      selectedVal: dt,
+        tenantPaymentMode: paymentMode.value ? paymentMode.value : "",
+        tenantChequenoOrDdno: tenantChequenoOrDdno ? tenantChequenoOrDdno : 0,
+        tenantBankName: tenantBankName ? tenantBankName : "",
+        tenantchequeDate: startSelectedDate ? startSelectedDate : "",
+        tenantTransId: transId ? transId : "",
+        tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
+      };
 
-      tenantPaymentMode: paymentMode.value ? paymentMode.value : "",
-      tenantChequenoOrDdno: tenantChequenoOrDdno ? tenantChequenoOrDdno : 0,
-      tenantBankName: tenantBankName ? tenantBankName : "",
-      tenantchequeDate: startSelectedDate ? startSelectedDate : "",
-      tenantTransId: transId ? transId : "",
-      tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
-    };
-    const ActivityDetail = {
-      userId: user && user._id,
-      userName: user && user.username,
-      Menu: "Tenant",
-      Operation: "Renewal",
-      Name: tenantsData.tenantName,
-      NameId: tenantsData.tdId,
-      OrganizationId: user.OrganizationId,
-    };
-    AddUserActivity(ActivityDetail);
-
-    // console.log("this is sothing", finalData);
-    RenewTenantDetailsform(finalData);
-    setFormData({ ...formData, isSubmitted: true });
-    onReportModalChange(true);
+      const ActivityDetail = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Tenant",
+        Operation: "Renewal",
+        Name: tenantsData.tenantName,
+        NameId: tenantsData.tdId,
+        OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
+      };
+      AddUserActivity(ActivityDetail);
+      RenewTenantDetailsform(finalData);
+      //console.log("finalData", finalData);
+      setFormData({ ...formData, isSubmitted: true });
+      onReportModalChange(true);
+    }
   };
 
   const [entryDate, setEntryDate] = useState(
@@ -412,6 +451,65 @@ const RenewTenentAgreement = ({
   var endDate = [ED[2], ED[1], ED[0]].join("-");
   //03-09-2023
 
+  //validation for select
+  const [errors, setErrors] = useState({
+    paymentmodeChecker: false,
+    paymentmodeErrorStyle: {},
+    cardChecker: false,
+    cardErrorStyle: {},
+  });
+  const {
+    paymentmodeChecker,
+    paymentmodeErrorStyle,
+    cardChecker,
+    cardErrorStyle,
+  } = errors;
+  const checkError = () => {
+    if (!paymentmodeChecker) {
+      setErrors({
+        ...errors,
+        paymentmodeErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!cardChecker && paymentMode.value === "Card") {
+      console.log("paymenttttttttttttttttttt", paymentMode);
+      setErrors({
+        ...errors,
+        cardErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  /////////////////////////////////////////////////////////////
+  const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    if (
+      validationChequeMessage === "" &&
+      validationBankMessage === "" &&
+      validationTransIdMessage === "" &&
+      validationChequeMessage === "" &&
+      validationChequeDateMessage === ""
+      //  &&
+      // cardChecker === true
+    ) {
+      setNextButtonDisabled(false);
+    } else {
+      setNextButtonDisabled(true);
+    }
+  }, [
+    validationChequeMessage,
+    validationBankMessage,
+    validationChequeMessage,
+    validationTransIdMessage,
+    validationChequeDateMessage,
+    paymentMode,
+  ]);
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -521,7 +619,10 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label> Payment Mode:</label>
+            <label style={paymentmodeErrorStyle}>
+              {" "}
+              Payment Mode<span style={{ color: "red" }}>*</span>:
+            </label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
@@ -547,7 +648,7 @@ const RenewTenentAgreement = ({
           {paymentMode.value === "Cheque" ? (
             <div className="row">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Cheque No/DD No:</label>
+                <label> Cheque No/DD No*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -559,11 +660,12 @@ const RenewTenentAgreement = ({
                   style={{
                     width: "100%",
                   }}
+                  required
                 />
                 <h6 style={{ color: "red" }}>{validationChequeMessage}</h6>
               </div>
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Bank Name:</label>
+                <label> Bank Name*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -577,7 +679,7 @@ const RenewTenentAgreement = ({
                 <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
               </div>
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Cheque Date:</label>
+                <label> Cheque Date*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -592,12 +694,13 @@ const RenewTenentAgreement = ({
                   }}
                   required
                 />
+                <h6 style={{ color: "red" }}>{validationChequeDateMessage}</h6>
               </div>
             </div>
           ) : paymentMode.value === "Card" ? (
             <div className="row">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Choose card:</label>
+                <label style={cardErrorStyle}> Choose card*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -620,7 +723,7 @@ const RenewTenentAgreement = ({
               </div>
 
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Transcation Id:</label>
+                <label> Transaction Id*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -632,11 +735,12 @@ const RenewTenentAgreement = ({
                   style={{
                     width: "100%",
                   }}
+                  required
                 />
                 <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
               </div>
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Bank Name:</label>
+                <label> Bank Name*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -648,6 +752,7 @@ const RenewTenentAgreement = ({
                   style={{
                     width: "100%",
                   }}
+                  required
                 />
                 <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
               </div>
@@ -655,7 +760,7 @@ const RenewTenentAgreement = ({
           ) : paymentMode.value === "Neft" ? (
             <div className="row">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Transcation Id:</label>
+                <label> Transaction Id*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -667,11 +772,12 @@ const RenewTenentAgreement = ({
                   style={{
                     width: "100%",
                   }}
+                  required
                 />
                 <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
               </div>
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Bank Name:</label>
+                <label> Bank Name*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -683,6 +789,7 @@ const RenewTenentAgreement = ({
                   style={{
                     width: "100%",
                   }}
+                  required
                 />
                 <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
               </div>
@@ -690,7 +797,7 @@ const RenewTenentAgreement = ({
           ) : paymentMode.value === "Upi" ? (
             <div className="row">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-                <label> Transaction Id:</label>
+                <label> Transaction Id*:</label>
               </div>
               <div className="col-lg-6 col-md-4 col-sm-4 col-12 ml-3">
                 <input
@@ -702,6 +809,7 @@ const RenewTenentAgreement = ({
                   style={{
                     width: "100%",
                   }}
+                  required
                 />
                 <h6 style={{ color: "red" }}>{validationTransIdMessage}</h6>
               </div>
@@ -712,27 +820,27 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-12  col-sm-12 col-md-12 Savebutton" size="lg">
-            {/* {isNextButtonDisabled ? (
-            <button
-              variant="success"
-              className="btn sub_form float-right"
-              id="savebtn"
-              onClick={() => ondone()}
-              disabled={true}
-            >
-              Save
-            </button>
-          ):(  */}
-            <button
-              variant="success"
-              className="btn sub_form float-right"
-              id="savebtn"
-              onClick={() => ondone()}
-              disabled={output !== "V" ? true : false}
-            >
-              Save
-            </button>
-            {/* )} */}
+            {isNextButtonDisabled ? (
+              <button
+                variant="success"
+                className="btn sub_form float-right"
+                id="savebtn"
+                onClick={() => ondone()}
+                disabled={true}
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                variant="success"
+                className="btn sub_form float-right"
+                id="savebtn"
+                onClick={() => ondone()}
+                disabled={output !== "V" ? true : false}
+              >
+                Save
+              </button>
+            )}
           </div>
         </div>
       </section>
