@@ -191,7 +191,7 @@ const AllReport = ({
                 </p>
               </div>
             </div>
-            <div
+            {/* <div
               className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
               id="shadow-bck"
             >
@@ -219,7 +219,7 @@ const AllReport = ({
                   </center>
                 </p>
               </div>
-            </div>
+            </div> */}
 
             <div className="col-lg-3  col-sm-12 col-md-12"></div>
           </div>
