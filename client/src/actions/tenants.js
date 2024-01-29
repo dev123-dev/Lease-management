@@ -37,6 +37,7 @@ import {
   GET_TENANT_RECEIPTNO,
   USER_ACTIVITY_DETAIL,
   NEW_USER_ACTIVITY,
+  GET_MIS_REPORT,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -1046,3 +1047,29 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     });
   }
 };
+
+
+
+//get MIS report
+
+
+
+
+export const getMisReport =
+  (finalOrgData) => async (dispatch) => {
+
+    console.log("actionnnnn",finalOrgData)
+    try {
+      const res = await axios.post(
+        `${linkPath}/api/tenants/get-mis-report`,
+        finalOrgData
+      );
+    console.log(res.data)
+      dispatch({
+        type: GET_MIS_REPORT,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };

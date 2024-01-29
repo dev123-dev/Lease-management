@@ -511,7 +511,7 @@ const Header = ({
                             ) : (
                               <></>
                             )}
-                            {/* {!loading &&
+                            {!loading &&
                             isAuthenticated &&
                             user &&
                             user.usergroup === "Admin" ? (
@@ -526,7 +526,7 @@ const Header = ({
                               </li>
                             ) : (
                               <></>
-                            )} */}
+                            )}
                             {!loading &&
                             isAuthenticated &&
                             user &&

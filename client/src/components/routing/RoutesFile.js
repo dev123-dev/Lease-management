@@ -40,6 +40,7 @@ import {
   getRoutesSetCurrentYearMonthsRecordsClicked,
 } from "../../actions/tenants";
 import ContactReport from "../dashboard/ContactReport";
+import MISReport from "../dashboard/MISReport";
 
 const RoutesFile = ({
   getRoutesSetOldRecordsClicked,
@@ -80,6 +81,7 @@ const RoutesFile = ({
         <PrivateRoute exact path="/LocationReport" component={locationReport} />
         <PrivateRoute exact path="/tenant-report" component={TenantReport} />
         <PrivateRoute exact path="/contact-report" component={ContactReport} />
+        <PrivateRoute exact path="/mis-report" component={MISReport} />
         <PrivateRoute
           exact
           path="/Organization-report"

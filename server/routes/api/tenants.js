@@ -2422,4 +2422,90 @@ router.post("/get-user-activity", async (req, res) => {
   }
 });
 
+
+router.post("/get-mis-report",async(req,res)=>{
+  let data=req.body;
+
+  console.log("dataaa",data)
+  try{
+    let renewedCount = await TenentAgreement.aggregate([
+      {
+        $match:
+          
+          {
+            OrganizationId:mongoose.Types.ObjectId(data.OrganizationId)
+          },
+      },
+      {
+        $addFields:
+         
+          {
+            newYear: {
+              $year: {
+                $toDate: "$tenantLeaseStartDate",
+              },
+            },
+          },
+      },
+      {
+        $match:
+         
+          {
+            newYear: data.selectedY,
+            AgreementStatus: "Renewed",
+          },
+      },
+      {
+        $count:
+        
+          "totalCountRenewed",
+      },
+    ])
+    let renewableCount = await TenentAgreement.aggregate([
+      {
+        $match:
+          
+          {
+            OrganizationId: mongoose.Types.ObjectId(data.OrganizationId)
+          },
+      },
+      {
+        $addFields:
+         
+          {
+            newYear: {
+              $year: {
+                $toDate: "$tenantLeaseEndDate",
+              },
+            },
+          },
+      },
+      {
+        $match:
+         
+          {
+            newYear: data.selectedY,
+            AgreementStatus: "Expired",
+          },
+      },
+      {
+        $count:
+        
+          "totalCountRenewable",
+      },
+    ])
+    // console.log("renewableCount",renewableCount[0].totalCountRenewable)
+   res.json({
+    renewableCount : renewableCount[0].totalCountRenewable,
+    renewedCount : renewedCount[0].totalCountRenewed
+    
+   }
+    
+   
+   )
+  }catch(error){
+    console.log(error.message)
+  }
+})
+
 module.exports = router;

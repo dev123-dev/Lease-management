@@ -28,6 +28,7 @@ import {
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
   GET_TENANT_RECEIPTNO,
   USER_ACTIVITY_DETAIL,
+  GET_MIS_REPORT,
 } from "../actions/types";
 
 const initialState = {
@@ -68,6 +69,7 @@ const initialState = {
   blnSearchOld: false,
   blnSearchCurr: true,
   useractivitydetail: [],
+  allmisreport:[],
 };
 
 const tenants = (state = initialState, action) => {
@@ -128,6 +130,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         allShopDetails: payload,
+      };
+     case GET_MIS_REPORT:
+      return{
+        ...state,
+        allmisreport:payload,
       };
     case GET_EDIT_TENANT_DETAILS:
       return {
