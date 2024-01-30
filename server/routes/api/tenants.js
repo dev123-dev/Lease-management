@@ -2183,8 +2183,6 @@ router.post("/tenant-update-history", async (req, res) => {
   }
 });
 
-
-
 //get tenant receipt number
 
 router.post("/get-tenant-receiptnumber", async (req, res) => {
@@ -2388,10 +2386,7 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   }
 });
 
-
-
 //user activity
-
 
 router.post("/add-user-activity-details", async (req, res) => {
   let data = req.body;
@@ -2404,8 +2399,6 @@ router.post("/add-user-activity-details", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
-
-
 
 router.post("/get-user-activity", async (req, res) => {
   let data = req.body;
@@ -2422,90 +2415,156 @@ router.post("/get-user-activity", async (req, res) => {
   }
 });
 
+router.post("/get-mis-report", async (req, res) => {
+  let data = req.body;
 
-router.post("/get-mis-report",async(req,res)=>{
-  let data=req.body;
-
-  console.log("dataaa",data)
-  try{
+  console.log("dataaa", data);
+  try {
     let renewedCount = await TenentAgreement.aggregate([
       {
-        $match:
-          
-          {
-            OrganizationId:mongoose.Types.ObjectId(data.OrganizationId)
-          },
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+        },
       },
       {
-        $addFields:
-         
-          {
-            newYear: {
-              $year: {
-                $toDate: "$tenantLeaseStartDate",
-              },
+        $addFields: {
+          newYear: {
+            $year: {
+              $toDate: "$tenantLeaseStartDate",
             },
           },
+        },
       },
       {
-        $match:
-         
-          {
-            newYear: data.selectedY,
-            AgreementStatus: "Renewed",
-          },
+        $match: {
+          newYear: data.selectedY,
+          AgreementStatus: "Renewed",
+        },
       },
       {
-        $count:
-        
-          "totalCountRenewed",
+        $count: "totalCountRenewed",
       },
-    ])
+    ]);
     let renewableCount = await TenentAgreement.aggregate([
       {
-        $match:
-          
-          {
-            OrganizationId: mongoose.Types.ObjectId(data.OrganizationId)
-          },
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+        },
       },
       {
-        $addFields:
-         
-          {
-            newYear: {
-              $year: {
-                $toDate: "$tenantLeaseEndDate",
-              },
+        $addFields: {
+          newYear: {
+            $year: {
+              $toDate: "$tenantLeaseEndDate",
             },
           },
+        },
       },
       {
-        $match:
-         
-          {
-            newYear: data.selectedY,
-            AgreementStatus: "Expired",
-          },
+        $match: {
+          newYear: data.selectedY,
+          AgreementStatus: "Expired",
+        },
       },
       {
-        $count:
-        
-          "totalCountRenewable",
+        $count: "totalCountRenewable",
       },
-    ])
+    ]);
     // console.log("renewableCount",renewableCount[0].totalCountRenewable)
-   res.json({
-    renewableCount : renewableCount[0].totalCountRenewable,
-    renewedCount : renewedCount[0].totalCountRenewed
-    
-   }
-    
-   
-   )
-  }catch(error){
-    console.log(error.message)
+    res.json({
+      renewableCount:
+        renewableCount[0] && renewableCount[0].totalCountRenewable
+          ? renewableCount[0].totalCountRenewable
+          : 0,
+      renewedCount:
+        renewedCount[0] && renewedCount[0].totalCountRenewed
+          ? renewedCount[0].totalCountRenewed
+          : 0,
+    });
+  } catch (error) {
+    console.log(error.message);
   }
-})
+});
+
+router.post("/get-mis-amount-report", async (req, res) => {
+  let data = req.body;
+
+  console.log("dataaa", data);
+  try {
+    let renewedAmount = await TenentAgreement.aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+        },
+      },
+      {
+        $addFields: {
+          newYear: {
+            $year: {
+              $toDate: "$tenantLeaseStartDate",
+            },
+          },
+        },
+      },
+      {
+        $match: {
+          newYear: data.selectedY,
+          AgreementStatus: "Renewed",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalRentRenewed: {
+            $sum: "$tenantRentAmount",
+          },
+        },
+      },
+    ]);
+    let renewableAmount = await TenentAgreement.aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+        },
+      },
+      {
+        $addFields: {
+          newYear: {
+            $year: {
+              $toDate: "$tenantLeaseEndDate",
+            },
+          },
+        },
+      },
+      {
+        $match: {
+          newYear: data.selectedY,
+          AgreementStatus: "Expired",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalRentRenewable: {
+            $sum: "$tenantRentAmount",
+          },
+        },
+      },
+    ]);
+    // console.log("renewableCount",renewableCount[0].totalCountRenewable)
+    res.json({
+      renewableAmount:
+        renewableAmount[0] && renewableAmount[0].totalRentRenewable
+          ? renewableAmount[0].totalRentRenewable
+          : 0,
+      renewedAmount:
+        renewedAmount[0] && renewedAmount[0].totalRentRenewed
+          ? renewedAmount[0].totalRentRenewed
+          : 0,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
 
 module.exports = router;

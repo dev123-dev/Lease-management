@@ -350,13 +350,12 @@ const TenantLeaseTransfer = ({
                   })}
               </div>
             </>
-         
           </div>
 
           <div className="float-right  text-right d-flex justify-content-end">
-            {/* <button className="rewbtn float-right w-25" onClick={onSubmit}>
+            <button className="rewbtn float-right w-25" onClick={onSubmit}>
               Transfer
-            </button> */}
+            </button>
           </div>
         </div>
       </section>

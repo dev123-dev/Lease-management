@@ -8,7 +8,7 @@ import locreport from "../../static/images/locrep.png";
 
 import propreport from "../../static/images/propreport.png";
 import Contactreport from "../../static/images/contactreport.png";
-// import MISReport from "../../static/images/MIS_report.png";
+import MISReport from "../../static/images/MIS_report.png";
 // import { Roller } from "react-awesome-spinners";
 import { ParticularTenant, getPropertyTenantData } from "../../actions/tenants";
 const AllReport = ({
@@ -191,7 +191,7 @@ const AllReport = ({
                 </p>
               </div>
             </div>
-            {/* <div
+            <div
               className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
               id="shadow-bck"
             >
@@ -200,7 +200,7 @@ const AllReport = ({
                   {" "}
                   <img
                     className="img_icon_repDashboard log "
-                    src={Contactreport}
+                    src={MISReport}
                     alt="IMG1"
                   />
                 </Link>
@@ -219,7 +219,7 @@ const AllReport = ({
                   </center>
                 </p>
               </div>
-            </div> */}
+            </div>
 
             <div className="col-lg-3  col-sm-12 col-md-12"></div>
           </div>

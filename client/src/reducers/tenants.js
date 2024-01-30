@@ -29,6 +29,7 @@ import {
   GET_TENANT_RECEIPTNO,
   USER_ACTIVITY_DETAIL,
   GET_MIS_REPORT,
+  GET_MIS_AMOUNT_REPORT,
 } from "../actions/types";
 
 const initialState = {
@@ -69,7 +70,8 @@ const initialState = {
   blnSearchOld: false,
   blnSearchCurr: true,
   useractivitydetail: [],
-  allmisreport:[],
+  allmisreport: [],
+  allmisamountreport: [],
 };
 
 const tenants = (state = initialState, action) => {
@@ -131,10 +133,10 @@ const tenants = (state = initialState, action) => {
         ...state,
         allShopDetails: payload,
       };
-     case GET_MIS_REPORT:
-      return{
+    case GET_MIS_REPORT:
+      return {
         ...state,
-        allmisreport:payload,
+        allmisreport: payload,
       };
     case GET_EDIT_TENANT_DETAILS:
       return {
@@ -216,6 +218,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         exp_org_report: payload,
+      };
+    case GET_MIS_AMOUNT_REPORT:
+      return {
+        ...state,
+        allmisamountreport: payload,
       };
     case EXP_ORG_COUNT:
       return {
