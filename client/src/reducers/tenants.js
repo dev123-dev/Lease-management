@@ -30,6 +30,7 @@ import {
   USER_ACTIVITY_DETAIL,
   GET_MIS_REPORT,
   GET_MIS_AMOUNT_REPORT,
+  GET_MIS_RENEWED_BAR_REPORT,
 } from "../actions/types";
 
 const initialState = {
@@ -72,6 +73,7 @@ const initialState = {
   useractivitydetail: [],
   allmisreport: [],
   allmisamountreport: [],
+  allmisrenewedbarreport: [],
 };
 
 const tenants = (state = initialState, action) => {
@@ -223,6 +225,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         allmisamountreport: payload,
+      };
+    case GET_MIS_RENEWED_BAR_REPORT:
+      return {
+        ...state,
+        allmisrenewedbarreport: payload,
       };
     case EXP_ORG_COUNT:
       return {

@@ -39,6 +39,7 @@ import {
   NEW_USER_ACTIVITY,
   GET_MIS_REPORT,
   GET_MIS_AMOUNT_REPORT,
+  GET_MIS_RENEWED_BAR_REPORT,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -1078,6 +1079,22 @@ export const getMisAmountReport = (finalOrgData1) => async (dispatch) => {
     console.log(res.data);
     dispatch({
       type: GET_MIS_AMOUNT_REPORT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const getMisRenewedBarReport = (finalData) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-mis-renewed-bar-report`,
+      finalData
+    );
+    console.log(res.data);
+    dispatch({
+      type: GET_MIS_RENEWED_BAR_REPORT,
       payload: res.data,
     });
   } catch (error) {

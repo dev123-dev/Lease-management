@@ -2415,15 +2415,18 @@ router.post("/get-user-activity", async (req, res) => {
   }
 });
 
+/////////////////////////////////////MIS REPORT////////////////////////////////////////////////
+
+//mis report for count
 router.post("/get-mis-report", async (req, res) => {
   let data = req.body;
 
-  console.log("dataaa", data);
   try {
     let renewedCount = await TenentAgreement.aggregate([
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
         },
       },
       {
@@ -2449,6 +2452,7 @@ router.post("/get-mis-report", async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
         },
       },
       {
@@ -2463,7 +2467,10 @@ router.post("/get-mis-report", async (req, res) => {
       {
         $match: {
           newYear: data.selectedY,
-          AgreementStatus: "Expired",
+          // AgreementStatus: "Expired",
+          AgreementStatus: {
+            $in: ["Active", "Expired"],
+          },
         },
       },
       {
@@ -2485,16 +2492,21 @@ router.post("/get-mis-report", async (req, res) => {
     console.log(error.message);
   }
 });
-
+//mis report for amount
 router.post("/get-mis-amount-report", async (req, res) => {
   let data = req.body;
-
-  console.log("dataaa", data);
+  // const specifiedYear = data.selectedY;
+  // const startDate = new Date(`${specifiedYear}-01-01`);
+  // const EndDate = new Date(`${specifiedYear}-12-31`);
+  // const formattedStartDate = startDate.toISOString().split("T")[0];
+  // const formattedEndDate = EndDate.toISOString().split("T")[0];
+  // console.log("formattedDate", formattedStartDate, formattedEndDate);
   try {
     let renewedAmount = await TenentAgreement.aggregate([
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
         },
       },
       {
@@ -2525,6 +2537,7 @@ router.post("/get-mis-amount-report", async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
         },
       },
       {
@@ -2539,7 +2552,10 @@ router.post("/get-mis-amount-report", async (req, res) => {
       {
         $match: {
           newYear: data.selectedY,
-          AgreementStatus: "Expired",
+          //AgreementStatus: "Expired",
+          AgreementStatus: {
+            $in: ["Active", "Expired"],
+          },
         },
       },
       {
@@ -2551,7 +2567,7 @@ router.post("/get-mis-amount-report", async (req, res) => {
         },
       },
     ]);
-    // console.log("renewableCount",renewableCount[0].totalCountRenewable)
+
     res.json({
       renewableAmount:
         renewableAmount[0] && renewableAmount[0].totalRentRenewable
@@ -2566,5 +2582,202 @@ router.post("/get-mis-amount-report", async (req, res) => {
     console.log(error.message);
   }
 });
+
+//renewed bar chart
+
+router.post("/get-mis-renewed-bar-report", async (req, res) => {
+  let data = req.body;
+  console.log("data", data);
+  const specifiedYear = data.selectedY;
+  const startDate = new Date(`${specifiedYear}-01-01`);
+  const EndDate = new Date(`${specifiedYear}-12-31`);
+  const formattedStartDate = startDate.toISOString().split("T")[0];
+  const formattedEndDate = EndDate.toISOString().split("T")[0];
+  console.log("formattedDate", formattedStartDate, formattedEndDate);
+  try {
+    let renewedBarCount = await TenentAgreement.aggregate([
+      {
+        $match:
+          /**
+           * query: The query in MQL.
+           */
+          {
+            OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+            tenantLeaseStartDate: {
+              $gte: formattedStartDate,
+              $lt: formattedEndDate,
+            },
+            AgreementStatus: "Renewed",
+            tenantstatus: "Active",
+          },
+      },
+      {
+        $group: {
+          _id: {
+            month: {
+              $month: {
+                $toDate: "$tenantLeaseStartDate",
+              },
+            },
+            year: {
+              $year: {
+                $toDate: "$tenantLeaseStartDate",
+              },
+            },
+          },
+          total: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $project: {
+          month: "$_id.month",
+          year: "$_id.year",
+          _id: 0,
+          total: 1,
+        },
+      },
+      {
+        $sort: { month: 1, year: 1 },
+      },
+    ]);
+    let renewableBarCount = await TenentAgreement.aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantLeaseEndDate: {
+            $gte: formattedStartDate,
+            $lt: formattedEndDate,
+          },
+          AgreementStatus: {
+            $in: ["Active", "Expired"],
+          },
+          tenantstatus: "Active",
+        },
+      },
+      {
+        $group: {
+          _id: {
+            month: {
+              $month: {
+                $toDate: "$tenantLeaseEndDate",
+              },
+            },
+            year: {
+              $year: {
+                $toDate: "$tenantLeaseEndDate",
+              },
+            },
+          },
+          total: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $project: {
+          month: "$_id.month",
+          year: "$_id.year",
+          _id: 0,
+          total: 1,
+        },
+      },
+      {
+        $sort: { month: 1, year: 1 },
+      },
+    ]);
+
+    console.log("renewedBarCount", renewedBarCount);
+    console.log("renewableBarCount", renewableBarCount);
+    // res.json({
+    //   renewableAmount:
+    //     renewableAmount[0] && renewableAmount[0].totalRentRenewable
+    //       ? renewableAmount[0].totalRentRenewable
+    //       : 0,
+    //   renewedAmount:
+    //     renewedAmount[0] && renewedAmount[0].totalRentRenewed
+    //       ? renewedAmount[0].totalRentRenewed
+    //       : 0,
+    // });
+    res.json({ renewedBarCount, renewableBarCount });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+//renewable bar chart
+// router.post("/get-mis-renewable-bar-report", async (req, res) => {
+//   let data = req.body;
+//   console.log("data", data);
+//   const specifiedYear = data.selectedY;
+//   const startDate = new Date(`${specifiedYear}-01-01`);
+//   const EndDate = new Date(`${specifiedYear}-12-31`);
+//   const formattedStartDate = startDate.toISOString().split("T")[0];
+//   const formattedEndDate = EndDate.toISOString().split("T")[0];
+//   console.log("formattedDate", formattedStartDate, formattedEndDate);
+//   try {
+//     let renewableBarCount = await TenentAgreement.aggregate([
+//       {
+//         $match: {
+//           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+//           tenantLeaseEndDate: {
+//             $gte: formattedStartDate,
+//             $lt: formattedEndDate,
+//           },
+//           AgreementStatus: {
+//             $in: ["Active", "Expired"],
+//           },
+//           tenantstatus: "Active",
+//         },
+//       },
+//       {
+//         $group: {
+//           _id: {
+//             month: {
+//               $month: {
+//                 $toDate: "$tenantLeaseEndDate",
+//               },
+//             },
+//             year: {
+//               $year: {
+//                 $toDate: "$tenantLeaseEndDate",
+//               },
+//             },
+//           },
+//           total: {
+//             $sum: 1,
+//           },
+//         },
+//       },
+//       {
+//         $project: {
+//           month: "$_id.month",
+//           year: "$_id.year",
+//           _id: 0,
+//           total: 1,
+//         },
+//       },
+//       {
+//         $sort: { month: 1, year: 1 },
+//       },
+//     ]);
+
+//     console.log("renewedBarCount", renewableBarCount);
+//     // res.json({
+//     //   renewableAmount:
+//     //     renewableAmount[0] && renewableAmount[0].totalRentRenewable
+//     //       ? renewableAmount[0].totalRentRenewable
+//     //       : 0,
+//     //   renewedAmount:
+//     //     renewedAmount[0] && renewedAmount[0].totalRentRenewed
+//     //       ? renewedAmount[0].totalRentRenewed
+//     //       : 0,
+//     // });
+//     res.json(renewableBarCount);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
 
 module.exports = router;

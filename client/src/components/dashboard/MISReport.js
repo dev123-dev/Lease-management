@@ -5,34 +5,36 @@ import {
   ParticularTenantFilter,
   getMisReport,
   getMisAmountReport,
+  getMisRenewedBarReport,
 } from "../../actions/tenants";
 
 import ReactApexChart from "react-apexcharts";
 import DatePicker from "react-datepicker";
+import BarChart from "../dashboard/BarChart";
+import PieChart from "../dashboard/PieChart";
 
 const MISReport = ({
   auth: { user },
-  tenants: { allmisreport, allmisamountreport },
-  ParticularTenantFilter,
+  tenants: { allmisreport, allmisamountreport, allmisrenewedbarreport },
+
   getMisReport,
   getMisAmountReport,
+  getMisRenewedBarReport,
 }) => {
   const [freshpage, setFreshPage] = useState(true);
   const myuser = JSON.parse(localStorage.getItem("user"));
-  console.log("allmisamountreport", allmisamountreport);
-  //Renewable/Renewed count
+
+  //Pie chart for count
   let valuesArray = [];
   if (allmisreport) {
-    // Push the values into the array
     valuesArray.push(allmisreport.renewableCount, allmisreport.renewedCount);
   } else {
     valuesArray.push(0, 0);
   }
 
-  //Renewable/Renewed count
+  //Pie chart for amount
   let valuesamtArray = [];
   if (allmisamountreport) {
-    // Push the values into the array
     valuesamtArray.push(
       allmisamountreport.renewableAmount,
       allmisamountreport.renewedAmount
@@ -40,23 +42,6 @@ const MISReport = ({
   } else {
     valuesamtArray.push(0, 0);
   }
-  console.log("valuesamtArray", valuesamtArray);
-
-  const options = {
-    labels: ["Renewable", "Renewed"],
-  };
-  const ex1 = [
-    {
-      _id: "645545454",
-      total: 4,
-      topcat: "Exipred",
-    },
-    {
-      _id: "645545454",
-      total: 3,
-      topcat: "Renewed",
-    },
-  ];
 
   const [startMonthDate, setMonthStartDate] = useState(new Date());
   const YearChange = (dt) => {
@@ -69,86 +54,25 @@ const MISReport = ({
       };
       getMisReport(finalData);
       getMisAmountReport(finalData);
+      getMisRenewedBarReport(finalData);
     } else {
       console.error("Invalid date selected");
     }
   };
-
-  const optionsRenewable = {
-    chart: {
-      type: "bar",
-      height: 350,
-    },
-    xaxis: {
-      categories: [
-        "jan",
-        "feb",
-        "march",
-        "apr",
-        "may",
-        "jun",
-        "jul",
-        "aug",
-        "sept",
-        "oct",
-        "nov",
-        "dec",
-      ],
-    },
-    yaxis: {
-      categories: ["Renewable"],
-    },
-    colors: ["#CC9900"],
-  };
-  const optionsRenewed = {
-    chart: {
-      type: "bar",
-      height: 350,
-    },
-    xaxis: {
-      categories: [
-        "jan",
-        "feb",
-        "march",
-        "apr",
-        "may",
-        "jun",
-        "jul",
-        "aug",
-        "sept",
-        "oct",
-        "nov",
-        "dec",
-      ],
-    },
-    yaxis: {
-      categories: ["Renewed"],
-    },
-    colors: ["#095a4a"],
-    yAxisText: "Earnings (₹)",
-  };
-  let data = [];
-  let data1 = [];
-  if (allmisreport) {
-    // Push the values into the array
-    data.push(allmisreport.renewableCount);
-    data1.push(allmisreport.renewedCount);
-  } else {
-    data.push(0, 0);
-    data1.push(0, 0);
-  }
-
-  const series = [
-    {
-      name: "Renewable",
-      data: data,
-    },
-  ];
-  const series1 = [
-    {
-      name: "Renewed",
-      data: data1,
-    },
+  //* Month Names ****************************************************
+  const monthsValue = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   // useEffect(() => {
@@ -160,36 +84,21 @@ const MISReport = ({
   //   };
   //   getMisReport(finalData);
   // }, []);
-  const chartOptions = {
-    colors: ["#CC9900", "#095a4a"],
-    labels: ["Renewable", "Renewed"],
-    plotOptions: {
-      pie: {
-        donut: {
-          labels: {
-            show: true,
-            name: {
-              offsetY: 15, // Adjust the offset as needed
-            },
 
-            total: {
-              show: true,
-              label: "Total",
-              formatter: function (w) {
-                return w.globals.seriesTotals.reduce((a, b) => a + b, 0);
-              },
-            },
-            value: {
-              formatter: function (val) {
-                return val;
-              },
-              offsetY: -30, // Adjust the offset as needed
-            },
-          },
-        },
-      },
-    },
-  };
+  //Bar chart
+  const renewablebarcountArray =
+    allmisrenewedbarreport &&
+    allmisrenewedbarreport.renewableBarCount &&
+    allmisrenewedbarreport.renewableBarCount.map((item) => ({
+      ...item,
+    }));
+
+  const renewedbarcountArray =
+    allmisrenewedbarreport &&
+    allmisrenewedbarreport.renewedBarCount &&
+    allmisrenewedbarreport.renewedBarCount.map((item) => ({
+      ...item,
+    }));
 
   return (
     <>
@@ -214,98 +123,106 @@ const MISReport = ({
             </div>
           </div>
 
-          {/* <div
-            className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 "
-            style={{ border: "1px solid red" }}
-          >
-            <div className="col">
-              <>
-                <div className="mt-5">
-                  <h1>Propertwise Report</h1>
-                  <ReactApexChart
-                    options={options}
+          <div className="container-fluid  ml-4 text-center ">
+            <div className="row">
+              <div className="  col-lg-6 col-sm-6 ">
+                <div
+                  className=" card text-left py-0"
+                  id="shadow-bck"
+                  style={{ width: "100%", height: "328px" }}
+                >
+                  {/* <ReactApexChart
+                    options={chartOptions}
                     series={valuesArray}
                     type="donut"
-                    width={500}
+                    width={400}
+                    className="ml-5"
+                  /> */}
+                  <PieChart
+                    series={valuesArray.map((el) => el)}
+                    labels={["Renewable", "Renewed"]}
+                    colors={["#CC9900", "#095a4a"]}
+                    title="Statuswise Report"
                   />
                 </div>
-              </>
-            </div>
-          </div> */}
-          <div className="container-fluid mt-sm-1 ml-4 text-center">
-            <div className="row">
-              <div className="  col-lg-6 col-sm-6">
-                <h4>Propertywise Rent Report</h4>
-                <ReactApexChart
-                  options={chartOptions}
-                  series={valuesArray}
-                  type="donut"
-                  width={400}
-                  className="ml-5"
-                />
               </div>
 
               <div className=" col-lg-6 col-sm-6">
-                {" "}
-                <h4>Propertywise Report</h4>
-                <ReactApexChart
-                  options={chartOptions}
-                  series={valuesamtArray}
-                  type="donut"
-                  width={400}
-                  className="ml-5"
-                />
+                <div
+                  className=" card text-left pt-0"
+                  id="shadow-bck"
+                  style={{ width: "100%", height: "328px" }}
+                >
+                  <PieChart
+                    series={valuesamtArray.map((el) => el)}
+                    labels={["Renewable", "Renewed"]}
+                    colors={["#CC9900", "#095a4a"]}
+                    title="Rent Report"
+                  />
+                </div>
               </div>
             </div>
             <div className="row">
-              <div className="  col-lg-6 col-sm-6">
-                {" "}
-                <h4>Total Renewable properties</h4>
-                {/* <ReactApexChart
-                  options={options}
-                  series={valuesArray}
-                  type="bar"
-                  width={400}
-                  className="ml-5"
-                /> */}
-                <ReactApexChart
-                  options={optionsRenewable}
-                  series={series}
-                  type="bar"
-                  width={400}
-                  className="ml-5"
-                />
+              {/* <div className="  col-lg-6 col-sm-6">
+                <div
+                  className=" card text-left pt-0"
+                  id="shadow-bck"
+                  style={{ width: "100%", height: "328px" }}
+                >
+                  <BarChart
+                    title="Total Renewed Tenants"
+                    series={[
+                      {
+                        name: "Tenants",
+                        data:
+                          renewedbarcountArray &&
+                          renewedbarcountArray.map((el) => el.total),
+                      },
+                    ]}
+                    categories={
+                      renewedbarcountArray &&
+                      renewedbarcountArray.map(
+                        (el) =>
+                          `${monthsValue[el.month - 1].slice(0, 3)}' ${String(
+                            el.year
+                          ).slice(2)}`
+                      )
+                    }
+                    yAxisText="Tenants"
+                    colors={["#095a4a"]}
+                  />
+                </div>
               </div>
               <div className="  col-lg-6  col-sm-6">
-                {" "}
-                <h4>Total Renewed Property</h4>
-                <ReactApexChart
-                  options={optionsRenewed}
-                  series={series1}
-                  type="bar"
-                  width={400}
-                  className="ml-5"
-                />
-                {/* <BarChart
-                  title="Total Earnings (₹)"
-                  series={[
-                    {
-                      name: "Earnings",
-                      data: { valuesArray },
-                    },
-                  ]}
-                  categories={yearReport.map(
-                    (el) =>
-                      `${monthsValue[el.month - 1].slice(0, 3)}' ${String(
-                        el.year
-                      ).slice(2)}`
-                  )}
-                  yAxisText="Earnings (₹)"
-                  tooltip="₹ "
-                  colors={["#2f9e44"]}
-                  options={optionsRenewed}
-                /> */}
-              </div>
+                <div
+                  className=" card text-left pt-0"
+                  id="shadow-bck"
+                  style={{ width: "100%", height: "328px" }}
+                >
+                  <BarChart
+                    title="Total Renewable Property"
+                    series={[
+                      {
+                        name: "Tenants",
+                        data:
+                          renewablebarcountArray &&
+                          renewablebarcountArray.map((el) => el.total),
+                      },
+                    ]}
+                    categories={
+                      renewablebarcountArray &&
+                      renewablebarcountArray.map(
+                        (el) =>
+                          `${monthsValue[el.month - 1].slice(0, 3)}' ${String(
+                            el.year
+                          ).slice(2)}`
+                      )
+                    }
+                    yAxisText="Tenants"
+                    colors={["#CC9900"]}
+                  />
+                </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -322,4 +239,5 @@ export default connect(mapStateToProps, {
   ParticularTenantFilter,
   getMisReport,
   getMisAmountReport,
+  getMisRenewedBarReport,
 })(MISReport);
