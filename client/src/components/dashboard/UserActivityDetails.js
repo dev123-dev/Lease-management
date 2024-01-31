@@ -94,7 +94,7 @@ const UserActivityDetails = ({
                           </th>
                           <th>Name</th>
                           <th>Operation</th>
-                          <th>Date </th>
+                          <th>Entered Date </th>
                           <th> Time</th>
                         </tr>
                       </thead>

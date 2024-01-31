@@ -83,16 +83,7 @@ const TenantReport = ({
     content: () => componentRef1.current,
 
     documentTitle:
-      "Tenant Reports (" +
-      (optName.find(
-        (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
-      )?.label
-        ? optName.find(
-            (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
-          )?.label + " - "
-        : "before ") +
-      finalDataRep?.yearSearch +
-      ")",
+      "Receipt ",
 
     onAfterPrint: () =>
       setShowOnPrint({
@@ -999,7 +990,7 @@ const TenantReport = ({
                         {isNaN(parseFloat(tenantSubTotalAfterAdjustments)) ||
                         parseFloat(tenantSubTotalAfterAdjustments) === 0
                           ? " "
-                          : tenantSubTotalAfterAdjustments}
+                          : Number(tenantSubTotalAfterAdjustments).toFixed(2)}
                       </th>
                       <td></td>
                     </tr>
@@ -1019,7 +1010,7 @@ const TenantReport = ({
                             isNaN(parseFloat(tenantGst)) ||
                             parseFloat(tenantGst) === 0
                               ? " "
-                              : tenantGst
+                              :Number(tenantGst) .toFixed(2)
                           }
                           onChange={(e) => handleGSTChange(e)}
                           style={showOnPrint}
