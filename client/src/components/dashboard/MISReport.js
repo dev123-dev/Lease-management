@@ -28,8 +28,6 @@ const MISReport = ({
   let valuesArray = [];
   if (allmisreport) {
     valuesArray.push(allmisreport.renewableCount, allmisreport.renewedCount);
-  } else {
-    valuesArray.push(0, 0);
   }
 
   //Pie chart for amount
@@ -39,8 +37,6 @@ const MISReport = ({
       allmisamountreport.renewableAmount,
       allmisamountreport.renewedAmount
     );
-  } else {
-    valuesamtArray.push(0, 0);
   }
 
   const [startMonthDate, setMonthStartDate] = useState(new Date());
@@ -75,15 +71,18 @@ const MISReport = ({
     "December",
   ];
 
-  // useEffect(() => {
-  //   var getYear = new Date().getFullYear;
-  //   setMonthStartDate(new Date());
-  //   const finalData = {
-  //     selectedY: getYear,
-  //     OrganizationId: myuser && myuser.OrganizationId,
-  //   };
-  //   getMisReport(finalData);
-  // }, []);
+  useEffect(() => {
+    var getYear = new Date().getFullYear();
+
+    setMonthStartDate(new Date());
+    const finalData = {
+      selectedY: getYear,
+      OrganizationId: myuser && myuser.OrganizationId,
+    };
+    getMisReport(finalData);
+    getMisAmountReport(finalData);
+    getMisRenewedBarReport(finalData);
+  }, []);
 
   //Bar chart
   const renewablebarcountArray =
@@ -131,19 +130,16 @@ const MISReport = ({
                   id="shadow-bck"
                   style={{ width: "100%", height: "328px" }}
                 >
-                  {/* <ReactApexChart
-                    options={chartOptions}
-                    series={valuesArray}
-                    type="donut"
-                    width={400}
-                    className="ml-5"
-                  /> */}
-                  <PieChart
-                    series={valuesArray.map((el) => el)}
-                    labels={["Renewable", "Renewed"]}
-                    colors={["#CC9900", "#095a4a"]}
-                    title="Statuswise Report"
-                  />
+                  {valuesArray && valuesArray.every((value) => value === 0) ? (
+                    <h4 className="mt-4">No Data Found</h4>
+                  ) : (
+                    <PieChart
+                      series={valuesArray.map((el) => el)}
+                      labels={["Renewable", "Renewed"]}
+                      colors={["#CC9900", "#095a4a"]}
+                      title="Statuswise Report"
+                    />
+                  )}
                 </div>
               </div>
 
@@ -153,12 +149,17 @@ const MISReport = ({
                   id="shadow-bck"
                   style={{ width: "100%", height: "328px" }}
                 >
-                  <PieChart
-                    series={valuesamtArray.map((el) => el)}
-                    labels={["Renewable", "Renewed"]}
-                    colors={["#CC9900", "#095a4a"]}
-                    title="Rent Report"
-                  />
+                  {valuesamtArray &&
+                  valuesamtArray.every((value) => value === 0) ? (
+                    <h4>No Data Found</h4>
+                  ) : (
+                    <PieChart
+                      series={valuesamtArray.map((el) => el)}
+                      labels={["Renewable", "Renewed"]}
+                      colors={["#CC9900", "#095a4a"]}
+                      title="Rent Report"
+                    />
+                  )}
                 </div>
               </div>
             </div>

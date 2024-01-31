@@ -95,7 +95,7 @@ router.post("/add-tenant-details", async (req, res) => {
           )
           .then(data);
       });
-      // console.log(data);
+
       const finalData1 = {
         tdId: tenantdata._id,
         OrganizationName: data.OrganizationName,
@@ -209,7 +209,6 @@ router.post("/add-tenant-details", async (req, res) => {
           )
           .then(data);
       });
-      // console.log(data);
 
       const finalData1 = {
         tdId: tenantdata._id,
@@ -266,7 +265,7 @@ router.post("/add-tenant-details", async (req, res) => {
 //add organization try
 router.post("/add-Organization", async (req, res) => {
   let data = req.body;
-  // console.log(data);
+
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -2036,7 +2035,7 @@ router.post("/update-tenant-details", async (req, res) => {
           },
         }
       );
-      //console.log(":hit aq");
+
       data.tenantDoorNo.map((eleDoor) => {
         property
           .updateOne(
@@ -2053,7 +2052,7 @@ router.post("/update-tenant-details", async (req, res) => {
           )
           .then();
       });
-      // console.log(":hit unavai");
+
       data.unseletedDoorno.map((eleDoor) => {
         property
           .updateOne(
@@ -2115,7 +2114,7 @@ router.post("/update-tenant-details", async (req, res) => {
           },
         }
       );
-      // console.log("x", data);
+
       data.tenantDoorNo.map((eleDoor) => {
         property
           .updateOne(
@@ -2240,9 +2239,8 @@ router.post("/update-tenant-Receiptdetails", async (req, res) => {
 router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   try {
     let data = req.body;
-    console.log("len", data);
+
     if (data.Dno.length > 1) {
-      console.log("rvced data > 0", data);
       //pull
       data.transferShoopDoorNo.map((ele) => {
         TenantDetails.updateOne(
@@ -2284,7 +2282,6 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
         ).then((data) => {});
       });
       data.transferShoopDoorNo.map((ele) => {
-        console.log("inside aggrement", ele);
         TenentAgreement.updateOne(
           {
             tdId: data.toId,
@@ -2299,8 +2296,6 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
         });
       });
     } else if (data.Dno.length === 1) {
-      console.log("rvced data === 1", data);
-
       //pull
       data.transferShoopDoorNo.map((ele) => {
         const fromId = data.fromId;
@@ -2408,7 +2403,7 @@ router.post("/get-user-activity", async (req, res) => {
       OrganizationId: data.OrganizationId,
     }).sort({ _id: -1 });
     // .sort({ _id: -1 });
-    console.log("userActivityData", userActivityData);
+
     res.json(userActivityData);
   } catch (err) {
     res.status(500).send("Internal Server Error.");
@@ -2477,7 +2472,7 @@ router.post("/get-mis-report", async (req, res) => {
         $count: "totalCountRenewable",
       },
     ]);
-    // console.log("renewableCount",renewableCount[0].totalCountRenewable)
+
     res.json({
       renewableCount:
         renewableCount[0] && renewableCount[0].totalCountRenewable
@@ -2495,12 +2490,7 @@ router.post("/get-mis-report", async (req, res) => {
 //mis report for amount
 router.post("/get-mis-amount-report", async (req, res) => {
   let data = req.body;
-  // const specifiedYear = data.selectedY;
-  // const startDate = new Date(`${specifiedYear}-01-01`);
-  // const EndDate = new Date(`${specifiedYear}-12-31`);
-  // const formattedStartDate = startDate.toISOString().split("T")[0];
-  // const formattedEndDate = EndDate.toISOString().split("T")[0];
-  // console.log("formattedDate", formattedStartDate, formattedEndDate);
+
   try {
     let renewedAmount = await TenentAgreement.aggregate([
       {
@@ -2587,13 +2577,13 @@ router.post("/get-mis-amount-report", async (req, res) => {
 
 router.post("/get-mis-renewed-bar-report", async (req, res) => {
   let data = req.body;
-  console.log("data", data);
+
   const specifiedYear = data.selectedY;
   const startDate = new Date(`${specifiedYear}-01-01`);
   const EndDate = new Date(`${specifiedYear}-12-31`);
   const formattedStartDate = startDate.toISOString().split("T")[0];
   const formattedEndDate = EndDate.toISOString().split("T")[0];
-  console.log("formattedDate", formattedStartDate, formattedEndDate);
+
   try {
     let renewedBarCount = await TenentAgreement.aggregate([
       {
@@ -2688,8 +2678,6 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
       },
     ]);
 
-    console.log("renewedBarCount", renewedBarCount);
-    console.log("renewableBarCount", renewableBarCount);
     // res.json({
     //   renewableAmount:
     //     renewableAmount[0] && renewableAmount[0].totalRentRenewable
@@ -2705,79 +2693,5 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
     console.log(error.message);
   }
 });
-
-//renewable bar chart
-// router.post("/get-mis-renewable-bar-report", async (req, res) => {
-//   let data = req.body;
-//   console.log("data", data);
-//   const specifiedYear = data.selectedY;
-//   const startDate = new Date(`${specifiedYear}-01-01`);
-//   const EndDate = new Date(`${specifiedYear}-12-31`);
-//   const formattedStartDate = startDate.toISOString().split("T")[0];
-//   const formattedEndDate = EndDate.toISOString().split("T")[0];
-//   console.log("formattedDate", formattedStartDate, formattedEndDate);
-//   try {
-//     let renewableBarCount = await TenentAgreement.aggregate([
-//       {
-//         $match: {
-//           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
-//           tenantLeaseEndDate: {
-//             $gte: formattedStartDate,
-//             $lt: formattedEndDate,
-//           },
-//           AgreementStatus: {
-//             $in: ["Active", "Expired"],
-//           },
-//           tenantstatus: "Active",
-//         },
-//       },
-//       {
-//         $group: {
-//           _id: {
-//             month: {
-//               $month: {
-//                 $toDate: "$tenantLeaseEndDate",
-//               },
-//             },
-//             year: {
-//               $year: {
-//                 $toDate: "$tenantLeaseEndDate",
-//               },
-//             },
-//           },
-//           total: {
-//             $sum: 1,
-//           },
-//         },
-//       },
-//       {
-//         $project: {
-//           month: "$_id.month",
-//           year: "$_id.year",
-//           _id: 0,
-//           total: 1,
-//         },
-//       },
-//       {
-//         $sort: { month: 1, year: 1 },
-//       },
-//     ]);
-
-//     console.log("renewedBarCount", renewableBarCount);
-//     // res.json({
-//     //   renewableAmount:
-//     //     renewableAmount[0] && renewableAmount[0].totalRentRenewable
-//     //       ? renewableAmount[0].totalRentRenewable
-//     //       : 0,
-//     //   renewedAmount:
-//     //     renewedAmount[0] && renewedAmount[0].totalRentRenewed
-//     //       ? renewedAmount[0].totalRentRenewed
-//     //       : 0,
-//     // });
-//     res.json(renewableBarCount);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// });
 
 module.exports = router;
