@@ -32,7 +32,7 @@ export default function BarChart({
         xaxis: {
           labels: {
             rotate: -45,
-            rotateAlways: categories.length > 6 ? true : false,
+            rotateAlways: categories && categories.length > 6 ? true : false,
           },
           categories,
         },

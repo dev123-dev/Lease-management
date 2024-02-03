@@ -779,6 +779,7 @@ router.post("/get-Property-tenant-details", async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(OrganizationId),
+          shopStatus: "Active",
           // _id: mongoose.Types.ObjectId(ele),
         },
       },
@@ -796,15 +797,37 @@ router.post("/get-Property-tenant-details", async (req, res) => {
       {
         $group: {
           _id: "$output.BuildingId",
-          BuildingName: { $first: "$output.BuildingName" },
+          BuildingName: {
+            $first: "$output.BuildingName",
+          },
+          shopAddress: { $first: "$shopAddress" },
           //shopAddress: "$shopAddress",
-          UnOccupied: { $first: "$shopDoorNo" },
-          Location: { $first: "$output.Location" },
-          shopDoorNo: { $first: "$output.shopDoorNo" },
-          tenantRentAmount: { $first: "$output.tenantRentAmount" },
-          tenantDepositAmt: { $first: "$output.tenantDepositAmt" },
+          Location: {
+            $first: "$output.Location",
+          },
+          tenantRentAmount: {
+            $sum: "$output.tenantRentAmount",
+          },
+          tenantDepositAmt: {
+            $sum: "$output.tenantDepositAmt",
+          },
+          shopDoorNo: {
+            $first: "$shopDoorNo",
+          },
         },
       },
+      // {
+      //   $group: {
+      //     _id: "$output.BuildingId",
+      //     BuildingName: { $first: "$output.BuildingName" },
+      //     //shopAddress: "$shopAddress",
+      //     UnOccupied: { $first: "$shopDoorNo" },
+      //     Location: { $first: "$output.Location" },
+      //     shopDoorNo: { $push: "$output.shopDoorNo" },
+      //     tenantRentAmount: { $first: "$output.tenantRentAmount" },
+      //     tenantDepositAmt: { $first: "$output.tenantDepositAmt" },
+      //   },
+      // },
     ])
     .then((data) => res.json(data));
 });
@@ -2415,6 +2438,17 @@ router.post("/get-user-activity", async (req, res) => {
 //mis report for count
 router.post("/get-mis-report", async (req, res) => {
   let data = req.body;
+  console.log("datattaaa", data);
+
+  let inputDate = new Date(data.selectedY);
+  let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
+  inputDate.setMonth(targetMonth);
+
+  // Set the day to the last day of the month, considering variations in the number of days in different months
+  inputDate.setDate(0);
+
+  let resultDate = inputDate.toISOString().split("T")[0];
+  console.log("resultDate", resultDate);
 
   try {
     let renewedCount = await TenentAgreement.aggregate([
@@ -2425,17 +2459,11 @@ router.post("/get-mis-report", async (req, res) => {
         },
       },
       {
-        $addFields: {
-          newYear: {
-            $year: {
-              $toDate: "$tenantLeaseStartDate",
-            },
-          },
-        },
-      },
-      {
         $match: {
-          newYear: data.selectedY,
+          tenantLeaseStartDate: {
+            $gte: data.selectedY,
+            $lt: resultDate,
+          },
           AgreementStatus: "Renewed",
         },
       },
@@ -2451,20 +2479,13 @@ router.post("/get-mis-report", async (req, res) => {
         },
       },
       {
-        $addFields: {
-          newYear: {
-            $year: {
-              $toDate: "$tenantLeaseEndDate",
-            },
-          },
-        },
-      },
-      {
         $match: {
-          newYear: data.selectedY,
-          // AgreementStatus: "Expired",
+          tenantLeaseEndDate: {
+            $gte: data.selectedY,
+            $lt: resultDate,
+          },
           AgreementStatus: {
-            $in: ["Active", "Expired"],
+            $in: ["Expired", "Active"],
           },
         },
       },
@@ -2491,6 +2512,14 @@ router.post("/get-mis-report", async (req, res) => {
 router.post("/get-mis-amount-report", async (req, res) => {
   let data = req.body;
 
+  let inputDate = new Date(data.selectedY);
+  let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
+  inputDate.setMonth(targetMonth);
+  inputDate.setDate(0);
+  let resultDate = inputDate.toISOString().split("T")[0];
+  let lastDate = resultDate.toString();
+  console.log("lastDate amount", lastDate);
+
   try {
     let renewedAmount = await TenentAgreement.aggregate([
       {
@@ -2500,17 +2529,11 @@ router.post("/get-mis-amount-report", async (req, res) => {
         },
       },
       {
-        $addFields: {
-          newYear: {
-            $year: {
-              $toDate: "$tenantLeaseStartDate",
-            },
-          },
-        },
-      },
-      {
         $match: {
-          newYear: data.selectedY,
+          tenantLeaseStartDate: {
+            $gte: data.selectedY,
+            $lt: lastDate,
+          },
           AgreementStatus: "Renewed",
         },
       },
@@ -2531,18 +2554,11 @@ router.post("/get-mis-amount-report", async (req, res) => {
         },
       },
       {
-        $addFields: {
-          newYear: {
-            $year: {
-              $toDate: "$tenantLeaseEndDate",
-            },
-          },
-        },
-      },
-      {
         $match: {
-          newYear: data.selectedY,
-          //AgreementStatus: "Expired",
+          tenantLeaseEndDate: {
+            $gte: data.selectedY,
+            $lt: lastDate,
+          },
           AgreementStatus: {
             $in: ["Active", "Expired"],
           },
@@ -2577,12 +2593,18 @@ router.post("/get-mis-amount-report", async (req, res) => {
 
 router.post("/get-mis-renewed-bar-report", async (req, res) => {
   let data = req.body;
-
-  const specifiedYear = data.selectedY;
-  const startDate = new Date(`${specifiedYear}-01-01`);
-  const EndDate = new Date(`${specifiedYear}-12-31`);
-  const formattedStartDate = startDate.toISOString().split("T")[0];
-  const formattedEndDate = EndDate.toISOString().split("T")[0];
+  let inputDate = new Date(data.selectedY);
+  let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
+  inputDate.setMonth(targetMonth);
+  inputDate.setDate(0);
+  let resultDate = inputDate.toISOString().split("T")[0];
+  let lastDate = resultDate.toString();
+  console.log("lastDate", lastDate);
+  // const specifiedYear = data.selectedY;
+  // const startDate = new Date(`${specifiedYear}-01-01`);
+  // const EndDate = new Date(`${specifiedYear}-12-31`);
+  // const formattedStartDate = startDate.toISOString().split("T")[0];
+  // const formattedEndDate = EndDate.toISOString().split("T")[0];
 
   try {
     let renewedBarCount = await TenentAgreement.aggregate([
@@ -2593,13 +2615,17 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
            */
           {
             OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
-            tenantLeaseStartDate: {
-              $gte: formattedStartDate,
-              $lt: formattedEndDate,
-            },
-            AgreementStatus: "Renewed",
             tenantstatus: "Active",
           },
+      },
+      {
+        $match: {
+          tenantLeaseStartDate: {
+            $gte: data.selectedY,
+            $lt: lastDate,
+          },
+          AgreementStatus: "Renewed",
+        },
       },
       {
         $group: {
@@ -2629,21 +2655,28 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
         },
       },
       {
-        $sort: { month: 1, year: 1 },
+        $sort: {
+          month: 1,
+          year: 1,
+        },
       },
     ]);
     let renewableBarCount = await TenentAgreement.aggregate([
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
+        },
+      },
+      {
+        $match: {
           tenantLeaseEndDate: {
-            $gte: formattedStartDate,
-            $lt: formattedEndDate,
+            $gte: data.selectedY,
+            $lt: lastDate,
           },
           AgreementStatus: {
             $in: ["Active", "Expired"],
           },
-          tenantstatus: "Active",
         },
       },
       {
@@ -2674,7 +2707,10 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
         },
       },
       {
-        $sort: { month: 1, year: 1 },
+        $sort: {
+          month: 1,
+          year: 1,
+        },
       },
     ]);
 
