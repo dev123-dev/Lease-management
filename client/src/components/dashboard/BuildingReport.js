@@ -219,16 +219,16 @@ const BuildingReport = ({
   ];
 
   get_property_related_tenant && get_property_related_tenant.map((get_property_related_tenant) => {
-    var unOccdoorNo =get_property_related_tenant && get_property_related_tenant.UnOccupied
+    var unOccdoorNo =get_property_related_tenant && get_property_related_tenant.shopDoorNo
       .filter((e) => e.status === "Avaiable")
       .map((ele) => ele.doorNo)
-      .join(', '); // Join door numbers into a single string
+      .join(', '); 
       var OccdoorNo = get_property_related_tenant.shopDoorNo
       .filter((e) => e.status === "Acquired")
-      .map((ele) => ele.label)
-      .join(', '); // Join door numbers into a single string
+      .map((ele) => ele.doorNo)
+      .join(', '); 
   
-   // You can use console.log or do something else with the result
+
     return csvPropertyReportData.push([
       get_property_related_tenant.BuildingName,
       get_property_related_tenant.Location,
@@ -241,6 +241,32 @@ const BuildingReport = ({
      
     ]);
   });
+
+
+
+  // get_property_related_tenant && get_property_related_tenant.map((get_property_related_tenant) => {
+  //   var unOccdoorNo =get_property_related_tenant && get_property_related_tenant.UnOccupied
+  //     .filter((e) => e.status === "Avaiable")
+  //     .map((ele) => ele.doorNo)
+  //     .join(', '); 
+  //     var OccdoorNo = get_property_related_tenant.shopDoorNo
+  //     .filter((e) => e.status === "Acquired")
+  //     .map((ele) => ele.label)
+  //     .join(', '); 
+  
+
+  //   return csvPropertyReportData.push([
+  //     get_property_related_tenant.BuildingName,
+  //     get_property_related_tenant.Location,
+  //     get_property_related_tenant.Location,
+  //     unOccdoorNo,
+  //     OccdoorNo,
+  //     get_property_related_tenant.tenantRentAmount,
+  //     get_property_related_tenant.tenantDepositAmt,
+   
+     
+  //   ]);
+  // });
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
     color: "white",
@@ -382,11 +408,26 @@ const BuildingReport = ({
                                 </td>
                               )}
 
-                              <td>{Val.Location}</td>
+                              <td>{Val.shopAddress}</td>
                               <td>{Val.Location}</td>
                               <td>
+
+
+                              
+{Val.shopDoorNo &&
+  Val.shopDoorNo.map((ele, idx) => {
+    if (ele.status === "Avaiable") {
+      return (
+        <div key={idx} className="dno">
+          {ele.doorNo + ","}
+        </div>
+      );
+    }
+    return null; // If the status is not "Acquired", you can return null
+  })}
+
                                 {" "}
-                                {Val.UnOccupied &&
+                                {/* {Val.UnOccupied &&
                                   Val.UnOccupied.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Avaiable") {
@@ -396,16 +437,42 @@ const BuildingReport = ({
                                         </div>
                                       );
                                     }
-                                  })}
+                                  })} */}
                               </td>
                               <td>
-                                {/* <img
-                                  className="img_icon_size log"
-                                  src={require("../../static/images/info.png")}
-                                  alt="Govt Cards"
-                                  title={Val.shopDoorNo.map((e) => e.doorNo)}
-                                /> */}
-                                {Val.shopDoorNo &&
+                              {Val.shopDoorNo &&
+  Val.shopDoorNo.map((ele, idx) => {
+    if (ele.status === "Acquired") {
+      return (
+        <div key={idx} className="dno">
+          {ele.doorNo + ","}
+        </div>
+      );
+    }
+    return null; // If the status is not "Acquired", you can return null
+  })}
+                            
+
+
+
+  {/* {Val.shopDoorNo &&
+    Val.shopDoorNo
+      .flat()
+      .filter((ele) => ele.status === "Acquired")
+      .map((acquiredItem) => (
+        <div key={acquiredItem.label} className="dno">
+          {acquiredItem.value},
+        </div>
+      ))} */}
+
+
+
+
+
+
+
+
+                                {/* {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Acquired") {
@@ -415,7 +482,7 @@ const BuildingReport = ({
                                         </div>
                                       );
                                     }
-                                  })}
+                                  })} */}
                               </td>
                               <td>{Val.tenantRentAmount}</td>
                               <td>{Val.tenantDepositAmt}</td>
