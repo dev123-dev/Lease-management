@@ -3670,11 +3670,15 @@ tbody.collapse.show {
 }
 .nav-pills .nav-link {
   border-radius: 0.25rem;
+  border-bottom: 2px solid black;
+  margin-right: 5px;
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #007bff;
+  /* background-color: #007bff; */
+  background-color: #cc9900;
+  border-bottom: 2px solid black;
 }
 .nav-fill .nav-item {
   -webkit-box-flex: 1;

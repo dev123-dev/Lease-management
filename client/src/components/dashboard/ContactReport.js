@@ -5,7 +5,7 @@ import { ParticularTenantFilter } from "../../actions/tenants";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
-
+import { Link } from "react-router-dom";
 const ContactReport = ({
   auth: { user },
   tenants: { sortetenantdetails },
@@ -113,10 +113,19 @@ const ContactReport = ({
               <h2 className="heading_color  headsize  ml-4">Contact Report</h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">
+            <Link to="/Report">
+              <img
+              height={28}
+            
+                src={require("../../static/images/back.png")}
+                alt="Back"
+                title="Back"
+              />
+            </Link>
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvContactReportData}>
                   <img
-                    className="img_icon_size log  ml-4"
+                    className="img_icon_size log  ml-1"
                     src={require("../../static/images/excel_icon.png")}
                     alt="Excel-Export"
                     title="Excel-Export"

@@ -7,7 +7,7 @@ import {
   getMisAmountReport,
   getMisRenewedBarReport,
 } from "../../actions/tenants";
-
+import { Link } from "react-router-dom";
 const MonthYearPicker = ({
   auth: { user },
   tenants: { allmisreport, allmisamountreport, allmisrenewedbarreport },
@@ -56,7 +56,7 @@ const MonthYearPicker = ({
     return monthsLabelValue[monthLabel];
   }
 
-  const [selectedEndMonth, setSelectedEndMonth] = useState("01");
+  const [selectedEndMonth, setSelectedEndMonth] = useState("12");
   /////////////////////////////////////////////
 
   //////////////////
@@ -77,7 +77,7 @@ const MonthYearPicker = ({
     var monthValue = getMonthValue(selectedMonth);
     //const monthNumber = months.indexOf(monthName).toString().padStart(2, "0");
     var formattedDate = `${selectedYear.toString()}-${monthValue.toString()}-${day.toString()}`;
-    console.log("finallllmonth", formattedDate.toString());
+    
     const finalData = {
       selectedY: formattedDate,
       selectedEndY: selectedEndMonth,
@@ -86,7 +86,7 @@ const MonthYearPicker = ({
     getMisReport(finalData);
     getMisAmountReport(finalData);
     getMisRenewedBarReport(finalData);
-    console.log("monthhh ", finalData);
+   
   };
 
   const handleYearChange = (e) => {
@@ -96,7 +96,7 @@ const MonthYearPicker = ({
     var monthValue = getMonthValue(selectedMonth);
     //const monthNumber = months.indexOf(monthName).toString().padStart(2, "0");
     var formattedDate = `${selectedYear.toString()}-${monthValue.toString()}-${day.toString()}`;
-    console.log("finallllyear", formattedDate.toString());
+   
 
     const finalData = {
       selectedY: formattedDate,
@@ -106,7 +106,7 @@ const MonthYearPicker = ({
     getMisReport(finalData);
     getMisAmountReport(finalData);
     getMisRenewedBarReport(finalData);
-    console.log("yearrrr ", finalData);
+  
   };
   //select month
 
@@ -125,12 +125,12 @@ const MonthYearPicker = ({
     getMisReport(finalData);
     getMisAmountReport(finalData);
     getMisRenewedBarReport(finalData);
-    console.log("endmonth", finalData);
+   
   };
 
   return (
     <>
-      <div>
+      <div >
         <select
           value={months.indexOf(selectedMonth)}
           onChange={handleMonthChange}
@@ -148,8 +148,8 @@ const MonthYearPicker = ({
             </option>
           ))}
         </select>
-        &emsp;
-        <label htmlFor="monthSelect">No. of Months :</label>
+        &emsp;&emsp;
+        <label htmlFor="monthSelect">No. of Months :</label>&nbsp;
         <select
           id="monthSelect"
           name="month"
@@ -162,6 +162,15 @@ const MonthYearPicker = ({
             </option>
           ))}
         </select>
+        <Link to="/Report">
+                  <img
+                    height={30}
+                     className=" float-right"
+                    src={require("../../static/images/back.png")}
+                    alt="Back"
+                    title="Back"
+                  />
+                </Link>
       </div>
     </>
   );

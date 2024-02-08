@@ -24,7 +24,7 @@ const UserActivity = new mongoose.Schema({
   },
   DateTime: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
   OrganizationId: {
     type: ObjectId,

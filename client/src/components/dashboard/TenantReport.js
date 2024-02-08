@@ -920,7 +920,7 @@ const TenantReport = ({
                             <td>{ele.label}</td>
                             <td></td>
                             <td></td>
-                            <td>{viewdata.tenantRentAmount}</td>
+                            <td>{Number(viewdata.tenantRentAmount).toFixed(2)}</td>
                             <td></td>
                           </tr>
                         );
@@ -938,7 +938,7 @@ const TenantReport = ({
                       <th>Sub-Total</th>
                       <th></th>
                       <th></th>
-                      <th>{tenantsubTotal}</th>
+                      <th>{Number(tenantsubTotal).toFixed(2)}</th>
                       <td></td>
                     </tr>
                     <tr>

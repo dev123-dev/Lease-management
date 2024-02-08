@@ -5,6 +5,7 @@ import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import EditProperty from "../dashboard/EditProperty";
 import { CSVLink } from "react-csv";
+import { Link } from "react-router-dom";
 import {
   getParticularProperty,
   getParticularOrg,
@@ -297,11 +298,20 @@ const LocationReport = ({
             </div>
             <div className="col-lg-2 text-end mt-sm-5">
               {" "}
+              <Link to="/Report">
+              <img
+              height={28}
+              
+                src={require("../../static/images/back.png")}
+                alt="Back"
+                title="Back"
+              />
+            </Link>
               {myuser.usergroup === "Admin" ? (
                             <>  
                              <CSVLink data={csvLocationData}>
                             <img
-                              className="img_icon_size log  ml-4"
+                              className="img_icon_size log ml-1"
                               src={require("../../static/images/excel_icon.png")}
                               alt="Excel-Export"
                               title="Excel-Export"
