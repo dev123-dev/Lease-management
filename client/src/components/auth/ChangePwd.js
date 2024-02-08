@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { changePwd } from "../../actions/auth";
 import "../../styles/CustomisedStyle.css";
+import { AddUserActivity } from "../../actions/tenants";
 
 const ChangePwd = ({
   auth: { isAuthenticated, user },
   changePwd,
   successResponse,
+  AddUserActivity,
 }) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
@@ -166,7 +168,18 @@ const ChangePwd = ({
       const finalData = {
         password: password,
       };
+      const ActivityDetail = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Password",
+        Operation: "Reset Password",
+        Name: user.username,
+        OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
+      };
       changePwd(finalData);
+      AddUserActivity(ActivityDetail);
+      console.log("changePwd", ActivityDetail, finalData);
     }
   };
 
@@ -178,28 +191,22 @@ const ChangePwd = ({
         <section className="sub_reg">
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-            <h1
-            
-            
-            style={{
-              color: "black",
-            position:"relative",
-            right:"80px"
-              
-            }}
-           
-          >
-           
-              {" "}
-              Reset Password
-            
-          </h1>
+              <h1
+                style={{
+                  color: "black",
+                  position: "relative",
+                  right: "80px",
+                }}
+              >
+                {" "}
+                Reset Password
+              </h1>
             </div>
 
             <div className="row ml-2">
               <div className="col-lg-6 col-md-6 col-sm-12 col-12">
                 <label className="label-control ">
-                   New Password{" "}
+                  New Password{" "}
                   <i className="text-danger ">
                     <b>*</b>
                   </i>
@@ -312,4 +319,6 @@ const mapStateToProps = (state) => ({
   successResponse: state.auth.successResponse,
 });
 
-export default connect(mapStateToProps, { changePwd })(ChangePwd);
+export default connect(mapStateToProps, { changePwd, AddUserActivity })(
+  ChangePwd
+);

@@ -742,7 +742,6 @@ export const getAllShops = (data) => async (dispatch) => {
 //get user activity
 
 export const getUserActivity = (data) => async (dispatch) => {
-  console.log("dataaction", data);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-user-activity`,
@@ -1059,7 +1058,7 @@ export const getMisReport = (finalOrgData) => async (dispatch) => {
       `${linkPath}/api/tenants/get-mis-report`,
       finalOrgData
     );
-    console.log(res.data);
+
     dispatch({
       type: GET_MIS_REPORT,
       payload: res.data,
@@ -1070,13 +1069,12 @@ export const getMisReport = (finalOrgData) => async (dispatch) => {
 };
 
 export const getMisAmountReport = (finalOrgData1) => async (dispatch) => {
-  console.log("actionnnnn", finalOrgData1);
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-mis-amount-report`,
       finalOrgData1
     );
-    console.log(res.data);
+
     dispatch({
       type: GET_MIS_AMOUNT_REPORT,
       payload: res.data,
@@ -1092,7 +1090,7 @@ export const getMisRenewedBarReport = (finalData) => async (dispatch) => {
       `${linkPath}/api/tenants/get-mis-renewed-bar-report`,
       finalData
     );
-    console.log(res.data);
+
     dispatch({
       type: GET_MIS_RENEWED_BAR_REPORT,
       payload: res.data,

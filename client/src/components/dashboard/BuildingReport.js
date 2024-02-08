@@ -1,10 +1,11 @@
-import React, { useEffect, useState, Fragment ,useRef} from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import { connect } from "react-redux";
 import { CSVLink } from "react-csv";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import EditProperty from "../dashboard/EditProperty";
+import { Link } from "react-router-dom";
 import {
   getParticularProperty,
   getParticularOrg,
@@ -36,9 +37,8 @@ const BuildingReport = ({
     particular_org_data.map((ele) => {
       return ele._id;
     });
-    const myuser = JSON.parse(localStorage.getItem("user"));
+  const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
- 
     fun();
     getPropertyTenantData({
       PropertyId: propertyId,
@@ -204,10 +204,10 @@ const BuildingReport = ({
     getParticularOrg(OrganizationId);
     SetLocation(null);
   };
- 
-  const dnolen = dno.filter((ele) => ele.status === "Avaiable");
+
+  // const dnolen = dno.filter((ele) => ele.status === "Avaiable");
   const csvPropertyReportData = [
-    [    
+    [
       "Building Name",
       "Address",
       "Location",
@@ -218,42 +218,39 @@ const BuildingReport = ({
     ],
   ];
 
-  get_property_related_tenant && get_property_related_tenant.map((get_property_related_tenant) => {
-    var unOccdoorNo =get_property_related_tenant && get_property_related_tenant.shopDoorNo
-      .filter((e) => e.status === "Avaiable")
-      .map((ele) => ele.doorNo)
-      .join(', '); 
+  get_property_related_tenant &&
+    get_property_related_tenant.map((get_property_related_tenant) => {
+      var unOccdoorNo =
+        get_property_related_tenant &&
+        get_property_related_tenant.shopDoorNo
+          .filter((e) => e.status === "Avaiable")
+          .map((ele) => ele.doorNo)
+          .join(", ");
       var OccdoorNo = get_property_related_tenant.shopDoorNo
-      .filter((e) => e.status === "Acquired")
-      .map((ele) => ele.doorNo)
-      .join(', '); 
-  
+        .filter((e) => e.status === "Acquired")
+        .map((ele) => ele.doorNo)
+        .join(", ");
 
-    return csvPropertyReportData.push([
-      get_property_related_tenant.BuildingName,
-      get_property_related_tenant.Location,
-      get_property_related_tenant.Location,
-      unOccdoorNo,
-      OccdoorNo,
-      get_property_related_tenant.tenantRentAmount,
-      get_property_related_tenant.tenantDepositAmt,
-   
-     
-    ]);
-  });
-
-
+      return csvPropertyReportData.push([
+        get_property_related_tenant.BuildingName,
+        get_property_related_tenant.Location,
+        get_property_related_tenant.Location,
+        unOccdoorNo,
+        OccdoorNo,
+        get_property_related_tenant.tenantRentAmount,
+        get_property_related_tenant.tenantDepositAmt,
+      ]);
+    });
 
   // get_property_related_tenant && get_property_related_tenant.map((get_property_related_tenant) => {
   //   var unOccdoorNo =get_property_related_tenant && get_property_related_tenant.UnOccupied
   //     .filter((e) => e.status === "Avaiable")
   //     .map((ele) => ele.doorNo)
-  //     .join(', '); 
+  //     .join(', ');
   //     var OccdoorNo = get_property_related_tenant.shopDoorNo
   //     .filter((e) => e.status === "Acquired")
   //     .map((ele) => ele.label)
-  //     .join(', '); 
-  
+  //     .join(', ');
 
   //   return csvPropertyReportData.push([
   //     get_property_related_tenant.BuildingName,
@@ -263,8 +260,7 @@ const BuildingReport = ({
   //     OccdoorNo,
   //     get_property_related_tenant.tenantRentAmount,
   //     get_property_related_tenant.tenantDepositAmt,
-   
-     
+
   //   ]);
   // });
   const [showPrint, setShowPrint] = useState({
@@ -293,39 +289,49 @@ const BuildingReport = ({
               <h2 className="heading_color  headsize  ml-4">Property Report</h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">
-            {myuser.usergroup === "Admin" ? (
-                            <>  
-            <CSVLink data={csvPropertyReportData}>
+              <Link to="/Report">
                 <img
-                  className="img_icon_size log float-right ml-2 mt-1"
-                  src={require("../../static/images/excel_icon.png")}
-                  alt="Excel-Export"
-                  title="Excel-Export"
+                  height={28}
+                  //  className="img_icon_size log  ml-4"
+                  src={require("../../static/images/back.png")}
+                  alt="Back"
+                  title="Back"
                 />
-              </CSVLink>
-              <button
-             
-                  style={{ border: "none" }}
-                  onClick={async () => {
-                    await setShowPrint({
-                      backgroundColor: "#095a4a",
-                      color: "black",
-                      fontWeight: "bold",
-                    });
+              </Link>
+              {myuser.usergroup === "Admin" ? (
+                <>
+                  <CSVLink data={csvPropertyReportData}>
+                    <img
+                      className="img_icon_size log float-right ml-2 mt-1"
+                      src={require("../../static/images/excel_icon.png")}
+                      alt="Excel-Export"
+                      title="Excel-Export"
+                    />
+                  </CSVLink>
+                  <button
+                    style={{ border: "none" }}
+                    onClick={async () => {
+                      await setShowPrint({
+                        backgroundColor: "#095a4a",
+                        color: "black",
+                        fontWeight: "bold",
+                      });
 
-                    handlePrint();
-                  }}
-                >
-                  <img
-                    height="20px"
-                    //  onClick={() => refresh()}
-                    src={require("../../static/images/print.png")}
-                    alt="Print"
-                    title="Print"
-                  />
-                </button>
-              </>
-              ):(<></>)}
+                      handlePrint();
+                    }}
+                  >
+                    <img
+                      height="20px"
+                      //  onClick={() => refresh()}
+                      src={require("../../static/images/print.png")}
+                      alt="Print"
+                      title="Print"
+                    />
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
             </div>
             {/* <div className="col-lg-5 mt-3">
               <Select
@@ -364,70 +370,61 @@ const BuildingReport = ({
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
-            <div ref={componentRef}>
-              <div className="row ">
-                <div className="col-lg-1"></div>
-                <div className="firstrowsticky body-inner no-padding table-responsive">
-                  <table
-                    className="table table-bordered table-striped table-hover   mt-1  "
-                    id="datatable2"
-                  >
-                    <thead>
-                      <tr>
-                        <th 
-                     
-                          className="headcolstatic "
-                          style={ showPrint }
-                        >
-                          Building Name
-                        </th>
+              <div ref={componentRef}>
+                <div className="row ">
+                  <div className="col-lg-1"></div>
+                  <div className="firstrowsticky body-inner no-padding table-responsive">
+                    <table
+                      className="table table-bordered table-striped table-hover   mt-1  "
+                      id="datatable2"
+                    >
+                      <thead>
+                        <tr>
+                          <th className="headcolstatic " style={showPrint}>
+                            Building Name
+                          </th>
 
-                        <th style={showPrint}>Address</th>
-                        <th style={showPrint}>Location</th>
-                        <th style={showPrint}> Unoccupied Door No</th>
-                        <th style={showPrint}> Occupied Door No</th>
-                        <th style={showPrint}>Monthly Rent Amount</th>
-                        <th style={showPrint}>Deposit Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-center">
-                      {currentDatas &&
-                        currentDatas.map((Val, idx) => {
-                          return (
-                            <tr key={idx}>
-                              {Val.ShopStatus === "Deactive" ? (
-                                <td
-                                  style={{ backgroundColor: "#dda6a6" }}
-                                  className="headcolstatic secondlinebreak1"
-                                >
-                                  {Val.BuildingName}
-                                </td>
-                              ) : (
-                                <td className="headcolstatic secondlinebreak1">
-                                  {Val.BuildingName}
-                                </td>
-                              )}
+                          <th style={showPrint}>Address</th>
+                          <th style={showPrint}>Location</th>
+                          <th style={showPrint}> Unoccupied Door No</th>
+                          <th style={showPrint}> Occupied Door No</th>
+                          <th style={showPrint}>Monthly Rent Amount</th>
+                          <th style={showPrint}>Deposit Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        {currentDatas &&
+                          currentDatas.map((Val, idx) => {
+                            return (
+                              <tr key={idx}>
+                                {Val.ShopStatus === "Deactive" ? (
+                                  <td
+                                    style={{ backgroundColor: "#dda6a6" }}
+                                    className="headcolstatic secondlinebreak1"
+                                  >
+                                    {Val.BuildingName}
+                                  </td>
+                                ) : (
+                                  <td className="headcolstatic secondlinebreak1">
+                                    {Val.BuildingName}
+                                  </td>
+                                )}
 
-                              <td>{Val.shopAddress}</td>
-                              <td>{Val.Location}</td>
-                              <td>
-
-
-                              
-{Val.shopDoorNo &&
-  Val.shopDoorNo.map((ele, idx) => {
-    if (ele.status === "Avaiable") {
-      return (
-        <div key={idx} className="dno">
-          {ele.doorNo + ","}
-        </div>
-      );
-    }
-    return null; // If the status is not "Acquired", you can return null
-  })}
-
-                                {" "}
-                                {/* {Val.UnOccupied &&
+                                <td>{Val.shopAddress}</td>
+                                <td>{Val.Location}</td>
+                                <td>
+                                  {Val.shopDoorNo &&
+                                    Val.shopDoorNo.map((ele, idx) => {
+                                      if (ele.status === "Avaiable") {
+                                        return (
+                                          <div key={idx} className="dno">
+                                            {ele.doorNo + ","}
+                                          </div>
+                                        );
+                                      }
+                                      return null; // If the status is not "Acquired", you can return null
+                                    })}{" "}
+                                  {/* {Val.UnOccupied &&
                                   Val.UnOccupied.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Avaiable") {
@@ -438,24 +435,21 @@ const BuildingReport = ({
                                       );
                                     }
                                   })} */}
-                              </td>
-                              <td>
-                              {Val.shopDoorNo &&
-  Val.shopDoorNo.map((ele, idx) => {
-    if (ele.status === "Acquired") {
-      return (
-        <div key={idx} className="dno">
-          {ele.doorNo + ","}
-        </div>
-      );
-    }
-    return null; // If the status is not "Acquired", you can return null
-  })}
-                            
+                                </td>
+                                <td>
+                                  {Val.shopDoorNo &&
+                                    Val.shopDoorNo.map((ele, idx) => {
+                                      if (ele.status === "Acquired") {
+                                        return (
+                                          <div key={idx} className="dno">
+                                            {ele.doorNo + ","}
+                                          </div>
+                                        );
+                                      }
+                                      return null; // If the status is not "Acquired", you can return null
+                                    })}
 
-
-
-  {/* {Val.shopDoorNo &&
+                                  {/* {Val.shopDoorNo &&
     Val.shopDoorNo
       .flat()
       .filter((ele) => ele.status === "Acquired")
@@ -465,14 +459,7 @@ const BuildingReport = ({
         </div>
       ))} */}
 
-
-
-
-
-
-
-
-                                {/* {Val.shopDoorNo &&
+                                  {/* {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Acquired") {
@@ -483,19 +470,19 @@ const BuildingReport = ({
                                       );
                                     }
                                   })} */}
-                              </td>
-                              <td>{Val.tenantRentAmount}</td>
-                              <td>{Val.tenantDepositAmt}</td>
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </table>
+                                </td>
+                                <td>{Val.tenantRentAmount}</td>
+                                <td>{Val.tenantDepositAmt}</td>
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="col-lg-1"></div>
                 </div>
-                <div className="col-lg-1"></div>
               </div>
-              </div>
-             
+
               <div className="row">
                 <div className="col-lg-6">
                   {get_property_related_tenant &&

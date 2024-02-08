@@ -7,7 +7,7 @@ import {
   getMisAmountReport,
   getMisRenewedBarReport,
 } from "../../actions/tenants";
-
+import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import BarChart from "../dashboard/BarChart";
 import PieChart from "../dashboard/PieChart";
@@ -27,13 +27,13 @@ const MISReport = ({
   useEffect(() => {
     var year1 = currentDate.getFullYear();
     var month1 = String(currentDate.getMonth() + 1).padStart(2, "0");
-    var day1 = String(currentDate.getDate()).padStart(2, "0");
-    console.log("useefecttttt");
+    //var day1 = String(currentDate.getDate()).padStart(2, "0");
+    var day1 = "01";
+
     var CurrentformattedDate = `${year1}-${month1}-${day1}`;
-    console.log("CurrentformattedDate", CurrentformattedDate);
     const finalData = {
       selectedY: CurrentformattedDate,
-      selectedEndY: "01",
+      selectedEndY: "12",
       OrganizationId: myuser && myuser.OrganizationId,
     };
     getMisReport(finalData);
@@ -45,7 +45,6 @@ const MISReport = ({
   if (allmisreport) {
     valuesArray.push(allmisreport.renewableCount, allmisreport.renewedCount);
   }
-  // console.log("allmisrenewedbarreport", allmisrenewedbarreport);
 
   ///////////////////////////new format date 123//////////////////////////
 
@@ -70,38 +69,10 @@ const MISReport = ({
   );
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
-  // const monthName = selectedMonth;
-  // const monthNumber = (monthsValue.indexOf(monthName) + 1).toString().padStart(2, '0');
-
-  // // console.log("monthNumber",monthNumber);
-
-  // const day = '01';
-  // const formattedDate = `${selectedYear.toString()}-${monthNumber.toString()}-${day.toString()}`;
-  // console.log("finallll",formattedDate.toString());
   const [monthNumber, setMonthNumber] = useState("");
   const handleMonthYearChange = (month, year) => {
     setSelectedMonth(month);
     setSelectedYear(year);
-
-    // const monthName = selectedMonth;
-    // console.log("month", month);
-    // const monthNumber1 = monthsValue
-    //   .indexOf(monthName)
-    //   .toString()
-    //   .padStart(2, "0");
-    // setMonthNumber(monthNumber1);
-
-    // const day = "01";
-    // const formattedDate = `${selectedYear.toString()}-${monthNumber.toString()}-${day.toString()}`;
-    // console.log("finallll", formattedDate.toString());
-
-    // const finalData = {
-    //   selectedY: formattedDate,
-    //   selectedEndY: numberOfMonths,
-    //   OrganizationId: myuser && myuser.OrganizationId,
-    // };
-
-    // console.log("finalDataaaa", finalData);
   };
 
   //////////////////////////////////////////////////////////////////////////////////
@@ -115,40 +86,6 @@ const MISReport = ({
     );
   }
   const [numberOfMonths, setNumberOfMonths] = useState(1);
-
-  // const YearChange = (dt) => {
-  //   const getYear = new Date(dt).getFullYear();
-  //   if (!isNaN(getYear)) {
-  //     setMonthStartDate(dt);
-  //     const finalData = {
-  //       selectedY:startMonthDate ,
-  //       numberOfMonths,
-  //       OrganizationId: myuser && myuser.OrganizationId,
-  //     };
-
-  //     console.log("finalData",finalData)
-  //     // getMisAmountReport(finalData);
-  //     // getMisRenewedBarReport(finalData);
-  //     // getMisAmountReport(finalData);
-  //   } else {
-  //     console.error("Invalid date selected");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   var getYear = new Date().getFullYear();
-
-  //   const finalData = {
-  //     selectedY:'' ,
-  //     selectedEndY:numberOfMonths,
-  //     OrganizationId: myuser && myuser.OrganizationId,
-  //   };
-
-  //   console.log("finalDataaaa useeffect",finalData)
-  //   // getMisReport(finalData);
-  //   // getMisAmountReport(finalData);
-  //   // getMisRenewedBarReport(finalData);
-  // }, []);
 
   //Bar chart
 
@@ -166,18 +103,17 @@ const MISReport = ({
       ...item,
     }));
 
-  // console.log("renewedbarcountArray", renewedbarcountArray);
   return (
     <>
       <div className="col mt-sm-4 space ">
-        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-          <div className="row mt-5  ">
-            <div className="col-lg-4 mt-3">
+        <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  mx-0 px-0">
+          <div className="row mt-5  mx-0 px-0">
+            <div className="col-lg-3 mt-3">
               <h2 className="heading_color  headsize  ml-4">MIS Report</h2>
             </div>
-            <div className=" row col-lg-8 text-left mt-4 ">
-              <div className="col-lg-3 mt-2"> Start Month & Year :</div>
-              <div className="col-lg-9">
+            <div className=" row col-lg-9 text-left mt-4  mx-0 px-0 ">
+              <div className="col-lg-2 mt-2"> Start Month & Year :</div>
+              <div className="col-lg-10 mx-0 px-0">
                 <MonthYearPicker
                   selectedMonth={selectedMonth}
                   selectedYear={selectedYear}

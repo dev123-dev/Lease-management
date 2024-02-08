@@ -4,12 +4,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 //import { changeUsersPwd } from "../../actions/auth";
 import { changePwd } from "../../actions/auth";
+import { AddUserActivity } from "../../actions/tenants";
 let UserNameFont = {
   fontSize: "23px",
   lineHeight: "12px",
 };
 
-const ChangeUsersPwd = ({ user, changeUsersPwd, onPwdChange }) => {
+const ChangeUsersPwd = ({
+  user,
+  changeUsersPwd,
+  onPwdChange,
+  AddUserActivity,
+}) => {
   let passwrdTooltip = {
     marginLeft: "-16em",
     position: "absolute",
@@ -169,7 +175,18 @@ const ChangeUsersPwd = ({ user, changeUsersPwd, onPwdChange }) => {
         email: user.email,
         password: password,
       };
+      const ActivityDetail = {
+        userId: user && user._id,
+        userName: user && user.username,
+        Menu: "Password",
+        Operation: "Reset Password",
+        Name: user.username,
+        OrganizationId: user.OrganizationId,
+        expireAt: new Date().getTime() + 80,
+      };
       changeUsersPwd(finalData);
+      AddUserActivity(ActivityDetail);
+      console.log("changeUsersPwd", ActivityDetail, finalData);
       onPwdChange(true);
       setFormData({ ...formData, isSubmitted: true });
     }
@@ -273,4 +290,6 @@ ChangeUsersPwd.propTypes = {
 
 const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps, { changeUsersPwd })(ChangeUsersPwd);
+export default connect(mapStateToProps, { changeUsersPwd, AddUserActivity })(
+  ChangeUsersPwd
+);

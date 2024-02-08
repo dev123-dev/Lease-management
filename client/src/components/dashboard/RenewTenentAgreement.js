@@ -273,7 +273,7 @@ const RenewTenentAgreement = ({
       };
       AddUserActivity(ActivityDetail);
       RenewTenantDetailsform(finalData);
-      //console.log("finalData", finalData);
+
       setFormData({ ...formData, isSubmitted: true });
       onReportModalChange(true);
     }
@@ -473,7 +473,6 @@ const RenewTenentAgreement = ({
       return false;
     }
     if (!cardChecker && paymentMode.value === "Card") {
-      console.log("paymenttttttttttttttttttt", paymentMode);
       setErrors({
         ...errors,
         cardErrorStyle: { color: "#F00" },
