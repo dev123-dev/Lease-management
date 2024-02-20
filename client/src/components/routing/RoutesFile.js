@@ -41,6 +41,7 @@ import {
 } from "../../actions/tenants";
 import ContactReport from "../dashboard/ContactReport";
 import MISReport from "../dashboard/MISReport";
+import RenewedTenantReport from "../dashboard/RenewedTenantReport";
 
 const RoutesFile = ({
   getRoutesSetOldRecordsClicked,
@@ -136,6 +137,11 @@ const RoutesFile = ({
           exact
           path="/user-activity"
           component={UserActivityDetails}
+        />
+        <PrivateRoute
+          exact
+          path="/renewed-report"
+          component={RenewedTenantReport}
         />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
         <PrivateRoute exact path="/nocontent" component={NoContent} />

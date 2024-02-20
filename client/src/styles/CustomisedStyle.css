@@ -1526,6 +1526,19 @@ body {
   height: 100% !important;
   border-radius: 4px;
 }
+
+.confirmboxleasetransfer {
+  /* font-family: Verdana, Arial, sans-serif; */
+  /* font-size: 1.1em; */
+  width: 100%;
+  background: #095a4a !important;
+  /* padding: 0.3em 1em; */
+  color: #fff !important;
+  height: 20% !important;
+  margin: 0px;
+  padding: 0px;
+  /* border-radius: 4px; */
+}
 /******ALERT BOX END*******/
 
 .forgotPwdModal {
@@ -2272,10 +2285,10 @@ button {
   color: white;
   cursor: pointer;
 }
-.printBtn{
+.printBtn {
   background-color: #095a4a;
   color: white;
-  width: 7% ;
+  width: 7%;
   height: 45px;
   border-radius: 0%;
   border-color: transparent;
@@ -2840,47 +2853,38 @@ i.smallsize::first-line {
   padding-left: 25px;
 }
 
-
-.receiptBodyTable th:first-child{
+.receiptBodyTable th:first-child {
   width: 100%;
   min-width: 100px;
   text-align: left;
-
 }
-.receiptBodyTable th:last-child{
+.receiptBodyTable th:last-child {
   width: 100%;
   min-width: 100px;
   text-align: left;
-
 }
-.receiptBodyTable th{
+.receiptBodyTable th {
   width: 100%;
   min-width: 500px;
   text-align: left;
- 
 }
-.receiptBodyTable tr td{
+.receiptBodyTable tr td {
   width: 100%;
   min-width: 500px;
   /* padding-right: 200px; */
   text-align: left;
- 
 }
 .receiptBodyTable tr td:first-child {
   /* width: 100%; */
   min-width: 100px !important;
   /* padding-right: 200px; */
   text-align: left;
-
-
 }
 .receiptBodyTable tr td:last-child {
   /* width: 100%; */
   min-width: 100px !important;
   /* padding-right: 200px; */
   text-align: left;
-
-
 }
 
 .my-modal1 {
@@ -2897,23 +2901,37 @@ i.smallsize::first-line {
   overflow: hidden;
   border-radius: 25px !important;
 }
-.receiptHeader{
+.receiptHeader {
   font-weight: 600;
   font-size: 28px;
 }
-.receiptTable td:first-child{
-  width:50px
-
+.receiptTable td:first-child {
+  width: 50px;
 }
-.receiptTable td:last-child{
-  width:50px
-
+.receiptTable td:last-child {
+  width: 50px;
 }
 .customHr {
   border: 1px solid black; /* Border color */
-
 }
-.textBoxWidth{
-width:80px;
-resize: "none";
+.textBoxWidth {
+  width: 80px;
+  resize: "none";
+}
+.activatebtn {
+  width: 100px;
+  height: 50px;
+  border: 1px solid #095a4a;
+}
+.activatebtn:hover {
+  background-color: #095a4a;
+  color: white;
+}
+
+.activebtn {
+  background-color: #095a4a;
+  color: white;
+  border-radius: 10px;
+  width: 80px;
+  height: 35px;
 }

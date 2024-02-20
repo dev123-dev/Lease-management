@@ -43,6 +43,7 @@ const UserActivityDetails = ({
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">
                 User Activity of <span>{myuser.username}</span>
+                (Past 30 days)
               </h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">

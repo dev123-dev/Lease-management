@@ -82,8 +82,7 @@ const TenantReport = ({
   const handleGenerateReceipt = useReactToPrint({
     content: () => componentRef1.current,
 
-    documentTitle:
-      "Receipt ",
+    documentTitle: "Receipt ",
 
     onAfterPrint: () =>
       setShowOnPrint({
@@ -920,7 +919,9 @@ const TenantReport = ({
                             <td>{ele.label}</td>
                             <td></td>
                             <td></td>
-                            <td>{Number(viewdata.tenantRentAmount).toFixed(2)}</td>
+                            <td>
+                              {Number(viewdata.tenantRentAmount).toFixed(2)}
+                            </td>
                             <td></td>
                           </tr>
                         );
@@ -1010,7 +1011,7 @@ const TenantReport = ({
                             isNaN(parseFloat(tenantGst)) ||
                             parseFloat(tenantGst) === 0
                               ? " "
-                              :Number(tenantGst) .toFixed(2)
+                              : Number(tenantGst).toFixed(2)
                           }
                           onChange={(e) => handleGSTChange(e)}
                           style={showOnPrint}
@@ -1066,9 +1067,9 @@ const TenantReport = ({
                             {viewdata.tenantchequeDate}
                           </td>
                         </>
-                      ) : viewdata.tenantPaymentMode === "Neft" ? (
+                      ) : viewdata.tenantPaymentMode === "NEFT" ? (
                         <>
-                          <td>Neft</td>
+                          <td>NEFT</td>
                           <td></td>
                           <td>
                             Bank Name
@@ -1096,7 +1097,7 @@ const TenantReport = ({
                             {viewdata.tenantTransId}
                           </td>
                         </>
-                      ) : viewdata.tenantPaymentMode === "Upi" ? (
+                      ) : viewdata.tenantPaymentMode === "UPI" ? (
                         <>
                           <td>UPI</td>
                           <td></td>

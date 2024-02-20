@@ -19,6 +19,7 @@ import EditTenantDetails from "./EditTenantDetails";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
 import TenantLeaseTransfer from "./TenantLeaseTransfer";
+import ActivateTenantModal from "./ActivateTenantModal";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
@@ -114,6 +115,15 @@ const Tenant_Details = ({
     // }
   };
 
+  const [activateData, setActivateData] = useState(null);
+
+  const [showActivateModal, setshowActivateModal] = useState(false);
+  const handleActivateTenantModalClose = () => setshowActivateModal(false);
+  const onActivate = (val) => {
+    setActivateData(val);
+    setshowActivateModal(true);
+  };
+
   // Modal for Deactivation
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -130,7 +140,6 @@ const Tenant_Details = ({
   const [tName, settname] = useState("");
   const [dno, SetDno] = useState([]);
   const onDelete = (id, Dno, Val) => {
-    console.log("deactiveval", Val);
     setId(id);
     settname(Val.tenantName);
 
@@ -299,7 +308,7 @@ const Tenant_Details = ({
 
   const onchangePrperty = (e) => {
     SetPropertyName(e);
-    console.log(e);
+
     ParticularTenantFilter({
       propertyname: e.label,
     });
@@ -367,6 +376,7 @@ const Tenant_Details = ({
       "Phone No",
       "Pan No",
       "Aadhar No.",
+      "Tenant Status",
     ],
   ];
 
@@ -385,6 +395,7 @@ const Tenant_Details = ({
       sortetenantdetails.tenantPhone,
       sortetenantdetails.tenantPanNo,
       sortetenantdetails.tenantAdharNo,
+      sortetenantdetails.tenantstatus,
     ]);
   });
   const [showPrint, setShowPrint] = useState({
@@ -576,6 +587,7 @@ const Tenant_Details = ({
                             <th style={showPrint}>Phone Number</th>
                             <th style={showPrint}>Expiry Date</th>
                             <th style={showPrint}>Rent Amount</th>
+                            <th style={showPrint}>Tenant Status</th>
                             {myuser.usergroup === "IT Department" ? (
                               <></>
                             ) : (
@@ -628,6 +640,7 @@ const Tenant_Details = ({
                                   <td>{Val.tenantPhone}</td>
                                   <td>{tenant}</td>
                                   <td>{Val.tenantRentAmount}</td>
+                                  <td>{Val.tenantstatus}</td>
                                   {myuser.usergroup === "IT Department" ? (
                                     <></>
                                   ) : (
@@ -676,7 +689,21 @@ const Tenant_Details = ({
                                           )}
                                         </td>
                                       ) : (
-                                        <td></td>
+                                        <td>
+                                          <button
+                                            className="activebtn"
+                                            // style={{
+                                            //   backgroundColor: "#095a4a",
+                                            //   color: "white",
+                                            // }}
+                                            // onClick=()=>{onActivate(Val)}
+                                            onClick={() => {
+                                              onActivate(Val);
+                                            }}
+                                          >
+                                            Activate
+                                          </button>
+                                        </td>
                                       )}
                                     </>
                                   )}
@@ -952,6 +979,44 @@ const Tenant_Details = ({
         </Modal.Body>
       </Modal>
       {/* lease transfer end  */}
+
+      {/* Activate tenant */}
+      <Modal
+        show={showActivateModal}
+        backdrop="static"
+        keyboard={false}
+        size="xl"
+        dialogClassName="my-modal2"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header className="confirmbox-heading">
+          <div className="col-lg-10  col-sm-12 col-md-12">
+            <h3
+              style={{
+                color: "white",
+              }}
+            >
+              Activate Tenant
+            </h3>
+          </div>
+          <div className="col-lg-2  col-sm-12 col-md-12">
+            <button onClick={handleActivateTenantModalClose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <ActivateTenantModal
+            ActivateTenant={activateData}
+            ModalClose={handleActivateTenantModalClose}
+          />
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

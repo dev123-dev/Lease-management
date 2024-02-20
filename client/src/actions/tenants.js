@@ -33,6 +33,7 @@ import {
   EXP_ORG_,
   PROPERTY_RELATED_TENANT,
   PARTICULAR_ORG_TENANT_SORT,
+  PARTICULAR_ORG_TENANT_SORT_CONTACT_REPORT,
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
   GET_TENANT_RECEIPTNO,
   USER_ACTIVITY_DETAIL,
@@ -344,6 +345,23 @@ export const ParticularTenantFilter = (data) => async (dispatch) => {
   }
 };
 
+export const ParticularTenantFilterContactReport =
+  (data) => async (dispatch) => {
+    try {
+      const res = await axios.post(
+        `${linkPath}/api/tenants/get-tenant-sort-contact-report`,
+        data
+      );
+
+      dispatch({
+        type: PARTICULAR_ORG_TENANT_SORT_CONTACT_REPORT,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 //tenantLeaseTransfer sort
 
 export const ParticularTenantLeaseTransferFilter =
@@ -608,6 +626,23 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
       config
     );
     dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
+  } catch (err) {
+    console.log(err.message);
+    dispatch({
+      type: TENANT_FEEDBACK_ERROR,
+    });
+  }
+};
+
+export const ActivateTenantDetails = (finalData) => async (dispatch) => {
+  console.log("finalData", finalData);
+  try {
+    await axios.post(
+      `${linkPath}/api/tenants/activate-tenant-details`,
+      finalData,
+      config
+    );
+    // dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
   } catch (err) {
     console.log(err.message);
     dispatch({

@@ -14,6 +14,7 @@ import {
   getOrgExp,
   getPreviousYearsExpCountOfOrg,
 } from "../../actions/tenants";
+import MainAdminPage from "./MainAdminPage";
 
 const TenantFilters = ({
   auth: { isAuthenticated, optName, user, users, monthExpCnt, yearExpCnt },
@@ -419,6 +420,7 @@ const TenantFilters = ({
           )}
         </>
       )}
+      <MainAdminPage year={startMonthDate} />
     </>
   );
 };

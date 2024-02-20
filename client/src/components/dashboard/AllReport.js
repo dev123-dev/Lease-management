@@ -9,6 +9,8 @@ import locreport from "../../static/images/locrep.png";
 import propreport from "../../static/images/propreport.png";
 import Contactreport from "../../static/images/contactreport.png";
 import MISReport from "../../static/images/MIS_report.png";
+
+import renewedTenant from "../../static/images/renewedTenant.png";
 // import { Roller } from "react-awesome-spinners";
 import { ParticularTenant, getPropertyTenantData } from "../../actions/tenants";
 const AllReport = ({
@@ -97,186 +99,236 @@ const AllReport = ({
           </div>
         </div>
 
-
         <div class=" ml-5">
-  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true" >General</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Finance</button>
-    </li>
-   
-  </ul>
+          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link active"
+                id="pills-home-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-home"
+                type="button"
+                role="tab"
+                aria-controls="pills-home"
+                aria-selected="true"
+              >
+                General
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button
+                class="nav-link"
+                id="pills-profile-tab"
+                data-bs-toggle="pill"
+                data-bs-target="#pills-profile"
+                type="button"
+                role="tab"
+                aria-controls="pills-profile"
+                aria-selected="false"
+              >
+                Finance
+              </button>
+            </li>
+          </ul>
 
-  <div class="tab-content" id="pills-tabContent">
-    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-
-<div className="row ">
+          <div class="tab-content" id="pills-tabContent">
             <div
-              className="col-lg-3  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5"
-              id="shadow-bck"
+              class="tab-pane fade show active"
+              id="pills-home"
+              role="tabpanel"
+              aria-labelledby="pills-home-tab"
             >
-              <div className="text-center">
-                <Link to="/LocationReport">
-                  <img
-                    className="img_icon_repDashboard log "
-                    src={require("../../static/images/loc.png")}
-                    alt="loc report"
-                  />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Location Report<br></br>
-                        {""}
-                      </b>
+              <div className="row ">
+                <div
+                  className="col-lg-3  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5"
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/LocationReport">
+                      <img
+                        className="img_icon_repDashboard log "
+                        src={require("../../static/images/loc.png")}
+                        alt="loc report"
+                      />
+                    </Link>
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            Location Report<br></br>
+                            {""}
+                          </b>
+                        </p>
+                      </center>
                     </p>
-                  </center>
-                </p>
-              </div>
+                  </div>
 
-              <div></div>
+                  <div></div>
+                </div>
+                <div
+                  className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/BuildingReport">
+                      {" "}
+                      <img
+                        className="img_icon_repDashboard log "
+                        src={propreport}
+                        alt="IMG1"
+                      />
+                    </Link>
+
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            Property Report<br></br> {""}
+                          </b>
+                        </p>
+                      </center>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/Contact-Report">
+                      {" "}
+                      <img
+                        className="img_icon_repDashboard log "
+                        src={Contactreport}
+                        alt="IMG1"
+                      />
+                    </Link>
+
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            Contact Report<br></br> {""}
+                          </b>
+                        </p>
+                      </center>
+                    </p>
+                  </div>
+                </div>
+                <div
+                  className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/user-activity">
+                      {" "}
+                      <img
+                        className="img_icon_repDashboard log "
+                        src={Contactreport}
+                        alt="IMG1"
+                      />
+                    </Link>
+
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            User Activity<br></br> {""}
+                          </b>
+                        </p>
+                      </center>
+                    </p>
+                  </div>
+                </div>
+                {/* <div
+                  className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/renewed-report">{" "}
+                    <img
+                      className="img_icon_repDashboard log "
+                      src={renewedTenant}
+                      alt="IMG1"
+                    />
+                    </Link>
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            Renewed Property<br></br> {""}
+                          </b>
+                        </p>
+                      </center>
+                    </p>
+                  </div>
+                </div> */}
+
+                {/* <div className="col-lg-3  col-sm-12 col-md-12"></div> */}
+              </div>
             </div>
             <div
-              className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
-              id="shadow-bck"
+              class="tab-pane fade"
+              id="pills-profile"
+              role="tabpanel"
+              aria-labelledby="pills-profile-tab"
             >
-              <div className="text-center">
-                <Link to="/BuildingReport">
-                  {" "}
-                  <img
-                    className="img_icon_repDashboard log "
-                    src={propreport}
-                    alt="IMG1"
-                  />
-                </Link>
+              <div className="row ">
+                <div
+                  className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/mis-Report">
+                      {" "}
+                      <img
+                        className="img_icon_repDashboard log "
+                        src={MISReport}
+                        alt="IMG1"
+                      />
+                    </Link>
 
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Property Report<br></br> {""}
-                      </b>
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            MIS Report<br></br> {""}
+                          </b>
+                        </p>
+                      </center>
                     </p>
-                  </center>
-                </p>
+                  </div>
+                </div>
+
+                <div className="col-lg-3  col-sm-12 col-md-12"></div>
               </div>
             </div>
-            <div
-              className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
-              id="shadow-bck"
-            >
-              <div className="text-center">
-                <Link to="/Contact-Report">
-                  {" "}
-                  <img
-                    className="img_icon_repDashboard log "
-                    src={Contactreport}
-                    alt="IMG1"
-                  />
-                </Link>
-
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Contact Report<br></br> {""}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
-            <div
-              className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
-              id="shadow-bck"
-            >
-              <div className="text-center">
-                <Link to="/user-activity">
-                  {" "}
-                  <img
-                    className="img_icon_repDashboard log "
-                    src={Contactreport}
-                    alt="IMG1"
-                  />
-                </Link>
-
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        User Activity<br></br> {""}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
-
-            {/* <div className="col-lg-3  col-sm-12 col-md-12"></div> */}
           </div>
-
-    </div>
-    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-     
-      <div className="row ">
-           
-         
-            
-            <div
-              className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
-              id="shadow-bck"
-            >
-              <div className="text-center">
-                <Link to="/mis-Report">
-                  {" "}
-                  <img
-                    className="img_icon_repDashboard log "
-                    src={MISReport}
-                    alt="IMG1"
-                  />
-                </Link>
-
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        MIS Report<br></br> {""}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
-            </div>
-
-            <div className="col-lg-3  col-sm-12 col-md-12"></div>
-          </div>
-    </div>
-   
-  </div>
-</div>
+        </div>
 
         {/* <section
           className="sub_reg  "

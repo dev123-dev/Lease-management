@@ -26,6 +26,7 @@ import {
   PROPERTY_RELATED_TENANT,
   PARTICULAR_ORG_TENANT_SORT,
   PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT,
+  PARTICULAR_ORG_TENANT_SORT_CONTACT_REPORT,
   GET_TENANT_RECEIPTNO,
   USER_ACTIVITY_DETAIL,
   GET_MIS_REPORT,
@@ -74,6 +75,7 @@ const initialState = {
   allmisreport: [],
   allmisamountreport: [],
   allmisrenewedbarreport: [],
+  sortContactReport: [],
 };
 
 const tenants = (state = initialState, action) => {
@@ -109,6 +111,12 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         sortleasetransferdetails: payload,
+      };
+
+    case PARTICULAR_ORG_TENANT_SORT_CONTACT_REPORT:
+      return {
+        ...state,
+        sortContactReport: payload,
       };
     case GET_TENANT_RECEIPTNO:
       return {

@@ -2,6 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 import Select from "react-select";
+import { Modal } from "react-bootstrap";
 import {
   // ParticularTenant,
   getParticularOrg,
@@ -27,7 +28,6 @@ const TenantLeaseTransfer = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const [freshpage, setFreshPage] = useState(true);
-  console.log("sortleasetransferdetails", sortleasetransferdetails);
 
   //   useEffect(() => {
   //     getAllSettings({
@@ -44,16 +44,16 @@ const TenantLeaseTransfer = ({
   }, [freshpage]);
   //propertywise dropdown
   const [PropertyName, SetPropertyName] = useState("");
-  const onchangePrperty = (e) => {
+  const onchangeProperty = (e) => {
     SetPropertyName(e);
-    console.log(e);
+
     ParticularTenantLeaseTransferFilter({
       propertyname: e.label,
     });
 
     //   SetDoorNumber("");
     //   setselLoction("");
-    //   SetTenantName("");
+    SetTenantName("");
   };
 
   //propertywise dropdown
@@ -90,18 +90,17 @@ const TenantLeaseTransfer = ({
       tenantName: e.value,
     });
     setExistingTenantDoorno(true);
+    // SetPropertyName("");
   };
-  console.log("existingTenantDoorno", existingTenantDoorno);
+
   const [leaseTranferArr, setLeaseTrasferArr] = useState(
     leaseTransferData.shopDoorNo
   );
-  console.log("leaseTranferArr", leaseTranferArr);
 
   const [selectedDoorNumber, setSelectedDoorNumber] = useState([]);
   //onselect button
 
   const onSelectChange = (inputuserdata) => {
-    console.log("inputuserdata", inputuserdata);
     let temparray = [];
     temparray.push(...selectedDoorNumber, inputuserdata);
     setSelectedDoorNumber(temparray);
@@ -130,7 +129,6 @@ const TenantLeaseTransfer = ({
     //   [Doornumber.name]: 0,
     // });
   };
-  console.log("selectedDoorNumber", selectedDoorNumber);
 
   //validation for select
   const [errors, setErrors] = useState({
@@ -149,41 +147,113 @@ const TenantLeaseTransfer = ({
 
     return true;
   };
+  const [show, setShow] = useState(false);
 
   const onSubmit = () => {
-    // e.preventDefault();
+    // if (checkError() && selectedDoorNumber && selectedDoorNumber.length > 0) {
+    //   const finalData = {
+    //     OrganizationName: user.OrganizationName,
+    //     OrganizationId: user.OrganizationId,
+    //     fromId: leaseTransferData._id,
+    //     fromTenantName: leaseTransferData.tenantName,
+    //     toId:
+    //       sortleasetransferdetails &&
+    //       sortleasetransferdetails[0] &&
+    //       sortleasetransferdetails[0]._id,
+    //     toTenantName:
+    //       sortleasetransferdetails &&
+    //       sortleasetransferdetails[0] &&
+    //       sortleasetransferdetails[0].tenantName,
+    //     Dno: leaseTransferData.shopDoorNo,
+    //     transferShoopDoorNo: selectedDoorNumber,
+    //   };
+    //   const ActivityDetail = {
+    //     userId: user && user._id,
+    //     userName: user && user.username,
+    //     Menu: "Tenant",
+    //     Operation: "Lease Transfer",
+    //     Name: leaseTransferData.tenantName,
+    //     NameId: leaseTransferData._id,
+    //     OrganizationId: user.OrganizationId,
+    //     Dno: selectedDoorNumber,
+    //     expireAt: new Date().getTime() + 80,
+    //   };
+    //   AddUserActivity(ActivityDetail);
+    //   EditTenantLeaseTransferDetails(finalData);
+    //   ModalClose();
+    //   ParticularTenantFilter("");
+    //   setExistingTenantDoorno(false);
+    // }
     if (checkError() && selectedDoorNumber && selectedDoorNumber.length > 0) {
-      const finalData = {
-        OrganizationName: user.OrganizationName,
-        OrganizationId: user.OrganizationId,
-        fromId: leaseTransferData._id,
-        fromTenantName: leaseTransferData.tenantName,
-        toId:
-          sortleasetransferdetails &&
-          sortleasetransferdetails[0] &&
-          sortleasetransferdetails[0]._id,
-        Dno: leaseTransferData.shopDoorNo,
-        transferShoopDoorNo: selectedDoorNumber,
-      };
-      const ActivityDetail = {
-        userId: user && user._id,
-        userName: user && user.username,
-        Menu: "Tenant",
-        Operation: "Lease Transfer",
-        Name: leaseTransferData.tenantName,
-        NameId: leaseTransferData._id,
-        OrganizationId: user.OrganizationId,
-        Dno: selectedDoorNumber,
-        expireAt: new Date().getTime() + 80,
-      };
-      AddUserActivity(ActivityDetail);
-      // console.log("finalData submitttttttt", finalData);
-      EditTenantLeaseTransferDetails(finalData);
-      ModalClose();
-      ParticularTenantFilter("");
-      setExistingTenantDoorno(false);
+      setShow(true);
     }
   };
+
+  const onTransfer = () => {
+    const finalData = {
+      OrganizationName: user.OrganizationName,
+      OrganizationId: user.OrganizationId,
+      fromId: leaseTransferData._id,
+      fromTenantName: leaseTransferData.tenantName,
+      toId:
+        sortleasetransferdetails &&
+        sortleasetransferdetails[0] &&
+        sortleasetransferdetails[0]._id,
+      toTenantName:
+        sortleasetransferdetails &&
+        sortleasetransferdetails[0] &&
+        sortleasetransferdetails[0].tenantName,
+      Dno: leaseTransferData.shopDoorNo,
+      transferShoopDoorNo: selectedDoorNumber,
+    };
+    const ActivityDetail = {
+      userId: user && user._id,
+      userName: user && user.username,
+      Menu: "Tenant",
+      Operation: "Lease Transfer",
+      Name: leaseTransferData.tenantName,
+      NameId: leaseTransferData._id,
+      OrganizationId: user.OrganizationId,
+      Dno: selectedDoorNumber,
+      expireAt: new Date().getTime() + 80,
+    };
+    AddUserActivity(ActivityDetail);
+    EditTenantLeaseTransferDetails(finalData);
+    ModalClose();
+    ParticularTenantFilter("");
+    setExistingTenantDoorno(false);
+    setShow(false);
+  };
+
+  const onBack = () => {
+    setShow(false);
+  };
+  const [leaseStartDate, setLeaseStartDate] = useState("");
+  const [leaseEndDate, setLeaseEndDate] = useState("");
+
+  // Function to format date
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  }
+
+  // Function to update lease start and end dates based on dropdown change
+  useEffect(() => {
+    if (tenantName) {
+      if (sortleasetransferdetails && sortleasetransferdetails.length > 0) {
+        const leaseStart = sortleasetransferdetails[0].tenantLeaseStartDate;
+        const leaseEnd = sortleasetransferdetails[0].tenantLeaseEndDate;
+        setLeaseStartDate(formatDate(leaseStart));
+        setLeaseEndDate(formatDate(leaseEnd));
+      }
+    } else {
+      setLeaseStartDate("");
+      setLeaseEndDate("");
+    }
+  }, [sortleasetransferdetails, tenantName]);
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -210,7 +280,7 @@ const TenantLeaseTransfer = ({
                   name="PropertyName"
                   options={propertyname}
                   value={PropertyName}
-                  onChange={(e) => onchangePrperty(e)}
+                  onChange={(e) => onchangeProperty(e)}
                 ></Select>
               </div>
               <div className="col-lg-6 col-sm-12 col-md-6">
@@ -237,19 +307,55 @@ const TenantLeaseTransfer = ({
                   sortleasetransferdetails[0].tenantName}{" "}
                 :
               </div>
-              <div className="col-lg-9">
-                {sortleasetransferdetails &&
-                  sortleasetransferdetails[0] &&
-                  sortleasetransferdetails[0].shopDoorNo.map((ele) => {
-                    return (
-                      <span
-                        className=" font-weight-bold"
-                        style={{ color: "#095a4a" }}
-                      >
-                        {ele.value}&nbsp;,
-                      </span>
-                    );
-                  })}
+              <div className="col-lg-3">
+                {tenantName ? (
+                  <>
+                    {" "}
+                    {sortleasetransferdetails &&
+                      sortleasetransferdetails[0] &&
+                      sortleasetransferdetails[0].shopDoorNo.map((ele) => {
+                        return (
+                          <span
+                            className=" font-weight-bold"
+                            style={{ color: "#095a4a" }}
+                          >
+                            {ele.value}&nbsp;,
+                          </span>
+                        );
+                      })}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </div>
+              <div className="col-lg-6 ">
+                <span
+                  className=" font-weight-bold"
+                  style={{ color: "#095a4a" }}
+                >
+                  Lease Start Date
+                </span>
+                &nbsp;
+                <span
+                  className=" font-weight-bold"
+                  style={{ color: "#095a4a" }}
+                >
+                  {leaseStartDate}
+                </span>
+                &nbsp;&nbsp;&nbsp;
+                <span
+                  className=" font-weight-bold"
+                  style={{ color: "#095a4a" }}
+                >
+                  Lease End Date
+                </span>
+                &nbsp;
+                <span
+                  className=" font-weight-bold"
+                  style={{ color: "#095a4a" }}
+                >
+                  {leaseEndDate}
+                </span>
               </div>
             </>
           ) : (
@@ -359,6 +465,62 @@ const TenantLeaseTransfer = ({
           </div>
         </div>
       </section>
+      <Modal
+        show={show}
+        backdrop="static"
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header className="confirmboxleasetransfer">
+          <div className="col-lg-10 col-sm-10 col-md-10 ">
+            <h3
+              style={{
+                color: "white",
+              }}
+              className=" text-center "
+            >
+              Confirmation
+            </h3>
+          </div>
+
+          <div className="col-lg-2  col-sm-12 col-md-12 ">
+            <button onClick={onBack} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px", marginLeft: "-15px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to transfer Lease to{" "}
+          <span className=" font-weight-bold" style={{ color: "#095a4a" }}>
+            {sortleasetransferdetails &&
+              sortleasetransferdetails[0] &&
+              sortleasetransferdetails[0].tenantName}
+          </span>{" "}
+          with Lease start Date
+          <span className=" font-weight-bold" style={{ color: "#095a4a" }}>
+            {leaseStartDate}
+          </span>{" "}
+          and Lease end Date
+          <span className=" font-weight-bold" style={{ color: "#095a4a" }}>
+            {leaseEndDate}
+          </span>{" "}
+          ?
+          <div className="float-right  text-right d-flex justify-content-end mt-4 pt-4">
+            <button className="rewbtn float-right " onClick={onBack}>
+              Cancel
+            </button>
+            &emsp;&nbsp;
+            <button className="rewbtn float-right " onClick={onTransfer}>
+              Confirm
+            </button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </Fragment>
   );
 };

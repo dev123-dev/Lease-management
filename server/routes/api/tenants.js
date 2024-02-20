@@ -801,7 +801,7 @@ router.post("/get-Property-tenant-details", async (req, res) => {
             $first: "$output.BuildingName",
           },
           shopAddress: { $first: "$shopAddress" },
-          //shopAddress: "$shopAddress",
+          // shopAddress: "$shopAddress",
           Location: {
             $first: "$output.Location",
           },
@@ -937,6 +937,57 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
     console.log(error.message);
   }
 });
+
+router.post("/get-tenant-sort-contact-report", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
+    req.body;
+
+  let query = { OrganizationId: userInfo.OrganizationId };
+  if (LocationName) {
+    query = {
+      ...query,
+      Location: LocationName,
+    };
+  } else if (DoorNumber) {
+    query = {
+      ...query,
+      shopDoorNo: { $elemMatch: { label: DoorNumber } },
+    };
+  } else if (propertyname) {
+    query = {
+      ...query,
+      BuildingName: propertyname,
+    };
+  } else if (tenantName) {
+    query = {
+      ...query,
+      _id: mongoose.Types.ObjectId(tenantName),
+    };
+  }
+
+  try {
+    const tenantdata = await TenantDetails.aggregate([
+      {
+        $lookup: {
+          from: "tenantagreementsettings",
+          localField: "_id",
+          foreignField: "tdId",
+          as: "output",
+        },
+      },
+      { $match: query },
+      { $unwind: "$output" },
+      { $sort: { tenantstatus: 1 } },
+    ]);
+    res.json(tenantdata);
+  } catch (err) {
+    console.error(err.message);
+
+    res.status(500).send("Internal Server Error.");
+  }
+});
+
 //for lease transfer dropdown
 router.post("/get-tenantLeaseTransfer-sort", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
@@ -1445,7 +1496,7 @@ router.post("/get-tenant-exp-report", auth, async (req, res) => {
     const tenantSettingsData = await OrganizationDetails.findOne({
       _id: mongoose.Types.ObjectId(orgId),
     });
-    // console.log("tenantSettingsData", tenantSettingsData);
+
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -1528,7 +1579,7 @@ router.post("/get-tenant-exp-report", auth, async (req, res) => {
         },
       },
     ]);
-    //console.log("tenantExpReport-xxxx", tenantExpReport);
+
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -2023,6 +2074,7 @@ router.post("/update-tenant-details", async (req, res) => {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     let data = req.body;
+
     // console.log(data.tenantLeaseEndDate);
     //  console.log("", todayDateymd);
     if (data.tenantLeaseEndDate < todayDateymd) {
@@ -2193,6 +2245,188 @@ router.post("/update-tenant-details", async (req, res) => {
   }
 });
 
+router.post("/activate-tenant-details", async (req, res) => {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1;
+  var yyyy = today.getFullYear();
+  if (dd < 10) dd = "0" + dd;
+  if (mm < 10) mm = "0" + mm;
+  var todayDateymd = yyyy + "-" + mm + "-" + dd;
+  try {
+    let data = req.body;
+
+    if (data.tenantLeaseEndDate < todayDateymd) {
+      const updatetenantdetails = await TenantDetails.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
+            OrganizationId: data.OrganizationId,
+            OrganizationName: data.OrganizationName,
+            tenantName: data.tenantName,
+            AgreementStatus: "Expired",
+            tenantFileNo: data.tenantFileNo,
+            tenantPhone: data.tenantPhone,
+            shopDoorNo: data.tenantDoorNo,
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantFirmName: data.tenantFirmName,
+            tenantAddr: data.tenantAddr,
+            tenantAdharNo: data.tenantAdharNo,
+            tenantPanNo: data.tenantPanNo,
+            tenantDepositAmt: data.tenantDepositAmt,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            generatordepoAmt: data.generatordepoAmt,
+            BuildingName: data.BuildingName,
+            BuildingId: data.BuildingId,
+            tenantTransId: data.tenantTransId,
+            tenantCardType: data.tenantCardType,
+            tenantstatus: "Active",
+            Location: data.Location,
+          },
+        }
+      );
+
+      data.tenantDoorNo.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then();
+      });
+
+      data.unseletedDoorno.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then();
+      });
+      res.json(updatetenantdetails);
+
+      await TenentAgreement.updateOne(
+        { tdId: data.recordId },
+        {
+          $set: {
+            AgreementStatus: "Expired",
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantstatus: "Active",
+          },
+        }
+      );
+    } else {
+      const updatetenantdetails = await TenantDetails.updateOne(
+        { _id: data.recordId },
+        {
+          $set: {
+            OrganizationId: data.OrganizationId,
+            OrganizationName: data.OrganizationName,
+            tenantName: data.tenantName,
+            AgreementStatus: "Active",
+            tenantFileNo: data.tenantFileNo,
+            tenantPhone: data.tenantPhone,
+            shopDoorNo: data.tenantDoorNo,
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantFirmName: data.tenantFirmName,
+            tenantAddr: data.tenantAddr,
+            tenantAdharNo: data.tenantAdharNo,
+            tenantPanNo: data.tenantPanNo,
+            tenantDepositAmt: data.tenantDepositAmt,
+            tenantPaymentMode: data.tenantPaymentMode,
+            tenantBankName: data.tenantBankName,
+            tenantchequeDate: data.tenantchequeDate,
+            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+            generatordepoAmt: data.generatordepoAmt,
+            BuildingName: data.BuildingName,
+            BuildingId: data.BuildingId,
+            Location: data.Location,
+            tenantTransId: data.tenantTransId,
+            tenantCardType: data.tenantCardType,
+            tenantstatus: "Active",
+          },
+        }
+      );
+
+      data.tenantDoorNo.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Acquired",
+              },
+            }
+          )
+          .then(data);
+      });
+
+      data.unseletedDoorno.map((eleDoor) => {
+        property
+          .updateOne(
+            {
+              OrganizationId: data.OrganizationId,
+              _id: data.BuildingId,
+              shopDoorNo: { $elemMatch: { doorNo: eleDoor.doorNo } },
+            },
+            {
+              $set: {
+                "shopDoorNo.$.status": "Avaiable",
+              },
+            }
+          )
+          .then(data);
+      });
+      res.json(updatetenantdetails);
+
+      await TenentAgreement.updateOne(
+        { tdId: data.recordId },
+        {
+          $set: {
+            AgreementStatus: "Active",
+            tenantRentAmount: data.tenantRentAmount,
+            tenantLeaseStartDate: data.tenantLeaseStartDate,
+            tenantLeaseEndDate: data.tenantLeaseEndDate,
+            tenantstatus: "Active",
+          },
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
+  }
+});
+
 router.post("/tenant-update-history", async (req, res) => {
   let data = req.body;
   try {
@@ -2264,60 +2498,67 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
     let data = req.body;
 
     if (data.Dno.length > 1) {
-      //pull
+      const isSameData = data.Dno.every((door) =>
+        data.transferShoopDoorNo.some(
+          (transferDoor) => transferDoor.label === door.label
+        )
+      );
+
+      // Pull from 'fromId'
       data.transferShoopDoorNo.map((ele) => {
+        // Pull from TenantDetails
         TenantDetails.updateOne(
-          {
-            _id: data.fromId,
-          },
-          {
-            $pull: {
-              shopDoorNo: { label: ele.label },
-            },
-          }
+          { _id: data.fromId },
+          { $pull: { shopDoorNo: { label: ele.label } } }
         ).then((data) => {});
-      });
-      data.transferShoopDoorNo.map((ele) => {
+
+        // Pull from TenentAgreement
         TenentAgreement.updateOne(
-          {
-            tdId: data.fromId,
-          },
-          {
-            $pull: {
-              tenantDoorNo: { label: ele.label },
-            },
-          }
+          { tdId: data.fromId },
+          { $pull: { tenantDoorNo: { label: ele.label } } }
         ).then((data) => {});
       });
 
-      //push
+      // Push to 'toId'
       data.transferShoopDoorNo.map((ele) => {
+        // Push to TenantDetails
         TenantDetails.updateOne(
-          {
-            _id: data.toId,
-          },
-
-          {
-            $push: {
-              shopDoorNo: data.transferShoopDoorNo,
-            },
-          }
+          { _id: data.toId },
+          { $push: { shopDoorNo: ele } }
         ).then((data) => {});
-      });
-      data.transferShoopDoorNo.map((ele) => {
+
+        // Push to TenentAgreement
         TenentAgreement.updateOne(
-          {
-            tdId: data.toId,
-          },
-          {
-            $push: {
-              tenantDoorNo: ele,
-            },
-          }
+          { tdId: data.toId },
+          { $push: { tenantDoorNo: ele } }
         ).then((data) => {
           console.log(data);
         });
       });
+      if (isSameData) {
+        TenantDetails.updateOne(
+          { _id: data.fromId },
+          {
+            $set: {
+              tenantstatus: "Deactive",
+              deactive_reason: "Lease transfer to " + data.toTenantName,
+            },
+          }
+        ).then((data1) => {
+          TenentAgreement.updateOne(
+            { tdId: data.fromId },
+            {
+              $set: {
+                tenantstatus: "Deactive",
+                //deactive_reason: "Lease transfer from " + data.fromTenantName,
+              },
+            }
+          ).then((data2) => {});
+        });
+      }
+      // if (isSameData) {
+      //  .then((data) => {});
+      // }
     } else if (data.Dno.length === 1) {
       //pull
       data.transferShoopDoorNo.map((ele) => {
@@ -2339,7 +2580,7 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
             {
               $set: {
                 tenantstatus: "Deactive",
-                deactive_reason: "lease transfer from " + data.fromTenantName,
+                deactive_reason: "lease transfer to " + data.toTenantName,
               },
             }
           ).then((setResult) => {});
@@ -2438,8 +2679,6 @@ router.post("/get-user-activity", async (req, res) => {
 //mis report for count
 router.post("/get-mis-report", async (req, res) => {
   let data = req.body;
-  console.log("datattaaa", data);
-
   let inputDate = new Date(data.selectedY);
   let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
   inputDate.setMonth(targetMonth);
@@ -2448,7 +2687,6 @@ router.post("/get-mis-report", async (req, res) => {
   inputDate.setDate(0);
 
   let resultDate = inputDate.toISOString().split("T")[0];
-  console.log("resultDate", resultDate);
 
   try {
     let renewedCount = await TenentAgreement.aggregate([
@@ -2485,7 +2723,7 @@ router.post("/get-mis-report", async (req, res) => {
             $lt: resultDate,
           },
           AgreementStatus: {
-            $in: ["Expired", "Active"],
+            $in: ["Expired", "Active", "Renewed"],
           },
         },
       },
@@ -2518,7 +2756,6 @@ router.post("/get-mis-amount-report", async (req, res) => {
   inputDate.setDate(0);
   let resultDate = inputDate.toISOString().split("T")[0];
   let lastDate = resultDate.toString();
-  console.log("lastDate amount", lastDate);
 
   try {
     let renewedAmount = await TenentAgreement.aggregate([
@@ -2560,7 +2797,7 @@ router.post("/get-mis-amount-report", async (req, res) => {
             $lt: lastDate,
           },
           AgreementStatus: {
-            $in: ["Active", "Expired"],
+            $in: ["Active", "Expired", "Renewed"],
           },
         },
       },
@@ -2599,7 +2836,7 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
   inputDate.setDate(0);
   let resultDate = inputDate.toISOString().split("T")[0];
   let lastDate = resultDate.toString();
-  console.log("lastDate", lastDate);
+
   // const specifiedYear = data.selectedY;
   // const startDate = new Date(`${specifiedYear}-01-01`);
   // const EndDate = new Date(`${specifiedYear}-12-31`);
@@ -2675,7 +2912,7 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
             $lt: lastDate,
           },
           AgreementStatus: {
-            $in: ["Active", "Expired"],
+            $in: ["Active", "Expired", "Renewed"],
           },
         },
       },

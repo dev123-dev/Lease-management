@@ -192,8 +192,8 @@ const EditTenantDetails = ({
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
     { value: "Card", label: "Card" },
-    { value: "Neft", label: "Neft" },
-    { value: "Upi", label: "Upi" },
+    { value: "NEFT", label: "NEFT" },
+    { value: "UPI", label: "UPI" },
   ];
   // for type of card
   const [selectedCard, setSelectedCard] = useState(
@@ -667,7 +667,7 @@ const EditTenantDetails = ({
       validationChequeMessage === "" &&
       validationBankMessage === "" &&
       validationAddressMessage === "" &&
-      validationTransIdMessage===""
+      validationTransIdMessage === ""
     ) {
       setNextButtonDisabled(false);
     } else {
@@ -682,7 +682,7 @@ const EditTenantDetails = ({
     validationChequeMessage,
     validationBankMessage,
     validationAddressMessage,
-    validationTransIdMessage
+    validationTransIdMessage,
   ]);
 
   //For setting mindate as todays date
@@ -1118,7 +1118,7 @@ const EditTenantDetails = ({
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
                 </div>
-              ) : paymentMode.value === "Neft" ? (
+              ) : paymentMode.value === "NEFT" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                     <label> Transcation Id:</label>
@@ -1152,7 +1152,7 @@ const EditTenantDetails = ({
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
                 </div>
-              ) : paymentMode.value === "Upi" ? (
+              ) : paymentMode.value === "UPI" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                     <label> Transaction Id:</label>

@@ -54,8 +54,8 @@ const AddTenantDetails = ({
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
     { value: "Card", label: "Card" },
-    { value: "Neft", label: "Neft" },
-    { value: "Upi", label: "Upi" },
+    { value: "NEFT", label: "NEFT" },
+    { value: "UPI", label: "UPI" },
   ];
 
   // for type of card
@@ -286,6 +286,7 @@ const AddTenantDetails = ({
     }
 
     const dateArr = inputDate.split(delimiter);
+
     const yearVal = dateArr[2] * 1;
     const monthVal = dateArr[1][0] === "0" ? dateArr[1][1] * 1 : dateArr[1] * 1;
     const dateVal = dateArr[0][0] === "0" ? dateArr[0][1] * 1 : dateArr[0] * 1;
@@ -305,6 +306,7 @@ const AddTenantDetails = ({
       const newYear = yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
+      console.log("expiryDate", expiryDate);
 
       const date = expiryDate.getDate();
       const month = expiryDate.getMonth() + 1;
@@ -334,6 +336,7 @@ const AddTenantDetails = ({
   const getLeaseExpiryDate = (year, month, dateVal) => {
     let isSame = false;
     let newDate = dateVal;
+    console.log("dateval", dateVal);
 
     isSame = checkSameDate(
       new Date(year, month - 1, dateVal),
@@ -1169,7 +1172,7 @@ const AddTenantDetails = ({
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
                 </div>
-              ) : paymentMode.value === "Neft" ? (
+              ) : paymentMode.value === "NEFT" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                     <label> Transaction Id*:</label>
@@ -1203,7 +1206,7 @@ const AddTenantDetails = ({
                     <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
                   </div>
                 </div>
-              ) : paymentMode.value === "Upi" ? (
+              ) : paymentMode.value === "UPI" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                     <label> Transaction Id*:</label>

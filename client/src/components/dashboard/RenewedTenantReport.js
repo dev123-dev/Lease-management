@@ -6,7 +6,8 @@ import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
-const ContactReport = ({
+import DatePicker from "react-datepicker";
+const RenewedTenantReport = ({
   auth: { user },
   tenants: { sortContactReport },
   ParticularTenantFilterContactReport,
@@ -25,7 +26,11 @@ const ContactReport = ({
   const indexOfFirstData = indexOfLastData - dataPerPage;
   const activeData =
     sortContactReport &&
-    sortContactReport.filter((ele) => ele.tenantstatus === "Active");
+    sortContactReport.filter(
+      (ele) =>
+        ele.tenantstatus === "Active" &&
+        ele.output.AgreementStatus === "Renewed"
+    );
 
   const currentDatas =
     activeData && activeData.slice(indexOfFirstData, indexOfLastData);
@@ -117,8 +122,11 @@ const ContactReport = ({
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
-              <h2 className="heading_color  headsize  ml-4">Contact Report</h2>
+              <h2 className="heading_color  headsize  ml-4">
+                Renewed Tenant Report
+              </h2>
             </div>
+
             <div className="col-lg-7 mt-5 text-right ">
               <Link to="/Report">
                 <img
@@ -193,6 +201,7 @@ const ContactReport = ({
                           <th style={showPrint}>Aadhaar no</th>
                           <th style={showPrint}>Firm Name</th>
                           <th style={showPrint}>Deposite Amount</th>
+                          <th style={showPrint}>leaseStartDate</th>
                           <th style={showPrint}>leaseEndDate</th>
                           <th style={showPrint}>AgreementStatus</th>
                         </tr>
@@ -207,6 +216,14 @@ const ContactReport = ({
                               ED && ED[2],
                               ED && ED[1],
                               ED && ED[0],
+                            ].join("-");
+                            var ED1 =
+                              Val.tenantLeaseStartDate &&
+                              Val.tenantLeaseStartDate.split(/\D/g);
+                            var tenantStart = [
+                              ED1 && ED1[2],
+                              ED1 && ED1[1],
+                              ED1 && ED1[0],
                             ].join("-");
 
                             return (
@@ -247,7 +264,7 @@ const ContactReport = ({
                                   <td>{Val.tenantAdharNo}</td>
                                   <td>{Val.tenantFirmName}</td>
                                   <td>{Val.tenantDepositAmt}</td>
-
+                                  <td>{tenantStart}</td>
                                   <td>{tenant}</td>
                                   <td>{Val.output.AgreementStatus}</td>
                                 </tr>
@@ -293,4 +310,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   ParticularTenantFilterContactReport,
-})(ContactReport);
+})(RenewedTenantReport);

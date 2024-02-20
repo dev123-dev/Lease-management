@@ -5,6 +5,7 @@ import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
 import door from "../../static/images/door.png";
+import { Modal } from "react-bootstrap";
 import {
   getParticularProperty,
   ParticularTenant,
@@ -23,10 +24,12 @@ const MainAdminPage = ({
   getAllSettings,
   ParticularTenant,
   get_particular_org_user,
+  year,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-  //console.log("myorg", myorg);
+  console.log("year", year);
+
   useEffect(() => {
     if (myuser) {
       fun();
@@ -42,16 +45,34 @@ const MainAdminPage = ({
     }
   }, []);
 
-  const TotalRenewalCount = get_particular_org_tenant &&
+  // const TotalRenewalCount =
+  //   get_particular_org_tenant &&
+  //   get_particular_org_tenant.filter((ele) => {
+  //     if (
+  //       ele.AgreementStatus === "Expired" &&
+  //       ele.tenantstatus !== "Deactive"
+  //     ) {
+  //       return ele;
+  //     }
+  //   });
+
+  const TotalRenewedCount =
+    get_particular_org_tenant &&
     get_particular_org_tenant.filter((ele) => {
       if (
-        ele.AgreementStatus === "Expired" &&
+        ele.AgreementStatus === "Renewed" &&
         ele.tenantstatus !== "Deactive"
       ) {
         return ele;
       }
-
     });
+  const [show, setShow] = useState(false);
+  const onClickUnocc = () => {
+    setShow(true);
+  };
+  const handleclose = () => {
+    setShow(false);
+  };
 
   const total = JSON.parse(localStorage.getItem("total"));
   let count = 0;
@@ -72,6 +93,13 @@ const MainAdminPage = ({
           }
         });
     });
+
+  // const mappedStatus = ShopStatus.map((item) => item.ele1.BuildingName);
+  const mappedStatus = ShopStatus.map((item) => ({
+    doorNo: item.ele1.doorNo,
+    status: item.ele1.status,
+    BuildingName: item.ele1.BuildingName,
+  }));
 
   const tenantCount = get_particular_org_tenant.filter((ele) => {
     if (ele.tenantstatus === "Active") {
@@ -119,7 +147,7 @@ const MainAdminPage = ({
                         // fontFamily: "Serif",
                         color: "black",
                       }}
-                    // className="h3"
+                      // className="h3"
                     >
                       <b className="h4">
                         Total properties<br></br>{" "}
@@ -163,7 +191,7 @@ const MainAdminPage = ({
           <div className="row">
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
             <div
-              className="col-lg-5  col-sm-12 col-md-12  ml-2  h2 text-center pt-5"
+              className="col-lg-5  col-sm-12 col-md-12  ml-2 card  h2 text-center pt-5"
               id="shadow-bck"
             >
               <div className="text-center">
@@ -171,6 +199,8 @@ const MainAdminPage = ({
                   className="img_icon_sizeDashboard  "
                   src={door}
                   alt="Unoccupied property"
+                  onClick={onClickUnocc}
+                  style={{ cursor: "pointer" }}
                 />
                 <p>
                   <center>
@@ -181,7 +211,7 @@ const MainAdminPage = ({
                       }}
                     >
                       <b className="h4">
-                        Unoccupied Properties <br></br>
+                        Unoccupied Shops <br></br>
                         {ShopStatus.length}
                       </b>
                     </p>
@@ -190,16 +220,19 @@ const MainAdminPage = ({
               </div>
             </div>
             <div
-              className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 text-center pt-5 ml-4 card2"
+              className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 card text-center pt-5 ml-4 card2"
               id="shadow-bck"
             >
               <div className="text-center ">
+                {/* <Link to="/renewed-report"> */}
                 <img
                   className="img_icon_sizeDashboard  "
                   src={money}
                   alt="Renewal"
+                  style={{ cursor: "pointer" }}
                 />
-                <p>
+                {/* </Link> */}
+                {/* <p>
                   <center>
                     <p
                       style={{
@@ -211,6 +244,22 @@ const MainAdminPage = ({
                       <b className="h4">
                         Renewable Properties <br></br>
                         {TotalRenewalCount && TotalRenewalCount.length}
+                      </b>
+                    </p>
+                  </center>
+                </p> */}
+                <p>
+                  <center>
+                    <p
+                      style={{
+                        // fontFamily: "Serif",
+                        color: "black",
+                      }}
+                    >
+                      {" "}
+                      <b className="h4">
+                        Renewed Properties <br></br>
+                        {TotalRenewedCount && TotalRenewedCount.length}
                       </b>
                     </p>
                   </center>
@@ -315,6 +364,74 @@ const MainAdminPage = ({
           {/* </div>  */}
         </section>
       </div>
+      <Modal
+        show={show}
+        backdrop="static"
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header className="confirmboxleasetransfer">
+          <div className="col-lg-10 col-sm-10 col-md-10 ">
+            <h3
+              style={{
+                color: "white",
+              }}
+              className=" text-center "
+            >
+              UnOccupied Shops
+            </h3>
+          </div>
+
+          <div className="col-lg-2  col-sm-12 col-md-12 ">
+            <button onClick={handleclose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px", marginLeft: "-15px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
+        <Modal.Body>
+          <table className="table table-bordered table-striped table-hover mt-1">
+            <thead>
+              <tr>
+                <th style={{ textAlign: "center" }}>Building Name</th>
+                <th style={{ textAlign: "center" }}>Door No</th>
+                <th style={{ textAlign: "center" }}>Status</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              {mappedStatus &&
+                mappedStatus
+                  .reduce((acc, currentValue) => {
+                    const existingBuilding = acc.find(
+                      (item) => item.BuildingName === currentValue.BuildingName
+                    );
+
+                    if (existingBuilding) {
+                      existingBuilding.doorNo += `, ${currentValue.doorNo}`;
+                    } else {
+                      acc.push({
+                        ...currentValue,
+                        doorNo: currentValue.doorNo.toString(),
+                      });
+                    }
+
+                    return acc;
+                  }, [])
+                  .map((Val, idx) => (
+                    <tr key={idx}>
+                      <td>{Val.BuildingName}</td>
+                      <td>{Val.doorNo}</td>
+                      <td>Available</td>
+                    </tr>
+                  ))}
+            </tbody>
+          </table>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };

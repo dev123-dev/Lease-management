@@ -50,8 +50,8 @@ const RenewTenentAgreement = ({
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
     { value: "Card", label: "Card" },
-    { value: "Neft", label: "Neft" },
-    { value: "Upi", label: "Upi" },
+    { value: "NEFT", label: "NEFT" },
+    { value: "UPI", label: "UPI" },
   ];
 
   // for type of card
@@ -158,12 +158,12 @@ const RenewTenentAgreement = ({
     });
 
     setPaymentMode(e);
-    if (e.value === "Upi") {
+    if (e.value === "UPI") {
       setValidationTransIdMessage("Please enter transaction");
       setValidationBankMessage("");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
-    } else if (e.value === "Neft") {
+    } else if (e.value === "NEFT") {
       setValidationBankMessage("please enter bank name");
       setValidationTransIdMessage("Please enter transaction");
       setValidationChequeMessage("");
@@ -756,7 +756,7 @@ const RenewTenentAgreement = ({
                 <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
               </div>
             </div>
-          ) : paymentMode.value === "Neft" ? (
+          ) : paymentMode.value === "NEFT" ? (
             <div className="row">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
                 <label> Transaction Id*:</label>
@@ -793,7 +793,7 @@ const RenewTenentAgreement = ({
                 <h6 style={{ color: "red" }}>{validationBankMessage}</h6>
               </div>
             </div>
-          ) : paymentMode.value === "Upi" ? (
+          ) : paymentMode.value === "UPI" ? (
             <div className="row">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
                 <label> Transaction Id*:</label>
