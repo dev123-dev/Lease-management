@@ -19,26 +19,23 @@ const RenewedTenantReport = ({
     ParticularTenantFilterContactReport();
   }, [freshpage]);
 
+  //year picker start
 
-//year picker start
+  const [selectedYear, setSelectedYear] = useState("2024");
+  const populateYears = (startYear, endYear) => {
+    const years = [];
+    for (let year = startYear; year <= endYear; year++) {
+      years.push(year);
+    }
+    return years;
+  };
+  const handleYearChange = (e) => {
+    setSelectedYear(e.target.value);
+  };
+  const years = populateYears(2000, new Date().getFullYear());
 
-const [selectedYear, setSelectedYear] = useState('2024');
-const populateYears = (startYear, endYear) => {
-  const years = [];
-  for (let year = startYear; year <= endYear; year++) {
-    years.push(year);
-  }
-  return years;
-};
-const handleYearChange = (e) => {
-  setSelectedYear(e.target.value);
-};
-const years = populateYears(2000, new Date().getFullYear());
+  //end
 
-//end
-
-
-console.log("sortContactReport",sortContactReport)
   //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(8);
@@ -50,13 +47,12 @@ console.log("sortContactReport",sortContactReport)
     sortContactReport.filter(
       (ele) =>
         ele.tenantstatus === "Active" &&
-        ele.output.AgreementStatus === "Renewed" 
+        ele.output.AgreementStatus === "Renewed" &&
         // (!ele.output.tenantRenewedDate || new Date(ele.output.tenantRenewedDate).getFullYear() === parseInt(selectedYear))
-         && new Date(ele.tenantLeaseStartDate).getFullYear() === parseInt(selectedYear)
+        new Date(ele.tenantLeaseStartDate).getFullYear() ===
+          parseInt(selectedYear)
     );
 
-
-    
   const currentDatas =
     activeData && activeData.slice(indexOfFirstData, indexOfLastData);
   const paginate = (nmbr) => {
@@ -80,13 +76,9 @@ console.log("sortContactReport",sortContactReport)
 
   sortContactReport &&
     sortContactReport.map((sortContactReport) => {
-
-
-
-
-
       var doorNo =
-        sortContactReport && sortContactReport.shopDoorNo &&
+        sortContactReport &&
+        sortContactReport.shopDoorNo &&
         sortContactReport.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
       var ED = sortContactReport.tenantLeaseEndDate.split(/\D/g);
       var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
@@ -95,22 +87,17 @@ console.log("sortContactReport",sortContactReport)
       var tenantLeaseStartDate = [ED1[2], ED1[1], ED1[0]].join("-");
       return csvContactReportData.push([
         sortContactReport.tenantName,
-        sortContactReport.BuildingName, 
+        sortContactReport.BuildingName,
         doorNo,
         sortContactReport.Location,
         sortContactReport.tenantRentAmount,
         sortContactReport.tenantPhone,
         sortContactReport.tenantFirmName,
-          ,
+        tenantLeaseStartDate,
         tenantLeaseEndDate,
         sortContactReport.output.AgreementStatus,
       ]);
     });
-
-
-
-
-
 
   //Print
   const [isPrinting, setIsPrinting] = useState(false);
@@ -158,20 +145,19 @@ console.log("sortContactReport",sortContactReport)
                 Renewed Tenant Report
               </h2>
             </div>
-<div className="col-lg-4 mt-3"> 
-<div>
-      <select value={selectedYear} onChange={handleYearChange}>
-        <option value="">Select Year</option>
-        {years && years.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
-      
-     
-    </div>
-</div>
+            <div className="col-lg-4 mt-3">
+              <div>
+                <select value={selectedYear} onChange={handleYearChange}>
+                  <option value="">Select Year</option>
+                  {years &&
+                    years.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
             <div className="col-lg-4 mt-5 text-right ">
               <Link to="/Report">
                 <img
@@ -246,7 +232,7 @@ console.log("sortContactReport",sortContactReport)
                           <th style={showPrint}>Aadhaar no</th> */}
                           <th style={showPrint}>Firm Name</th>
                           {/* <th style={showPrint}>Deposite Amount</th> */}
-                       
+
                           <th style={showPrint}>lease Start Date</th>
                           <th style={showPrint}>lease End Date</th>
                           <th style={showPrint}>Agreement Status</th>
@@ -271,7 +257,6 @@ console.log("sortContactReport",sortContactReport)
                               ED1 && ED1[1],
                               ED1 && ED1[0],
                             ].join("-");
-                           
 
                             return (
                               <>
@@ -311,7 +296,7 @@ console.log("sortContactReport",sortContactReport)
                                   <td>{Val.tenantAdharNo}</td> */}
                                   <td>{Val.tenantFirmName}</td>
                                   {/* <td>{Val.tenantDepositAmt}</td> */}
-                              
+
                                   <td>{tenantStart}</td>
                                   <td>{tenant}</td>
                                   <td>{Val.output.AgreementStatus}</td>

@@ -259,6 +259,8 @@ const RenewTenentAgreement = ({
         tenantchequeDate: startSelectedDate ? startSelectedDate : "",
         tenantTransId: transId ? transId : "",
         tenantCardType: paymentMode.value === "Card" ? selectedCard : "",
+        stampDuty: tenantsData.stampDuty,
+        oldRentAmount: tenantsData.tenantRentAmount,
       };
 
       const ActivityDetail = {

@@ -1962,6 +1962,8 @@ router.post("/renew-tenant-details", async (req, res) => {
         tenantchequeDate: data.tenantchequeDate,
         tenantTransId: data.tenantTransId,
         tenantCardType: data.tenantCardType,
+        stampDuty: data.stampDuty,
+        oldRentAmount: data.oldRentAmount,
       };
       let aggdata = await new TenantAgreementHistory(
         TenantAgreementHistorydata
@@ -1993,6 +1995,7 @@ router.post("/renew-tenant-details", async (req, res) => {
             tenantLeaseStartDate: data.tenantLeaseStartDate,
             tenantLeaseEndDate: data.tenantLeaseEndDate,
             tenantRentAmount: data.tenantRentAmount,
+            tenantRenewedDate: data.tenantDate,
           },
         }
       );
@@ -2022,6 +2025,8 @@ router.post("/renew-tenant-details", async (req, res) => {
         tenantchequeDate: data.tenantchequeDate,
         tenantTransId: data.tenantTransId,
         tenantCardType: data.tenantCardType,
+        stampDuty: data.stampDuty,
+        oldRentAmount: data.oldRentAmount,
       };
       let aggdata = await new TenantAgreementHistory(
         TenantAgreementHistorydata
@@ -2053,6 +2058,7 @@ router.post("/renew-tenant-details", async (req, res) => {
             tenantLeaseStartDate: data.tenantLeaseStartDate,
             tenantLeaseEndDate: data.tenantLeaseEndDate,
             tenantRentAmount: data.tenantRentAmount,
+            tenantRenewedDate: data.tenantDate,
           },
         }
       );

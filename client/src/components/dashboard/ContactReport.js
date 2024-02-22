@@ -46,7 +46,7 @@ const ContactReport = ({
       "Phone No",
       "Pan No",
       "Aadhar No.",
-      "Tenant Status",
+      // "Tenant Status",
       "Agreement Status",
     ],
   ];
@@ -70,7 +70,7 @@ const ContactReport = ({
         sortContactReport.tenantPhone,
         sortContactReport.tenantPanNo,
         sortContactReport.tenantAdharNo,
-        sortContactReport.tenantstatus,
+        // sortContactReport.tenantstatus,
         sortContactReport.output.AgreementStatus,
       ]);
     });

@@ -114,6 +114,12 @@ const TenantAgreementHistory = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
+  oldRentAmount: {
+    type: Number,
+  },
+  stampDuty: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model(

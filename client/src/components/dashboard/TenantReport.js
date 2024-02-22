@@ -648,6 +648,7 @@ const TenantReport = ({
                 <RenewTenentAgreement
                   tenantsData={userData}
                   onReportModalChange={onReportModalChange}
+                  stampDuty={expReport}
                 />
               </Modal.Body>
             </Modal>

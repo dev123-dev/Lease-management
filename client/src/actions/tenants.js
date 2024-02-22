@@ -1066,8 +1066,10 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     tenantchequeDate: finalData.tenantchequeDate,
     tenantTransId: finalData.tenantTransId,
     tenantCardType: finalData.tenantCardType,
+    stampDuty: finalData.stampDuty,
+    oldRentAmount: finalData.oldRentAmount,
   };
-
+  
   try {
     await axios.post(
       `${linkPath}/api/tenants/renew-tenant-details`,

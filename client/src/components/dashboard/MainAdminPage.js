@@ -223,15 +223,15 @@ const MainAdminPage = ({
               className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 card text-center pt-5 ml-4 card2"
               id="shadow-bck"
             >
-              <div className="text-center ">
-                {/* <Link to="/renewed-report"> */}
-                <img
-                  className="img_icon_sizeDashboard  "
-                  src={money}
-                  alt="Renewal"
-                  style={{ cursor: "pointer" }}
-                />
-                {/* </Link> */}
+              <div className="text-center">
+                <Link to="/renewed-report">
+                  <img
+                    className="img_icon_sizeDashboard  "
+                    src={money}
+                    alt="Renewal"
+                    style={{ cursor: "pointer" }}
+                  />
+                </Link>
                 {/* <p>
                   <center>
                     <p
@@ -258,7 +258,7 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                        Renewed Properties <br></br>
+                        Total Renewed Properties <br></br>
                         {TotalRenewedCount && TotalRenewedCount.length}
                       </b>
                     </p>
