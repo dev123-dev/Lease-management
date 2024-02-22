@@ -128,6 +128,9 @@ const TenantAgreementDetails = new mongoose.Schema({
   tenantReceiptNo:{
     type:String,
   },
+  tenantRenewedDate:{
+    type:String,
+  }
 });
 
 module.exports = mongoose.model(
