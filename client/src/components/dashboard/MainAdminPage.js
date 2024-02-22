@@ -224,14 +224,14 @@ const MainAdminPage = ({
               id="shadow-bck"
             >
               <div className="text-center">
-                <Link to="/renewed-report">
-                  <img
-                    className="img_icon_sizeDashboard  "
-                    src={money}
-                    alt="Renewal"
-                    style={{ cursor: "pointer" }}
-                  />
-                </Link>
+                {/* <Link to="/renewed-report"> */}
+                <img
+                  className="img_icon_sizeDashboard  "
+                  src={money}
+                  alt="Renewal"
+                  style={{ cursor: "pointer" }}
+                />
+                {/* </Link> */}
                 {/* <p>
                   <center>
                     <p
