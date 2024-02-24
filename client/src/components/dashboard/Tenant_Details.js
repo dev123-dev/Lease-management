@@ -370,12 +370,14 @@ const Tenant_Details = ({
       "Building Name",
       "Location",
       "Door No.",
+      "File No",
       "Rent Amount",
+      "leaseStartDate",
       "leaseEndDate",
       "Firm Name",
       "Phone No",
-      "Pan No",
-      "Aadhar No.",
+      // "Pan No",
+      // "Aadhar No.",
       "Tenant Status",
     ],
   ];
@@ -384,17 +386,21 @@ const Tenant_Details = ({
     var doorNo = sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
     var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
     var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
+    var ED2 = sortetenantdetails.tenantLeaseStartDate.split(/\D/g);
+    var tenantLeaseStartDate = [ED2[2], ED2[1], ED2[0]].join("-");
     return csvTenantData.push([
       sortetenantdetails.tenantName,
       sortetenantdetails.BuildingName,
       sortetenantdetails.Location,
       doorNo,
+      sortetenantdetails.tenantFileNo,
       sortetenantdetails.tenantRentAmount,
+      tenantLeaseStartDate,
       tenantLeaseEndDate,
       sortetenantdetails.tenantFirmName,
       sortetenantdetails.tenantPhone,
-      sortetenantdetails.tenantPanNo,
-      sortetenantdetails.tenantAdharNo,
+      // sortetenantdetails.tenantPanNo,
+      // sortetenantdetails.tenantAdharNo,
       sortetenantdetails.tenantstatus,
     ]);
   });

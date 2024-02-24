@@ -31,7 +31,6 @@ const MainAdminPage = ({
 
   var yearcurrent = new Date(year).getFullYear();
 
-
   useEffect(() => {
     if (myuser) {
       fun();
@@ -47,6 +46,8 @@ const MainAdminPage = ({
     }
   }, []);
 
+  //Renewable Tenant Records
+
   // const TotalRenewalCount =
   //   get_particular_org_tenant &&
   //   get_particular_org_tenant.filter((ele) => {
@@ -58,6 +59,7 @@ const MainAdminPage = ({
   //     }
   //   });
 
+  //Renewed Tenant Records
   const TotalRenewedCount =
     get_particular_org_tenant &&
     get_particular_org_tenant.filter((ele) => {
@@ -71,6 +73,7 @@ const MainAdminPage = ({
       }
     });
 
+  //modal to display unoccupied shops
   const [show, setShow] = useState(false);
   const onClickUnocc = () => {
     setShow(true);
@@ -117,6 +120,9 @@ const MainAdminPage = ({
       particular_org_data.reduce((acu, cur) => acu + 1, 0);
     setPropertyCount(pCount);
   };
+  //Display current year
+  var currentYear = new Date().getFullYear();
+
   return !isAuthenticated || !user || loading ? (
     <></>
   ) : (
@@ -140,7 +146,7 @@ const MainAdminPage = ({
                 <Link to="/PropertyDetail">
                   {" "}
                   <img
-                    className="img_icon_sizeDashboard log "
+                    className="img_icon_sizeDashboard log"
                     src={prop}
                     alt="Property"
                   />
@@ -263,7 +269,7 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                        Total Renewed Properties <br></br>
+                        Total Renewed Properties({currentYear} )<br></br>
                         {TotalRenewedCount && TotalRenewedCount.length}
                       </b>
                     </p>

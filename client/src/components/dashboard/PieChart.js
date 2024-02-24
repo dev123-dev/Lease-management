@@ -52,7 +52,8 @@ export default function PieChart({ series, labels, colors, title }) {
             return [
               seriesName,
               " - ",
-              Number(opts.w.globals.series[opts.seriesIndex]).toFixed(2),
+              // Number(opts.w.globals.series[opts.seriesIndex]).toFixed(2),
+              opts.w.globals.series[opts.seriesIndex],
             ];
           },
         },

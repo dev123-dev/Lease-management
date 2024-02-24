@@ -72,8 +72,8 @@ const RenewedTenantReport = ({
     ],
   ];
 
-  sortContactReport &&
-    sortContactReport.map((sortContactReport) => {
+  activeData &&
+    activeData.map((sortContactReport) => {
       var doorNo =
         sortContactReport &&
         sortContactReport.shopDoorNo &&
