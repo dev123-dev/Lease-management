@@ -283,7 +283,7 @@ const TenantReport = ({
   // const nextTenantReceiptNo = tenantReceiptNo1.replace(/\d+/g, '') + nextNumericValue;
 
   //increment receipt number
-  const tenantReceiptNo1 = tenantreceiptno.toString();
+  const tenantReceiptNo1 = tenantreceiptno && tenantreceiptno.toString();
   const numericPart = tenantReceiptNo1.replace(/^\D+/g, "");
   const nextNumericValue = (parseInt(numericPart, 10) + 1)
     .toString()
@@ -305,7 +305,9 @@ const TenantReport = ({
       tenantGrandTotal: tenantGrandTotal,
       tenantReceiptNotes: tenantReceiptNotes,
       tenantReceiptNo:
-        tenantreceiptno.length === 0 ? "0001" : nextTenantReceiptNo,
+        tenantreceiptno && tenantreceiptno.length === 0
+          ? "0001"
+          : nextTenantReceiptNo,
       // tenantReceiptNo:tenantreceiptno.length===0?"MOS0001" :nextTenantReceiptNo,
       tenantReceiptDateTime: today,
       tenantPaymentMode: viewdata && viewdata.tenantPaymentMode,
@@ -325,6 +327,12 @@ const TenantReport = ({
     AddTenantReceiptDetails(finalData);
     AddUserActivity(ActivityDetail);
   };
+
+  var ED =
+    viewdata &&
+    viewdata.tenantchequeDate &&
+    viewdata.tenantchequeDate.split(/\D/g);
+  var chequeDate = [ED && ED[2], ED && ED[1], ED && ED[0]].join("-");
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -572,7 +580,7 @@ const TenantReport = ({
                                             //  onClick={() => refresh()}
                                             src={require("../../static/images/print.png")}
                                             alt="Print"
-                                            title="Print"
+                                            title="Generate Receipt"
                                           />
                                         </button>
                                       </td>
@@ -751,9 +759,10 @@ const TenantReport = ({
                     }}
                   >
                     <img
-                      src={require("../../static/images/closeHerb.png")}
+                      src={require("../../static/images/closemodal.png")}
                       width="20px"
                       Height="20px"
+                      title="Close"
                     />
                   </button>
                 </div>
@@ -850,7 +859,7 @@ const TenantReport = ({
                       <td></td>
                       <td>Receipt No</td>
                       <td>
-                        {tenantreceiptno.length === 0
+                        {tenantreceiptno && tenantreceiptno.length === 0
                           ? "0001"
                           : nextTenantReceiptNo}
                       </td>
@@ -1056,7 +1065,11 @@ const TenantReport = ({
                       ) : viewdata.tenantPaymentMode === "Cheque" ? (
                         <>
                           <td>Cheque</td>
-                          <td></td>
+                          <td>
+                            Bank
+                            <br />
+                            {viewdata.tenantBankName}
+                          </td>
                           <td>
                             ChequeNo.
                             <br />
@@ -1065,7 +1078,7 @@ const TenantReport = ({
                           <td>
                             Date
                             <br />
-                            {viewdata.tenantchequeDate}
+                            {chequeDate}
                           </td>
                         </>
                       ) : viewdata.tenantPaymentMode === "NEFT" ? (

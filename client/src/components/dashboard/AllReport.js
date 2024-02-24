@@ -9,6 +9,7 @@ import locreport from "../../static/images/locrep.png";
 import propreport from "../../static/images/propreport.png";
 import Contactreport from "../../static/images/contactreport.png";
 import MISReport from "../../static/images/MIS_report.png";
+import renewable from "../../static/images/renewable.png";
 
 import renewedTenant from "../../static/images/renewedTenant.png";
 // import { Roller } from "react-awesome-spinners";
@@ -256,7 +257,7 @@ const AllReport = ({
                     </p>
                   </div>
                 </div>
-                {/* <div
+                <div
                   className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
                   id="shadow-bck"
                 >
@@ -278,6 +279,35 @@ const AllReport = ({
                         >
                           <b className="h4">
                             Renewed Property<br></br> {""}
+                          </b>
+                        </p>
+                      </center>
+                    </p>
+                  </div>
+                </div>
+
+                {/* <div
+                  className="col-lg-3  col-sm-12 col-md-12  ml-2 card h2 text-center pt-5  "
+                  id="shadow-bck"
+                >
+                  <div className="text-center">
+                    <Link to="/renewable-report">
+                      {" "}
+                      <img
+                        className="img_icon_repDashboard log "
+                        src={renewable}
+                        alt="IMG1"
+                      />
+                    </Link>
+                    <p>
+                      <center>
+                        <p
+                          style={{
+                            color: "black",
+                          }}
+                        >
+                          <b className="h4">
+                            Renewable Property<br></br> {""}
                           </b>
                         </p>
                       </center>

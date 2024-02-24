@@ -315,10 +315,7 @@ const TenantLeaseTransfer = ({
                       sortleasetransferdetails[0] &&
                       sortleasetransferdetails[0].shopDoorNo.map((ele) => {
                         return (
-                          <span
-                            className=" font-weight-bold"
-                            style={{ color: "#095a4a" }}
-                          >
+                          <span style={{ color: "#095a4a" }}>
                             {ele.value}&nbsp;,
                           </span>
                         );
@@ -333,29 +330,19 @@ const TenantLeaseTransfer = ({
                   className=" font-weight-bold"
                   style={{ color: "#095a4a" }}
                 >
-                  Lease Start Date
+                  Lease Start Date :
                 </span>
                 &nbsp;
-                <span
-                  className=" font-weight-bold"
-                  style={{ color: "#095a4a" }}
-                >
-                  {leaseStartDate}
-                </span>
+                <span style={{ color: "#095a4a" }}>{leaseStartDate}</span>
                 &nbsp;&nbsp;&nbsp;
                 <span
                   className=" font-weight-bold"
                   style={{ color: "#095a4a" }}
                 >
-                  Lease End Date
+                  Lease End Date :
                 </span>
                 &nbsp;
-                <span
-                  className=" font-weight-bold"
-                  style={{ color: "#095a4a" }}
-                >
-                  {leaseEndDate}
-                </span>
+                <span style={{ color: "#095a4a" }}>{leaseEndDate}</span>
               </div>
             </>
           ) : (
@@ -501,11 +488,11 @@ const TenantLeaseTransfer = ({
               sortleasetransferdetails[0] &&
               sortleasetransferdetails[0].tenantName}
           </span>{" "}
-          with Lease start Date
+          with Lease start Date :
           <span className=" font-weight-bold" style={{ color: "#095a4a" }}>
             {leaseStartDate}
           </span>{" "}
-          and Lease end Date
+          and Lease end Date :
           <span className=" font-weight-bold" style={{ color: "#095a4a" }}>
             {leaseEndDate}
           </span>{" "}

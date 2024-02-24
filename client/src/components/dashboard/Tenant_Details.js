@@ -692,6 +692,7 @@ const Tenant_Details = ({
                                         <td>
                                           <button
                                             className="activebtn"
+                                            title="Activate Tenant"
                                             // style={{
                                             //   backgroundColor: "#095a4a",
                                             //   color: "white",

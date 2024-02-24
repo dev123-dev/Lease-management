@@ -1520,6 +1520,15 @@ router.post("/get-tenant-exp-report", auth, async (req, res) => {
           agreementId: "$output._id",
           tenantDoorNo: "$shopDoorNo",
           tenantFileNo: "$output.tenantFileNo",
+          tenantPaymentMode: "$tenantPaymentMode",
+          tenantTransId: "$tenantTransId",
+          tenantCardType: "$tenantCardType",
+          tenantBankName: "$tenantBankName",
+          tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+          tenantchequeDate: "$tenantchequeDate",
+          tenantAddr: "$tenantAddr",
+          tenantPhone: "$tenantPhone",
+          tenantFirmName: "$tenantFirmName",
           Location: "$Location",
           chargesCal: {
             $add: [
@@ -2729,7 +2738,7 @@ router.post("/get-mis-report", async (req, res) => {
             $lt: resultDate,
           },
           AgreementStatus: {
-            $in: ["Expired", "Active", "Renewed"],
+            $in: ["Expired"],
           },
         },
       },
@@ -2803,7 +2812,7 @@ router.post("/get-mis-amount-report", async (req, res) => {
             $lt: lastDate,
           },
           AgreementStatus: {
-            $in: ["Active", "Expired", "Renewed"],
+            $in: ["Expired"],
           },
         },
       },
@@ -2918,7 +2927,7 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
             $lt: lastDate,
           },
           AgreementStatus: {
-            $in: ["Active", "Expired", "Renewed"],
+            $in: ["Expired"],
           },
         },
       },

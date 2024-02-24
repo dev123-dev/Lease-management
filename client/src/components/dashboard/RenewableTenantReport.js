@@ -6,7 +6,7 @@ import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
 
-const RenewedTenantReport = ({
+const RenewableTenantReport = ({
   auth: { user },
   tenants: { sortContactReport },
   ParticularTenantFilterContactReport,
@@ -30,7 +30,7 @@ const RenewedTenantReport = ({
   const handleYearChange = (e) => {
     setSelectedYear(e.target.value);
   };
-  const years = populateYears(2012, new Date().getFullYear());
+  const years = populateYears(2000, new Date().getFullYear());
 
   //end
 
@@ -45,9 +45,10 @@ const RenewedTenantReport = ({
     sortContactReport.filter(
       (ele) =>
         ele.tenantstatus === "Active" &&
-        ele.output.AgreementStatus === "Renewed" &&
+        ele.output.AgreementStatus === "Expired" &&
+        "Active" &&
         // (!ele.output.tenantRenewedDate || new Date(ele.output.tenantRenewedDate).getFullYear() === parseInt(selectedYear))
-        new Date(ele.tenantLeaseStartDate).getFullYear() ===
+        new Date(ele.tenantLeaseEndDate).getFullYear() ===
           parseInt(selectedYear)
     );
 
@@ -140,7 +141,7 @@ const RenewedTenantReport = ({
           <div className="row mt-5  ">
             <div className="col-lg-4 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                Renewed Tenant Report
+                Renewable Tenant Report
               </h2>
             </div>
             <div className=" row col-lg-4 mt-3">
@@ -342,4 +343,4 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   ParticularTenantFilterContactReport,
-})(RenewedTenantReport);
+})(RenewableTenantReport);

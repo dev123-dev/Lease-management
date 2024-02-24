@@ -28,7 +28,9 @@ const MainAdminPage = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-  console.log("year", year);
+
+  var yearcurrent = new Date(year).getFullYear();
+
 
   useEffect(() => {
     if (myuser) {
@@ -61,11 +63,14 @@ const MainAdminPage = ({
     get_particular_org_tenant.filter((ele) => {
       if (
         ele.AgreementStatus === "Renewed" &&
-        ele.tenantstatus !== "Deactive"
+        ele.tenantstatus !== "Deactive" &&
+        new Date(ele.tenantLeaseStartDate).getFullYear() ===
+          parseInt(new Date().getFullYear())
       ) {
         return ele;
       }
     });
+
   const [show, setShow] = useState(false);
   const onClickUnocc = () => {
     setShow(true);
@@ -224,14 +229,14 @@ const MainAdminPage = ({
               id="shadow-bck"
             >
               <div className="text-center">
-                {/* <Link to="/renewed-report"> */}
-                <img
-                  className="img_icon_sizeDashboard  "
-                  src={money}
-                  alt="Renewal"
-                  style={{ cursor: "pointer" }}
-                />
-                {/* </Link> */}
+                <Link to="/renewed-report">
+                  <img
+                    className="img_icon_sizeDashboard  "
+                    src={money}
+                    alt="Renewal"
+                    style={{ cursor: "pointer" }}
+                  />
+                </Link>
                 {/* <p>
                   <center>
                     <p

@@ -49,7 +49,11 @@ export default function PieChart({ series, labels, colors, title }) {
             offsetY: 2,
           },
           formatter: (seriesName, opts) => {
-            return [seriesName, " - ", opts.w.globals.series[opts.seriesIndex]];
+            return [
+              seriesName,
+              " - ",
+              Number(opts.w.globals.series[opts.seriesIndex]).toFixed(2),
+            ];
           },
         },
       }}
