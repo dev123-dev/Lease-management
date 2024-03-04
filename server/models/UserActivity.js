@@ -33,6 +33,9 @@ const UserActivity = new mongoose.Schema({
   expireAt: {
     type: Date,
   },
+  Remarks: {
+    type: String,
+  },
 });
 UserActivity.index({ expireAt: 1 }, { expireAfterSeconds: 2592000 }); //30 days
 module.exports = mongoose.model("UserActivity", UserActivity);

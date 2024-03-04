@@ -36,7 +36,7 @@ const RenewedTenantReport = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(10);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -132,6 +132,9 @@ const RenewedTenantReport = ({
       }, 200);
     },
   });
+  const refresh = () => {
+    setSelectedYear(new Date().getFullYear());
+  };
 
   return (
     <>
@@ -158,7 +161,7 @@ const RenewedTenantReport = ({
               </div>
             </div>
             <div className="col-lg-4 mt-5 text-right ">
-              <Link to="/Report">
+              <Link to="/MainAdmin">
                 <img
                   height={28}
                   src={require("../../static/images/back.png")}
@@ -199,6 +202,15 @@ const RenewedTenantReport = ({
                   title="Print"
                 />
               </button>
+              <img
+                className="ml-1"
+                style={{ cursor: "pointer" }}
+                height="20px"
+                onClick={() => refresh()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="Refresh"
+              />
             </div>
           </div>
 

@@ -41,7 +41,17 @@ const ActivateTenantModal = ({
       userId: myuser && myuser._id,
     });
   }, []);
-
+  const customStyles = {
+    multiValue: (styles) => ({
+      ...styles,
+      // backgroundColor: blue,
+      borderRadius: " 100px /90px",
+    }),
+    input: (baseStyles) => ({
+      ...baseStyles,
+      height: "20px",
+    }),
+  };
   const [buildingData, getbuildingData] = useState();
   const [buildingId, setBuildingID] = useState();
   const [BuildingName, setBuildingName] = useState();
@@ -86,6 +96,8 @@ const ActivateTenantModal = ({
     PaymentErrorStyle: {},
     cardChecker: false,
     cardErrorStyle: {},
+    DoorChecker: false,
+    DoorErrorStyle: {},
   });
   const {
     PropertyChecker,
@@ -94,6 +106,8 @@ const ActivateTenantModal = ({
     PaymentErrorStyle,
     cardChecker,
     cardErrorStyle,
+    DoorErrorStyle,
+    DoorChecker,
   } = errors;
   const checkError = () => {
     if (!PaymentChecker) {
@@ -114,6 +128,13 @@ const ActivateTenantModal = ({
       setErrors({
         ...errors,
         cardErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!DoorChecker) {
+      setErrors({
+        ...errors,
+        DoorErrorStyle: { color: "#F00" },
       });
       return false;
     }
@@ -557,7 +578,7 @@ const ActivateTenantModal = ({
   let content;
   let className;
   if (output === "R") {
-    content = "* Required Field";
+    content = "*Update Date Field";
     className = "required";
   } else if (output === "I") {
     content = "Invalid Date";
@@ -635,6 +656,7 @@ const ActivateTenantModal = ({
   const onUpdate = (e) => {
     e.preventDefault();
     if (output !== "V") return;
+
     if (checkError()) {
       const finalData = {
         recordId: tenantId,
@@ -702,9 +724,19 @@ const ActivateTenantModal = ({
       ...formData,
       [inputuserdata.name]: 1,
     });
+    setErrors({
+      ...errors,
+      DoorChecker: true,
+      DoorErrorStyle: { color: "#000" },
+    });
   };
 
   const onRemoveChange = (Doornumber) => {
+    setErrors({
+      ...errors,
+      DoorChecker: false,
+      DoorErrorStyle: { color: "#F00" },
+    });
     let temparray2 = [];
     temparray2.push(...DnoList, Doornumber);
 
@@ -754,6 +786,13 @@ const ActivateTenantModal = ({
                 className="py-0"
                 name="Property name"
                 options={allBuildingNames}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    height: "35px",
+                  }),
+                  // Add other custom styles as needed
+                }}
                 value={buildingData}
                 onChange={(e) => onBuildingChange(e)}
                 theme={(theme) => ({
@@ -954,6 +993,10 @@ const ActivateTenantModal = ({
                 options={PaymentMethods}
                 isSearchable={false}
                 value={tenantPaymentMode}
+                styles={{
+                  control: (provided) => ({ ...provided, height: "35px" }),
+                  // Add other custom styles as needed
+                }}
                 placeholder="Select..."
                 onChange={(e) => onPaymentModeChange(e)}
                 theme={(theme) => ({
@@ -1162,7 +1205,7 @@ const ActivateTenantModal = ({
                 name="tenantAddr"
                 value={tenantAddr}
                 className=" form-control"
-                rows="3"
+                rows="2"
                 placeholder="Address"
                 onChange={(e) => handleAddressChange(e)}
                 required
@@ -1173,8 +1216,12 @@ const ActivateTenantModal = ({
             <div className="row ml-1 ">
               <div className="col-lg-6 col-md-12 col-sm-12">
                 {" "}
-                <span className="h4" style={{ color: "#095a4a" }}>
-                  Door Number :
+                <span
+                  className="h4"
+                  // style={{ color: "#095a4a" }}
+                  style={DoorErrorStyle}
+                >
+                  Door Number* :
                 </span>
               </div>
               {/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ color: "#095a4a" }}>Occupied Door Number : </span></div> */}
@@ -1301,7 +1348,7 @@ const ActivateTenantModal = ({
                       disabled={true}
                       // disabled={isNextButtonDisabled}
                     >
-                      Activate
+                      Activateee
                     </button>
                   ) : (
                     <button

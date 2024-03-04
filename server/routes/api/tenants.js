@@ -902,8 +902,14 @@ router.post("/get-particular-Tenant", async (req, res) => {
 
 router.post("/get-tenant-sort", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
-  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
-    req.body;
+  let {
+    OrganizationId,
+    LocationName,
+    DoorNumber,
+    propertyname,
+    tenantName,
+    tenantStatus,
+  } = req.body;
 
   let query = { OrganizationId: userInfo.OrganizationId };
   if (LocationName) {
@@ -925,6 +931,11 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
     query = {
       ...query,
       _id: mongoose.Types.ObjectId(tenantName),
+    };
+  } else if (tenantStatus) {
+    query = {
+      ...query,
+      tenantstatus: tenantStatus,
     };
   }
 
@@ -2463,9 +2474,11 @@ router.post("/get-tenant-receiptnumber", async (req, res) => {
       OrganizationId: data.OrganizationId,
       tenantReceiptNo: { $ne: "" },
     })
-      // .sort({ tenantReceiptNo: -1 }).limit(1).collation({ locale: "en_US", numericOrdering: true });
       .sort({ tenantReceiptNo: -1 })
-      .limit(1);
+      .limit(1)
+      .collation({ locale: "en_US", numericOrdering: true });
+    // .sort({ tenantReceiptNo: -1 })
+    // .limit(1);
     // to store alphanumberic
 
     res.json(tenanatReceiptNoData.tenantReceiptNo);

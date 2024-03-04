@@ -23,7 +23,7 @@ const UserActivityDetails = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(10);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -97,6 +97,7 @@ const UserActivityDetails = ({
                           <th>Operation</th>
                           <th>Entered Date </th>
                           <th> Time</th>
+                          <th> Remarks</th>
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -125,6 +126,18 @@ const UserActivityDetails = ({
                                 <td>{Val.Operation}</td>
                                 <td>{date}</td>
                                 <td>{formattedTime}</td>
+                                {Val.Operation === "Lease Transfer" &&
+                                Val.Remarks ? (
+                                  <td>
+                                    Transferred Lease{" "}
+                                    {Val.Dno.map((ele) => ele.label)} to{" "}
+                                    {Val.Remarks}
+                                  </td>
+                                ) : (
+                                  <>
+                                    <td></td>
+                                  </>
+                                )}
                               </tr>
                             );
                           })}

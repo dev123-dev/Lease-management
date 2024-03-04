@@ -199,20 +199,23 @@ const MainAdminPage = ({
             </div>
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
           </div>
+
           <div className="row">
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
             <div
-              className="col-lg-5  col-sm-12 col-md-12  ml-2 card  h2 text-center pt-5"
+              className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5 log"
               id="shadow-bck"
             >
               <div className="text-center">
-                <img
-                  className="img_icon_sizeDashboard  "
-                  src={door}
-                  alt="Unoccupied property"
-                  onClick={onClickUnocc}
-                  style={{ cursor: "pointer" }}
-                />
+                <Link to="/unoccupied-units">
+                  <img
+                    className="img_icon_sizeDashboard  "
+                    src={door}
+                    alt="Unoccupied property"
+                    // onClick={onClickUnocc}
+                    style={{ cursor: "pointer" }}
+                  />
+                </Link>
                 <p>
                   <center>
                     <p
@@ -222,7 +225,7 @@ const MainAdminPage = ({
                       }}
                     >
                       <b className="h4">
-                        Unoccupied Shops <br></br>
+                        Unoccupied Units <br></br>
                         {ShopStatus.length}
                       </b>
                     </p>
@@ -231,7 +234,7 @@ const MainAdminPage = ({
               </div>
             </div>
             <div
-              className="col-lg-5  col-sm-12 col-md-12 ml-2 h2 card text-center pt-5 ml-4 card2"
+              className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5 log"
               id="shadow-bck"
             >
               <div className="text-center">
@@ -269,7 +272,7 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                        Total Renewed Properties({currentYear} )<br></br>
+                        Renewed Units({currentYear})<br></br>
                         {TotalRenewedCount && TotalRenewedCount.length}
                       </b>
                     </p>

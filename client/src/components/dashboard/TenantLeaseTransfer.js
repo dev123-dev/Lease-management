@@ -1,46 +1,36 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { RenewTenantDetailsform, getAllSettings } from "../../actions/tenants";
 import Select from "react-select";
 import { Modal } from "react-bootstrap";
 import {
   // ParticularTenant,
   getParticularOrg,
-  getParticularProperty,
+
   // getTenantDetails,
   AddUserActivity,
   ParticularTenantFilter,
   ParticularTenantLeaseTransferFilter,
-  deactiveTenantsDetails,
   EditTenantLeaseTransferDetails,
 } from "../../actions/tenants";
-import EditTenantDetails from "./EditTenantDetails";
+
 const TenantLeaseTransfer = ({
-  auth: { isAuthenticated, user, users, finalDataRep },
+  auth: { isAuthenticated, user, users },
   leaseTransferData,
   ModalClose,
-  tenants: { allTenantSetting, particular_org_data, sortleasetransferdetails },
+  sendDataToParent,
+  tenants: { particular_org_data, sortleasetransferdetails },
   ParticularTenantLeaseTransferFilter,
   ParticularTenantFilter,
   AddUserActivity,
-  getAllSettings,
+
   EditTenantLeaseTransferDetails,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const [freshpage, setFreshPage] = useState(true);
 
-  //   useEffect(() => {
-  //     getAllSettings({
-  //       OrganizationId: myuser && myuser.OrganizationId,
-  //       userId: myuser && myuser._id,
-  //     });
-  // })
   useEffect(() => {
-    // ParticularTenant();
     ParticularTenantLeaseTransferFilter();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    // getParticularProperty({ OrganizationId: user && user.OrganizationId });
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }, [freshpage]);
   //propertywise dropdown
   const [PropertyName, SetPropertyName] = useState("");
@@ -108,11 +98,6 @@ const TenantLeaseTransfer = ({
     setLeaseTrasferArr(
       leaseTranferArr.filter((x) => x.value !== inputuserdata.value)
     );
-
-    // setFormData({
-    //   ...formData,
-    //   [inputuserdata.name]: 1,
-    // });
   };
 
   //onremove button
@@ -124,10 +109,6 @@ const TenantLeaseTransfer = ({
     setSelectedDoorNumber(
       selectedDoorNumber.filter((x) => x.value !== Doornumber.value)
     );
-    // setFormData({
-    //   ...formData,
-    //   [Doornumber.name]: 0,
-    // });
   };
 
   //validation for select
@@ -150,40 +131,6 @@ const TenantLeaseTransfer = ({
   const [show, setShow] = useState(false);
 
   const onSubmit = () => {
-    // if (checkError() && selectedDoorNumber && selectedDoorNumber.length > 0) {
-    //   const finalData = {
-    //     OrganizationName: user.OrganizationName,
-    //     OrganizationId: user.OrganizationId,
-    //     fromId: leaseTransferData._id,
-    //     fromTenantName: leaseTransferData.tenantName,
-    //     toId:
-    //       sortleasetransferdetails &&
-    //       sortleasetransferdetails[0] &&
-    //       sortleasetransferdetails[0]._id,
-    //     toTenantName:
-    //       sortleasetransferdetails &&
-    //       sortleasetransferdetails[0] &&
-    //       sortleasetransferdetails[0].tenantName,
-    //     Dno: leaseTransferData.shopDoorNo,
-    //     transferShoopDoorNo: selectedDoorNumber,
-    //   };
-    //   const ActivityDetail = {
-    //     userId: user && user._id,
-    //     userName: user && user.username,
-    //     Menu: "Tenant",
-    //     Operation: "Lease Transfer",
-    //     Name: leaseTransferData.tenantName,
-    //     NameId: leaseTransferData._id,
-    //     OrganizationId: user.OrganizationId,
-    //     Dno: selectedDoorNumber,
-    //     expireAt: new Date().getTime() + 80,
-    //   };
-    //   AddUserActivity(ActivityDetail);
-    //   EditTenantLeaseTransferDetails(finalData);
-    //   ModalClose();
-    //   ParticularTenantFilter("");
-    //   setExistingTenantDoorno(false);
-    // }
     if (checkError() && selectedDoorNumber && selectedDoorNumber.length > 0) {
       setShow(true);
     }
@@ -215,6 +162,10 @@ const TenantLeaseTransfer = ({
       NameId: leaseTransferData._id,
       OrganizationId: user.OrganizationId,
       Dno: selectedDoorNumber,
+      Remarks:
+        sortleasetransferdetails &&
+        sortleasetransferdetails[0] &&
+        sortleasetransferdetails[0].tenantName,
       expireAt: new Date().getTime() + 80,
     };
     AddUserActivity(ActivityDetail);
@@ -223,11 +174,23 @@ const TenantLeaseTransfer = ({
     ParticularTenantFilter("");
     setExistingTenantDoorno(false);
     setShow(false);
+
+    sendDataBackToParent();
+  };
+  var transferredTo =
+    sortleasetransferdetails &&
+    sortleasetransferdetails[0] &&
+    sortleasetransferdetails[0].tenantName;
+  const sendDataBackToParent = () => {
+    const dataToSendBack = "true";
+    const trasferTo = transferredTo;
+    sendDataToParent(dataToSendBack, trasferTo);
   };
 
   const onBack = () => {
     setShow(false);
   };
+
   const [leaseStartDate, setLeaseStartDate] = useState("");
   const [leaseEndDate, setLeaseEndDate] = useState("");
 

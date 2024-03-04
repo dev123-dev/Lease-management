@@ -36,7 +36,7 @@ const RenewableTenantReport = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(10);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -133,6 +133,9 @@ const RenewableTenantReport = ({
       }, 200);
     },
   });
+  const refresh = () => {
+    setSelectedYear(new Date().getFullYear());
+  };
 
   return (
     <>
@@ -200,6 +203,15 @@ const RenewableTenantReport = ({
                   title="Print"
                 />
               </button>
+              <img
+                className="ml-1"
+                style={{ cursor: "pointer" }}
+                height="20px"
+                onClick={() => refresh()}
+                src={require("../../static/images/refresh-icon.png")}
+                alt="refresh"
+                title="Refresh"
+              />
             </div>
           </div>
 

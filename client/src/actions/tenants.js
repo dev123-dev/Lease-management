@@ -366,7 +366,6 @@ export const ParticularTenantFilterContactReport =
 
 export const ParticularTenantLeaseTransferFilter =
   (data) => async (dispatch) => {
-    console.log("actioonnn,", data);
     try {
       const res = await axios.post(
         `${linkPath}/api/tenants/get-tenantLeaseTransfer-sort`,
@@ -635,7 +634,6 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
 };
 
 export const ActivateTenantDetails = (finalData) => async (dispatch) => {
-  console.log("finalData", finalData);
   try {
     await axios.post(
       `${linkPath}/api/tenants/activate-tenant-details`,
@@ -1069,7 +1067,7 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
     stampDuty: finalData.stampDuty,
     oldRentAmount: finalData.oldRentAmount,
   };
-  
+
   try {
     await axios.post(
       `${linkPath}/api/tenants/renew-tenant-details`,

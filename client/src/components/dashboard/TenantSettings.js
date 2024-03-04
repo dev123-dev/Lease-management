@@ -427,6 +427,10 @@ const TenantSettings = ({
         </div> */}
         <div className="col-lg-12 col-sm-12 col-12 text-danger ">{Error}</div>
         <div className="col-lg-12 col-sm-12 col-12 ">
+          <label>
+            <span style={{ color: "#095a4a", fontWeight: "bold" }}> Note:</span>{" "}
+            Lease Time Period is used for Stamp Duty and hike calculation only
+          </label>
           {!myuser.OrganizationId ? (
             <button
               variant="success"

@@ -31,7 +31,6 @@ const TenantReport = ({
 
     localStorage.setItem("total", total);
   }, []);
-
   const componentRef = useRef();
   const myuser = JSON.parse(localStorage.getItem("user"));
   const [showEditModal, setShowEditModal] = useState(false);
@@ -277,19 +276,22 @@ const TenantReport = ({
   });
 
   // increment the receipt number  for string (ex :MOS0001)
-  // const tenantReceiptNo1 = tenantreceiptno.toString();
-  // const numericPart =  tenantReceiptNo1.replace(/^\D+/g, '');
-  // const nextNumericValue = (parseInt(numericPart, 10) + 1).toString().padStart(numericPart.length, '0');
-  // const nextTenantReceiptNo = tenantReceiptNo1.replace(/\d+/g, '') + nextNumericValue;
-
-  //increment receipt number
-  const tenantReceiptNo1 = tenantreceiptno && tenantreceiptno.toString();
+  const tenantReceiptNo1 = tenantreceiptno.toString();
   const numericPart = tenantReceiptNo1.replace(/^\D+/g, "");
   const nextNumericValue = (parseInt(numericPart, 10) + 1)
     .toString()
     .padStart(numericPart.length, "0");
   const nextTenantReceiptNo =
     tenantReceiptNo1.replace(/\d+/g, "") + nextNumericValue;
+
+  //increment receipt number
+  // const tenantReceiptNo1 = tenantreceiptno && tenantreceiptno.toString();
+  // const numericPart = tenantReceiptNo1.replace(/^\D+/g, "");
+  // const nextNumericValue = (parseInt(numericPart, 10) + 1)
+  //   .toString()
+  //   .padStart(numericPart.length, "0");
+  // const nextTenantReceiptNo =
+  //   tenantReceiptNo1.replace(/\d+/g, "") + nextNumericValue;
 
   const onPrint = () => {
     handleGenerateReceipt();
@@ -304,11 +306,12 @@ const TenantReport = ({
       tenantGst: tenantGst,
       tenantGrandTotal: tenantGrandTotal,
       tenantReceiptNotes: tenantReceiptNotes,
+      // tenantReceiptNo:
+      //   tenantreceiptno && tenantreceiptno.length === 0
+      //     ? "0001"
+      //     : nextTenantReceiptNo,
       tenantReceiptNo:
-        tenantreceiptno && tenantreceiptno.length === 0
-          ? "0001"
-          : nextTenantReceiptNo,
-      // tenantReceiptNo:tenantreceiptno.length===0?"MOS0001" :nextTenantReceiptNo,
+        tenantreceiptno.length === 0 ? "MOS0001" : nextTenantReceiptNo,
       tenantReceiptDateTime: today,
       tenantPaymentMode: viewdata && viewdata.tenantPaymentMode,
       tenantReceiptEnteredBy: user && user._id,
@@ -858,12 +861,16 @@ const TenantReport = ({
                       <td>{viewdata.tenantName}</td>
                       <td></td>
                       <td>Receipt No</td>
-                      <td>
+                      {/* <td>
                         {tenantreceiptno && tenantreceiptno.length === 0
                           ? "0001"
                           : nextTenantReceiptNo}
+                      </td> */}
+                      <td>
+                        {tenantreceiptno.length === 0
+                          ? "MOS0001"
+                          : nextTenantReceiptNo}
                       </td>
-                      {/* <td>{tenantreceiptno.length===0?"MOS0001" :nextTenantReceiptNo}</td> */}
                       <td></td>
                     </tr>
                     <tr>

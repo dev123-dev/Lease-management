@@ -2935,3 +2935,63 @@ i.smallsize::first-line {
   width: 80px;
   height: 35px;
 }
+
+.custom-modal-header {
+  background-color: #fff;
+}
+
+.close-button {
+  background-color: transparent;
+  border: none;
+  color: #000;
+  font-size: 25px;
+  height: 14px;
+  cursor: pointer;
+  padding: 0;
+  align-items: flex-end;
+  float: right;
+}
+
+.custom-modal-body {
+  padding: 20px;
+}
+
+.custom-modal-body h2 {
+  color: #095a4a;
+  margin-bottom: 10px;
+}
+
+.custom-modal-body p {
+  color: #333;
+  font-size: 18px;
+}
+
+@keyframes slideFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFadeOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+.slide-fade-in {
+  animation: slideFadeIn 0.5s ease-in-out;
+}
+
+.slide-fade-out {
+  animation: slideFadeOut 0.5s ease-in-out;
+}

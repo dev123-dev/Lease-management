@@ -70,6 +70,7 @@ const Tenant_Details = ({
   // }, []);
   const [doorNumber, SetDoorNumber] = useState("");
   const [tenantName, SetTenantName] = useState("");
+  const [tenantStatus, SetTenantStatus] = useState("");
   const [PropertyName, SetPropertyName] = useState("");
   const [sellocation, setselLoction] = useState(null);
   const [location, setlocation] = useState([]);
@@ -269,7 +270,7 @@ const Tenant_Details = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(10);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -290,6 +291,7 @@ const Tenant_Details = ({
     setselLoction(null);
     SetTenantName("");
     SetPropertyName("");
+    SetTenantStatus("");
   };
 
   const onchangeDoorNumberChange = (e) => {
@@ -302,6 +304,7 @@ const Tenant_Details = ({
     setselLoction(null);
     SetTenantName("");
     SetPropertyName("");
+    SetTenantStatus("");
   };
 
   //propertywise
@@ -316,6 +319,7 @@ const Tenant_Details = ({
     SetDoorNumber("");
     setselLoction("");
     SetTenantName("");
+    SetTenantStatus("");
   };
 
   //namewise
@@ -331,6 +335,21 @@ const Tenant_Details = ({
     SetPropertyName("");
     SetDoorNumber("");
     setselLoction("");
+    SetTenantStatus("");
+  };
+
+  const onchangeTenantStatus = (e) => {
+    SetTenantStatus(e);
+    ParticularTenantFilter({
+      // LocationName: sellocation,
+      // propertyname: PropertyName,
+      // DoorNumber: doorNumber,
+      tenantStatus: e.value,
+    });
+    SetPropertyName("");
+    SetDoorNumber("");
+    setselLoction("");
+    SetTenantName("");
   };
 
   //propertywise
@@ -364,6 +383,11 @@ const Tenant_Details = ({
         value: ele._id,
       });
     });
+
+  let Tenantstatus = [
+    { label: "Active", value: "Active" },
+    { label: "Deactive", value: "Deactive" },
+  ];
   const csvTenantData = [
     [
       "Tenant Name",
@@ -421,6 +445,27 @@ const Tenant_Details = ({
         fontWeight: "bold",
       }),
   });
+  const [showSuccess, setshowSuccess] = useState(false);
+  const onCloseSuccess = () => {
+    setshowSuccess(false);
+  };
+
+  const [transferredTo, setTransferredto] = useState("");
+  const handleDataFromLeaseTransfer = (data, data2) => {
+    if (data === "true") {
+      setshowSuccess(true);
+      setTransferredto(data2);
+    }
+  };
+  useEffect(() => {
+    var timer = setTimeout(() => {
+      setshowSuccess(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [handleDataFromLeaseTransfer]);
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -429,12 +474,9 @@ const Tenant_Details = ({
       <Fragment>
         <div className="col mt-sm-4 space ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-            <div className="row mt-5 ">
+            {/* <div className="row mt-5 ">
               <div className="col-lg-2  col-sm-12 col-md-12 mt-3">
-                <h2 className="heading_color  headsize  ml-4">
-                  {" "}
-                  Tenant Details
-                </h2>
+                <h2 className="heading_color headsize ml-4"> Tenant Details</h2>
               </div>
               <div
                 className="col-lg-2 col-sm-12 col-md-12"
@@ -512,8 +554,24 @@ const Tenant_Details = ({
                   onChange={(e) => onchangeTenantNames(e)}
                 ></Select>
               </div>
+              <div
+                className="col-lg-2 col-sm-12 col-md-12"
+                style={{
+                  position: "relative",
+                  top: "10px",
+                }}
+              >
+                <Select
+                  className="dropdown text-left mt-sm-3"
+                  placeholder="Status"
+                  name="tenantstatus"
+                  options={Tenantstatus}
+                  value={tenantStatus}
+                  onChange={(e) => onchangeTenantStatus(e)}
+                ></Select>
+              </div>
 
-              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-4 pt-3">
+              <div className="col-lg-1  col-sm-12 col-md-12 text-end mt-4 pt-3">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
@@ -560,6 +618,130 @@ const Tenant_Details = ({
 
                 <img
                   className="ml-2"
+                  style={{ cursor: "pointer" }}
+                  height="20px"
+                  onClick={() => refresh()}
+                  src={require("../../static/images/refresh-icon.png")}
+                  alt="refresh"
+                  title="Refresh"
+                />
+              </div>
+            </div> */}
+            {/* <div className="col-lg-2 col-md-2 col-sm-4 mt-5"> */}
+            <h2
+              className="heading_color headsize ml-4"
+              style={{ marginTop: "70px" }}
+            >
+              Tenant Details
+            </h2>
+            {/* </div> */}
+            <div className="row col-lg-12 ml-2">
+              <div className="col-lg-2 col-md-2 col-sm-4 ">
+                <Select
+                  className="dropdown text-left "
+                  placeholder="Location"
+                  name="location"
+                  options={location}
+                  value={sellocation}
+                  onChange={(e) => onchangeLocation(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                ></Select>
+              </div>
+              <div className="col-lg-2 col-md-2 col-sm-4">
+                <Select
+                  className="dropdown text-left "
+                  placeholder="Door No"
+                  name="doorNumber"
+                  options={Dno}
+                  value={doorNumber}
+                  onChange={(e) => onchangeDoorNumberChange(e)}
+                ></Select>
+              </div>
+              <div className="col-lg-2 col-md-2 col-sm-4 ">
+                <Select
+                  className="dropdown text-left "
+                  placeholder="Property"
+                  name="PropertyName"
+                  options={propertyname}
+                  value={PropertyName}
+                  onChange={(e) => onchangePrperty(e)}
+                ></Select>
+              </div>
+              <div className="col-lg-2 col-md-2 col-sm-4 ">
+                <Select
+                  className="dropdown text-left"
+                  placeholder="Name"
+                  name="tenantName"
+                  options={TenantNames}
+                  value={tenantName}
+                  onChange={(e) => onchangeTenantNames(e)}
+                ></Select>
+              </div>
+              <div className="col-lg-2 col-md-2 col-sm-4 ">
+                <Select
+                  className="dropdown text-left "
+                  placeholder="Status"
+                  name="tenantstatus"
+                  options={Tenantstatus}
+                  value={tenantStatus}
+                  onChange={(e) => onchangeTenantStatus(e)}
+                ></Select>
+              </div>
+              <div className="col-lg-2 col-md-1 col-sm-2 pt-2 text-right">
+                <Link to="/add-tenant-details">
+                  <img
+                    height="20px"
+                    src={require("../../static/images/add-icon.png")}
+                    alt="Add Tenant"
+                    title="Add Tenant"
+                  />
+                </Link>
+                {myuser.usergroup === "Admin" ? (
+                  <CSVLink data={csvTenantData}>
+                    <img
+                      className="img_icon_size log ml-2"
+                      src={require("../../static/images/excel_icon.png")}
+                      alt="Excel-Export"
+                      style={{ cursor: "pointer" }}
+                      height="20px"
+                      title="Excel-Export"
+                    />
+                  </CSVLink>
+                ) : (
+                  <></>
+                )}
+                <button
+                  style={{ border: "none" }}
+                  onClick={async () => {
+                    await setShowPrint({
+                      backgroundColor: "#095a4a",
+                      color: "black",
+                      fontWeight: "bold",
+                    });
+
+                    handlePrint();
+                  }}
+                >
+                  <img
+                    height="20px"
+                    src={require("../../static/images/print.png")}
+                    alt="Print"
+                    title="Print"
+                  />
+                </button>
+
+                <img
+                  className="mr-1"
                   style={{ cursor: "pointer" }}
                   height="20px"
                   onClick={() => refresh()}
@@ -978,6 +1160,7 @@ const Tenant_Details = ({
           <TenantLeaseTransfer
             leaseTransferData={userData}
             ModalClose={handleLeaseTranferModalClose}
+            sendDataToParent={handleDataFromLeaseTransfer}
           />
           {/* <RenewTenentAgreement
                   tenantsData={userData}
@@ -1022,6 +1205,48 @@ const Tenant_Details = ({
             ActivateTenant={activateData}
             ModalClose={handleActivateTenantModalClose}
           />
+        </Modal.Body>
+      </Modal>
+      {/* 
+      SUCCESS MODAL */}
+
+      {/* <Modal
+        show={showSuccess}
+        backdrop="static"
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        onHide={onCloseSuccess}
+      >
+        <Modal.Header
+          style={{ backgroundColor: "#28a745", color: "white" }}
+          closeButton
+        >
+          <Modal.Title>Success</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p
+            style={{ color: "#28a745", textAlign: "center", fontSize: "18px" }}
+          >
+            Transferred Successfully
+          </p>
+        </Modal.Body>
+      </Modal> */}
+      <Modal
+        show={showSuccess}
+        backdrop="static"
+        size="md" // Set size to small
+        aria-labelledby="contained-modal-title-vcenter"
+        onHide={onCloseSuccess}
+        className="slide-fade-in"
+      >
+        <div className="float-right mr-3">
+          <button className="close-button " onClick={onCloseSuccess}>
+            &times;
+          </button>
+        </div>
+        <Modal.Body>
+          <h2>Success</h2>
+          <p>Lease Transferred Successfully to {transferredTo}</p>
         </Modal.Body>
       </Modal>
     </>
