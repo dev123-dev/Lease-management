@@ -203,8 +203,6 @@ const EditAdminUser = ({
   //   }
   // }, [username, useremail, userphone]);
 
-  console.log(validationMessage, validationNameMessage, validationEmailMessage);
-
   useEffect(() => {
     if (
       validationNameMessage === "" &&

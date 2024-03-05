@@ -19,7 +19,7 @@ const ContactReport = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(10);
+  const [dataPerPage] = useState(9);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -55,6 +55,7 @@ const ContactReport = ({
     sortContactReport.map((sortContactReport) => {
       var doorNo =
         sortContactReport &&
+        sortContactReport.shopDoorNo &&
         sortContactReport.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
       var ED = sortContactReport.tenantLeaseEndDate.split(/\D/g);
       var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");

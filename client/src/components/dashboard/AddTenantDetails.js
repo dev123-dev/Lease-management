@@ -306,7 +306,6 @@ const AddTenantDetails = ({
       const newYear = yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
-      console.log("expiryDate", expiryDate);
 
       const date = expiryDate.getDate();
       const month = expiryDate.getMonth() + 1;
@@ -336,7 +335,6 @@ const AddTenantDetails = ({
   const getLeaseExpiryDate = (year, month, dateVal) => {
     let isSame = false;
     let newDate = dateVal;
-    console.log("dateval", dateVal);
 
     isSame = checkSameDate(
       new Date(year, month - 1, dateVal),
@@ -478,9 +476,19 @@ const AddTenantDetails = ({
       ...formData,
       [inputuserdata.name]: 1,
     });
+    setErrors({
+      ...errors,
+      DoorChecker: true,
+      DoorErrorStyle: { color: "#000" },
+    });
   };
 
   const onRemoveChange = (Doornumber) => {
+    setErrors({
+      ...errors,
+      DoorChecker: false,
+      DoorErrorStyle: { color: "#F00" },
+    });
     let temparray2 = [];
     temparray2.push(...DnoList, Doornumber);
 
@@ -501,6 +509,8 @@ const AddTenantDetails = ({
     PaymentErrorStyle: {},
     cardChecker: false,
     cardErrorStyle: {},
+    DoorChecker: false,
+    DoorErrorStyle: {},
   });
   const {
     PropertyChecker,
@@ -509,6 +519,8 @@ const AddTenantDetails = ({
     PaymentErrorStyle,
     cardChecker,
     cardErrorStyle,
+    DoorErrorStyle,
+    DoorChecker,
   } = errors;
   const checkError = () => {
     if (!PaymentChecker) {
@@ -529,6 +541,13 @@ const AddTenantDetails = ({
       setErrors({
         ...errors,
         cardErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!DoorChecker) {
+      setErrors({
+        ...errors,
+        DoorErrorStyle: { color: "#F00" },
       });
       return false;
     }
@@ -626,7 +645,6 @@ const AddTenantDetails = ({
 
   const handlePanChange = (e) => {
     const inputValue = e.target.value;
-    console.log("inputValue", inputValue);
 
     if (inputValue.length <= 10) {
       const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
@@ -1275,9 +1293,10 @@ const AddTenantDetails = ({
                 <div className="col-lg-6 col-md-12 col-sm-12">
                   <div
                     className="h4 "
-                    style={{ fontFamily: "Serif", color: "#095a4a" }}
+                    style={DoorErrorStyle}
+                    // style={{ fontFamily: "Serif", color: "#095a4a" }}
                   >
-                    Door No:
+                    Door No*:
                   </div>
                 </div>
                 {/* <div className="col-lg-6 col-md-12 col-sm-12">

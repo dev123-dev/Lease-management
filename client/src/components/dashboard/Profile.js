@@ -18,7 +18,7 @@ const Profile = ({
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
   const myorg = JSON.parse(localStorage.getItem("Org"));
-  console.log("hai", myuser);
+
   const [OrganizationData, setOrgnizationData] = useState({
     OrganizationName:
       get_particularOrg_user &&

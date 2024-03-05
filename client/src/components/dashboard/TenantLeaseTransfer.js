@@ -18,7 +18,7 @@ const TenantLeaseTransfer = ({
   leaseTransferData,
   ModalClose,
   sendDataToParent,
-  tenants: { particular_org_data, sortleasetransferdetails },
+  tenants: { particular_org_data, sortleasetransferdetails},
   ParticularTenantLeaseTransferFilter,
   ParticularTenantFilter,
   AddUserActivity,
@@ -98,10 +98,20 @@ const TenantLeaseTransfer = ({
     setLeaseTrasferArr(
       leaseTranferArr.filter((x) => x.value !== inputuserdata.value)
     );
+    setErrors({
+      ...errors,
+      DoorChecker: true,
+      DoorErrorStyle: { color: "#000" },
+    });
   };
 
   //onremove button
   const onRemoveChange = (Doornumber) => {
+    setErrors({
+      ...errors,
+      DoorChecker: false,
+      DoorErrorStyle: { color: "#F00" },
+    });
     let temparray2 = [];
     temparray2.push(...leaseTranferArr, Doornumber);
 
@@ -115,13 +125,23 @@ const TenantLeaseTransfer = ({
   const [errors, setErrors] = useState({
     tenantChecker: false,
     tenantErrorStyle: {},
+    DoorChecker: false,
+    DoorErrorStyle: {},
   });
-  const { tenantChecker, tenantErrorStyle } = errors;
+  const { tenantChecker, tenantErrorStyle, DoorErrorStyle, DoorChecker } =
+    errors;
   const checkError = () => {
     if (!tenantChecker) {
       setErrors({
         ...errors,
         tenantErrorStyle: { color: "#F00" },
+      });
+      return false;
+    }
+    if (!DoorChecker) {
+      setErrors({
+        ...errors,
+        DoorErrorStyle: { color: "#F00" },
       });
       return false;
     }
@@ -177,14 +197,16 @@ const TenantLeaseTransfer = ({
 
     sendDataBackToParent();
   };
+
+  //Send status and transfer to fields back to tenant_Details page
   var transferredTo =
     sortleasetransferdetails &&
     sortleasetransferdetails[0] &&
     sortleasetransferdetails[0].tenantName;
   const sendDataBackToParent = () => {
     const dataToSendBack = "true";
-    const trasferTo = transferredTo;
-    sendDataToParent(dataToSendBack, trasferTo);
+    const transferTo = transferredTo;
+    sendDataToParent(dataToSendBack, transferTo);
   };
 
   const onBack = () => {
@@ -314,10 +336,7 @@ const TenantLeaseTransfer = ({
 
           <div className="row ">
             <div className="col-lg-6 col-md-12 col-sm-12">
-              <div
-                className="h4 "
-                style={{ fontFamily: "Serif", color: "#095a4a" }}
-              >
+              <div className="h4 " style={DoorErrorStyle}>
                 Door No:
               </div>
             </div>

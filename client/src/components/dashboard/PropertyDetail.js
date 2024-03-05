@@ -138,7 +138,6 @@ const PropertyDetail = ({
   };
   const [propertyname, setPropertyname] = useState("");
   const onDelete = (id, Dno, Val) => {
-    console.log("propertdeleteVal", Val);
     const DelDno = Dno.filter((ele) => ele && ele.status === "Avaiable");
     if (DelDno.length >= 1) {
       SetDno(Dno);

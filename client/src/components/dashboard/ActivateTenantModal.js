@@ -707,7 +707,6 @@ const ActivateTenantModal = ({
       ActivateTenantDetails(finalData);
       AddUserActivity(EditUserActivity);
       ParticularTenantFilter(finalData.OrganizationId);
-      console.log("finsldata", finalData);
       histroy.push("/tenant-detail");
       ModalClose();
     }

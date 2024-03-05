@@ -111,7 +111,6 @@ export const UpdateTenantSettingform = (finalData) => async (dispatch) => {
 };
 
 export const getAllSettings = (data) => async (dispatch) => {
-  console.log("hey  getAllSettings");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenantSetting/get-all-settings`,
@@ -148,7 +147,6 @@ export const AddOrganization = (OrganizationData) => async (dispatch) => {
 
 //getting seperate data for particular organization
 export const getParticularProperty = (data) => async (dispatch) => {
-  console.log("hey getParticularProperty");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-Particular-Property`,
@@ -177,7 +175,6 @@ export const getParticularProperty = (data) => async (dispatch) => {
 // };
 
 export const getParticularOrg = (data) => async (dispatch) => {
-  console.log("hey getParticularOrg");
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-particular-org`,
@@ -316,7 +313,6 @@ export const ParticularTenant = (data) => async (dispatch) => {
 };
 
 export const getDoorNo = () => async (dispatch) => {
-  console.log("hey  ge door");
   try {
     const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
 
@@ -706,7 +702,6 @@ export const getOrgExp = (finaldata) => async (dispatch) => {
       `${linkPath}/api/tenants/get-month-exp-org`,
       finaldata
     );
-    console.log("all details", res.data);
     dispatch({
       type: EXP_ORG_,
       payload: res.data,
@@ -1026,7 +1021,6 @@ export const getAllTenanatDoornoFilter = (finalData) => async (dispatch) => {
 };
 
 export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
-  console.log("hity");
   const finalDataReport = {
     monthSearch: finalData.monthSearch,
     yearSearch: finalData.yearSearch,

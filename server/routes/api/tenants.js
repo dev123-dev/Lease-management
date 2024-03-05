@@ -2559,9 +2559,7 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
         TenentAgreement.updateOne(
           { tdId: data.toId },
           { $push: { tenantDoorNo: ele } }
-        ).then((data) => {
-          console.log(data);
-        });
+        ).then((data) => {});
       });
       if (isSameData) {
         TenantDetails.updateOne(

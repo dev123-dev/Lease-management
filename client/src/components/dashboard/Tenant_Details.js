@@ -44,8 +44,7 @@ const Tenant_Details = ({
   const [freshpage, setFreshPage] = useState(true);
   const checkboxRef = useRef(null);
   const myuser = JSON.parse(localStorage.getItem("user"));
-  console.log("sortContactReport", sortContactReport);
-  console.log("sortetenantdetails", sortetenantdetails);
+
   useEffect(() => {
     // ParticularTenant();
     ParticularTenantFilter();
@@ -276,7 +275,7 @@ const Tenant_Details = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(10);
+  const [dataPerPage] = useState(11);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -345,12 +344,7 @@ const Tenant_Details = ({
   //   SetTenantStatus("");
   // };
   const onchangeTenantNames = (selectedOption) => {
-    // Merge the selectedOption with existing tenantName state
-
-    // Update the state with the merged value
     SetTenantName(selectedOption);
-
-    // Other operations remain the same
     ParticularTenantFilter({
       tenantName: selectedOption.value,
     });
@@ -363,9 +357,6 @@ const Tenant_Details = ({
   const onchangeTenantStatus = (e) => {
     SetTenantStatus(e);
     ParticularTenantFilter({
-      // LocationName: sellocation,
-      // propertyname: PropertyName,
-      // DoorNumber: doorNumber,
       tenantStatus: e.value,
     });
     SetPropertyName("");

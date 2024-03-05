@@ -278,7 +278,7 @@ const AllReport = ({
                           }}
                         >
                           <b className="h4">
-                            Renewed Property<br></br> {""}
+                            Renewed Report<br></br> {""}
                           </b>
                         </p>
                       </center>
@@ -307,7 +307,7 @@ const AllReport = ({
                           }}
                         >
                           <b className="h4">
-                            Renewable Property<br></br> {""}
+                            Renewable Report<br></br> {""}
                           </b>
                         </p>
                       </center>
