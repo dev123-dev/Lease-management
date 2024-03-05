@@ -11,6 +11,7 @@ import {
   ParticularTenantFilter,
   deactiveTenantsDetails,
   AddUserActivity,
+  ParticularTenantFilterContactReport,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
@@ -28,12 +29,14 @@ const Tenant_Details = ({
     sortetenantdetails,
     particular_org_loc,
     allTenantSetting,
+    sortContactReport,
   },
   ParticularTenant,
   AddUserActivity,
   ParticularTenantFilter,
   getParticularOrg,
   getParticularProperty,
+  ParticularTenantFilterContactReport,
   getTenantDetails,
   deactiveTenantsDetails,
   getAllSettings,
@@ -41,12 +44,15 @@ const Tenant_Details = ({
   const [freshpage, setFreshPage] = useState(true);
   const checkboxRef = useRef(null);
   const myuser = JSON.parse(localStorage.getItem("user"));
-
+  console.log("sortContactReport", sortContactReport);
+  console.log("sortetenantdetails", sortetenantdetails);
   useEffect(() => {
     // ParticularTenant();
     ParticularTenantFilter();
+    ParticularTenantFilterContactReport();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
+
     // getParticularOrg();
     // getParticularProperty();
 
@@ -346,7 +352,7 @@ const Tenant_Details = ({
 
     // Other operations remain the same
     ParticularTenantFilter({
-      tenantName: selectedOption.label,
+      tenantName: selectedOption.value,
     });
     SetPropertyName("");
     SetDoorNumber("");
@@ -391,8 +397,8 @@ const Tenant_Details = ({
     );
   let TenantNames = [];
   let cntDeActiveTenant = 0;
-  sortetenantdetails &&
-    sortetenantdetails.map((ele) => {
+  sortContactReport &&
+    sortContactReport.map((ele) => {
       if (ele.tenantstatus !== "Active") cntDeActiveTenant++;
       TenantNames.push({
         label: ele.tenantName,
@@ -1282,4 +1288,5 @@ export default connect(mapStateToProps, {
   getTenantDetails,
   AddUserActivity,
   deactiveTenantsDetails,
+  ParticularTenantFilterContactReport,
 })(Tenant_Details);
