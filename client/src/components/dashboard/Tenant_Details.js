@@ -324,13 +324,29 @@ const Tenant_Details = ({
 
   //namewise
 
-  const onchangeTenantNames = (e) => {
-    SetTenantName(e);
+  // const onchangeTenantNames = (e) => {
+  //   SetTenantName(e);
+
+  //   ParticularTenantFilter({
+  //     // LocationName: sellocation,
+  //     // propertyname: PropertyName,
+  //     // DoorNumber: doorNumber,
+  //     tenantName: e.label,
+  //   });
+  //   SetPropertyName("");
+  //   SetDoorNumber("");
+  //   setselLoction("");
+  //   SetTenantStatus("");
+  // };
+  const onchangeTenantNames = (selectedOption) => {
+    // Merge the selectedOption with existing tenantName state
+
+    // Update the state with the merged value
+    SetTenantName(selectedOption);
+
+    // Other operations remain the same
     ParticularTenantFilter({
-      // LocationName: sellocation,
-      // propertyname: PropertyName,
-      // DoorNumber: doorNumber,
-      tenantName: e.value,
+      tenantName: selectedOption.label,
     });
     SetPropertyName("");
     SetDoorNumber("");
@@ -474,7 +490,7 @@ const Tenant_Details = ({
       <Fragment>
         <div className="col mt-sm-4 space ">
           <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-            {/* <div className="row mt-5 ">
+            <div className="row mt-5 ">
               <div className="col-lg-2  col-sm-12 col-md-12 mt-3">
                 <h2 className="heading_color headsize ml-4"> Tenant Details</h2>
               </div>
@@ -554,7 +570,7 @@ const Tenant_Details = ({
                   onChange={(e) => onchangeTenantNames(e)}
                 ></Select>
               </div>
-              <div
+              {/* <div
                 className="col-lg-2 col-sm-12 col-md-12"
                 style={{
                   position: "relative",
@@ -569,9 +585,9 @@ const Tenant_Details = ({
                   value={tenantStatus}
                   onChange={(e) => onchangeTenantStatus(e)}
                 ></Select>
-              </div>
+              </div> */}
 
-              <div className="col-lg-1  col-sm-12 col-md-12 text-end mt-4 pt-3">
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-4 pt-3">
                 <Link to="/add-tenant-details">
                   <img
                     height="20px"
@@ -626,16 +642,16 @@ const Tenant_Details = ({
                   title="Refresh"
                 />
               </div>
-            </div> */}
+            </div>
             {/* <div className="col-lg-2 col-md-2 col-sm-4 mt-5"> */}
-            <h2
+            {/* <h2
               className="heading_color headsize ml-4"
               style={{ marginTop: "70px" }}
             >
               Tenant Details
-            </h2>
+            </h2> */}
             {/* </div> */}
-            <div className="row col-lg-12 ml-2">
+            {/* <div className="row col-lg-12 ml-2">
               <div className="col-lg-2 col-md-2 col-sm-4 ">
                 <Select
                   className="dropdown text-left "
@@ -750,7 +766,7 @@ const Tenant_Details = ({
                   title="Refresh"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="container-fluid d-flex align-items-center justify-content-center ">
               <div className="col">
