@@ -1,8 +1,7 @@
 {
-  "mongoURI": "mongodb://localhost:27017/pinnac23_LRA",  
+  "mongoURI": "mongodb+srv://Lease_Management:bX6nt27kIh9ttfHR@clusterlease.cwojk.mongodb.net/pinnac23_lease?retryWrites=true&w=majority",
   "jwtSecret": "jwtSecret",
   "githubClientId": "",
   "githubSecret": "",
-  "fileUploadPath":"herb\\files\\csv\\original\\"
+  "fileUploadPath": "herb\\files\\csv\\original\\"
 }
-

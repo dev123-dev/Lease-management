@@ -50,8 +50,8 @@ const config = {
   },
 };
 
-// var linkPath = process.env.REACT_APP_BASE_URL;
-var linkPath = "";
+var linkPath = process.env.REACT_APP_BASE_URL;
+// var linkPath = "";
 
 //Function when call is tenant-report and old records are being searched previous to selected which agreements have not expired
 export const getRoutesSetOldRecordsClicked = (blnOldSearch) => (dispatch) => {

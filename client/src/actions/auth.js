@@ -17,8 +17,8 @@ import {
 } from "./types";
 import setAuthToken from "../utils/setAuthToken";
 
-// var linkPath = process.env.REACT_APP_BASE_URL;
-var linkPath = "";
+var linkPath = process.env.REACT_APP_BASE_URL;
+// var linkPath = "";
 
 // Login User
 export const login = (useremail, password) => async (dispatch) => {
