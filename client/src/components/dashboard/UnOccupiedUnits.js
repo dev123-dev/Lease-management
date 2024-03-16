@@ -10,6 +10,10 @@ import {
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
 
 const UnOccupiedUnits = ({
   auth: { user },
@@ -156,27 +160,19 @@ const UnOccupiedUnits = ({
           <div className="row mt-5  ">
             <div className="col-lg-4 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                UnOccupied Units
+                Unoccupied Units
               </h2>
             </div>
 
-            <div className="col-lg-8 mt-5 text-right ">
+            <div className="col-lg-8 mt-3 iconspace ">
               <Link to="/MainAdmin">
-                <img
-                  height={28}
-                  src={require("../../static/images/back.png")}
-                  alt="Back"
-                  title="Back"
-                />
+                <button style={{ border: "none" }}>
+                  <img src={Back} alt="Back" title="Back" />
+                </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvUnOccupiedData}>
-                  <img
-                    className="img_icon_size log  ml-1"
-                    src={require("../../static/images/excel_icon.png")}
-                    alt="Excel-Export"
-                    title="Excel-Export"
-                  />
+                  <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                 </CSVLink>
               ) : (
                 <></>
@@ -194,13 +190,7 @@ const UnOccupiedUnits = ({
                   OnPrint();
                 }}
               >
-                <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
+                <img src={Print} alt="Print" title="Print" />
               </button>
             </div>
           </div>

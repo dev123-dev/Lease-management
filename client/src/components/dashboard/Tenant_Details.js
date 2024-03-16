@@ -21,6 +21,13 @@ import Select from "react-select";
 import Pagination from "../layout/Pagination";
 import TenantLeaseTransfer from "./TenantLeaseTransfer";
 import ActivateTenantModal from "./ActivateTenantModal";
+import leaseTransfer from "../../static/images/Leasetransfer.svg";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
+import Add from "../../static/images/Add.svg";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
 
 const Tenant_Details = ({
   auth: { isAuthenticated, user, users },
@@ -275,7 +282,7 @@ const Tenant_Details = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(11);
+  const [dataPerPage] = useState(10);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -584,26 +591,21 @@ const Tenant_Details = ({
                 ></Select>
               </div> */}
 
-              <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-4 pt-3">
-                <Link to="/add-tenant-details">
-                  <img
-                    height="20px"
-                    // onClick={() => setShowadd(true)}
-                    src={require("../../static/images/add-icon.png")}
-                    alt="Add Tenant"
-                    title="Add Tenant"
-                  />
-                </Link>
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace">
+                <button style={{ border: "none" }}>
+                  {" "}
+                  <Link to="/add-tenant-details">
+                    <img
+                      src={Add}
+                      alt="Add Tenant"
+                      title="Add Tenant"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Link>
+                </button>
                 {myuser.usergroup === "Admin" ? (
                   <CSVLink data={csvTenantData}>
-                    <img
-                      className="img_icon_size log  ml-2"
-                      src={require("../../static/images/excel_icon.png")}
-                      alt="Excel-Export"
-                      style={{ cursor: "pointer" }}
-                      height="20px"
-                      title="Excel-Export"
-                    />
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                   </CSVLink>
                 ) : (
                   <></>
@@ -621,20 +623,17 @@ const Tenant_Details = ({
                   }}
                 >
                   <img
-                    height="20px"
                     //  onClick={() => refresh()}
-                    src={require("../../static/images/print.png")}
+                    src={Print}
                     alt="Print"
                     title="Print"
                   />
                 </button>
 
                 <img
-                  className="ml-2"
                   style={{ cursor: "pointer" }}
-                  height="20px"
                   onClick={() => refresh()}
-                  src={require("../../static/images/refresh-icon.png")}
+                  src={Refresh}
                   alt="refresh"
                   title="Refresh"
                 />
@@ -764,7 +763,6 @@ const Tenant_Details = ({
                 />
               </div>
             </div> */}
-
             <div className="container-fluid d-flex align-items-center justify-content-center ">
               <div className="col">
                 {/* <div className="refreshbtn"></div> */}
@@ -848,46 +846,83 @@ const Tenant_Details = ({
                                     <>
                                       {" "}
                                       {Val.tenantstatus === "Active" ? (
-                                        <td className=" text-center">
-                                          <Link to="/edit-tenant-details">
+                                        // <td className=" text-center">
+                                        //   <Link to="/edit-tenant-details">
+                                        //     <img
+                                        //       className="Cursor  "
+                                        //       onClick={() => onEdit(Val)}
+                                        //       src={Edit}
+                                        //       alt="Edit"
+                                        //       title="Edit"
+                                        //     />{" "}
+                                        //     &nbsp;
+                                        //   </Link>
+                                        //   <img
+                                        //     className="Cursor "
+                                        //     onClick={() =>
+                                        //       onDelete(
+                                        //         Val._id,
+                                        //         Val.shopDoorNo,
+                                        //         Val
+                                        //       )
+                                        //     }
+                                        //     src={Deactivate}
+                                        //     alt="Deactivate"
+                                        //     title="Deactivate"
+                                        //   />
+                                        //   &nbsp;
+                                        //   {Val.shopDoorNo.length === 0 ? (
+                                        //     <></>
+                                        //   ) : (
+                                        //     <img
+                                        //       className="Cursor "
+                                        //       onClick={() =>
+                                        //         onLeaseTransfer(Val)
+                                        //       }
+                                        //       height="25px"
+                                        //       width="25px"
+                                        //       src={leaseTransfer}
+                                        //       alt="lease transfer"
+                                        //       title="Lease Transfer"
+                                        //     />
+                                        //   )}
+                                        // </td>
+                                        <td className="text-center">
+                                          <div className="icon-container">
+                                            <Link to="/edit-tenant-details">
+                                              <img
+                                                onClick={() => onEdit(Val)}
+                                                src={Edit}
+                                                style={{ cursor: "pointer" }}
+                                                alt="Edit"
+                                                title="Edit"
+                                              />
+                                            </Link>
                                             <img
-                                              className="Cursor  "
-                                              onClick={() => onEdit(Val)}
-                                              src={require("../../static/images/edit_icon.png")}
-                                              alt="Edit"
-                                              title="Edit"
-                                            />{" "}
-                                            &nbsp;
-                                          </Link>
-                                          <img
-                                            className="Cursor "
-                                            onClick={() =>
-                                              onDelete(
-                                                Val._id,
-                                                Val.shopDoorNo,
-                                                Val
-                                              )
-                                            }
-                                            src={require("../../static/images/delete.png")}
-                                            alt="Deactivate"
-                                            title="Deactivate"
-                                          />
-                                          &nbsp;
-                                          {Val.shopDoorNo.length === 0 ? (
-                                            <></>
-                                          ) : (
-                                            <img
-                                              className="Cursor "
                                               onClick={() =>
-                                                onLeaseTransfer(Val)
+                                                onDelete(
+                                                  Val._id,
+                                                  Val.shopDoorNo,
+                                                  Val
+                                                )
                                               }
-                                              height="25px"
-                                              width="25px"
-                                              src={require("../../static/images/leaseTrans.png")}
-                                              alt="lease transfer"
-                                              title="lease transfer"
+                                              src={Deactivate}
+                                              alt="Deactivate"
+                                              style={{ cursor: "pointer" }}
+                                              title="Deactivate"
                                             />
-                                          )}
+                                            {Val.shopDoorNo.length !== 0 && (
+                                              <img
+                                                onClick={() =>
+                                                  onLeaseTransfer(Val)
+                                                }
+                                                src={leaseTransfer}
+                                                alt="lease transfer"
+                                                title="Lease Transfer"
+                                                style={{ cursor: "pointer" }}
+                                              />
+                                            )}
+                                          </div>
                                         </td>
                                       ) : (
                                         <td>

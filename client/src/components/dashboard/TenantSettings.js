@@ -132,10 +132,10 @@ const TenantSettings = ({
       filteredValue.length > 2 ||
       filteredValue === "00"
     ) {
-      setValidationHikeMessage("Enter valid hike");
+      setValidationHikeMessage("Please Enter valid Hike");
     } else {
       filteredValue === ""
-        ? setValidationHikeMessage("enter hike")
+        ? setValidationHikeMessage("Please enter Hike")
         : setValidationHikeMessage("");
     }
 
@@ -171,10 +171,10 @@ const TenantSettings = ({
       filteredValue.length > 2 ||
       filteredValue === "00"
     ) {
-      setValidationStampMessage("Enter valid stamp duty");
+      setValidationStampMessage("Please Enter valid Stamp Duty");
     } else {
       filteredValue === ""
-        ? setValidationStampMessage("enter stamp duty")
+        ? setValidationStampMessage("Please enter Stamp Duty")
         : setValidationStampMessage("");
     }
 
@@ -193,10 +193,10 @@ const TenantSettings = ({
       filteredValue.length > 2 ||
       filteredValue === "00"
     ) {
-      setValidationTimePeriodMessage("Enter valid Time Period");
+      setValidationTimePeriodMessage("Please Enter valid Time Period");
     } else {
       filteredValue === ""
-        ? setValidationTimePeriodMessage("enter Time Period")
+        ? setValidationTimePeriodMessage("Please enter Time Period")
         : setValidationTimePeriodMessage("");
     }
 

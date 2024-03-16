@@ -8,6 +8,7 @@ import {
   getMisRenewedBarReport,
 } from "../../actions/tenants";
 import { Link } from "react-router-dom";
+import Back from "../../static/images/Back.svg";
 const MonthYearPicker = ({
   auth: { user },
   tenants: { allmisreport, allmisamountreport, allmisrenewedbarreport },
@@ -77,7 +78,7 @@ const MonthYearPicker = ({
     var monthValue = getMonthValue(selectedMonth);
     //const monthNumber = months.indexOf(monthName).toString().padStart(2, "0");
     var formattedDate = `${selectedYear.toString()}-${monthValue.toString()}-${day.toString()}`;
-    
+
     const finalData = {
       selectedY: formattedDate,
       selectedEndY: selectedEndMonth,
@@ -86,7 +87,6 @@ const MonthYearPicker = ({
     getMisReport(finalData);
     getMisAmountReport(finalData);
     getMisRenewedBarReport(finalData);
-   
   };
 
   const handleYearChange = (e) => {
@@ -96,7 +96,6 @@ const MonthYearPicker = ({
     var monthValue = getMonthValue(selectedMonth);
     //const monthNumber = months.indexOf(monthName).toString().padStart(2, "0");
     var formattedDate = `${selectedYear.toString()}-${monthValue.toString()}-${day.toString()}`;
-   
 
     const finalData = {
       selectedY: formattedDate,
@@ -106,7 +105,6 @@ const MonthYearPicker = ({
     getMisReport(finalData);
     getMisAmountReport(finalData);
     getMisRenewedBarReport(finalData);
-  
   };
   //select month
 
@@ -125,12 +123,11 @@ const MonthYearPicker = ({
     getMisReport(finalData);
     getMisAmountReport(finalData);
     getMisRenewedBarReport(finalData);
-   
   };
 
   return (
     <>
-      <div >
+      <div>
         <select
           value={months.indexOf(selectedMonth)}
           onChange={handleMonthChange}
@@ -163,14 +160,8 @@ const MonthYearPicker = ({
           ))}
         </select>
         <Link to="/Report">
-                  <img
-                    height={30}
-                     className=" float-right"
-                    src={require("../../static/images/back.png")}
-                    alt="Back"
-                    title="Back"
-                  />
-                </Link>
+          <img className=" float-right" src={Back} alt="Back" title="Back" />
+        </Link>
       </div>
     </>
   );

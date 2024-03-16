@@ -14,7 +14,8 @@ import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 import { CSVLink } from "react-csv";
-import DropdownContext from "react-bootstrap/esm/DropdownContext";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
   tenants: { allorg, tenantreceiptno },
@@ -459,7 +460,7 @@ const TenantReport = ({
                 {/* <div className="col-lg-5  col-sm-12 col-md-12 mt-4">
              
             </div> */}
-                <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4 pt-3">
+                <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint  pt-2 iconspace">
                   <button
                     style={{ border: "none" }}
                     onClick={async () => {
@@ -472,19 +473,12 @@ const TenantReport = ({
                       handlePrint();
                     }}
                   >
-                    <img
-                      height="20px"
-                      //  onClick={() => refresh()}
-                      src={require("../../static/images/print.png")}
-                      alt="Print"
-                      title="Print"
-                    />
+                    <img src={Print} alt="Print" title="Print" />
                   </button>
                   {myuser.usergroup === "Admin" ? (
                     <CSVLink data={csvTenantReportData}>
                       <img
-                        className="img_icon_size log float-right ml-2 mt-1"
-                        src={require("../../static/images/excel_icon.png")}
+                        src={Excel}
                         alt="Excel-Export"
                         title="Excel-Export"
                       />
@@ -563,6 +557,7 @@ const TenantReport = ({
                                             className="rewbtn"
                                             style={{
                                               backgroudColor: "#e8a317",
+                                              cursor: "pointer",
                                             }}
                                             onClick={() => onRenewal(Val, idx)}
                                           >
@@ -579,9 +574,7 @@ const TenantReport = ({
                                           }
                                         >
                                           <img
-                                            height="20px"
-                                            //  onClick={() => refresh()}
-                                            src={require("../../static/images/print.png")}
+                                            src={Print}
                                             alt="Print"
                                             title="Generate Receipt"
                                           />

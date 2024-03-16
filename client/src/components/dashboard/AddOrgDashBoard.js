@@ -8,6 +8,9 @@ import Modal from "react-bootstrap/Modal";
 import { deleteOrganization, getAllOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import EditOrganization from "./EditOrganization";
+import Add from "../../static/images/Add.svg";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
 
 import Pagination from "../layout/Pagination";
 
@@ -130,12 +133,12 @@ const AddOrgDashBoard = ({
             <div className="col">
               <div className="refreshbtn">
                 <img
-                  className="plusicon"
-                  height="20px"
+                  // className="plusicon"
+
                   onClick={() => setShowadd(true)}
-                  src={require("../../static/images/add-icon.png")}
+                  src={Add}
                   alt="Add org"
-                  title="Add org"
+                  title="Add Organisation"
                 />
               </div>
 
@@ -190,17 +193,17 @@ const AddOrgDashBoard = ({
                                   <img
                                     className="Cursor "
                                     onClick={() => onedit(orgVal, idx)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit User"
+                                    src={Edit}
+                                    alt="Edit Organisation"
+                                    title="Edit Organisation"
                                   />
                                   &nbsp;
                                   <img
                                     className="Cursor"
                                     onClick={() => onDelete(orgVal._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="delete User"
-                                    title="delete User"
+                                    src={Deactivate}
+                                    alt="delete Organisation"
+                                    title="Deactivate"
                                   />
                                 </td>
                               ) : (

@@ -5,7 +5,12 @@ import { ParticularTenantFilterContactReport } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
-
+import Print from "../../static/images/Print.svg";
+import Add from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
+import Select from "react-select";
 const RenewedTenantReport = ({
   auth: { user },
   tenants: { sortContactReport },
@@ -19,19 +24,28 @@ const RenewedTenantReport = ({
 
   //year picker start
 
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = useState({
+    label: new Date().getFullYear(),
+    value: new Date().getFullYear(),
+  });
+  const [RenewedYear, SetRenewedYear] = useState(new Date().getFullYear());
+  console.log("selectedYear", selectedYear);
+  // Function to populate years array
   const populateYears = (startYear, endYear) => {
-    const years = [];
-    for (let year = startYear; year <= endYear; year++) {
-      years.push(year);
+    const yearsArray = [];
+    for (let year = endYear; year >= startYear; year--) {
+      yearsArray.push({ label: year.toString(), value: year });
     }
-    return years;
+    return yearsArray;
   };
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-  };
-  const years = populateYears(2012, new Date().getFullYear());
 
+  const years = populateYears(2012, new Date().getFullYear());
+  console.log("years", years);
+  const handleYearChange = (selectedOption) => {
+    setSelectedYear(selectedOption);
+    SetRenewedYear(selectedOption.value);
+    console.log("selectedOption", selectedOption);
+  };
   //end
 
   //pagination code
@@ -48,7 +62,7 @@ const RenewedTenantReport = ({
         ele.output.AgreementStatus === "Renewed" &&
         // (!ele.output.tenantRenewedDate || new Date(ele.output.tenantRenewedDate).getFullYear() === parseInt(selectedYear))
         new Date(ele.tenantLeaseStartDate).getFullYear() ===
-          parseInt(selectedYear)
+          parseInt(RenewedYear)
     );
 
   const currentDatas =
@@ -133,55 +147,63 @@ const RenewedTenantReport = ({
     },
   });
   const refresh = () => {
-    setSelectedYear(new Date().getFullYear());
+    setSelectedYear({
+      label: new Date().getFullYear(),
+      value: new Date().getFullYear(),
+    });
+    SetRenewedYear(selectedYear.value);
   };
 
   return (
     <>
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-          <div className="row mt-5  ">
-            <div className="col-lg-4 mt-3">
-              <h2 className="heading_color  headsize  ml-4">
-                Renewed Tenant Report
-              </h2>
+          <div className="row mt-5 ">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <h2 className="heading_color  headsize  ml-4">Renewed Report</h2>
             </div>
-            <div className=" row col-lg-4 mt-3">
-              <div className="col-lg-3 mt-4">Select Year:</div>
-              <div className="col-lg-2 mt-3">
-                <select value={selectedYear} onChange={handleYearChange}>
-                  <option value="">Select Year</option>
-                  {years &&
-                    years.map((year) => (
-                      <option key={year} value={year}>
-                        {year}
-                      </option>
-                    ))}
-                </select>
-              </div>
+            <div className="col-lg-1  col-sm-12 col-md-12 mt-4 pt-3 ">
+              <span className="renewsize ">Select Year</span>
             </div>
-            <div className="col-lg-4 mt-5 text-right ">
-              <Link to="/MainAdmin">
-                <img
-                  height={28}
-                  src={require("../../static/images/back.png")}
-                  alt="Back"
-                  title="Back"
-                />
+            <div className="col-lg-2  col-sm-12 col-md-12 mt-4">
+              <Select
+                placeholder="Select Year"
+                onChange={(e) => handleYearChange(e)}
+                options={years}
+                value={selectedYear}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
+                  },
+                })}
+              ></Select>
+            </div>
+            <div className="col-lg-2  col-sm-12 col-md-12 mt-4"></div>
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
+              <Link to="/Report">
+                <button style={{ border: "none" }}>
+                  <img src={Back} alt="Back" title="Back" />
+                </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvContactReportData}>
                   <img
-                    className="img_icon_size log  ml-1"
-                    src={require("../../static/images/excel_icon.png")}
+                    className=""
+                    src={Excel}
                     alt="Excel-Export"
+                    style={{ cursor: "pointer" }}
                     title="Excel-Export"
                   />
                 </CSVLink>
               ) : (
                 <></>
               )}
-
               <button
                 style={{ border: "none" }}
                 onClick={async () => {
@@ -194,20 +216,13 @@ const RenewedTenantReport = ({
                   OnPrint();
                 }}
               >
-                <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
+                <img src={Print} alt="Print" title="Print" />
               </button>
               <img
-                className="ml-1"
+                // className=" float-right "
                 style={{ cursor: "pointer" }}
-                height="20px"
                 onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
+                src={Refresh}
                 alt="refresh"
                 title="Refresh"
               />

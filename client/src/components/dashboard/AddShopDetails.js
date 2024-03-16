@@ -196,7 +196,7 @@ const AddShopDetails = ({
 
   const [BuildingName, setBuildingName] = useState("");
   const [validationBuildingMessage, setValidationBuildingMessage] = useState(
-    "enter valid building Name"
+    "Please enter valid Building Name"
   );
 
   const handleBuildingNameChange = (e) => {
@@ -205,7 +205,7 @@ const AddShopDetails = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationBuildingMessage("")
-      : setValidationBuildingMessage("enter valid building Name");
+      : setValidationBuildingMessage("Please enter valid Building Name");
 
     setBuildingName(inputValue);
   };
@@ -213,7 +213,7 @@ const AddShopDetails = ({
 
   const [shopAddress, setShopAddress] = useState("");
   const [validationAddressMessage, setValidationAddressMessage] = useState(
-    "enter valid Address"
+    "Please enter valid Address"
   );
 
   const handleAddressChange = (e) => {
@@ -222,7 +222,7 @@ const AddShopDetails = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationAddressMessage("")
-      : setValidationAddressMessage("enter valid Address");
+      : setValidationAddressMessage("Please enter Valid Address");
 
     setShopAddress(inputValue);
   };

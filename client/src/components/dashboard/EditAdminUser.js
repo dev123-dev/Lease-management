@@ -121,7 +121,7 @@ const EditAdminUser = ({
     if (emailRegex.test(inputValue)) {
       setValidationEmailMessage("");
     } else {
-      setValidationEmailMessage("Please enter a valid email address.");
+      setValidationEmailMessage("Please enter valid Email Address");
     }
   };
 
@@ -139,7 +139,7 @@ const EditAdminUser = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationMessage("")
-        : setValidationMessage("enter valid phone number");
+        : setValidationMessage("Please enter valid Phone Number");
 
       setUserphone(cleanedValue);
     }

@@ -142,60 +142,62 @@ const MainAdminPage = ({
               className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/PropertyDetail">
+              <Link to="/PropertyDetail">
+                <div className="text-center">
                   {" "}
                   <img
                     className="img_icon_sizeDashboard log"
                     src={prop}
                     alt="Property"
                   />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                      // className="h3"
-                    >
-                      <b className="h4">
-                        Total properties<br></br>{" "}
-                        {particular_org_data && particular_org_data.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                        // className="h3"
+                      >
+                        <b className="h4">
+                          Total properties<br></br>{" "}
+                          {particular_org_data && particular_org_data.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div
               className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/tenant-detail">
+              {" "}
+              <Link to="/tenant-detail">
+                <div className="text-center">
                   <img
                     className="img_icon_sizeDashboard log "
                     src={people}
                     alt="Tenant Count"
                   />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Total Active Tenants <br></br>
-                        {tenantCount.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          color: "black",
+                        }}
+                      >
+                        <b className="h4">
+                          Total Active Tenants <br></br>
+                          {tenantCount.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
           </div>
@@ -206,47 +208,48 @@ const MainAdminPage = ({
               className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/unoccupied-units">
+              <Link to="/unoccupied-units">
+                <div className="text-center">
                   <img
                     className="img_icon_sizeDashboard  "
                     src={door}
                     alt="Unoccupied property"
                     // onClick={onClickUnocc}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", background: "none" }}
                   />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Unoccupied Units <br></br>
-                        {ShopStatus.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                      >
+                        <b className="h4">
+                          Unoccupied Units <br></br>
+                          {ShopStatus.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div
               className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/renewed-report">
+              <Link to="/renewed-report">
+                <div className="text-center">
                   <img
                     className="img_icon_sizeDashboard  "
                     src={money}
                     alt="Renewal"
                     style={{ cursor: "pointer" }}
                   />
-                </Link>
-                {/* <p>
+
+                  {/* <p>
                   <center>
                     <p
                       style={{
@@ -262,23 +265,24 @@ const MainAdminPage = ({
                     </p>
                   </center>
                 </p> */}
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      {" "}
-                      <b className="h4">
-                        Renewed Units({currentYear})<br></br>
-                        {TotalRenewedCount && TotalRenewedCount.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                      >
+                        {" "}
+                        <b className="h4">
+                          Renewed Units ({currentYear})<br></br>
+                          {TotalRenewedCount && TotalRenewedCount.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
           </div>

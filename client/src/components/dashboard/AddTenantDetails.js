@@ -597,7 +597,7 @@ const AddTenantDetails = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationPhoneMessage("")
-        : setValidationPhoneMessage("enter valid phone number");
+        : setValidationPhoneMessage("Please enter valid Phone number");
 
       setTenantPhone(cleanedValue);
     }
@@ -605,8 +605,9 @@ const AddTenantDetails = ({
 
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
-  const [validationRentAmtMessage, setValidationRentAmtMessage] =
-    useState("enter valid amount");
+  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState(
+    "Please enter valid Amount"
+  );
 
   const handleRentAmtChange = (e) => {
     const inputValue = e.target.value;
@@ -615,14 +616,14 @@ const AddTenantDetails = ({
       setRentAmount(inputValue);
       setValidationRentAmtMessage("");
     } else {
-      setValidationRentAmtMessage("enter valid amount");
+      setValidationRentAmtMessage("Please enter valid Amount");
     }
   };
 
   // validation for adhar number
   const [tenantAdharNo, setTenantAdharNo] = useState("");
   const [validationAdharMessage, setValidationAdharMessage] = useState(
-    "enter valid aadhar number"
+    "Please enter valid Aadhar Number"
   );
 
   const handleAdharChange = (e) => {
@@ -632,7 +633,7 @@ const AddTenantDetails = ({
       const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
       isValidAdhar.test(inputValue)
         ? setValidationAdharMessage("")
-        : setValidationAdharMessage("enter valid aadhar number");
+        : setValidationAdharMessage("Please enter valid Aadhar Number");
 
       setTenantAdharNo(inputValue);
     }
@@ -640,7 +641,7 @@ const AddTenantDetails = ({
   // validation for pan number
   const [tenantPanNo, setTenantPanNo] = useState("");
   const [validationPanMessage, setValidationPanMessage] = useState(
-    "enter valid Pan number"
+    "Please enter valid Pan Number"
   );
 
   const handlePanChange = (e) => {
@@ -650,7 +651,7 @@ const AddTenantDetails = ({
       const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
       isValidPan.test(inputValue)
         ? setValidationPanMessage("")
-        : setValidationPanMessage("enter valid Pan number");
+        : setValidationPanMessage("Please enter valid Pan Number");
 
       setTenantPanNo(inputValue);
     }
@@ -668,7 +669,7 @@ const AddTenantDetails = ({
       const isValidPan = /^(?!000000)\d{6}$/;
       isValidPan.test(inputValue)
         ? setValidationChequeMessage("")
-        : setValidationChequeMessage("enter valid Cheque number");
+        : setValidationChequeMessage("Please enter valid Cheque Number");
 
       setTenantChequenoOrDdno(inputValue);
     }
@@ -685,7 +686,7 @@ const AddTenantDetails = ({
     const isValidPan = /^[A-Za-z\s]+$/;
     isValidPan.test(inputValue)
       ? setValidationBankMessage("")
-      : setValidationBankMessage("enter valid Bank Name");
+      : setValidationBankMessage("Please enter valid Bank Name");
 
     setTenantBankName(inputValue);
   };
@@ -694,7 +695,7 @@ const AddTenantDetails = ({
 
   const [tenantAddr, setTenantAddr] = useState("");
   const [validationAddressMessage, setValidationAddressMessage] = useState(
-    "enter valid Address"
+    "Please enter valid Address"
   );
 
   const handleAddressChange = (e) => {
@@ -703,7 +704,7 @@ const AddTenantDetails = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationAddressMessage("")
-      : setValidationAddressMessage("enter valid Address");
+      : setValidationAddressMessage("Please enter valid Address");
 
     setTenantAddr(inputValue);
   };

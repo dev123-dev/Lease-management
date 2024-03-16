@@ -136,7 +136,7 @@ const EditProperty = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationBuildingMessage("")
-      : setValidationBuildingMessage("enter valid building Name");
+      : setValidationBuildingMessage("Please enter valid Building Name");
 
     setBuildingName(inputValue);
   };
@@ -151,7 +151,7 @@ const EditProperty = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationAddressMessage("")
-      : setValidationAddressMessage("enter valid Address");
+      : setValidationAddressMessage("Please enter valid Address");
 
     setShopAddress(inputValue);
   };

@@ -5,6 +5,8 @@ import { ParticularTenantFilter, getUserActivity } from "../../actions/tenants";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
+import { Link } from "react-router-dom";
+import Back from "../../static/images/Back.svg";
 
 const UserActivityDetails = ({
   //   auth: { user },
@@ -42,36 +44,14 @@ const UserActivityDetails = ({
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                User Activity of <span>{myuser.username}</span>
+                User Activity of <span>{myuser.username} </span>
                 (Past 30 days)
               </h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">
-              {/* {myuser.usergroup === "Admin" ? (
-                    <CSVLink data={csvContactReportData}>
-                      <img
-                        className="img_icon_size log  ml-4"
-                        src={require("../../static/images/excel_icon.png")}
-                        alt="Excel-Export"
-                        title="Excel-Export"
-                      />
-                    </CSVLink>
-                  ) : (
-                    <></>
-                  )} */}
-
-              {/* <button
-                style={{ border: "none" }}
-                
-              >
-                <img
-                  height="20px"
-                 
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
-              </button> */}
+              <Link to="/Report">
+                <img src={Back} alt="Back" title="Back" />
+              </Link>
             </div>
           </div>
 

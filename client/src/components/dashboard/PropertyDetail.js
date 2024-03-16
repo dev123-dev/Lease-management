@@ -17,6 +17,12 @@ import {
 } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
+import Add from "../../static/images/Add.svg";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
 const PropertyDetail = ({
   auth: { user },
   tenants: { particular_org_data, particular_org_loc },
@@ -350,25 +356,23 @@ const PropertyDetail = ({
                 })}
               ></Select>
             </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-3 pt-4 ">
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
               {" "}
-              <img
-                height="20px"
-                className="img_icon_size log  ml-2"
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add Property"
-                title="Add Property"
-              />
+              <button style={{ border: "none" }}>
+                <img
+                  onClick={() => setShowadd(true)}
+                  src={Add}
+                  alt="Add Property"
+                  title="Add Property"
+                />
+              </button>
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvPropertyData}>
                   <img
-                    className="img_icon_size log  ml-2"
-                    src={require("../../static/images/excel_icon.png")}
+                    className=""
+                    src={Excel}
                     alt="Excel-Export"
                     style={{ cursor: "pointer" }}
-                    height="20px"
                     title="Excel-Export"
                   />
                 </CSVLink>
@@ -387,20 +391,13 @@ const PropertyDetail = ({
                   OnPrint();
                 }}
               >
-                <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
+                <img src={Print} alt="Print" title="Print" />
               </button>
               <img
-                className="ml-2 float-right mt-1"
+                // className=" float-right "
                 style={{ cursor: "pointer" }}
-                height="20px"
                 onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
+                src={Refresh}
                 alt="refresh"
                 title="Refresh"
               />
@@ -436,7 +433,7 @@ const PropertyDetail = ({
                             <th>Stamp Duty</th>
                             <th>Lease Time Period</th> */}
                               <th style={showPrint}>Address</th>
-                              <th style={showPrint}>Door No1</th>
+                              <th style={showPrint}>Door No's</th>
                             </>
                           )}
 
@@ -514,13 +511,16 @@ const PropertyDetail = ({
                                 {myuser.usergroup === "Admin" ? (
                                   <>
                                     {" "}
-                                    <td className=" text-center">
+                                    <td
+                                      className=" text-center
+                                    "
+                                    >
                                       {Val.shopStatus === "Active" ? (
                                         <>
                                           <img
                                             className="Cursor"
                                             onClick={() => onEdit(Val)}
-                                            src={require("../../static/images/edit_icon.png")}
+                                            src={Edit}
                                             alt="Edit Property"
                                             title="Edit Property"
                                           />
@@ -534,7 +534,7 @@ const PropertyDetail = ({
                                                 Val
                                               )
                                             }
-                                            src={require("../../static/images/delete.png")}
+                                            src={Deactivate}
                                             alt="Deactivate "
                                             title="Deactivate"
                                           />

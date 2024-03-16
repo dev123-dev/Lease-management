@@ -224,9 +224,9 @@ const AddAdminUserModal = ({
 
   const [userphone, setUserphone] = useState("");
   const [validationMessage, setValidationMessage] = useState(
-    "enter valid phone number"
+    "Please enter valid Phone Number"
   );
-
+ 
   const handleInputPhoneChange = (e) => {
     const inputValue = e.target.value;
     const cleanedValue = inputValue.replace(/\D/g, ""); // Remove non-digit characters
@@ -235,7 +235,7 @@ const AddAdminUserModal = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationMessage("")
-        : setValidationMessage("enter valid phone number");
+        : setValidationMessage("Please enter valid Phone Number");
 
       setUserphone(cleanedValue);
     }
@@ -243,7 +243,7 @@ const AddAdminUserModal = ({
 
   const [useremail, setUseremail] = useState("");
   const [validationEmailMessage, setValidationEmailMessage] = useState(
-    "Please enter a valid email address."
+    "Please enter a valid Email Address"
   );
 
   const handleInputEmailChange = (e) => {
@@ -256,7 +256,7 @@ const AddAdminUserModal = ({
     if (emailRegex.test(inputValue)) {
       setValidationEmailMessage("");
     } else {
-      setValidationEmailMessage("Please enter a valid email address.");
+      setValidationEmailMessage("Please enter a valid email address");
     }
   };
 
