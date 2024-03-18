@@ -367,7 +367,10 @@ const PropertyDetail = ({
                 />
               </button>
               {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvPropertyData}>
+                <CSVLink
+                  data={csvPropertyData}
+                  filename={"Property-Details.csv"}
+                >
                   <img
                     className=""
                     src={Excel}

@@ -539,6 +539,17 @@ const Tenant_Details = ({
                   options={Dno}
                   value={doorNumber}
                   onChange={(e) => onchangeDoorNumberChange(e)}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
                 ></Select>
               </div>
 
@@ -555,6 +566,17 @@ const Tenant_Details = ({
                   name="PropertyName"
                   options={propertyname}
                   value={PropertyName}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
                   onChange={(e) => onchangePrperty(e)}
                 ></Select>
               </div>
@@ -571,6 +593,17 @@ const Tenant_Details = ({
                   name="tenantName"
                   options={TenantNames}
                   value={tenantName}
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
                   onChange={(e) => onchangeTenantNames(e)}
                 ></Select>
               </div>
@@ -604,7 +637,7 @@ const Tenant_Details = ({
                   </Link>
                 </button>
                 {myuser.usergroup === "Admin" ? (
-                  <CSVLink data={csvTenantData}>
+                  <CSVLink data={csvTenantData} filename={"Tenant-Details.csv"}>
                     <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                   </CSVLink>
                 ) : (

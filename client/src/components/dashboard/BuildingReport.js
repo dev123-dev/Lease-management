@@ -300,7 +300,10 @@ const BuildingReport = ({
               </Link>
               {myuser.usergroup === "Admin" ? (
                 <>
-                  <CSVLink data={csvPropertyReportData}>
+                  <CSVLink
+                    data={csvPropertyReportData}
+                    filename={"Property-Report.csv"}
+                  >
                     <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                   </CSVLink>
                   <button

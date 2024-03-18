@@ -253,7 +253,10 @@ const RenewableTenantReport = ({
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvContactReportData}>
+                <CSVLink
+                  data={csvContactReportData}
+                  filename={"Renewable-Tenant-Report.csv"}
+                >
                   <img
                     className=""
                     src={Excel}

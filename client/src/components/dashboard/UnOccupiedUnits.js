@@ -171,7 +171,10 @@ const UnOccupiedUnits = ({
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvUnOccupiedData}>
+                <CSVLink
+                  data={csvUnOccupiedData}
+                  filename={"Unoccupied-Units.csv"}
+                >
                   <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                 </CSVLink>
               ) : (

@@ -198,7 +198,7 @@ const UserDetails = ({
               </button>
               {myuser.usergroup === "Admin" ? (
                 <>
-                  <CSVLink data={csvUserData}>
+                  <CSVLink data={csvUserData} filename={"User-Details.csv"}>
                     <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                   </CSVLink>
                   <button
