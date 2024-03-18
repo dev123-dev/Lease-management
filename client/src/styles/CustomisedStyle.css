@@ -3017,4 +3017,41 @@ i.smallsize::first-line {
   align-items: right;
   margin: 0;
   padding: 0;
+  color: #4d4d4d;
 }
+.reportDropdown{
+  font-size: 18px;
+  font-weight: 500;
+  color: #4d4d4d;
+}
+.misreportPage{
+  margin-top: 18px;
+}
+
+.containerBox {
+  /* Add your CSS properties here */
+  width: 65%; /* Adjust as needed */
+  margin: 0 auto; 
+  padding: 20px; /* Adjust as needed */
+  box-sizing: border-box; /* Includes padding and border in the total width */
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+  border-radius: 0.25rem;
+  height: auto;
+  font-size: 18px;
+}
+/* //123 */
+
+.custom-select {
+  /* appearance: none; */
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 36px 8px 12px;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  width: 25px;
+}
+

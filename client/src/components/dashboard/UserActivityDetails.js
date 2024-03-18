@@ -109,8 +109,8 @@ const UserActivityDetails = ({
                                 {Val.Operation === "Lease Transfer" &&
                                 Val.Remarks ? (
                                   <td>
-                                    Transferred Lease
-                                    {Val.Dno.map((ele) => ele.label + ",")} to
+                                  Lease Transferred  &nbsp;
+                                    {Val.Dno.map((ele) => ele.label + ",")} to &nbsp;
                                     {Val.Remarks}
                                   </td>
                                 ) : (

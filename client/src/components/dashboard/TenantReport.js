@@ -476,7 +476,7 @@ const TenantReport = ({
                     <img src={Print} alt="Print" title="Print" />
                   </button>
                   {myuser.usergroup === "Admin" ? (
-                    <CSVLink data={csvTenantReportData}>
+                    <CSVLink data={csvTenantReportData}  filename={"Tenant-Report.csv"}>
                       <img
                         src={Excel}
                         alt="Excel-Export"
@@ -687,7 +687,7 @@ const TenantReport = ({
                 Save
               </Button>
               <Button className="bg-dark" onClick={handleClose}>
-                close
+                Close
               </Button>
             </Modal.Footer>
           </Modal>
@@ -1180,7 +1180,7 @@ const TenantReport = ({
               </button>
 
               <button onClick={handleClosePrint} className=" sub_form    ">
-                close
+                Close
               </button>
             </Modal.Footer>
           </Modal>

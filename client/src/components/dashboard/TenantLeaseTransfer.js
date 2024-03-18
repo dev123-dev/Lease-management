@@ -64,10 +64,12 @@ const TenantLeaseTransfer = ({
 
   sortleasetransferdetails &&
     sortleasetransferdetails.map((ele) => {
+      if (ele._id !== leaseTransferData._id) {
       TenantNames.push({
         label: ele.tenantName,
         value: ele._id,
       });
+    }
     });
   const onchangeTenantNames = (e) => {
     setErrors({
@@ -245,20 +247,29 @@ const TenantLeaseTransfer = ({
   ) : (
     <Fragment>
       <section>
-        <div className="row ">
-          <div className="col-lg-3">From :</div>
-          <div className="col-lg-9">{leaseTransferData.tenantName}</div>
-          <div className="col-lg-3 py-3">
-            <label
+        <div className="row">
+          <div className="col-lg-12 d-flex align-items-center">
+
+       
+<div className="col-lg-3">
+<label >From :</label>
+</div>
+<div className="col-lg-9">
+{leaseTransferData.tenantName}
+</div>
+</div>
+<div className="col-lg-12 d-flex align-items-center">
+<div className="col-lg-3">
+<label
               // className="control-label"
               style={tenantErrorStyle}
             >
-              To<span style={{ color: "red" }}>*</span>
+              To<span style={{ color: "red" }}>* </span>:
             </label>
-          </div>
-          <div className="col-lg-9">
-            <div className="row ">
-              <div className="col-lg-6 col-sm-12 col-md-6">
+</div>
+<div className="col-lg-9">
+<div className="row ">
+              <div className="col-lg-6 col-sm-12 col-md-6 mx-0 px-0">
                 <Select
                   className="dropdown text-left mt-sm-3"
                   placeholder="Property"
@@ -279,12 +290,48 @@ const TenantLeaseTransfer = ({
                 ></Select>
               </div>
             </div>
-          </div>
-          {existingTenantDoorno ? (
+</div>
+</div>
+
+
+
+
+
+
+{existingTenantDoorno ? (
             <>
+<div className="containerBox ">
+<div className="row ">
+<h4 className="my-0 py-0 " style={{ color: "#095a4a" }}>Existing Lease Details of    <span className="font-weight-bold">
+  {sortleasetransferdetails &&
+                  sortleasetransferdetails[0] &&
+                  sortleasetransferdetails[0].tenantName}  </span> :
+                  </h4>
+<div className="col-lg-6 ">
+                <span
+                  // className=" font-weight-bold"
+                  // style={{ color: "#095a4a" }}
+                >
+                  Lease Start Date :
+                </span>
+                &nbsp;
+                <span 
+               >{leaseStartDate}</span>
+                &nbsp;&nbsp;&nbsp;
+                </div>
+                <div className="col-lg-6 ">
+                <span
+                  // className=" font-weight-bold"
+                  // style={{ color: "#095a4a" }}
+                >
+                  Lease End Date :
+                </span>
+                &nbsp;
+                <span >{leaseEndDate}</span>
+              </div>
               <div
-                className="col-lg-3 font-weight-bold"
-                style={{ color: "#095a4a" }}
+                className="col-lg-12  mt-2"
+                // style={{ color: "#095a4a" }}
               >
                 Existing Rooms of{" "}
                 {sortleasetransferdetails &&
@@ -292,7 +339,7 @@ const TenantLeaseTransfer = ({
                   sortleasetransferdetails[0].tenantName}{" "}
                 :
               </div>
-              <div className="col-lg-3">
+              <div className="col-lg-12">
                 {tenantName ? (
                   <>
                     {" "}
@@ -300,7 +347,9 @@ const TenantLeaseTransfer = ({
                       sortleasetransferdetails[0] &&
                       sortleasetransferdetails[0].shopDoorNo.map((ele) => {
                         return (
-                          <span style={{ color: "#095a4a" }}>
+                          <span 
+                          // style={{ color: "#095a4a" }}
+                          >
                             {ele.value}&nbsp;,
                           </span>
                         );
@@ -310,34 +359,39 @@ const TenantLeaseTransfer = ({
                   <></>
                 )}
               </div>
-              <div className="col-lg-6 ">
-                <span
-                  className=" font-weight-bold"
-                  style={{ color: "#095a4a" }}
-                >
-                  Lease Start Date :
-                </span>
-                &nbsp;
-                <span style={{ color: "#095a4a" }}>{leaseStartDate}</span>
-                &nbsp;&nbsp;&nbsp;
-                <span
-                  className=" font-weight-bold"
-                  style={{ color: "#095a4a" }}
-                >
-                  Lease End Date :
-                </span>
-                &nbsp;
-                <span style={{ color: "#095a4a" }}>{leaseEndDate}</span>
-              </div>
+
+</div>
+
+
+
+          
+</div>
+              
             </>
           ) : (
             <></>
           )}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
           <div className="row ">
             <div className="col-lg-6 col-md-12 col-sm-12">
               <div className="h4 " style={DoorErrorStyle}>
-                Door No:
+                Door No* :
               </div>
             </div>
           </div>
@@ -350,9 +404,9 @@ const TenantLeaseTransfer = ({
               >
                 <div
                   className="h4 "
-                  style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  style={{  color: "#095a4a" }}
                 >
-                  Transfer:
+                  Transfer :
                 </div>{" "}
                 <br></br>
                 {leaseTranferArr &&
@@ -390,9 +444,9 @@ const TenantLeaseTransfer = ({
               >
                 <div
                   className="h4"
-                  style={{ fontFamily: "Serif", color: "#095a4a" }}
+                  style={{  color: "#095a4a" }}
                 >
-                  Transferred:
+                  Transferred :
                 </div>
                 <br></br>
                 {selectedDoorNumber &&
@@ -426,14 +480,40 @@ const TenantLeaseTransfer = ({
               </div>
             </>
           </div>
+   </div>
 
-          <div className="float-right  text-right d-flex justify-content-end">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="float-right  text-right d-flex justify-content-end">
             <button className="rewbtn float-right w-25" onClick={onSubmit}>
               Transfer
             </button>
           </div>
+
+
+
+
         </div>
       </section>
+
+
+
+
+
+      
       <Modal
         show={show}
         backdrop="static"

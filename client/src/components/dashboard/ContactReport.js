@@ -131,7 +131,7 @@ const ContactReport = ({
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvContactReportData}>
+                <CSVLink data={csvContactReportData} filename={"Contact-Report.csv"}>
                   <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                 </CSVLink>
               ) : (
@@ -176,16 +176,16 @@ const ContactReport = ({
                           </th>
 
                           <th style={showPrint}>Building Name</th>
-                          <th style={showPrint}>Door No</th>
+                          <th style={showPrint}>Door No.</th>
                           <th style={showPrint}> Location</th>
                           <th style={showPrint}>Rent Amount</th>
-                          <th style={showPrint}>Phone No</th>
-                          <th style={showPrint}>Pan No</th>
-                          <th style={showPrint}>Aadhaar no</th>
+                          <th style={showPrint}>Phone No.</th>
+                          <th style={showPrint}>Pan No.</th>
+                          <th style={showPrint}>Aadhaar No.</th>
                           <th style={showPrint}>Firm Name</th>
                           <th style={showPrint}>Deposite Amount</th>
-                          <th style={showPrint}>leaseEndDate</th>
-                          <th style={showPrint}>AgreementStatus</th>
+                          <th style={showPrint}>Lease End Date</th>
+                          <th style={showPrint}>Agreement Status</th>
                         </tr>
                       </thead>
                       <tbody className="text-center">
