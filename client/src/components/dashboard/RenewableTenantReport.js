@@ -42,7 +42,7 @@ const RenewableTenantReport = ({
   const handleYearChange = (selectedOption) => {
     setSelectedYear(selectedOption);
     SetRenewableYear(selectedOption.value);
-    console.log("selectedOption", selectedOption);
+    
   };
 
   //end

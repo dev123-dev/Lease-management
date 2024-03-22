@@ -47,7 +47,7 @@ const RenewedTenantReport = ({
     value: new Date().getFullYear(),
   });
   const [RenewedYear, SetRenewedYear] = useState(new Date().getFullYear());
-  console.log("selectedYear", selectedYear);
+
   // Function to populate years array
   const populateYears = (startYear, endYear) => {
     const yearsArray = [];
@@ -58,11 +58,11 @@ const RenewedTenantReport = ({
   };
 
   const years = populateYears(2020, new Date().getFullYear());
-  console.log("years", years);
+ 
   const handleYearChange = (selectedOption) => {
     setSelectedYear(selectedOption);
     SetRenewedYear(selectedOption.value);
-    console.log("selectedOption", selectedOption);
+  
   };
   //end
 

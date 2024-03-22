@@ -218,7 +218,6 @@ const RenewTenentAgreement = ({
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-console.log("insidee")
     if (inputValue === "") {
       // Allow empty string when user is deleting digits
       setRentAmount(inputValue);
@@ -533,7 +532,7 @@ console.log("insidee")
   ]);
 
   // console.log("isNextButtonDisabled", isNextButtonDisabled);
-  console.log("isNextButtonDisabled1", isNextButtonDisabled1);
+
   //   useEffect(()=>{
   // if(validationMessage!=="")
   //   setNextButtonDisabled(true);

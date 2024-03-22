@@ -42,7 +42,6 @@ const TenantReport = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
-  console.log("load", load);
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -333,7 +332,7 @@ const TenantReport = ({
       OrganizationId: user.OrganizationId,
       expireAt: new Date().getTime() + 80,
     };
-    // console.log("finalData", finalData);
+
     AddTenantReceiptDetails(finalData);
     AddUserActivity(ActivityDetail);
   };

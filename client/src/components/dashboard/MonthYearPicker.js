@@ -9,7 +9,6 @@ import {
 } from "../../actions/tenants";
 import { Link } from "react-router-dom";
 
-
 const MonthYearPicker = ({
   auth: { user },
   tenants: { allmisreport, allmisamountreport, allmisrenewedbarreport },

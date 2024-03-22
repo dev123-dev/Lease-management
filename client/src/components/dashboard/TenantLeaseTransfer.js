@@ -157,7 +157,6 @@ const TenantLeaseTransfer = ({
       setShow(true);
     }
   };
-  console.log("selectedDoorNumber", selectedDoorNumber);
 
   const onTransfer = () => {
     const finalData = {
@@ -191,15 +190,12 @@ const TenantLeaseTransfer = ({
         sortleasetransferdetails[0].tenantName,
       expireAt: new Date().getTime() + 80,
     };
-    // AddUserActivity(ActivityDetail);
-    // EditTenantLeaseTransferDetails(finalData);
-    console.log("ActivityDetail", ActivityDetail);
-    console.log("finalData", finalData);
+    AddUserActivity(ActivityDetail);
+    EditTenantLeaseTransferDetails(finalData);
     ModalClose();
     ParticularTenantFilter("");
     setExistingTenantDoorno(false);
     setShow(false);
-
     sendDataBackToParent();
   };
 
@@ -276,6 +272,17 @@ const TenantLeaseTransfer = ({
                     options={propertyname}
                     value={PropertyName}
                     onChange={(e) => onchangeProperty(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
                   ></Select>
                 </div>
                 <div className="col-lg-6 col-sm-12 col-md-6">
@@ -286,6 +293,17 @@ const TenantLeaseTransfer = ({
                     options={TenantNames}
                     value={tenantName}
                     onChange={(e) => onchangeTenantNames(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
                   ></Select>
                 </div>
               </div>
