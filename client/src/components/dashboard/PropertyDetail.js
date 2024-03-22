@@ -335,7 +335,11 @@ const PropertyDetail = ({
               </h2>
             </div>
 
-            <div className="col-lg-5  col-sm-12 col-md-12 mt-4">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-4 ">
+              <div className="row">
+
+              
+              <div className="col-lg-6 col-sm-12 col-md-12">
               <Select
                 className="dropdown text-left "
                 placeholder="Search-Location"
@@ -355,8 +359,11 @@ const PropertyDetail = ({
                   },
                 })}
               ></Select>
+              </div>
+              <div className="col-lg-6 col-sm-12 col-md-12"></div>
             </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
+            </div>
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
               {" "}
               <button style={{ border: "none" }}>
                 <img
@@ -364,21 +371,23 @@ const PropertyDetail = ({
                   src={Add}
                   alt="Add Property"
                   title="Add Property"
+                  className="iconSize"
                 />
-              </button>
+              </button> 
               {myuser.usergroup === "Admin" ? (
                 <CSVLink
                   data={csvPropertyData}
                   filename={"Property-Details.csv"}
                 >
                   <img
-                    className=""
+                     className="iconSize"
                     src={Excel}
                     alt="Excel-Export"
                     style={{ cursor: "pointer" }}
                     title="Excel-Export"
                   />
-                </CSVLink>
+                </CSVLink> 
+               
               ) : (
                 <></>
               )}
@@ -390,13 +399,16 @@ const PropertyDetail = ({
                     color: "black",
                     fontWeight: "bold",
                   });
-
+               
                   OnPrint();
                 }}
+             
               >
-                <img src={Print} alt="Print" title="Print" />
+                <img src={Print} alt="Print" title="Print"    className="iconSize" />
               </button>
+              <button style={{ border: "none" }} className="mx-0 px-0">
               <img
+               className="iconSize"
                 // className=" float-right "
                 style={{ cursor: "pointer" }}
                 onClick={() => refresh()}
@@ -404,6 +416,7 @@ const PropertyDetail = ({
                 alt="refresh"
                 title="Refresh"
               />
+              </button>
             </div>
           </div>
 
@@ -502,7 +515,8 @@ const PropertyDetail = ({
                                       .join(", ")
                                   ) : (
                                     <img
-                                      className="img_icon_size log"
+                                    
+                                      className="img_icon_size "
                                       src={require("../../static/images/info.png")}
                                       alt="shop no."
                                       title={Val.shopDoorNo.map(
@@ -521,7 +535,7 @@ const PropertyDetail = ({
                                       {Val.shopStatus === "Active" ? (
                                         <>
                                           <img
-                                            className="Cursor"
+                                            className=" iconSize"
                                             onClick={() => onEdit(Val)}
                                             src={Edit}
                                             alt="Edit Property"
@@ -529,7 +543,7 @@ const PropertyDetail = ({
                                           />
                                           &nbsp;
                                           <img
-                                            className=" Cursor"
+                                            className=" iconSize"
                                             onClick={() =>
                                               onDelete(
                                                 Val._id,

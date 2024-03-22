@@ -124,6 +124,7 @@ const SuperUserDashboard = ({
                       src={Add}
                       alt="Add User"
                       title="Add User"
+                      className="iconSize"
                     />
                   </div>
 
@@ -170,7 +171,7 @@ const SuperUserDashboard = ({
                                       />
                                       &nbsp;
                                       <img
-                                        className="Cursor "
+                                       className="iconSize"
                                         onClick={() =>
                                           onDelete(allsuperuse._id)
                                         }
@@ -205,9 +206,10 @@ const SuperUserDashboard = ({
                     </div>
 
                     <div className="col-lg-6  col-sm-12 col-md-12 ">
-                      <p className="text-end h6">
+                      <p className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}>
                         {" "}
-                        No. of User : {allsuperuser.length}
+                        No. of Users : {allsuperuser.length}
                       </p>
                     </div>
                   </div>

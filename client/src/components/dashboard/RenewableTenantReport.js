@@ -38,7 +38,7 @@ const RenewableTenantReport = ({
     return yearsArray;
   };
 
-  const years = populateYears(2012, new Date().getFullYear());
+  const years = populateYears(2020, new Date().getFullYear());
   const handleYearChange = (selectedOption) => {
     setSelectedYear(selectedOption);
     SetRenewableYear(selectedOption.value);
@@ -222,11 +222,16 @@ const RenewableTenantReport = ({
                 Renewable Report
               </h2>
             </div>
-            <div className="col-lg-1  col-sm-12 col-md-12 mt-4 pt-3">
-              <span className="renewsize">Select Year</span>
-            </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 mt-4">
-              <Select
+           
+           
+            <div className="col-lg-5 mt-3">
+
+<div className="row">
+
+  
+<div className="col-lg-6 col-sm-12 col-md-12">
+<Select
+className="dropdown text-left mt-sm-3"
                 placeholder="Select Year"
                 onChange={(e) => handleYearChange(e)}
                 options={years}
@@ -243,13 +248,24 @@ const RenewableTenantReport = ({
                   },
                 })}
               ></Select>
-            </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 mt-4 pt-3"></div>
+</div>
+<div className="col-lg-6 col-sm-12 col-md-12"></div>
+</div>
 
-            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
+
+
+
+  
+</div>
+
+             
+         
+          
+
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-4 iconspace ">
               <Link to="/Report">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" />
+                  <img src={Back} alt="Back" title="Back" className="iconSize"/>
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
@@ -258,7 +274,7 @@ const RenewableTenantReport = ({
                   filename={"Renewable-Tenant-Report.csv"}
                 >
                   <img
-                    className=""
+                    className="iconSize"
                     src={Excel}
                     alt="Excel-Export"
                     style={{ cursor: "pointer" }}
@@ -280,10 +296,11 @@ const RenewableTenantReport = ({
                   OnPrint();
                 }}
               >
-                <img src={Print} alt="Print" title="Print" />
+                <img src={Print} alt="Print" title="Print" className="iconSize"/>
               </button>
               <img
-                // className=" float-right "
+              className="iconSize"
+       
                 style={{ cursor: "pointer" }}
                 onClick={() => refresh()}
                 src={Refresh}
@@ -322,8 +339,8 @@ const RenewableTenantReport = ({
                           <th style={showPrint}>Firm Name</th>
                           {/* <th style={showPrint}>Deposite Amount</th> */}
 
-                          <th style={showPrint}>lease Start Date</th>
-                          <th style={showPrint}>lease End Date</th>
+                          <th style={showPrint}>Lease Start Date</th>
+                          <th style={showPrint}>Lease End Date</th>
                           {/* <th style={showPrint}>Agreement Status</th> */}
                         </tr>
                       </thead>
@@ -413,7 +430,8 @@ const RenewableTenantReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
                     No. of Tenants : {activeData.length}
                   </p>
                 </div>

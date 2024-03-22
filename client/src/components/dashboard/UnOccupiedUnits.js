@@ -167,7 +167,7 @@ const UnOccupiedUnits = ({
             <div className="col-lg-8 mt-3 iconspace ">
               <Link to="/MainAdmin">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" />
+                  <img src={Back} alt="Back" title="Back" className="iconSize"/>
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
@@ -175,7 +175,7 @@ const UnOccupiedUnits = ({
                   data={csvUnOccupiedData}
                   filename={"Unoccupied-Units.csv"}
                 >
-                  <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                  <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize" />
                 </CSVLink>
               ) : (
                 <></>
@@ -193,7 +193,7 @@ const UnOccupiedUnits = ({
                   OnPrint();
                 }}
               >
-                <img src={Print} alt="Print" title="Print" />
+                <img src={Print} alt="Print" title="Print" className="iconSize" />
               </button>
             </div>
           </div>
@@ -211,7 +211,7 @@ const UnOccupiedUnits = ({
                       <thead>
                         <tr>
                           <th style={showPrint}>Building Name</th>
-                          <th style={showPrint}>Door No</th>
+                          <th style={showPrint}>Door No's</th>
                           <th style={showPrint}>Status</th>
                         </tr>
                       </thead>
@@ -263,8 +263,9 @@ const UnOccupiedUnits = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
-                    No. of Tenants : {mappedStatus.length}
+                  <p className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
+                    No. of Units : {mappedStatus.length}
                   </p>
                 </div>
               </div>

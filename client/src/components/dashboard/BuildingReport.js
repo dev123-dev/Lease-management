@@ -292,10 +292,10 @@ const BuildingReport = ({
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">Property Report</h2>
             </div>
-            <div className="col-lg-7 pt-2 iconspace">
+            <div className="col-lg-7 pt-4 iconspace">
               <Link to="/Report">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" />
+                  <img src={Back} alt="Back" title="Back"  className=" iconSize" />
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
@@ -304,7 +304,7 @@ const BuildingReport = ({
                     data={csvPropertyReportData}
                     filename={"Property-Report.csv"}
                   >
-                    <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export"  className=" iconSize"/>
                   </CSVLink>
                   <button
                     style={{ border: "none" }}
@@ -318,7 +318,7 @@ const BuildingReport = ({
                       handlePrint();
                     }}
                   >
-                    <img src={Print} alt="Print" title="Print" />
+                    <img src={Print} alt="Print" title="Print"  className=" iconSize"/>
                   </button>
                 </>
               ) : (
@@ -490,7 +490,8 @@ const BuildingReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p  className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
                     No. of Property : {get_property_related_tenant.length}
                   </p>
                 </div>

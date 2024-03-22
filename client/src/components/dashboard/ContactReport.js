@@ -127,12 +127,12 @@ const ContactReport = ({
             <div className="col-lg-7 mt-4 iconspace ">
               <Link to="/Report">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" />
+                  <img src={Back} alt="Back" title="Back" className="iconSize" />
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvContactReportData} filename={"Contact-Report.csv"}>
-                  <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                  <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize" />
                 </CSVLink>
               ) : (
                 <></>
@@ -150,7 +150,7 @@ const ContactReport = ({
                   OnPrint();
                 }}
               >
-                <img src={Print} alt="Print" title="Print" />
+                <img src={Print} alt="Print" title="Print" className="iconSize"/>
               </button>
             </div>
           </div>
@@ -265,7 +265,8 @@ const ContactReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
                     No. of Tenants : {activeData.length}
                   </p>
                 </div>

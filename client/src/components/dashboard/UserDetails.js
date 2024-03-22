@@ -127,6 +127,17 @@ const UserDetails = ({
 
   const [showadd, setShowadd] = useState(false);
 
+
+
+
+  let cntDeActiveUser = 0;
+  get_particularOrg_user &&
+  get_particularOrg_user.map((ele) => {
+      if (ele.userStatus !== "Active") cntDeActiveUser++;
+  
+    });
+
+
   //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(7);
@@ -192,14 +203,15 @@ const UserDetails = ({
                   onClick={() => setShowadd(true)}
                   src={Add}
                   alt="Add User"
-                  style={{ cursor: "pointer" }}
+                  // style={{ cursor: "pointer" }}
                   title="Add User"
+                  className="iconSize"
                 />
               </button>
               {myuser.usergroup === "Admin" ? (
                 <>
                   <CSVLink data={csvUserData} filename={"User-Details.csv"}>
-                    <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize"/>
                   </CSVLink>
                   <button
                     style={{ border: "none" }}
@@ -218,6 +230,7 @@ const UserDetails = ({
                       src={Print}
                       alt="Print"
                       title="Print"
+                      className="iconSize"
                     />
                   </button>
                 </>
@@ -254,7 +267,14 @@ const UserDetails = ({
                           currentDatas.map((alluser, idx) => {
                             return (
                               <tr key={idx}>
-                                <td>{alluser.username}</td>
+                                  {alluser.userStatus === "Deactive" ? (
+                                    <td style={{ backgroundColor: "#dda6a6" }}>
+                                      {alluser.username}
+                                    </td>
+                                  ) : (
+                                    <td>{alluser.username}</td>
+                                  )}
+                                {/* <td>{alluser.username}</td> */}
                                 <td>{alluser.useremail}</td>
                                 <td>{alluser.userphone}</td>
                                 <td>{alluser.usergroup}</td>
@@ -263,26 +283,26 @@ const UserDetails = ({
 
                                 {alluser.userStatus === "Deactive" ? (
                                   <td className="blank text-center">
-                                    Deactived
+                                    Deactive
                                   </td>
                                 ) : (
                                   <td className="text-center">
                                     <img
-                                      className="Cursor"
+                                      className="iconSize"
                                       onClick={() => onEdit(alluser, idx)}
                                       src={Edit}
                                       alt="Edit"
-                                      title="Edit"
+                                      title="Edit User"
                                     />
                                     &nbsp;
                                     <img
-                                      className="Cursor"
+                                      className="iconSize"
                                       onClick={() =>
                                         onDelete(alluser._id, alluser)
                                       }
                                       src={Deactivate}
                                       alt="Deactivate"
-                                      title="Deactivate"
+                                      title="Deactivate User"
                                     />
                                   </td>
                                 )}
@@ -309,15 +329,20 @@ const UserDetails = ({
                     <Fragment />
                   )}
                 </div>
-                <div className="col-lg-6  col-sm-12 col-md-12 ">
-                  <p
-                    className="text-end h6 font-weight-bold text-right "
-                    style={{ color: "#095a4a" }}
-                  >
-                    No. of User :{" "}
-                    {get_particularOrg_user && get_particularOrg_user.length}
-                  </p>
-                </div>
+               
+                   <div className="col-lg-6  col-sm-12 col-md-12">
+                    <p
+                      className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}
+                    >
+                      Active Users:{" "}
+                      {get_particularOrg_user && get_particularOrg_user.length - cntDeActiveUser}{" "}
+                      &nbsp;&nbsp;&nbsp;
+                      <span style={{ color: "red" }}>
+                        Deactive Users: {cntDeActiveUser}
+                      </span>
+                    </p>
+                  </div>
               </div>
             </div>
           </div>

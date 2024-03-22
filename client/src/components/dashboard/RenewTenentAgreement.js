@@ -73,7 +73,7 @@ const RenewTenentAgreement = ({
     setChequeDate(e.target.value);
     e
       ? setValidationChequeDateMessage("")
-      : setValidationChequeDateMessage("please enter date");
+      : setValidationChequeDateMessage("Please enter Date");
   };
 
   // validation for bank name
@@ -111,7 +111,7 @@ const RenewTenentAgreement = ({
     ) {
       setValidationTransIdMessage("");
     } else {
-      setValidationTransIdMessage("Please enter a valid  Transcation id");
+      setValidationTransIdMessage("Please enter a valid  Transaction Id");
     }
 
     setTransId(inputValue);
@@ -159,25 +159,25 @@ const RenewTenentAgreement = ({
 
     setPaymentMode(e);
     if (e.value === "UPI") {
-      setValidationTransIdMessage("Please enter transaction");
+      setValidationTransIdMessage("Please enter Transaction Id");
       setValidationBankMessage("");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
     } else if (e.value === "NEFT") {
-      setValidationBankMessage("please enter bank name");
-      setValidationTransIdMessage("Please enter transaction");
+      setValidationBankMessage("Please enter Bank Name");
+      setValidationTransIdMessage("Please enter Transaction Id");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
     } else if (e.value === "Card") {
-      setValidationBankMessage("please enter bank name");
-      setValidationTransIdMessage("Please enter transaction");
+      setValidationBankMessage("Please enter Bank Name");
+      setValidationTransIdMessage("Please enter Transaction Id");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
     } else if (e.value === "Cheque") {
-      setValidationBankMessage("please enter bank name");
+      setValidationBankMessage("Please enter Bank Name");
       setValidationTransIdMessage("");
-      setValidationChequeMessage("Please Enter cheque/DD No");
-      setValidationChequeDateMessage("Please Enter Date");
+      setValidationChequeMessage("Please Enter Cheque/DD No");
+      setValidationChequeDateMessage("Please enter Date");
     } else if (e.value === "Cash") {
       setValidationBankMessage("");
       setValidationTransIdMessage("");
@@ -218,12 +218,22 @@ const RenewTenentAgreement = ({
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-
-    if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+console.log("insidee")
+    if (inputValue === "") {
+      // Allow empty string when user is deleting digits
+      setRentAmount(inputValue);
+      setValidationMessage("Enter valid Amount");
+      setNextButtonDisabled1(true);
+    } else if (/^(?:0|[1-9]\d*)(?:\.\d{0,2})?$/.test(inputValue)) {
       setRentAmount(inputValue);
       setValidationMessage("");
+      setNextButtonDisabled1(false);
     } else {
-      setValidationMessage("enter valid amount");
+      setRentAmount(inputValue);
+      setValidationMessage(
+        "Please enter a valid amount with two digits after the decimal point"
+      );
+      setNextButtonDisabled1(true);
     }
   };
 
@@ -345,7 +355,7 @@ const RenewTenentAgreement = ({
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
-      const newYear = yearVal + 1;
+      const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
 
@@ -487,6 +497,7 @@ const RenewTenentAgreement = ({
 
   /////////////////////////////////////////////////////////////
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
+  const [isNextButtonDisabled1, setNextButtonDisabled1] = useState(false);  //rent amount
 
   useEffect(() => {
     if (
@@ -495,10 +506,18 @@ const RenewTenentAgreement = ({
       validationTransIdMessage === "" &&
       validationChequeMessage === "" &&
       validationChequeDateMessage === ""
+      // &&
+      // validationMessage===""
       //  &&
       // cardChecker === true
     ) {
       setNextButtonDisabled(false);
+    } else 
+    // if (validationMessage !== "") {
+    //   setNextButtonDisabled1(true);
+    // } else 
+    if (validationMessage === "") {
+      setNextButtonDisabled1(false);
     } else {
       setNextButtonDisabled(true);
     }
@@ -509,8 +528,20 @@ const RenewTenentAgreement = ({
     validationTransIdMessage,
     validationChequeDateMessage,
     paymentMode,
+
+    // validationMessage
   ]);
 
+  // console.log("isNextButtonDisabled", isNextButtonDisabled);
+  console.log("isNextButtonDisabled1", isNextButtonDisabled1);
+  //   useEffect(()=>{
+  // if(validationMessage!=="")
+  //   setNextButtonDisabled(true);
+
+  // else
+  // setNextButtonDisabled(false);
+
+  //   },[])
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -570,7 +601,7 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label> Rent Amount:</label>
+            <label> Rent Amount* :</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
@@ -619,7 +650,7 @@ const RenewTenentAgreement = ({
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12 mt-2">
             <label style={paymentmodeErrorStyle}>
               {" "}
               Payment Mode<span style={{ color: "red" }}>*</span>:
@@ -644,10 +675,17 @@ const RenewTenentAgreement = ({
                   primary: "#095a4a",
                 },
               })}
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  height: "35px",
+                }),
+                // Add other custom styles as needed
+              }}
             />
           </div>
           {paymentMode.value === "Cheque" ? (
-            <div className="row">
+            <div className="row py-2">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
                 <label> Cheque No/DD No*:</label>
               </div>
@@ -821,7 +859,7 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-12  col-sm-12 col-md-12 Savebutton" size="lg">
-            {isNextButtonDisabled ? (
+            {isNextButtonDisabled || isNextButtonDisabled1 ? (
               <button
                 variant="success"
                 className="btn sub_form float-right"

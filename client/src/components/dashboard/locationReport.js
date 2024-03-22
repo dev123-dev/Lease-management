@@ -271,7 +271,12 @@ const LocationReport = ({
               <h2 className="heading_color  headsize  ml-4">Location Report</h2>
             </div>
             <div className="col-lg-5 mt-3">
-              <Select
+
+            <div className="row">
+
+              
+<div className="col-lg-6 col-sm-12 col-md-12">
+<Select
                 className="dropdown text-left mt-sm-3"
                 placeholder="Search-Location"
                 name="location"
@@ -290,12 +295,20 @@ const LocationReport = ({
                   },
                 })}
               ></Select>
+</div>
+<div className="col-lg-6 col-sm-12 col-md-12"></div>
+</div>
+
+
+
+
+              
             </div>
             <div className="col-lg-2 text-end pt-4 iconspace">
               {" "}
               <Link to="/Report">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" />
+                  <img src={Back} alt="Back" title="Back"  className="iconSize"/>
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
@@ -304,7 +317,7 @@ const LocationReport = ({
                     data={csvLocationData}
                     filename={"Location-Report.csv"}
                   >
-                    <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export"  className="iconSize"/>
                   </CSVLink>
                   <button
                     style={{ border: "none" }}
@@ -318,14 +331,14 @@ const LocationReport = ({
                       OnPrint();
                     }}
                   >
-                    <img src={Print} alt="Print" title="Print" />
+                    <img src={Print} alt="Print" title="Print"  className="iconSize" />
                   </button>
                 </>
               ) : (
                 <></>
               )}
               <img
-                className="ml-1"
+                className=" iconSize"
                 style={{ cursor: "pointer" }}
                 onClick={() => refresh()}
                 src={Refresh}
@@ -358,7 +371,7 @@ const LocationReport = ({
 
                           <th style={showPrint}>Address</th>
                           <th style={showPrint}>Location</th>
-                          <th style={showPrint}> Total Door No</th>
+                          <th style={showPrint}>  Door No's</th>
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -426,7 +439,8 @@ const LocationReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p  className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
                     No. of Property : {particular_org_data.length}
                   </p>
                 </div>

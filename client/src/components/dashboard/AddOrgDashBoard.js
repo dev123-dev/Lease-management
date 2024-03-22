@@ -134,7 +134,7 @@ const AddOrgDashBoard = ({
               <div className="refreshbtn">
                 <img
                   // className="plusicon"
-
+                  className="iconSize"
                   onClick={() => setShowadd(true)}
                   src={Add}
                   alt="Add org"
@@ -156,7 +156,7 @@ const AddOrgDashBoard = ({
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Location</th>
-                        <th>StartDate</th>
+                        <th>Start Date</th>
                         <th>EndDate</th>
                         <th>Operation</th>
                       </tr>
@@ -191,7 +191,7 @@ const AddOrgDashBoard = ({
                               orgVal.org_status === "Expired" ? (
                                 <td className="text-center">
                                   <img
-                                    className="Cursor "
+                                    className="iconSize "
                                     onClick={() => onedit(orgVal, idx)}
                                     src={Edit}
                                     alt="Edit Organisation"
@@ -199,7 +199,7 @@ const AddOrgDashBoard = ({
                                   />
                                   &nbsp;
                                   <img
-                                    className="Cursor"
+                                    className="iconSize "
                                     onClick={() => onDelete(orgVal._id)}
                                     src={Deactivate}
                                     alt="delete Organisation"
@@ -233,7 +233,8 @@ const AddOrgDashBoard = ({
                 </div>
 
                 <div className="col-lg-6  col-sm-12 col-md-12 ">
-                  <p className="text-end h6  ">
+                  <p className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}>
                     No. of Organization : {allorg.length}
                   </p>
                 </div>

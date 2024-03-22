@@ -170,7 +170,8 @@ const MainSuperPage = ({
             </div>
 
             <div className="col-lg-6  col-sm-12 col-md-12  ">
-              <p className="text-end h6">
+              <p  className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}>
                 {" "}
                 No. of Organization : {totallorg.length}
               </p>
