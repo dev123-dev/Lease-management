@@ -50,7 +50,7 @@ const MISReport = ({
     );
   }
 
-  console.log("valuesArray", valuesArray);
+
 
   ///////////////////////////new format date 123//////////////////////////
 

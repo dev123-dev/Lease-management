@@ -1090,7 +1090,7 @@ export const getTenantReportYearExp =
     });
 
     try {
-      console.log("finalDataReportOld action", finalDataReportOld);
+    
       const res = await axios.post(
         `${linkPath}/api/tenants/get-tenant-year-report`,
         finalDataReportOld,
@@ -1198,7 +1198,7 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
 //get MIS report
 
 export const getMisReport = (finalOrgData) => async (dispatch) => {
-  // console.log("actionnnnn", finalOrgData);
+
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-mis-report`,

@@ -28,7 +28,6 @@ const LocationReport = ({
   getAllSettings,
   getParticularProperty,
 }) => {
-  // console.log("data", particular_org_data);
   const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
     fun();
