@@ -651,6 +651,7 @@ router.post("/get-particular-org-user", auth, async (req, res) => {
         },
       },
       { $unwind: "$output" },
+      { $sort: { userStatus: 1 } },
     ]).then((data) => res.json(data));
     //res.json(ParticularOrg);
   } catch (error) {
@@ -946,6 +947,59 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
     res.json(tenantdata);
   } catch (error) {
     console.log(error.message);
+  }
+});
+
+router.post("/get-tenant-sort-for-activecount", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
+  let query = { OrganizationId: userInfo.OrganizationId };
+
+  try {
+    const tenantdata = await TenantDetails.find(query).sort({
+      tenantstatus: 1,
+    });
+    res.json(tenantdata);
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
+router.post("/get-tenant-activecount", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
+  let query = { OrganizationId: userInfo.OrganizationId };
+
+  try {
+    const tenantdata = await TenantDetails.find({
+      ...query,
+      tenantstatus: "Active", // Move the condition inside the find function
+    });
+    res.json(tenantdata);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "Server Error" });
+  }
+});
+router.post("/get-tenant-renewedcount", auth, async (req, res) => {
+  const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
+  let query = {
+    OrganizationId: userInfo.OrganizationId,
+    tenantstatus: "Active",
+    AgreementStatus: "Renewed",
+    $where: function () {
+      const currentYear = new Date().getFullYear();
+      return new Date(this.tenantLeaseStartDate).getFullYear() === currentYear;
+    },
+  };
+
+  try {
+    const tenantrenewdata = await TenantDetails.find(query);
+    res.json(tenantrenewdata);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "Server Error" });
   }
 });
 
@@ -1670,6 +1724,12 @@ router.post("/get-organization-expiry-report", async (req, res) => {
 router.post("/get-tenant-old-exp-report", async (req, res) => {
   const { yearSearch, OrganizationId } = req.body;
   var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
+  var year = new Date(lastDate).getFullYear(); // Extract the year value from lastDate
+
+  // Create the start and end dates for the year
+
+  var endDate = new Date(yearSearch, 11, 31).toISOString().split("T")[0];
+
   try {
     const tenantSettingsData = await OrganizationDetails.find({
       _id: OrganizationId,
@@ -1756,6 +1816,10 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(OrganizationId),
+          // tenantLeaseEndDate: {
+          //   $gte: lastDate,
+          //   $lt: endDate,
+          // },
           tenantLeaseEndDate: { $lte: lastDate },
           // AgreementStatus: { $ne: "Renewed" },
           tenantstatus: { $eq: "Active" },
@@ -1767,6 +1831,247 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
+  }
+});
+
+///123
+router.post("/get-tenant-year-report", async (req, res) => {
+  const { yearSearch, OrganizationId } = req.body;
+  var currentDate = new Date();
+  if (yearSearch === new Date().getFullYear()) {
+    var firstDayOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+    var lastDayOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      1
+    ); // Corrected
+
+    var firstDayISOString = firstDayOfMonth.toISOString().split("T")[0];
+    var lastDayISOString = lastDayOfMonth.toISOString().split("T")[0];
+
+    try {
+      const tenantSettingsData = await OrganizationDetails.find({
+        _id: OrganizationId,
+      });
+      const tenantExpReport = await TenantDetails.aggregate([
+        {
+          $lookup: {
+            from: "tenantagreementsettings",
+            localField: "_id",
+            foreignField: "tdId",
+            as: "output",
+          },
+        },
+        { $unwind: "$output" },
+        {
+          $project: {
+            tenantName: "$tenantName",
+            tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+            AgreementStatus: "$output.AgreementStatus",
+            tenantstatus: "$tenantstatus",
+            tdId: "$output.tdId",
+            agreementId: "$output._id",
+            tenantDoorNo: "$output.tenantDoorNo",
+            tenantFileNo: "$output.tenantFileNo",
+            OrganizationId: "$OrganizationId",
+            Location: "$Location",
+            tenantDoorNo: "$shopDoorNo",
+            BuildingName: "$BuildingName",
+            BuildingId: "$BuildingId",
+            tenantPaymentMode: "$tenantPaymentMode",
+            tenantBankName: "$tenantBankName",
+            tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+            tenantchequeDate: "$tenantchequeDate",
+            tenantPhone: "$tenantPhone",
+            tenantFirmName: "$tenantFirmName",
+            tenantAddr: "$tenantAddr",
+            tenantRentAmount: "$tenantRentAmount",
+            tenantTransId: "$tenantTransId",
+            tenantCardType: "$tenantCardType",
+            chargesCal: {
+              $add: [
+                {
+                  $divide: [
+                    {
+                      $multiply: [
+                        "$output.tenantRentAmount",
+                        tenantSettingsData[0].hike,
+                      ],
+                    },
+                    100,
+                  ],
+                },
+                "$output.tenantRentAmount",
+              ],
+            },
+            stampDuty: {
+              $divide: [
+                {
+                  $multiply: [
+                    {
+                      $add: [
+                        {
+                          $divide: [
+                            {
+                              $multiply: [
+                                "$output.tenantRentAmount",
+                                tenantSettingsData[0].hike,
+                              ],
+                            },
+                            100,
+                          ],
+                        },
+                        "$output.tenantRentAmount",
+                      ],
+                    },
+                    tenantSettingsData[0].stampDuty,
+                  ],
+                },
+                100,
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            OrganizationId: mongoose.Types.ObjectId(OrganizationId),
+            tenantLeaseEndDate: {
+              $gt: firstDayISOString,
+              $lte: lastDayISOString,
+            },
+
+            tenantstatus: { $eq: "Active" },
+          },
+        },
+      ]);
+
+      res.json(tenantExpReport);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Internal Server Error.");
+    }
+  } else {
+    var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
+    var year = new Date(lastDate).getFullYear(); // Extract the year value from lastDate
+
+    // Create the start and end dates for the year
+
+    // var endDate = new Date(yearSearch, 11, 31).toLocaleDateString("en-GB");
+    var endDate1 = new Date(yearSearch, 11, 31);
+    var endDate =
+      new Date(endDate1).getFullYear() +
+      "-" +
+      ("0" + (endDate1.getMonth() + 1)).slice(-2) +
+      "-" +
+      ("0" + endDate1.getDate()).slice(-2);
+
+    try {
+      const tenantSettingsData = await OrganizationDetails.find({
+        _id: OrganizationId,
+      });
+      const tenantExpReport = await TenantDetails.aggregate([
+        {
+          $lookup: {
+            from: "tenantagreementsettings",
+            localField: "_id",
+            foreignField: "tdId",
+            as: "output",
+          },
+        },
+        { $unwind: "$output" },
+        {
+          $project: {
+            tenantName: "$tenantName",
+            tenantLeaseEndDate: "$output.tenantLeaseEndDate",
+            AgreementStatus: "$output.AgreementStatus",
+            tenantstatus: "$tenantstatus",
+            tdId: "$output.tdId",
+            agreementId: "$output._id",
+            tenantDoorNo: "$output.tenantDoorNo",
+            tenantFileNo: "$output.tenantFileNo",
+            OrganizationId: "$OrganizationId",
+            Location: "$Location",
+            tenantDoorNo: "$shopDoorNo",
+            BuildingName: "$BuildingName",
+            BuildingId: "$BuildingId",
+            tenantPaymentMode: "$tenantPaymentMode",
+            tenantBankName: "$tenantBankName",
+            tenantChequenoOrDdno: "$tenantChequenoOrDdno",
+            tenantchequeDate: "$tenantchequeDate",
+            tenantPhone: "$tenantPhone",
+            tenantFirmName: "$tenantFirmName",
+            tenantAddr: "$tenantAddr",
+            tenantRentAmount: "$tenantRentAmount",
+            tenantTransId: "$tenantTransId",
+            tenantCardType: "$tenantCardType",
+            chargesCal: {
+              $add: [
+                {
+                  $divide: [
+                    {
+                      $multiply: [
+                        "$output.tenantRentAmount",
+                        tenantSettingsData[0].hike,
+                      ],
+                    },
+                    100,
+                  ],
+                },
+                "$output.tenantRentAmount",
+              ],
+            },
+            stampDuty: {
+              $divide: [
+                {
+                  $multiply: [
+                    {
+                      $add: [
+                        {
+                          $divide: [
+                            {
+                              $multiply: [
+                                "$output.tenantRentAmount",
+                                tenantSettingsData[0].hike,
+                              ],
+                            },
+                            100,
+                          ],
+                        },
+                        "$output.tenantRentAmount",
+                      ],
+                    },
+                    tenantSettingsData[0].stampDuty,
+                  ],
+                },
+                100,
+              ],
+            },
+          },
+        },
+        {
+          $match: {
+            OrganizationId: mongoose.Types.ObjectId(OrganizationId),
+            tenantLeaseEndDate: {
+              $gt: lastDate,
+              $lte: endDate,
+            },
+            // tenantLeaseEndDate: { $lte: lastDate },
+            // AgreementStatus: { $ne: "Renewed" },
+            tenantstatus: { $eq: "Active" },
+          },
+        },
+      ]);
+
+      // console.log("get-tenant-old-exp-report", tenantExpReport);
+      res.json(tenantExpReport);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Internal Server Error.");
+    }
   }
 });
 
@@ -2757,6 +3062,26 @@ router.post("/get-mis-report", async (req, res) => {
         $count: "totalCountRenewable",
       },
     ]);
+    let activeCount = await TenentAgreement.aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
+        },
+      },
+      {
+        $match: {
+          tenantLeaseEndDate: {
+            $gte: data.selectedY,
+            $lt: resultDate,
+          },
+          AgreementStatus: { $in: ["Renewed", "Active"] },
+        },
+      },
+      {
+        $count: "totalCountActive",
+      },
+    ]);
 
     res.json({
       renewableCount:
@@ -2766,6 +3091,10 @@ router.post("/get-mis-report", async (req, res) => {
       renewedCount:
         renewedCount[0] && renewedCount[0].totalCountRenewed
           ? renewedCount[0].totalCountRenewed
+          : 0,
+      activeCount:
+        activeCount[0] && activeCount[0].totalCountActive
+          ? activeCount[0].totalCountActive
           : 0,
     });
   } catch (error) {
@@ -2836,6 +3165,33 @@ router.post("/get-mis-amount-report", async (req, res) => {
         },
       },
     ]);
+    let activeAmount = await TenentAgreement.aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
+        },
+      },
+      {
+        $match: {
+          tenantLeaseEndDate: {
+            $gte: data.selectedY,
+            $lt: lastDate,
+          },
+          AgreementStatus: {
+            $in: ["Active", "Renewed"],
+          },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalRentActive: {
+            $sum: "$tenantRentAmount",
+          },
+        },
+      },
+    ]);
 
     res.json({
       renewableAmount:
@@ -2845,6 +3201,10 @@ router.post("/get-mis-amount-report", async (req, res) => {
       renewedAmount:
         renewedAmount[0] && renewedAmount[0].totalRentRenewed
           ? renewedAmount[0].totalRentRenewed
+          : 0,
+      activeAmount:
+        activeAmount[0] && activeAmount[0].totalRentActive
+          ? activeAmount[0].totalRentActive
           : 0,
     });
   } catch (error) {
@@ -2976,6 +3336,58 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
         },
       },
     ]);
+    let activeBarCount = await TenentAgreement.aggregate([
+      {
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
+        },
+      },
+      {
+        $match: {
+          tenantLeaseEndDate: {
+            $gte: data.selectedY,
+            $lt: lastDate,
+          },
+          AgreementStatus: {
+            $in: ["Active", "Renewed"],
+          },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            month: {
+              $month: {
+                $toDate: "$tenantLeaseEndDate",
+              },
+            },
+            year: {
+              $year: {
+                $toDate: "$tenantLeaseEndDate",
+              },
+            },
+          },
+          total: {
+            $sum: 1,
+          },
+        },
+      },
+      {
+        $project: {
+          month: "$_id.month",
+          year: "$_id.year",
+          _id: 0,
+          total: 1,
+        },
+      },
+      {
+        $sort: {
+          month: 1,
+          year: 1,
+        },
+      },
+    ]);
 
     // res.json({
     //   renewableAmount:
@@ -2987,7 +3399,7 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
     //       ? renewedAmount[0].totalRentRenewed
     //       : 0,
     // });
-    res.json({ renewedBarCount, renewableBarCount });
+    res.json({ renewedBarCount, renewableBarCount, activeBarCount });
   } catch (error) {
     console.log(error.message);
   }

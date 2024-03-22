@@ -8,6 +8,7 @@ import {
   AddTenantReceiptDetails,
   getTenantReceiptNo,
   AddUserActivity,
+  getTenantReportYearMonth,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
@@ -15,12 +16,16 @@ import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 import { CSVLink } from "react-csv";
 import Print from "../../static/images/Print.svg";
+import Loader from "../../static/images/loading.gif";
+import Receipt from "../../static/images/Receipts.svg";
 import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
-  tenants: { allorg, tenantreceiptno },
+  tenants: { allorg, tenantreceiptno, load },
   ParticularTenant,
   AddUserActivity,
+  getTenantReportYearMonth,
   deactiveTenantsDetails,
   AddTenantReceiptDetails,
   getTenantReceiptNo,
@@ -37,6 +42,7 @@ const TenantReport = ({
   const [showEditModal, setShowEditModal] = useState(false);
   const handleEditModalClose = () => setShowEditModal(false);
   const [userData, setUserData] = useState(null);
+  console.log("load", load);
 
   // Modal for Deactivation
   const [show, setShow] = useState(false);
@@ -338,6 +344,62 @@ const TenantReport = ({
     viewdata.tenantchequeDate.split(/\D/g);
   var chequeDate = [ED && ED[2], ED && ED[1], ED && ED[0]].join("-");
 
+  const getCurrentMonthName = () => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const currentDate = new Date();
+    return months[currentDate.getMonth()];
+  };
+
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+  const currentYear = getCurrentYear();
+  const currentMonthName = getCurrentMonthName();
+
+  let dynamicText = "";
+
+  if (
+    finalDataRep?.yearSearch &&
+    Number(finalDataRep?.yearSearch) === currentYear &&
+    finalDataRep?.yearFiltercount === false
+  ) {
+    const foundMonth = optName.find(
+      (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
+    );
+    if (foundMonth) {
+      dynamicText = foundMonth.label + " - ";
+    } else {
+      dynamicText = currentMonthName + " - ";
+    }
+  } else if (
+    finalDataRep?.yearSearch &&
+    Number(finalDataRep?.yearSearch) !== currentYear
+  ) {
+    const foundMonth = optName.find(
+      (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
+    );
+    if (foundMonth === undefined && finalDataRep?.yearFiltercount === true) {
+      dynamicText = "before-";
+    } else if (foundMonth) {
+      dynamicText = foundMonth.label + " - ";
+    }
+  } else {
+    dynamicText = "before-";
+  }
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -361,10 +423,10 @@ const TenantReport = ({
                 </div>
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11">
                   <img
-                    className="img_icon_size log"
+                    className="iconSize "
                     src={require("../../static/images/print.png")}
-                    alt="Add User"
-                    title="Add User"
+                    alt="Print"
+                    title="Print"
                   />
                 </div>
               </div>
@@ -378,10 +440,10 @@ const TenantReport = ({
                       >
                         <thead>
                           <tr>
-                            <th>Main page Name</th>
+                            <th>Main Page Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th>StartDate</th>
+                            <th>Start Date</th>
                             <th>Org-Status</th>
                             <th>End Date</th>
                             <th>Operation</th>
@@ -438,7 +500,7 @@ const TenantReport = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
               <div className="row mt-5 ">
                 <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
-                  <h2 className="heading_color  headsize  ml-4">
+                  {/* <h2 className="heading_color headsize ml-4">
                     Tenant Report &nbsp;
                     {"(" +
                       (optName.find(
@@ -451,9 +513,13 @@ const TenantReport = ({
                               Number(month.value) ===
                               Number(finalDataRep?.monthSearch)
                           )?.label + " - "
-                        : "before ") +
-                      finalDataRep?.yearSearch +
+                        : getCurrentMonthName() + " - ") +
+                      getCurrentYear() +
                       ")"}
+                  </h2> */}
+                  <h2 className="heading_color headsize ml-4">
+                    Tenant Report &nbsp;
+                    {"(" + dynamicText + finalDataRep.yearSearch + ")"}
                   </h2>
                 </div>
 
@@ -461,6 +527,11 @@ const TenantReport = ({
              
             </div> */}
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint  pt-2 iconspace">
+                  {load ? (
+                    <img src={Loader} alt="Loading..." width="26px" />
+                  ) : (
+                    <></>
+                  )}
                   <button
                     style={{ border: "none" }}
                     onClick={async () => {
@@ -473,14 +544,23 @@ const TenantReport = ({
                       handlePrint();
                     }}
                   >
-                    <img src={Print} alt="Print" title="Print" />
+                    <img
+                      src={Print}
+                      alt="Print"
+                      title="Print"
+                      className="iconSize"
+                    />
                   </button>
                   {myuser.usergroup === "Admin" ? (
-                    <CSVLink data={csvTenantReportData}  filename={"Tenant-Report.csv"}>
+                    <CSVLink
+                      data={csvTenantReportData}
+                      filename={"Tenant-Report.csv"}
+                    >
                       <img
                         src={Excel}
                         alt="Excel-Export"
                         title="Excel-Export"
+                        className="iconSize"
                       />
                     </CSVLink>
                   ) : (
@@ -574,7 +654,8 @@ const TenantReport = ({
                                           }
                                         >
                                           <img
-                                            src={Print}
+                                            src={Receipt}
+                                            className="iconSize"
                                             alt="Print"
                                             title="Generate Receipt"
                                           />
@@ -614,7 +695,7 @@ const TenantReport = ({
                     className="col-lg-12 col-md-12 col-sm-12 text-right font-weight-bold ml-3"
                     style={{ color: "#095a4a" }}
                   >
-                    {"Tenant Leases Expiring : " + expReport.length}
+                    {"Tenant Count : " + expReport.length}
                   </div>
                 </div>
               </div>
@@ -1068,12 +1149,16 @@ const TenantReport = ({
                           <td>
                             Bank
                             <br />
-                            {viewdata.tenantBankName}
+                            {viewdata.tenantBankName
+                              ? viewdata.tenantBankName
+                              : "--"}
                           </td>
                           <td>
                             ChequeNo.
                             <br />
-                            {viewdata.tenantChequenoOrDdno}
+                            {viewdata.tenantChequenoOrDdno === "null"
+                              ? "--"
+                              : viewdata.tenantChequenoOrDdno}
                           </td>
                           <td>
                             Date
@@ -1204,4 +1289,5 @@ export default connect(mapStateToProps, {
   AddTenantReceiptDetails,
   getTenantReceiptNo,
   AddUserActivity,
+  getTenantReportYearMonth,
 })(TenantReport);

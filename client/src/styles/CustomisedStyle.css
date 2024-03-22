@@ -1566,8 +1566,8 @@ body {
   border-radius: 3px;
 }
 .img_icon_size {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   cursor: pointer;
 }
 .property {
@@ -3005,7 +3005,7 @@ i.smallsize::first-line {
 
 .iconspace {
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
   align-items: center;
 }
 
@@ -3019,19 +3019,19 @@ i.smallsize::first-line {
   padding: 0;
   color: #4d4d4d;
 }
-.reportDropdown{
+.reportDropdown {
   font-size: 18px;
   font-weight: 500;
   color: #4d4d4d;
 }
-.misreportPage{
+.misreportPage {
   margin-top: 18px;
 }
 
 .containerBox {
   /* Add your CSS properties here */
   width: 65%; /* Adjust as needed */
-  margin: 0 auto; 
+  margin: 0 auto;
   padding: 20px; /* Adjust as needed */
   box-sizing: border-box; /* Includes padding and border in the total width */
   box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
@@ -3054,4 +3054,8 @@ i.smallsize::first-line {
   transition: border-color 0.3s ease;
   width: 25px;
 }
-
+.iconSize {
+  height: 26px;
+  width: 26px;
+  cursor: pointer;
+}

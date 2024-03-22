@@ -17,6 +17,7 @@ import {
   GET_ALL_SETTINGS,
   GET_DOORNUMBER,
   FINAL_DATA_REP,
+  FINAL_DATA_REP_YEAR,
   GET_ALL_ORGANIZATION,
   GET_ALL_SUPERUSER,
   PARTICULAR_ORG_PROPERTY,
@@ -41,6 +42,11 @@ import {
   GET_MIS_REPORT,
   GET_MIS_AMOUNT_REPORT,
   GET_MIS_RENEWED_BAR_REPORT,
+  TENANT_SORT_ACTIVECOUNT,
+  TENANT_ACTIVECOUNT,
+  TENANT_RENEWCOUNT,
+  TENANT_DETAILS_LOADING,
+  TENANT_DETAILS_LOADING_SUCCESS,
 } from "./types";
 import { loadUser } from "./auth";
 
@@ -341,6 +347,51 @@ export const ParticularTenantFilter = (data) => async (dispatch) => {
   }
 };
 
+export const TenantCount = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-tenant-sort-for-activecount`,
+      data
+    );
+
+    dispatch({
+      type: TENANT_SORT_ACTIVECOUNT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const TenantActiveCount = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-tenant-activecount`,
+      data
+    );
+
+    dispatch({
+      type: TENANT_ACTIVECOUNT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const TenantRenewedCount = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/tenants/get-tenant-renewedcount`,
+      data
+    );
+
+    dispatch({
+      type: TENANT_RENEWCOUNT,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const ParticularTenantFilterContactReport =
   (data) => async (dispatch) => {
     try {
@@ -621,6 +672,7 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
       config
     );
     dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
+    dispatch(getAllTenants());
   } catch (err) {
     console.log(err.message);
     dispatch({
@@ -713,6 +765,10 @@ export const getOrgExp = (finaldata) => async (dispatch) => {
 
 // Get Exp Month Count
 export const getMonthExpCount = (finalData) => async (dispatch) => {
+  dispatch({
+    type: "TENANT_DETAILS_LOADING",
+  });
+
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-month-exp-count`,
@@ -721,6 +777,9 @@ export const getMonthExpCount = (finalData) => async (dispatch) => {
     dispatch({
       type: MONTH_EXP_CNT,
       payload: res.data,
+    });
+    dispatch({
+      type: "TENANT_DETAILS_LOADING_SUCCESS",
     });
   } catch (err) {
     dispatch({
@@ -811,6 +870,10 @@ export const getPreviousYearsExpCount = (finalData) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
+  dispatch({
+    type: "TENANT_DETAILS_LOADING",
+  });
+
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-previous-years-exp`,
@@ -820,6 +883,10 @@ export const getPreviousYearsExpCount = (finalData) => async (dispatch) => {
     dispatch({
       type: YEAR_EXP_CNT,
       payload: res.data,
+    });
+
+    dispatch({
+      type: "TENANT_DETAILS_LOADING_SUCCESS",
     });
   } catch (err) {
     dispatch({
@@ -840,6 +907,9 @@ export const getTenantReportYearMonth =
       ParticularTenant({ OrganizationId: finalDataReport.OrganizationId })
     );
     dispatch({
+      type: "TENANT_DETAILS_LOADING",
+    });
+    dispatch({
       type: FINAL_DATA_REP,
       payload: finalDataReport,
     });
@@ -853,6 +923,9 @@ export const getTenantReportYearMonth =
       dispatch({
         type: EXP_REPORT,
         payload: res.data,
+      });
+      dispatch({
+        type: "TENANT_DETAILS_LOADING_SUCCESS",
       });
     } catch (err) {
       dispatch({
@@ -976,6 +1049,10 @@ export const getTenantReportOldExp =
         "Content-Type": "application/json",
       },
     };
+    dispatch({
+      type: "TENANT_DETAILS_LOADING",
+    });
+
     try {
       const res = await axios.post(
         `${linkPath}/api/tenants/get-tenant-old-exp-report`,
@@ -989,6 +1066,46 @@ export const getTenantReportOldExp =
       dispatch({
         type: EXP_REPORT,
         payload: res.data,
+      });
+      dispatch({
+        type: "TENANT_DETAILS_LOADING_SUCCESS",
+      });
+    } catch (err) {
+      dispatch({
+        type: AUTH_ERROR,
+      });
+    }
+  };
+
+///123
+export const getTenantReportYearExp =
+  (finalDataReportOld) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    dispatch({
+      type: "TENANT_DETAILS_LOADING",
+    });
+
+    try {
+      console.log("finalDataReportOld action", finalDataReportOld);
+      const res = await axios.post(
+        `${linkPath}/api/tenants/get-tenant-year-report`,
+        finalDataReportOld,
+        config
+      );
+      dispatch({
+        type: FINAL_DATA_REP_YEAR,
+        payload: finalDataReportOld,
+      });
+      dispatch({
+        type: EXP_REPORT,
+        payload: res.data,
+      });
+      dispatch({
+        type: "TENANT_DETAILS_LOADING_SUCCESS",
       });
     } catch (err) {
       dispatch({

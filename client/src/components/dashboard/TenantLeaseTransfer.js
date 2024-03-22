@@ -18,7 +18,7 @@ const TenantLeaseTransfer = ({
   leaseTransferData,
   ModalClose,
   sendDataToParent,
-  tenants: { particular_org_data, sortleasetransferdetails},
+  tenants: { particular_org_data, sortleasetransferdetails },
   ParticularTenantLeaseTransferFilter,
   ParticularTenantFilter,
   AddUserActivity,
@@ -65,11 +65,11 @@ const TenantLeaseTransfer = ({
   sortleasetransferdetails &&
     sortleasetransferdetails.map((ele) => {
       if (ele._id !== leaseTransferData._id) {
-      TenantNames.push({
-        label: ele.tenantName,
-        value: ele._id,
-      });
-    }
+        TenantNames.push({
+          label: ele.tenantName,
+          value: ele._id,
+        });
+      }
     });
   const onchangeTenantNames = (e) => {
     setErrors({
@@ -157,6 +157,7 @@ const TenantLeaseTransfer = ({
       setShow(true);
     }
   };
+  console.log("selectedDoorNumber", selectedDoorNumber);
 
   const onTransfer = () => {
     const finalData = {
@@ -190,8 +191,10 @@ const TenantLeaseTransfer = ({
         sortleasetransferdetails[0].tenantName,
       expireAt: new Date().getTime() + 80,
     };
-    AddUserActivity(ActivityDetail);
-    EditTenantLeaseTransferDetails(finalData);
+    // AddUserActivity(ActivityDetail);
+    // EditTenantLeaseTransferDetails(finalData);
+    console.log("ActivityDetail", ActivityDetail);
+    console.log("finalData", finalData);
     ModalClose();
     ParticularTenantFilter("");
     setExistingTenantDoorno(false);
@@ -249,271 +252,214 @@ const TenantLeaseTransfer = ({
       <section>
         <div className="row">
           <div className="col-lg-12 d-flex align-items-center">
-
-       
-<div className="col-lg-3">
-<label >From :</label>
-</div>
-<div className="col-lg-9">
-{leaseTransferData.tenantName}
-</div>
-</div>
-<div className="col-lg-12 d-flex align-items-center">
-<div className="col-lg-3">
-<label
-              // className="control-label"
-              style={tenantErrorStyle}
-            >
-              To<span style={{ color: "red" }}>* </span>:
-            </label>
-</div>
-<div className="col-lg-9">
-<div className="row ">
-              <div className="col-lg-6 col-sm-12 col-md-6 mx-0 px-0">
-                <Select
-                  className="dropdown text-left mt-sm-3"
-                  placeholder="Property"
-                  name="PropertyName"
-                  options={propertyname}
-                  value={PropertyName}
-                  onChange={(e) => onchangeProperty(e)}
-                ></Select>
-              </div>
-              <div className="col-lg-6 col-sm-12 col-md-6">
-                <Select
-                  className="dropdown text-left mt-sm-3"
-                  placeholder="Name"
-                  name="tenantName"
-                  options={TenantNames}
-                  value={tenantName}
-                  onChange={(e) => onchangeTenantNames(e)}
-                ></Select>
+            <div className="col-lg-3">
+              <label>From :</label>
+            </div>
+            <div className="col-lg-9">{leaseTransferData.tenantName}</div>
+          </div>
+          <div className="col-lg-12 d-flex align-items-center">
+            <div className="col-lg-3">
+              <label
+                // className="control-label"
+                style={tenantErrorStyle}
+              >
+                To<span style={{ color: "red" }}>* </span>:
+              </label>
+            </div>
+            <div className="col-lg-9">
+              <div className="row ">
+                <div className="col-lg-6 col-sm-12 col-md-6 mx-0 px-0">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Property"
+                    name="PropertyName"
+                    options={propertyname}
+                    value={PropertyName}
+                    onChange={(e) => onchangeProperty(e)}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-6">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Name"
+                    name="tenantName"
+                    options={TenantNames}
+                    value={tenantName}
+                    onChange={(e) => onchangeTenantNames(e)}
+                  ></Select>
+                </div>
               </div>
             </div>
-</div>
-</div>
+          </div>
 
-
-
-
-
-
-{existingTenantDoorno ? (
+          {existingTenantDoorno ? (
             <>
-<div className="containerBox ">
-<div className="row ">
-<h4 className="my-0 py-0 " style={{ color: "#095a4a" }}>Existing Lease Details of    <span className="font-weight-bold">
-  {sortleasetransferdetails &&
-                  sortleasetransferdetails[0] &&
-                  sortleasetransferdetails[0].tenantName}  </span> :
+              <div className="containerBox ">
+                <div className="row ">
+                  <h4 className="my-0 py-0 " style={{ color: "#095a4a" }}>
+                    Existing Lease Details of{" "}
+                    <span className="font-weight-bold">
+                      {sortleasetransferdetails &&
+                        sortleasetransferdetails[0] &&
+                        sortleasetransferdetails[0].tenantName}{" "}
+                    </span>{" "}
+                    :
                   </h4>
-<div className="col-lg-6 ">
-                <span
-                  // className=" font-weight-bold"
-                  // style={{ color: "#095a4a" }}
-                >
-                  Lease Start Date :
-                </span>
-                &nbsp;
-                <span 
-               >{leaseStartDate}</span>
-                &nbsp;&nbsp;&nbsp;
-                </div>
-                <div className="col-lg-6 ">
-                <span
-                  // className=" font-weight-bold"
-                  // style={{ color: "#095a4a" }}
-                >
-                  Lease End Date :
-                </span>
-                &nbsp;
-                <span >{leaseEndDate}</span>
-              </div>
-              <div
-                className="col-lg-12  mt-2"
-                // style={{ color: "#095a4a" }}
-              >
-                Existing Rooms of{" "}
-                {sortleasetransferdetails &&
-                  sortleasetransferdetails[0] &&
-                  sortleasetransferdetails[0].tenantName}{" "}
-                :
-              </div>
-              <div className="col-lg-12">
-                {tenantName ? (
-                  <>
-                    {" "}
+                  <div className="col-lg-6 ">
+                    <span
+                    // className=" font-weight-bold"
+                    // style={{ color: "#095a4a" }}
+                    >
+                      Lease Start Date :
+                    </span>
+                    &nbsp;
+                    <span>{leaseStartDate}</span>
+                    &nbsp;&nbsp;&nbsp;
+                  </div>
+                  <div className="col-lg-6 ">
+                    <span
+                    // className=" font-weight-bold"
+                    // style={{ color: "#095a4a" }}
+                    >
+                      Lease End Date :
+                    </span>
+                    &nbsp;
+                    <span>{leaseEndDate}</span>
+                  </div>
+                  <div
+                    className="col-lg-12  mt-2"
+                    // style={{ color: "#095a4a" }}
+                  >
+                    Existing Rooms of{" "}
                     {sortleasetransferdetails &&
                       sortleasetransferdetails[0] &&
-                      sortleasetransferdetails[0].shopDoorNo.map((ele) => {
-                        return (
-                          <span 
-                          // style={{ color: "#095a4a" }}
-                          >
-                            {ele.value}&nbsp;,
-                          </span>
-                        );
-                      })}
-                  </>
-                ) : (
-                  <></>
-                )}
+                      sortleasetransferdetails[0].tenantName}{" "}
+                    :
+                  </div>
+                  <div className="col-lg-12">
+                    {tenantName ? (
+                      <>
+                        {" "}
+                        {sortleasetransferdetails &&
+                          sortleasetransferdetails[0] &&
+                          sortleasetransferdetails[0].shopDoorNo.map((ele) => {
+                            return (
+                              <span
+                              // style={{ color: "#095a4a" }}
+                              >
+                                {ele.value}&nbsp;,
+                              </span>
+                            );
+                          })}
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
               </div>
-
-</div>
-
-
-
-          
-</div>
-              
             </>
           ) : (
             <></>
           )}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div>
-          <div className="row ">
-            <div className="col-lg-6 col-md-12 col-sm-12">
-              <div className="h4 " style={DoorErrorStyle}>
-                Door No* :
+          <div>
+            <div className="row ">
+              <div className="col-lg-6 col-md-12 col-sm-12">
+                <label style={DoorErrorStyle}>
+                  Door No<span style={{ color: "red" }}>* </span> :
+                </label>
               </div>
             </div>
-          </div>
-          <div className="row mx-0 px-0 ">
-            {/* {isavail && isavail.length !== 0 ? ( */}
-            <>
-              <div
-                className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white border-dark border-right"
-                style={{ border: "transparent", minHeight: "90px" }}
-              >
+            <div className="row mx-0 px-0 ">
+              {/* {isavail && isavail.length !== 0 ? ( */}
+              <>
                 <div
-                  className="h4 "
-                  style={{  color: "#095a4a" }}
+                  className="col-lg-6 col-md-12 col-sm-12 card-new button_Door bg-white border-dark border-right"
+                  style={{ border: "transparent", minHeight: "90px" }}
                 >
-                  Transfer :
-                </div>{" "}
-                <br></br>
-                {leaseTranferArr &&
-                  leaseTranferArr.map((DoorNumber, idx) => {
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        className="btn btn-success doorbtn"
-                        onClick={() => onSelectChange(DoorNumber)}
-                      >
-                        {DoorNumber.value}
-                        <span className="ml-4">
-                          <b className="text-dark ">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="16"
-                              fill="currentColor"
-                              class="bi bi-plus-square-fill"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
-                            </svg>
-                          </b>
-                        </span>
-                      </button>
-                    );
-                  })}
-              </div>
-
-              <div
-                className=" col-lg-6 col-md-12  card-new  bg-white"
-                style={{ border: "transparent", minHeight: "80px" }}
-              >
-                <div
-                  className="h4"
-                  style={{  color: "#095a4a" }}
-                >
-                  Transferred :
+                  <div className="h4 " style={{ color: "#095a4a" }}>
+                    Transfer :
+                  </div>{" "}
+                  <br></br>
+                  {leaseTranferArr &&
+                    leaseTranferArr.map((DoorNumber, idx) => {
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          className="btn btn-success doorbtn"
+                          onClick={() => onSelectChange(DoorNumber)}
+                        >
+                          {DoorNumber.value}
+                          <span className="ml-4">
+                            <b className="text-dark ">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-plus-square-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
+                              </svg>
+                            </b>
+                          </span>
+                        </button>
+                      );
+                    })}
                 </div>
-                <br></br>
-                {selectedDoorNumber &&
-                  selectedDoorNumber.length > 0 &&
-                  selectedDoorNumber.map((Doornumber, idx) => {
-                    return (
-                      <button
-                        key={idx}
-                        type="button"
-                        className="btn  doorbtn"
-                        onClick={() => onRemoveChange(Doornumber)}
-                      >
-                        {Doornumber.value}
-                        <span className="ml-4">
-                          <b className="text-light">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="20"
-                              height="16"
-                              fill="currentColor"
-                              class="bi bi-dash-square-fill"
-                              viewBox="0 0 16 16"
-                            >
-                              <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
-                            </svg>
-                          </b>
-                        </span>
-                      </button>
-                    );
-                  })}
-              </div>
-            </>
+
+                <div
+                  className=" col-lg-6 col-md-12  card-new  bg-white"
+                  style={{ border: "transparent", minHeight: "80px" }}
+                >
+                  <div className="h4" style={{ color: "#095a4a" }}>
+                    Transferred :
+                  </div>
+                  <br></br>
+                  {selectedDoorNumber &&
+                    selectedDoorNumber.length > 0 &&
+                    selectedDoorNumber.map((Doornumber, idx) => {
+                      return (
+                        <button
+                          key={idx}
+                          type="button"
+                          className="btn  doorbtn"
+                          onClick={() => onRemoveChange(Doornumber)}
+                        >
+                          {Doornumber.value}
+                          <span className="ml-4">
+                            <b className="text-light">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-dash-square-fill"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
+                              </svg>
+                            </b>
+                          </span>
+                        </button>
+                      );
+                    })}
+                </div>
+              </>
+            </div>
           </div>
-   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div className="float-right  text-right d-flex justify-content-end">
+          <div className="float-right  text-right d-flex justify-content-end">
             <button className="rewbtn float-right w-25" onClick={onSubmit}>
               Transfer
             </button>
           </div>
-
-
-
-
         </div>
       </section>
 
-
-
-
-
-      
       <Modal
         show={show}
         backdrop="static"

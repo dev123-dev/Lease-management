@@ -3,11 +3,12 @@ import "../../styles/CustomisedStyle.css";
 import {} from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import locreport from "../../static/images/locrep.png";
 
 import propreport from "../../static/images/propreport.png";
 import Contactreport from "../../static/images/contactreport.png";
+import Useractivity from "../../static/images/Useractivity.png";
 import MISReport from "../../static/images/MIS_report.png";
 import renewable from "../../static/images/renewable.png";
 
@@ -47,6 +48,10 @@ const AllReport = ({
       ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
     }
   }, []);
+  const history = useHistory();
+  const handleRenewedTenantClick = () => {
+    history.push("/renewed-report", { from: "report" });
+  };
 
   //console.log("get_particular_org_tenant", get_particular_org_tenant);
 
@@ -237,7 +242,7 @@ const AllReport = ({
                       {" "}
                       <img
                         className="img_icon_repDashboard log "
-                        src={Contactreport}
+                        src={Useractivity}
                         alt="IMG1"
                       />
                     </Link>
@@ -262,14 +267,18 @@ const AllReport = ({
                   id="shadow-bck"
                 >
                   <div className="text-center">
-                    <Link to="/renewed-report">
-                      {" "}
+                    {/* <Link to="/renewed-report"> */}
+                    <button
+                      onClick={handleRenewedTenantClick}
+                      style={{ border: "none" }}
+                    >
                       <img
                         className="img_icon_repDashboard log "
                         src={renewedTenant}
                         alt="IMG1"
                       />
-                    </Link>
+                    </button>
+                    {/* </Link> */}
                     <p>
                       <center>
                         <p

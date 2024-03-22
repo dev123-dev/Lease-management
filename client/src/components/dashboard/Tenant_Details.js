@@ -1,5 +1,5 @@
 import React, { useState, Fragment, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 import { CSVLink } from "react-csv";
 import { useReactToPrint } from "react-to-print";
@@ -12,6 +12,7 @@ import {
   deactiveTenantsDetails,
   AddUserActivity,
   ParticularTenantFilterContactReport,
+  TenantCount,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import AddTenantDetails from "./AddTenantDetails";
@@ -34,12 +35,14 @@ const Tenant_Details = ({
   tenants: {
     particular_org_data,
     sortetenantdetails,
+    tenantdetailscount,
     particular_org_loc,
     allTenantSetting,
     sortContactReport,
   },
   ParticularTenant,
   AddUserActivity,
+  TenantCount,
   ParticularTenantFilter,
   getParticularOrg,
   getParticularProperty,
@@ -55,6 +58,7 @@ const Tenant_Details = ({
   useEffect(() => {
     // ParticularTenant();
     ParticularTenantFilter();
+
     ParticularTenantFilterContactReport();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
@@ -68,6 +72,10 @@ const Tenant_Details = ({
     // });
     fun();
   }, [freshpage]);
+
+  useEffect(() => {
+    TenantCount();
+  }, [tenantdetailscount]);
 
   // useEffect(() => {
   //   ParticularTenant({ OrganizationId: user && user.OrganizationId });
@@ -280,8 +288,13 @@ const Tenant_Details = ({
 
   const [showadd, setShowadd] = useState(false);
 
+  const location1 = useLocation();
+  const { currentPagefromedit } = location1.state || { currentPagefromedit: 1 };
+
   //pagination code
-  const [currentData, setCurrentData] = useState(1);
+  const [currentData, setCurrentData] = useState(
+    currentPagefromedit ? currentPagefromedit : 1
+  );
   const [dataPerPage] = useState(10);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
@@ -304,6 +317,7 @@ const Tenant_Details = ({
     SetTenantName("");
     SetPropertyName("");
     SetTenantStatus("");
+    setCurrentData(1);
   };
 
   const onchangeDoorNumberChange = (e) => {
@@ -381,22 +395,37 @@ const Tenant_Details = ({
         value: ele.BuildingId,
       })
     );
+  // let Dno = [];
+  // particular_org_data &&
+  //   particular_org_data.map(
+  //     (ele) =>
+  //       ele.shopDoorNo &&
+  //       ele.shopDoorNo.map((dno) => {
+  //         console.log("dno", dno);
+  //         Dno.push({
+  //           label: dno.doorNo,
+  //           value: dno.doorNo,
+  //         });
+  //       })
+  //   );
   let Dno = [];
   particular_org_data &&
-    particular_org_data.map(
-      (ele) =>
-        ele.shopDoorNo &&
-        ele.shopDoorNo.map((dno) =>
-          Dno.push({
-            label: dno.doorNo,
-            value: dno.doorNo,
-          })
-        )
-    );
+    particular_org_data.forEach((ele) => {
+      ele.shopDoorNo &&
+        ele.shopDoorNo.forEach((dno) => {
+          if (dno.status === "Acquired") {
+            Dno.push({
+              label: dno.doorNo,
+              value: dno.doorNo,
+            });
+          }
+        });
+    });
+
   let TenantNames = [];
   let cntDeActiveTenant = 0;
-  sortContactReport &&
-    sortContactReport.map((ele) => {
+  tenantdetailscount &&
+    tenantdetailscount.map((ele) => {
       if (ele.tenantstatus !== "Active") cntDeActiveTenant++;
       TenantNames.push({
         label: ele.tenantName,
@@ -632,13 +661,19 @@ const Tenant_Details = ({
                       src={Add}
                       alt="Add Tenant"
                       title="Add Tenant"
+                      className="iconSize"
                       style={{ cursor: "pointer" }}
                     />
                   </Link>
                 </button>
                 {myuser.usergroup === "Admin" ? (
                   <CSVLink data={csvTenantData} filename={"Tenant-Details.csv"}>
-                    <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                    <img
+                      src={Excel}
+                      alt="Excel-Export"
+                      title="Excel-Export"
+                      className="iconSize"
+                    />
                   </CSVLink>
                 ) : (
                   <></>
@@ -660,6 +695,7 @@ const Tenant_Details = ({
                     src={Print}
                     alt="Print"
                     title="Print"
+                    className="iconSize"
                   />
                 </button>
 
@@ -667,6 +703,7 @@ const Tenant_Details = ({
                   style={{ cursor: "pointer" }}
                   onClick={() => refresh()}
                   src={Refresh}
+                  className="iconSize"
                   alt="refresh"
                   title="Refresh"
                 />
@@ -824,7 +861,6 @@ const Tenant_Details = ({
                               <></>
                             ) : (
                               <>
-                                {" "}
                                 <th style={showPrint}>Operation</th>
                               </>
                             )}
@@ -921,41 +957,51 @@ const Tenant_Details = ({
                                         //   )}
                                         // </td>
                                         <td className="text-center">
-                                          <div className="icon-container">
-                                            <Link to="/edit-tenant-details">
-                                              <img
-                                                onClick={() => onEdit(Val)}
-                                                src={Edit}
-                                                style={{ cursor: "pointer" }}
-                                                alt="Edit"
-                                                title="Edit"
-                                              />
-                                            </Link>
+                                          {/* <div className="icon-container"> */}
+                                          <Link
+                                            to={{
+                                              pathname: "/edit-tenant-details",
+                                              state: {
+                                                currentPage: currentData,
+                                              },
+                                            }}
+                                          >
+                                            <img
+                                              onClick={() => onEdit(Val)}
+                                              src={Edit}
+                                              style={{ cursor: "pointer" }}
+                                              alt="Edit"
+                                              title="Edit"
+                                              className="iconSize ml-1"
+                                            />
+                                          </Link>
+                                          <img
+                                            onClick={() =>
+                                              onDelete(
+                                                Val._id,
+                                                Val.shopDoorNo,
+                                                Val
+                                              )
+                                            }
+                                            src={Deactivate}
+                                            alt="Deactivate"
+                                            style={{ cursor: "pointer" }}
+                                            title="Deactivate"
+                                            className="iconSize ml-1"
+                                          />
+                                          {Val.shopDoorNo.length !== 0 && (
                                             <img
                                               onClick={() =>
-                                                onDelete(
-                                                  Val._id,
-                                                  Val.shopDoorNo,
-                                                  Val
-                                                )
+                                                onLeaseTransfer(Val)
                                               }
-                                              src={Deactivate}
-                                              alt="Deactivate"
+                                              src={leaseTransfer}
+                                              alt="lease transfer"
+                                              title="Lease Transfer"
+                                              className="iconSize ml-1"
                                               style={{ cursor: "pointer" }}
-                                              title="Deactivate"
                                             />
-                                            {Val.shopDoorNo.length !== 0 && (
-                                              <img
-                                                onClick={() =>
-                                                  onLeaseTransfer(Val)
-                                                }
-                                                src={leaseTransfer}
-                                                alt="lease transfer"
-                                                title="Lease Transfer"
-                                                style={{ cursor: "pointer" }}
-                                              />
-                                            )}
-                                          </div>
+                                          )}
+                                          {/* </div> */}
                                         </td>
                                       ) : (
                                         <td>
@@ -1008,7 +1054,7 @@ const Tenant_Details = ({
                       style={{ color: "#095a4a" }}
                     >
                       Active Tenants:{" "}
-                      {sortetenantdetails.length - cntDeActiveTenant}{" "}
+                      {tenantdetailscount.length - cntDeActiveTenant}{" "}
                       &nbsp;&nbsp;&nbsp;
                       <span style={{ color: "red" }}>
                         Deactive Tenants: {cntDeActiveTenant}
@@ -1346,6 +1392,7 @@ export default connect(mapStateToProps, {
   getParticularProperty,
   getTenantDetails,
   AddUserActivity,
+  TenantCount,
   deactiveTenantsDetails,
   ParticularTenantFilterContactReport,
 })(Tenant_Details);

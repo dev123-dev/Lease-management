@@ -303,7 +303,7 @@ const AddTenantDetails = ({
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
-      const newYear = yearVal + 1;
+      const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
 
@@ -597,7 +597,7 @@ const AddTenantDetails = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationPhoneMessage("")
-        : setValidationPhoneMessage("Please enter valid Phone number");
+        : setValidationPhoneMessage("Please enter valid Phone Number");
 
       setTenantPhone(cleanedValue);
     }

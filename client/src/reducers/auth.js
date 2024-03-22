@@ -14,6 +14,7 @@ import {
   SET_LOADING_TRUE,
   SET_LOADING_FALSE,
   FINAL_DATA_REP,
+  FINAL_DATA_REP_YEAR,
 } from "../actions/types";
 
 const initialState = {
@@ -147,6 +148,11 @@ const auth = (state = initialState, action) => {
         allUser: payload,
       };
     case FINAL_DATA_REP:
+      return {
+        ...state,
+        finalDataRep: payload,
+      };
+    case FINAL_DATA_REP_YEAR:
       return {
         ...state,
         finalDataRep: payload,

@@ -8,7 +8,7 @@ import {
   UpdateTenantsDetails,
   AddUserActivity,
 } from "../../actions/tenants";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import tenants from "../../reducers/tenants";
@@ -25,7 +25,7 @@ const EditTenantDetails = ({
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-  const histroy = useHistory();
+  const history = useHistory();
   useEffect(() => {
     fun();
     checkDoorNumber();
@@ -39,6 +39,13 @@ const EditTenantDetails = ({
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data;
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
+  };
+
+  const location = useLocation();
+  const { currentPage } = location.state || { currentPage: 1 };
+  const handleReturn = () => {
+    // Navigate back to the details page with the pagination state
+    history.push("/tenant-detail", { currentPagefromedit: currentPage });
   };
 
   const [buildingData, getbuildingData] = useState();
@@ -515,7 +522,7 @@ const EditTenantDetails = ({
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
-      const newYear = yearVal + 1;
+      const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
 
@@ -737,7 +744,7 @@ const EditTenantDetails = ({
     // console.log("edittenant", finalData);
     AddUserActivity(EditUserActivity);
     UpdateTenantsDetails(finalData);
-    histroy.push("/tenant-detail");
+    history.push("/tenant-detail", { currentPagefromedit: currentPage });
   };
   // useEffect(() => {
   //   setStartDate("");
@@ -1316,9 +1323,10 @@ const EditTenantDetails = ({
                 <div className="row">
                   <div className="col-lg-6 col-md-12 col-sm-12">
                     <button
-                      onClick={() => {
-                        histroy.push("/tenant-detail");
-                      }}
+                      // onClick={() => {
+                      //   histroy.push("/tenant-detail");
+                      // }}
+                      onClick={handleReturn}
                       variant="success"
                       className="btn sub_form btn_continue Save float-right "
                       id="savebtn"
