@@ -38,8 +38,6 @@ const RenewedTenantReport = ({
     }
   };
 
-
-
   //year picker start
 
   const [selectedYear, setSelectedYear] = useState({
@@ -58,11 +56,10 @@ const RenewedTenantReport = ({
   };
 
   const years = populateYears(2020, new Date().getFullYear());
- 
+
   const handleYearChange = (selectedOption) => {
     setSelectedYear(selectedOption);
     SetRenewedYear(selectedOption.value);
-  
   };
   //end
 
@@ -165,11 +162,12 @@ const RenewedTenantReport = ({
     },
   });
   const refresh = () => {
+    const currentYear = new Date().getFullYear();
     setSelectedYear({
-      label: new Date().getFullYear(),
-      value: new Date().getFullYear(),
+      label: currentYear,
+      value: currentYear,
     });
-    SetRenewedYear(selectedYear.value);
+    SetRenewedYear(currentYear);
   };
 
   return (
@@ -181,55 +179,43 @@ const RenewedTenantReport = ({
               <h2 className="heading_color  headsize  ml-4">Renewed Report</h2>
             </div>
             <div className="col-lg-5 mt-3">
-
-<div className="row">
-
-  
-<div className="col-lg-6 col-sm-12 col-md-12">
-<Select
-className="dropdown text-left mt-sm-3"
-                placeholder="Select Year"
-                onChange={(e) => handleYearChange(e)}
-                options={years}
-                value={selectedYear}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-              ></Select> 
-</div>
-<div className="col-lg-6 col-sm-12 col-md-12"></div>
-</div>
-
-
-
-
-  
-</div>
-           
-             
-           
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Select Year"
+                    onChange={(e) => handleYearChange(e)}
+                    options={years}
+                    value={selectedYear}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
+            </div>
 
             <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
-             
-                <button style={{ border: "none" }}  onClick={handleBackClick}>
-                  <img src={Back} alt="Back" title="Back" className=" iconSize"/>
-                </button>
-           
+              <button style={{ border: "none" }} onClick={handleBackClick}>
+                <img src={Back} alt="Back" title="Back" className=" iconSize" />
+              </button>
+
               {myuser.usergroup === "Admin" ? (
                 <CSVLink
                   data={csvContactReportData}
                   filename={"Renewed-Tenant-Report.csv"}
                 >
                   <img
-                  className=" iconSize"
+                    className=" iconSize"
                     src={Excel}
                     alt="Excel-Export"
                     style={{ cursor: "pointer" }}
@@ -251,10 +237,15 @@ className="dropdown text-left mt-sm-3"
                   OnPrint();
                 }}
               >
-                <img src={Print} alt="Print" title="Print" className=" iconSize"/>
+                <img
+                  src={Print}
+                  alt="Print"
+                  title="Print"
+                  className=" iconSize"
+                />
               </button>
               <img
-              className=" iconSize"
+                className=" iconSize"
                 // className=" float-right "
                 style={{ cursor: "pointer" }}
                 onClick={() => refresh()}
@@ -386,8 +377,10 @@ className="dropdown text-left mt-sm-3"
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6 font-weight-bold"
-                      style={{ color: "#095a4a" }}>
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Tenants : {activeData.length}
                   </p>
                 </div>

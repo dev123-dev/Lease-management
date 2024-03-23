@@ -246,7 +246,7 @@ const ActivateTenantModal = ({
     ) {
       setValidationTransIdMessage("");
     } else {
-      setValidationTransIdMessage("Please enter a valid  Transcation id");
+      setValidationTransIdMessage("Please enter a valid  Transcation Id");
     }
 
     setTransId(inputValue);
@@ -361,7 +361,7 @@ const ActivateTenantModal = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationPhoneMessage("")
-        : setValidationPhoneMessage("enter valid phone number");
+        : setValidationPhoneMessage("Please enter valid Phone Number");
 
       setTenantPhone(cleanedValue);
     }
@@ -377,7 +377,7 @@ const ActivateTenantModal = ({
       setRentAmount(inputValue);
       setValidationRentAmtMessage("");
     } else {
-      setValidationRentAmtMessage("enter valid amount");
+      setValidationRentAmtMessage("Please enter valid Amount");
     }
   };
 
@@ -393,7 +393,7 @@ const ActivateTenantModal = ({
       const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
       isValidAdhar.test(inputValue)
         ? setValidationAdharMessage("")
-        : setValidationAdharMessage("enter valid aadhar number");
+        : setValidationAdharMessage("Please enter valid Aadhar Number");
 
       setTenantAdharNo(inputValue);
     }
@@ -409,7 +409,7 @@ const ActivateTenantModal = ({
       const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
       isValidPan.test(inputValue)
         ? setValidationPanMessage("")
-        : setValidationPanMessage("enter valid Pan number");
+        : setValidationPanMessage("Please enter valid Pan number");
 
       setTenantPanNo(inputValue);
     }
@@ -429,7 +429,7 @@ const ActivateTenantModal = ({
       const isValidPan = /^(?!000000)\d{6}$/;
       isValidPan.test(inputValue)
         ? setValidationChequeMessage("")
-        : setValidationChequeMessage("enter valid Cheque number");
+        : setValidationChequeMessage("Please enter valid Cheque Number");
 
       setTenantChequenoOrDdno(inputValue);
     }
@@ -446,7 +446,7 @@ const ActivateTenantModal = ({
     const isValidPan = /^[A-Za-z\s]+$/;
     isValidPan.test(inputValue)
       ? setValidationBankMessage("")
-      : setValidationBankMessage("enter valid Bank Name");
+      : setValidationBankMessage("Please enter valid Bank Name");
 
     setTenantBankName(inputValue);
   };
@@ -618,7 +618,7 @@ const ActivateTenantModal = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationAddressMessage("")
-      : setValidationAddressMessage("enter valid Address");
+      : setValidationAddressMessage("Please enter valid Address");
 
     setTenantAddr(inputValue);
   };
@@ -1347,7 +1347,7 @@ const ActivateTenantModal = ({
                       disabled={true}
                       // disabled={isNextButtonDisabled}
                     >
-                      Activateee
+                      Activate
                     </button>
                   ) : (
                     <button

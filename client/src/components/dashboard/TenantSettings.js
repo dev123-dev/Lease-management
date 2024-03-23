@@ -394,7 +394,7 @@ const TenantSettings = ({
                 id="tooltipPassAdmin"
                 className="syle-hint"
                 style={passwrdTooltip}
-                data-hint=" Dont Enter fractional number (Eg:1.2),(2.2) "
+                data-hint=" Dont Enter Fractional Number (Eg:1.2),(2.2) "
               ></div>
             </div>
             <h6 style={{ color: "red" }}>{validationStampMessage}</h6>

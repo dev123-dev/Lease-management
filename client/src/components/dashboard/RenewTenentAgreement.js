@@ -496,7 +496,7 @@ const RenewTenentAgreement = ({
 
   /////////////////////////////////////////////////////////////
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-  const [isNextButtonDisabled1, setNextButtonDisabled1] = useState(false);  //rent amount
+  const [isNextButtonDisabled1, setNextButtonDisabled1] = useState(false); //rent amount
 
   useEffect(() => {
     if (
@@ -511,11 +511,11 @@ const RenewTenentAgreement = ({
       // cardChecker === true
     ) {
       setNextButtonDisabled(false);
-    } else 
+    }
     // if (validationMessage !== "") {
     //   setNextButtonDisabled1(true);
-    // } else 
-    if (validationMessage === "") {
+    // } else
+    else if (validationMessage === "") {
       setNextButtonDisabled1(false);
     } else {
       setNextButtonDisabled(true);
@@ -748,8 +748,8 @@ const RenewTenentAgreement = ({
                   value="debit"
                   onChange={(e) => HandleCheck(e)}
                 />
+                &nbsp;
                 <label htmlFor="debit">Debit card&nbsp; &nbsp;</label>
-
                 <input
                   type="radio"
                   name="cardType"
@@ -757,6 +757,7 @@ const RenewTenentAgreement = ({
                   value="credit"
                   onChange={(e) => HandleCheck(e)}
                 />
+                &nbsp;
                 <label htmlFor="credit">Credit Card&nbsp; &nbsp;</label>
               </div>
 

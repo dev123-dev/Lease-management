@@ -42,7 +42,6 @@ const RenewableTenantReport = ({
   const handleYearChange = (selectedOption) => {
     setSelectedYear(selectedOption);
     SetRenewableYear(selectedOption.value);
-    
   };
 
   //end
@@ -147,11 +146,12 @@ const RenewableTenantReport = ({
     },
   });
   const refresh = () => {
+    const currentYear = new Date().getFullYear();
     setSelectedYear({
-      label: new Date().getFullYear(),
-      value: new Date().getFullYear(),
+      label: currentYear,
+      value: currentYear,
     });
-    SetRenewableYear(selectedYear.value);
+    SetRenewableYear(currentYear);
   };
 
   return (
@@ -222,50 +222,42 @@ const RenewableTenantReport = ({
                 Renewable Report
               </h2>
             </div>
-           
-           
+
             <div className="col-lg-5 mt-3">
-
-<div className="row">
-
-  
-<div className="col-lg-6 col-sm-12 col-md-12">
-<Select
-className="dropdown text-left mt-sm-3"
-                placeholder="Select Year"
-                onChange={(e) => handleYearChange(e)}
-                options={years}
-                value={selectedYear}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-              ></Select>
-</div>
-<div className="col-lg-6 col-sm-12 col-md-12"></div>
-</div>
-
-
-
-
-  
-</div>
-
-             
-         
-          
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Select Year"
+                    onChange={(e) => handleYearChange(e)}
+                    options={years}
+                    value={selectedYear}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
+            </div>
 
             <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-4 iconspace ">
               <Link to="/Report">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" className="iconSize"/>
+                  <img
+                    src={Back}
+                    alt="Back"
+                    title="Back"
+                    className="iconSize"
+                  />
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
@@ -296,11 +288,15 @@ className="dropdown text-left mt-sm-3"
                   OnPrint();
                 }}
               >
-                <img src={Print} alt="Print" title="Print" className="iconSize"/>
+                <img
+                  src={Print}
+                  alt="Print"
+                  title="Print"
+                  className="iconSize"
+                />
               </button>
               <img
-              className="iconSize"
-       
+                className="iconSize"
                 style={{ cursor: "pointer" }}
                 onClick={() => refresh()}
                 src={Refresh}
@@ -430,8 +426,10 @@ className="dropdown text-left mt-sm-3"
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6 font-weight-bold"
-                      style={{ color: "#095a4a" }}>
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Tenants : {activeData.length}
                   </p>
                 </div>
