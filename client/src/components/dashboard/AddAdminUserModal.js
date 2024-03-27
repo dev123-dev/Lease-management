@@ -208,7 +208,7 @@ const AddAdminUserModal = ({
   // validation
   const [username, setUsername] = useState("");
   const [validationNameMessage, setValidationNameMessage] = useState(
-    "Please enter the Name"
+    "Please enter valid Name"
   );
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -216,7 +216,7 @@ const AddAdminUserModal = ({
       .replace(/[^A-Za-z ]+/g, "")
       .replace(/ +/g, " "); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setUsername(filteredValue);

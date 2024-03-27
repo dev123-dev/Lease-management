@@ -344,7 +344,7 @@ const ActivateTenantModal = ({
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setTenantName(filteredValue);

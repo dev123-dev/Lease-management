@@ -72,7 +72,7 @@ const UserDetails = ({
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z0-9]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setUsername(filteredValue);

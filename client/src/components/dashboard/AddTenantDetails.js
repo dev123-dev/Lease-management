@@ -558,13 +558,13 @@ const AddTenantDetails = ({
   // validation
   const [tenantName, setTenantName] = useState("");
   const [validationNameMessage, setValidationNameMessage] = useState(
-    "Please enter the Name"
+    "Please enter valid Name"
   );
   const handleInputNameChange = (e) => {
     // const inputValue = e.target.value;
     // const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     // filteredValue === ""
-    //   ? setValidationNameMessage("Please enter the Name")
+    //   ? setValidationNameMessage("Please enter valid Name")
     //   : setValidationNameMessage("");
 
     // setTenantName(filteredValue);
