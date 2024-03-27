@@ -950,18 +950,37 @@ router.post("/get-tenant-sort", auth, async (req, res) => {
   }
 });
 
+// router.post("/get-tenant-sort-for-activecount", auth, async (req, res) => {
+//   const userInfo = await UserDetails.findById(req.user.id).select("-password");
+
+//   let query = { OrganizationId: userInfo.OrganizationId };
+
+//   try {
+//     const tenantdata = await TenantDetails.find(query).sort({
+//       tenantstatus: 1,
+//     });
+//     res.json(tenantdata);
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// });
 router.post("/get-tenant-sort-for-activecount", auth, async (req, res) => {
-  const userInfo = await UserDetails.findById(req.user.id).select("-password");
-
-  let query = { OrganizationId: userInfo.OrganizationId };
-
   try {
+    const userInfo = await UserDetails.findById(req.user.id).select(
+      "-password"
+    );
+
+    const query = { OrganizationId: userInfo.OrganizationId };
+
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
     });
+
     res.json(tenantdata);
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
+
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

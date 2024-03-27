@@ -182,18 +182,20 @@ export const getParticularProperty = (data) => async (dispatch) => {
 
 export const getParticularOrg = (data) => async (dispatch) => {
   try {
-    const res = await axios.post(
-      `${linkPath}/api/tenants/get-particular-org`,
-      data,
-      config
-    );
+    if (data.OrganizationId) {
+      const res = await axios.post(
+        `${linkPath}/api/tenants/get-particular-org`,
+        data,
+        config
+      );
 
-    dispatch(getParticularProperty({ OrganizationId: data.OrganizationId }));
+      dispatch(getParticularProperty({ OrganizationId: data.OrganizationId }));
 
-    dispatch({
-      type: PARTICULAR_ORG_LOCATION,
-      payload: res.data,
-    });
+      dispatch({
+        type: PARTICULAR_ORG_LOCATION,
+        payload: res.data,
+      });
+    }
   } catch (error) {}
 };
 
@@ -1090,7 +1092,6 @@ export const getTenantReportYearExp =
     });
 
     try {
-    
       const res = await axios.post(
         `${linkPath}/api/tenants/get-tenant-year-report`,
         finalDataReportOld,
@@ -1198,7 +1199,6 @@ export const RenewTenantDetailsform = (finalData) => async (dispatch) => {
 //get MIS report
 
 export const getMisReport = (finalOrgData) => async (dispatch) => {
-
   try {
     const res = await axios.post(
       `${linkPath}/api/tenants/get-mis-report`,

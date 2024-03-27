@@ -58,6 +58,7 @@ const Tenant_Details = ({
   useEffect(() => {
     // ParticularTenant();
     ParticularTenantFilter();
+    TenantCount();
 
     ParticularTenantFilterContactReport();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
@@ -72,10 +73,6 @@ const Tenant_Details = ({
     // });
     fun();
   }, [freshpage]);
-
-  useEffect(() => {
-    TenantCount();
-  }, [tenantdetailscount]);
 
   // useEffect(() => {
   //   ParticularTenant({ OrganizationId: user && user.OrganizationId });
