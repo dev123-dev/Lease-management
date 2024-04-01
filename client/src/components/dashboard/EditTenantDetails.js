@@ -232,7 +232,7 @@ const EditTenantDetails = ({
     ) {
       setValidationTransIdMessage("");
     } else {
-      setValidationTransIdMessage("Please enter a valid  Transcation id");
+      setValidationTransIdMessage("Please enter a valid  Transaction id");
     }
 
     setTransId(inputValue);
@@ -1094,7 +1094,7 @@ const EditTenantDetails = ({
                   </div>
 
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id:</label>
+                    <label> Transaction Id:</label>
                     <input
                       type="text"
                       name="transcationId"
@@ -1128,7 +1128,7 @@ const EditTenantDetails = ({
               ) : paymentMode.value === "NEFT" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id:</label>
+                    <label> Transaction Id:</label>
                     <input
                       type="text"
                       name="transcationId"

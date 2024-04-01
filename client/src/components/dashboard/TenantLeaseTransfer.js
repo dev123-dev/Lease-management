@@ -249,7 +249,7 @@ const TenantLeaseTransfer = ({
         <div className="row">
           <div className="col-lg-12 d-flex align-items-center">
             <div className="col-lg-3">
-              <label>From :</label>
+              <label>Transfer From :</label>
             </div>
             <div className="col-lg-9">{leaseTransferData.tenantName}</div>
           </div>
@@ -259,7 +259,7 @@ const TenantLeaseTransfer = ({
                 // className="control-label"
                 style={tenantErrorStyle}
               >
-                To<span style={{ color: "red" }}>* </span>:
+                Transfer To<span style={{ color: "red" }}>* </span>:
               </label>
             </div>
             <div className="col-lg-9">

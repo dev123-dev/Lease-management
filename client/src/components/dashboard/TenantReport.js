@@ -626,7 +626,12 @@ const TenantReport = ({
 
                                   <td>{tenantLeaseEndDate}</td>
                                   <td>{Number(Val.chargesCal).toFixed(2)}</td>
-                                  <td>{Val.AgreementStatus}</td>
+                                  {Val.AgreementStatus === "Renewed" ? (
+                                    <td>Active</td>
+                                  ) : (
+                                    <td>{Val.AgreementStatus}</td>
+                                  )}
+
                                   {
                                     Val.AgreementStatus === "Expired" ? (
                                       <td>
@@ -646,7 +651,7 @@ const TenantReport = ({
                                       </td>
                                     ) : Val.AgreementStatus === "Renewed" ? (
                                       <td>
-                                        <button
+                                        {/* <button
                                           style={{ border: "none" }}
                                           onClick={() =>
                                             handlePrintReceipt(Val, idx)
@@ -658,7 +663,7 @@ const TenantReport = ({
                                             alt="Print"
                                             title="Generate Receipt"
                                           />
-                                        </button>
+                                        </button> */}
                                       </td>
                                     ) : (
                                       <td></td>
