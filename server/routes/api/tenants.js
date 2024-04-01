@@ -61,23 +61,23 @@ router.post("/add-tenant-details", async (req, res) => {
       };
       let tenantdata = await new TenantDetails(tenantDetails);
       tenantdata.save();
-      const finalData2 = {
-        tdId: tenantdata._id,
-        thName: data.tenantName,
-        thPhone: data.tenantPhone,
-        thFirmName: data.tenantFirmName,
-        thAddr: data.tenantAddr,
-        thAdharNo: data.tenantAdharNo,
-        thPanNo: data.tenantPanNo,
-        thDepositAmt: data.tenantDepositAmt,
-        thgeneratordepoAmt: data.generatordepoAmt,
-        thshopId: data.shopId,
-        thStatus: "Expired",
-        thEnteredBy: data.tenantEnteredBy,
-        thDate: data.tenantDate,
-      };
-      let tenantHistories = new TenentHistories(finalData2);
-      output2 = await tenantHistories.save();
+      // const finalData2 = {
+      //   tdId: tenantdata._id,
+      //   thName: data.tenantName,
+      //   thPhone: data.tenantPhone,
+      //   thFirmName: data.tenantFirmName,
+      //   thAddr: data.tenantAddr,
+      //   thAdharNo: data.tenantAdharNo,
+      //   thPanNo: data.tenantPanNo,
+      //   thDepositAmt: data.tenantDepositAmt,
+      //   thgeneratordepoAmt: data.generatordepoAmt,
+      //   thshopId: data.shopId,
+      //   thStatus: "Expired",
+      //   thEnteredBy: data.tenantEnteredBy,
+      //   thDate: data.tenantDate,
+      // };
+      // let tenantHistories = new TenentHistories(finalData2);
+      // output2 = await tenantHistories.save();
 
       tenantdata.shopDoorNo.map((eleDoor) => {
         property
@@ -175,23 +175,23 @@ router.post("/add-tenant-details", async (req, res) => {
       };
       let tenantdata = await new TenantDetails(tenantDetails);
       tenantdata.save();
-      const finalData2 = {
-        tdId: tenantdata._id,
-        thName: data.tenantName,
-        thPhone: data.tenantPhone,
-        thFirmName: data.tenantFirmName,
-        thAddr: data.tenantAddr,
-        thAdharNo: data.tenantAdharNo,
-        thPanNo: data.tenantPanNo,
-        thDepositAmt: data.tenantDepositAmt,
-        thgeneratordepoAmt: data.generatordepoAmt,
-        thshopId: data.shopId,
-        thStatus: "Active",
-        thEnteredBy: data.tenantEnteredBy,
-        thDate: data.tenantDate,
-      };
-      let tenantHistories = new TenentHistories(finalData2);
-      output2 = await tenantHistories.save();
+      // const finalData2 = {
+      //   tdId: tenantdata._id,
+      //   thName: data.tenantName,
+      //   thPhone: data.tenantPhone,
+      //   thFirmName: data.tenantFirmName,
+      //   thAddr: data.tenantAddr,
+      //   thAdharNo: data.tenantAdharNo,
+      //   thPanNo: data.tenantPanNo,
+      //   thDepositAmt: data.tenantDepositAmt,
+      //   thgeneratordepoAmt: data.generatordepoAmt,
+      //   thshopId: data.shopId,
+      //   thStatus: "Active",
+      //   thEnteredBy: data.tenantEnteredBy,
+      //   thDate: data.tenantDate,
+      // };
+      // let tenantHistories = new TenentHistories(finalData2);
+      // output2 = await tenantHistories.save();
 
       tenantdata.shopDoorNo.map((eleDoor) => {
         property
@@ -1189,6 +1189,39 @@ router.post("/deactive-tenant", async (req, res) => {
     let data = req.body;
     //  console.log( "len",data.Dno.length );
     if (data.Dno.length > 0) {
+
+      const tentHis = await TenantDetails.findById({ _id: data.tid });
+ console.log("tentHis",tentHis)
+      const HistrData = {
+        tdId:tentHis._id,
+        thName: tentHis.tenantName,
+        thOperation: "Door Deactivated",
+        thPhone:tentHis.tenantPhone,
+        thFirmName: tentHis.tenantFirmName,
+       
+        thRentAmount:tentHis.tenantRentAmount,
+        thDepositAmt: tentHis.tenantDepositAmt,
+        thgeneratordepoAmt: tentHis.generatordepoAmt,
+       
+        
+        thLeaseStartDate: tentHis.tenantLeaseStartDate,
+        thLeaseEndDate: tentHis.tenantLeaseEndDate,
+        thBuildingId: tentHis.BuildingId,
+        thDoorNo: tentHis.shopDoorNo,
+        thAgreementStatus:tentHis.AgreementStatus,
+        tenantStatus:tentHis.tenantstatus,
+        thNotes:data.deactive_reason,
+    
+        
+        deactive_by_id:data.tenantEnteredBy,
+    
+        
+      };
+      let tenantHistories = new TenentHistories(HistrData);
+      await tenantHistories.save();
+
+
+
       //console.log("rvced data",data)
       data.Dno.map((ele) => {
         TenantDetails.updateOne(
@@ -1233,6 +1266,38 @@ router.post("/deactive-tenant", async (req, res) => {
       });
     } //if(console.log(data.Dno.length === 0))
     else {
+
+
+
+      const tentHis = await TenantDetails.findById({ _id: data.tid });
+ 
+      const HistrData1 = {
+        tdId:tentHis._id,
+        thName: tentHis.tenantName,
+        thOperation: "Deactivated",
+        thPhone:tentHis.tenantPhone,
+        thFirmName: tentHis.tenantFirmName,
+       
+        thRentAmount:tentHis.tenantRentAmount,
+        thDepositAmt: tentHis.tenantDepositAmt,
+        thgeneratordepoAmt: tentHis.generatordepoAmt,
+       
+        
+        thLeaseStartDate: tentHis.tenantLeaseStartDate,
+        thLeaseEndDate: tentHis.tenantLeaseEndDate,
+        thBuildingId: tentHis.BuildingId,
+        thDoorNo: tentHis.shopDoorNo,
+        thAgreementStatus:tentHis.AgreementStatus,
+        tenantStatus:tentHis.tenantstatus,
+        thNotes:data.deactive_reason,
+    
+        
+        deactive_by_id:data.tenantEnteredBy,
+    
+        
+      };
+      let tenantHistories = new TenentHistories(HistrData1);
+      await tenantHistories.save();
       // console.log("door No");
 
       // data.Dno.map((ele) => {
@@ -2424,6 +2489,45 @@ router.post("/update-tenant-details", async (req, res) => {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
     let data = req.body;
+
+    const tentHis = await TenantDetails.findById({ _id: data.recordId });
+    
+    const HistrData = {
+      tdId:tentHis._id,
+      thName: tentHis.tenantName,
+      thOperation: "Edit",
+      thPhone:tentHis.tenantPhone,
+      thFirmName: tentHis.tenantFirmName,
+      thAddr: tentHis.tenantAddr,
+      thAdharNo:  tentHis.tenantAdharNo,
+      thPanNo: tentHis.tenantPanNo,
+      thRentAmount:tentHis.tenantRentAmount,
+      thDepositAmt: tentHis.tenantDepositAmt,
+      thgeneratordepoAmt: tentHis.generatordepoAmt,
+      thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
+      thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
+      ? tentHis.tenantChequenoOrDdno
+      : null,
+      thPaymentMode:tentHis.tenantPaymentMode,
+      thLeaseStartDate: tentHis.tenantLeaseStartDate,
+      thLeaseEndDate: tentHis.tenantLeaseEndDate,
+      thBuildingId: tentHis.BuildingId,
+      thDoorNo: tentHis.shopDoorNo,
+      thAgreementStatus:tentHis.AgreementStatus,
+      tenantStatus:tentHis.tenantstatus,
+      thNotes:"",
+  
+     
+      edit_by_id:data.tenantEnteredBy,
+  
+      
+    };
+    let tenantHistories = new TenentHistories(HistrData);
+    await tenantHistories.save();
+
+
+
+
 
     // console.log(data.tenantLeaseEndDate);
     //  console.log("", todayDateymd);

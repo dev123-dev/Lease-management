@@ -267,7 +267,7 @@ const Tenant_Details = ({
         userId: user && user._id,
         userName: user && user.username,
         Menu: "Tenant",
-        Operation: "Deactive",
+        Operation: "Door Deactivated",
         Dno: checkData.length !== 0 ? checkData : dno,
         NameId: tId,
         Name: tName,
@@ -1085,11 +1085,7 @@ const Tenant_Details = ({
 
       {/* deactivate all */}
       <Modal show={show} centered>
-        <form
-          onSubmit={(e) => {
-            onDeactivateall(e);
-          }}
-        >
+        
           <Modal.Header className="confirmbox-heading">
             {/* <div className="col-lg-11 ">
               <div className="modal-title">
@@ -1136,6 +1132,11 @@ const Tenant_Details = ({
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               > */}
+              <form
+          onSubmit={(e) => {
+            onDeactivateall(e);
+          }}
+        >
             <div className="h5 despace">Reason For Deactivating *</div>
             <textarea
               rows="2"
@@ -1150,13 +1151,14 @@ const Tenant_Details = ({
             <div>Are you sure You Want To Deactivate..?</div>
             {/* </Form.Group>
             </Form> */}
+                </form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" type="submit" id="deactivebtn">
               <b>Deactive</b>
             </Button>
           </Modal.Footer>
-        </form>
+    
       </Modal>
 
       <Modal show={selectDno} centered>
