@@ -275,7 +275,7 @@ const Tenant_Details = ({
         expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(AdduserActivity);
-
+      
       deactiveTenantsDetails(reason);
       handleClose();
       setFreshPage(!freshpage);
@@ -1085,9 +1085,13 @@ const Tenant_Details = ({
 
       {/* deactivate all */}
       <Modal show={show} centered>
-        
-          <Modal.Header className="confirmbox-heading">
-            {/* <div className="col-lg-11 ">
+        {/* <form
+          onSubmit={(e) => {
+            onDeactivateall(e);
+          }}
+        > */}
+        <Modal.Header className="confirmbox-heading">
+          {/* <div className="col-lg-11 ">
               <div className="modal-title">
                 <h3 style={{
                   color: "white",
@@ -1103,90 +1107,93 @@ const Tenant_Details = ({
               />
             </div> */}
 
-            <div className="col-lg-10  col-sm-12 col-md-12">
-              <div className="ml-4">
-                <h3
-                  style={{
-                    color: "white",
-                  }}
-                  className=" text-center ml-4"
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
+          <div className="col-lg-10  col-sm-12 col-md-12">
+            <div className="ml-4">
+              <h3
+                style={{
+                  color: "white",
+                }}
+                className=" text-center ml-4"
+              >
+                DEACTIVATE
+              </h3>
             </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 ">
-              <button onClick={handleClose} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px", marginLeft: "-12px" }}
-                />
-              </button>
-            </div>
-          </Modal.Header>
+          </div>
+          <div className="col-lg-2  col-sm-12 col-md-12 ">
+            <button onClick={handleClose} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px", marginLeft: "-12px" }}
+              />
+            </button>
+          </div>
+        </Modal.Header>
 
-          <Modal.Body>
-            {/* <Form>
+        <Modal.Body>
+          {/* <Form>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               > */}
-              <form
-          onSubmit={(e) => {
-            onDeactivateall(e);
-          }}
-        >
-            <div className="h5 despace">Reason For Deactivating *</div>
-            <textarea
-              rows="2"
-              name="deactive_reason"
-              value={deactive_reason}
-              onChange={(e) => onInputChange(e)}
-              style={{ width: "100%" }}
-              id="org_reason"
-              className="form-control "
-              required
-            ></textarea>
-            <div>Are you sure You Want To Deactivate..?</div>
-            {/* </Form.Group>
+
+          <div className="h5 despace">Reason For Deactivating *</div>
+          <textarea
+            rows="2"
+            name="deactive_reason"
+            value={deactive_reason}
+            onChange={(e) => onInputChange(e)}
+            style={{ width: "100%" }}
+            id="org_reason"
+            className="form-control "
+            required
+          ></textarea>
+          <div>Are you sure You Want To Deactivate..?</div>
+          {/* </Form.Group>
             </Form> */}
-                </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" type="submit" id="deactivebtn">
-              <b>Deactive</b>
-            </Button>
-          </Modal.Footer>
-    
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            type="submit"
+            id="deactivebtn"
+            onClick={(e) => {
+              onDeactivateall(e);
+            }}
+          >
+            <b>Deactive</b>
+          </Button>
+        </Modal.Footer>
+        {/* </form> */}
       </Modal>
 
       <Modal show={selectDno} centered>
-        <form onSubmit={onDeactivate}>
-          <Modal.Header className="confirmbox-heading">
-            <div className="col-lg-10  col-sm-12 col-md-12">
-              <div className="ml-4">
-                <h3
-                  style={{
-                    color: "white",
-                  }}
-                  className="text-center  "
-                >
-                  DEACTIVATE
-                </h3>
-              </div>
+        {/* <form onSubmit={onDeactivate}> */}
+        <Modal.Header className="confirmbox-heading">
+          <div className="col-lg-10  col-sm-12 col-md-12">
+            <div className="ml-4">
+              <h3
+                style={{
+                  color: "white",
+                }}
+                className="text-center  "
+              >
+                DEACTIVATE
+              </h3>
             </div>
-            <div className="col-lg-2  col-sm-12 col-md-12">
-              <button onClick={handleCloseDno} className="close">
-                <img
-                  src={require("../../static/images/close.png")}
-                  alt="X"
-                  style={{ height: "20px", width: "20px", marginLeft: "-12px" }}
-                />
-              </button>
-            </div>
+          </div>
+          <div className="col-lg-2  col-sm-12 col-md-12">
+            <button onClick={handleCloseDno} className="close">
+              <img
+                src={require("../../static/images/close.png")}
+                alt="X"
+                style={{ height: "20px", width: "20px", marginLeft: "-12px" }}
+              />
+            </button>
+          </div>
 
-            {/* <div className="col-lg-11 ">
+          {/* <div className="col-lg-11 ">
               <div className="modal-title ">
                 <h3 style={{
                   color: "white",
@@ -1201,53 +1208,53 @@ const Tenant_Details = ({
                
               />
             </div> */}
-          </Modal.Header>
+        </Modal.Header>
 
-          <Modal.Body>
-            {/* <Form>
+        <Modal.Body>
+          {/* <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1"> */}
-            <div className="text-dark">Choose Door No for Deactivate</div>
+          <div className="text-dark">Choose Door No for Deactivate</div>
 
-            <div className="checkbox mx-5">
-              {dno.map((ele, index) => {
-                if (ele.status === "Acquired" || ele.status === "Avaiable") {
-                  return (
-                    <>
-                      <input
-                        type="checkbox"
-                        id="checkbox"
-                        value={ele.label}
-                        onChange={(e) => HandelCheck(e)}
-                      />{" "}
-                      &nbsp;
-                      <label for="doorNumber">{ele.label}&nbsp; &nbsp;</label>
-                    </>
-                  );
-                }
-              })}
-            </div>
-            <div className=" despace pt-3">Reason For Deactivating *</div>
-            <textarea
-              rows="2"
-              name="deactive_reason"
-              value={deactive_reason}
-              onChange={(e) => onInputChange(e)}
-              autoFocus
-              id="org_reason"
-              className="form-control "
-              required
-            ></textarea>
-            <div>Are you sure You Want To Deactivate..?</div>
-            <div style={{ color: "red" }}>{Error}</div>
-            {/* </Form.Group>
+          <div className="checkbox mx-5">
+            {dno.map((ele, index) => {
+              if (ele.status === "Acquired" || ele.status === "Avaiable") {
+                return (
+                  <>
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      value={ele.label}
+                      onChange={(e) => HandelCheck(e)}
+                    />{" "}
+                    &nbsp;
+                    <label for="doorNumber">{ele.label}&nbsp; &nbsp;</label>
+                  </>
+                );
+              }
+            })}
+          </div>
+          <div className=" despace pt-3">Reason For Deactivating *</div>
+          <textarea
+            rows="2"
+            name="deactive_reason"
+            value={deactive_reason}
+            onChange={(e) => onInputChange(e)}
+            autoFocus
+            id="org_reason"
+            className="form-control "
+            required
+          ></textarea>
+          <div>Are you sure You Want To Deactivate..?</div>
+          <div style={{ color: "red" }}>{Error}</div>
+          {/* </Form.Group>
           </Form> */}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="primary" id="deactivebtn" type="submit">
-              <b>Deactive</b>
-            </Button>
-          </Modal.Footer>
-        </form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" id="deactivebtn" onClick={onDeactivate}>
+            <b>Deactive</b>
+          </Button>
+        </Modal.Footer>
+        {/* </form> */}
       </Modal>
       {/* deactivate end */}
 
