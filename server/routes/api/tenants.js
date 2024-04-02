@@ -1213,7 +1213,7 @@ router.post("/deactive-tenant", async (req, res) => {
         thNotes:data.deactive_reason,
     
         
-        deactive_by_id:data.tenantEnteredBy,
+        edit_by_id:data.tenantEnteredBy,
     
         
       };
@@ -1292,7 +1292,7 @@ router.post("/deactive-tenant", async (req, res) => {
         thNotes:data.deactive_reason,
     
         
-        deactive_by_id:data.tenantEnteredBy,
+        edit_by_id:data.tenantEnteredBy,
     
         
       };
@@ -2350,6 +2350,43 @@ router.post("/renew-tenant-details", async (req, res) => {
   var todayDateymd = yyyy + "-" + mm + "-" + dd;
   let data = req.body;
 
+
+  const tentHis = await TenantDetails.findById({ _id: data.tdId });
+    
+  const HistrData = {
+    tdId:tentHis._id,
+    thName: tentHis.tenantName,
+    thOperation: "Renewal",
+    thPhone:tentHis.tenantPhone,
+    thFirmName: tentHis.tenantFirmName,
+    thAddr: tentHis.tenantAddr,
+    thAdharNo:  tentHis.tenantAdharNo,
+    thPanNo: tentHis.tenantPanNo,
+    thRentAmount:tentHis.tenantRentAmount,
+    thDepositAmt: tentHis.tenantDepositAmt,
+    thgeneratordepoAmt: tentHis.generatordepoAmt,
+    thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
+    thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
+    ? tentHis.tenantChequenoOrDdno
+    : null,
+    thPaymentMode:tentHis.tenantPaymentMode,
+    thLeaseStartDate: tentHis.tenantLeaseStartDate,
+    thLeaseEndDate: tentHis.tenantLeaseEndDate,
+    thBuildingId: tentHis.BuildingId,
+    thDoorNo: tentHis.shopDoorNo,
+    thAgreementStatus:tentHis.AgreementStatus,
+    tenantStatus:tentHis.tenantstatus,
+    thNotes:"Renewed ",
+
+   
+    edit_by_id:data.tenantEnteredBy,
+
+    
+  };
+  let tenantHistories = new TenentHistories(HistrData);
+  await tenantHistories.save();
+
+
   if (data.tenantLeaseEndDate < todayDateymd) {
     try {
       const TenantAgreementHistorydata = {
@@ -2710,6 +2747,42 @@ router.post("/activate-tenant-details", async (req, res) => {
   try {
     let data = req.body;
 
+const tentHis = await TenantDetails.findById({ _id: data.recordId });
+    
+const HistrData = {
+  tdId:tentHis._id,
+  thName: tentHis.tenantName,
+  thOperation: "Activate",
+  thPhone:tentHis.tenantPhone,
+  thFirmName: tentHis.tenantFirmName,
+  thAddr: tentHis.tenantAddr,
+  thAdharNo:  tentHis.tenantAdharNo,
+  thPanNo: tentHis.tenantPanNo,
+  thRentAmount:tentHis.tenantRentAmount,
+  thDepositAmt: tentHis.tenantDepositAmt,
+  thgeneratordepoAmt: tentHis.generatordepoAmt,
+  thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
+  thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
+  ? tentHis.tenantChequenoOrDdno
+  : null,
+  thPaymentMode:tentHis.tenantPaymentMode,
+  thLeaseStartDate: tentHis.tenantLeaseStartDate,
+  thLeaseEndDate: tentHis.tenantLeaseEndDate,
+  thBuildingId: tentHis.BuildingId,
+  thDoorNo: tentHis.shopDoorNo,
+  thAgreementStatus:tentHis.AgreementStatus,
+  tenantStatus:tentHis.tenantstatus,
+  thNotes:"Tenant Activated",
+
+ 
+  edit_by_id:data.tenantEnteredBy,
+
+  
+};
+let tenantHistories = new TenentHistories(HistrData);
+await tenantHistories.save();
+
+
     if (data.tenantLeaseEndDate < todayDateymd) {
       const updatetenantdetails = await TenantDetails.updateOne(
         { _id: data.recordId },
@@ -2953,7 +3026,54 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   try {
     let data = req.body;
 
+
+console.log("dataaaaaaa",data)
+
+const doorNos = data.transferShoopDoorNo.map(door => door.label).join(", ");
+ 
+
+
     if (data.Dno.length > 1) {
+
+
+      const tentHis = await TenantDetails.findById({ _id: data.fromId });
+      
+      const HistrData = {
+        tdId:tentHis._id,
+        thName: tentHis.tenantName,
+        thOperation: "Lease Transfer" ,
+        thPhone:tentHis.tenantPhone,
+        thFirmName: tentHis.tenantFirmName,
+        thAddr: tentHis.tenantAddr,
+        thAdharNo:  tentHis.tenantAdharNo,
+        thPanNo: tentHis.tenantPanNo,
+        thRentAmount:tentHis.tenantRentAmount,
+        thDepositAmt: tentHis.tenantDepositAmt,
+        thgeneratordepoAmt: tentHis.generatordepoAmt,
+        thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
+        thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
+        ? tentHis.tenantChequenoOrDdno
+        : null,
+        thPaymentMode:tentHis.tenantPaymentMode,
+        thLeaseStartDate: tentHis.tenantLeaseStartDate,
+        thLeaseEndDate: tentHis.tenantLeaseEndDate,
+        thBuildingId: tentHis.BuildingId,
+        thDoorNo: tentHis.shopDoorNo,
+        thAgreementStatus:tentHis.AgreementStatus,
+        tenantStatus:tentHis.tenantstatus,
+        thNotes:"Lease Transfer of " + doorNos +  " to " + data.toId,
+    
+       
+        edit_by_id:data.tenantEnteredBy,
+    
+        
+      };
+      let tenantHistories = new TenentHistories(HistrData);
+      await tenantHistories.save();
+
+
+
+
       const isSameData = data.Dno.every((door) =>
         data.transferShoopDoorNo.some(
           (transferDoor) => transferDoor.label === door.label
@@ -3014,6 +3134,44 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
       //  .then((data) => {});
       // }
     } else if (data.Dno.length === 1) {
+
+      const tentHis = await TenantDetails.findById({ _id: data.fromId });
+     
+      const HistrData = {
+        tdId:tentHis._id,
+        thName: tentHis.tenantName,
+        thOperation: "Lease Transfer" ,
+        thPhone:tentHis.tenantPhone,
+        thFirmName: tentHis.tenantFirmName,
+        thAddr: tentHis.tenantAddr,
+        thAdharNo:  tentHis.tenantAdharNo,
+        thPanNo: tentHis.tenantPanNo,
+        thRentAmount:tentHis.tenantRentAmount,
+        thDepositAmt: tentHis.tenantDepositAmt,
+        thgeneratordepoAmt: tentHis.generatordepoAmt,
+        thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
+        thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
+        ? tentHis.tenantChequenoOrDdno
+        : null,
+        thPaymentMode:tentHis.tenantPaymentMode,
+        thLeaseStartDate: tentHis.tenantLeaseStartDate,
+        thLeaseEndDate: tentHis.tenantLeaseEndDate,
+        thBuildingId: tentHis.BuildingId,
+        thDoorNo: tentHis.shopDoorNo,
+        thAgreementStatus:tentHis.AgreementStatus,
+        tenantStatus:tentHis.tenantstatus,
+        thNotes:"Lease Transfere of " + doorNos +  " to " + data.toId +" and got deactivated" ,
+       
+    
+       
+        edit_by_id:data.tenantEnteredBy,
+    
+        
+      };
+      let tenantHistories = new TenentHistories(HistrData);
+      await tenantHistories.save();
+
+
       //pull
       data.transferShoopDoorNo.map((ele) => {
         const fromId = data.fromId;

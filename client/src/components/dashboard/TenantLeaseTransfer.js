@@ -174,6 +174,7 @@ const TenantLeaseTransfer = ({
         sortleasetransferdetails[0].tenantName,
       Dno: leaseTransferData.shopDoorNo,
       transferShoopDoorNo: selectedDoorNumber,
+      tenantEnteredBy:user && user._id,
     };
     const ActivityDetail = {
       userId: user && user._id,
