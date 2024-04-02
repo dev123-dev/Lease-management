@@ -14,6 +14,7 @@ const UserActivity = require("../../models/UserActivity");
 const auth = require("../../middleware/auth");
 const mongoose = require("mongoose");
 
+//add new tenant
 router.post("/add-tenant-details", async (req, res) => {
   var today = new Date();
   var dd = today.getDate();
@@ -25,237 +26,205 @@ router.post("/add-tenant-details", async (req, res) => {
   let data = req.body;
 
   try {
-    if (data.tenantLeaseEndDate < todayDateymd) {
-      //adding the new data ---------------------------------------------------------------------------
+    let tenantDetails = {
+      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
+      BuildingName: data.BuildingName,
+      AgreementStatus:
+        data.tenantLeaseEndDate < todayDateymd ? "Expired" : "Active", //flg
+      BuildingId: data.BuildingId,
+      Location: data.Location,
+      tenantFileNo: data.tenantFileNo,
+      shopDoorNo: data.tenantDoorNo,
+      tenantName: data.tenantName,
+      tenantPhone: data.tenantPhone,
+      tenantFirmName: data.tenantFirmName,
+      tenantAddr: data.tenantAddr,
+      tenantAdharNo: data.tenantAdharNo,
+      tenantPanNo: data.tenantPanNo,
+      tenantDepositAmt: data.tenantDepositAmt,
+      tenantPaymentMode: data.tenantPaymentMode,
+      tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+      tenantBankName: data.tenantBankName,
+      tenantchequeDate: data.tenantchequeDate,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+      generatordepoAmt: data.generatordepoAmt,
+      tenantEnteredBy: data.tenantEnteredBy,
+      tenantDate: data.todayDateymd,
+      selectedY: data.selectedY,
+      selectedVal: data.selectedVal,
+      tenantTransId: data.tenantTransId,
+      tenantCardType: data.tenantCardType,
+    };
 
-      let tenantDetails = {
-        OrganizationName: data.OrganizationName,
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        AgreementStatus: "Expired",
-        BuildingId: data.BuildingId,
-        Location: data.Location,
-        tenantFileNo: data.tenantFileNo,
-        shopDoorNo: data.tenantDoorNo,
-        tenantName: data.tenantName,
-        tenantPhone: data.tenantPhone,
-        tenantFirmName: data.tenantFirmName,
-        tenantAddr: data.tenantAddr,
-        tenantAdharNo: data.tenantAdharNo,
-        tenantPanNo: data.tenantPanNo,
-        tenantDepositAmt: data.tenantDepositAmt,
-        tenantPaymentMode: data.tenantPaymentMode,
-        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-        tenantBankName: data.tenantBankName,
-        tenantchequeDate: data.tenantchequeDate,
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        generatordepoAmt: data.generatordepoAmt,
-        tenantEnteredBy: data.tenantEnteredBy,
-        tenantDate: data.todayDateymd,
-        selectedY: data.selectedY,
-        selectedVal: data.selectedVal,
-        tenantTransId: data.tenantTransId,
-        tenantCardType: data.tenantCardType,
-      };
-      let tenantdata = await new TenantDetails(tenantDetails);
-      tenantdata.save();
-      // const finalData2 = {
-      //   tdId: tenantdata._id,
-      //   thName: data.tenantName,
-      //   thPhone: data.tenantPhone,
-      //   thFirmName: data.tenantFirmName,
-      //   thAddr: data.tenantAddr,
-      //   thAdharNo: data.tenantAdharNo,
-      //   thPanNo: data.tenantPanNo,
-      //   thDepositAmt: data.tenantDepositAmt,
-      //   thgeneratordepoAmt: data.generatordepoAmt,
-      //   thshopId: data.shopId,
-      //   thStatus: "Expired",
-      //   thEnteredBy: data.tenantEnteredBy,
-      //   thDate: data.tenantDate,
-      // };
-      // let tenantHistories = new TenentHistories(finalData2);
-      // output2 = await tenantHistories.save();
+    let tenantdata = await new TenantDetails(tenantDetails);
+    tenantdata.save();
 
-      tenantdata.shopDoorNo.map((eleDoor) => {
-        property
-          .updateOne(
-            {
-              OrganizationId: tenantdata.OrganizationId,
-              _id: tenantdata.BuildingId,
-              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-            },
-            {
-              $set: {
-                "shopDoorNo.$.status": "Acquired",
-              },
-            }
-          )
-          .then(data);
-      });
+    tenantdata.shopDoorNo.map(async (eleDoor) => {
+      await property.updateOne(
+        {
+          OrganizationId: tenantdata.OrganizationId,
+          _id: tenantdata.BuildingId,
+          shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
+        },
+        {
+          $set: {
+            "shopDoorNo.$.status": "Acquired",
+          },
+        }
+      );
+      //.then(data);
+    });
 
-      const finalData1 = {
-        tdId: tenantdata._id,
-        OrganizationName: data.OrganizationName,
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        BuildingId: data.BuildingId,
-        tenantstatus: "Active",
-        AgreementStatus: "Expired",
-        tenantFileNo: data.tenantFileNo,
-        tenantDoorNo: data.tenantDoorNo,
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        tenantAgreementEntredBy: data.tenantEnteredBy,
-        tenantAgreementDate: data.tenantDate,
-      };
-      const finalDataHistory = {
-        tdId: tenantdata._id,
-        OrganizationName: data.OrganizationName,
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        BuildingId: data.BuildingId,
-        tenantstatus: "Active",
-        AgreementStatus: "Expired",
-        tenantFileNo: data.tenantFileNo,
-        tenantDoorNo: data.tenantDoorNo,
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        tenantAgreementEntredBy: data.tenantEnteredBy,
-        tenantAgreementDate: data.tenantDate,
-        //new
-        tenantPaymentMode: data.tenantPaymentMode,
-        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-        tenantBankName: data.tenantBankName,
-        tenantchequeDate: data.tenantchequeDate,
-        tenantTransId: data.tenantTransId,
-        tenantCardType: data.tenantCardType,
-      };
-      let tenantAgreementDetails = new TenentAgreement(finalData1);
-      output1 = await tenantAgreementDetails.save();
-      let TenantAgreement = new TenantAgreementHistory(finalDataHistory);
-      output2 = await TenantAgreement.save();
+    const finalTenantAgr = {
+      tdId: tenantdata._id,
+      OrganizationName: data.OrganizationName,
+      OrganizationId: data.OrganizationId,
+      BuildingName: data.BuildingName,
+      BuildingId: data.BuildingId,
+      tenantstatus: "Active",
+      AgreementStatus:
+        data.tenantLeaseEndDate < todayDateymd ? "Expired" : "Active", //flg
+      tenantFileNo: data.tenantFileNo,
+      tenantDoorNo: data.tenantDoorNo,
+      tenantRentAmount: data.tenantRentAmount,
+      tenantLeaseStartDate: data.tenantLeaseStartDate,
+      tenantLeaseEndDate: data.tenantLeaseEndDate,
+      tenantAgreementEntredBy: data.tenantEnteredBy,
+      tenantAgreementDate: data.tenantDate,
+    };
 
-      //adding new data end----------------------------------------------------------------------------
-    } else {
-      let tenantDetails = {
-        OrganizationName: data.OrganizationName,
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        AgreementStatus: "Active",
-        BuildingId: data.BuildingId,
-        Location: data.Location,
-        tenantFileNo: data.tenantFileNo,
-        shopDoorNo: data.tenantDoorNo,
-        tenantName: data.tenantName,
-        tenantPhone: data.tenantPhone,
-        tenantFirmName: data.tenantFirmName,
-        tenantAddr: data.tenantAddr,
-        tenantAdharNo: data.tenantAdharNo,
-        tenantPanNo: data.tenantPanNo,
-        tenantDepositAmt: data.tenantDepositAmt,
-        tenantPaymentMode: data.tenantPaymentMode,
-        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-        tenantBankName: data.tenantBankName,
-        tenantchequeDate: data.tenantchequeDate,
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        generatordepoAmt: data.generatordepoAmt,
-        tenantEnteredBy: data.tenantEnteredBy,
-        tenantDate: data.todayDateymd,
-        selectedY: data.selectedY,
-        selectedVal: data.selectedVal,
-        tenantTransId: data.tenantTransId,
-        tenantCardType: data.tenantCardType,
-      };
-      let tenantdata = await new TenantDetails(tenantDetails);
-      tenantdata.save();
-      // const finalData2 = {
-      //   tdId: tenantdata._id,
-      //   thName: data.tenantName,
-      //   thPhone: data.tenantPhone,
-      //   thFirmName: data.tenantFirmName,
-      //   thAddr: data.tenantAddr,
-      //   thAdharNo: data.tenantAdharNo,
-      //   thPanNo: data.tenantPanNo,
-      //   thDepositAmt: data.tenantDepositAmt,
-      //   thgeneratordepoAmt: data.generatordepoAmt,
-      //   thshopId: data.shopId,
-      //   thStatus: "Active",
-      //   thEnteredBy: data.tenantEnteredBy,
-      //   thDate: data.tenantDate,
-      // };
-      // let tenantHistories = new TenentHistories(finalData2);
-      // output2 = await tenantHistories.save();
+    let tenantAgreementDetails = new TenentAgreement(finalTenantAgr);
+    await tenantAgreementDetails.save();
 
-      tenantdata.shopDoorNo.map((eleDoor) => {
-        property
-          .updateOne(
-            {
-              OrganizationId: tenantdata.OrganizationId,
-              _id: tenantdata.BuildingId,
-              shopDoorNo: { $elemMatch: { doorNo: eleDoor.label } },
-            },
-            {
-              $set: {
-                "shopDoorNo.$.status": "Acquired",
-              },
-            }
-          )
-          .then(data);
-      });
+    res.status(200).send("Added");
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
+});
 
-      const finalData1 = {
-        tdId: tenantdata._id,
-        OrganizationName: data.OrganizationName,
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        BuildingId: data.BuildingId,
-        tenantstatus: "Active",
-        AgreementStatus: "Active",
-        tenantFileNo: data.tenantFileNo,
-        tenantDoorNo: data.tenantDoorNo,
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        tenantAgreementEntredBy: data.tenantEnteredBy,
-        tenantAgreementDate: data.tenantDate,
-      };
+//renew tenant
+router.post("/renew-tenant-details", async (req, res) => {
+  try {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    var todayDateymd = yyyy + "-" + mm + "-" + dd;
+    let data = req.body;
 
-      const finalDataHistory = {
-        tdId: tenantdata._id,
-        OrganizationName: data.OrganizationName,
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        BuildingId: data.BuildingId,
-        tenantstatus: "Active",
-        AgreementStatus: "Active",
-        tenantFileNo: data.tenantFileNo,
-        tenantDoorNo: data.tenantDoorNo,
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        tenantAgreementEntredBy: data.tenantEnteredBy,
-        tenantAgreementDate: data.tenantDate,
-        //new
-        tenantPaymentMode: data.tenantPaymentMode,
-        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-        tenantBankName: data.tenantBankName,
-        tenantchequeDate: data.tenantchequeDate,
-        tenantTransId: data.tenantTransId,
-        tenantCardType: data.tenantCardType,
-      };
+    // FOR Pushing tenant Histroy
+    const tentHis = await TenantDetails.findById({ _id: data.tdId });
 
-      let tenantAgreementDetails = new TenentAgreement(finalData1);
-      output1 = await tenantAgreementDetails.save();
-      let TenantAgreement = new TenantAgreementHistory(finalDataHistory);
-      output2 = await TenantAgreement.save();
-    }
+    const tenantDetHistrData = {
+      tdId: tentHis._id,
+      thName: tentHis.tenantName,
+      thOperation: "Renewal",
+      thPhone: tentHis.tenantPhone,
+      thFirmName: tentHis.tenantFirmName,
+      thAddr: tentHis.tenantAddr,
+      thAdharNo: tentHis.tenantAdharNo,
+      thPanNo: tentHis.tenantPanNo,
+      thRentAmount: tentHis.tenantRentAmount,
+      thDepositAmt: tentHis.tenantDepositAmt,
+      thgeneratordepoAmt: tentHis.generatordepoAmt,
+      thBankName: tentHis.tenantBankName ? tentHis.tenantBankName : null,
+      thChequenoOrDdno: tentHis.tenantChequenoOrDdno
+        ? tentHis.tenantChequenoOrDdno
+        : null,
+      thPaymentMode: tentHis.tenantPaymentMode,
+      thLeaseStartDate: tentHis.tenantLeaseStartDate,
+      thLeaseEndDate: tentHis.tenantLeaseEndDate,
+      thBuildingId: tentHis.BuildingId,
+      thDoorNo: tentHis.shopDoorNo,
+      thAgreementStatus: tentHis.AgreementStatus,
+      tenantStatus: tentHis.tenantstatus,
+      thNotes: "Renewed",
+      edit_by_id: data.tenantEnteredBy,
+    };
+
+    let tenantHistories = new TenentHistories(tenantDetHistrData);
+    await tenantHistories.save();
+
+    // Start saving Renew histroy
+    let tenantsAgrementHistory = {
+      tdId: tentHis._id,
+      tenantName: tentHis.tenantName,
+      tenantFileNo: tentHis.tenantFileNo,
+      AgreementStatus: "Renewed", //flg
+      OrganizationName: tentHis.OrganizationName,
+      OrganizationId: tentHis.OrganizationId,
+      tenantLeaseEndDate: tentHis.tenantLeaseEndDate,
+      tenantLeaseStartDate: tentHis.tenantLeaseStartDate,
+      tenantPhone: tentHis.tenantPhone,
+      tenantFirmName: tentHis.tenantFirmName || null,
+      tenantAddr: tentHis.tenantAddr,
+      tenantAdharNo: tentHis.tenantAdharNo || null,
+      tenantPanNo: tentHis.tenantPanNo || null,
+      tenantRentAmount: tentHis.tenantRentAmount,
+      tenantDepositAmt: tentHis.tenantDepositAmt,
+      generatordepoAmt: tentHis.generatordepoAmt,
+      tenantPaymentMode: tentHis.tenantPaymentMode,
+      tenantChequenoOrDdno: tentHis.tenantChequenoOrDdno,
+      tenantBankName: tentHis.tenantBankName,
+      tenantchequeDate: tentHis.tenantchequeDate || null,
+      tenantCardType: tentHis.tenantCardType,
+      tenantTransId: tentHis.tenantTransId,
+      BuildingName: tentHis.BuildingName,
+      BuildingId: tentHis.BuildingId,
+      Location: tentHis.Location,
+      shopDoorNo: tentHis.shopDoorNo,
+      tenantEnteredBy: tentHis.tenantEnteredBy,
+      tenantDate: tentHis.todayDateymd,
+    };
+
+    let SavedRenwedHistroy = await new TenantAgreementHistory(
+      tenantsAgrementHistory
+    );
+    SavedRenwedHistroy.save();
+    // End saving Renew histroy
+
+    // update Renew
+    await TenantDetails.updateOne(
+      { _id: data.tdId },
+      {
+        $set: {
+          AgreementStatus:
+            data.tenantLeaseEndDate < todayDateymd ? "Expired" : "Renewed", //flag
+          tenantLeaseStartDate: data.tenantLeaseStartDate,
+          tenantLeaseEndDate: data.tenantLeaseEndDate,
+          tenantRentAmount: data.tenantRentAmount,
+          //new
+          tenantPaymentMode: data.tenantPaymentMode,
+          tenantChequenoOrDdno: data.tenantChequenoOrDdno,
+          tenantBankName: data.tenantBankName,
+          tenantchequeDate: data.tenantchequeDate,
+          tenantTransId: data.tenantTransId,
+          tenantCardType: data.tenantCardType,
+        },
+      }
+    );
+
+    const updateStatus = await TenentAgreement.updateOne(
+      { _id: data.agreementId },
+      {
+        $set: {
+          AgreementStatus:
+            data.tenantLeaseEndDate < todayDateymd ? "Expired" : "Renewed", //fLAG
+          tenantLeaseStartDate: data.tenantLeaseStartDate,
+          tenantLeaseEndDate: data.tenantLeaseEndDate,
+          tenantRentAmount: data.tenantRentAmount,
+          tenantRenewedDate: data.tenantDate,
+        },
+      }
+    );
+
+    res.json(updateStatus);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -619,19 +588,6 @@ router.get("/get-all-Superuser", async (req, res) => {
   }
 });
 
-//get particular organization user
-// router.post("/get-particular-org-user", auth, async (req, res) => {
-//   const userInfo = await UserDetails.findById(req.user.id).select("-password");
-//   try {
-//     const ParticularOrg = await UserDetails.find({
-//       OrganizationId: userInfo.OrganizationId,
-//     }); /*.sort({ userStatus: 1 })*/
-//     res.json(ParticularOrg);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// });
-
 router.post("/get-particular-org-user", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
   const id = mongoose.Types.ObjectId(req.body.OrganizationId);
@@ -659,45 +615,6 @@ router.post("/get-particular-org-user", auth, async (req, res) => {
   }
 });
 
-// $match: {
-//   name: req.body.name,
-//   pass:req.body.pass,
-// },
-// },
-// $lookup: {
-// from: "organizationdetails",
-// localField: "OrganizationName",
-// foreignField: "OrganizationName",
-// as: "output"
-// }
-// }
-
-//   },
-// ])
-
-//   $lookup: {
-//     from: "OrganizationDetails",
-//     localField: "OrganizationName",
-//     foreignField: "OrganizationName",
-//     as: "output",
-//   },
-// },
-// { $unwind: "$output" },
-// {
-//   $project: {
-//     //OrganizationId: "$_id",
-//     OrganizationName: "$OrganizationName",
-//     OrganizationEmail: "$OrganizationEmail",
-//     OrganizationAddress: "$OrganizationAddress",
-//     OrganizationNumber: "$OrganizationNumber",
-//     Location: "$Location",
-//   },
-// },
-// {
-//   $match: {
-//     //   OrganizationName: "$OrganizationName",
-//   },
-
 //edit the super user
 router.post("/Update-User", async (req, res) => {
   let data = req.body;
@@ -722,21 +639,6 @@ router.post("/Update-User", async (req, res) => {
   }
 });
 
-//
-
-// router.post("/add-tenant-settings", async (req, res) => {
-//   let data = req.body;
-//   try {
-//     let tenantSettings = new TenantSettings(data);
-//     output = await tenantSettings.save();
-//     res.send(output);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Internal Server Error.");
-//   }
-// });
-
-//
 //add property details
 router.post("/add-Property-details", async (req, res) => {
   let data = req.body;
@@ -817,18 +719,6 @@ router.post("/get-Property-tenant-details", async (req, res) => {
           },
         },
       },
-      // {
-      //   $group: {
-      //     _id: "$output.BuildingId",
-      //     BuildingName: { $first: "$output.BuildingName" },
-      //     //shopAddress: "$shopAddress",
-      //     UnOccupied: { $first: "$shopDoorNo" },
-      //     Location: { $first: "$output.Location" },
-      //     shopDoorNo: { $push: "$output.shopDoorNo" },
-      //     tenantRentAmount: { $first: "$output.tenantRentAmount" },
-      //     tenantDepositAmt: { $first: "$output.tenantDepositAmt" },
-      //   },
-      // },
     ])
     .then((data) => res.json(data));
 });
@@ -1189,38 +1079,31 @@ router.post("/deactive-tenant", async (req, res) => {
     let data = req.body;
     //  console.log( "len",data.Dno.length );
     if (data.Dno.length > 0) {
-
       const tentHis = await TenantDetails.findById({ _id: data.tid });
- console.log("tentHis",tentHis)
+      console.log("tentHis", tentHis);
       const HistrData = {
-        tdId:tentHis._id,
+        tdId: tentHis._id,
         thName: tentHis.tenantName,
         thOperation: "Door Deactivated",
-        thPhone:tentHis.tenantPhone,
+        thPhone: tentHis.tenantPhone,
         thFirmName: tentHis.tenantFirmName,
-       
-        thRentAmount:tentHis.tenantRentAmount,
+
+        thRentAmount: tentHis.tenantRentAmount,
         thDepositAmt: tentHis.tenantDepositAmt,
         thgeneratordepoAmt: tentHis.generatordepoAmt,
-       
-        
+
         thLeaseStartDate: tentHis.tenantLeaseStartDate,
         thLeaseEndDate: tentHis.tenantLeaseEndDate,
         thBuildingId: tentHis.BuildingId,
         thDoorNo: tentHis.shopDoorNo,
-        thAgreementStatus:tentHis.AgreementStatus,
-        tenantStatus:tentHis.tenantstatus,
-        thNotes:data.deactive_reason,
-    
-        
-        edit_by_id:data.tenantEnteredBy,
-    
-        
+        thAgreementStatus: tentHis.AgreementStatus,
+        tenantStatus: tentHis.tenantstatus,
+        thNotes: data.deactive_reason,
+
+        edit_by_id: data.tenantEnteredBy,
       };
       let tenantHistories = new TenentHistories(HistrData);
       await tenantHistories.save();
-
-
 
       //console.log("rvced data",data)
       data.Dno.map((ele) => {
@@ -1266,35 +1149,28 @@ router.post("/deactive-tenant", async (req, res) => {
       });
     } //if(console.log(data.Dno.length === 0))
     else {
-
-
-
       const tentHis = await TenantDetails.findById({ _id: data.tid });
- 
+
       const HistrData1 = {
-        tdId:tentHis._id,
+        tdId: tentHis._id,
         thName: tentHis.tenantName,
         thOperation: "Deactivated",
-        thPhone:tentHis.tenantPhone,
+        thPhone: tentHis.tenantPhone,
         thFirmName: tentHis.tenantFirmName,
-       
-        thRentAmount:tentHis.tenantRentAmount,
+
+        thRentAmount: tentHis.tenantRentAmount,
         thDepositAmt: tentHis.tenantDepositAmt,
         thgeneratordepoAmt: tentHis.generatordepoAmt,
-       
-        
+
         thLeaseStartDate: tentHis.tenantLeaseStartDate,
         thLeaseEndDate: tentHis.tenantLeaseEndDate,
         thBuildingId: tentHis.BuildingId,
         thDoorNo: tentHis.shopDoorNo,
-        thAgreementStatus:tentHis.AgreementStatus,
-        tenantStatus:tentHis.tenantstatus,
-        thNotes:data.deactive_reason,
-    
-        
-        edit_by_id:data.tenantEnteredBy,
-    
-        
+        thAgreementStatus: tentHis.AgreementStatus,
+        tenantStatus: tentHis.tenantstatus,
+        thNotes: data.deactive_reason,
+
+        edit_by_id: data.tenantEnteredBy,
       };
       let tenantHistories = new TenentHistories(HistrData1);
       await tenantHistories.save();
@@ -1492,49 +1368,6 @@ router.post("/get-month-exp-count", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
-
-//Filter Exp Month Count filter
-// router.post("/get-month-exp-count-filter", async (req, res) => {
-//   const { selectedY } = req.body;
-//   try {
-//     const MonthExpCntData = await TenentAgreement.aggregate([
-//       {
-//         $lookup: {
-//           from: "tenantdetails",
-//           localField: "tdId",
-//           foreignField: "_id",
-//           as: "output",
-//         },
-//       },
-//       {
-//         $match: {
-//           tenantLeaseEndDate: { $regex: new RegExp("^" + selectedY, "i") },
-//           AgreementStatus: { $ne: "Renewed" },
-//           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
-//         },
-//       },
-//       {
-//         $group: {
-//           _id: {
-//             year: {
-//               $year: { $dateFromString: { dateString: "$tenantLeaseEndDate" } },
-//             },
-//             month: {
-//               $month: {
-//                 $dateFromString: { dateString: "$tenantLeaseEndDate" },
-//               },
-//             },
-//           },
-//           count: { $sum: 1 },
-//         },
-//       },
-//     ]);
-//     res.json(MonthExpCntData);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Internal Server Error.");
-//   }
-// });
 
 router.post("/add-agreement-details", async (req, res) => {
   let data = req.body;
@@ -2340,182 +2173,6 @@ router.post("/Renew-Organization", async (req, res) => {
   }
 });
 
-router.post("/renew-tenant-details", async (req, res) => {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
-  let data = req.body;
-
-
-  const tentHis = await TenantDetails.findById({ _id: data.tdId });
-    
-  const HistrData = {
-    tdId:tentHis._id,
-    thName: tentHis.tenantName,
-    thOperation: "Renewal",
-    thPhone:tentHis.tenantPhone,
-    thFirmName: tentHis.tenantFirmName,
-    thAddr: tentHis.tenantAddr,
-    thAdharNo:  tentHis.tenantAdharNo,
-    thPanNo: tentHis.tenantPanNo,
-    thRentAmount:tentHis.tenantRentAmount,
-    thDepositAmt: tentHis.tenantDepositAmt,
-    thgeneratordepoAmt: tentHis.generatordepoAmt,
-    thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
-    thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
-    ? tentHis.tenantChequenoOrDdno
-    : null,
-    thPaymentMode:tentHis.tenantPaymentMode,
-    thLeaseStartDate: tentHis.tenantLeaseStartDate,
-    thLeaseEndDate: tentHis.tenantLeaseEndDate,
-    thBuildingId: tentHis.BuildingId,
-    thDoorNo: tentHis.shopDoorNo,
-    thAgreementStatus:tentHis.AgreementStatus,
-    tenantStatus:tentHis.tenantstatus,
-    thNotes:"Renewed ",
-
-   
-    edit_by_id:data.tenantEnteredBy,
-
-    
-  };
-  let tenantHistories = new TenentHistories(HistrData);
-  await tenantHistories.save();
-
-
-  if (data.tenantLeaseEndDate < todayDateymd) {
-    try {
-      const TenantAgreementHistorydata = {
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        tdId: data.tdId,
-        AgreementStatus: "Expired",
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        BuildingId: data.BuildingId,
-        agreementId: data.agreementId,
-        tenantEnteredBy: data.tenantEnteredBy,
-        tenantDate: data.tenantDate,
-        //new
-        tenantPaymentMode: data.tenantPaymentMode,
-        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-        tenantBankName: data.tenantBankName,
-        tenantchequeDate: data.tenantchequeDate,
-        tenantTransId: data.tenantTransId,
-        tenantCardType: data.tenantCardType,
-        stampDuty: data.stampDuty,
-        oldRentAmount: data.oldRentAmount,
-      };
-      let aggdata = await new TenantAgreementHistory(
-        TenantAgreementHistorydata
-      );
-      aggdata.save();
-      await TenantDetails.updateOne(
-        { _id: data.tdId },
-        {
-          $set: {
-            AgreementStatus: "Expired",
-            tenantLeaseStartDate: data.tenantLeaseStartDate,
-            tenantLeaseEndDate: data.tenantLeaseEndDate,
-            tenantRentAmount: data.tenantRentAmount,
-            //new
-            tenantPaymentMode: data.tenantPaymentMode,
-            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-            tenantBankName: data.tenantBankName,
-            tenantchequeDate: data.tenantchequeDate,
-            tenantTransId: data.tenantTransId,
-            tenantCardType: data.tenantCardType,
-          },
-        }
-      );
-      const updateStatus = await TenentAgreement.updateOne(
-        { _id: data.agreementId },
-        {
-          $set: {
-            AgreementStatus: "Expired",
-            tenantLeaseStartDate: data.tenantLeaseStartDate,
-            tenantLeaseEndDate: data.tenantLeaseEndDate,
-            tenantRentAmount: data.tenantRentAmount,
-            tenantRenewedDate: data.tenantDate,
-          },
-        }
-      );
-      res.json(updateStatus);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Internal Server Error.");
-    }
-  } else {
-    try {
-      const TenantAgreementHistorydata = {
-        tenantRentAmount: data.tenantRentAmount,
-        tenantLeaseStartDate: data.tenantLeaseStartDate,
-        tenantLeaseEndDate: data.tenantLeaseEndDate,
-        tdId: data.tdId,
-        AgreementStatus: "Renewed",
-        OrganizationId: data.OrganizationId,
-        BuildingName: data.BuildingName,
-        BuildingId: data.BuildingId,
-        agreementId: data.agreementId,
-        tenantEnteredBy: data.tenantEnteredBy,
-        tenantDate: data.tenantDate,
-        //new
-        tenantPaymentMode: data.tenantPaymentMode,
-        tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-        tenantBankName: data.tenantBankName,
-        tenantchequeDate: data.tenantchequeDate,
-        tenantTransId: data.tenantTransId,
-        tenantCardType: data.tenantCardType,
-        stampDuty: data.stampDuty,
-        oldRentAmount: data.oldRentAmount,
-      };
-      let aggdata = await new TenantAgreementHistory(
-        TenantAgreementHistorydata
-      );
-      aggdata.save();
-      await TenantDetails.updateOne(
-        { _id: data.tdId },
-        {
-          $set: {
-            AgreementStatus: "Renewed",
-            tenantLeaseStartDate: data.tenantLeaseStartDate,
-            tenantLeaseEndDate: data.tenantLeaseEndDate,
-            tenantRentAmount: data.tenantRentAmount,
-            //new
-            tenantPaymentMode: data.tenantPaymentMode,
-            tenantChequenoOrDdno: data.tenantChequenoOrDdno,
-            tenantBankName: data.tenantBankName,
-            tenantchequeDate: data.tenantchequeDate,
-            tenantTransId: data.tenantTransId,
-            tenantCardType: data.tenantCardType,
-          },
-        }
-      );
-      const updateStatus = await TenentAgreement.updateOne(
-        { _id: data.agreementId },
-        {
-          $set: {
-            AgreementStatus: "Renewed",
-            tenantLeaseStartDate: data.tenantLeaseStartDate,
-            tenantLeaseEndDate: data.tenantLeaseEndDate,
-            tenantRentAmount: data.tenantRentAmount,
-            tenantRenewedDate: data.tenantDate,
-          },
-        }
-      );
-      res.json(updateStatus);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Internal Server Error.");
-    }
-  }
-});
-
 router.post("/update-tenant-details", async (req, res) => {
   var today = new Date();
   var dd = today.getDate();
@@ -2528,43 +2185,36 @@ router.post("/update-tenant-details", async (req, res) => {
     let data = req.body;
 
     const tentHis = await TenantDetails.findById({ _id: data.recordId });
-    
+
     const HistrData = {
-      tdId:tentHis._id,
+      tdId: tentHis._id,
       thName: tentHis.tenantName,
       thOperation: "Edit",
-      thPhone:tentHis.tenantPhone,
+      thPhone: tentHis.tenantPhone,
       thFirmName: tentHis.tenantFirmName,
       thAddr: tentHis.tenantAddr,
-      thAdharNo:  tentHis.tenantAdharNo,
+      thAdharNo: tentHis.tenantAdharNo,
       thPanNo: tentHis.tenantPanNo,
-      thRentAmount:tentHis.tenantRentAmount,
+      thRentAmount: tentHis.tenantRentAmount,
       thDepositAmt: tentHis.tenantDepositAmt,
       thgeneratordepoAmt: tentHis.generatordepoAmt,
-      thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
-      thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
-      ? tentHis.tenantChequenoOrDdno
-      : null,
-      thPaymentMode:tentHis.tenantPaymentMode,
+      thBankName: tentHis.tenantBankName ? tentHis.tenantBankName : null,
+      thChequenoOrDdno: tentHis.tenantChequenoOrDdno
+        ? tentHis.tenantChequenoOrDdno
+        : null,
+      thPaymentMode: tentHis.tenantPaymentMode,
       thLeaseStartDate: tentHis.tenantLeaseStartDate,
       thLeaseEndDate: tentHis.tenantLeaseEndDate,
       thBuildingId: tentHis.BuildingId,
       thDoorNo: tentHis.shopDoorNo,
-      thAgreementStatus:tentHis.AgreementStatus,
-      tenantStatus:tentHis.tenantstatus,
-      thNotes:"",
-  
-     
-      edit_by_id:data.tenantEnteredBy,
-  
-      
+      thAgreementStatus: tentHis.AgreementStatus,
+      tenantStatus: tentHis.tenantstatus,
+      thNotes: "",
+
+      edit_by_id: data.tenantEnteredBy,
     };
     let tenantHistories = new TenentHistories(HistrData);
     await tenantHistories.save();
-
-
-
-
 
     // console.log(data.tenantLeaseEndDate);
     //  console.log("", todayDateymd);
@@ -2747,41 +2397,37 @@ router.post("/activate-tenant-details", async (req, res) => {
   try {
     let data = req.body;
 
-const tentHis = await TenantDetails.findById({ _id: data.recordId });
-    
-const HistrData = {
-  tdId:tentHis._id,
-  thName: tentHis.tenantName,
-  thOperation: "Activate",
-  thPhone:tentHis.tenantPhone,
-  thFirmName: tentHis.tenantFirmName,
-  thAddr: tentHis.tenantAddr,
-  thAdharNo:  tentHis.tenantAdharNo,
-  thPanNo: tentHis.tenantPanNo,
-  thRentAmount:tentHis.tenantRentAmount,
-  thDepositAmt: tentHis.tenantDepositAmt,
-  thgeneratordepoAmt: tentHis.generatordepoAmt,
-  thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
-  thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
-  ? tentHis.tenantChequenoOrDdno
-  : null,
-  thPaymentMode:tentHis.tenantPaymentMode,
-  thLeaseStartDate: tentHis.tenantLeaseStartDate,
-  thLeaseEndDate: tentHis.tenantLeaseEndDate,
-  thBuildingId: tentHis.BuildingId,
-  thDoorNo: tentHis.shopDoorNo,
-  thAgreementStatus:tentHis.AgreementStatus,
-  tenantStatus:tentHis.tenantstatus,
-  thNotes:"Tenant Activated",
+    const tentHis = await TenantDetails.findById({ _id: data.recordId });
 
- 
-  edit_by_id:data.tenantEnteredBy,
+    const HistrData = {
+      tdId: tentHis._id,
+      thName: tentHis.tenantName,
+      thOperation: "Activate",
+      thPhone: tentHis.tenantPhone,
+      thFirmName: tentHis.tenantFirmName,
+      thAddr: tentHis.tenantAddr,
+      thAdharNo: tentHis.tenantAdharNo,
+      thPanNo: tentHis.tenantPanNo,
+      thRentAmount: tentHis.tenantRentAmount,
+      thDepositAmt: tentHis.tenantDepositAmt,
+      thgeneratordepoAmt: tentHis.generatordepoAmt,
+      thBankName: tentHis.tenantBankName ? tentHis.tenantBankName : null,
+      thChequenoOrDdno: tentHis.tenantChequenoOrDdno
+        ? tentHis.tenantChequenoOrDdno
+        : null,
+      thPaymentMode: tentHis.tenantPaymentMode,
+      thLeaseStartDate: tentHis.tenantLeaseStartDate,
+      thLeaseEndDate: tentHis.tenantLeaseEndDate,
+      thBuildingId: tentHis.BuildingId,
+      thDoorNo: tentHis.shopDoorNo,
+      thAgreementStatus: tentHis.AgreementStatus,
+      tenantStatus: tentHis.tenantstatus,
+      thNotes: "Tenant Activated",
 
-  
-};
-let tenantHistories = new TenentHistories(HistrData);
-await tenantHistories.save();
-
+      edit_by_id: data.tenantEnteredBy,
+    };
+    let tenantHistories = new TenentHistories(HistrData);
+    await tenantHistories.save();
 
     if (data.tenantLeaseEndDate < todayDateymd) {
       const updatetenantdetails = await TenantDetails.updateOne(
@@ -3026,53 +2672,44 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   try {
     let data = req.body;
 
+    console.log("dataaaaaaa", data);
 
-console.log("dataaaaaaa",data)
-
-const doorNos = data.transferShoopDoorNo.map(door => door.label).join(", ");
- 
-
+    const doorNos = data.transferShoopDoorNo
+      .map((door) => door.label)
+      .join(", ");
 
     if (data.Dno.length > 1) {
-
-
       const tentHis = await TenantDetails.findById({ _id: data.fromId });
-      
+
       const HistrData = {
-        tdId:tentHis._id,
+        tdId: tentHis._id,
         thName: tentHis.tenantName,
-        thOperation: "Lease Transfer" ,
-        thPhone:tentHis.tenantPhone,
+        thOperation: "Lease Transfer",
+        thPhone: tentHis.tenantPhone,
         thFirmName: tentHis.tenantFirmName,
         thAddr: tentHis.tenantAddr,
-        thAdharNo:  tentHis.tenantAdharNo,
+        thAdharNo: tentHis.tenantAdharNo,
         thPanNo: tentHis.tenantPanNo,
-        thRentAmount:tentHis.tenantRentAmount,
+        thRentAmount: tentHis.tenantRentAmount,
         thDepositAmt: tentHis.tenantDepositAmt,
         thgeneratordepoAmt: tentHis.generatordepoAmt,
-        thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
-        thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
-        ? tentHis.tenantChequenoOrDdno
-        : null,
-        thPaymentMode:tentHis.tenantPaymentMode,
+        thBankName: tentHis.tenantBankName ? tentHis.tenantBankName : null,
+        thChequenoOrDdno: tentHis.tenantChequenoOrDdno
+          ? tentHis.tenantChequenoOrDdno
+          : null,
+        thPaymentMode: tentHis.tenantPaymentMode,
         thLeaseStartDate: tentHis.tenantLeaseStartDate,
         thLeaseEndDate: tentHis.tenantLeaseEndDate,
         thBuildingId: tentHis.BuildingId,
         thDoorNo: tentHis.shopDoorNo,
-        thAgreementStatus:tentHis.AgreementStatus,
-        tenantStatus:tentHis.tenantstatus,
-        thNotes:"Lease Transfer of " + doorNos +  " to " + data.toId,
-    
-       
-        edit_by_id:data.tenantEnteredBy,
-    
-        
+        thAgreementStatus: tentHis.AgreementStatus,
+        tenantStatus: tentHis.tenantstatus,
+        thNotes: "Lease Transfer of " + doorNos + " to " + data.toId,
+
+        edit_by_id: data.tenantEnteredBy,
       };
       let tenantHistories = new TenentHistories(HistrData);
       await tenantHistories.save();
-
-
-
 
       const isSameData = data.Dno.every((door) =>
         data.transferShoopDoorNo.some(
@@ -3134,43 +2771,42 @@ const doorNos = data.transferShoopDoorNo.map(door => door.label).join(", ");
       //  .then((data) => {});
       // }
     } else if (data.Dno.length === 1) {
-
       const tentHis = await TenantDetails.findById({ _id: data.fromId });
-     
+
       const HistrData = {
-        tdId:tentHis._id,
+        tdId: tentHis._id,
         thName: tentHis.tenantName,
-        thOperation: "Lease Transfer" ,
-        thPhone:tentHis.tenantPhone,
+        thOperation: "Lease Transfer",
+        thPhone: tentHis.tenantPhone,
         thFirmName: tentHis.tenantFirmName,
         thAddr: tentHis.tenantAddr,
-        thAdharNo:  tentHis.tenantAdharNo,
+        thAdharNo: tentHis.tenantAdharNo,
         thPanNo: tentHis.tenantPanNo,
-        thRentAmount:tentHis.tenantRentAmount,
+        thRentAmount: tentHis.tenantRentAmount,
         thDepositAmt: tentHis.tenantDepositAmt,
         thgeneratordepoAmt: tentHis.generatordepoAmt,
-        thBankName:    tentHis.tenantBankName ? tentHis.tenantBankName:null,
-        thChequenoOrDdno:  tentHis.tenantChequenoOrDdno
-        ? tentHis.tenantChequenoOrDdno
-        : null,
-        thPaymentMode:tentHis.tenantPaymentMode,
+        thBankName: tentHis.tenantBankName ? tentHis.tenantBankName : null,
+        thChequenoOrDdno: tentHis.tenantChequenoOrDdno
+          ? tentHis.tenantChequenoOrDdno
+          : null,
+        thPaymentMode: tentHis.tenantPaymentMode,
         thLeaseStartDate: tentHis.tenantLeaseStartDate,
         thLeaseEndDate: tentHis.tenantLeaseEndDate,
         thBuildingId: tentHis.BuildingId,
         thDoorNo: tentHis.shopDoorNo,
-        thAgreementStatus:tentHis.AgreementStatus,
-        tenantStatus:tentHis.tenantstatus,
-        thNotes:"Lease Transfere of " + doorNos +  " to " + data.toId +" and got deactivated" ,
-       
-    
-       
-        edit_by_id:data.tenantEnteredBy,
-    
-        
+        thAgreementStatus: tentHis.AgreementStatus,
+        tenantStatus: tentHis.tenantstatus,
+        thNotes:
+          "Lease Transfere of " +
+          doorNos +
+          " to " +
+          data.toId +
+          " and got deactivated",
+
+        edit_by_id: data.tenantEnteredBy,
       };
       let tenantHistories = new TenentHistories(HistrData);
       await tenantHistories.save();
-
 
       //pull
       data.transferShoopDoorNo.map((ele) => {

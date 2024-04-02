@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantDetails = new mongoose.Schema({
+  tdId: {
+    type: ObjectId,
+  },
   tenantName: {
     type: String,
   },
@@ -26,7 +29,6 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantPhone: {
     type: Number,
-    //  required: false,
   },
   tenantFirmName: {
     type: String,
@@ -36,11 +38,9 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantAdharNo: {
     type: String,
-    // required: true,
   },
   tenantPanNo: {
     type: String,
-    // required: true,
   },
   tenantRentAmount: {
     type: Number,
@@ -71,7 +71,6 @@ const TenantDetails = new mongoose.Schema({
   },
   tenantstatus: {
     type: String,
-
     default: "Active", //Active,Deactive
   },
   BuildingName: {
