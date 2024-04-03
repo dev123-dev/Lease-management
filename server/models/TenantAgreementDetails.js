@@ -96,40 +96,40 @@ const TenantAgreementDetails = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
-  //for tenant recipt
-  tenantsubTotal: {
-    type: Number,
-  },
-  tenantDiscount: {
-    type: Number,
-  },
-  tenantOtherCharges: {
-    type: Number,
-  },
-  tenantGst: {
-    type: Number,
-  },
-  tenantGrandTotal: {
-    type: Number,
-  },
-  tenantReceiptNotes: {
-    type: String,
-  },
-  tenantReceiptDateTime: {
-    type: Date,
-  },
-  tenantPaymentMode: {
-    type: String,
-  },
-  tenantReceiptEnteredBy: {
-    type: ObjectId,
-  },
-  tenantReceiptNo: {
-    type: String,
-  },
-  tenantRenewedDate: {
-    type: String,
-  },
+  // //for tenant recipt
+  // tenantsubTotal: {
+  //   type: Number,
+  // },
+  // tenantDiscount: {
+  //   type: Number,
+  // },
+  // tenantOtherCharges: {
+  //   type: Number,
+  // },
+  // tenantGst: {
+  //   type: Number,
+  // },
+  // tenantGrandTotal: {
+  //   type: Number,
+  // },
+  // tenantReceiptNotes: {
+  //   type: String,
+  // },
+  // tenantReceiptDateTime: {
+  //   type: Date,
+  // },
+  // tenantPaymentMode: {
+  //   type: String,
+  // },
+  // tenantReceiptEnteredBy: {
+  //   type: ObjectId,
+  // },
+  // tenantReceiptNo: {
+  //   type: String,
+  // },
+  // tenantRenewedDate: {
+  //   type: String,
+  // },
 });
 
 module.exports = mongoose.model(

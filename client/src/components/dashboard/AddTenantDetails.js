@@ -417,20 +417,20 @@ const AddTenantDetails = ({
   const [shopfileNo, setFileNoData] = useState();
   const [shopId, setShopID] = useState();
 
-  const onDoorNoChange = (e) => {
-    var shopfileNumber = "";
-    var shopdetailsId = "";
-    getDoorNoData(e);
+  // const onDoorNoChange = (e) => {
+  //   var shopfileNumber = "";
+  //   var shopdetailsId = "";
+  //   getDoorNoData(e);
 
-    allDoorNos.map((doorno) => {
-      if (doorno.shopDoorNo === e.value) {
-        shopfileNumber = doorno.shopFileNo;
-        shopdetailsId = doorno._id;
-      }
-    });
-    setFileNoData(shopfileNumber);
-    setShopID(shopdetailsId);
-  };
+  //   allDoorNos.map((doorno) => {
+  //     if (doorno.shopDoorNo === e.value) {
+  //       shopfileNumber = doorno.shopFileNo;
+  //       shopdetailsId = doorno._id;
+  //     }
+  //   });
+  //   setFileNoData(shopfileNumber);
+  //   setShopID(shopdetailsId);
+  // };
 
   const [startSelectedDate, setChequeDate] = useState("");
   const onDateChange = (e) => {

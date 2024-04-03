@@ -86,7 +86,6 @@ const EditTenantDetails = ({
     );
   }
 
-  const [orgname, setOrgname] = useState();
   if (
     !buildingName &&
     particular_tenant_EditData &&
@@ -206,6 +205,8 @@ const EditTenantDetails = ({
   const [selectedCard, setSelectedCard] = useState(
     particular_tenant_EditData.tenantCardType
   );
+
+  console.log(allTenantSetting);
 
   const HandleCheck = (e) => {
     setSelectedCard(e.target.value);
@@ -521,7 +522,7 @@ const EditTenantDetails = ({
       setOutput("V");
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
-
+      console.log("leaseMonth", leaseMonth);
       const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
@@ -579,6 +580,7 @@ const EditTenantDetails = ({
   const [date, setDate] = useState("");
   const [output, setOutput] = useState("R");
   const [key, setKey] = useState();
+
   useEffect(() => {
     if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
   }, [entryDate]);
@@ -746,12 +748,33 @@ const EditTenantDetails = ({
     UpdateTenantsDetails(finalData);
     history.push("/tenant-detail", { currentPagefromedit: currentPage });
   };
-  // useEffect(() => {
-  //   setStartDate("");
-  //   setTenantBankName("");
-  //   setTransId("");
-  //   setTenantChequenoOrDdno("");
-  // }, [paymentMode]);
+
+  function calculateMonthsFromDate(date, monthsToAdd) {
+    try {
+      const d = new Date(date);
+      d.setMonth(d.getMonth() + monthsToAdd);
+      d.setDate(d.getDate() - 1);
+      return d.toISOString().split("T")[0].split("-").reverse().join("-");
+    } catch (er) {
+      console.log(er);
+      return 0;
+    }
+  }
+  const [endDateFin, setEndDateFin] = useState(null);
+
+  // new Date Code Rakki
+
+  useEffect(() => {
+    if (entryDate.length === 10) {
+      setEndDateFin(
+        calculateMonthsFromDate(
+          entryDate.split("-").reverse().join("-"),
+          myuser.output.leaseTimePeriod
+        )
+      );
+    }
+  }, [entryDate]);
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -761,7 +784,7 @@ const EditTenantDetails = ({
         <form onSubmit={(e) => onUpdate(e)}>
           <div className="conatiner-fluid ">
             <div className="row card-new pb-3">
-              <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 <h2
                   style={{
                     marginLeft: "10px",
@@ -1197,12 +1220,15 @@ const EditTenantDetails = ({
                 <p className={`output ${className}`}>{content}</p>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-                <label>Lease End Date (DD-MM-YYYY)*: </label>
+                <label>
+                  Lease End Date ({endDateFin}){/* (DD-MM-YYYY)* */}:{" "}
+                </label>
                 <input
                   placeholder="DD-MM-YYYY"
                   className="form-control cpp-input datevalidation"
                   value={endDate}
                   readOnly
+                  // disabled
                 ></input>
                 <br></br>
               </div>
@@ -1219,7 +1245,6 @@ const EditTenantDetails = ({
                 ></textarea>{" "}
                 <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
               </div>
-              {/*  switch */}
               <div className="row ml-1 ">
                 <div className="col-lg-6 col-md-12 col-sm-12">
                   {" "}
@@ -1227,10 +1252,8 @@ const EditTenantDetails = ({
                     Door Number :
                   </span>
                 </div>
-                {/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ color: "#095a4a" }}>Occupied Door Number : </span></div> */}
               </div>
               <div className="row ml-1 ">
-                {/* to sel */}
                 <div
                   className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right bg-white "
                   style={{ border: "transparent", minHeight: "90px" }}
@@ -1269,12 +1292,12 @@ const EditTenantDetails = ({
                       );
                     })}
                 </div>
-                {/* end to sel */}
+
                 <div
                   className=" col-lg-6 col-md-12 card-new bg-white"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
-                  <div className="h4 " style={{ color: "#095a4a" }}>
+                  <div className="h4" style={{ color: "#095a4a" }}>
                     Selected:
                   </div>{" "}
                   <br></br>
@@ -1286,9 +1309,7 @@ const EditTenantDetails = ({
                           <button
                             key={idx}
                             type="button"
-                            // name="selectedWorkMistake"
                             className="btn  doorbtn"
-                            // id="savebtn"
                             onClick={() => onRemoveChange(Doornumber)}
                           >
                             {Doornumber.value}
@@ -1308,13 +1329,11 @@ const EditTenantDetails = ({
                               </b>
                             </span>
                           </button>
-                          // </p>
                         );
                       }
                     })}
                 </div>
               </div>
-              {/* end switch */}
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
@@ -1323,9 +1342,6 @@ const EditTenantDetails = ({
                 <div className="row">
                   <div className="col-lg-6 col-md-12 col-sm-12">
                     <button
-                      // onClick={() => {
-                      //   histroy.push("/tenant-detail");
-                      // }}
                       onClick={handleReturn}
                       variant="success"
                       className="btn sub_form btn_continue Save float-right "
@@ -1343,7 +1359,6 @@ const EditTenantDetails = ({
                         id="savebtn"
                         type="submit"
                         disabled={true}
-                        // disabled={isNextButtonDisabled}
                       >
                         Save
                       </button>
@@ -1354,20 +1369,10 @@ const EditTenantDetails = ({
                         id="savebtn"
                         type="submit"
                         disabled={output != "V" ? true : false}
-                        // disabled={isNextButtonDisabled}
                       >
                         Save
                       </button>
                     )}
-                    {/* <button
-                      type="submit"
-                      variant="success"
-                      className="btn sub_form btn_continue Save float-right"
-                      id="savebtn"
-                      disabled={output !== "V" ? true : false}
-                    >
-                      Save
-                    </button> */}
                   </div>
                 </div>
               </div>

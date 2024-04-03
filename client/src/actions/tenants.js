@@ -320,18 +320,19 @@ export const ParticularTenant = (data) => async (dispatch) => {
   }
 };
 
-export const getDoorNo = () => async (dispatch) => {
-  try {
-    const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
+//no use //flag
+// export const getDoorNo = () => async (dispatch) => {
+//   try {
+//     const res = await axios.get(`${linkPath}/api/tenants/get-door-no`);
 
-    dispatch({
-      type: PARTICULAR_ORG_TENANT,
-      payload: res.data,
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+//     dispatch({
+//       type: PARTICULAR_ORG_TENANT,
+//       payload: res.data,
+//     });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 
 export const ParticularTenantFilter = (data) => async (dispatch) => {
   try {
@@ -660,7 +661,7 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
       config
     );
     dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
-    dispatch(ParticularTenantFilter())
+    dispatch(ParticularTenantFilter());
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -674,7 +675,7 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    dispatch(ParticularTenantFilter())
+    dispatch(ParticularTenantFilter());
     // dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
     // dispatch(getAllTenants());
   } catch (err) {
@@ -692,7 +693,7 @@ export const ActivateTenantDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    dispatch(ParticularTenantFilter())
+    dispatch(ParticularTenantFilter());
     // dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
   } catch (err) {
     console.log(err.message);
@@ -712,14 +713,12 @@ export const EditTenantLeaseTransferDetails =
         finalData,
         config
       );
-     
-        dispatch(ParticularTenantFilter())
-        // dispatch(
-        //   getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
-        // );
-        // dispatch(getAllTenants());
-     
-    
+
+      dispatch(ParticularTenantFilter());
+      // dispatch(
+      //   getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
+      // );
+      // dispatch(getAllTenants());
     } catch (err) {
       console.log(err.message);
       dispatch({

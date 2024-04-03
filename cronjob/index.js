@@ -25,14 +25,15 @@ const OrganizationDetails = require("../server/models/OrganizationDetails");
 
 async function updateExpiryStatus() {
   // console.log("Running Cron Job");
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
   try {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    var todayDateymd = yyyy + "-" + mm + "-" + dd;
+
     await TenantDetails.updateMany(
       {
         $and: [
@@ -54,9 +55,7 @@ async function updateExpiryStatus() {
     );
     await TenentAgreement.updateMany(
       { tenantLeaseEndDate: { $lte: todayDateymd } },
-      // {
-      //   $or: [{ AgreementStatus: "Active" }, { AgreementStatus: "Renewed" }],
-      // },
+
       {
         $set: {
           AgreementStatus: "Expired",
@@ -87,13 +86,12 @@ async function updateExpiryStatus() {
     // console.log("Status updated as Expired");
   } catch (error) {
     console.error("Error Here", error);
-    //res.status(500).send("Internal Server Error.");
-    //
   }
 }
 
 function expairyNotif() {
   cron.schedule("19 7 * * *", function () {
+    // cron.schedule("* * * * *", function () {
     updateExpiryStatus();
   });
 }
