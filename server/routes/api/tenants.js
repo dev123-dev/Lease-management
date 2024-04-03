@@ -15,7 +15,7 @@ const auth = require("../../middleware/auth");
 const mongoose = require("mongoose");
 
 //add new tenant
-router.post("/add-tenant-details", async (req, res) => {
+router.post("/add-tenant-details", auth, async (req, res) => {
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
@@ -107,7 +107,7 @@ router.post("/add-tenant-details", async (req, res) => {
 });
 
 //renew tenant
-router.post("/renew-tenant-details", async (req, res) => {
+router.post("/renew-tenant-details", auth, async (req, res) => {
   try {
     var today = new Date();
     var dd = today.getDate();
@@ -232,7 +232,7 @@ router.post("/renew-tenant-details", async (req, res) => {
 });
 
 //add organization try
-router.post("/add-Organization", async (req, res) => {
+router.post("/add-Organization", auth, async (req, res) => {
   let data = req.body;
 
   var today = new Date();
@@ -337,7 +337,7 @@ router.post("/add-Organization", async (req, res) => {
 });
 
 //get all organization
-router.get("/get-all-Organization", async (req, res) => {
+router.get("/get-all-Organization", auth, async (req, res) => {
   try {
     const data = await OrganizationDetails.find({}).sort({
       org_status: 1,
@@ -349,8 +349,9 @@ router.get("/get-all-Organization", async (req, res) => {
     res.status(500).send("Internal Server Error in get all orgainzation.");
   }
 });
+
 //get particular organization for displaying location in Add property page
-router.post("/get-particular-org", async (req, res) => {
+router.post("/get-particular-org", auth, async (req, res) => {
   let data = req.body;
   try {
     if (data.OrganizationId) {
@@ -363,11 +364,12 @@ router.post("/get-particular-org", async (req, res) => {
     }
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //get particular user data for admin side
-router.post("/get-particular-user", async (req, res) => {
+router.post("/get-particular-user", auth, async (req, res) => {
   let data = req.body;
 
   try {
@@ -389,98 +391,86 @@ router.post("/get-particular-user", async (req, res) => {
     res.json(getuser);
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //update all organization
-router.post("/update-Organization", async (req, res) => {
-  let data = req.body;
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
+router.post("/update-Organization", auth, async (req, res) => {
+  try {
+    let data = req.body;
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
 
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
-  if (data.enddate < todayDateymd) {
-    UserDetails.updateMany(
-      {
-        OrganizationId: data.OrganizationId,
-      },
-      {
-        $set: {
-          OrganizationName: data.OrganizationName,
+    var todayDateymd = yyyy + "-" + mm + "-" + dd;
+    if (data.enddate < todayDateymd) {
+      UserDetails.updateMany(
+        {
+          OrganizationId: data.OrganizationId,
         },
-      }
-    ).then(data);
+        {
+          $set: {
+            OrganizationName: data.OrganizationName,
+          },
+        }
+      ).then(data);
 
-    await OrganizationDetails.updateOne(
-      { _id: data.OrganizationId },
-      {
-        $set: {
-          OrganizationName: data.OrganizationName,
-          OrganizationEmail: data.OrganizationEmail,
-          OrganizationNumber: data.OrganizationNumber,
-          OrganizationAddress: data.OrganizationAddress,
-          AgreementStatus: "Expired",
-          enddate: data.enddate,
-          Logo: data.Logo,
-          date: data.startdate,
-          Location: data.Location,
+      await OrganizationDetails.updateOne(
+        { _id: data.OrganizationId },
+        {
+          $set: {
+            OrganizationName: data.OrganizationName,
+            OrganizationEmail: data.OrganizationEmail,
+            OrganizationNumber: data.OrganizationNumber,
+            OrganizationAddress: data.OrganizationAddress,
+            AgreementStatus: "Expired",
+            enddate: data.enddate,
+            Logo: data.Logo,
+            date: data.startdate,
+            Location: data.Location,
+          },
+        }
+      );
+    } else {
+      UserDetails.updateMany(
+        {
+          OrganizationId: data.OrganizationId,
         },
-      }
-    );
-  } else {
-    UserDetails.updateMany(
-      {
-        OrganizationId: data.OrganizationId,
-      },
-      {
-        $set: {
-          OrganizationName: data.OrganizationName,
-        },
-      }
-    ).then(data);
+        {
+          $set: {
+            OrganizationName: data.OrganizationName,
+          },
+        }
+      ).then(data);
 
-    const updateorg = await OrganizationDetails.updateOne(
-      { _id: data.OrganizationId },
-      {
-        $set: {
-          OrganizationName: data.OrganizationName,
-          OrganizationEmail: data.OrganizationEmail,
-          OrganizationNumber: data.OrganizationNumber,
-          OrganizationAddress: data.OrganizationAddress,
-          AgreementStatus: "Active",
-          enddate: data.enddate,
-          Logo: data.Logo,
-          date: data.startdate,
-          Location: data.Location,
-        },
-      }
-    );
+      const updateorg = await OrganizationDetails.updateOne(
+        { _id: data.OrganizationId },
+        {
+          $set: {
+            OrganizationName: data.OrganizationName,
+            OrganizationEmail: data.OrganizationEmail,
+            OrganizationNumber: data.OrganizationNumber,
+            OrganizationAddress: data.OrganizationAddress,
+            AgreementStatus: "Active",
+            enddate: data.enddate,
+            Logo: data.Logo,
+            date: data.startdate,
+            Location: data.Location,
+          },
+        }
+      );
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
-  // try {
-  //   const updateorg = await OrganizationDetails.updateOne(
-  //     { _id: data.OrganizationId },
-  //     {
-  //       $set: {
-  //         OrganizationName: data.OrganizationName,
-  //         OrganizationEmail: data.OrganizationEmail,
-  //         OrganizationNumber: data.OrganizationNumber,
-  //         OrganizationAddress: data.OrganizationAddress,
-  //         enddate: data.enddate,
-  //         date: data.startdate,
-  //         Location: data.Location,
-  //       },
-  //     }
-  //   ).then((data) => console.log(data));
-  //   res.json(updateorg);
-  // } catch (error) {
-  //   res.status(500).json({ errors: [{ msg: "Server Error" }] });
-  // }
 });
-router.post("/update-Property", async (req, res) => {
+
+router.post("/update-Property", auth, async (req, res) => {
   let data = req.body;
 
   try {
@@ -512,12 +502,14 @@ router.post("/update-Property", async (req, res) => {
 
     res.json(updateorg);
   } catch (error) {
+    console.log(error.message);
+    // res.status(500).send("Internal Server Error.");
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
 
 //Super user adding
-router.post("/add-SuperUser", async (req, res) => {
+router.post("/add-SuperUser", auth, async (req, res) => {
   let userdata = req.body;
 
   try {
@@ -537,11 +529,12 @@ router.post("/add-SuperUser", async (req, res) => {
     res.send(u_data);
   } catch (err) {
     console.error(err);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //Add admin user
-router.post("/add-AdminUser", async (req, res) => {
+router.post("/add-AdminUser", auth, async (req, res) => {
   let userdata = req.body;
   try {
     const adduser = {
@@ -559,11 +552,12 @@ router.post("/add-AdminUser", async (req, res) => {
     res.send(u_data);
   } catch (err) {
     console.error(err);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //super user displaying
-router.get("/get-all-Superuser", async (req, res) => {
+router.get("/get-all-Superuser", auth, async (req, res) => {
   try {
     const userdata = await UserDetails.aggregate([
       {
@@ -612,14 +606,15 @@ router.post("/get-particular-org-user", auth, async (req, res) => {
     //res.json(ParticularOrg);
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //edit the super user
-router.post("/Update-User", async (req, res) => {
+router.post("/Update-User", auth, async (req, res) => {
   let data = req.body;
   try {
-    const r = await UserDetails.updateOne(
+    const output = await UserDetails.updateOne(
       { _id: data.userid },
       {
         $set: {
@@ -633,14 +628,15 @@ router.post("/Update-User", async (req, res) => {
         },
       }
     );
-    res.json(r);
+    res.json(output);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //add property details
-router.post("/add-Property-details", async (req, res) => {
+router.post("/add-Property-details", auth, async (req, res) => {
   let data = req.body;
   try {
     let proper = new property(data);
@@ -654,77 +650,83 @@ router.post("/add-Property-details", async (req, res) => {
 
 //get particular property detaills based on organization details
 
-router.post("/get-Particular-Property", async (req, res) => {
-  let { OrganizationId, LocationName } = req.body;
-  let query = { OrganizationId: mongoose.Types.ObjectId(OrganizationId) };
-
-  if (LocationName) {
-    query = {
-      ...query,
-      Location: LocationName,
-    };
-  }
-
+router.post("/get-Particular-Property", auth, async (req, res) => {
   try {
+    let { OrganizationId, LocationName } = req.body;
+    let query = { OrganizationId: mongoose.Types.ObjectId(OrganizationId) };
+
+    if (LocationName) {
+      query = {
+        ...query,
+        Location: LocationName,
+      };
+    }
+
     let propertydata = await property.find(query).sort({ shopStatus: 1 });
     res.json(propertydata);
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
-router.post("/get-Property-tenant-details", async (req, res) => {
-  let { PropertyId, OrganizationId } = req.body;
-  //const id = mongoose.Types.ObjectId(req.body.OrganizationId);
+router.post("/get-Property-tenant-details", auth, async (req, res) => {
+  try {
+    let { PropertyId, OrganizationId } = req.body;
+    //const id = mongoose.Types.ObjectId(req.body.OrganizationId);
 
-  property
-    .aggregate([
-      {
-        $match: {
-          OrganizationId: mongoose.Types.ObjectId(OrganizationId),
-          shopStatus: "Active",
-          // _id: mongoose.Types.ObjectId(ele),
-        },
-      },
-      {
-        $lookup: {
-          from: "tenantdetails",
-          localField: "_id",
-          foreignField: "BuildingId",
-          as: "output",
-        },
-      },
-      {
-        $unwind: "$output",
-      },
-      {
-        $group: {
-          _id: "$output.BuildingId",
-          BuildingName: {
-            $first: "$output.BuildingName",
-          },
-          shopAddress: { $first: "$shopAddress" },
-          // shopAddress: "$shopAddress",
-          Location: {
-            $first: "$output.Location",
-          },
-          tenantRentAmount: {
-            $sum: "$output.tenantRentAmount",
-          },
-          tenantDepositAmt: {
-            $sum: "$output.tenantDepositAmt",
-          },
-          shopDoorNo: {
-            $first: "$shopDoorNo",
+    property
+      .aggregate([
+        {
+          $match: {
+            OrganizationId: mongoose.Types.ObjectId(OrganizationId),
+            shopStatus: "Active",
+            // _id: mongoose.Types.ObjectId(ele),
           },
         },
-      },
-    ])
-    .then((data) => res.json(data));
+        {
+          $lookup: {
+            from: "tenantdetails",
+            localField: "_id",
+            foreignField: "BuildingId",
+            as: "output",
+          },
+        },
+        {
+          $unwind: "$output",
+        },
+        {
+          $group: {
+            _id: "$output.BuildingId",
+            BuildingName: {
+              $first: "$output.BuildingName",
+            },
+            shopAddress: { $first: "$shopAddress" },
+            // shopAddress: "$shopAddress",
+            Location: {
+              $first: "$output.Location",
+            },
+            tenantRentAmount: {
+              $sum: "$output.tenantRentAmount",
+            },
+            tenantDepositAmt: {
+              $sum: "$output.tenantDepositAmt",
+            },
+            shopDoorNo: {
+              $first: "$shopDoorNo",
+            },
+          },
+        },
+      ])
+      .then((data) => res.json(data));
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Internal Server Error.");
+  }
 });
 
 //deactive property
-router.post("/deactive-property", async (req, res) => {
+router.post("/deactive-property", auth, async (req, res) => {
   let data = req.body;
   try {
     if (data.Dno.length === 0) {
@@ -762,7 +764,7 @@ router.post("/deactive-property", async (req, res) => {
       });
     }
 
-    // res.json(propertydata);
+    res.json("Done");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Internal Server Error.");
@@ -770,90 +772,81 @@ router.post("/deactive-property", async (req, res) => {
 });
 
 //getting particular Tenant details based on Orgaination
-router.post("/get-particular-Tenant", async (req, res) => {
-  let { OrganizationId, LocationName } = req.body;
-
-  let query = { OrganizationId: OrganizationId };
-
-  if (LocationName) {
-    query = {
-      ...query,
-      Location: LocationName,
-    };
-  }
+router.post("/get-particular-Tenant", auth, async (req, res) => {
   try {
+    let { OrganizationId, LocationName } = req.body;
+
+    let query = { OrganizationId: OrganizationId };
+
+    if (LocationName) {
+      query = {
+        ...query,
+        Location: LocationName,
+      };
+    }
+
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
     });
     res.json(tenantdata);
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 router.post("/get-tenant-sort", auth, async (req, res) => {
-  const userInfo = await UserDetails.findById(req.user.id).select("-password");
-  let {
-    OrganizationId,
-    LocationName,
-    DoorNumber,
-    propertyname,
-    tenantName,
-    tenantStatus,
-  } = req.body;
-
-  let query = { OrganizationId: userInfo.OrganizationId };
-  if (LocationName) {
-    query = {
-      ...query,
-      Location: LocationName,
-    };
-  } else if (DoorNumber) {
-    query = {
-      ...query,
-      shopDoorNo: { $elemMatch: { label: DoorNumber } },
-    };
-  } else if (propertyname) {
-    query = {
-      ...query,
-      BuildingName: propertyname,
-    };
-  } else if (tenantName) {
-    query = {
-      ...query,
-      _id: mongoose.Types.ObjectId(tenantName),
-    };
-  } else if (tenantStatus) {
-    query = {
-      ...query,
-      tenantstatus: tenantStatus,
-    };
-  }
-
   try {
+    const userInfo = await UserDetails.findById(req.user.id).select(
+      "-password"
+    );
+    let {
+      OrganizationId,
+      LocationName,
+      DoorNumber,
+      propertyname,
+      tenantName,
+      tenantStatus,
+    } = req.body;
+
+    let query = { OrganizationId: userInfo.OrganizationId };
+    if (LocationName) {
+      query = {
+        ...query,
+        Location: LocationName,
+      };
+    } else if (DoorNumber) {
+      query = {
+        ...query,
+        shopDoorNo: { $elemMatch: { label: DoorNumber } },
+      };
+    } else if (propertyname) {
+      query = {
+        ...query,
+        BuildingName: propertyname,
+      };
+    } else if (tenantName) {
+      query = {
+        ...query,
+        _id: mongoose.Types.ObjectId(tenantName),
+      };
+    } else if (tenantStatus) {
+      query = {
+        ...query,
+        tenantstatus: tenantStatus,
+      };
+    }
+
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
     });
     res.json(tenantdata);
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
-// router.post("/get-tenant-sort-for-activecount", auth, async (req, res) => {
-//   const userInfo = await UserDetails.findById(req.user.id).select("-password");
-
-//   let query = { OrganizationId: userInfo.OrganizationId };
-
-//   try {
-//     const tenantdata = await TenantDetails.find(query).sort({
-//       tenantstatus: 1,
-//     });
-//     res.json(tenantdata);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// });
 router.post("/get-tenant-sort-for-activecount", auth, async (req, res) => {
   try {
     const userInfo = await UserDetails.findById(req.user.id).select(
@@ -869,17 +862,18 @@ router.post("/get-tenant-sort-for-activecount", auth, async (req, res) => {
     res.json(tenantdata);
   } catch (error) {
     console.error(error.message);
-
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 router.post("/get-tenant-activecount", auth, async (req, res) => {
-  const userInfo = await UserDetails.findById(req.user.id).select("-password");
-
-  let query = { OrganizationId: userInfo.OrganizationId };
-
   try {
+    const userInfo = await UserDetails.findById(req.user.id).select(
+      "-password"
+    );
+
+    let query = { OrganizationId: userInfo.OrganizationId };
+
     const tenantdata = await TenantDetails.find({
       ...query,
       tenantstatus: "Active", // Move the condition inside the find function
@@ -891,19 +885,23 @@ router.post("/get-tenant-activecount", auth, async (req, res) => {
   }
 });
 router.post("/get-tenant-renewedcount", auth, async (req, res) => {
-  const userInfo = await UserDetails.findById(req.user.id).select("-password");
-
-  let query = {
-    OrganizationId: userInfo.OrganizationId,
-    tenantstatus: "Active",
-    AgreementStatus: "Renewed",
-    $where: function () {
-      const currentYear = new Date().getFullYear();
-      return new Date(this.tenantLeaseStartDate).getFullYear() === currentYear;
-    },
-  };
-
   try {
+    const userInfo = await UserDetails.findById(req.user.id).select(
+      "-password"
+    );
+
+    let query = {
+      OrganizationId: userInfo.OrganizationId,
+      tenantstatus: "Active",
+      AgreementStatus: "Renewed",
+      $where: function () {
+        const currentYear = new Date().getFullYear();
+        return (
+          new Date(this.tenantLeaseStartDate).getFullYear() === currentYear
+        );
+      },
+    };
+
     const tenantrenewdata = await TenantDetails.find(query);
     res.json(tenantrenewdata);
   } catch (error) {
@@ -913,34 +911,36 @@ router.post("/get-tenant-renewedcount", auth, async (req, res) => {
 });
 
 router.post("/get-tenant-sort-contact-report", auth, async (req, res) => {
-  const userInfo = await UserDetails.findById(req.user.id).select("-password");
-  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
-    req.body;
-
-  let query = { OrganizationId: userInfo.OrganizationId };
-  if (LocationName) {
-    query = {
-      ...query,
-      Location: LocationName,
-    };
-  } else if (DoorNumber) {
-    query = {
-      ...query,
-      shopDoorNo: { $elemMatch: { label: DoorNumber } },
-    };
-  } else if (propertyname) {
-    query = {
-      ...query,
-      BuildingName: propertyname,
-    };
-  } else if (tenantName) {
-    query = {
-      ...query,
-      _id: mongoose.Types.ObjectId(tenantName),
-    };
-  }
-
   try {
+    const userInfo = await UserDetails.findById(req.user.id).select(
+      "-password"
+    );
+    let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
+      req.body;
+
+    let query = { OrganizationId: userInfo.OrganizationId };
+    if (LocationName) {
+      query = {
+        ...query,
+        Location: LocationName,
+      };
+    } else if (DoorNumber) {
+      query = {
+        ...query,
+        shopDoorNo: { $elemMatch: { label: DoorNumber } },
+      };
+    } else if (propertyname) {
+      query = {
+        ...query,
+        BuildingName: propertyname,
+      };
+    } else if (tenantName) {
+      query = {
+        ...query,
+        _id: mongoose.Types.ObjectId(tenantName),
+      };
+    }
+
     const tenantdata = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -957,54 +957,56 @@ router.post("/get-tenant-sort-contact-report", auth, async (req, res) => {
     res.json(tenantdata);
   } catch (err) {
     console.error(err.message);
-
     res.status(500).send("Internal Server Error.");
   }
 });
 
 //for lease transfer dropdown
 router.post("/get-tenantLeaseTransfer-sort", auth, async (req, res) => {
-  const userInfo = await UserDetails.findById(req.user.id).select("-password");
-  let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
-    req.body;
-
-  let query = {
-    OrganizationId: userInfo.OrganizationId,
-    tenantstatus: "Active",
-  };
-  if (LocationName) {
-    query = {
-      ...query,
-      Location: LocationName,
-    };
-  } else if (DoorNumber) {
-    query = {
-      ...query,
-      shopDoorNo: { $elemMatch: { label: DoorNumber } },
-    };
-  } else if (propertyname) {
-    query = {
-      ...query,
-      BuildingName: propertyname,
-    };
-  } else if (tenantName) {
-    query = {
-      ...query,
-      _id: mongoose.Types.ObjectId(tenantName),
-    };
-  }
-
   try {
+    const userInfo = await UserDetails.findById(req.user.id).select(
+      "-password"
+    );
+    let { OrganizationId, LocationName, DoorNumber, propertyname, tenantName } =
+      req.body;
+
+    let query = {
+      OrganizationId: userInfo.OrganizationId,
+      tenantstatus: "Active",
+    };
+    if (LocationName) {
+      query = {
+        ...query,
+        Location: LocationName,
+      };
+    } else if (DoorNumber) {
+      query = {
+        ...query,
+        shopDoorNo: { $elemMatch: { label: DoorNumber } },
+      };
+    } else if (propertyname) {
+      query = {
+        ...query,
+        BuildingName: propertyname,
+      };
+    } else if (tenantName) {
+      query = {
+        ...query,
+        _id: mongoose.Types.ObjectId(tenantName),
+      };
+    }
+
     const tenantdata = await TenantDetails.find(query).sort({
       tenantstatus: 1,
     });
     res.json(tenantdata);
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 // Get Exp Month Count
-router.get("/get-tenant-report", async (req, res) => {
+router.get("/get-tenant-report", auth, async (req, res) => {
   try {
     const tenantData = await TenantDetails.aggregate([
       {
@@ -1029,7 +1031,7 @@ router.get("/get-tenant-report", async (req, res) => {
   }
 });
 //deactivating the  user
-router.post("/deactive-user", async (req, res) => {
+router.post("/deactive-user", auth, async (req, res) => {
   try {
     let data = req.body;
     let dltuser = await UserDetails.updateOne(
@@ -1043,14 +1045,17 @@ router.post("/deactive-user", async (req, res) => {
     );
 
     res.json(dltuser);
-  } catch (err) {}
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
 });
 
 //ddeactivating the organization
-router.post("/deactive-Organization", async (req, res) => {
+router.post("/deactive-Organization", auth, async (req, res) => {
   try {
     let data = req.body;
-    UserDetails.updateMany(
+    await UserDetails.updateMany(
       {
         OrganizationId: data.Org_id,
       },
@@ -1059,7 +1064,7 @@ router.post("/deactive-Organization", async (req, res) => {
           userStatus: "Deactive",
         },
       }
-    ).then(data);
+    );
     let dltOrg = await OrganizationDetails.updateOne(
       { _id: data.Org_id },
       {
@@ -1071,16 +1076,18 @@ router.post("/deactive-Organization", async (req, res) => {
       }
     );
     res.json(dltOrg);
-  } catch (err) {}
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
+  }
 });
 
-router.post("/deactive-tenant", async (req, res) => {
+router.post("/deactive-tenant", auth, async (req, res) => {
   try {
     let data = req.body;
-    //  console.log( "len",data.Dno.length );
     if (data.Dno.length > 0) {
       const tentHis = await TenantDetails.findById({ _id: data.tid });
-     
+
       const HistrData = {
         tdId: tentHis._id,
         thName: tentHis.tenantName,
@@ -1105,27 +1112,16 @@ router.post("/deactive-tenant", async (req, res) => {
       let tenantHistories = new TenentHistories(HistrData);
       await tenantHistories.save();
 
-      //console.log("rvced data",data)
       data.Dno.map((ele) => {
         TenantDetails.updateOne(
           {
             _id: data.tid,
-            // shopDoorNo: { $elemMatch: { label: ele.label } },
-            // "shopDoorNo.$.label":ele.lable,
           },
           {
             $pull: {
               shopDoorNo: { label: ele.label },
-              //"shopDoorNo.$.status": "Deleted",
-              // "shopDoorNo.$.status": ele.lable,
             },
           }
-          // {
-          //   $set: {
-          //     "shopDoorNo.$.status": "Deleted",
-          //     deactive_reason: data.deactive_reason,
-          //   },
-          // }
         ).then((data) => {});
       });
       data.Dno.map((ele) => {
@@ -1147,8 +1143,7 @@ router.post("/deactive-tenant", async (req, res) => {
           )
           .then(data);
       });
-    } //if(console.log(data.Dno.length === 0))
-    else {
+    } else {
       const tentHis = await TenantDetails.findById({ _id: data.tid });
 
       const HistrData1 = {
@@ -1174,13 +1169,10 @@ router.post("/deactive-tenant", async (req, res) => {
       };
       let tenantHistories = new TenentHistories(HistrData1);
       await tenantHistories.save();
-      // console.log("door No");
 
-      // data.Dno.map((ele) => {
       TenantDetails.updateOne(
         {
           _id: data.tid,
-          //shopDoorNo: { $elemMatch: { label: ele.label } },
         },
         {
           $set: {
@@ -1189,49 +1181,28 @@ router.post("/deactive-tenant", async (req, res) => {
           },
         }
       ).then(data);
-      //});
     }
     res.status(200).json({ success: true });
   } catch (error) {
+    console.error(err.message);
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
 });
 
-// router.post("/update-tenant", async (req, res) => {
-//   try {
-//     let data = req.body;
-
-//     const updateagreementdetails = await TenantSettings.updateOne(
-//       { OrganizationId: data.OrganizationId },
-//       {
-//         $set: {
-//           hikePercentage: data.hikePercentage,
-//           stampDuty: data.stampDuty,
-//           leaseTimePeriod: data.leaseTimePeriod,
-//         },
-//       }
-//     );
-
-//     res.json(updateagreementdetails);
-//   } catch (error) {
-//     res.status(500).json({ errors: [{ msg: "Server Error" }] });
-//   }
-// });
-
 //get exp month count for Organization
-router.post("/get-month-exp-org-count", async (req, res) => {
-  const { selectedY } = req.body;
-
-  var yearVal = new Date().getFullYear();
-  if (selectedY) {
-    yearVal = selectedY;
-  }
+router.post("/get-month-exp-org-count", auth, async (req, res) => {
   try {
+    const { selectedY } = req.body;
+
+    var yearVal = new Date().getFullYear();
+    if (selectedY) {
+      yearVal = selectedY;
+    }
+
     const orgexp = await OrganizationDetails.aggregate([
       {
         $match: {
           enddate: { $regex: new RegExp("^" + yearVal, "i") },
-          // AgreementStatus: { $eq: "Expired" },
           org_status: "Active",
         },
       },
@@ -1258,46 +1229,27 @@ router.post("/get-month-exp-org-count", async (req, res) => {
   }
 });
 
-router.get("/get-door-no", async (req, res) => {
-  try {
-    let doorno = await property.find({ shopDoorNo: { $ne: "" } });
-  } catch (error) {
-    console.log(error.message);
-  }
-});
+//flag
+// router.get("/get-door-no", auth, async (req, res) => {
+//   //flag
+//   try {
+//     let doorno = await property.find({ shopDoorNo: { $ne: "" } });
+//   } catch (error) {
+//     console.log(error.message);
+//     res.status(500).send("Internal Server Error.");
+//   }
+// });
 
-router.post("/get-month-exp-org", async (req, res) => {
-  let data = req.body;
-  const selectedY = data.yearSearch;
-
-  var yearVal = new Date().getFullYear();
-  if (selectedY) {
-    yearVal = selectedY;
-  }
+router.post("/get-month-exp-org", auth, async (req, res) => {
   try {
-    // const orgexp = await OrganizationDetails.aggregate([
-    //   {
-    //     $match: {
-    //       enddate: { $regex: new RegExp("^" + yearVal, "i") },
-    //       AgreementStatus: { $eq: "Expired" },
-    //       org_status: "Active",
-    //     },
-    //   },
-    //   // {
-    //   //   $group: {
-    //   //     _id: {
-    //   //       year: {
-    //   //         $year: { $dateFromString: { dateString: "$enddate" } },
-    //   //       },
-    //   //       month: {
-    //   //         $month: {
-    //   //           $dateFromString: { dateString: "$enddate" },
-    //   //         },
-    //   //       },
-    //   //     },
-    //   //   },
-    //   // },
-    // ]).then((data) => res.json(data));
+    let data = req.body;
+    const selectedY = data.yearSearch;
+
+    var yearVal = new Date().getFullYear();
+    if (selectedY) {
+      yearVal = selectedY;
+    }
+
     await OrganizationDetails.find({
       $and: [
         { enddate: { $regex: new RegExp("^" + yearVal, "i") } },
@@ -1320,15 +1272,15 @@ router.post("/get-month-exp-org", async (req, res) => {
 });
 
 // Get Exp Month Count
-router.post("/get-month-exp-count", async (req, res) => {
-  const { selectedY, OrganizationId } = req.body; //change
-  var yearVal = new Date().getFullYear();
-  if (selectedY) {
-    //change
-    yearVal = selectedY;
-  }
-
+router.post("/get-month-exp-count", auth, async (req, res) => {
   try {
+    const { selectedY, OrganizationId } = req.body; //change
+    var yearVal = new Date().getFullYear();
+    if (selectedY) {
+      //change
+      yearVal = selectedY;
+    }
+
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
         $lookup: {
@@ -1370,22 +1322,23 @@ router.post("/get-month-exp-count", async (req, res) => {
   }
 });
 
-router.post("/add-agreement-details", async (req, res) => {
-  let data = req.body;
-
+router.post("/add-agreement-details", auth, async (req, res) => {
   try {
+    let data = req.body;
+
     let tenantAgreementDetails = new TenantAgreementDetails(data);
     output = await tenantAgreementDetails.save();
     res.send(output);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
 
-router.post("/get-all-shops", async (req, res) => {
-  let data = req.body;
-
+router.post("/get-all-shops", auth, async (req, res) => {
   try {
+    let data = req.body;
+
     const ShopsData = await property
       .find({
         Organization_id: data.OrganizationId,
@@ -1394,16 +1347,20 @@ router.post("/get-all-shops", async (req, res) => {
 
     res.json(ShopsData);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
 //get year count for Organization
-router.post("/get-previous-years-exp-Org", async (req, res) => {
-  const { selectedVal } = req.body;
-
-  var date = new Date(selectedVal);
-  var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
+router.post("/get-previous-years-exp-Org", auth, async (req, res) => {
   try {
+    const { selectedVal } = req.body;
+
+    var date = new Date(selectedVal);
+    var firstDay = new Date(date.getFullYear(), 0, 1)
+      .toISOString()
+      .split("T")[0];
+
     const yeardata = await OrganizationDetails.aggregate([
       {
         $match: {
@@ -1411,27 +1368,23 @@ router.post("/get-previous-years-exp-Org", async (req, res) => {
           AgreementStatus: { $eq: "Expired" },
         },
       },
-      // {
-      //   $group: {
-      //     _id: null,
-      //     count: { $sum: 1 },
-      //   },
-      // },
     ]);
     res.json(yeardata);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
 
 //Exp Year Count filter
-router.post("/get-previous-years-exp", async (req, res) => {
-  const { selectedVal, OrganizationId } = req.body;
-
-  var date = new Date(selectedVal);
-  var firstDay = new Date(date.getFullYear(), 0, 1).toISOString().split("T")[0];
-
+router.post("/get-previous-years-exp", auth, async (req, res) => {
   try {
+    const { selectedVal, OrganizationId } = req.body;
+    var date = new Date(selectedVal);
+    var firstDay = new Date(date.getFullYear(), 0, 1)
+      .toISOString()
+      .split("T")[0];
+
     const MonthExpCntData = await TenentAgreement.aggregate([
       {
         $lookup: {
@@ -1445,30 +1398,24 @@ router.post("/get-previous-years-exp", async (req, res) => {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(OrganizationId),
           tenantLeaseEndDate: { $lt: firstDay },
-          // AgreementStatus: { $eq: "Renewed" },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
-
-      // {
-      //   $group: {
-      //     _id: null,
-      //     count: { $sum: 1 },
-      //   },
-      // },
     ]);
     res.json(MonthExpCntData);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
 
+//flag
 router.post("/get-tenant-exp-report", auth, async (req, res) => {
   const userInfo = await UserDetails.findById(req.user.id).select("-password");
 
   const id = mongoose.Types.ObjectId(req.body.OrganizationId);
   const { monthSearch, yearSearch, OrganizationId } = req.body;
-  //console.log("this is it", req.body);
+
   var monthVal = monthSearch;
   if (monthSearch < 10 && monthSearch.toString().length === 1) {
     var monthVal = "0" + monthSearch;
@@ -1579,30 +1526,8 @@ router.post("/get-tenant-exp-report", auth, async (req, res) => {
   }
 });
 
-// router.get("/get-all-settings", async (req, res) => {
-//   try {
-//     const tenanatSettingData = await TenantSettings.find({});
-//     res.json(tenanatSettingData);
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Internal Server Error.");
-//   }
-// });
-
-// router.post("/get-Particular-org-Tenantsetting", async (req, res) => {
-//   const data = req.body;
-
-//   try {
-//     const Tenant_SETTING = await TenantSettings.find({
-//       OrganizationId: data.OrganizationId,
-//     });
-//     res.json(Tenant_SETTING);
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// });
-
-router.get("/get-door-nos", async (req, res) => {
+//flag API no need
+router.get("/get-door-nos", auth, async (req, res) => {
   try {
     const doorNoData = await ShopDetails.aggregate([
       {
@@ -1619,16 +1544,18 @@ router.get("/get-door-nos", async (req, res) => {
     res.status(500).send("Internal Server Error.");
   }
 });
-//get organization expiry data to Tenant filter
-router.post("/get-organization-expiry-report", async (req, res) => {
-  const { monthSearch, yearSearch } = req.body;
 
-  var monthVal = monthSearch;
-  if (monthSearch < 10 && monthSearch.toString().length === 1) {
-    var monthVal = "0" + monthSearch;
-  }
-  var yearMonth = yearSearch + "-" + monthVal;
+//get organization expiry data to Tenant filter //flag Api no need
+router.post("/get-organization-expiry-report", auth, async (req, res) => {
   try {
+    const { monthSearch, yearSearch } = req.body;
+
+    var monthVal = monthSearch;
+    if (monthSearch < 10 && monthSearch.toString().length === 1) {
+      var monthVal = "0" + monthSearch;
+    }
+    var yearMonth = yearSearch + "-" + monthVal;
+
     OrganizationDetails.find({
       enddate: { $regex: new RegExp("^" + yearMonth, "i") },
       AgreementStatus: { $eq: "Expired" },
@@ -1636,19 +1563,21 @@ router.post("/get-organization-expiry-report", async (req, res) => {
     }).catch((error) => res.status(500).send("Internal Server Error."));
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
-router.post("/get-tenant-old-exp-report", async (req, res) => {
-  const { yearSearch, OrganizationId } = req.body;
-  var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
-  var year = new Date(lastDate).getFullYear(); // Extract the year value from lastDate
-
-  // Create the start and end dates for the year
-
-  var endDate = new Date(yearSearch, 11, 31).toISOString().split("T")[0];
-
+//flag
+router.post("/get-tenant-old-exp-report", auth, async (req, res) => {
   try {
+    const { yearSearch, OrganizationId } = req.body;
+    var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
+    var year = new Date(lastDate).getFullYear(); // Extract the year value from lastDate
+
+    // Create the start and end dates for the year
+
+    var endDate = new Date(yearSearch, 11, 31).toISOString().split("T")[0];
+
     const tenantSettingsData = await OrganizationDetails.find({
       _id: OrganizationId,
     });
@@ -1752,7 +1681,7 @@ router.post("/get-tenant-old-exp-report", async (req, res) => {
   }
 });
 
-///123
+///123 flag can be optimisied
 router.post("/get-tenant-year-report", async (req, res) => {
   const { yearSearch, OrganizationId } = req.body;
   var currentDate = new Date();
@@ -1993,7 +1922,7 @@ router.post("/get-tenant-year-report", async (req, res) => {
   }
 });
 
-router.get("/get-door-number", async (req, res) => {
+router.get("/get-door-number", auth, async (req, res) => {
   try {
     const doorNoData = await TenentAgreement.aggregate([
       {
@@ -2010,10 +1939,11 @@ router.get("/get-door-number", async (req, res) => {
   }
 });
 
-router.post("/filter-tenant-doorno-pref", async (req, res) => {
-  const { doornoSearch } = req.body;
-
+//flag
+router.post("/filter-tenant-doorno-pref", auth, async (req, res) => {
   try {
+    const { doornoSearch } = req.body;
+
     const allTenantDoornofilter = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -2065,8 +1995,7 @@ router.post("/filter-tenant-doorno-pref", async (req, res) => {
   }
 });
 
-router.get("/get-all-tenants", async (req, res) => {
-  //console.log("hey hitting api of get-all-tenants");
+router.get("/get-all-tenants", auth, async (req, res) => {
   try {
     const tenanatData = await TenantDetails.aggregate([
       {
@@ -2114,11 +2043,12 @@ router.get("/get-all-tenants", async (req, res) => {
     ]).sort({ tenantstatus: 1 });
     res.json(tenanatData);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
 
-router.get("/get-all-users", async (req, res) => {
+router.get("/get-all-users", auth, async (req, res) => {
   try {
     const userDetails = await UserDetails.find({}).sort({ userStatus: 1 });
     res.json(userDetails);
@@ -2129,60 +2059,67 @@ router.get("/get-all-users", async (req, res) => {
 });
 
 //Renew the Organization details
-router.post("/Renew-Organization", async (req, res) => {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
-  let data = req.body;
-  // console.log("heheh", data.enddate, todayDateymd);
-  if (data.enddate < todayDateymd) {
-    await OrganizationDetails.updateOne(
-      { _id: data.OrganizationId },
-      {
-        $set: {
-          OrganizationName: data.Orgname,
-          OrganizationEmail: data.Orgemail,
-          OrganizationNumber: data.Orgphone,
-          OrganizationAddress: data.OrganizationAddress,
-          date: data.date,
-          enddate: data.enddate,
-          AgreementStatus: "Expired",
-          org_status: "Active",
-        },
-      }
-    );
-  } else {
-    await OrganizationDetails.updateOne(
-      { _id: data.OrganizationId },
-      {
-        $set: {
-          OrganizationName: data.Orgname,
-          OrganizationEmail: data.Orgemail,
-          OrganizationNumber: data.Orgphone,
-          OrganizationAddress: data.OrganizationAddress,
-          date: data.date,
-          enddate: data.enddate,
-          AgreementStatus: "Renewed",
-          org_status: "Active",
-        },
-      }
-    );
+router.post("/Renew-Organization", auth, async (req, res) => {
+  try {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    var todayDateymd = yyyy + "-" + mm + "-" + dd;
+    let data = req.body;
+    // console.log("heheh", data.enddate, todayDateymd);
+    if (data.enddate < todayDateymd) {
+      await OrganizationDetails.updateOne(
+        { _id: data.OrganizationId },
+        {
+          $set: {
+            OrganizationName: data.Orgname,
+            OrganizationEmail: data.Orgemail,
+            OrganizationNumber: data.Orgphone,
+            OrganizationAddress: data.OrganizationAddress,
+            date: data.date,
+            enddate: data.enddate,
+            AgreementStatus: "Expired",
+            org_status: "Active",
+          },
+        }
+      );
+    } else {
+      await OrganizationDetails.updateOne(
+        { _id: data.OrganizationId },
+        {
+          $set: {
+            OrganizationName: data.Orgname,
+            OrganizationEmail: data.Orgemail,
+            OrganizationNumber: data.Orgphone,
+            OrganizationAddress: data.OrganizationAddress,
+            date: data.date,
+            enddate: data.enddate,
+            AgreementStatus: "Renewed",
+            org_status: "Active",
+          },
+        }
+      );
+    }
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
-router.post("/update-tenant-details", async (req, res) => {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
+//flag
+router.post("/update-tenant-details", auth, async (req, res) => {
   try {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    var todayDateymd = yyyy + "-" + mm + "-" + dd;
+
     let data = req.body;
 
     const tentHis = await TenantDetails.findById({ _id: data.recordId });
@@ -2217,10 +2154,7 @@ router.post("/update-tenant-details", async (req, res) => {
     let tenantHistories = new TenentHistories(HistrData);
     await tenantHistories.save();
 
-    // console.log(data.tenantLeaseEndDate);
-    //  console.log("", todayDateymd);
     if (data.tenantLeaseEndDate < todayDateymd) {
-      //console.log(":hit update");
       const updatetenantdetails = await TenantDetails.updateOne(
         { _id: data.recordId },
         {
@@ -2379,23 +2313,22 @@ router.post("/update-tenant-details", async (req, res) => {
         }
       );
     }
-
-    // res.json(AgreementUpdate);
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ errors: [{ msg: "Server Error of tdetaiz" }] });
   }
 });
 
-router.post("/activate-tenant-details", async (req, res) => {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-  if (dd < 10) dd = "0" + dd;
-  if (mm < 10) mm = "0" + mm;
-  var todayDateymd = yyyy + "-" + mm + "-" + dd;
+router.post("/activate-tenant-details", auth, async (req, res) => {
   try {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) dd = "0" + dd;
+    if (mm < 10) mm = "0" + mm;
+    var todayDateymd = yyyy + "-" + mm + "-" + dd;
+
     let data = req.body;
 
     const tentHis = await TenantDetails.findById({ _id: data.recordId });
@@ -2601,9 +2534,9 @@ router.post("/activate-tenant-details", async (req, res) => {
   }
 });
 
-router.post("/tenant-update-history", async (req, res) => {
-  let data = req.body;
+router.post("/tenant-update-history", auth, async (req, res) => {
   try {
+    let data = req.body;
     let tenantHistories = new TenentHistories(data);
     output = await tenantHistories.save();
     res.send(output);
@@ -2614,10 +2547,9 @@ router.post("/tenant-update-history", async (req, res) => {
 });
 
 //get tenant receipt number
-
-router.post("/get-tenant-receiptnumber", async (req, res) => {
-  let data = req.body;
+router.post("/get-tenant-receiptnumber", auth, async (req, res) => {
   try {
+    let data = req.body;
     const tenanatReceiptNoData = await TenentAgreement.findOne({
       OrganizationId: data.OrganizationId,
       tenantReceiptNo: { $ne: "" },
@@ -2625,9 +2557,6 @@ router.post("/get-tenant-receiptnumber", async (req, res) => {
       .sort({ tenantReceiptNo: -1 })
       .limit(1)
       .collation({ locale: "en_US", numericOrdering: true });
-    // .sort({ tenantReceiptNo: -1 })
-    // .limit(1);
-    // to store alphanumberic
 
     res.json(tenanatReceiptNoData.tenantReceiptNo);
   } catch (error) {
@@ -2636,7 +2565,7 @@ router.post("/get-tenant-receiptnumber", async (req, res) => {
 });
 
 // tenant receipt details
-router.post("/update-tenant-Receiptdetails", async (req, res) => {
+router.post("/update-tenant-Receiptdetails", auth, async (req, res) => {
   try {
     let data = req.body;
     const updateTenantReceipt = await TenentAgreement.updateOne(
@@ -2668,12 +2597,9 @@ router.post("/update-tenant-Receiptdetails", async (req, res) => {
 });
 
 //tenant lease transfer
-
-router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
+router.post("/edit-tenant-leasetransfer-details", auth, async (req, res) => {
   try {
     let data = req.body;
-
-
 
     const doorNos = data.transferShoopDoorNo
       .map((door) => door.label)
@@ -2896,10 +2822,9 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
 });
 
 //user activity
-
-router.post("/add-user-activity-details", async (req, res) => {
-  let data = req.body;
+router.post("/add-user-activity-details", auth, async (req, res) => {
   try {
+    let data = req.body;
     let userActivity = new UserActivity(data);
     output = await userActivity.save();
     res.send(output);
@@ -2909,17 +2834,16 @@ router.post("/add-user-activity-details", async (req, res) => {
   }
 });
 
-router.post("/get-user-activity", async (req, res) => {
-  let data = req.body;
-
+router.post("/get-user-activity", auth, async (req, res) => {
   try {
+    let data = req.body;
     const userActivityData = await UserActivity.find({
       OrganizationId: data.OrganizationId,
     }).sort({ _id: -1 });
-    // .sort({ _id: -1 });
 
     res.json(userActivityData);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send("Internal Server Error.");
   }
 });
@@ -2927,18 +2851,18 @@ router.post("/get-user-activity", async (req, res) => {
 /////////////////////////////////////MIS REPORT////////////////////////////////////////////////
 
 //mis report for count
-router.post("/get-mis-report", async (req, res) => {
-  let data = req.body;
-  let inputDate = new Date(data.selectedY);
-  let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
-  inputDate.setMonth(targetMonth);
-
-  // Set the day to the last day of the month, considering variations in the number of days in different months
-  inputDate.setDate(0);
-
-  let resultDate = inputDate.toISOString().split("T")[0];
-
+router.post("/get-mis-report", auth, async (req, res) => {
   try {
+    let data = req.body;
+    let inputDate = new Date(data.selectedY);
+    let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
+    inputDate.setMonth(targetMonth);
+
+    // Set the day to the last day of the month, considering variations in the number of days in different months
+    inputDate.setDate(0);
+
+    let resultDate = inputDate.toISOString().split("T")[0];
+
     let renewedCount = await TenentAgreement.aggregate([
       {
         $match: {
@@ -3018,20 +2942,21 @@ router.post("/get-mis-report", async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 //mis report for amount
-router.post("/get-mis-amount-report", async (req, res) => {
-  let data = req.body;
-
-  let inputDate = new Date(data.selectedY);
-  let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
-  inputDate.setMonth(targetMonth);
-  inputDate.setDate(0);
-  let resultDate = inputDate.toISOString().split("T")[0];
-  let lastDate = resultDate.toString();
-
+router.post("/get-mis-amount-report", auth, async (req, res) => {
   try {
+    let data = req.body;
+
+    let inputDate = new Date(data.selectedY);
+    let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
+    inputDate.setMonth(targetMonth);
+    inputDate.setDate(0);
+    let resultDate = inputDate.toISOString().split("T")[0];
+    let lastDate = resultDate.toString();
+
     let renewedAmount = await TenentAgreement.aggregate([
       {
         $match: {
@@ -3128,37 +3053,34 @@ router.post("/get-mis-amount-report", async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
 //renewed bar chart
 
-router.post("/get-mis-renewed-bar-report", async (req, res) => {
-  let data = req.body;
-  let inputDate = new Date(data.selectedY);
-  let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
-  inputDate.setMonth(targetMonth);
-  inputDate.setDate(0);
-  let resultDate = inputDate.toISOString().split("T")[0];
-  let lastDate = resultDate.toString();
-
-  // const specifiedYear = data.selectedY;
-  // const startDate = new Date(`${specifiedYear}-01-01`);
-  // const EndDate = new Date(`${specifiedYear}-12-31`);
-  // const formattedStartDate = startDate.toISOString().split("T")[0];
-  // const formattedEndDate = EndDate.toISOString().split("T")[0];
-
+router.post("/get-mis-renewed-bar-report", auth, async (req, res) => {
   try {
+    let data = req.body;
+    let inputDate = new Date(data.selectedY);
+    let targetMonth = inputDate.getMonth() + parseInt(data.selectedEndY);
+    inputDate.setMonth(targetMonth);
+    inputDate.setDate(0);
+    let resultDate = inputDate.toISOString().split("T")[0];
+    let lastDate = resultDate.toString();
+
+    // const specifiedYear = data.selectedY;
+    // const startDate = new Date(`${specifiedYear}-01-01`);
+    // const EndDate = new Date(`${specifiedYear}-12-31`);
+    // const formattedStartDate = startDate.toISOString().split("T")[0];
+    // const formattedEndDate = EndDate.toISOString().split("T")[0];
+
     let renewedBarCount = await TenentAgreement.aggregate([
       {
-        $match:
-          /**
-           * query: The query in MQL.
-           */
-          {
-            OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
-            tenantstatus: "Active",
-          },
+        $match: {
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+          tenantstatus: "Active",
+        },
       },
       {
         $match: {
@@ -3308,19 +3230,10 @@ router.post("/get-mis-renewed-bar-report", async (req, res) => {
       },
     ]);
 
-    // res.json({
-    //   renewableAmount:
-    //     renewableAmount[0] && renewableAmount[0].totalRentRenewable
-    //       ? renewableAmount[0].totalRentRenewable
-    //       : 0,
-    //   renewedAmount:
-    //     renewedAmount[0] && renewedAmount[0].totalRentRenewed
-    //       ? renewedAmount[0].totalRentRenewed
-    //       : 0,
-    // });
     res.json({ renewedBarCount, renewableBarCount, activeBarCount });
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Internal Server Error.");
   }
 });
 
