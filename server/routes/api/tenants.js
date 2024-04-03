@@ -1080,7 +1080,7 @@ router.post("/deactive-tenant", async (req, res) => {
     //  console.log( "len",data.Dno.length );
     if (data.Dno.length > 0) {
       const tentHis = await TenantDetails.findById({ _id: data.tid });
-      console.log("tentHis", tentHis);
+     
       const HistrData = {
         tdId: tentHis._id,
         thName: tentHis.tenantName,
@@ -1191,6 +1191,7 @@ router.post("/deactive-tenant", async (req, res) => {
       ).then(data);
       //});
     }
+    res.status(200).json({ success: true });
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }
@@ -2672,7 +2673,7 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
   try {
     let data = req.body;
 
-    console.log("dataaaaaaa", data);
+
 
     const doorNos = data.transferShoopDoorNo
       .map((door) => door.label)
@@ -2888,6 +2889,7 @@ router.post("/edit-tenant-leasetransfer-details", async (req, res) => {
         ).then((data) => {});
       });
     }
+    res.status(200).json({ message: "Success" });
   } catch (error) {
     res.status(500).json({ errors: [{ msg: "Server Error" }] });
   }

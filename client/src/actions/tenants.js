@@ -659,7 +659,8 @@ export const deactiveTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    ParticularTenant({ OrganizationId: finalData.OrganizationId });
+    dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
+    dispatch(ParticularTenantFilter())
   } catch (err) {
     dispatch({
       type: TENANT_FEEDBACK_ERROR,
@@ -673,8 +674,9 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
-    dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
-    dispatch(getAllTenants());
+    dispatch(ParticularTenantFilter())
+    // dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
+    // dispatch(getAllTenants());
   } catch (err) {
     console.log(err.message);
     dispatch({
@@ -690,6 +692,7 @@ export const ActivateTenantDetails = (finalData) => async (dispatch) => {
       finalData,
       config
     );
+    dispatch(ParticularTenantFilter())
     // dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
   } catch (err) {
     console.log(err.message);
@@ -709,10 +712,14 @@ export const EditTenantLeaseTransferDetails =
         finalData,
         config
       );
-      dispatch(
-        getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
-      );
-      dispatch(getAllTenants());
+     
+        dispatch(ParticularTenantFilter())
+        // dispatch(
+        //   getParticularTenantSetting({ OrganizationId: finalData.OrganizationId })
+        // );
+        // dispatch(getAllTenants());
+     
+    
     } catch (err) {
       console.log(err.message);
       dispatch({
