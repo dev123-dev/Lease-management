@@ -39,6 +39,7 @@ const Tenant_Details = ({
     particular_org_loc,
     allTenantSetting,
     sortContactReport,
+    
   },
   ParticularTenant,
   AddUserActivity,
@@ -219,7 +220,7 @@ const Tenant_Details = ({
   };
 
   const onDeactivateall = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     SetDoornumber(false);
     const reason = {
       OrganizationId: user && user.OrganizationId,
@@ -246,10 +247,14 @@ const Tenant_Details = ({
     handleClose();
     setFreshPage(!freshpage);
     setCheckData([]);
+  setFormData({ ...formData,deactive_reason:""});
+     ParticularTenantFilter("");
+         getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
   };
   const [Error, setError] = useState("");
   const onDeactivate = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     if (checkData.length == 0) {
       setError("Please Select DoorNumber");
       //alert();
@@ -275,11 +280,15 @@ const Tenant_Details = ({
         expireAt: new Date().getTime() + 80,
       };
       AddUserActivity(AdduserActivity);
-      
+
       deactiveTenantsDetails(reason);
       handleClose();
       setFreshPage(!freshpage);
       setCheckData([]);
+        setFormData({ ...formData,deactive_reason:""});
+         ParticularTenantFilter("");
+             getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
     }
   };
 
@@ -304,10 +313,10 @@ const Tenant_Details = ({
     setCurrentData(nmbr);
   };
   const refresh = () => {
-    // ParticularTenant("");
+       // ParticularTenant("");
     ParticularTenantFilter("");
-    getParticularOrg("");
-    getParticularProperty("");
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    getParticularProperty({ OrganizationId: user && user.OrganizationId });
     fun();
     SetDoorNumber("");
     setselLoction(null);

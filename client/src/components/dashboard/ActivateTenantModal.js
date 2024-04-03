@@ -1256,7 +1256,7 @@ const ActivateTenantModal = ({
                                   width="20"
                                   height="16"
                                   fill="currentColor"
-                                  class="bi bi-plus-square-fill"
+                                  className="bi bi-plus-square-fill"
                                   viewBox="0 0 16 16"
                                 >
                                   <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
@@ -1297,7 +1297,7 @@ const ActivateTenantModal = ({
                                   width="20"
                                   height="16"
                                   fill="currentColor"
-                                  class="bi bi-dash-square-fill"
+                                  className="bi bi-dash-square-fill"
                                   viewBox="0 0 16 16"
                                 >
                                   <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
@@ -1319,30 +1319,31 @@ const ActivateTenantModal = ({
               )}
             </div>
             {/* end switch */}
-            <div className="col-lg-9 text-danger">
+            <div className="col-lg-9 text-danger ">
               * Indicates mandatory fields, Please fill mandatory fields before
               Submit
             </div>
-            <div className="col-lg-3">
-              <div className="row">
-                <div className="col-lg-6 col-md-12 col-sm-12">
+            <div className="col-lg-3 col-md-3 col-md-3 ">
+              <div className="row col-lg-12 col-md-12 col-sm-12">
+                <div className="col-lg-6 col-md-12 col-sm-12 " >
                   <button
                     onClick={() => {
                       ModalClose();
                     }}
                     variant="success"
-                    className="  float-right activatebtn "
+                    className=" float-right  activatebtn "
                     // id="savebtn"
                     type="button"
                   >
                     Back
                   </button>
                 </div>
-                <div className="col-lg-6 col-md-12 col-sm-12">
+              
+                <div className="col-lg-6 col-md-12 col-sm-12 " >
                   {isNextButtonDisabled ? (
                     <button
                       variant="success"
-                      className=" float-right activatebtn"
+                      className="float-left  activatebtn"
                       //   type="submit"
                       disabled={true}
                       // disabled={isNextButtonDisabled}
