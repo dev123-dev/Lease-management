@@ -7,6 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import locreport from "../../static/images/locrep.png";
 
 import propreport from "../../static/images/propreport.png";
+import location from "../../static/images/location.png";
 import Contactreport from "../../static/images/contactreport.png";
 import Useractivity from "../../static/images/Useractivity.png";
 import MISReport from "../../static/images/MIS_report.png";
@@ -152,8 +153,9 @@ const AllReport = ({
                   <div className="text-center">
                     <Link to="/LocationReport">
                       <img
-                        className="img_icon_repDashboard log "
-                        src={require("../../static/images/loc.png")}
+                         className="img_icon_repDashboard log "
+                        // src={require("../../static/images/loc.png")}
+                        src={location}
                         alt="loc report"
                       />
                     </Link>

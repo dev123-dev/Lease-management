@@ -2618,7 +2618,7 @@ router.post("/tenant-update-history", async (req, res) => {
 router.post("/get-tenant-receiptnumber", async (req, res) => {
   let data = req.body;
   try {
-    const tenanatReceiptNoData = await TenentAgreement.findOne({
+    const tenanatReceiptNoData = await TenantDetails.findOne({
       OrganizationId: data.OrganizationId,
       tenantReceiptNo: { $ne: "" },
     })
@@ -2639,10 +2639,10 @@ router.post("/get-tenant-receiptnumber", async (req, res) => {
 router.post("/update-tenant-Receiptdetails", async (req, res) => {
   try {
     let data = req.body;
-    const updateTenantReceipt = await TenentAgreement.updateOne(
+    const updateTenantReceipt = await TenantDetails.updateOne(
       {
         OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
-        tdId: mongoose.Types.ObjectId(data.tenantId),
+        _id: mongoose.Types.ObjectId(data.tenantId),
       },
       {
         $set: {

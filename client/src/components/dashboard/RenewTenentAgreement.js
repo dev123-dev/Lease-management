@@ -414,8 +414,11 @@ const RenewTenentAgreement = ({
 
   const onDateChangeEntry = (e) => {
     const { value } = e.target;
-
-    const lastChar = value[value.length - 1];
+    if(value==""){
+      setOutput("R");
+       setLeaseEndDate("");
+      }
+    const lastChar = value[value.length - 1]; 
     const checkLength = value.length === 3 || value.length === 6;
     const regex = /^[A-Za-z]+$/;
     const specialChar = !regex.test(lastChar) && isNaN(lastChar);
