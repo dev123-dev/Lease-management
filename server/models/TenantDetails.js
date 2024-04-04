@@ -2,9 +2,6 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantDetails = new mongoose.Schema({
-  tdId: {
-    type: ObjectId,
-  },
   tenantName: {
     type: String,
   },
@@ -139,7 +136,7 @@ const TenantDetails = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
-    //for tenant recipt
+  //for tenant recipt
   tenantsubTotal: {
     type: Number,
   },

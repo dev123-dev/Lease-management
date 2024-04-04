@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantAgreementHistory = new mongoose.Schema({
+  tdId: {
+    type: ObjectId,
+  },
   tenantName: {
     type: String,
   },

@@ -2548,7 +2548,7 @@ router.post("/tenant-update-history", auth, async (req, res) => {
 
 //get tenant receipt number
 router.post("/get-tenant-receiptnumber", auth, async (req, res) => {
-  let data=req.body;
+  let data = req.body;
   try {
     const tenanatReceiptNoData = await TenantDetails.findOne({
       OrganizationId: data.OrganizationId,
