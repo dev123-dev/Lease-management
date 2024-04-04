@@ -775,14 +775,21 @@ const AddTenantDetails = ({
 
         //old code 11 month default
 
-        // tenantLeaseStartDate:
-        //   entryDate.split(delimiter)[2] +
-        //   delimiter +
-        //   entryDate.split(delimiter)[1] +
-        //   delimiter +
-        //   entryDate.split(delimiter)[0],
+        tenantLeaseStartDate:
+          entryDate.split(delimiter)[2] +
+          delimiter +
+          entryDate.split(delimiter)[1] +
+          delimiter +
+          entryDate.split(delimiter)[0],
 
-        tenantLeaseEndDate: leaseEndDate,
+        // tenantLeaseEndDate: leaseEndDate,
+        tenantLeaseEndDate:
+          endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+
         generatordepoAmt: generatordepoAmt,
         tenantEnteredBy: user && user._id,
         tenantDate: todayDateymd,

@@ -32,11 +32,11 @@ const AllReport = ({
       });
     if (myuser) {
       fun();
-
       getPropertyTenantData({
         PropertyId: propertyId,
         OrganizationId: myuser.OrganizationId,
       });
+
       //   getParticularProperty({
       //     OrganizationId: myuser && myuser.OrganizationId,
       //   });
@@ -46,6 +46,7 @@ const AllReport = ({
       //     userId: myuser && myuser._id,
       //   });
       //   get_particular_org_user({ OrganizationId: myuser.OrganizationId });
+
       ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
     }
   }, []);
@@ -153,7 +154,7 @@ const AllReport = ({
                   <div className="text-center">
                     <Link to="/LocationReport">
                       <img
-                         className="img_icon_repDashboard log "
+                        className="img_icon_repDashboard log "
                         // src={require("../../static/images/loc.png")}
                         src={location}
                         alt="loc report"

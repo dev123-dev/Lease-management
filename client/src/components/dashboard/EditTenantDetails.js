@@ -718,24 +718,24 @@ const EditTenantDetails = ({
       tenantPaymentMode: tenantPaymentMode.value,
       tenantchequeDate: startSelectedDate,
 
-      // endDateFin new code
+      //old code 11 month default
+
       tenantLeaseStartDate:
+        entryDate.split(delimiter)[2] +
+        delimiter +
+        entryDate.split(delimiter)[1] +
+        delimiter +
+        entryDate.split(delimiter)[0],
+
+      // tenantLeaseEndDate: leaseEndDate,
+
+      tenantLeaseEndDate:
         endDateFin.split(delimiter)[2] +
         delimiter +
         endDateFin.split(delimiter)[1] +
         delimiter +
         endDateFin.split(delimiter)[0],
 
-      //old code 11 month default
-
-      // tenantLeaseStartDate:
-      //   entryDate.split(delimiter)[2] +
-      //   delimiter +
-      //   entryDate.split(delimiter)[1] +
-      //   delimiter +
-      //   entryDate.split(delimiter)[0],
-
-      tenantLeaseEndDate: leaseEndDate,
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,

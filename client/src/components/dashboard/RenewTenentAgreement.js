@@ -132,24 +132,6 @@ const RenewTenentAgreement = ({
     }
   };
 
-  // const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-  // useEffect(() => {
-  //   if (
-
-  //     validationChequeMessage === "" &&
-  //     validationBankMessage === "" &&
-  //     validationTransIdMessage === ""
-  //   ) {
-  //     setNextButtonDisabled(false);
-  //   } else {
-  //     setNextButtonDisabled(true);
-  //   }
-  // }, [
-
-  //   validationChequeMessage,
-  //   validationBankMessage,
-  //   validationTransIdMessage,
-  // ]);
   const onPaymentModeChange = (e) => {
     setErrors({
       ...errors,
@@ -244,7 +226,7 @@ const RenewTenentAgreement = ({
         tenantFileNo: tenantFileNo,
         // tenantDoorNo: door,
 
-        // endDateFin new code
+        // endDateFin new code //startDate
         tenantLeaseStartDate:
           endDateFin.split(delimiter)[2] +
           delimiter +
@@ -252,16 +234,22 @@ const RenewTenentAgreement = ({
           delimiter +
           endDateFin.split(delimiter)[0],
 
-        //old code 11 month default
+        tenantLeaseStartDate:
+          entryDate.split(delimiter)[2] +
+          delimiter +
+          entryDate.split(delimiter)[1] +
+          delimiter +
+          entryDate.split(delimiter)[0],
 
-        // tenantLeaseStartDate:
-        //   entryDate.split(delimiter)[2] +
-        //   delimiter +
-        //   entryDate.split(delimiter)[1] +
-        //   delimiter +
-        //   entryDate.split(delimiter)[0],
+        // tenantLeaseEndDate: leaseEndDate,
 
-        tenantLeaseEndDate: leaseEndDate,
+        tenantLeaseEndDate:
+          endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+
         tdId: tenantsData.tdId,
         OrganizationId: tenantsData.OrganizationId,
         BuildingName: tenantsData.BuildingName,
@@ -542,20 +530,7 @@ const RenewTenentAgreement = ({
     validationTransIdMessage,
     validationChequeDateMessage,
     paymentMode,
-
-    // validationMessage
   ]);
-
-  // console.log("isNextButtonDisabled", isNextButtonDisabled);
-
-  //   useEffect(()=>{
-  // if(validationMessage!=="")
-  //   setNextButtonDisabled(true);
-
-  // else
-  // setNextButtonDisabled(false);
-
-  //   },[])
 
   //Rakxit-
   function calculateMonthsFromDate(date, monthsToAdd) {
