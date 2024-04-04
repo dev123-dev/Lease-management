@@ -243,12 +243,24 @@ const RenewTenentAgreement = ({
         tenantRentAmount: tenantRentAmount,
         tenantFileNo: tenantFileNo,
         // tenantDoorNo: door,
+
+        // endDateFin new code
         tenantLeaseStartDate:
-          entryDate.split(delimiter)[2] +
+          endDateFin.split(delimiter)[2] +
           delimiter +
-          entryDate.split(delimiter)[1] +
+          endDateFin.split(delimiter)[1] +
           delimiter +
-          entryDate.split(delimiter)[0],
+          endDateFin.split(delimiter)[0],
+
+        //old code 11 month default
+
+        // tenantLeaseStartDate:
+        //   entryDate.split(delimiter)[2] +
+        //   delimiter +
+        //   entryDate.split(delimiter)[1] +
+        //   delimiter +
+        //   entryDate.split(delimiter)[0],
+
         tenantLeaseEndDate: leaseEndDate,
         tdId: tenantsData.tdId,
         OrganizationId: tenantsData.OrganizationId,
@@ -414,11 +426,11 @@ const RenewTenentAgreement = ({
 
   const onDateChangeEntry = (e) => {
     const { value } = e.target;
-    if(value==""){
+    if (value == "") {
       setOutput("R");
-       setLeaseEndDate("");
-      }
-    const lastChar = value[value.length - 1]; 
+      setLeaseEndDate("");
+    }
+    const lastChar = value[value.length - 1];
     const checkLength = value.length === 3 || value.length === 6;
     const regex = /^[A-Za-z]+$/;
     const specialChar = !regex.test(lastChar) && isNaN(lastChar);
@@ -544,6 +556,33 @@ const RenewTenentAgreement = ({
   // setNextButtonDisabled(false);
 
   //   },[])
+
+  //Rakxit-
+  function calculateMonthsFromDate(date, monthsToAdd) {
+    try {
+      const d = new Date(date);
+      d.setMonth(d.getMonth() + monthsToAdd);
+      d.setDate(d.getDate() - 1);
+      return d.toISOString().split("T")[0].split("-").reverse().join("-");
+    } catch (er) {
+      console.log(er);
+      return 0;
+    }
+  }
+
+  const [endDateFin, setEndDateFin] = useState(null);
+
+  useEffect(() => {
+    if (entryDate.length === 10) {
+      setEndDateFin(
+        calculateMonthsFromDate(
+          entryDate.split("-").reverse().join("-"),
+          myuser.output.leaseTimePeriod
+        )
+      );
+    }
+  }, [entryDate]);
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -645,10 +684,11 @@ const RenewTenentAgreement = ({
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>Lease End Date:</label>
+            {/* <label>({  endDate})</label> */}
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{endDate}</label>
+            <label>{endDateFin}</label>
           </div>
         </div>
         <div className="row py-2">

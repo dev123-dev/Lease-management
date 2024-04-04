@@ -206,8 +206,6 @@ const EditTenantDetails = ({
     particular_tenant_EditData.tenantCardType
   );
 
-  console.log(allTenantSetting);
-
   const HandleCheck = (e) => {
     setSelectedCard(e.target.value);
   };
@@ -719,12 +717,24 @@ const EditTenantDetails = ({
       tenantChequenoOrDdno: tenantChequenoOrDdno,
       tenantPaymentMode: tenantPaymentMode.value,
       tenantchequeDate: startSelectedDate,
+
+      // endDateFin new code
       tenantLeaseStartDate:
-        entryDate.split(delimiter)[2] +
+        endDateFin.split(delimiter)[2] +
         delimiter +
-        entryDate.split(delimiter)[1] +
+        endDateFin.split(delimiter)[1] +
         delimiter +
-        entryDate.split(delimiter)[0],
+        endDateFin.split(delimiter)[0],
+
+      //old code 11 month default
+
+      // tenantLeaseStartDate:
+      //   entryDate.split(delimiter)[2] +
+      //   delimiter +
+      //   entryDate.split(delimiter)[1] +
+      //   delimiter +
+      //   entryDate.split(delimiter)[0],
+
       tenantLeaseEndDate: leaseEndDate,
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
@@ -749,6 +759,8 @@ const EditTenantDetails = ({
     history.push("/tenant-detail", { currentPagefromedit: currentPage });
   };
 
+  // new Date Code Rakki
+
   function calculateMonthsFromDate(date, monthsToAdd) {
     try {
       const d = new Date(date);
@@ -761,8 +773,6 @@ const EditTenantDetails = ({
     }
   }
   const [endDateFin, setEndDateFin] = useState(null);
-
-  // new Date Code Rakki
 
   useEffect(() => {
     if (entryDate.length === 10) {
@@ -1221,12 +1231,12 @@ const EditTenantDetails = ({
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label>
-                  Lease End Date ({endDateFin}){/* (DD-MM-YYYY)* */}:{" "}
+                  Lease End Date ({endDateFin}){/* (DD-MM-YYYY){endDate} */}:{" "}
                 </label>
                 <input
                   placeholder="DD-MM-YYYY"
                   className="form-control cpp-input datevalidation"
-                  value={endDate}
+                  value={endDateFin}
                   readOnly
                   // disabled
                 ></input>
