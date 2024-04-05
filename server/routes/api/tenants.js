@@ -2837,10 +2837,43 @@ router.post("/add-user-activity-details", auth, async (req, res) => {
 router.post("/get-user-activity", auth, async (req, res) => {
   try {
     let data = req.body;
-    const userActivityData = await UserActivity.find({
-      OrganizationId: data.OrganizationId,
-    }).sort({ _id: -1 });
-
+      const userActivityData = await UserActivity.aggregate([
+      {
+        $match: {
+          OrganizationId:mongoose.Types.ObjectId(data.OrganizationId),
+        }
+      },
+      {
+        $sort: {
+          _id: -1,
+        }
+      },
+      {
+        $lookup: {
+          from: "userdetails",
+          localField: "userId",
+          foreignField: "_id",
+          as: "userDetails"
+        }
+      },
+      {
+        $unwind: "$userDetails"
+      },
+      {
+        $project: {
+          _id: "$_id", 
+          userName:"$userName",
+          Menu:"$Menu",
+          Operation:"$Operation",
+          Name:"$Name",
+          OrganizationId:"$OrganizationId",
+          Dno:"$Dno",
+          DateTime:"$DateTime",
+          Remarks:"$Remarks",
+          usergroup: "$userDetails.usergroup",
+        }
+      }
+    ]);
     res.json(userActivityData);
   } catch (err) {
     console.error(err.message);
