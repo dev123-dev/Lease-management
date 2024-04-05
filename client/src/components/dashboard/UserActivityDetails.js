@@ -40,11 +40,12 @@ const UserActivityDetails = ({
   };
   const csvTenantData = [
     [
-      "Menu",
-      "Name",
+      "Activity By",
       "Activity Type",
+      "Name",
       "Entered Date",
       "Time Stamp",
+      "Usergroup",
       "Lease Transfer to",
     ],
   ];
@@ -56,11 +57,12 @@ const UserActivityDetails = ({
     var formattedTime = dateTime ? new Date(dateTime).toLocaleTimeString() : "";
 
     return csvTenantData.push([
-      currentDatas.Menu,
+       currentDatas.userName,
+      currentDatas.Menu +''+ currentDatas.Operation,
       currentDatas.Name,
-      currentDatas.Operation,
       date,
       formattedTime,
+      currentDatas.usergroup,
       currentDatas.Remarks,
     ]);
   });
@@ -107,8 +109,7 @@ const UserActivityDetails = ({
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                User Activity of <span>{myuser.username} </span>
-                (Past 30 days)
+                User Activity (Past 30 days)
               </h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">
@@ -122,16 +123,14 @@ const UserActivityDetails = ({
                   />
                 </button>
               </Link>
-              {myuser.usergroup === "Admin" ? (
+            
                 <CSVLink
                   data={csvTenantData}
                   filename={"UserActivity-Report.csv"}
                 >
                   <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+             
 
               <button
                 style={{ border: "none" }}
@@ -162,17 +161,21 @@ const UserActivityDetails = ({
                     >
                       <thead>
                         <tr>
-                          <th
+                          {/* <th
                             style={showPrint}
                             className="headcolstatic"
                             // style={{ height: "-10px !important"}}
                           >
                             Menu
-                          </th>
-                          <th style={showPrint}>Name</th>
+                          </th> */}
+                              <th style={showPrint}>Activity By</th>
+                         
                           <th style={showPrint}>Activity Type</th>
+                             <th style={showPrint}>Name</th>
                           <th style={showPrint}>Entered Date </th>
                           <th style={showPrint}>Time Stamp</th>
+                       
+                          <th style={showPrint}>UserGroup</th>
                           <th style={showPrint}> Remarks</th>
                         </tr>
                       </thead>
@@ -194,14 +197,17 @@ const UserActivityDetails = ({
                               : "";
                             return (
                               <tr key={idx}>
-                                <td className="headcolstatic secondlinebreak1">
+                                {/* <td className="headcolstatic secondlinebreak1">
                                   {Val.Menu}
-                                </td>
-                                <td>{Val.Name}</td>
+                                </td> */}
+                                <td>{Val.userName}</td>
 
-                                <td>{Val.Operation}</td>
+                              <td>{Val.Menu + ' ' + Val.Operation}</td>
+                                   <td>{Val.Name}</td>
                                 <td>{date}</td>
                                 <td>{formattedTime}</td>
+                            
+                                    <td>{Val.usergroup}</td>
                                 {Val.Operation === "Lease Transfer" &&
                                 Val.Remarks ? (
                                   <td>
