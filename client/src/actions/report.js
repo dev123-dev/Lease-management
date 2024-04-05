@@ -15,14 +15,22 @@ import {
   SET_LOADING_TRUE,
   SET_LOADING_FALSE,
 } from "./types";
-import setAuthToken from "../utils/setAuthToken";
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
 // var linkPath = process.env.REACT_APP_BASE_URL;
 var linkPath = "";
 
 export const getPropertyReport = () => async (dispatch) => {
   try {
-    console.log("hello");
+    const res = await axios.post(`${linkPath}/api/report/getPropertyReport`);
+    dispatch({
+      type: "PROPERTY_REPORT_LIST",
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,

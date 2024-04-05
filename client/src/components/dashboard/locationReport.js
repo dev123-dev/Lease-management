@@ -270,44 +270,41 @@ const LocationReport = ({
               <h2 className="heading_color  headsize  ml-4">Location Report</h2>
             </div>
             <div className="col-lg-5 mt-3">
-
-            <div className="row">
-
-              
-<div className="col-lg-6 col-sm-12 col-md-12">
-<Select
-                className="dropdown text-left mt-sm-3"
-                placeholder="Search-Location"
-                name="location"
-                options={Sellocation}
-                value={LOCATION}
-                onChange={(e) => onchangeLocation(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-              ></Select>
-</div>
-<div className="col-lg-6 col-sm-12 col-md-12"></div>
-</div>
-
-
-
-
-              
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Search-Location"
+                    name="location"
+                    options={Sellocation}
+                    value={LOCATION}
+                    onChange={(e) => onchangeLocation(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
             </div>
             <div className="col-lg-2 text-end pt-4 iconspace">
               {" "}
               <Link to="/Report">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back"  className="iconSize"/>
+                  <img
+                    src={Back}
+                    alt="Back"
+                    title="Back"
+                    className="iconSize"
+                  />
                 </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
@@ -316,7 +313,12 @@ const LocationReport = ({
                     data={csvLocationData}
                     filename={"Location-Report.csv"}
                   >
-                    <img src={Excel} alt="Excel-Export" title="Excel-Export"  className="iconSize"/>
+                    <img
+                      src={Excel}
+                      alt="Excel-Export"
+                      title="Excel-Export"
+                      className="iconSize"
+                    />
                   </CSVLink>
                   <button
                     style={{ border: "none" }}
@@ -330,7 +332,12 @@ const LocationReport = ({
                       OnPrint();
                     }}
                   >
-                    <img src={Print} alt="Print" title="Print"  className="iconSize" />
+                    <img
+                      src={Print}
+                      alt="Print"
+                      title="Print"
+                      className="iconSize"
+                    />
                   </button>
                 </>
               ) : (
@@ -370,7 +377,7 @@ const LocationReport = ({
 
                           <th style={showPrint}>Address</th>
                           <th style={showPrint}>Location</th>
-                          <th style={showPrint}>  Door No's</th>
+                          <th style={showPrint}> Door No's</th>
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -438,8 +445,10 @@ const LocationReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p  className="text-end h6 font-weight-bold"
-                      style={{ color: "#095a4a" }}>
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Property : {particular_org_data.length}
                   </p>
                 </div>
