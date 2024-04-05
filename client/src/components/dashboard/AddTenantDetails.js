@@ -176,7 +176,7 @@ const AddTenantDetails = ({
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
   const allBuildingNames = [];
-  AvaiableRoomBuilding.map((buildingData) =>
+  AvaiableRoomBuilding.filter((ele)=>ele.shopStatus=="Active").map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.BuildingName,

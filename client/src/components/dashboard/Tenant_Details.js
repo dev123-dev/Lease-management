@@ -395,7 +395,7 @@ const Tenant_Details = ({
   //propertywise
   const propertyname = [];
   particular_org_data &&
-    particular_org_data.map((ele) =>
+    particular_org_data.filter((ele)=>ele.shopStatus==="Active").map((ele) =>
       propertyname.push({
         label: ele.BuildingName,
         value: ele.BuildingId,
@@ -461,26 +461,28 @@ const Tenant_Details = ({
     ],
   ];
 
-  sortetenantdetails.map((sortetenantdetails) => {
-    var doorNo = sortetenantdetails.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
-    var ED = sortetenantdetails.tenantLeaseEndDate.split(/\D/g);
+ sortetenantdetails
+  .filter((tenant) => tenant.tenantstatus === "Active")
+  .map((tenant) => {
+    var doorNo = tenant.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
+    var ED = tenant.tenantLeaseEndDate.split(/\D/g);
     var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
-    var ED2 = sortetenantdetails.tenantLeaseStartDate.split(/\D/g);
+    var ED2 = tenant.tenantLeaseStartDate.split(/\D/g);
     var tenantLeaseStartDate = [ED2[2], ED2[1], ED2[0]].join("-");
     return csvTenantData.push([
-      sortetenantdetails.tenantName,
-      sortetenantdetails.BuildingName,
-      sortetenantdetails.Location,
+      tenant.tenantName,
+      tenant.BuildingName,
+      tenant.Location,
       doorNo,
-      sortetenantdetails.tenantFileNo,
-      sortetenantdetails.tenantRentAmount,
+      tenant.tenantFileNo,
+      tenant.tenantRentAmount,
       tenantLeaseStartDate,
       tenantLeaseEndDate,
-      sortetenantdetails.tenantFirmName,
-      sortetenantdetails.tenantPhone,
-      // sortetenantdetails.tenantPanNo,
-      // sortetenantdetails.tenantAdharNo,
-      sortetenantdetails.tenantstatus,
+      tenant.tenantFirmName,
+      tenant.tenantPhone,
+      // tenant.tenantPanNo,
+      // tenant.tenantAdharNo,
+      tenant.tenantstatus,
     ]);
   });
   const [showPrint, setShowPrint] = useState({
@@ -672,8 +674,7 @@ const Tenant_Details = ({
                     />
                   </Link>
                 </button>
-                {myuser.usergroup === "Admin" ? (
-                  <CSVLink data={csvTenantData} filename={"Tenant-Details.csv"}>
+            {myuser.usergroup==="Admin"||myuser.usergroup==="Manager"?(<> <CSVLink data={csvTenantData} filename={"Tenant-Details.csv"}>
                     <img
                       src={Excel}
                       alt="Excel-Export"
@@ -681,9 +682,7 @@ const Tenant_Details = ({
                       className="iconSize"
                     />
                   </CSVLink>
-                ) : (
-                  <></>
-                )}
+              
                 <button
                   style={{ border: "none" }}
                   onClick={async () => {
@@ -703,7 +702,8 @@ const Tenant_Details = ({
                     title="Print"
                     className="iconSize"
                   />
-                </button>
+                </button></>):(<></>)}
+                 
 
                 <img
                   style={{ cursor: "pointer" }}
@@ -863,7 +863,7 @@ const Tenant_Details = ({
                             <th style={showPrint}>Expiry Date</th>
                             <th style={showPrint}>Rent Amount</th>
                             <th style={showPrint}>Tenant Status</th>
-                            {myuser.usergroup === "IT Department" ? (
+                            {myuser.usergroup === "Manager" ? (
                               <></>
                             ) : (
                               <>
@@ -915,7 +915,7 @@ const Tenant_Details = ({
                                   <td>{tenant}</td>
                                   <td>{Val.tenantRentAmount}</td>
                                   <td>{Val.tenantstatus}</td>
-                                  {myuser.usergroup === "IT Department" ? (
+                                  {myuser.usergroup === "Manager" ? (
                                     <></>
                                   ) : (
                                     <>
@@ -1236,7 +1236,7 @@ const Tenant_Details = ({
                       onChange={(e) => HandelCheck(e)}
                     />{" "}
                     &nbsp;
-                    <label for="doorNumber">{ele.label}&nbsp; &nbsp;</label>
+                    <label htmlFor="doorNumber">{ele.label}&nbsp; &nbsp;</label>
                   </>
                 );
               }

@@ -109,7 +109,7 @@ const AllReport = ({
 
         <div class=" ml-5">
           <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            {/* <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation">
               <button
                 class="nav-link active"
                 id="pills-home-tab"
@@ -122,8 +122,8 @@ const AllReport = ({
               >
                 General
               </button>
-            </li> */}
-            {/* <li class="nav-item" role="presentation">
+            </li> 
+            <li class="nav-item" role="presentation">
               <button
                 class="nav-link"
                 id="pills-profile-tab"
@@ -136,7 +136,7 @@ const AllReport = ({
               >
                 Finance
               </button>
-            </li> */}
+            </li>
           </ul>
 
           <div class="tab-content" id="pills-tabContent">
@@ -330,7 +330,7 @@ const AllReport = ({
                 {/* <div className="col-lg-3  col-sm-12 col-md-12"></div> */}
               </div>
             </div>
-            {/* <div
+            <div
               class="tab-pane fade"
               id="pills-profile"
               role="tabpanel"
@@ -369,7 +369,7 @@ const AllReport = ({
 
                 <div className="col-lg-3  col-sm-12 col-md-12"></div>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
 
