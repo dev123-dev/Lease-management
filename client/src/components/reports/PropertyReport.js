@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import { CSVLink } from "react-csv";
@@ -13,6 +13,7 @@ import Print from "../../static/images/Print.svg";
 import Excel from "../../static/images/Microsoft Excel.svg";
 import refresh from "../../static/images/Refresh.svg";
 import Back from "../../static/images/Back.svg";
+import ShowDoorsModal from "../modal/ShowDoorsModal";
 
 export const PropertyReport = ({
   auth: { user },
@@ -60,8 +61,8 @@ export const PropertyReport = ({
     }
   };
 
-   const [Location, setLocation] = useState(null);
-    const onchangeLocation = (e) => {
+  const [Location, setLocation] = useState(null);
+  const onchangeLocation = (e) => {
     setLocation(e);
     const LocationName = {
       OrganizationId: user && user.OrganizationId,
@@ -70,9 +71,7 @@ export const PropertyReport = ({
     getPropertyReport(LocationName);
   };
 
-
-
-//pagination code
+  //pagination code
   const [currentData, setCurrentData] = useState(1);
   const [dataPerPage] = useState(8);
   //Get Current Data
@@ -85,7 +84,7 @@ export const PropertyReport = ({
   const paginate = (nmbr) => {
     setCurrentData(nmbr);
   };
-   let ActiveProperty =
+  let ActiveProperty =
     propertyReportList &&
     propertyReportList.filter((ele) => {
       if (ele.shopStatus === "Active") {
@@ -102,12 +101,12 @@ export const PropertyReport = ({
 
   //   const [isPrinting, setIsPrinting] = useState(false);
   // useEffect(() => {
-  
+
   //   return () => {
   //     setIsPrinting(false);
   //   };
   // }, []);
- const componentRef = useRef();
+  const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: "Property Detail",
@@ -123,121 +122,116 @@ export const PropertyReport = ({
       }, 200);
     },
   });
-  
-    const Refresh = () => {
+
+  const Refresh = () => {
     getPropertyReport("");
     setLocation(null);
   };
 
-
-const locations = myuser.output.Location.map(item => ({ label: item ,value:item}));
+  const locations = myuser.output.Location.map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   return (
     <div className="col mt-sm-4 space">
-      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding " >
-     
-          <div className="row mt-5 ">
-            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
-              <h2 className="heading_color  headsize  ml-4">
-                Property Report
-              </h2>
-            </div>
+      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
+        <div className="row mt-5 ">
+          <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+            <h2 className="heading_color  headsize  ml-4">Property Report</h2>
+          </div>
 
-            <div className="col-lg-5  col-sm-12 col-md-12 mt-4 ">
-              <div className="row">
-                <div className="col-lg-6 col-sm-12 col-md-12">
-                  <Select
-                className="py-0"
-                name="Property name"
-                placeholder="Select Location"
-                options={locations}
-                value={Location}
-                onChange={(e)=>onchangeLocation(e)}
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-            
-                  }),
-            
-                }}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-                required
-              ></Select>
-                </div>
-                <div className="col-lg-6 col-sm-12 col-md-12"></div>
-              </div>
-            </div>
-          
-         
-              <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
-              {" "}
-           
-                <>
-              <Link to="/Report">
-              <button style={{ border: "none" }}>
-                <img src={Back} alt="Back" title="Back" className=" iconSize" />
-              </button>
-            </Link>
-       
-             <CSVLink data={[]} filename={"Property-Report.csv"}>
-                  <img
-                    src={Excel}
-                    alt="Excel-Export"
-                    title="Excel-Export"
-                    className=" iconSize"
-                  />
-                </CSVLink>
-                </>
-             
-                   <button
-                  style={{ border: "none" }}
-                  onClick={async () => {
-                    await setShowPrint({
-                      backgroundColor: "#095a4a",
-                      color: "black",
-                      fontWeight: "bold",
-                    });
-
-                    handlePrint();
+          <div className="col-lg-5  col-sm-12 col-md-12 mt-4 ">
+            <div className="row">
+              <div className="col-lg-6 col-sm-12 col-md-12">
+                <Select
+                  className="py-0"
+                  name="Property name"
+                  placeholder="Select Location"
+                  options={locations}
+                  value={Location}
+                  onChange={(e) => onchangeLocation(e)}
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                    }),
                   }}
-                >
+                  theme={(theme) => ({
+                    ...theme,
+                    height: 26,
+                    minHeight: 26,
+                    borderRadius: 1,
+                    colors: {
+                      ...theme.colors,
+                      primary25: "#e8a317",
+                      primary: "#095a4a",
+                    },
+                  })}
+                  required
+                ></Select>
+              </div>
+              <div className="col-lg-6 col-sm-12 col-md-12"></div>
+            </div>
+          </div>
+
+          <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
+            {" "}
+            <>
+              <Link to="/Report">
+                <button style={{ border: "none" }}>
                   <img
-                    src={Print}
-                    alt="Print"
-                    title="Print"
+                    src={Back}
+                    alt="Back"
+                    title="Back"
                     className=" iconSize"
                   />
                 </button>
-              <button style={{ border: "none"}} className="mx-0 px-0">
+              </Link>
+
+              <CSVLink data={[]} filename={"Property-Report.csv"}>
                 <img
-                  className="iconSize"
-                  // className=" float-right "
-                  style={{ cursor: "pointer" }}
-                  onClick={() => Refresh()}
-                  src={refresh}
-                  alt="refresh"
-                  title="Refresh"
+                  src={Excel}
+                  alt="Excel-Export"
+                  title="Excel-Export"
+                  className=" iconSize"
                 />
-              </button>
-            </div>
-             
+              </CSVLink>
+            </>
+            <button
+              style={{ border: "none" }}
+              onClick={async () => {
+                await setShowPrint({
+                  backgroundColor: "#095a4a",
+                  color: "black",
+                  fontWeight: "bold",
+                });
+
+                handlePrint();
+              }}
+            >
+              <img
+                src={Print}
+                alt="Print"
+                title="Print"
+                className=" iconSize"
+              />
+            </button>
+            <button style={{ border: "none" }} className="mx-0 px-0">
+              <img
+                className="iconSize"
+                // className=" float-right "
+                style={{ cursor: "pointer" }}
+                onClick={() => Refresh()}
+                src={refresh}
+                alt="refresh"
+                title="Refresh"
+              />
+            </button>
           </div>
+        </div>
 
         <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
-          <div
-            className="col"
-            ref={componentRef}
-          >
+          <div className="col" ref={componentRef}>
             <div className="row ">
               <div className="col-lg-1"></div>
               <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -261,35 +255,40 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {currentDatas&&currentDatas.map((property, idx) => {
-                      return (
-                        <tr key={idx}>
-                          {property.shopStatus === "Active" ?(<td>{property.BuildingName}</td>):( <td
-                                    style={{ backgroundColor: "#dda6a6" }}
-                                    className="headcolstatic secondlinebreak1"
-                                  >
-                                    {property.BuildingName}
-                                  </td>)}
-                          
-                          <td>{property.Location}</td>
-                          <td>{property.shopAddress}</td>
-                          <td>{property.shopDoorNo.length}</td>
-                          <td>{property.tenants.length}</td>
-                          <td>
-                            {getTotal(property.tenants, "tenantRentAmount")}
-                          </td>
-                          <td>
-                            {getTotal(property.tenants, "tenantDepositAmt")}
-                          </td>
-                          <td>
-                            <img
-                              className="img_icon_size log"
-                              src={require("../../static/images/info.png")}
-                              alt="shop no."
-                              onClick={() => {
-                                onShowDoorClick(property);
-                              }}
-                            />
+                    {currentDatas &&
+                      currentDatas.map((property, idx) => {
+                        return (
+                          <tr key={idx}>
+                            {property.shopStatus === "Active" ? (
+                              <td>{property.BuildingName}</td>
+                            ) : (
+                              <td
+                                style={{ backgroundColor: "#dda6a6" }}
+                                className="headcolstatic secondlinebreak1"
+                              >
+                                {property.BuildingName}
+                              </td>
+                            )}
+
+                            <td>{property.Location}</td>
+                            <td>{property.shopAddress}</td>
+                            <td>{property.shopDoorNo.length}</td>
+                            <td>{property.tenants.length}</td>
+                            <td>
+                              {getTotal(property.tenants, "tenantRentAmount")}
+                            </td>
+                            <td>
+                              {getTotal(property.tenants, "tenantDepositAmt")}
+                            </td>
+                            <td>
+                              <img
+                                className="img_icon_size log"
+                                src={require("../../static/images/info.png")}
+                                alt="shop no."
+                                onClick={() => {
+                                  onShowDoorClick(property);
+                                }}
+                              />
                               {/* {isPrinting ? (
                                     Val.shopDoorNo
                                       .map((e) => e.doorNo)
@@ -304,51 +303,52 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
                                       )}
                                     />
                                   )} */}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>
               <div className="col-lg-1"></div>
             </div>
-              <div className="row">
-                <div className="col-lg-6  col-sm-12 col-md-12">
-                  {propertyReportList && propertyReportList.length !== 0 ? (
-                    <Pagination
-                      dataPerPage={dataPerPage}
-                      totalData={propertyReportList.length}
-                      paginate={paginate}
-                      currentPage={currentData}
-                    />
-                  ) : (
-                    <div />
-                  )}
-                </div>
-                <div className="col-lg-6  col-sm-12 col-md-12">
-                  <p
-                    className="text-end h6 font-weight-bold"
-                    style={{ color: "#095a4a" }}
-                  >
-                    Active Property:&nbsp;{ActiveProperty.length} &nbsp;&nbsp;&nbsp;
-                    <span style={{ color: "red" }}>
-                      Deactive Property:&nbsp;{DeactiveProperty.length}
-                    </span>
-                  </p>
+            <div className="row">
+              <div className="col-lg-6  col-sm-12 col-md-12">
+                {propertyReportList && propertyReportList.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={propertyReportList.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <div />
+                )}
+              </div>
+              <div className="col-lg-6  col-sm-12 col-md-12">
+                <p
+                  className="text-end h6 font-weight-bold"
+                  style={{ color: "#095a4a" }}
+                >
+                  Active Property:&nbsp;{ActiveProperty.length}{" "}
+                  &nbsp;&nbsp;&nbsp;
+                  <span style={{ color: "red" }}>
+                    Deactive Property:&nbsp;{DeactiveProperty.length}
+                  </span>
+                </p>
 
-                  {/* <p
+                {/* <p
                     className="text-end h6 font-weight-bold"
                     style={{ color: "#095a4a" }}
                   >
                     No. of Property : {particular_org_data.length}
                   </p> */}
-                </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
-     
+
       {/* SEE door NO  */}
       <Modal
         show={ShowDoors.status}
@@ -388,44 +388,10 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
           </div>
         </Modal.Header>
         <Modal.Body>
-          <>
-            <div className="d-flex align-item-center justify-content-center font-weight-bold">
-              {ShowDoors.data?.BuildingName}
-            </div>
-            <div
-              className="row"
-              style={{ maxHeight: "70vh", overflowY: "scroll" }}
-            >
-              <div className="col-6">
-                <div>Occupied Door List</div>
-                {ShowDoors.data &&
-                  ShowDoors.data.occupied.map((e) => (
-                    <div
-                      className="card bg-success text-light"
-                      style={{ height: "40px" }}
-                    >
-                      {e.doorNo}-{e.status}
-                    </div>
-                  ))}
-              </div>
-              <div className="col-6">
-                <div>Un-occupied Door List</div>
-                {ShowDoors.data &&
-                  ShowDoors.data.unoccupied.map((e) => (
-                    <div
-                      className="card bg-danger text-light"
-                      style={{ height: "40px" }}
-                    >
-                      {e.doorNo}-{e.status}
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </>
+          <ShowDoorsModal ShowDoors={ShowDoors} />
         </Modal.Body>
       </Modal>
     </div>
-    
   );
 };
 
