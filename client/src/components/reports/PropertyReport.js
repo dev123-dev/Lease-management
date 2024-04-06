@@ -60,6 +60,10 @@ export const PropertyReport = ({
       return 0;
     }
   };
+   const locations = myuser.output.Location.map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   const [Location, setLocation] = useState(null);
   const onchangeLocation = (e) => {
@@ -99,13 +103,13 @@ export const PropertyReport = ({
       }
     });
 
-  //   const [isPrinting, setIsPrinting] = useState(false);
-  // useEffect(() => {
+    const [isPrinting, setIsPrinting] = useState(false);
+  useEffect(() => {
 
-  //   return () => {
-  //     setIsPrinting(false);
-  //   };
-  // }, []);
+    return () => {
+      setIsPrinting(false);
+    };
+  }, []);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -122,16 +126,50 @@ export const PropertyReport = ({
       }, 200);
     },
   });
+ 
+  //Excel Export
+ const csvPropertyReportData = [
+    ["Building Name", "Location", "Address", "No of doors","No of Agreement","Total Monthly Rent","Total Deposit Amount","Occupied Doors","Unoccupied Doors","Shop Status"],
+  ];
+
+  propertyReportList.map((propertyReportList) => {
+    var doorNo =
+      propertyReportList &&
+      propertyReportList.shopDoorNo.map((e) => e.doorNo).join(", ");
+ let occupied = [];
+ 
+    let unoccupied   = [];
+propertyReportList.shopDoorNo.map((e) => {
+    e.status === "Acquired" ? occupied.push(e.doorNo) : unoccupied.push(e.doorNo);
+});
+
+let occupiedString = occupied.join(' ');
+let unoccupiedString = unoccupied.join(' '); 
+
+
+    return csvPropertyReportData.push([
+      propertyReportList.BuildingName,
+      propertyReportList.Location,
+      propertyReportList.shopAddress,
+    propertyReportList.shopDoorNo.length,
+      propertyReportList.tenants.length,
+getTotal(propertyReportList.tenants, "tenantRentAmount"),
+getTotal(propertyReportList.tenants, "tenantDepositAmt"),
+
+     occupiedString,
+   unoccupiedString,
+      propertyReportList.shopStatus,
+
+    ]);
+  });
+
 
   const Refresh = () => {
     getPropertyReport("");
     setLocation(null);
   };
 
-  const locations = myuser.output.Location.map((item) => ({
-    label: item,
-    value: item,
-  }));
+ 
 
   return (
     <div className="col mt-sm-4 space">
@@ -188,7 +226,7 @@ export const PropertyReport = ({
                 </button>
               </Link>
 
-              <CSVLink data={[]} filename={"Property-Report.csv"}>
+              <CSVLink data={csvPropertyReportData} filename={"Property-Report.csv"}>
                 <img
                   src={Excel}
                   alt="Excel-Export"
@@ -231,7 +269,8 @@ export const PropertyReport = ({
         </div>
 
         <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
-          <div className="col" ref={componentRef}>
+          <div className="col" >
+            <div ref={componentRef}>
             <div className="row ">
               <div className="col-lg-1"></div>
               <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -289,20 +328,20 @@ export const PropertyReport = ({
                                   onShowDoorClick(property);
                                 }}
                               />
-                              {/* {isPrinting ? (
-                                    Val.shopDoorNo
-                                      .map((e) => e.doorNo)
-                                      .join(", ")
+                              {isPrinting ? (
+                                    propertyReportList &&
+      property.shopDoorNo.map((e) => e.doorNo).join(", ")
                                   ) : (
-                                    <img
-                                      className="img_icon_size "
-                                      src={require("../../static/images/info.png")}
-                                      alt="shop no."
-                                      title={Val.shopDoorNo.map(
-                                        (e) => e.doorNo
-                                      )}
-                                    />
-                                  )} */}
+                                    // <img
+                                    //   className="img_icon_size "
+                                    //   src={require("../../static/images/info.png")}
+                                    //   alt="shop no."
+                                    //   title={property.shopDoorNo.map(
+                                    //     (e) => e.doorNo
+                                    //   )}
+                                    // />
+                                    <></>
+                                  )}
                             </td>
                           </tr>
                         );
@@ -312,7 +351,8 @@ export const PropertyReport = ({
               </div>
               <div className="col-lg-1"></div>
             </div>
-            <div className="row">
+            </div>
+            <div className="row" >
               <div className="col-lg-6  col-sm-12 col-md-12">
                 {propertyReportList && propertyReportList.length !== 0 ? (
                   <Pagination
@@ -325,9 +365,10 @@ export const PropertyReport = ({
                   <div />
                 )}
               </div>
-              <div className="col-lg-6  col-sm-12 col-md-12">
+              <div className="col-lg-6  col-sm-12 col-md-12" >
+           
                 <p
-                  className="text-end h6 font-weight-bold"
+                  className="text-end h6 font-weight-bold "
                   style={{ color: "#095a4a" }}
                 >
                   Active Property:&nbsp;{ActiveProperty.length}{" "}
@@ -335,14 +376,8 @@ export const PropertyReport = ({
                   <span style={{ color: "red" }}>
                     Deactive Property:&nbsp;{DeactiveProperty.length}
                   </span>
-                </p>
-
-                {/* <p
-                    className="text-end h6 font-weight-bold"
-                    style={{ color: "#095a4a" }}
-                  >
-                    No. of Property : {particular_org_data.length}
-                  </p> */}
+                </p>            
+         
               </div>
             </div>
           </div>
