@@ -5,3 +5,11 @@ export const indianFormatDate = (data) => {
     return "err";
   }
 };
+
+export const indianNumberFormat = (data) => {
+  try {
+    return data.toLocaleString("en-IN");
+  } catch (er) {
+    return "err";
+  }
+};
