@@ -30,9 +30,9 @@ const EditAdminUser = ({
   }, []);
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "IT Department", label: "IT Department" },
+    // { value: "IT Department", label: "IT Department" },
     { value: "Manager", label: "Manager" },
-    // { value: "Clerk", label: "Clerk" },
+   
   ];
   const [group, setgroup] = useState(
     org
@@ -100,7 +100,7 @@ const EditAdminUser = ({
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setUsername(filteredValue);
@@ -121,7 +121,7 @@ const EditAdminUser = ({
     if (emailRegex.test(inputValue)) {
       setValidationEmailMessage("");
     } else {
-      setValidationEmailMessage("Please enter a valid email address.");
+      setValidationEmailMessage("Please enter valid Email Address");
     }
   };
 
@@ -139,7 +139,7 @@ const EditAdminUser = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationMessage("")
-        : setValidationMessage("enter valid phone number");
+        : setValidationMessage("Please enter valid Phone Number");
 
       setUserphone(cleanedValue);
     }

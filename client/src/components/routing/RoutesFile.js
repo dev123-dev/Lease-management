@@ -35,6 +35,9 @@ import BuildingReport from "../dashboard/BuildingReport";
 import NoContent from "../layout/nocontent";
 import UserActivityDetails from "../dashboard/UserActivityDetails";
 
+//Report
+import PropertyReport from "../reports/PropertyReport";
+import RenewalReport from "../reports/RenewalReport";
 import {
   getRoutesSetOldRecordsClicked,
   getRoutesSetCurrentYearMonthsRecordsClicked,
@@ -157,6 +160,16 @@ const RoutesFile = ({
         />
         <PrivateRoute exact path="/route-driver" component={RouteDriver} />
         <PrivateRoute exact path="/nocontent" component={NoContent} />
+
+        {/* Report Route */}
+        <PrivateRoute
+          exact
+          path="/property-report"
+          component={PropertyReport}
+        />
+
+        <PrivateRoute exact path="/renewal-report" component={RenewalReport} />
+
         <Route component={NotFound} />
       </Switch>
     </section>

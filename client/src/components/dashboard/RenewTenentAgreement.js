@@ -73,7 +73,7 @@ const RenewTenentAgreement = ({
     setChequeDate(e.target.value);
     e
       ? setValidationChequeDateMessage("")
-      : setValidationChequeDateMessage("please enter date");
+      : setValidationChequeDateMessage("Please enter Date");
   };
 
   // validation for bank name
@@ -111,7 +111,7 @@ const RenewTenentAgreement = ({
     ) {
       setValidationTransIdMessage("");
     } else {
-      setValidationTransIdMessage("Please enter a valid  Transcation id");
+      setValidationTransIdMessage("Please enter a valid  Transaction Id");
     }
 
     setTransId(inputValue);
@@ -132,24 +132,6 @@ const RenewTenentAgreement = ({
     }
   };
 
-  // const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
-  // useEffect(() => {
-  //   if (
-
-  //     validationChequeMessage === "" &&
-  //     validationBankMessage === "" &&
-  //     validationTransIdMessage === ""
-  //   ) {
-  //     setNextButtonDisabled(false);
-  //   } else {
-  //     setNextButtonDisabled(true);
-  //   }
-  // }, [
-
-  //   validationChequeMessage,
-  //   validationBankMessage,
-  //   validationTransIdMessage,
-  // ]);
   const onPaymentModeChange = (e) => {
     setErrors({
       ...errors,
@@ -159,25 +141,25 @@ const RenewTenentAgreement = ({
 
     setPaymentMode(e);
     if (e.value === "UPI") {
-      setValidationTransIdMessage("Please enter transaction");
+      setValidationTransIdMessage("Please enter Transaction Id");
       setValidationBankMessage("");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
     } else if (e.value === "NEFT") {
-      setValidationBankMessage("please enter bank name");
-      setValidationTransIdMessage("Please enter transaction");
+      setValidationBankMessage("Please enter Bank Name");
+      setValidationTransIdMessage("Please enter Transaction Id");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
     } else if (e.value === "Card") {
-      setValidationBankMessage("please enter bank name");
-      setValidationTransIdMessage("Please enter transaction");
+      setValidationBankMessage("Please enter Bank Name");
+      setValidationTransIdMessage("Please enter Transaction Id");
       setValidationChequeMessage("");
       setValidationChequeDateMessage("");
     } else if (e.value === "Cheque") {
-      setValidationBankMessage("please enter bank name");
+      setValidationBankMessage("Please enter Bank Name");
       setValidationTransIdMessage("");
-      setValidationChequeMessage("Please Enter cheque/DD No");
-      setValidationChequeDateMessage("Please Enter Date");
+      setValidationChequeMessage("Please Enter Cheque/DD No");
+      setValidationChequeDateMessage("Please enter Date");
     } else if (e.value === "Cash") {
       setValidationBankMessage("");
       setValidationTransIdMessage("");
@@ -218,12 +200,21 @@ const RenewTenentAgreement = ({
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-
-    if (/^(?!0\d*)\d+(\.\d+)?$/.test(inputValue) || inputValue === "") {
+    if (inputValue === "") {
+      // Allow empty string when user is deleting digits
+      setRentAmount(inputValue);
+      setValidationMessage("Enter valid Amount");
+      setNextButtonDisabled1(true);
+    } else if (/^(?:0|[1-9]\d*)(?:\.\d{0,2})?$/.test(inputValue)) {
       setRentAmount(inputValue);
       setValidationMessage("");
+      setNextButtonDisabled1(false);
     } else {
-      setValidationMessage("enter valid amount");
+      setRentAmount(inputValue);
+      setValidationMessage(
+        "Please enter a valid amount with two digits after the decimal point"
+      );
+      setNextButtonDisabled1(true);
     }
   };
 
@@ -234,13 +225,31 @@ const RenewTenentAgreement = ({
         tenantRentAmount: tenantRentAmount,
         tenantFileNo: tenantFileNo,
         // tenantDoorNo: door,
+
+        // endDateFin new code //startDate
+        tenantLeaseStartDate:
+          endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+
         tenantLeaseStartDate:
           entryDate.split(delimiter)[2] +
           delimiter +
           entryDate.split(delimiter)[1] +
           delimiter +
           entryDate.split(delimiter)[0],
-        tenantLeaseEndDate: leaseEndDate,
+
+        // tenantLeaseEndDate: leaseEndDate,
+
+        tenantLeaseEndDate:
+          endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+
         tdId: tenantsData.tdId,
         OrganizationId: tenantsData.OrganizationId,
         BuildingName: tenantsData.BuildingName,
@@ -345,7 +354,7 @@ const RenewTenentAgreement = ({
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
-      const newYear = yearVal + 1;
+      const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
 
@@ -405,7 +414,10 @@ const RenewTenentAgreement = ({
 
   const onDateChangeEntry = (e) => {
     const { value } = e.target;
-
+    if (value == "") {
+      setOutput("R");
+      setLeaseEndDate("");
+    }
     const lastChar = value[value.length - 1];
     const checkLength = value.length === 3 || value.length === 6;
     const regex = /^[A-Za-z]+$/;
@@ -487,6 +499,7 @@ const RenewTenentAgreement = ({
 
   /////////////////////////////////////////////////////////////
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(false);
+  const [isNextButtonDisabled1, setNextButtonDisabled1] = useState(false); //rent amount
 
   useEffect(() => {
     if (
@@ -495,10 +508,18 @@ const RenewTenentAgreement = ({
       validationTransIdMessage === "" &&
       validationChequeMessage === "" &&
       validationChequeDateMessage === ""
+      // &&
+      // validationMessage===""
       //  &&
       // cardChecker === true
     ) {
       setNextButtonDisabled(false);
+    }
+    // if (validationMessage !== "") {
+    //   setNextButtonDisabled1(true);
+    // } else
+    else if (validationMessage === "") {
+      setNextButtonDisabled1(false);
     } else {
       setNextButtonDisabled(true);
     }
@@ -510,6 +531,32 @@ const RenewTenentAgreement = ({
     validationChequeDateMessage,
     paymentMode,
   ]);
+
+  //Rakxit-
+  function calculateMonthsFromDate(date, monthsToAdd) {
+    try {
+      const d = new Date(date);
+      d.setMonth(d.getMonth() + monthsToAdd);
+      d.setDate(d.getDate() - 1);
+      return d.toISOString().split("T")[0].split("-").reverse().join("-");
+    } catch (er) {
+      console.log(er);
+      return 0;
+    }
+  }
+
+  const [endDateFin, setEndDateFin] = useState(null);
+
+  useEffect(() => {
+    if (entryDate.length === 10) {
+      setEndDateFin(
+        calculateMonthsFromDate(
+          entryDate.split("-").reverse().join("-"),
+          myuser.output.leaseTimePeriod
+        )
+      );
+    }
+  }, [entryDate]);
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -570,7 +617,7 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
-            <label> Rent Amount:</label>
+            <label> Rent Amount* :</label>
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
@@ -612,14 +659,15 @@ const RenewTenentAgreement = ({
         <div className="row py-2">
           <div className="col-lg-4 col-md-2 col-sm-4 col-12">
             <label>Lease End Date:</label>
+            {/* <label>({  endDate})</label> */}
           </div>
 
           <div className="col-lg-6  col-md-4 col-sm-4 col-12">
-            <label>{endDate}</label>
+            <label>{endDateFin}</label>
           </div>
         </div>
         <div className="row py-2">
-          <div className="col-lg-4 col-md-2 col-sm-4 col-12">
+          <div className="col-lg-4 col-md-2 col-sm-4 col-12 mt-2">
             <label style={paymentmodeErrorStyle}>
               {" "}
               Payment Mode<span style={{ color: "red" }}>*</span>:
@@ -644,10 +692,17 @@ const RenewTenentAgreement = ({
                   primary: "#095a4a",
                 },
               })}
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  height: "35px",
+                }),
+                // Add other custom styles as needed
+              }}
             />
           </div>
           {paymentMode.value === "Cheque" ? (
-            <div className="row">
+            <div className="row py-2">
               <div className="col-lg-4 col-md-2 col-sm-4 col-12">
                 <label> Cheque No/DD No*:</label>
               </div>
@@ -711,8 +766,8 @@ const RenewTenentAgreement = ({
                   value="debit"
                   onChange={(e) => HandleCheck(e)}
                 />
+                &nbsp;
                 <label htmlFor="debit">Debit card&nbsp; &nbsp;</label>
-
                 <input
                   type="radio"
                   name="cardType"
@@ -720,6 +775,7 @@ const RenewTenentAgreement = ({
                   value="credit"
                   onChange={(e) => HandleCheck(e)}
                 />
+                &nbsp;
                 <label htmlFor="credit">Credit Card&nbsp; &nbsp;</label>
               </div>
 
@@ -821,7 +877,7 @@ const RenewTenentAgreement = ({
         </div>
         <div className="row py-2">
           <div className="col-lg-12  col-sm-12 col-md-12 Savebutton" size="lg">
-            {isNextButtonDisabled ? (
+            {isNextButtonDisabled || isNextButtonDisabled1 ? (
               <button
                 variant="success"
                 className="btn sub_form float-right"

@@ -8,6 +8,9 @@ import Modal from "react-bootstrap/Modal";
 import { deleteOrganization, getAllOrganization } from "../../actions/tenants";
 import "../../../../client/src/styles/CustomisedStyle.css";
 import EditOrganization from "./EditOrganization";
+import Add from "../../static/images/Add.svg";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
 
 import Pagination from "../layout/Pagination";
 
@@ -130,12 +133,12 @@ const AddOrgDashBoard = ({
             <div className="col">
               <div className="refreshbtn">
                 <img
-                  className="plusicon"
-                  height="20px"
+                  // className="plusicon"
+                  className="iconSize"
                   onClick={() => setShowadd(true)}
-                  src={require("../../static/images/add-icon.png")}
+                  src={Add}
                   alt="Add org"
-                  title="Add org"
+                  title="Add Organisation"
                 />
               </div>
 
@@ -153,7 +156,7 @@ const AddOrgDashBoard = ({
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Location</th>
-                        <th>StartDate</th>
+                        <th>Start Date</th>
                         <th>EndDate</th>
                         <th>Operation</th>
                       </tr>
@@ -188,19 +191,19 @@ const AddOrgDashBoard = ({
                               orgVal.org_status === "Expired" ? (
                                 <td className="text-center">
                                   <img
-                                    className="Cursor "
+                                    className="iconSize "
                                     onClick={() => onedit(orgVal, idx)}
-                                    src={require("../../static/images/edit_icon.png")}
-                                    alt="Edit"
-                                    title="Edit User"
+                                    src={Edit}
+                                    alt="Edit Organisation"
+                                    title="Edit Organisation"
                                   />
                                   &nbsp;
                                   <img
-                                    className="Cursor"
+                                    className="iconSize "
                                     onClick={() => onDelete(orgVal._id)}
-                                    src={require("../../static/images/delete.png")}
-                                    alt="delete User"
-                                    title="delete User"
+                                    src={Deactivate}
+                                    alt="delete Organisation"
+                                    title="Deactivate"
                                   />
                                 </td>
                               ) : (
@@ -230,7 +233,8 @@ const AddOrgDashBoard = ({
                 </div>
 
                 <div className="col-lg-6  col-sm-12 col-md-12 ">
-                  <p className="text-end h6  ">
+                  <p className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}>
                     No. of Organization : {allorg.length}
                   </p>
                 </div>

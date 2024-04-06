@@ -5,7 +5,13 @@ import { ParticularTenantFilterContactReport } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
-
+import Print from "../../static/images/Print.svg";
+import Add from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
+import Select from "react-select";
+import { useHistory, useLocation } from "react-router-dom";
 const RenewedTenantReport = ({
   auth: { user },
   tenants: { sortContactReport },
@@ -17,21 +23,44 @@ const RenewedTenantReport = ({
     ParticularTenantFilterContactReport();
   }, [freshpage]);
 
+  // go back to particular page from where it routed
+  const history = useHistory();
+  const location = useLocation();
+  const handleBackClick = () => {
+    if (location.state && location.state.from) {
+      if (location.state.from === "dashboard") {
+        history.push("/MainAdmin");
+      } else if (location.state.from === "report") {
+        history.push("/Report");
+      }
+    } else {
+      history.push("/Report");
+    }
+  };
+
   //year picker start
 
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const populateYears = (startYear, endYear) => {
-    const years = [];
-    for (let year = startYear; year <= endYear; year++) {
-      years.push(year);
-    }
-    return years;
-  };
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
-  };
-  const years = populateYears(2012, new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = useState({
+    label: new Date().getFullYear(),
+    value: new Date().getFullYear(),
+  });
+  const [RenewedYear, SetRenewedYear] = useState(new Date().getFullYear());
 
+  // Function to populate years array
+  const populateYears = (startYear, endYear) => {
+    const yearsArray = [];
+    for (let year = endYear; year >= startYear; year--) {
+      yearsArray.push({ label: year.toString(), value: year });
+    }
+    return yearsArray;
+  };
+
+  const years = populateYears(2020, new Date().getFullYear());
+
+  const handleYearChange = (selectedOption) => {
+    setSelectedYear(selectedOption);
+    SetRenewedYear(selectedOption.value);
+  };
   //end
 
   //pagination code
@@ -48,7 +77,7 @@ const RenewedTenantReport = ({
         ele.output.AgreementStatus === "Renewed" &&
         // (!ele.output.tenantRenewedDate || new Date(ele.output.tenantRenewedDate).getFullYear() === parseInt(selectedYear))
         new Date(ele.tenantLeaseStartDate).getFullYear() ===
-          parseInt(selectedYear)
+          parseInt(RenewedYear)
     );
 
   const currentDatas =
@@ -133,55 +162,67 @@ const RenewedTenantReport = ({
     },
   });
   const refresh = () => {
-    setSelectedYear(new Date().getFullYear());
+    const currentYear = new Date().getFullYear();
+    setSelectedYear({
+      label: currentYear,
+      value: currentYear,
+    });
+    SetRenewedYear(currentYear);
   };
 
   return (
     <>
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-          <div className="row mt-5  ">
-            <div className="col-lg-4 mt-3">
-              <h2 className="heading_color  headsize  ml-4">
-                Renewed Tenant Report
-              </h2>
+          <div className="row mt-5 ">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <h2 className="heading_color  headsize  ml-4">Renewed Report</h2>
             </div>
-            <div className=" row col-lg-4 mt-3">
-              <div className="col-lg-3 mt-4">Select Year:</div>
-              <div className="col-lg-2 mt-3">
-                <select value={selectedYear} onChange={handleYearChange}>
-                  <option value="">Select Year</option>
-                  {years &&
-                    years.map((year) => (
-                      <option key={year} value={year}>
-                        {year}
-                      </option>
-                    ))}
-                </select>
+            <div className="col-lg-5 mt-3">
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Select Year"
+                    onChange={(e) => handleYearChange(e)}
+                    options={years}
+                    value={selectedYear}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
               </div>
             </div>
-            <div className="col-lg-4 mt-5 text-right ">
-              <Link to="/MainAdmin">
-                <img
-                  height={28}
-                  src={require("../../static/images/back.png")}
-                  alt="Back"
-                  title="Back"
-                />
-              </Link>
-              {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvContactReportData}>
+
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
+              <button style={{ border: "none" }} onClick={handleBackClick}>
+                <img src={Back} alt="Back" title="Back" className=" iconSize" />
+              </button>
+
+         
+                <CSVLink
+                  data={csvContactReportData}
+                  filename={"Renewed-Tenant-Report.csv"}
+                >
                   <img
-                    className="img_icon_size log  ml-1"
-                    src={require("../../static/images/excel_icon.png")}
+                    className=" iconSize"
+                    src={Excel}
                     alt="Excel-Export"
+                    style={{ cursor: "pointer" }}
                     title="Excel-Export"
                   />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
-
+           
               <button
                 style={{ border: "none" }}
                 onClick={async () => {
@@ -195,19 +236,18 @@ const RenewedTenantReport = ({
                 }}
               >
                 <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
+                  src={Print}
                   alt="Print"
                   title="Print"
+                  className=" iconSize"
                 />
               </button>
               <img
-                className="ml-1"
+                className=" iconSize"
+                // className=" float-right "
                 style={{ cursor: "pointer" }}
-                height="20px"
                 onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
+                src={Refresh}
                 alt="refresh"
                 title="Refresh"
               />
@@ -244,8 +284,8 @@ const RenewedTenantReport = ({
                           <th style={showPrint}>Firm Name</th>
                           {/* <th style={showPrint}>Deposite Amount</th> */}
 
-                          <th style={showPrint}>lease Start Date</th>
-                          <th style={showPrint}>lease End Date</th>
+                          <th style={showPrint}>Lease Start Date</th>
+                          <th style={showPrint}>Lease End Date</th>
                           {/* <th style={showPrint}>Agreement Status</th> */}
                         </tr>
                       </thead>
@@ -335,7 +375,10 @@ const RenewedTenantReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Tenants : {activeData.length}
                   </p>
                 </div>

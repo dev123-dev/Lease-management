@@ -12,11 +12,17 @@ import {
   deactiveProperty,
   getAllSettings,
   getAllShops,
-  getDoorNo,
+  // getDoorNo,
   AddUserActivity,
 } from "../../actions/tenants";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
+import Add from "../../static/images/Add.svg";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
 const PropertyDetail = ({
   auth: { user },
   tenants: { particular_org_data, particular_org_loc },
@@ -24,13 +30,13 @@ const PropertyDetail = ({
   getParticularOrg,
   getAllSettings,
   AddUserActivity,
-  getDoorNo,
+  // getDoorNo,
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    getDoorNo();
+    // getDoorNo(); //no use
     fun();
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
 
@@ -270,7 +276,7 @@ const PropertyDetail = ({
     ["Building Name", "Address", "Location", "Door No."],
   ];
 
-  particular_org_data.map((particular_org_data) => {
+  particular_org_data.filter((ele)=>ele.shopStatus=="Active").map((particular_org_data) => {
     var doorNo =
       particular_org_data &&
       particular_org_data.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
@@ -329,52 +335,63 @@ const PropertyDetail = ({
               </h2>
             </div>
 
-            <div className="col-lg-5  col-sm-12 col-md-12 mt-4">
-              <Select
-                className="dropdown text-left "
-                placeholder="Search-Location"
-                name="location"
-                options={Sellocation}
-                value={LOCATION}
-                onChange={(e) => onchangeLocation(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-              ></Select>
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-4 ">
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left "
+                    placeholder="Search-Location"
+                    name="location"
+                    options={Sellocation}
+                    value={LOCATION}
+                    onChange={(e) => onchangeLocation(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
             </div>
-            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-3 pt-4 ">
+               {myuser.usergroup === "Admin" ? (
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
               {" "}
-              <img
-                height="20px"
-                className="img_icon_size log  ml-2"
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add Property"
-                title="Add Property"
-              />
-              {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvPropertyData}>
+           
+                <>
+              <button style={{ border: "none" }}>
+                <img
+                  onClick={() => setShowadd(true)}
+                  src={Add}
+                  alt="Add Property"
+                  title="Add Property"
+                  className="iconSize"
+                />
+              </button>
+       
+           
+                <CSVLink
+                  data={csvPropertyData}
+                  filename={"Property-Details.csv"}
+                >
                   <img
-                    className="img_icon_size log  ml-2"
-                    src={require("../../static/images/excel_icon.png")}
+                    className="iconSize"
+                    src={Excel}
                     alt="Excel-Export"
                     style={{ cursor: "pointer" }}
-                    height="20px"
                     title="Excel-Export"
                   />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+                </>
+             
+                
               <button
                 style={{ border: "none" }}
                 onClick={async () => {
@@ -388,23 +405,80 @@ const PropertyDetail = ({
                 }}
               >
                 <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
+                  src={Print}
                   alt="Print"
                   title="Print"
+                  className="iconSize"
                 />
               </button>
-              <img
-                className="ml-2 float-right mt-1"
-                style={{ cursor: "pointer" }}
-                height="20px"
-                onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
-                alt="refresh"
-                title="Refresh"
-              />
+                
+              <button style={{ border: "none"}} className="mx-0 px-0">
+                <img
+                  className="iconSize"
+                  // className=" float-right "
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  alt="refresh"
+                  title="Refresh"
+                />
+              </button>
             </div>
+             ) : (
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
+              {" "}
+           
+                <>
+             
+       
+           
+                <CSVLink
+                  data={csvPropertyData}
+                  filename={"Property-Details.csv"}
+                >
+                  <img
+                    className="iconSize"
+                    src={Excel}
+                    alt="Excel-Export"
+                    style={{ cursor: "pointer" }}
+                    title="Excel-Export"
+                  />
+                </CSVLink>
+                </>
+             
+                
+              <button
+                style={{ border: "none" }}
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  OnPrint();
+                }}
+              >
+                <img
+                  src={Print}
+                  alt="Print"
+                  title="Print"
+                  className="iconSize"
+                />
+              </button>     
+              <button style={{ border: "none"}} className="mx-0 px-0">
+                <img
+                  className="iconSize"
+                  // className=" float-right "
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  alt="refresh"
+                  title="Refresh"
+                />
+              </button>
+            </div>
+              )}
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
@@ -436,11 +510,11 @@ const PropertyDetail = ({
                             <th>Stamp Duty</th>
                             <th>Lease Time Period</th> */}
                               <th style={showPrint}>Address</th>
-                              <th style={showPrint}>Door No1</th>
+                              <th style={showPrint}>Door No's</th>
                             </>
                           )}
 
-                          {myuser.usergroup === "IT Department" ? (
+                          {myuser.usergroup !=="Admin" ? (
                             <></>
                           ) : (
                             <>
@@ -484,15 +558,15 @@ const PropertyDetail = ({
                                   })}
                               </td> */}
                                 <td>{Val.Location}</td>
-                                {myuser.usergroup === "IT Department" ? (
+                                {/* {myuser.usergroup === "IT Department" ||myuser.usergroup === "Manager"? (
                                   <></>
                                 ) : (
                                   <>
-                                    {/* <td>{Val.hike}</td>
+                                    <td>{Val.hike}</td>
                                   <td>{Val.stampDuty}</td>
-                                  <td>{Val.leaseTimePeriod}</td> */}
+                                  <td>{Val.leaseTimePeriod}</td>
                                   </>
-                                )}
+                                )} */}
 
                                 <td>{Val.shopAddress}</td>
                                 <td>
@@ -502,7 +576,7 @@ const PropertyDetail = ({
                                       .join(", ")
                                   ) : (
                                     <img
-                                      className="img_icon_size log"
+                                      className="img_icon_size "
                                       src={require("../../static/images/info.png")}
                                       alt="shop no."
                                       title={Val.shopDoorNo.map(
@@ -514,30 +588,30 @@ const PropertyDetail = ({
                                 {myuser.usergroup === "Admin" ? (
                                   <>
                                     {" "}
-                                    <td className=" text-center">
+                                    <td
+                                      className=" text-center
+                                    "
+                                    >
                                       {Val.shopStatus === "Active" ? (
                                         <>
                                           <img
-                                            className="Cursor"
+                                            className=" iconSize"
                                             onClick={() => onEdit(Val)}
-                                            src={require("../../static/images/edit_icon.png")}
+                                            src={Edit}
                                             alt="Edit Property"
                                             title="Edit Property"
                                           />
                                           &nbsp;
-                                          <img
-                                            className=" Cursor"
-                                            onClick={() =>
-                                              onDelete(
-                                                Val._id,
-                                                Val.shopDoorNo,
-                                                Val
-                                              )
-                                            }
-                                            src={require("../../static/images/delete.png")}
-                                            alt="Deactivate "
-                                            title="Deactivate"
-                                          />
+
+                                        {Val.shopDoorNo.some(shop => shop.status === "Avaiable") && (
+      <img
+        className="iconSize"
+        onClick={() => onDelete(Val._id, Val.shopDoorNo, Val)}
+        src={Deactivate}
+        alt="Deactivate"
+        title="Deactivate"
+      />
+    )}
                                         </>
                                       ) : (
                                         // <td></td>
@@ -831,7 +905,7 @@ export default connect(mapStateToProps, {
   deactiveProperty,
   getParticularOrg,
   getAllSettings,
-  getDoorNo,
+  // getDoorNo,
   getParticularProperty,
   AddUserActivity,
 })(PropertyDetail);

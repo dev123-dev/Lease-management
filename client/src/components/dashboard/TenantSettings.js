@@ -132,10 +132,10 @@ const TenantSettings = ({
       filteredValue.length > 2 ||
       filteredValue === "00"
     ) {
-      setValidationHikeMessage("Enter valid hike");
+      setValidationHikeMessage("Please Enter valid Hike");
     } else {
       filteredValue === ""
-        ? setValidationHikeMessage("enter hike")
+        ? setValidationHikeMessage("Please enter Hike")
         : setValidationHikeMessage("");
     }
 
@@ -163,20 +163,20 @@ const TenantSettings = ({
   const [validationStampMessage, setValidationStampMessage] = useState("");
   const handleStampChange = (e) => {
     const inputValue = e.target.value;
-    const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
-    const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
+    // const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+    // const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
 
-    if (
-      filteredValue === "0" ||
-      filteredValue.length > 2 ||
-      filteredValue === "00"
-    ) {
-      setValidationStampMessage("Enter valid stamp duty");
-    } else {
-      filteredValue === ""
-        ? setValidationStampMessage("enter stamp duty")
-        : setValidationStampMessage("");
-    }
+    // if (
+    //   filteredValue === "0" ||
+    //   filteredValue.length > 2 ||
+    //   filteredValue === "00"
+    // ) {
+    //   setValidationStampMessage("Please Enter valid Stamp Duty");
+    // } else {
+    //   filteredValue === ""
+    //     ? setValidationStampMessage("Please enter Stamp Duty")
+    //     : setValidationStampMessage("");
+    // }
 
     setStampDuty(inputValue);
   };
@@ -193,10 +193,10 @@ const TenantSettings = ({
       filteredValue.length > 2 ||
       filteredValue === "00"
     ) {
-      setValidationTimePeriodMessage("Enter valid Time Period");
+      setValidationTimePeriodMessage("Please Enter valid Time Period");
     } else {
       filteredValue === ""
-        ? setValidationTimePeriodMessage("enter Time Period")
+        ? setValidationTimePeriodMessage("Please enter Time Period")
         : setValidationTimePeriodMessage("");
     }
 
@@ -257,7 +257,7 @@ const TenantSettings = ({
         userName: user.username,
         OrganizationName: user.OrganizationName,
         hike: parseInt(hike),
-        StampDuty: parseInt(stampDuty),
+        StampDuty: parseFloat(stampDuty),
         LeaseTimePeriod: parseInt(leasePeriod),
       };
       const ActivityDetail = {
@@ -297,7 +297,7 @@ const TenantSettings = ({
         userId: user._id,
         userName: user.username,
         hike: parseInt(hike),
-        stampDuty: parseInt(stampDuty),
+        stampDuty: parseFloat(stampDuty),
         leaseTimePeriod: parseInt(leasePeriod),
       };
       const ActivityDetail = {
@@ -357,7 +357,7 @@ const TenantSettings = ({
                 id="tooltipPassAdmin"
                 className="syle-hint"
                 style={passwrdTooltip}
-                data-hint="Only enter Number "
+                data-hint="Please Only enter Number "
               ></div>
             </div>
             <h6 style={{ color: "red" }}>{validationHikeMessage}</h6>
@@ -394,7 +394,7 @@ const TenantSettings = ({
                 id="tooltipPassAdmin"
                 className="syle-hint"
                 style={passwrdTooltip}
-                data-hint=" Dont Enter fractional number (Eg:1.2),(2.2) "
+                data-hint=" Dont Enter Fractional Number (Eg:1.2),(2.2) "
               ></div>
             </div>
             <h6 style={{ color: "red" }}>{validationStampMessage}</h6>

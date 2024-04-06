@@ -8,18 +8,24 @@ import {
   AddTenantReceiptDetails,
   getTenantReceiptNo,
   AddUserActivity,
+  getTenantReportYearMonth,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 import { CSVLink } from "react-csv";
-import DropdownContext from "react-bootstrap/esm/DropdownContext";
+import Print from "../../static/images/Print.svg";
+import Loader from "../../static/images/loader.gif";
+import Receipt from "../../static/images/Receipts.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
 const TenantReport = ({
   auth: { expReport, isAuthenticated, optName, user, users, finalDataRep }, //optName is months
-  tenants: { allorg, tenantreceiptno },
+  tenants: { allorg, tenantreceiptno, load },
   ParticularTenant,
   AddUserActivity,
+  getTenantReportYearMonth,
   deactiveTenantsDetails,
   AddTenantReceiptDetails,
   getTenantReceiptNo,
@@ -326,7 +332,7 @@ const TenantReport = ({
       OrganizationId: user.OrganizationId,
       expireAt: new Date().getTime() + 80,
     };
-    // console.log("finalData", finalData);
+
     AddTenantReceiptDetails(finalData);
     AddUserActivity(ActivityDetail);
   };
@@ -336,6 +342,62 @@ const TenantReport = ({
     viewdata.tenantchequeDate &&
     viewdata.tenantchequeDate.split(/\D/g);
   var chequeDate = [ED && ED[2], ED && ED[1], ED && ED[0]].join("-");
+
+  const getCurrentMonthName = () => {
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const currentDate = new Date();
+    return months[currentDate.getMonth()];
+  };
+
+  const getCurrentYear = () => {
+    return new Date().getFullYear();
+  };
+  const currentYear = getCurrentYear();
+  const currentMonthName = getCurrentMonthName();
+
+  let dynamicText = "";
+
+  if (
+    finalDataRep?.yearSearch &&
+    Number(finalDataRep?.yearSearch) === currentYear &&
+    finalDataRep?.yearFiltercount === false
+  ) {
+    const foundMonth = optName.find(
+      (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
+    );
+    if (foundMonth) {
+      dynamicText = foundMonth.label + " - ";
+    } else {
+      dynamicText = currentMonthName + " - ";
+    }
+  } else if (
+    finalDataRep?.yearSearch &&
+    Number(finalDataRep?.yearSearch) !== currentYear
+  ) {
+    const foundMonth = optName.find(
+      (month) => Number(month.value) === Number(finalDataRep?.monthSearch)
+    );
+    if (foundMonth === undefined && finalDataRep?.yearFiltercount === true) {
+      dynamicText = "before-";
+    } else if (foundMonth) {
+      dynamicText = foundMonth.label + " - ";
+    }
+  } else {
+    dynamicText = "before-";
+  }
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -360,10 +422,10 @@ const TenantReport = ({
                 </div>
                 <div className="col-lg-2 col-md-11 col-sm-11 col-11">
                   <img
-                    className="img_icon_size log"
+                    className="iconSize "
                     src={require("../../static/images/print.png")}
-                    alt="Add User"
-                    title="Add User"
+                    alt="Print"
+                    title="Print"
                   />
                 </div>
               </div>
@@ -377,10 +439,10 @@ const TenantReport = ({
                       >
                         <thead>
                           <tr>
-                            <th>Main page Name</th>
+                            <th>Main Page Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th>StartDate</th>
+                            <th>Start Date</th>
                             <th>Org-Status</th>
                             <th>End Date</th>
                             <th>Operation</th>
@@ -437,7 +499,7 @@ const TenantReport = ({
             <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
               <div className="row mt-5 ">
                 <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
-                  <h2 className="heading_color  headsize  ml-4">
+                  {/* <h2 className="heading_color headsize ml-4">
                     Tenant Report &nbsp;
                     {"(" +
                       (optName.find(
@@ -450,16 +512,25 @@ const TenantReport = ({
                               Number(month.value) ===
                               Number(finalDataRep?.monthSearch)
                           )?.label + " - "
-                        : "before ") +
-                      finalDataRep?.yearSearch +
+                        : getCurrentMonthName() + " - ") +
+                      getCurrentYear() +
                       ")"}
+                  </h2> */}
+                  <h2 className="heading_color headsize ml-4">
+                    Tenant Report &nbsp;
+                    {"(" + dynamicText + finalDataRep.yearSearch + ")"}
                   </h2>
                 </div>
 
                 {/* <div className="col-lg-5  col-sm-12 col-md-12 mt-4">
              
             </div> */}
-                <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint mt-4 pt-3">
+                <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint  pt-2 iconspace">
+                  {load ? (
+                    <img src={Loader} alt="Loading..." height="50px" />
+                  ) : (
+                    <></>
+                  )}
                   <button
                     style={{ border: "none" }}
                     onClick={async () => {
@@ -473,25 +544,25 @@ const TenantReport = ({
                     }}
                   >
                     <img
-                      height="20px"
-                      //  onClick={() => refresh()}
-                      src={require("../../static/images/print.png")}
+                      src={Print}
                       alt="Print"
                       title="Print"
+                      className="iconSize"
                     />
                   </button>
-                  {myuser.usergroup === "Admin" ? (
-                    <CSVLink data={csvTenantReportData}>
+                  
+                    <CSVLink
+                      data={csvTenantReportData}
+                      filename={"Tenant-Report.csv"}
+                    >
                       <img
-                        className="img_icon_size log float-right ml-2 mt-1"
-                        src={require("../../static/images/excel_icon.png")}
+                        src={Excel}
                         alt="Excel-Export"
                         title="Excel-Export"
+                        className="iconSize"
                       />
                     </CSVLink>
-                  ) : (
-                    <></>
-                  )}
+               
                 </div>
               </div>
 
@@ -553,39 +624,45 @@ const TenantReport = ({
 
                                   <td>{tenantLeaseEndDate}</td>
                                   <td>{Number(Val.chargesCal).toFixed(2)}</td>
-                                  <td>{Val.AgreementStatus}</td>
+                                  {Val.AgreementStatus === "Renewed" ? (
+                                    <td>Active</td>
+                                  ) : (
+                                    <td>{Val.AgreementStatus}</td>
+                                  )}
+
                                   {
                                     Val.AgreementStatus === "Expired" ? (
                                       <td>
                                         <center>
-                                          <button
+                                          {myuser.usergroup==="Admin"?(<> <button
                                             variant="success"
                                             className="rewbtn"
                                             style={{
                                               backgroudColor: "#e8a317",
+                                              cursor: "pointer",
                                             }}
                                             onClick={() => onRenewal(Val, idx)}
                                           >
                                             Renewal
-                                          </button>
+                                          </button></>):(<></>)}
+                                         
                                         </center>
                                       </td>
                                     ) : Val.AgreementStatus === "Renewed" ? (
                                       <td>
-                                        <button
+                                        {/* <button
                                           style={{ border: "none" }}
                                           onClick={() =>
                                             handlePrintReceipt(Val, idx)
                                           }
                                         >
                                           <img
-                                            height="20px"
-                                            //  onClick={() => refresh()}
-                                            src={require("../../static/images/print.png")}
+                                            src={Receipt}
+                                            className="iconSize"
                                             alt="Print"
                                             title="Generate Receipt"
                                           />
-                                        </button>
+                                        </button> */}
                                       </td>
                                     ) : (
                                       <td></td>
@@ -621,7 +698,7 @@ const TenantReport = ({
                     className="col-lg-12 col-md-12 col-sm-12 text-right font-weight-bold ml-3"
                     style={{ color: "#095a4a" }}
                   >
-                    {"Tenant Leases Expiring : " + expReport.length}
+                    {"Tenant Count : " + expReport.length}
                   </div>
                 </div>
               </div>
@@ -694,7 +771,7 @@ const TenantReport = ({
                 Save
               </Button>
               <Button className="bg-dark" onClick={handleClose}>
-                close
+                Close
               </Button>
             </Modal.Footer>
           </Modal>
@@ -1075,12 +1152,16 @@ const TenantReport = ({
                           <td>
                             Bank
                             <br />
-                            {viewdata.tenantBankName}
+                            {viewdata.tenantBankName
+                              ? viewdata.tenantBankName
+                              : "--"}
                           </td>
                           <td>
                             ChequeNo.
                             <br />
-                            {viewdata.tenantChequenoOrDdno}
+                            {viewdata.tenantChequenoOrDdno === "null"
+                              ? "--"
+                              : viewdata.tenantChequenoOrDdno}
                           </td>
                           <td>
                             Date
@@ -1187,7 +1268,7 @@ const TenantReport = ({
               </button>
 
               <button onClick={handleClosePrint} className=" sub_form    ">
-                close
+                Close
               </button>
             </Modal.Footer>
           </Modal>
@@ -1211,4 +1292,5 @@ export default connect(mapStateToProps, {
   AddTenantReceiptDetails,
   getTenantReceiptNo,
   AddUserActivity,
+  getTenantReportYearMonth,
 })(TenantReport);

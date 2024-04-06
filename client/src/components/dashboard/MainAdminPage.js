@@ -4,23 +4,32 @@ import prop from "../../static/images/property.png";
 import people from "../../static/images/people.png";
 import unprop from "../../static/images/unproperty.png";
 import money from "../../static/images/money.png";
-import door from "../../static/images/door.png";
+import door from "../../static/images/Unoccupiedunits.svg";
 import { Modal } from "react-bootstrap";
 import {
   getParticularProperty,
   ParticularTenant,
   getAllSettings,
   get_particular_org_user,
+  TenantActiveCount,
+  TenantRenewedCount,
 } from "../../actions/tenants";
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // import { Roller } from "react-awesome-spinners";
 
 const MainAdminPage = ({
   auth: { user, isAuthenticated, loading, yearExpCnt },
-  tenants: { particular_org_data, get_particular_org_tenant },
+  tenants: {
+    particular_org_data,
+    get_particular_org_tenant,
+    tenantcount,
+    tenantrenewcount,
+  },
   getParticularProperty,
+  TenantActiveCount,
+  TenantRenewedCount,
   getAllSettings,
   ParticularTenant,
   get_particular_org_user,
@@ -38,6 +47,8 @@ const MainAdminPage = ({
         OrganizationId: myuser && myuser.OrganizationId,
       });
       ParticularTenant({ OrganizationId: myuser && myuser.OrganizationId });
+      TenantActiveCount({ OrganizationId: myuser && myuser.OrganizationId });
+      TenantRenewedCount({ OrganizationId: myuser && myuser.OrganizationId });
       getAllSettings({
         OrganizationId: myuser && myuser.OrganizationId,
         userId: myuser && myuser._id,
@@ -45,6 +56,11 @@ const MainAdminPage = ({
       get_particular_org_user({ OrganizationId: myuser.OrganizationId });
     }
   }, []);
+
+  const history = useHistory();
+  const handleRenewedTenantClick = () => {
+    history.push("/renewed-report", { from: "dashboard" });
+  };
 
   //Renewable Tenant Records
 
@@ -60,18 +76,18 @@ const MainAdminPage = ({
   //   });
 
   //Renewed Tenant Records
-  const TotalRenewedCount =
-    get_particular_org_tenant &&
-    get_particular_org_tenant.filter((ele) => {
-      if (
-        ele.AgreementStatus === "Renewed" &&
-        ele.tenantstatus !== "Deactive" &&
-        new Date(ele.tenantLeaseStartDate).getFullYear() ===
-          parseInt(new Date().getFullYear())
-      ) {
-        return ele;
-      }
-    });
+  // const TotalRenewedCount =
+  //   get_particular_org_tenant &&
+  //   get_particular_org_tenant.filter((ele) => {
+  //     if (
+  //       ele.AgreementStatus === "Renewed" &&
+  //       ele.tenantstatus !== "Deactive" &&
+  //       new Date(ele.tenantLeaseStartDate).getFullYear() ===
+  //         parseInt(new Date().getFullYear())
+  //     ) {
+  //       return ele;
+  //     }
+  //   });
 
   //modal to display unoccupied shops
   const [show, setShow] = useState(false);
@@ -109,11 +125,11 @@ const MainAdminPage = ({
     BuildingName: item.ele1.BuildingName,
   }));
 
-  const tenantCount = get_particular_org_tenant.filter((ele) => {
-    if (ele.tenantstatus === "Active") {
-      return ele;
-    }
-  });
+  // const tenantCount = get_particular_org_tenant.filter((ele) => {
+  //   if (ele.tenantstatus === "Active") {
+  //     return ele;
+  //   }
+  // });
   const fun = () => {
     let pCount =
       particular_org_data &&
@@ -127,6 +143,7 @@ const MainAdminPage = ({
     <></>
   ) : (
     <>
+    {myuser.usergroup === "Admin"|| myuser.usergroup === "Manager"? (
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5 ">
@@ -142,60 +159,63 @@ const MainAdminPage = ({
               className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/PropertyDetail">
+              <Link to="/PropertyDetail">
+                <div className="text-center">
                   {" "}
                   <img
                     className="img_icon_sizeDashboard log"
                     src={prop}
                     alt="Property"
                   />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                      // className="h3"
-                    >
-                      <b className="h4">
-                        Total properties<br></br>{" "}
-                        {particular_org_data && particular_org_data.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                        // className="h3"
+                      >
+                        <b className="h4">
+                          Total Properties<br></br>{" "}
+                          {particular_org_data && particular_org_data.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div
               className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/tenant-detail">
+              {" "}
+              <Link to="/tenant-detail">
+                <div className="text-center">
                   <img
                     className="img_icon_sizeDashboard log "
                     src={people}
                     alt="Tenant Count"
                   />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Total Active Tenants <br></br>
-                        {tenantCount.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          color: "black",
+                        }}
+                      >
+                        <b className="h4">
+                          Total Active Tenants <br></br>
+                          {/* {tenantCount.length} */}
+                          {tenantcount && tenantcount.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
           </div>
@@ -206,46 +226,47 @@ const MainAdminPage = ({
               className="col-lg-5   col-sm-12 col-md-12 ml-2 card h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/unoccupied-units">
+              <Link to="/unoccupied-units">
+                <div className="text-center">
                   <img
                     className="img_icon_sizeDashboard  "
                     src={door}
                     alt="Unoccupied property"
                     // onClick={onClickUnocc}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer", background: "none" }}
                   />
-                </Link>
-                <p>
-                  <center>
-                    <p
-                      style={{
-                        // fontFamily: "Serif",
-                        color: "black",
-                      }}
-                    >
-                      <b className="h4">
-                        Unoccupied Units <br></br>
-                        {ShopStatus.length}
-                      </b>
-                    </p>
-                  </center>
-                </p>
-              </div>
+
+                  <p>
+                    <center>
+                      <p
+                        style={{
+                          // fontFamily: "Serif",
+                          color: "black",
+                        }}
+                      >
+                        <b className="h4">
+                          Unoccupied Units <br></br>
+                          {ShopStatus.length}
+                        </b>
+                      </p>
+                    </center>
+                  </p>
+                </div>
+              </Link>
             </div>
             <div
               className="col-lg-5  col-sm-12 col-md-12 card ml-2 h2 text-center pt-5 log"
               id="shadow-bck"
             >
-              <div className="text-center">
-                <Link to="/renewed-report">
-                  <img
-                    className="img_icon_sizeDashboard  "
-                    src={money}
-                    alt="Renewal"
-                    style={{ cursor: "pointer" }}
-                  />
-                </Link>
+              {/* <Link to="/renewed-report"> */}
+              <div className="text-center" onClick={handleRenewedTenantClick}>
+                <img
+                  className="img_icon_sizeDashboard  "
+                  src={money}
+                  alt="Renewal"
+                  style={{ cursor: "pointer" }}
+                />
+
                 {/* <p>
                   <center>
                     <p
@@ -272,13 +293,14 @@ const MainAdminPage = ({
                     >
                       {" "}
                       <b className="h4">
-                        Renewed Units({currentYear})<br></br>
-                        {TotalRenewedCount && TotalRenewedCount.length}
+                        Renewed Units ({currentYear})<br></br>
+                        {tenantrenewcount && tenantrenewcount.length}
                       </b>
                     </p>
                   </center>
                 </p>
               </div>
+              {/* </Link> */}
             </div>
             <div className="col-lg-1  col-sm-12 col-md-12"></div>
           </div>
@@ -378,6 +400,7 @@ const MainAdminPage = ({
           {/* </div>  */}
         </section>
       </div>
+ ):(<></>)}  
       <Modal
         show={show}
         backdrop="static"
@@ -455,7 +478,9 @@ const mapStateToProps = (state) => ({
 });
 export default connect(mapStateToProps, {
   getParticularProperty,
+  TenantActiveCount,
   ParticularTenant,
   getAllSettings,
+  TenantRenewedCount,
   get_particular_org_user,
 })(MainAdminPage);

@@ -149,7 +149,7 @@ const Profile = ({
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setUsername(filteredValue);
@@ -166,7 +166,7 @@ const Profile = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationMessage("")
-        : setValidationMessage("enter valid phone number");
+        : setValidationMessage("Please enter valid Phone Number");
 
       setUserphone(cleanedValue);
     }
@@ -185,7 +185,7 @@ const Profile = ({
     if (emailRegex.test(inputValue)) {
       setValidationEmailMessage("");
     } else {
-      setValidationEmailMessage("Please enter a valid email address.");
+      setValidationEmailMessage("Please enter valid Email Address");
     }
   };
 
@@ -478,10 +478,11 @@ const Profile = ({
                     <br></br>
                   </div>{" "}
                 </div>
-                <div
+                {myuser.usergroup==="Admin"?(<>  <div
                   className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                   size="lg"
                 >
+
                   <button
                     variant="success"
                     id="savebtn"
@@ -491,7 +492,8 @@ const Profile = ({
                   >
                     <b>Update</b>
                   </button>
-                </div>
+                </div></>):(<></>)}
+              
               </div>
               <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-12">

@@ -2,52 +2,54 @@ const mongoose = require("mongoose");
 ObjectId = mongoose.Schema.ObjectId;
 
 const TenantAgreementHistory = new mongoose.Schema({
-  OrganizationId: {
+  tdId: {
     type: ObjectId,
+  },
+  tenantName: {
+    type: String,
+  },
+  tenantFileNo: {
+    type: String,
+  },
+  AgreementStatus: {
+    type: String,
+    default: "Active",
   },
   OrganizationName: {
     type: String,
   },
-  BuildingId: {
+  OrganizationId: {
     type: ObjectId,
   },
-  BuildingName: {
+  tenantLeaseEndDate: {
     type: String,
-  },
-  PropertyId: {
-    type: String,
-  },
-  tdId: {
-    type: ObjectId,
-    // required: true,
-  },
-  tenantRentAmount: {
-    type: Number,
   },
   tenantLeaseStartDate: {
     type: String,
   },
-  tenantLeaseEndDate: {
-    type: String,
-    // required: true,
+  tenantPhone: {
+    type: Number,
   },
-  tenantDoorNumnber: [],
-  tenantstatus: {
-    type: String,
-    default: "Active",
-  },
-  tenantAgreementEntredBy: {
-    type: ObjectId,
-  },
-  tenantAgreementDate: {
+  tenantFirmName: {
     type: String,
   },
-  tenantAgreementDateTime: {
-    type: Date,
-    default: Date.now(),
-  },
-  tenantFileNo: {
+  tenantAddr: {
     type: String,
+  },
+  tenantAdharNo: {
+    type: String,
+  },
+  tenantPanNo: {
+    type: String,
+  },
+  tenantRentAmount: {
+    type: Number,
+  },
+  tenantDepositAmt: {
+    type: Number,
+  },
+  generatordepoAmt: {
+    type: Number,
   },
   tenantPaymentMode: {
     type: String,
@@ -67,10 +69,34 @@ const TenantAgreementHistory = new mongoose.Schema({
   tenantTransId: {
     type: String,
   },
-  tenantDoorNo: {},
-  AgreementStatus: {
+  tenantstatus: {
     type: String,
-    default: "Active", //Active,Expired, Renewed
+    default: "Active", //Active,Deactive
+  },
+  BuildingName: {
+    type: String,
+  },
+  BuildingId: {
+    type: ObjectId,
+  },
+  Location: {
+    type: String,
+  },
+
+  shopDoorNo: [],
+
+  shopId: {
+    type: ObjectId,
+  },
+  tenantEnteredBy: {
+    type: ObjectId,
+  },
+  tenantDate: {
+    type: String,
+  },
+  tenantDateTime: {
+    type: Date,
+    default: Date.now(),
   },
   enter_by_id: {
     type: ObjectId,
@@ -93,7 +119,7 @@ const TenantAgreementHistory = new mongoose.Schema({
   },
   edit_by_dateTime: {
     type: Date,
-    default: Date.now(),
+    // default: Date.now(),
   },
   edit_by_date: {
     type: String,
@@ -106,7 +132,7 @@ const TenantAgreementHistory = new mongoose.Schema({
   },
   deactive_by_dateTime: {
     type: Date,
-    default: Date.now(),
+    //default: Date.now(),
   },
   deactive_by_date: {
     type: String,
@@ -114,11 +140,9 @@ const TenantAgreementHistory = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
-  oldRentAmount: {
-    type: Number,
-  },
-  stampDuty: {
-    type: Number,
+  histroyEnteredDateTime: {
+    type: Date,
+    default: Date.now(),
   },
 });
 

@@ -12,7 +12,7 @@ import DatePicker from "react-datepicker";
 import BarChart from "../dashboard/BarChart";
 import PieChart from "../dashboard/PieChart";
 import MonthYearPicker from "../dashboard/MonthYearPicker";
-
+import Back from "../../static/images/Back.svg";
 const MISReport = ({
   auth: { user },
   tenants: { allmisreport, allmisamountreport, allmisrenewedbarreport },
@@ -43,8 +43,14 @@ const MISReport = ({
   //Pie chart for count
   let valuesArray = [];
   if (allmisreport) {
-    valuesArray.push(allmisreport.renewableCount, allmisreport.renewedCount);
+    valuesArray.push(
+      allmisreport.renewableCount,
+      allmisreport.renewedCount,
+      allmisreport.activeCount
+    );
   }
+
+
 
   ///////////////////////////new format date 123//////////////////////////
 
@@ -82,7 +88,8 @@ const MISReport = ({
   if (allmisamountreport) {
     valuesamtArray.push(
       allmisamountreport.renewableAmount,
-      allmisamountreport.renewedAmount
+      allmisamountreport.renewedAmount,
+      allmisamountreport.activeAmount
     );
   }
   const [numberOfMonths, setNumberOfMonths] = useState(1);
@@ -103,24 +110,28 @@ const MISReport = ({
       ...item,
     }));
 
+  const activebarcountArray =
+    allmisrenewedbarreport &&
+    allmisrenewedbarreport.activeBarCount &&
+    allmisrenewedbarreport.activeBarCount.map((item) => ({
+      ...item,
+    }));
   return (
     <>
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding  mx-0 px-0">
           <div className="row mt-5  mx-0 px-0">
-            <div className="col-lg-3 mt-3">
+            <div className="col-lg-2 mt-3">
               <h2 className="heading_color  headsize  ml-4">MIS Report</h2>
             </div>
-            <div className=" row col-lg-9 text-left mt-4  mx-0 px-0 ">
-              <div className="col-lg-2 mt-2"> Start Month & Year :</div>
-              <div className="col-lg-10 mx-0 px-0">
-                <MonthYearPicker
-                  selectedMonth={selectedMonth}
-                  selectedYear={selectedYear}
-                  onChange={handleMonthYearChange}
-                />
+            <div className=" row col-lg-9 text-left misreportPage  mx-0 px-0 ">
+              <MonthYearPicker
+                selectedMonth={selectedMonth}
+                selectedYear={selectedYear}
+                onChange={handleMonthYearChange}
+              />
 
-                {/* <DatePicker
+              {/* <DatePicker
                   className="form-control text-center"
                   placeholder="yyyy"
                   onChange={(date) => YearChange(date)}
@@ -128,11 +139,20 @@ const MISReport = ({
                   selected={startMonthDate}
                   showYearPicker
                 /> */}
-              </div>
+            </div>
+            <div className="col-lg-1 mt-4 pt-3">
+              <Link to="/Report">
+                <img
+                  className=" float-right"
+                  src={Back}
+                  alt="Back"
+                  title="Back"
+                />
+              </Link>
             </div>
           </div>
 
-          <div className="container-fluid  ml-4 text-center ">
+          <div className="container-fluid  ml-4 text-center my-0 py-0 ">
             <div className="row">
               <div className="  col-lg-6 col-sm-6 ">
                 <div
@@ -145,8 +165,8 @@ const MISReport = ({
                   ) : (
                     <PieChart
                       series={valuesArray.map((el) => el)}
-                      labels={["Renewable", "Renewed"]}
-                      colors={["#CC9900", "#095a4a"]}
+                      labels={["Renewable", "Renewed", "Active"]}
+                      colors={["#CC9900", "#095a4a", "#808080"]}
                       title="Statuswise Report"
                     />
                   )}
@@ -165,8 +185,8 @@ const MISReport = ({
                   ) : (
                     <PieChart
                       series={valuesamtArray.map((el) => el)}
-                      labels={["Renewable(₹)", "Renewed(₹)"]}
-                      colors={["#CC9900", "#095a4a"]}
+                      labels={["Renewable(₹)", "Renewed(₹)", "Active(₹)"]}
+                      colors={["#CC9900", "#095a4a", "#808080"]}
                       title="Rent Report"
                     />
                   )}
@@ -174,7 +194,7 @@ const MISReport = ({
               </div>
             </div>
             <div className="row">
-              <div className="  col-lg-6 col-sm-6">
+              <div className="  col-lg-4 col-sm-6">
                 <div
                   className=" card text-left pt-0"
                   id="shadow-bck"
@@ -209,7 +229,7 @@ const MISReport = ({
                   )}
                 </div>
               </div>
-              <div className="  col-lg-6  col-sm-6">
+              <div className="  col-lg-4  col-sm-6">
                 <div
                   className=" card text-left pt-0"
                   id="shadow-bck"
@@ -240,6 +260,41 @@ const MISReport = ({
                       }
                       yAxisText="Tenants"
                       colors={["#CC9900"]}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="  col-lg-4  col-sm-6">
+                <div
+                  className=" card text-left pt-0"
+                  id="shadow-bck"
+                  style={{ width: "100%", height: "328px" }}
+                >
+                  {activebarcountArray &&
+                  activebarcountArray.every((value) => value === 0) ? (
+                    <h4>No Data Found</h4>
+                  ) : (
+                    <BarChart
+                      title="Total Active Tenant"
+                      series={[
+                        {
+                          name: "Tenants",
+                          data:
+                            activebarcountArray &&
+                            activebarcountArray.map((el) => el.total),
+                        },
+                      ]}
+                      categories={
+                        activebarcountArray &&
+                        activebarcountArray.map(
+                          (el) =>
+                            `${monthsValue[el.month - 1].slice(0, 3)}' ${String(
+                              el.year
+                            ).slice(2)}`
+                        )
+                      }
+                      yAxisText="Tenants"
+                      colors={["#808080"]}
                     />
                   )}
                 </div>

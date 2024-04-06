@@ -89,7 +89,7 @@ const AddTenantDetails = ({
     ) {
       setValidationTransIdMessage("");
     } else {
-      setValidationTransIdMessage("Please enter a valid  Transcation id");
+      setValidationTransIdMessage("Please enter a valid  Transaction id");
     }
 
     setTransId(inputValue);
@@ -176,7 +176,7 @@ const AddTenantDetails = ({
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
   const allBuildingNames = [];
-  AvaiableRoomBuilding.map((buildingData) =>
+  AvaiableRoomBuilding.filter((ele)=>ele.shopStatus=="Active").map((buildingData) =>
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.BuildingName,
@@ -303,7 +303,7 @@ const AddTenantDetails = ({
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
 
-      const newYear = yearVal + 1;
+      const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
 
@@ -417,20 +417,20 @@ const AddTenantDetails = ({
   const [shopfileNo, setFileNoData] = useState();
   const [shopId, setShopID] = useState();
 
-  const onDoorNoChange = (e) => {
-    var shopfileNumber = "";
-    var shopdetailsId = "";
-    getDoorNoData(e);
+  // const onDoorNoChange = (e) => {
+  //   var shopfileNumber = "";
+  //   var shopdetailsId = "";
+  //   getDoorNoData(e);
 
-    allDoorNos.map((doorno) => {
-      if (doorno.shopDoorNo === e.value) {
-        shopfileNumber = doorno.shopFileNo;
-        shopdetailsId = doorno._id;
-      }
-    });
-    setFileNoData(shopfileNumber);
-    setShopID(shopdetailsId);
-  };
+  //   allDoorNos.map((doorno) => {
+  //     if (doorno.shopDoorNo === e.value) {
+  //       shopfileNumber = doorno.shopFileNo;
+  //       shopdetailsId = doorno._id;
+  //     }
+  //   });
+  //   setFileNoData(shopfileNumber);
+  //   setShopID(shopdetailsId);
+  // };
 
   const [startSelectedDate, setChequeDate] = useState("");
   const onDateChange = (e) => {
@@ -558,13 +558,13 @@ const AddTenantDetails = ({
   // validation
   const [tenantName, setTenantName] = useState("");
   const [validationNameMessage, setValidationNameMessage] = useState(
-    "Please enter the Name"
+    "Please enter valid Name"
   );
   const handleInputNameChange = (e) => {
     // const inputValue = e.target.value;
     // const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     // filteredValue === ""
-    //   ? setValidationNameMessage("Please enter the Name")
+    //   ? setValidationNameMessage("Please enter valid Name")
     //   : setValidationNameMessage("");
 
     // setTenantName(filteredValue);
@@ -597,7 +597,7 @@ const AddTenantDetails = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationPhoneMessage("")
-        : setValidationPhoneMessage("enter valid phone number");
+        : setValidationPhoneMessage("Please enter valid Phone Number");
 
       setTenantPhone(cleanedValue);
     }
@@ -605,8 +605,9 @@ const AddTenantDetails = ({
 
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
-  const [validationRentAmtMessage, setValidationRentAmtMessage] =
-    useState("enter valid amount");
+  const [validationRentAmtMessage, setValidationRentAmtMessage] = useState(
+    "Please enter valid Amount"
+  );
 
   const handleRentAmtChange = (e) => {
     const inputValue = e.target.value;
@@ -615,14 +616,14 @@ const AddTenantDetails = ({
       setRentAmount(inputValue);
       setValidationRentAmtMessage("");
     } else {
-      setValidationRentAmtMessage("enter valid amount");
+      setValidationRentAmtMessage("Please enter valid Amount");
     }
   };
 
   // validation for adhar number
   const [tenantAdharNo, setTenantAdharNo] = useState("");
   const [validationAdharMessage, setValidationAdharMessage] = useState(
-    "enter valid aadhar number"
+    "Please enter valid Aadhar Number"
   );
 
   const handleAdharChange = (e) => {
@@ -632,7 +633,7 @@ const AddTenantDetails = ({
       const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
       isValidAdhar.test(inputValue)
         ? setValidationAdharMessage("")
-        : setValidationAdharMessage("enter valid aadhar number");
+        : setValidationAdharMessage("Please enter valid Aadhar Number");
 
       setTenantAdharNo(inputValue);
     }
@@ -640,7 +641,7 @@ const AddTenantDetails = ({
   // validation for pan number
   const [tenantPanNo, setTenantPanNo] = useState("");
   const [validationPanMessage, setValidationPanMessage] = useState(
-    "enter valid Pan number"
+    "Please enter valid Pan Number"
   );
 
   const handlePanChange = (e) => {
@@ -650,7 +651,7 @@ const AddTenantDetails = ({
       const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
       isValidPan.test(inputValue)
         ? setValidationPanMessage("")
-        : setValidationPanMessage("enter valid Pan number");
+        : setValidationPanMessage("Please enter valid Pan Number");
 
       setTenantPanNo(inputValue);
     }
@@ -668,7 +669,7 @@ const AddTenantDetails = ({
       const isValidPan = /^(?!000000)\d{6}$/;
       isValidPan.test(inputValue)
         ? setValidationChequeMessage("")
-        : setValidationChequeMessage("enter valid Cheque number");
+        : setValidationChequeMessage("Please enter valid Cheque Number");
 
       setTenantChequenoOrDdno(inputValue);
     }
@@ -685,7 +686,7 @@ const AddTenantDetails = ({
     const isValidPan = /^[A-Za-z\s]+$/;
     isValidPan.test(inputValue)
       ? setValidationBankMessage("")
-      : setValidationBankMessage("enter valid Bank Name");
+      : setValidationBankMessage("Please enter valid Bank Name");
 
     setTenantBankName(inputValue);
   };
@@ -694,7 +695,7 @@ const AddTenantDetails = ({
 
   const [tenantAddr, setTenantAddr] = useState("");
   const [validationAddressMessage, setValidationAddressMessage] = useState(
-    "enter valid Address"
+    "Please enter valid Address"
   );
 
   const handleAddressChange = (e) => {
@@ -703,7 +704,7 @@ const AddTenantDetails = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationAddressMessage("")
-      : setValidationAddressMessage("enter valid Address");
+      : setValidationAddressMessage("Please enter valid Address");
 
     setTenantAddr(inputValue);
   };
@@ -763,13 +764,32 @@ const AddTenantDetails = ({
         tenantBankName: tenantBankName,
         tenantchequeDate: startSelectedDate,
         tenantRentAmount: tenantRentAmount,
+
+        // endDateFin new code
+        tenantLeaseStartDate:
+          endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+
+        //old code 11 month default
+
         tenantLeaseStartDate:
           entryDate.split(delimiter)[2] +
           delimiter +
           entryDate.split(delimiter)[1] +
           delimiter +
           entryDate.split(delimiter)[0],
-        tenantLeaseEndDate: leaseEndDate,
+
+        // tenantLeaseEndDate: leaseEndDate,
+        tenantLeaseEndDate:
+          endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+
         generatordepoAmt: generatordepoAmt,
         tenantEnteredBy: user && user._id,
         tenantDate: todayDateymd,
@@ -827,6 +847,33 @@ const AddTenantDetails = ({
     setTransId("");
     setTenantChequenoOrDdno("");
   }, [paymentMode]);
+
+  //Rakxit-
+  function calculateMonthsFromDate(date, monthsToAdd) {
+    try {
+      const d = new Date(date);
+      d.setMonth(d.getMonth() + monthsToAdd);
+      d.setDate(d.getDate() - 1);
+      return d.toISOString().split("T")[0].split("-").reverse().join("-");
+    } catch (er) {
+      console.log(er);
+      return 0;
+    }
+  }
+
+  const [endDateFin, setEndDateFin] = useState(null);
+
+  useEffect(() => {
+    if (entryDate.length === 10) {
+      setEndDateFin(
+        calculateMonthsFromDate(
+          entryDate.split("-").reverse().join("-"),
+          myuser.output.leaseTimePeriod
+        )
+      );
+    }
+  }, [entryDate]);
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -1159,7 +1206,7 @@ const AddTenantDetails = ({
                   </div>
 
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id*:</label>
+                    <label> Transaction Id*:</label>
                     <input
                       type="text"
                       name="transcationId"
@@ -1263,11 +1310,13 @@ const AddTenantDetails = ({
                 <br></br>
               </div>{" "}
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-                <label>Lease End Date (DD-MM-YYYY)*:</label>
+                <label>
+                  Lease End Date (DD-MM-YYYY)*:
+                </label>
                 <input
                   placeholder="DD-MM-YYYY"
                   className="form-control cpp-input datevalidation"
-                  value={endDate}
+                  value={endDateFin}
                   readOnly
                 ></input>
                 <br></br>
@@ -1339,7 +1388,7 @@ const AddTenantDetails = ({
                                     width="20"
                                     height="16"
                                     fill="currentColor"
-                                    class="bi bi-plus-square-fill"
+                                    className="bi bi-plus-square-fill"
                                     viewBox="0 0 16 16"
                                   >
                                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
@@ -1380,7 +1429,7 @@ const AddTenantDetails = ({
                                     width="20"
                                     height="16"
                                     fill="currentColor"
-                                    class="bi bi-dash-square-fill"
+                                    className="bi bi-dash-square-fill"
                                     viewBox="0 0 16 16"
                                   >
                                     <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />

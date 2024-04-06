@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment,useRef } from "react";
+import React, { useEffect, useState, Fragment, useRef } from "react";
 import { connect } from "react-redux";
 import AddShopDetails from "./AddShopDetails";
 import { Modal, Button } from "react-bootstrap";
@@ -16,6 +16,10 @@ import {
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
 import { useReactToPrint } from "react-to-print";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
 const LocationReport = ({
   auth: { user },
   tenants: { particular_org_data, particular_org_loc },
@@ -24,11 +28,8 @@ const LocationReport = ({
   getAllSettings,
   getParticularProperty,
 }) => {
-  // console.log("data", particular_org_data);
   const myuser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-   
-
     fun();
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getAllSettings({
@@ -36,7 +37,6 @@ const LocationReport = ({
       userId: myuser && myuser._id,
     });
   }, []);
-
 
   const [RoomAlreadyExist, SetRoomAlreadyExist] = useState({
     color: "white",
@@ -211,28 +211,22 @@ const LocationReport = ({
   const dnolen = dno.filter((ele) => ele.status === "Avaiable");
 
   const csvLocationData = [
-    [
- 
-      "Building Name",
-      "Address",
-      "Location",
-      "Door No.",  
-
-    ],
+    ["Building Name", "Address", "Location", "Door No."],
   ];
-  particular_org_data && particular_org_data.map((particular_org_data) => {
-    var doorNo = particular_org_data && particular_org_data.shopDoorNo.map((e) => e.doorNo).join(', '); // Join door numbers into a single string
-    return csvLocationData.push([
-      particular_org_data.BuildingName,
-      particular_org_data.shopAddress,
-      particular_org_data.Location,
-      doorNo,
-     
-     
-    ]);
-  });
+  particular_org_data &&
+    particular_org_data.map((particular_org_data) => {
+      var doorNo =
+        particular_org_data &&
+        particular_org_data.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
+      return csvLocationData.push([
+        particular_org_data.BuildingName,
+        particular_org_data.shopAddress,
+        particular_org_data.Location,
+        doorNo,
+      ]);
+    });
 
-  //Print 
+  //Print
   const [isPrinting, setIsPrinting] = useState(false);
   useEffect(() => {
     // Clean up after component unmounts
@@ -246,7 +240,7 @@ const LocationReport = ({
     color: "white",
     fontWeight: "bold",
   });
-  
+
   const OnPrint = () => {
     setIsPrinting(true);
     handlePrint();
@@ -276,129 +270,129 @@ const LocationReport = ({
               <h2 className="heading_color  headsize  ml-4">Location Report</h2>
             </div>
             <div className="col-lg-5 mt-3">
-              <Select
-                className="dropdown text-left mt-sm-3"
-                placeholder="Search-Location"
-                name="location"
-                options={Sellocation}
-                value={LOCATION}
-                onChange={(e) => onchangeLocation(e)}
-                theme={(theme) => ({
-                  ...theme,
-                  height: 26,
-                  minHeight: 26,
-                  borderRadius: 1,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "#e8a317",
-                    primary: "#095a4a",
-                  },
-                })}
-              ></Select>
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Search-Location"
+                    name="location"
+                    options={Sellocation}
+                    value={LOCATION}
+                    onChange={(e) => onchangeLocation(e)}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
             </div>
-            <div className="col-lg-2 text-end mt-sm-5">
+            <div className="col-lg-2 text-end pt-4 iconspace">
               {" "}
               <Link to="/Report">
-              <img
-              height={28}
-              
-                src={require("../../static/images/back.png")}
-                alt="Back"
-                title="Back"
-              />
-            </Link>
+                <button style={{ border: "none" }}>
+                  <img
+                    src={Back}
+                    alt="Back"
+                    title="Back"
+                    className="iconSize"
+                  />
+                </button>
+              </Link>
               {myuser.usergroup === "Admin" ? (
-                            <>  
-                             <CSVLink data={csvLocationData}>
-                            <img
-                              className="img_icon_size log ml-1"
-                              src={require("../../static/images/excel_icon.png")}
-                              alt="Excel-Export"
-                              title="Excel-Export"
-                              
-                            />
-                          </CSVLink>
-                          <button
-                style={{ border: "none" }}
-                onClick={async () => {
-                  await setShowPrint({
-                    backgroundColor: "#095a4a",
-                    color: "black",
-                    fontWeight: "bold",
-                  });
+                <>
+                  <CSVLink
+                    data={csvLocationData}
+                    filename={"Location-Report.csv"}
+                  >
+                    <img
+                      src={Excel}
+                      alt="Excel-Export"
+                      title="Excel-Export"
+                      className="iconSize"
+                    />
+                  </CSVLink>
+                  <button
+                    style={{ border: "none" }}
+                    onClick={async () => {
+                      await setShowPrint({
+                        backgroundColor: "#095a4a",
+                        color: "black",
+                        fontWeight: "bold",
+                      });
 
-                  OnPrint();
-                }}
-              >
-                <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
-              </button>
-                          </>
-                          ) : (
-                            <>
-                             
-                            </>
-                          )}
-            
-                <img
-                className="ml-2"
+                      OnPrint();
+                    }}
+                  >
+                    <img
+                      src={Print}
+                      alt="Print"
+                      title="Print"
+                      className="iconSize"
+                    />
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
+              <img
+                className=" iconSize"
                 style={{ cursor: "pointer" }}
-                height="20px"
                 onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
+                src={Refresh}
                 alt="Refresh"
                 title="Refresh"
               />
-           
-            
-             
             </div>
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
-            <div ref={componentRef}>
-              <div className="row ">
-                <div className="col-lg-1"></div>
-                <div className="firstrowsticky body-inner no-padding table-responsive">
-                  <table
-                    className="table table-bordered table-striped table-hover   mt-1  "
-                    id="datatable2"
-                  >
-                    <thead>
-                      <tr>
-                        <th
-                          className="headcolstatic"
-                          style={showPrint}
-                          // style={{ height: "-10px !important" }}
-                        >
-                          Building Name
-                        </th>
-                        {/* <th>Door Number</th> */}
+              <div ref={componentRef}>
+                <div className="row ">
+                  <div className="col-lg-1"></div>
+                  <div className="firstrowsticky body-inner no-padding table-responsive">
+                    <table
+                      className="table table-bordered table-striped table-hover   mt-1  "
+                      id="datatable2"
+                    >
+                      <thead>
+                        <tr>
+                          <th
+                            className="headcolstatic"
+                            style={showPrint}
+                            // style={{ height: "-10px !important" }}
+                          >
+                            Building Name
+                          </th>
+                          {/* <th>Door Number</th> */}
 
-                        <th style={showPrint}>Address</th>
-                        <th style={showPrint}>Location</th>
-                        <th style={showPrint}> Total Door No</th>
-                      </tr>
-                    </thead>
-                    <tbody className="text-center">
-                      {currentDatas &&
-                        currentDatas.map((Val, idx) => {
-                          return (
-                            <tr key={idx}>
-                              <td className="headcolstatic secondlinebreak1">
-                                {Val.BuildingName}
-                              </td>
+                          <th style={showPrint}>Address</th>
+                          <th style={showPrint}>Location</th>
+                          <th style={showPrint}> Door No's</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-center">
+                        {currentDatas &&
+                          currentDatas.map((Val, idx) => {
+                            return (
+                              <tr key={idx}>
+                                <td className="headcolstatic secondlinebreak1">
+                                  {Val.BuildingName}
+                                </td>
 
-                              <td>{Val.shopAddress}</td>
-                              {/* <td title={AddDetail.shopDoorNo}> */}
-                              <td>
-                                {/* {Val.shopDoorNo &&
+                                <td>{Val.shopAddress}</td>
+                                {/* <td title={AddDetail.shopDoorNo}> */}
+                                <td>
+                                  {/* {Val.shopDoorNo &&
                                   Val.shopDoorNo.map((ele) => {
                                     <p key={idx}></p>;
                                     if (ele.status === "Avaiable") {
@@ -409,10 +403,10 @@ const LocationReport = ({
                                       );
                                     }
                                   })} */}
-                                {Val.Location}
-                              </td>
-                            
-                               <td>
+                                  {Val.Location}
+                                </td>
+
+                                <td>
                                   {isPrinting ? (
                                     Val.shopDoorNo
                                       .map((e) => e.doorNo)
@@ -422,19 +416,21 @@ const LocationReport = ({
                                       className="img_icon_size log"
                                       src={require("../../static/images/info.png")}
                                       alt="shop no."
-                                      title={Val.shopDoorNo.map((e) => e.doorNo)}
+                                      title={Val.shopDoorNo.map(
+                                        (e) => e.doorNo
+                                      )}
                                     />
                                   )}
                                 </td>
-                            </tr>
-                          );
-                        })}
-                    </tbody>
-                  </table>
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="col-lg-1"></div>
                 </div>
-                <div className="col-lg-1"></div>
               </div>
-</div>
               <div className="row">
                 <div className="col-lg-6">
                   {particular_org_data && particular_org_data.length !== 0 ? (
@@ -449,7 +445,10 @@ const LocationReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Property : {particular_org_data.length}
                   </p>
                 </div>

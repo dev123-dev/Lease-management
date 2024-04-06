@@ -5,6 +5,11 @@ import { ParticularTenantFilterContactReport } from "../../actions/tenants";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
+import Select from "react-select";
 
 const RenewableTenantReport = ({
   auth: { user },
@@ -18,19 +23,26 @@ const RenewableTenantReport = ({
   }, [freshpage]);
 
   //year picker start
+  const [selectedYear, setSelectedYear] = useState({
+    label: new Date().getFullYear(),
+    value: new Date().getFullYear(),
+  });
+  const [RenewableYear, SetRenewableYear] = useState(new Date().getFullYear());
 
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  // Function to populate years array
   const populateYears = (startYear, endYear) => {
-    const years = [];
-    for (let year = startYear; year <= endYear; year++) {
-      years.push(year);
+    const yearsArray = [];
+    for (let year = endYear; year >= startYear; year--) {
+      yearsArray.push({ label: year.toString(), value: year });
     }
-    return years;
+    return yearsArray;
   };
-  const handleYearChange = (e) => {
-    setSelectedYear(e.target.value);
+
+  const years = populateYears(2020, new Date().getFullYear());
+  const handleYearChange = (selectedOption) => {
+    setSelectedYear(selectedOption);
+    SetRenewableYear(selectedOption.value);
   };
-  const years = populateYears(2000, new Date().getFullYear());
 
   //end
 
@@ -49,7 +61,7 @@ const RenewableTenantReport = ({
         "Active" &&
         // (!ele.output.tenantRenewedDate || new Date(ele.output.tenantRenewedDate).getFullYear() === parseInt(selectedYear))
         new Date(ele.tenantLeaseEndDate).getFullYear() ===
-          parseInt(selectedYear)
+          parseInt(RenewableYear)
     );
 
   const currentDatas =
@@ -134,14 +146,19 @@ const RenewableTenantReport = ({
     },
   });
   const refresh = () => {
-    setSelectedYear(new Date().getFullYear());
+    const currentYear = new Date().getFullYear();
+    setSelectedYear({
+      label: currentYear,
+      value: currentYear,
+    });
+    SetRenewableYear(currentYear);
   };
 
   return (
     <>
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-          <div className="row mt-5  ">
+          {/* <div className="row mt-5  ">
             <div className="col-lg-4 mt-3">
               <h2 className="heading_color  headsize  ml-4">
                 Renewable Tenant Report
@@ -161,23 +178,15 @@ const RenewableTenantReport = ({
                 </select>
               </div>
             </div>
-            <div className="col-lg-4 mt-5 text-right ">
+            <div className="col-lg-4 mt-3 iconspace ">
               <Link to="/Report">
-                <img
-                  height={28}
-                  src={require("../../static/images/back.png")}
-                  alt="Back"
-                  title="Back"
-                />
+                <button style={{ border: "none" }}>
+                  <img src={Back} alt="Back" title="Back" />
+                </button>
               </Link>
               {myuser.usergroup === "Admin" ? (
                 <CSVLink data={csvContactReportData}>
-                  <img
-                    className="img_icon_size log  ml-1"
-                    src={require("../../static/images/excel_icon.png")}
-                    alt="Excel-Export"
-                    title="Excel-Export"
-                  />
+                  <img src={Excel} alt="Excel-Export" title="Excel-Export" />
                 </CSVLink>
               ) : (
                 <></>
@@ -195,26 +204,105 @@ const RenewableTenantReport = ({
                   OnPrint();
                 }}
               >
-                <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
+                <img src={Print} alt="Print" title="Print" />
               </button>
               <img
                 className="ml-1"
                 style={{ cursor: "pointer" }}
-                height="20px"
                 onClick={() => refresh()}
-                src={require("../../static/images/refresh-icon.png")}
+                src={Refresh}
+                alt="refresh"
+                title="Refresh"
+              />
+            </div>
+          </div> */}
+          <div className="row mt-5 ">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <h2 className="heading_color  headsize  ml-4">
+                Renewable Report
+              </h2>
+            </div>
+
+            <div className="col-lg-5 mt-3">
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                    className="dropdown text-left mt-sm-3"
+                    placeholder="Select Year"
+                    onChange={(e) => handleYearChange(e)}
+                    options={years}
+                    value={selectedYear}
+                    theme={(theme) => ({
+                      ...theme,
+                      height: 26,
+                      minHeight: 26,
+                      borderRadius: 1,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#e8a317",
+                        primary: "#095a4a",
+                      },
+                    })}
+                  ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
+            </div>
+
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-4 iconspace ">
+              <Link to="/Report">
+                <button style={{ border: "none" }}>
+                  <img
+                    src={Back}
+                    alt="Back"
+                    title="Back"
+                    className="iconSize"
+                  />
+                </button>
+              </Link>
+         
+                <CSVLink
+                  data={csvContactReportData}
+                  filename={"Renewable-Tenant-Report.csv"}
+                >
+                  <img
+                    className="iconSize"
+                    src={Excel}
+                    alt="Excel-Export"
+                    style={{ cursor: "pointer" }}
+                    title="Excel-Export"
+                  />
+                </CSVLink>
+             
+              <button
+                style={{ border: "none" }}
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  OnPrint();
+                }}
+              >
+                <img
+                  src={Print}
+                  alt="Print"
+                  title="Print"
+                  className="iconSize"
+                />
+              </button>
+              <img
+                className="iconSize"
+                style={{ cursor: "pointer" }}
+                onClick={() => refresh()}
+                src={Refresh}
                 alt="refresh"
                 title="Refresh"
               />
             </div>
           </div>
-
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
               <div ref={componentRef}>
@@ -245,8 +333,8 @@ const RenewableTenantReport = ({
                           <th style={showPrint}>Firm Name</th>
                           {/* <th style={showPrint}>Deposite Amount</th> */}
 
-                          <th style={showPrint}>lease Start Date</th>
-                          <th style={showPrint}>lease End Date</th>
+                          <th style={showPrint}>Lease Start Date</th>
+                          <th style={showPrint}>Lease End Date</th>
                           {/* <th style={showPrint}>Agreement Status</th> */}
                         </tr>
                       </thead>
@@ -336,7 +424,10 @@ const RenewableTenantReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Tenants : {activeData.length}
                   </p>
                 </div>

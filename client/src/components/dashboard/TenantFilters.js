@@ -8,6 +8,7 @@ import {
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
   getTenantReportOldExp,
+  getTenantReportYearExp,
   getOrganizationExpiryReport,
   ParticularTenant,
   getOrgExpCount,
@@ -23,6 +24,7 @@ const TenantFilters = ({
   getPreviousYearsExpCount,
   getTenantReportYearMonth,
   getTenantReportOldExp,
+  getTenantReportYearExp,
   ParticularTenant,
   getOrgExpCount,
   getOrgExp,
@@ -30,6 +32,7 @@ const TenantFilters = ({
   getPreviousYearsExpCountOfOrg,
 }) => {
   const history = useHistory();
+  const [isActive, setIsActive] = useState(false);
 
   const logUser = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
@@ -63,12 +66,18 @@ const TenantFilters = ({
     monthSearch: new Date().getMonth() + 1,
     yearSearch: "",
   });
-
+  var currentMonth = new Date().getMonth() + 1; // Get current month (1-indexed)
+  var currentyear = new Date().getFullYear();
+  var formattedMonth = currentMonth < 10 ? "0" + currentMonth : currentMonth; // Add leading zero if necessary
   const { monthSearch, yearSearch } = searchData;
 
   const [startMonthDate, setMonthStartDate] = useState(new Date());
+  const [SelectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const monthYearChange = (dt) => {
+    setIsActive(false);
     var getYear = new Date(dt).getFullYear();
+    setSelectedYear(getYear);
+    setCurrentMonth123(formattedMonth);
     localStorage.setItem("monthSearch", "");
     if (getYear) {
       setMonthStartDate(dt);
@@ -81,11 +90,18 @@ const TenantFilters = ({
         ...searchData,
         monthSearch: "",
       });
-      getMonthExpCount(finalData); //Done
+      getMonthExpCount(finalData);
       getPreviousYearsExpCount(finalData);
     }
+    const finalDataReportOld = {
+      monthSearch: "",
+      yearSearch: new Date(dt).getFullYear(),
+      OrganizationId: logUser && logUser.OrganizationId,
+      yearFiltercount: false,
+    };
 
-    history.push("/nocontent");
+    getTenantReportYearExp(finalDataReportOld);
+    history.push("/tenant-report");
   };
 
   const OrgainzationmonthYearChange = (dt) => {
@@ -109,6 +125,8 @@ const TenantFilters = ({
 
   const onSelectChange = (optFiltrVal) => {
     if (optFiltrVal) {
+      setIsActive(false);
+      setCurrentMonth123("");
       localStorage.setItem("monthSearch", optFiltrVal);
       setSearchData({
         ...searchData,
@@ -119,6 +137,7 @@ const TenantFilters = ({
         monthSearch: optFiltrVal,
         yearSearch: new Date(startMonthDate).getFullYear(),
         OrganizationId: logUser && logUser.OrganizationId,
+        yearFiltercount: false,
       };
       getTenantReportYearMonth(finalDataReport);
     }
@@ -145,6 +164,7 @@ const TenantFilters = ({
 
   const oldExpCountFetch = () => {
     setMonthFilter("");
+    setIsActive(true);
     localStorage.setItem("monthSearch", "");
     setSearchData({
       ...searchData,
@@ -155,8 +175,10 @@ const TenantFilters = ({
       monthSearch: "",
       yearSearch: new Date(startMonthDate).getFullYear(),
       OrganizationId: logUser && logUser.OrganizationId,
+      yearFiltercount: true,
     };
     getTenantReportOldExp(finalDataReportOld);
+    setCurrentMonth123("");
   };
   const oldExpCountFetchOrg = () => {
     setMonthFilter("");
@@ -173,6 +195,10 @@ const TenantFilters = ({
     };
     getOrganizationExpiryReport(finalDataReportOld);
   };
+
+  // Enclose the month value in double quotes
+
+  const [currentMonth123, setCurrentMonth123] = useState(formattedMonth);
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -300,7 +326,7 @@ const TenantFilters = ({
       ) : (
         <>
           {/* TENANT FILTER */}
-          {logUser.usergroup === "Admin" ? (
+          {/* {logUser.usergroup === "Admin" ? ( */}
             <Fragment>
               <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 ">
                 {/* <div className="row pb-2 ml-2   "> */}
@@ -312,7 +338,7 @@ const TenantFilters = ({
                     >
                       <div
                         className={`btn_before_filter text-center ${
-                          blnSearchOld ? "active" : ""
+                          isActive && blnSearchOld ? "active" : ""
                         }`}
                       >
                         {yearExpCnt && yearExpCnt.length > 0
@@ -354,6 +380,7 @@ const TenantFilters = ({
                         >
                           <div
                             className="tenantfil   d-flex flex-row"
+                            id="month"
                             style={{
                               fontWeight: "bold",
                               color: "#fff",
@@ -367,8 +394,14 @@ const TenantFilters = ({
                                 name="alphaSearch"
                                 onClick={() => onSelectChange(optFiltr.value)}
                                 style={
-                                  Number(monthSearch) ===
-                                    Number(optFiltr.value) && blnSearchCurr
+                                  (SelectedYear === currentyear &&
+                                    currentMonth123 &&
+                                    Number(currentMonth123) ===
+                                      Number(optFiltr.value) &&
+                                    blnSearchOld) ||
+                                  (Number(monthSearch) ===
+                                    Number(optFiltr.value) &&
+                                    blnSearchCurr)
                                     ? {
                                         fontWeight: "bold",
                                         color: "#e8a317",
@@ -381,15 +414,21 @@ const TenantFilters = ({
                                 }
                               >
                                 {optFiltr.label}
-                              </Link>{" "}
+                              </Link>
                             </div>
                             {/* &nbsp; */}
                             <div>
                               <label
                                 className="btn-roun  "
                                 style={
-                                  Number(monthSearch) ===
-                                    Number(optFiltr.value) && blnSearchCurr
+                                  (SelectedYear === currentyear &&
+                                    currentMonth123 &&
+                                    Number(currentMonth123) ===
+                                      Number(optFiltr.value) &&
+                                    blnSearchOld) ||
+                                  (Number(monthSearch) ===
+                                    Number(optFiltr.value) &&
+                                    blnSearchCurr)
                                     ? {
                                         padding: "2px",
                                         fontSize: "80%",
@@ -415,9 +454,9 @@ const TenantFilters = ({
                 {/* </div> */}
               </div>
             </Fragment>
-          ) : (
-            <></>
-          )}
+           {/* ) : (  */}
+            {/* <></> */}
+            {/* )}  */}
         </>
       )}
       <MainAdminPage year={startMonthDate} />
@@ -437,6 +476,7 @@ export default connect(mapStateToProps, {
   getTenantReportYearMonth,
   getTenantReportOldExp,
   getOrgExp,
+  getTenantReportYearExp,
   ParticularTenant,
   getOrgExpCount,
   getOrganizationExpiryReport,

@@ -5,6 +5,10 @@ import { ParticularTenantFilter, getUserActivity } from "../../actions/tenants";
 import RenewalReportPrint from "../printPdf/renewalReportPrint";
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
+import { Link } from "react-router-dom";
+import Back from "../../static/images/Back.svg";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
 
 const UserActivityDetails = ({
   //   auth: { user },
@@ -34,6 +38,69 @@ const UserActivityDetails = ({
     //nmbr is page  number
     setCurrentData(nmbr);
   };
+  const csvTenantData = [
+    [
+      "Activity By",
+      "Activity Type",
+      "Name",
+      "Entered Date",
+      "Time Stamp",
+      "Usergroup",
+      "Lease Transfer to",
+    ],
+  ];
+
+  currentDatas.map((currentDatas) => {
+    var ED = currentDatas.DateTime && currentDatas.DateTime.split(/\D/g);
+    var date = [ED && ED[2], ED && ED[1], ED && ED[0]].join("-");
+    var dateTime = currentDatas.DateTime;
+    var formattedTime = dateTime ? new Date(dateTime).toLocaleTimeString() : "";
+
+    return csvTenantData.push([
+       currentDatas.userName,
+      currentDatas.Menu +''+ currentDatas.Operation,
+      currentDatas.Name,
+      date,
+      formattedTime,
+      currentDatas.usergroup,
+      currentDatas.Remarks,
+    ]);
+  });
+  //Print
+  const [isPrinting, setIsPrinting] = useState(false);
+  useEffect(() => {
+    // Clean up after component unmounts
+    return () => {
+      setIsPrinting(false);
+    };
+  }, []);
+
+  const [showPrint, setShowPrint] = useState({
+    backgroundColor: "#095a4a",
+    color: "white",
+    fontWeight: "bold",
+  });
+
+  const OnPrint = () => {
+    setIsPrinting(true);
+    handlePrint();
+  };
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Contact Report",
+
+    onAfterPrint: () => {
+      setTimeout(() => {
+        setIsPrinting(false);
+        setShowPrint({
+          backgroundColor: "#095a4a",
+          color: "white",
+          fontWeight: "bold",
+        });
+      }, 200);
+    },
+  });
 
   return (
     <>
@@ -42,42 +109,49 @@ const UserActivityDetails = ({
           <div className="row mt-5  ">
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                User Activity of <span>{myuser.username}</span>
-                (Past 30 days)
+                User Activity (Past 30 days)
               </h2>
             </div>
             <div className="col-lg-7 mt-5 text-right ">
-              {/* {myuser.usergroup === "Admin" ? (
-                    <CSVLink data={csvContactReportData}>
-                      <img
-                        className="img_icon_size log  ml-4"
-                        src={require("../../static/images/excel_icon.png")}
-                        alt="Excel-Export"
-                        title="Excel-Export"
-                      />
-                    </CSVLink>
-                  ) : (
-                    <></>
-                  )} */}
+              <Link to="/Report">
+                <button style={{ border: "none" }}>
+                  <img
+                    src={Back}
+                    alt="Back"
+                    title="Back"
+                    className="iconSize"
+                  />
+                </button>
+              </Link>
+            
+                <CSVLink
+                  data={csvTenantData}
+                  filename={"UserActivity-Report.csv"}
+                >
+                  <img src={Excel} alt="Excel-Export" title="Excel-Export" />
+                </CSVLink>
+             
 
-              {/* <button
+              <button
                 style={{ border: "none" }}
-                
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  OnPrint();
+                }}
               >
-                <img
-                  height="20px"
-                 
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
-              </button> */}
+                <img src={Print} alt="Print" title="Print" />
+              </button>
             </div>
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
             <div className="col">
-              <div>
+              <div ref={componentRef}>
                 <div className="row ">
                   <div className="col-lg-1"></div>
                   <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -87,17 +161,22 @@ const UserActivityDetails = ({
                     >
                       <thead>
                         <tr>
-                          <th
+                          {/* <th
+                            style={showPrint}
                             className="headcolstatic"
                             // style={{ height: "-10px !important"}}
                           >
                             Menu
-                          </th>
-                          <th>Name</th>
-                          <th>Operation</th>
-                          <th>Entered Date </th>
-                          <th> Time</th>
-                          <th> Remarks</th>
+                          </th> */}
+                              <th style={showPrint}>Activity By</th>
+                         
+                          <th style={showPrint}>Activity Type</th>
+                             <th style={showPrint}>Name</th>
+                          <th style={showPrint}>Entered Date </th>
+                          <th style={showPrint}>Time Stamp</th>
+                       
+                          <th style={showPrint}>UserGroup</th>
+                          <th style={showPrint}> Remarks</th>
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -118,19 +197,23 @@ const UserActivityDetails = ({
                               : "";
                             return (
                               <tr key={idx}>
-                                <td className="headcolstatic secondlinebreak1">
+                                {/* <td className="headcolstatic secondlinebreak1">
                                   {Val.Menu}
-                                </td>
-                                <td>{Val.Name}</td>
+                                </td> */}
+                                <td>{Val.userName}</td>
 
-                                <td>{Val.Operation}</td>
+                              <td>{Val.Menu + ' ' + Val.Operation}</td>
+                                   <td>{Val.Name}</td>
                                 <td>{date}</td>
                                 <td>{formattedTime}</td>
+                            
+                                    <td>{Val.usergroup}</td>
                                 {Val.Operation === "Lease Transfer" &&
                                 Val.Remarks ? (
                                   <td>
-                                    Transferred Lease
+                                    Lease Transferred &nbsp;
                                     {Val.Dno.map((ele) => ele.label + ",")} to
+                                    &nbsp;
                                     {Val.Remarks}
                                   </td>
                                 ) : (
@@ -161,8 +244,11 @@ const UserActivityDetails = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
-                    No. of UserActivity : {useractivitydetail.length}
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
+                    No. of Activity : {useractivitydetail.length}
                   </p>
                 </div>
               </div>

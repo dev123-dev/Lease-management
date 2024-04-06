@@ -8,9 +8,7 @@ const TenantHistory = new mongoose.Schema({
   thFileNo: {
     type: String,
   },
-  thDoorNo: {
-    type: String,
-  },
+  thDoorNo: [],
   thName: {
     type: String,
   },
@@ -35,10 +33,10 @@ const TenantHistory = new mongoose.Schema({
   thgeneratordepoAmt: {
     type: Number,
   },
-  thshopId: {
+  thBuildingId: {
     type: ObjectId,
   },
-  thStatus: {
+  thAgreementStatus: {
     type: String,
   },
   thChequenoOrDdno: {
@@ -50,9 +48,9 @@ const TenantHistory = new mongoose.Schema({
   thPaymentMode: {
     type: String,
   },
-  thEnteredBy: {
-    type: ObjectId,
-  },
+  // thEnteredBy: {
+  //   type: ObjectId,
+  // },
   thRentAmount: {
     type: Number,
   },
@@ -62,26 +60,26 @@ const TenantHistory = new mongoose.Schema({
   thLeaseEndDate: {
     type: String,
   },
-  thDate: {
-    type: String,
-  },
-  thDateTime: {
-    type: Date,
-    default: Date.now(),
-  },
-  enter_by_id: {
-    type: ObjectId,
-  },
-  enter_by_name: {
-    type: String,
-  },
-  enter_by_dateTime: {
-    type: Date,
-    default: Date.now(),
-  },
-  enter_by_date: {
-    type: String,
-  },
+  // thDate: {
+  //   type: String,
+  // },
+  // thDateTime: {
+  //   type: Date,
+  //   default: Date.now(),
+  // },
+  // enter_by_id: {
+  //   type: ObjectId,
+  // },
+  // enter_by_name: {
+  //   type: String,
+  // },
+  // enter_by_dateTime: {
+  //   type: Date,
+  //   // default: Date.now(),
+  // },
+  // enter_by_date: {
+  //   type: String,
+  // },
   edit_by_id: {
     type: ObjectId,
   },
@@ -103,7 +101,7 @@ const TenantHistory = new mongoose.Schema({
   },
   deactive_by_dateTime: {
     type: Date,
-    default: Date.now(),
+    // default: Date.now(),
   },
   deactive_by_date: {
     type: String,
@@ -111,6 +109,16 @@ const TenantHistory = new mongoose.Schema({
   deactive_reason: {
     type: String,
   },
+  thOperation:{
+    type:String,
+  },
+  tenantStatus:{
+    type:String,         //Active ,Deactive
+  },
+  thNotes:{
+    type:String,
+  },
+
 });
 
 module.exports = tenantHistories = mongoose.model(

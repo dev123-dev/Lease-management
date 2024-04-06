@@ -120,7 +120,7 @@ const TenantReport = ({
                             <th>Organization Name</th>
                             <th>Email</th>
                             <th>Phone</th>
-                            <th>StartDate</th>
+                            <th>Start Date</th>
                             <th>Status</th>
                             <th>End Date</th>
                             <th>Operation</th>

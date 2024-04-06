@@ -10,6 +10,10 @@ import {
 import { useReactToPrint } from "react-to-print";
 import Pagination from "../layout/Pagination";
 import { Link } from "react-router-dom";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
 
 const UnOccupiedUnits = ({
   auth: { user },
@@ -156,31 +160,24 @@ const UnOccupiedUnits = ({
           <div className="row mt-5  ">
             <div className="col-lg-4 mt-3">
               <h2 className="heading_color  headsize  ml-4">
-                UnOccupied Units
+                Unoccupied Units
               </h2>
             </div>
 
-            <div className="col-lg-8 mt-5 text-right ">
+            <div className="col-lg-8 mt-3 iconspace ">
               <Link to="/MainAdmin">
-                <img
-                  height={28}
-                  src={require("../../static/images/back.png")}
-                  alt="Back"
-                  title="Back"
-                />
+                <button style={{ border: "none" }}>
+                  <img src={Back} alt="Back" title="Back" className="iconSize"/>
+                </button>
               </Link>
-              {myuser.usergroup === "Admin" ? (
-                <CSVLink data={csvUnOccupiedData}>
-                  <img
-                    className="img_icon_size log  ml-1"
-                    src={require("../../static/images/excel_icon.png")}
-                    alt="Excel-Export"
-                    title="Excel-Export"
-                  />
+            
+                <CSVLink
+                  data={csvUnOccupiedData}
+                  filename={"Unoccupied-Units.csv"}
+                >
+                  <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize" />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+             
 
               <button
                 style={{ border: "none" }}
@@ -194,13 +191,7 @@ const UnOccupiedUnits = ({
                   OnPrint();
                 }}
               >
-                <img
-                  height="20px"
-                  //  onClick={() => refresh()}
-                  src={require("../../static/images/print.png")}
-                  alt="Print"
-                  title="Print"
-                />
+                <img src={Print} alt="Print" title="Print" className="iconSize" />
               </button>
             </div>
           </div>
@@ -218,7 +209,7 @@ const UnOccupiedUnits = ({
                       <thead>
                         <tr>
                           <th style={showPrint}>Building Name</th>
-                          <th style={showPrint}>Door No</th>
+                          <th style={showPrint}>Door No's</th>
                           <th style={showPrint}>Status</th>
                         </tr>
                       </thead>
@@ -270,8 +261,9 @@ const UnOccupiedUnits = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
-                    No. of Tenants : {mappedStatus.length}
+                  <p className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
+                    No. of Units : {mappedStatus.length}
                   </p>
                 </div>
               </div>

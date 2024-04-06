@@ -8,7 +8,7 @@ import {
   UpdateTenantsDetails,
   AddUserActivity,
 } from "../../actions/tenants";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Modal } from "react-bootstrap";
 import Select from "react-select";
 import tenants from "../../reducers/tenants";
@@ -25,7 +25,7 @@ const EditTenantDetails = ({
   getParticularProperty,
 }) => {
   const myuser = JSON.parse(localStorage.getItem("user"));
-  const histroy = useHistory();
+  const history = useHistory();
   useEffect(() => {
     fun();
     checkDoorNumber();
@@ -39,6 +39,13 @@ const EditTenantDetails = ({
   const fun = () => {
     let AvaiableRoomBuilding = particular_org_data;
     setAvaiableRoomBuilding(AvaiableRoomBuilding);
+  };
+
+  const location = useLocation();
+  const { currentPage } = location.state || { currentPage: 1 };
+  const handleReturn = () => {
+    // Navigate back to the details page with the pagination state
+    history.push("/tenant-detail", { currentPagefromedit: currentPage });
   };
 
   const [buildingData, getbuildingData] = useState();
@@ -79,7 +86,6 @@ const EditTenantDetails = ({
     );
   }
 
-  const [orgname, setOrgname] = useState();
   if (
     !buildingName &&
     particular_tenant_EditData &&
@@ -225,7 +231,7 @@ const EditTenantDetails = ({
     ) {
       setValidationTransIdMessage("");
     } else {
-      setValidationTransIdMessage("Please enter a valid  Transcation id");
+      setValidationTransIdMessage("Please enter a valid  Transaction id");
     }
 
     setTransId(inputValue);
@@ -326,7 +332,7 @@ const EditTenantDetails = ({
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z\s]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setTenantName(filteredValue);
@@ -345,7 +351,7 @@ const EditTenantDetails = ({
       const isValidPhone = /^[6789]\d{9}$/;
       isValidPhone.test(cleanedValue)
         ? setValidationPhoneMessage("")
-        : setValidationPhoneMessage("enter valid phone number");
+        : setValidationPhoneMessage("Please enter valid Phone Number");
 
       setTenantPhone(cleanedValue);
     }
@@ -363,7 +369,7 @@ const EditTenantDetails = ({
       setRentAmount(inputValue);
       setValidationRentAmtMessage("");
     } else {
-      setValidationRentAmtMessage("enter valid amount");
+      setValidationRentAmtMessage("Please enter valid Amount");
     }
   };
 
@@ -379,7 +385,7 @@ const EditTenantDetails = ({
       const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
       isValidAdhar.test(inputValue)
         ? setValidationAdharMessage("")
-        : setValidationAdharMessage("enter valid aadhar number");
+        : setValidationAdharMessage("Please enter valid Aadhar Number");
 
       setTenantAdharNo(inputValue);
     }
@@ -397,7 +403,7 @@ const EditTenantDetails = ({
       const isValidPan = /^(?!.*([A-Z])\1{3,})[A-Z]{5}[0-9]{4}[A-Z]$/;
       isValidPan.test(inputValue)
         ? setValidationPanMessage("")
-        : setValidationPanMessage("enter valid Pan number");
+        : setValidationPanMessage("Please enter valid Pan Number");
 
       setTenantPanNo(inputValue);
     }
@@ -417,7 +423,7 @@ const EditTenantDetails = ({
       const isValidPan = /^(?!000000)\d{6}$/;
       isValidPan.test(inputValue)
         ? setValidationChequeMessage("")
-        : setValidationChequeMessage("enter valid Cheque number");
+        : setValidationChequeMessage("Please enter valid Cheque Number");
 
       setTenantChequenoOrDdno(inputValue);
     }
@@ -434,7 +440,7 @@ const EditTenantDetails = ({
     const isValidPan = /^[A-Za-z\s]+$/;
     isValidPan.test(inputValue)
       ? setValidationBankMessage("")
-      : setValidationBankMessage("enter valid Bank Name");
+      : setValidationBankMessage("Please enter valid Bank Name");
 
     setTenantBankName(inputValue);
   };
@@ -514,8 +520,8 @@ const EditTenantDetails = ({
       setOutput("V");
 
       var leaseMonth = myuser.output.leaseTimePeriod; //Setting Value
-
-      const newYear = yearVal + 1;
+      console.log("leaseMonth", leaseMonth);
+      const newYear = monthVal === 1 ? yearVal : yearVal + 1;
       const newMonth = monthVal === 1 ? monthVal + leaseMonth : monthVal - 1;
       const expiryDate = getLeaseExpiryDate(newYear, newMonth, dateVal);
 
@@ -572,6 +578,7 @@ const EditTenantDetails = ({
   const [date, setDate] = useState("");
   const [output, setOutput] = useState("R");
   const [key, setKey] = useState();
+
   useEffect(() => {
     if (entryDate) checkIfDateEnteredValidWhenFocussedOut(entryDate);
   }, [entryDate]);
@@ -651,7 +658,7 @@ const EditTenantDetails = ({
 
     isValidBuilding.test(inputValue)
       ? setValidationAddressMessage("")
-      : setValidationAddressMessage("enter valid Address");
+      : setValidationAddressMessage("Please enter valid Address");
 
     setTenantAddr(inputValue);
   };
@@ -710,13 +717,25 @@ const EditTenantDetails = ({
       tenantChequenoOrDdno: tenantChequenoOrDdno,
       tenantPaymentMode: tenantPaymentMode.value,
       tenantchequeDate: startSelectedDate,
+
+      //old code 11 month default
+
       tenantLeaseStartDate:
         entryDate.split(delimiter)[2] +
         delimiter +
         entryDate.split(delimiter)[1] +
         delimiter +
         entryDate.split(delimiter)[0],
-      tenantLeaseEndDate: leaseEndDate,
+
+      // tenantLeaseEndDate: leaseEndDate,
+
+      tenantLeaseEndDate:
+        endDateFin.split(delimiter)[2] +
+        delimiter +
+        endDateFin.split(delimiter)[1] +
+        delimiter +
+        endDateFin.split(delimiter)[0],
+
       generatordepoAmt: generatordepoAmt,
       tenantEnteredBy: user && user._id,
       tenantDate: todayDateymd,
@@ -737,14 +756,35 @@ const EditTenantDetails = ({
     // console.log("edittenant", finalData);
     AddUserActivity(EditUserActivity);
     UpdateTenantsDetails(finalData);
-    histroy.push("/tenant-detail");
+    history.push("/tenant-detail", { currentPagefromedit: currentPage });
   };
-  // useEffect(() => {
-  //   setStartDate("");
-  //   setTenantBankName("");
-  //   setTransId("");
-  //   setTenantChequenoOrDdno("");
-  // }, [paymentMode]);
+
+  // new Date Code Rakki
+
+  function calculateMonthsFromDate(date, monthsToAdd) {
+    try {
+      const d = new Date(date);
+      d.setMonth(d.getMonth() + monthsToAdd);
+      d.setDate(d.getDate() - 1);
+      return d.toISOString().split("T")[0].split("-").reverse().join("-");
+    } catch (er) {
+      console.log(er);
+      return 0;
+    }
+  }
+  const [endDateFin, setEndDateFin] = useState(null);
+
+  useEffect(() => {
+    if (entryDate.length === 10) {
+      setEndDateFin(
+        calculateMonthsFromDate(
+          entryDate.split("-").reverse().join("-"),
+          myuser.output.leaseTimePeriod
+        )
+      );
+    }
+  }, [entryDate]);
+
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -754,7 +794,7 @@ const EditTenantDetails = ({
         <form onSubmit={(e) => onUpdate(e)}>
           <div className="conatiner-fluid ">
             <div className="row card-new pb-3">
-              <div className="col-lg-12 col-md-12 col-sm-12 col-12  ">
+              <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 <h2
                   style={{
                     marginLeft: "10px",
@@ -850,7 +890,7 @@ const EditTenantDetails = ({
                 />
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-                <label>Adhaar No:</label>
+                <label>Aadhaar No:</label>
                 <input
                   type="number"
                   name="tenantAdharNo"
@@ -1087,7 +1127,7 @@ const EditTenantDetails = ({
                   </div>
 
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id:</label>
+                    <label> Transaction Id:</label>
                     <input
                       type="text"
                       name="transcationId"
@@ -1121,7 +1161,7 @@ const EditTenantDetails = ({
               ) : paymentMode.value === "NEFT" ? (
                 <div className="row">
                   <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <label> Transcation Id:</label>
+                    <label> Transaction Id:</label>
                     <input
                       type="text"
                       name="transcationId"
@@ -1190,12 +1230,15 @@ const EditTenantDetails = ({
                 <p className={`output ${className}`}>{content}</p>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-                <label>Lease End Date (DD-MM-YYYY)*: </label>
+                <label>
+                  Lease End Date (DD-MM-YYYY)*:{" "}        
+                </label>
                 <input
                   placeholder="DD-MM-YYYY"
                   className="form-control cpp-input datevalidation"
-                  value={endDate}
+                  value={endDateFin}
                   readOnly
+                  // disabled
                 ></input>
                 <br></br>
               </div>
@@ -1212,7 +1255,6 @@ const EditTenantDetails = ({
                 ></textarea>{" "}
                 <h6 style={{ color: "red" }}>{validationAddressMessage}</h6>
               </div>
-              {/*  switch */}
               <div className="row ml-1 ">
                 <div className="col-lg-6 col-md-12 col-sm-12">
                   {" "}
@@ -1220,10 +1262,8 @@ const EditTenantDetails = ({
                     Door Number :
                   </span>
                 </div>
-                {/* <div className="col-lg-6 col-md-12 col-sm-12">   <span  className="h4" style={{ color: "#095a4a" }}>Occupied Door Number : </span></div> */}
               </div>
               <div className="row ml-1 ">
-                {/* to sel */}
                 <div
                   className="col-lg-6 col-md-12 col-sm-12 card-new button_Door  border-dark border-right bg-white "
                   style={{ border: "transparent", minHeight: "90px" }}
@@ -1251,7 +1291,7 @@ const EditTenantDetails = ({
                                 width="20"
                                 height="16"
                                 fill="currentColor"
-                                class="bi bi-plus-square-fill"
+                                className="bi bi-plus-square-fill"
                                 viewBox="0 0 16 16"
                               >
                                 <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z" />
@@ -1262,12 +1302,12 @@ const EditTenantDetails = ({
                       );
                     })}
                 </div>
-                {/* end to sel */}
+
                 <div
                   className=" col-lg-6 col-md-12 card-new bg-white"
                   style={{ border: "transparent", minHeight: "80px" }}
                 >
-                  <div className="h4 " style={{ color: "#095a4a" }}>
+                  <div className="h4" style={{ color: "#095a4a" }}>
                     Selected:
                   </div>{" "}
                   <br></br>
@@ -1279,9 +1319,7 @@ const EditTenantDetails = ({
                           <button
                             key={idx}
                             type="button"
-                            // name="selectedWorkMistake"
                             className="btn  doorbtn"
-                            // id="savebtn"
                             onClick={() => onRemoveChange(Doornumber)}
                           >
                             {Doornumber.value}
@@ -1293,7 +1331,7 @@ const EditTenantDetails = ({
                                   width="20"
                                   height="16"
                                   fill="currentColor"
-                                  class="bi bi-dash-square-fill"
+                                  className="bi bi-dash-square-fill"
                                   viewBox="0 0 16 16"
                                 >
                                   <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 7.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1z" />
@@ -1301,13 +1339,11 @@ const EditTenantDetails = ({
                               </b>
                             </span>
                           </button>
-                          // </p>
                         );
                       }
                     })}
                 </div>
               </div>
-              {/* end switch */}
               <div className="col-lg-9 text-danger">
                 * Indicates mandatory fields, Please fill mandatory fields
                 before Submit
@@ -1316,9 +1352,7 @@ const EditTenantDetails = ({
                 <div className="row">
                   <div className="col-lg-6 col-md-12 col-sm-12">
                     <button
-                      onClick={() => {
-                        histroy.push("/tenant-detail");
-                      }}
+                      onClick={handleReturn}
                       variant="success"
                       className="btn sub_form btn_continue Save float-right "
                       id="savebtn"
@@ -1335,7 +1369,6 @@ const EditTenantDetails = ({
                         id="savebtn"
                         type="submit"
                         disabled={true}
-                        // disabled={isNextButtonDisabled}
                       >
                         Save
                       </button>
@@ -1346,20 +1379,10 @@ const EditTenantDetails = ({
                         id="savebtn"
                         type="submit"
                         disabled={output != "V" ? true : false}
-                        // disabled={isNextButtonDisabled}
                       >
                         Save
                       </button>
                     )}
-                    {/* <button
-                      type="submit"
-                      variant="success"
-                      className="btn sub_form btn_continue Save float-right"
-                      id="savebtn"
-                      disabled={output !== "V" ? true : false}
-                    >
-                      Save
-                    </button> */}
                   </div>
                 </div>
               </div>

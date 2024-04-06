@@ -15,6 +15,12 @@ import {
 } from "../../actions/tenants";
 import EditAdminUser from "./EditAdminUser";
 import { useReactToPrint } from "react-to-print";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
+import Add from "../../static/images/Add.svg";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
 const UserDetails = ({
   auth: { user },
   tenants: { get_particularOrg_user }, //this is a reudcer
@@ -35,8 +41,9 @@ const UserDetails = ({
   });
 
   const [deactive_reason, setDeactive_reason] = useState("");
-  const [validationMessage, setValidationMessage] =
-    useState("Enter valid reason");
+  const [validationMessage, setValidationMessage] = useState(
+    "Please enter valid Reason"
+  );
   const onInputChange = (e) => {
     const inputValue = e.target.value;
     const isValid =
@@ -45,7 +52,7 @@ const UserDetails = ({
 
     isValid.test(inputValue)
       ? setValidationMessage("")
-      : setValidationMessage("Enter valid reason");
+      : setValidationMessage("Please enter valid Reason");
 
     setDeactive_reason(inputValue);
   };
@@ -65,7 +72,7 @@ const UserDetails = ({
     const inputValue = e.target.value;
     const filteredValue = inputValue.replace(/[^A-Za-z0-9]/g, ""); // Remove non-alphabetic characters
     filteredValue === ""
-      ? setValidationNameMessage("Please enter the Name")
+      ? setValidationNameMessage("Please enter valid Name")
       : setValidationNameMessage("");
 
     setUsername(filteredValue);
@@ -119,6 +126,17 @@ const UserDetails = ({
   };
 
   const [showadd, setShowadd] = useState(false);
+
+
+
+
+  let cntDeActiveUser = 0;
+  get_particularOrg_user &&
+  get_particularOrg_user.map((ele) => {
+      if (ele.userStatus !== "Active") cntDeActiveUser++;
+  
+    });
+
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
@@ -177,26 +195,23 @@ const UserDetails = ({
             <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
               <h2 className="heading_color  headsize  ml-4">User Details </h2>
             </div>
-
-            <div className="col-lg-2  col-sm-12 col-md-12 text-end mt-3 pt-4 ">
+         {myuser.usergroup === "Admin" ? (
+            <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
               {" "}
-              <img
-                height="20px"
-                onClick={() => setShowadd(true)}
-                src={require("../../static/images/add-icon.png")}
-                alt="Add User"
-                style={{ cursor: "pointer" }}
-                title="Add User"
-              />
-              {myuser.usergroup === "Admin" ? (
+              <button style={{ border: "none" }}>
+                <img
+                  onClick={() => setShowadd(true)}
+                  src={Add}
+                  alt="Add User"
+                  // style={{ cursor: "pointer" }}
+                  title="Add User"
+                  className="iconSize"
+                />
+              </button>
+     
                 <>
-                  <CSVLink data={csvUserData}>
-                    <img
-                      className="img_icon_size log float-right ml-1 mt-1"
-                      src={require("../../static/images/excel_icon.png")}
-                      alt="Excel-Export"
-                      title="Excel-Export"
-                    />
+                  <CSVLink data={csvUserData} filename={"User-Details.csv"}>
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize"/>
                   </CSVLink>
                   <button
                     style={{ border: "none" }}
@@ -211,18 +226,65 @@ const UserDetails = ({
                     }}
                   >
                     <img
-                      height="20px"
                       //  onClick={() => refresh()}
-                      src={require("../../static/images/print.png")}
+                      src={Print}
                       alt="Print"
                       title="Print"
+                      className="iconSize"
                     />
                   </button>
+                     <img
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  className="iconSize"
+                  alt="refresh"
+                  title="Refresh"
+                />
                 </>
-              ) : (
-                <></>
-              )}
+             
             </div>
+              ) : (
+               <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
+              {" "}
+           
+     
+                <>
+                  <CSVLink data={csvUserData} filename={"User-Details.csv"}>
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize"/>
+                  </CSVLink>
+                  <button
+                    style={{ border: "none" }}
+                    onClick={async () => {
+                      await setShowPrint({
+                        backgroundColor: "#095a4a",
+                        color: "black",
+                        fontWeight: "bold",
+                      });
+
+                      handlePrint();
+                    }}
+                  >
+                    <img
+                      //  onClick={() => refresh()}
+                      src={Print}
+                      alt="Print"
+                      title="Print"
+                      className="iconSize"
+                    />
+                  </button>
+                   <img
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  className="iconSize"
+                  alt="refresh"
+                  title="Refresh"
+                />
+                </>
+             
+            </div>
+              )}
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
@@ -243,7 +305,8 @@ const UserDetails = ({
                           <th style={showPrint}>Group</th>
                           <th style={showPrint}>Organization</th>
                           <th style={showPrint}>Address</th>
-                          <th style={showPrint}>Operation</th>
+                              {myuser.usergroup === "Admin" ? (
+                          <th style={showPrint}>Operation</th>):(<></>)}
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -252,38 +315,47 @@ const UserDetails = ({
                           currentDatas.map((alluser, idx) => {
                             return (
                               <tr key={idx}>
-                                <td>{alluser.username}</td>
+                                  {alluser.userStatus === "Deactive" ? (
+                                    <td style={{ backgroundColor: "#dda6a6" }}>
+                                      {alluser.username}
+                                    </td>
+                                  ) : (
+                                    <td>{alluser.username}</td>
+                                  )}
+                                {/* <td>{alluser.username}</td> */}
                                 <td>{alluser.useremail}</td>
                                 <td>{alluser.userphone}</td>
                                 <td>{alluser.usergroup}</td>
                                 <td>{alluser.OrganizationName}</td>
                                 <td>{alluser.useraddress}</td>
-
-                                {alluser.userStatus === "Deactive" ? (
+ 
+                                { alluser.userStatus === "Deactive" ? (
                                   <td className="blank text-center">
-                                    Deactived
+                                    Deactive
                                   </td>
-                                ) : (
-                                  <td className="text-center">
+                                ) : 
+                                   myuser.usergroup === "Admin" ?(<> <td className="text-center">
                                     <img
-                                      className="Cursor"
+                                      className="iconSize"
                                       onClick={() => onEdit(alluser, idx)}
-                                      src={require("../../static/images/edit_icon.png")}
+                                      src={Edit}
                                       alt="Edit"
-                                      title="Edit"
+                                      title="Edit User"
                                     />
                                     &nbsp;
                                     <img
-                                      className="Cursor"
+                                      className="iconSize"
                                       onClick={() =>
                                         onDelete(alluser._id, alluser)
                                       }
-                                      src={require("../../static/images/delete.png")}
+                                      src={Deactivate}
                                       alt="Deactivate"
-                                      title="Deactivate"
+                                      title="Deactivate User"
                                     />
-                                  </td>
-                                )}
+                                  </td></>):(<></>)
+                                 
+                               }
+
                               </tr>
                             );
                           })}
@@ -307,15 +379,20 @@ const UserDetails = ({
                     <Fragment />
                   )}
                 </div>
-                <div className="col-lg-6  col-sm-12 col-md-12 ">
-                  <p
-                    className="text-end h6 font-weight-bold text-right "
-                    style={{ color: "#095a4a" }}
-                  >
-                    No. of User :{" "}
-                    {get_particularOrg_user && get_particularOrg_user.length}
-                  </p>
-                </div>
+               
+                   <div className="col-lg-6  col-sm-12 col-md-12">
+                    <p
+                      className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}
+                    >
+                      Active Users:{" "}
+                      {get_particularOrg_user && get_particularOrg_user.length - cntDeActiveUser}{" "}
+                      &nbsp;&nbsp;&nbsp;
+                      <span style={{ color: "red" }}>
+                        Deactive Users: {cntDeActiveUser}
+                      </span>
+                    </p>
+                  </div>
               </div>
             </div>
           </div>

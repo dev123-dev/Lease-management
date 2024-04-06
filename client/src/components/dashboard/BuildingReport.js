@@ -18,6 +18,10 @@ import {
 import { useReactToPrint } from "react-to-print";
 import Select from "react-select";
 import Pagination from "../layout/Pagination";
+import Print from "../../static/images/Print.svg";
+import Excel from "../../static/images/Microsoft Excel.svg";
+import Refresh from "../../static/images/Refresh.svg";
+import Back from "../../static/images/Back.svg";
 const BuildingReport = ({
   auth: { user },
   tenants: {
@@ -288,25 +292,19 @@ const BuildingReport = ({
             <div className="col-lg-5 mt-3">
               <h2 className="heading_color  headsize  ml-4">Property Report</h2>
             </div>
-            <div className="col-lg-7 mt-5 text-right ">
+            <div className="col-lg-7 pt-4 iconspace">
               <Link to="/Report">
-                <img
-                  height={28}
-                  //  className="img_icon_size log  ml-4"
-                  src={require("../../static/images/back.png")}
-                  alt="Back"
-                  title="Back"
-                />
+                <button style={{ border: "none" }}>
+                  <img src={Back} alt="Back" title="Back"  className=" iconSize" />
+                </button>
               </Link>
-              {myuser.usergroup === "Admin" ? (
+         
                 <>
-                  <CSVLink data={csvPropertyReportData}>
-                    <img
-                      className="img_icon_size log float-right ml-2 mt-1"
-                      src={require("../../static/images/excel_icon.png")}
-                      alt="Excel-Export"
-                      title="Excel-Export"
-                    />
+                  <CSVLink
+                    data={csvPropertyReportData}
+                    filename={"Property-Report.csv"}
+                  >
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export"  className=" iconSize"/>
                   </CSVLink>
                   <button
                     style={{ border: "none" }}
@@ -320,18 +318,10 @@ const BuildingReport = ({
                       handlePrint();
                     }}
                   >
-                    <img
-                      height="20px"
-                      //  onClick={() => refresh()}
-                      src={require("../../static/images/print.png")}
-                      alt="Print"
-                      title="Print"
-                    />
+                    <img src={Print} alt="Print" title="Print"  className=" iconSize"/>
                   </button>
                 </>
-              ) : (
-                <></>
-              )}
+           
             </div>
             {/* <div className="col-lg-5 mt-3">
               <Select
@@ -498,7 +488,8 @@ const BuildingReport = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6">
+                  <p  className="text-end h6 font-weight-bold"
+                      style={{ color: "#095a4a" }}>
                     No. of Property : {get_property_related_tenant.length}
                   </p>
                 </div>

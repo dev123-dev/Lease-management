@@ -32,6 +32,11 @@ import {
   GET_MIS_REPORT,
   GET_MIS_AMOUNT_REPORT,
   GET_MIS_RENEWED_BAR_REPORT,
+  TENANT_SORT_ACTIVECOUNT,
+  TENANT_ACTIVECOUNT,
+  TENANT_RENEWCOUNT,
+  TENANT_DETAILS_LOADING,
+  TENANT_DETAILS_LOADING_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -76,12 +81,26 @@ const initialState = {
   allmisamountreport: [],
   allmisrenewedbarreport: [],
   sortContactReport: [],
+  tenantdetailscount: [],
+  tenantcount: [],
+  tenantrenewcount: [],
+  load: false,
 };
 
 const tenants = (state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case "TENANT_DETAILS_LOADING":
+      return {
+        ...state,
+        load: true,
+      };
+    case "TENANT_DETAILS_LOADING_SUCCESS":
+      return {
+        ...state,
+        load: false,
+      };
     case "TENANT_FILTER_OLD":
       return {
         ...state,
@@ -106,6 +125,11 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         sortetenantdetails: payload,
+      };
+    case TENANT_SORT_ACTIVECOUNT:
+      return {
+        ...state,
+        tenantdetailscount: payload,
       };
     case PARTICULAR_ORG_TENANT_LEASETRANSFER_SORT:
       return {
@@ -213,6 +237,16 @@ const tenants = (state = initialState, action) => {
       return {
         ...state,
         get_particular_org_tenant: payload,
+      };
+    case TENANT_RENEWCOUNT:
+      return {
+        ...state,
+        tenantrenewcount: payload,
+      };
+    case TENANT_ACTIVECOUNT:
+      return {
+        ...state,
+        tenantcount: payload,
       };
     case USER_ACTIVITY_DETAIL:
       return {

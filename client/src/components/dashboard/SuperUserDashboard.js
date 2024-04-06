@@ -9,6 +9,9 @@ import {
   getalluser,
   getAllSettings,
 } from "../../actions/tenants";
+import Add from "../../static/images/Add.svg";
+import Edit from "../../static/images/Edit.svg";
+import Deactivate from "../../static/images/Deactivate.svg";
 import Pagination from "../layout/Pagination";
 const SuperUserDashboard = ({
   auth: { isAuthenticated, loading, user },
@@ -101,16 +104,15 @@ const SuperUserDashboard = ({
               <div className="col-lg-12 col-md-12 col-sm-12 col-12">
                 <h2
                   style={{
-                    position:"relative",
-                top:"50px",
+                    position: "relative",
+                    top: "50px",
                   }}
                   className="heading_color  headsize  ml-3"
                 >
                   {" "}
-                  User Details 
+                  User Details
                 </h2>
               </div>
-            
 
               <div className="container-fluid d-flex align-items-center justify-content-center ">
                 <div className="col">
@@ -118,12 +120,11 @@ const SuperUserDashboard = ({
                     {/* <AddOrgModal />{" "} */}
 
                     <img
-                      height="20px"
-                      className=" plusicon"
                       onClick={() => setShowadd(true)}
-                      src={require("../../static/images/add-icon.png")}
+                      src={Add}
                       alt="Add User"
                       title="Add User"
+                      className="iconSize"
                     />
                   </div>
 
@@ -150,46 +151,40 @@ const SuperUserDashboard = ({
                           {currentDatas &&
                             currentDatas[0] &&
                             currentDatas.map((allsuperuse, idx) => {
-                            
-                                return (
-                                  <tr key={idx}>
-                                    <td>{allsuperuse.username}</td>
-                                    <td>{allsuperuse.useremail}</td>
-                                    <td>{allsuperuse.userphone}</td>
-                                    <td>{allsuperuse.usergroup}</td>
-                                    <td>{allsuperuse.OrganizationName}</td>
-                                    <td>{allsuperuse.useraddress}</td>
-                                    {allsuperuse.userStatus === "Active" && allsuperuse.usergroup !=="Super Admin"
- ? (
-                                      <td className="text-center">
-                                        <img
-                                          className="Cursor "
-                                          onClick={() =>
-                                            onEdit(allsuperuse, idx)
-                                          }
-                                          src={require("../../static/images/edit_icon.png")}
-                                          alt="Edit"
-                                          title="Edit"
-                                        />
-                                        &nbsp;
-                                        <img
-                                          className="Cursor "
-                                          onClick={() =>
-                                            onDelete(allsuperuse._id)
-                                          }
-                                          src={require("../../static/images/delete.png")}
-                                          alt="delete"
-                                          title="delete"
-                                        />
-                                      </td>
-                                    ) : (
-                                      <td className="blank text-center">
-                                   
-                                      </td>
-                                    )}
-                                  </tr>
-                                );
-                              
+                              return (
+                                <tr key={idx}>
+                                  <td>{allsuperuse.username}</td>
+                                  <td>{allsuperuse.useremail}</td>
+                                  <td>{allsuperuse.userphone}</td>
+                                  <td>{allsuperuse.usergroup}</td>
+                                  <td>{allsuperuse.OrganizationName}</td>
+                                  <td>{allsuperuse.useraddress}</td>
+                                  {allsuperuse.userStatus === "Active" &&
+                                  allsuperuse.usergroup !== "Super Admin" ? (
+                                    <td className="text-center">
+                                      <img
+                                        className="Cursor "
+                                        onClick={() => onEdit(allsuperuse, idx)}
+                                        src={Edit}
+                                        alt="Edit"
+                                        title="Edit"
+                                      />
+                                      &nbsp;
+                                      <img
+                                       className="iconSize"
+                                        onClick={() =>
+                                          onDelete(allsuperuse._id)
+                                        }
+                                        src={Deactivate}
+                                        alt="delete"
+                                        title="delete"
+                                      />
+                                    </td>
+                                  ) : (
+                                    <td className="blank text-center"></td>
+                                  )}
+                                </tr>
+                              );
                             })}
                         </tbody>
                       </table>
@@ -211,9 +206,10 @@ const SuperUserDashboard = ({
                     </div>
 
                     <div className="col-lg-6  col-sm-12 col-md-12 ">
-                      <p className="text-end h6">
+                      <p className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}>
                         {" "}
-                        No. of User : {allsuperuser.length}
+                        No. of Users : {allsuperuser.length}
                       </p>
                     </div>
                   </div>
