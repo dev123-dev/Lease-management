@@ -60,10 +60,6 @@ export const PropertyReport = ({
       return 0;
     }
   };
-   const locations = myuser.output.Location.map((item) => ({
-    label: item,
-    value: item,
-  }));
 
   const [Location, setLocation] = useState(null);
   const onchangeLocation = (e) => {
@@ -103,13 +99,13 @@ export const PropertyReport = ({
       }
     });
 
-    const [isPrinting, setIsPrinting] = useState(false);
-  useEffect(() => {
+  //   const [isPrinting, setIsPrinting] = useState(false);
+  // useEffect(() => {
 
-    return () => {
-      setIsPrinting(false);
-    };
-  }, []);
+  //   return () => {
+  //     setIsPrinting(false);
+  //   };
+  // }, []);
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -126,53 +122,16 @@ export const PropertyReport = ({
       }, 200);
     },
   });
- 
-  //Excel Export
- const csvPropertyReportData = [
-    ["Building Name", "Location", "Address", "No of doors","No of Agreement","Total Monthly Rent","Total Deposit Amount","Occupied Doors","Unoccupied Doors"],
-  ];
-
-  propertyReportList.filter((ele)=>ele.shopStatus=="Active").map((propertyReportList) => {
-    var doorNo =
-      propertyReportList &&
-      propertyReportList.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
- let occupied = [];
- 
-    let unoccupied   = [];
-    propertyReportList.shopDoorNo.forEach((e) =>{
-      e.status === "Acquired" ? occupied.push(e.doorNo) : unoccupied.push(e.doorNo)});
-      var occupieddoor= occupied &&
-           occupied.map((e) => (
-                e
-            ));
-           console.log("occupieddoor",occupieddoor) 
-             var unoccupieddoor= unoccupied &&
-           unoccupied.map((e) => (
-                e
-            ))
-  
-    return csvPropertyReportData.push([
-      propertyReportList.BuildingName,
-      propertyReportList.Location,
-      propertyReportList.shopAddress,
-    propertyReportList.shopDoorNo.length,
-      propertyReportList.tenants.length,
-getTotal(propertyReportList.tenants, "tenantRentAmount"),
-getTotal(propertyReportList.tenants, "tenantDepositAmt"),
-
-     occupieddoor,
-     unoccupieddoor,
-
-    ]);
-  });
-
 
   const Refresh = () => {
     getPropertyReport("");
     setLocation(null);
   };
 
- 
+  const locations = myuser.output.Location.map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   return (
     <div className="col mt-sm-4 space">
@@ -229,7 +188,7 @@ getTotal(propertyReportList.tenants, "tenantDepositAmt"),
                 </button>
               </Link>
 
-              <CSVLink data={csvPropertyReportData} filename={"Property-Report.csv"}>
+              <CSVLink data={[]} filename={"Property-Report.csv"}>
                 <img
                   src={Excel}
                   alt="Excel-Export"
@@ -330,20 +289,20 @@ getTotal(propertyReportList.tenants, "tenantDepositAmt"),
                                   onShowDoorClick(property);
                                 }}
                               />
-                              {isPrinting ? (
-                                    propertyReportList &&
-      property.shopDoorNo.map((e) => e.doorNo).join(", ")
+                              {/* {isPrinting ? (
+                                    Val.shopDoorNo
+                                      .map((e) => e.doorNo)
+                                      .join(", ")
                                   ) : (
-                                    // <img
-                                    //   className="img_icon_size "
-                                    //   src={require("../../static/images/info.png")}
-                                    //   alt="shop no."
-                                    //   title={property.shopDoorNo.map(
-                                    //     (e) => e.doorNo
-                                    //   )}
-                                    // />
-                                    <></>
-                                  )}
+                                    <img
+                                      className="img_icon_size "
+                                      src={require("../../static/images/info.png")}
+                                      alt="shop no."
+                                      title={Val.shopDoorNo.map(
+                                        (e) => e.doorNo
+                                      )}
+                                    />
+                                  )} */}
                             </td>
                           </tr>
                         );
@@ -353,7 +312,7 @@ getTotal(propertyReportList.tenants, "tenantDepositAmt"),
               </div>
               <div className="col-lg-1"></div>
             </div>
-            <div className="row col-lg-12" >
+            <div className="row">
               <div className="col-lg-6  col-sm-12 col-md-12">
                 {propertyReportList && propertyReportList.length !== 0 ? (
                   <Pagination
@@ -366,10 +325,9 @@ getTotal(propertyReportList.tenants, "tenantDepositAmt"),
                   <div />
                 )}
               </div>
-              <div className="col-lg-6  col-sm-12 col-md-12" >
-                <div style={{marginTop:"-15px"}} className="ml-4">
+              <div className="col-lg-6  col-sm-12 col-md-12">
                 <p
-                  className="text-end h6 font-weight-bold mb-4 pb-4 ml-4"
+                  className="text-end h6 font-weight-bold"
                   style={{ color: "#095a4a" }}
                 >
                   Active Property:&nbsp;{ActiveProperty.length}{" "}
@@ -378,17 +336,16 @@ getTotal(propertyReportList.tenants, "tenantDepositAmt"),
                     Deactive Property:&nbsp;{DeactiveProperty.length}
                   </span>
                 </p>
-                </div>
 
-            
+                {/* <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
+                    No. of Property : {particular_org_data.length}
+                  </p> */}
               </div>
             </div>
           </div>
-
-
-
-
-          
         </div>
       </div>
 
@@ -431,7 +388,7 @@ getTotal(propertyReportList.tenants, "tenantDepositAmt"),
           </div>
         </Modal.Header>
         <Modal.Body>
-          <ShowDoorsModal ShowDoors={ShowDoors} />
+          <ShowDoorsModal ShowDoors={ShowDoors} from={"Property"} />
         </Modal.Body>
       </Modal>
     </div>
