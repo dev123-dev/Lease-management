@@ -37,7 +37,7 @@ router.post("/getPropertyReport", auth, async (req, res) => {
       BuildingReportStages.push({
         $match: {
           Location: LocationName,
-          OrganizationId: OrganizationId,
+          OrganizationId: user.OrganizationId,
         },
       });
     }

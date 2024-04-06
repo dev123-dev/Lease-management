@@ -36,11 +36,11 @@ const AllReport = ({ auth: { user, isAuthenticated, loading } }) => {
           </div>
         </div>
 
-        <div class=" ml-5">
-          <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
+        <div className=" ml-5">
+          {/* <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li className="nav-item" role="presentation">
               <button
-                class="nav-link active"
+                className="nav-link active"
                 id="pills-home-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#pills-home"
@@ -52,9 +52,9 @@ const AllReport = ({ auth: { user, isAuthenticated, loading } }) => {
                 General
               </button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li className="nav-item" role="presentation">
               <button
-                class="nav-link"
+                className="nav-link"
                 id="pills-profile-tab"
                 data-bs-toggle="pill"
                 data-bs-target="#pills-profile"
@@ -66,11 +66,11 @@ const AllReport = ({ auth: { user, isAuthenticated, loading } }) => {
                 Finance
               </button>
             </li>
-          </ul>
+          </ul> */}
 
-          <div class="tab-content" id="pills-tabContent">
+          <div className="tab-content" id="pills-tabContent">
             <div
-              class="tab-pane fade show active"
+              className="tab-pane fade show active"
               id="pills-home"
               role="tabpanel"
               aria-labelledby="pills-home-tab"
@@ -258,7 +258,7 @@ const AllReport = ({ auth: { user, isAuthenticated, loading } }) => {
             </div>
 
             <div
-              class="tab-pane fade"
+              className="tab-pane fade"
               id="pills-profile"
               role="tabpanel"
               aria-labelledby="pills-profile-tab"

@@ -195,7 +195,7 @@ const UserDetails = ({
             <div className="col-lg-10  col-sm-12 col-md-12 mt-3">
               <h2 className="heading_color  headsize  ml-4">User Details </h2>
             </div>
-
+         {myuser.usergroup === "Admin" ? (
             <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
               {" "}
               <button style={{ border: "none" }}>
@@ -208,7 +208,7 @@ const UserDetails = ({
                   className="iconSize"
                 />
               </button>
-              {myuser.usergroup === "Admin" ? (
+     
                 <>
                   <CSVLink data={csvUserData} filename={"User-Details.csv"}>
                     <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize"/>
@@ -233,11 +233,58 @@ const UserDetails = ({
                       className="iconSize"
                     />
                   </button>
+                     <img
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  className="iconSize"
+                  alt="refresh"
+                  title="Refresh"
+                />
                 </>
-              ) : (
-                <></>
-              )}
+             
             </div>
+              ) : (
+               <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace ">
+              {" "}
+           
+     
+                <>
+                  <CSVLink data={csvUserData} filename={"User-Details.csv"}>
+                    <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize"/>
+                  </CSVLink>
+                  <button
+                    style={{ border: "none" }}
+                    onClick={async () => {
+                      await setShowPrint({
+                        backgroundColor: "#095a4a",
+                        color: "black",
+                        fontWeight: "bold",
+                      });
+
+                      handlePrint();
+                    }}
+                  >
+                    <img
+                      //  onClick={() => refresh()}
+                      src={Print}
+                      alt="Print"
+                      title="Print"
+                      className="iconSize"
+                    />
+                  </button>
+                   <img
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  className="iconSize"
+                  alt="refresh"
+                  title="Refresh"
+                />
+                </>
+             
+            </div>
+              )}
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
@@ -258,7 +305,8 @@ const UserDetails = ({
                           <th style={showPrint}>Group</th>
                           <th style={showPrint}>Organization</th>
                           <th style={showPrint}>Address</th>
-                          <th style={showPrint}>Operation</th>
+                              {myuser.usergroup === "Admin" ? (
+                          <th style={showPrint}>Operation</th>):(<></>)}
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -280,13 +328,13 @@ const UserDetails = ({
                                 <td>{alluser.usergroup}</td>
                                 <td>{alluser.OrganizationName}</td>
                                 <td>{alluser.useraddress}</td>
-
-                                {alluser.userStatus === "Deactive" ? (
+ 
+                                { alluser.userStatus === "Deactive" ? (
                                   <td className="blank text-center">
                                     Deactive
                                   </td>
-                                ) : (
-                                  <td className="text-center">
+                                ) : 
+                                   myuser.usergroup === "Admin" ?(<> <td className="text-center">
                                     <img
                                       className="iconSize"
                                       onClick={() => onEdit(alluser, idx)}
@@ -304,8 +352,10 @@ const UserDetails = ({
                                       alt="Deactivate"
                                       title="Deactivate User"
                                     />
-                                  </td>
-                                )}
+                                  </td></>):(<></>)
+                                 
+                               }
+
                               </tr>
                             );
                           })}

@@ -20,7 +20,7 @@ const RouteDriver = ({ auth: { user }, loadUser }) => {
       return <Redirect to="/MainSuper" />;
     } else {
 
-      return <Redirect to="/PropertyDetail" />;
+      return <Redirect to="/MainAdmin" />;
     }
   }
   return <Fragment></Fragment>;

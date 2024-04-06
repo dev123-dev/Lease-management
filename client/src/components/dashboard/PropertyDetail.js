@@ -276,7 +276,7 @@ const PropertyDetail = ({
     ["Building Name", "Address", "Location", "Door No."],
   ];
 
-  particular_org_data.map((particular_org_data) => {
+  particular_org_data.filter((ele)=>ele.shopStatus=="Active").map((particular_org_data) => {
     var doorNo =
       particular_org_data &&
       particular_org_data.shopDoorNo.map((e) => e.doorNo).join(", "); // Join door numbers into a single string
@@ -361,8 +361,11 @@ const PropertyDetail = ({
                 <div className="col-lg-6 col-sm-12 col-md-12"></div>
               </div>
             </div>
+               {myuser.usergroup === "Admin" ? (
             <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
               {" "}
+           
+                <>
               <button style={{ border: "none" }}>
                 <img
                   onClick={() => setShowadd(true)}
@@ -372,7 +375,8 @@ const PropertyDetail = ({
                   className="iconSize"
                 />
               </button>
-              {myuser.usergroup === "Admin" ? (
+       
+           
                 <CSVLink
                   data={csvPropertyData}
                   filename={"Property-Details.csv"}
@@ -385,9 +389,9 @@ const PropertyDetail = ({
                     title="Excel-Export"
                   />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+                </>
+             
+                
               <button
                 style={{ border: "none" }}
                 onClick={async () => {
@@ -407,7 +411,8 @@ const PropertyDetail = ({
                   className="iconSize"
                 />
               </button>
-              <button style={{ border: "none" }} className="mx-0 px-0">
+                
+              <button style={{ border: "none"}} className="mx-0 px-0">
                 <img
                   className="iconSize"
                   // className=" float-right "
@@ -419,6 +424,61 @@ const PropertyDetail = ({
                 />
               </button>
             </div>
+             ) : (
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
+              {" "}
+           
+                <>
+             
+       
+           
+                <CSVLink
+                  data={csvPropertyData}
+                  filename={"Property-Details.csv"}
+                >
+                  <img
+                    className="iconSize"
+                    src={Excel}
+                    alt="Excel-Export"
+                    style={{ cursor: "pointer" }}
+                    title="Excel-Export"
+                  />
+                </CSVLink>
+                </>
+             
+                
+              <button
+                style={{ border: "none" }}
+                onClick={async () => {
+                  await setShowPrint({
+                    backgroundColor: "#095a4a",
+                    color: "black",
+                    fontWeight: "bold",
+                  });
+
+                  OnPrint();
+                }}
+              >
+                <img
+                  src={Print}
+                  alt="Print"
+                  title="Print"
+                  className="iconSize"
+                />
+              </button>     
+              <button style={{ border: "none"}} className="mx-0 px-0">
+                <img
+                  className="iconSize"
+                  // className=" float-right "
+                  style={{ cursor: "pointer" }}
+                  onClick={() => refresh()}
+                  src={Refresh}
+                  alt="refresh"
+                  title="Refresh"
+                />
+              </button>
+            </div>
+              )}
           </div>
 
           <div className="container-fluid d-flex align-items-center justify-content-center ">
@@ -454,7 +514,7 @@ const PropertyDetail = ({
                             </>
                           )}
 
-                          {myuser.usergroup === "IT Department" ? (
+                          {myuser.usergroup !=="Admin" ? (
                             <></>
                           ) : (
                             <>
@@ -498,15 +558,15 @@ const PropertyDetail = ({
                                   })}
                               </td> */}
                                 <td>{Val.Location}</td>
-                                {myuser.usergroup === "IT Department" ? (
+                                {/* {myuser.usergroup === "IT Department" ||myuser.usergroup === "Manager"? (
                                   <></>
                                 ) : (
                                   <>
-                                    {/* <td>{Val.hike}</td>
+                                    <td>{Val.hike}</td>
                                   <td>{Val.stampDuty}</td>
-                                  <td>{Val.leaseTimePeriod}</td> */}
+                                  <td>{Val.leaseTimePeriod}</td>
                                   </>
-                                )}
+                                )} */}
 
                                 <td>{Val.shopAddress}</td>
                                 <td>

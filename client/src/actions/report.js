@@ -25,7 +25,7 @@ const config = {
 var linkPath = "";
 
 export const getPropertyReport = (data) => async (dispatch) => {
-  console.log("dataaction",data)
+ 
   try {
     const res = await axios.post(`${linkPath}/api/report/getPropertyReport`,data);
     dispatch({

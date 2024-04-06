@@ -143,6 +143,7 @@ const MainAdminPage = ({
     <></>
   ) : (
     <>
+    {myuser.usergroup === "Admin"|| myuser.usergroup === "Manager"? (
       <div className="col mt-sm-4 space ">
         <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
           <div className="row mt-5 ">
@@ -399,6 +400,7 @@ const MainAdminPage = ({
           {/* </div>  */}
         </section>
       </div>
+ ):(<></>)}  
       <Modal
         show={show}
         backdrop="static"
