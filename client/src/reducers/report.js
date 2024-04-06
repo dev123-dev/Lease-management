@@ -1,6 +1,7 @@
 const initialState = {
   propertyReportList: [],
   renewalReportList: [],
+  reportLoader: false,
 };
 
 const report = (state = initialState, action) => {
@@ -17,6 +18,11 @@ const report = (state = initialState, action) => {
       return {
         ...state,
         renewalReportList: payload,
+      };
+    case "SET_REPORT_LOADER":
+      return {
+        ...state,
+        reportLoader: payload,
       };
 
     default:

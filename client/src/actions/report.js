@@ -25,9 +25,11 @@ const config = {
 var linkPath = "";
 
 export const getPropertyReport = (data) => async (dispatch) => {
- 
   try {
-    const res = await axios.post(`${linkPath}/api/report/getPropertyReport`,data);
+    const res = await axios.post(
+      `${linkPath}/api/report/getPropertyReport`,
+      data
+    );
     dispatch({
       type: "PROPERTY_REPORT_LIST",
       payload: res.data,
@@ -41,6 +43,10 @@ export const getPropertyReport = (data) => async (dispatch) => {
 
 export const getRenewalReport = (data) => async (dispatch) => {
   try {
+    dispatch({
+      type: "SET_REPORT_LOADER",
+      payload: true,
+    });
     const res = await axios.post(
       `${linkPath}/api/report/getRenewalReport`,
       data,
@@ -49,6 +55,10 @@ export const getRenewalReport = (data) => async (dispatch) => {
     dispatch({
       type: "RENEWAL_REPORT_LIST",
       payload: res.data,
+    });
+    dispatch({
+      type: "SET_REPORT_LOADER",
+      payload: false,
     });
   } catch (err) {
     dispatch({

@@ -15,10 +15,10 @@ import Refresh from "../../static/images/Refresh.svg";
 import Back from "../../static/images/Back.svg";
 import ShowDoorsModal from "../modal/ShowDoorsModal";
 import TeanantRenewHistroyModal from "../modal/TeanantRenewHistroyModal";
-
+import Loader from "../../static/images/loader.gif";
 export const RenewalReport = ({
   auth: { user },
-  report: { renewalReportList },
+  report: { renewalReportList, reportLoader },
   getRenewalReport,
 }) => {
   useEffect(() => {
@@ -70,9 +70,31 @@ export const RenewalReport = ({
     data: null,
   });
 
+  //for count Active and DeActive
   let ActiveTenantlen = 0,
     DectiveTenantlen = 0;
-  // renewalReportList.filter((e)=>e.);
+  renewalReportList.forEach((e) =>
+    e.tenantstatus === "Active" ? ActiveTenantlen++ : DectiveTenantlen++
+  );
+
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    renewalReportList &&
+    renewalReportList.slice(indexOfFirstData, indexOfLastData);
+
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
+  //pageinate End
+  const onClickRefresh = () => {
+    getRenewalReport();
+    setTenantFilter({ tName: "" });
+  };
 
   return (
     <div className="col mt-sm-4 space">
@@ -93,14 +115,19 @@ export const RenewalReport = ({
                   onChange={(e) => filterUpdate(e)}
                   className="form-control"
                   style={{
-                    width: "100%",
+                    width: "80%",
                   }}
                 />
               </div>
+
               <div className="col-lg-6 col-sm-12 col-md-12"></div>
             </div>
           </div>
           <div className="col-lg-2 col-sm-12 col-md-12 text-end  pt-2 iconspace">
+            {reportLoader && (
+              <img src={Loader} alt="Loading..." height="50px" />
+            )}
+
             <Link to="/Report">
               <button style={{ border: "none" }}>
                 <img src={Back} alt="Back" title="Back" className=" iconSize" />
@@ -109,7 +136,7 @@ export const RenewalReport = ({
             <img
               className="iconSize"
               style={{ cursor: "pointer" }}
-              // onClick={() => refresh()}
+              onClick={() => onClickRefresh()}
               src={Refresh}
               alt="refresh"
               title="Refresh"
@@ -175,7 +202,7 @@ export const RenewalReport = ({
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {renewalReportList.map((tenant, idx) => {
+                    {currentDatas.map((tenant, idx) => {
                       return (
                         <tr key={idx}>
                           <td>
@@ -217,6 +244,33 @@ export const RenewalReport = ({
                 </table>
               </div>
               <div className="col-lg-1"></div>
+            </div>
+
+            <div className="row">
+              <div className="col-lg-6  col-sm-12 col-md-12">
+                {renewalReportList.length !== 0 ? (
+                  <Pagination
+                    dataPerPage={dataPerPage}
+                    totalData={renewalReportList.length}
+                    paginate={paginate}
+                    currentPage={currentData}
+                  />
+                ) : (
+                  <div />
+                )}
+              </div>
+              <div className="col-lg-6  col-sm-12 col-md-12">
+                <p
+                  className="text-end h6 font-weight-bold"
+                  style={{ color: "#095a4a" }}
+                >
+                  Active Property:&nbsp;{ActiveTenantlen}
+                  &nbsp;&nbsp;&nbsp;
+                  <span style={{ color: "red" }}>
+                    Deactive Property:&nbsp;{DectiveTenantlen}
+                  </span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
