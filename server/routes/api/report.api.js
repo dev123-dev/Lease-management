@@ -72,7 +72,7 @@ router.post("/getRenewalReport", auth, async (req, res) => {
         $lookup: {
           from: "tenantagreementhistories",
           localField: "_id",
-          foreignField: "tenantagreementhistories",
+          foreignField: "tdId",
           as: "histroy",
         },
       },
