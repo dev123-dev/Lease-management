@@ -21,8 +21,8 @@ const config = {
   },
 };
 
-// var linkPath = process.env.REACT_APP_BASE_URL;
-var linkPath = "";
+var linkPath = process.env.REACT_APP_BASE_URL;
+// var linkPath = "";
 
 export const getPropertyReport = (data) => async (dispatch) => {
   try {
