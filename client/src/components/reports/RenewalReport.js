@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useRef} from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import { CSVLink } from "react-csv";
@@ -8,6 +8,7 @@ import { Modal } from "react-bootstrap";
 import { debounce } from "lodash";
 //ACTIONS
 import { getRenewalReport } from "../../actions/report";
+import { useReactToPrint } from "react-to-print";
 //ICONS
 import Print from "../../static/images/Print.svg";
 import Excel from "../../static/images/Microsoft Excel.svg";
@@ -79,7 +80,7 @@ export const RenewalReport = ({
 
   //pagination code
   const [currentData, setCurrentData] = useState(1);
-  const [dataPerPage] = useState(8);
+  const [dataPerPage] = useState(7);
   //Get Current Data
   const indexOfLastData = currentData * dataPerPage;
   const indexOfFirstData = indexOfLastData - dataPerPage;
@@ -95,6 +96,57 @@ export const RenewalReport = ({
     getRenewalReport();
     setTenantFilter({ tName: "" });
   };
+
+  //Print
+     const [isPrinting, setIsPrinting] = useState(false);
+  useEffect(() => {
+
+    return () => {
+      setIsPrinting(false);
+    };
+  }, []);
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Property Detail",
+
+    onAfterPrint: () => {
+      setTimeout(() => {
+        // setIsPrinting(false);
+        setShowPrint({
+          backgroundColor: "#095a4a",
+          color: "white",
+          fontWeight: "bold",
+        });
+      }, 200);
+    },
+  });
+
+ 
+  //Excel Export
+ const csvRenewalReportData = [
+    ["Tenant Name", "Building", "Address", "No of Door's","Monthly Rent","Total Deposit Amount","Occupied Door No","Tenant Status"],
+  ];
+
+  renewalReportList && renewalReportList.map((renewalReportList) => {
+    
+  var doorNo =
+      renewalReportList &&renewalReportList.shopDoorNo&&
+      renewalReportList.shopDoorNo.map((e) => e.value).join(", "); 
+    var fullAddress = `${renewalReportList.tenantAddr}`.replace(/,/g, ' ');
+       var fullName = `${renewalReportList.tenantName}`.replace(/,/g, ' ');
+    return csvRenewalReportData.push([
+     fullName,
+      renewalReportList.BuildingName,
+      fullAddress,
+renewalReportList.shopDoorNo?.length,
+      renewalReportList.tenantRentAmount,
+        renewalReportList.tenantDepositAmt,
+      doorNo,
+       renewalReportList.tenantstatus,
+    ]);
+  });
+  
 
   return (
     <div className="col mt-sm-4 space">
@@ -133,18 +185,11 @@ export const RenewalReport = ({
                 <img src={Back} alt="Back" title="Back" className=" iconSize" />
               </button>
             </Link>
-            <img
-              className="iconSize"
-              style={{ cursor: "pointer" }}
-              onClick={() => onClickRefresh()}
-              src={Refresh}
-              alt="refresh"
-              title="Refresh"
-            />
+           
 
             {myuser.usergroup === "Admin" && (
               <>
-                <CSVLink data={[]} filename={"Property-Report.csv"}>
+                <CSVLink data={csvRenewalReportData} filename={"Renewal-Report.csv"}>
                   <img
                     src={Excel}
                     alt="Excel-Export"
@@ -154,15 +199,15 @@ export const RenewalReport = ({
                 </CSVLink>
                 <button
                   style={{ border: "none" }}
-                  // onClick={async () => {
-                  //   await setShowPrint({
-                  //     backgroundColor: "#095a4a",
-                  //     color: "black",
-                  //     fontWeight: "bold",
-                  //   });
+                  onClick={async () => {
+                    await setShowPrint({
+                      backgroundColor: "#095a4a",
+                      color: "black",
+                      fontWeight: "bold",
+                    });
 
-                  //   handlePrint();
-                  // }}
+                    handlePrint();
+                  }}
                 >
                   <img
                     src={Print}
@@ -171,6 +216,14 @@ export const RenewalReport = ({
                     className=" iconSize"
                   />
                 </button>
+                 <img
+              className="iconSize"
+              style={{ cursor: "pointer" }}
+              onClick={() => onClickRefresh()}
+              src={Refresh}
+              alt="refresh"
+              title="Refresh"
+            />
               </>
             )}
           </div>
@@ -181,6 +234,7 @@ export const RenewalReport = ({
             className="col"
             // ref={componentRef}
           >
+              <div ref={componentRef}>
             <div className="row ">
               <div className="col-lg-1"></div>
               <div className="firstrowsticky body-inner no-padding table-responsive">
@@ -205,7 +259,7 @@ export const RenewalReport = ({
                     {currentDatas.map((tenant, idx) => {
                       return (
                         <tr key={idx}>
-                          <td>
+                          {tenant.tenantstatus==="Active"?(    <td>
                             <div
                               style={{
                                 textDecoration: "underline",
@@ -220,7 +274,24 @@ export const RenewalReport = ({
                             >
                               {tenant.tenantName}
                             </div>
-                          </td>
+                          </td>):(    <td style={{backgroundColor:"#dda6a6",}}>
+                            <div
+                              style={{
+                                textDecoration: "underline",
+                                cursor: "pointer",
+                                
+                              }}
+                              onClick={() =>
+                                setRenewHistroy({
+                                  status: true,
+                                  data: tenant.histroy,
+                                })
+                              }
+                            >
+                              {tenant.tenantName}
+                            </div>
+                          </td>)}
+                      
 
                           <td>{tenant.BuildingName}</td>
                           <td>{tenant.tenantAddr}</td>
@@ -244,6 +315,7 @@ export const RenewalReport = ({
                 </table>
               </div>
               <div className="col-lg-1"></div>
+            </div>
             </div>
 
             <div className="row">
@@ -335,7 +407,7 @@ export const RenewalReport = ({
                 }}
                 className="text-center  ml-4 "
               >
-                Renewd Histroy
+                Renewed History
               </h4>
             </div>
           </div>

@@ -685,7 +685,15 @@ const ActivateTenantModal = ({
           entryDate.split(delimiter)[1] +
           delimiter +
           entryDate.split(delimiter)[0],
-        tenantLeaseEndDate: leaseEndDate,
+
+        // tenantLeaseEndDate: leaseEndDate,
+        tenantLeaseEndDate: endDateFin.split(delimiter)[2] +
+          delimiter +
+          endDateFin.split(delimiter)[1] +
+          delimiter +
+          endDateFin.split(delimiter)[0],
+        
+
         generatordepoAmt: generatordepoAmt,
         tenantEnteredBy: user && user._id,
         tenantDate: todayDateymd,
@@ -758,6 +766,34 @@ const ActivateTenantModal = ({
     setTransId("");
     setTenantChequenoOrDdno("");
   }, [paymentMode]);
+
+
+  
+  // new Date Code Rakki
+
+  function calculateMonthsFromDate(date, monthsToAdd) {
+    try {
+      const d = new Date(date);
+      d.setMonth(d.getMonth() + monthsToAdd);
+      d.setDate(d.getDate() - 1);
+      return d.toISOString().split("T")[0].split("-").reverse().join("-");
+    } catch (er) {
+      console.log(er);
+      return 0;
+    }
+  }
+  const [endDateFin, setEndDateFin] = useState(null);
+
+  useEffect(() => {
+    if (entryDate.length === 10) {
+      setEndDateFin(
+        calculateMonthsFromDate(
+          entryDate.split("-").reverse().join("-"),
+          myuser.output.leaseTimePeriod
+        )
+      );
+    }
+  }, [entryDate]);
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -1189,11 +1225,13 @@ const ActivateTenantModal = ({
               <p className={`output ${className}`}>{content}</p>
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-              <label>Lease End Date (DD-MM-YYYY)*: </label>
+              <label>Lease End Date (DD-MM-YYYY)*  : </label>
+              {/* endDate */}
               <input
                 placeholder="DD-MM-YYYY"
                 className="form-control cpp-input datevalidation"
-                value={endDate}
+                value={endDateFin}
+
                 readOnly
               ></input>
               <br></br>

@@ -1311,7 +1311,7 @@ const AddTenantDetails = ({
               </div>{" "}
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
                 <label>
-                  Lease End Date ({endDateFin}){/* {endDate} (DD-MM-YYYY)* */}:
+                  Lease End Date (DD-MM-YYYY)*:
                 </label>
                 <input
                   placeholder="DD-MM-YYYY"

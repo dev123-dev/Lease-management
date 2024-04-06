@@ -76,6 +76,11 @@ router.post("/getRenewalReport", auth, async (req, res) => {
           as: "histroy",
         },
       },
+       {
+        $sort: {
+          tenantstatus:1,
+        },
+      },
     ]);
 
     res.json(RenewalReportData);

@@ -163,20 +163,20 @@ const TenantSettings = ({
   const [validationStampMessage, setValidationStampMessage] = useState("");
   const handleStampChange = (e) => {
     const inputValue = e.target.value;
-    const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
-    const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
+    // const trimmedValue = inputValue.replace(/^\s+/, ""); // Remove leading spaces
+    // const filteredValue = trimmedValue.replace(/[^0-9\s.]/g, ""); // Remove non-alphabetic characters
 
-    if (
-      filteredValue === "0" ||
-      filteredValue.length > 2 ||
-      filteredValue === "00"
-    ) {
-      setValidationStampMessage("Please Enter valid Stamp Duty");
-    } else {
-      filteredValue === ""
-        ? setValidationStampMessage("Please enter Stamp Duty")
-        : setValidationStampMessage("");
-    }
+    // if (
+    //   filteredValue === "0" ||
+    //   filteredValue.length > 2 ||
+    //   filteredValue === "00"
+    // ) {
+    //   setValidationStampMessage("Please Enter valid Stamp Duty");
+    // } else {
+    //   filteredValue === ""
+    //     ? setValidationStampMessage("Please enter Stamp Duty")
+    //     : setValidationStampMessage("");
+    // }
 
     setStampDuty(inputValue);
   };
@@ -257,7 +257,7 @@ const TenantSettings = ({
         userName: user.username,
         OrganizationName: user.OrganizationName,
         hike: parseInt(hike),
-        StampDuty: parseInt(stampDuty),
+        StampDuty: parseFloat(stampDuty),
         LeaseTimePeriod: parseInt(leasePeriod),
       };
       const ActivityDetail = {
@@ -297,7 +297,7 @@ const TenantSettings = ({
         userId: user._id,
         userName: user.username,
         hike: parseInt(hike),
-        stampDuty: parseInt(stampDuty),
+        stampDuty: parseFloat(stampDuty),
         leaseTimePeriod: parseInt(leasePeriod),
       };
       const ActivityDetail = {
