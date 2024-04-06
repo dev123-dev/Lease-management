@@ -24,9 +24,10 @@ const config = {
 // var linkPath = process.env.REACT_APP_BASE_URL;
 var linkPath = "";
 
-export const getPropertyReport = () => async (dispatch) => {
+export const getPropertyReport = (data) => async (dispatch) => {
+  console.log("dataaction",data)
   try {
-    const res = await axios.post(`${linkPath}/api/report/getPropertyReport`);
+    const res = await axios.post(`${linkPath}/api/report/getPropertyReport`,data);
     dispatch({
       type: "PROPERTY_REPORT_LIST",
       payload: res.data,
