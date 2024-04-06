@@ -317,13 +317,11 @@ const ContactReport = ({
                   <img src={Back} alt="Back" title="Back" className="iconSize" />
                 </button>
               </Link>
-              {myuser.usergroup === "Admin" ? (
+          
                 <CSVLink data={csvContactReportData} filename={"Contact-Report.csv"}>
                   <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize" />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+            
 
               <button
                 style={{ border: "none" }}
@@ -373,7 +371,7 @@ const ContactReport = ({
                           <th style={showPrint}>Deposite Amount</th>
                           <th style={showPrint}>Lease End Date</th>
                           <th style={showPrint}>Agreement Status</th>
-                            <th style={showPrint}>Receipt</th>
+                            {/* <th style={showPrint}>Receipt</th> */}
                         </tr>
                       </thead>
                       <tbody className="text-center">
@@ -429,7 +427,7 @@ const ContactReport = ({
 
                                   <td>{tenant}</td>
                                   <td>{Val.output.AgreementStatus}</td>
-                                  <td>
+                                  {/* <td>
                                    <button
                                           style={{ border: "none" }}
                                           onClick={() =>
@@ -443,7 +441,7 @@ const ContactReport = ({
                                             title="Generate Receipt"
                                           />
                                         </button>
-                                        </td>
+                                        </td> */}
                                 </tr>
                               </>
                             );

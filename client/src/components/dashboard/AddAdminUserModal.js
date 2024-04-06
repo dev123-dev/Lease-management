@@ -170,7 +170,7 @@ const AddAdminUserModal = ({
   // validation for password ending
   const UserGroups = [
     { value: "Admin", label: "Admin" },
-    { value: "IT Department", label: "IT Department" },
+    // { value: "IT Department", label: "IT Department" },
     { value: "Manager", label: "Manager" },
   ];
 

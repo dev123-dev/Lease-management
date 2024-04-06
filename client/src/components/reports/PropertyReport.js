@@ -59,32 +59,67 @@ export const PropertyReport = ({
       return 0;
     }
   };
+
+  // const locations = [{label:myuser.output.Location,value:myuser.output.Location}];
+ 
+
+const locations = myuser.output.Location.map(item => ({ label: item ,value:item}));
+
   return (
     <div className="col mt-sm-4 space">
-      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding ">
-        <div className="row mt-5 ">
-          <div className="col-lg-5 mt-3">
-            <h2 className="heading_color  headsize  ml-4">Property Report</h2>
-            <Select></Select>
-          </div>
-          <div className="col-lg-7 pt-4 iconspace">
-            <Link to="/Report">
+      <div className="row col-lg-12 col-md-12 col-sm-12 col-12 no_padding " >
+     
+          <div className="row mt-5 ">
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-3">
+              <h2 className="heading_color  headsize  ml-4">
+                Property Report
+              </h2>
+            </div>
+
+            <div className="col-lg-5  col-sm-12 col-md-12 mt-4 ">
+              <div className="row">
+                <div className="col-lg-6 col-sm-12 col-md-12">
+                  <Select
+                className="py-0"
+                name="Property name"
+                options={locations}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+            
+                  }),
+            
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  height: 26,
+                  minHeight: 26,
+                  borderRadius: 1,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#e8a317",
+                    primary: "#095a4a",
+                  },
+                })}
+                required
+              ></Select>
+                </div>
+                <div className="col-lg-6 col-sm-12 col-md-12"></div>
+              </div>
+            </div>
+          
+         
+              <div className="col-lg-2  col-sm-12 col-md-12 text-end  pt-2 iconspace  ">
+              {" "}
+           
+                <>
+              <Link to="/Report">
               <button style={{ border: "none" }}>
                 <img src={Back} alt="Back" title="Back" className=" iconSize" />
               </button>
             </Link>
-            <img
-              className="iconSize"
-              style={{ cursor: "pointer" }}
-              // onClick={() => refresh()}
-              src={Refresh}
-              alt="refresh"
-              title="Refresh"
-            />
-
-            {myuser.usergroup === "Admin" && (
-              <>
-                <CSVLink data={[]} filename={"Property-Report.csv"}>
+       
+             <CSVLink data={[]} filename={"Property-Report.csv"}>
                   <img
                     src={Excel}
                     alt="Excel-Export"
@@ -92,7 +127,9 @@ export const PropertyReport = ({
                     className=" iconSize"
                   />
                 </CSVLink>
-                <button
+                </>
+             
+                   <button
                   style={{ border: "none" }}
                   // onClick={async () => {
                   //   await setShowPrint({
@@ -111,10 +148,20 @@ export const PropertyReport = ({
                     className=" iconSize"
                   />
                 </button>
-              </>
-            )}
+              <button style={{ border: "none"}} className="mx-0 px-0">
+                <img
+                  className="iconSize"
+                  // className=" float-right "
+                  style={{ cursor: "pointer" }}
+                  // onClick={() => refresh()}
+                  src={Refresh}
+                  alt="refresh"
+                  title="Refresh"
+                />
+              </button>
+            </div>
+             
           </div>
-        </div>
 
         <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
           <div
@@ -255,6 +302,7 @@ export const PropertyReport = ({
         </Modal.Body>
       </Modal>
     </div>
+    
   );
 };
 

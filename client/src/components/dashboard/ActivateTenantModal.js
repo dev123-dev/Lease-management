@@ -856,7 +856,7 @@ const ActivateTenantModal = ({
               />
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-              <label>Adhaar No:</label>
+              <label>Aadhaar No:</label>
               <input
                 type="number"
                 name="tenantAdharNo"

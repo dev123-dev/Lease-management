@@ -357,7 +357,7 @@ const TenantSettings = ({
                 id="tooltipPassAdmin"
                 className="syle-hint"
                 style={passwrdTooltip}
-                data-hint="Only enter Number "
+                data-hint="Please Only enter Number "
               ></div>
             </div>
             <h6 style={{ color: "red" }}>{validationHikeMessage}</h6>
