@@ -37,3 +37,21 @@ export const getPropertyReport = () => async (dispatch) => {
     });
   }
 };
+
+export const getRenewalReport = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `${linkPath}/api/report/getRenewalReport`,
+      data,
+      config
+    );
+    dispatch({
+      type: "RENEWAL_REPORT_LIST",
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERROR,
+    });
+  }
+};

@@ -37,7 +37,7 @@ import UserActivityDetails from "../dashboard/UserActivityDetails";
 
 //Report
 import PropertyReport from "../reports/PropertyReport";
-
+import RenewalReport from "../reports/RenewalReport";
 import {
   getRoutesSetOldRecordsClicked,
   getRoutesSetCurrentYearMonthsRecordsClicked,
@@ -167,6 +167,8 @@ const RoutesFile = ({
           path="/property-report"
           component={PropertyReport}
         />
+
+        <PrivateRoute exact path="/renewal-report" component={RenewalReport} />
 
         <Route component={NotFound} />
       </Switch>

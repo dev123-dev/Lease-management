@@ -1,5 +1,6 @@
 const initialState = {
   propertyReportList: [],
+  renewalReportList: [],
 };
 
 const report = (state = initialState, action) => {
@@ -10,6 +11,12 @@ const report = (state = initialState, action) => {
       return {
         ...state,
         propertyReportList: payload,
+      };
+
+    case "RENEWAL_REPORT_LIST":
+      return {
+        ...state,
+        renewalReportList: payload,
       };
 
     default:

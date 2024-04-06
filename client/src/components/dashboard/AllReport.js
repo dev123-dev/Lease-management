@@ -196,18 +196,18 @@ const AllReport = ({ auth: { user, isAuthenticated, loading } }) => {
                   id="shadow-bck"
                 >
                   <div className="text-center">
-                    {/* <Link to="/renewed-report"> */}
-                    <button
-                      onClick={handleRenewedTenantClick}
-                      style={{ border: "none" }}
-                    >
-                      <img
-                        className="img_icon_repDashboard log "
-                        src={renewedTenant}
-                        alt="IMG1"
-                      />
-                    </button>
-                    {/* </Link> */}
+                    <Link to="/renewal-report">
+                      <button
+                        // onClick={handleRenewedTenantClick}
+                        style={{ border: "none" }}
+                      >
+                        <img
+                          className="img_icon_repDashboard log"
+                          src={renewedTenant}
+                          alt="IMG1"
+                        />
+                      </button>
+                    </Link>
                     <p>
                       <center>
                         <p
@@ -216,7 +216,7 @@ const AllReport = ({ auth: { user, isAuthenticated, loading } }) => {
                           }}
                         >
                           <b className="h4">
-                            Renew Report<br></br>
+                            Renewal Report<br></br>
                           </b>
                         </p>
                       </center>
