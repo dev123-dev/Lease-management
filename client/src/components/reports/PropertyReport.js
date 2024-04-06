@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { connect } from "react-redux";
 import Select from "react-select";
 import { CSVLink } from "react-csv";
 import { Link } from "react-router-dom";
 import Pagination from "../layout/Pagination";
+import { useReactToPrint } from "react-to-print";
 import { Modal } from "react-bootstrap";
 //ACTIONS
 import { getPropertyReport } from "../../actions/report";
 //ICONS
 import Print from "../../static/images/Print.svg";
 import Excel from "../../static/images/Microsoft Excel.svg";
-import Refresh from "../../static/images/Refresh.svg";
+import refresh from "../../static/images/Refresh.svg";
 import Back from "../../static/images/Back.svg";
 
 export const PropertyReport = ({
@@ -24,7 +25,6 @@ export const PropertyReport = ({
     getPropertyReport();
   }, []);
 
-  console.log("", propertyReportList);
   //Style State
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
@@ -54,14 +54,81 @@ export const PropertyReport = ({
       return array
         .reduce((acu, cur) => (acu += Number(cur[toSumObj])), 0)
         .toLocaleString("en-IN");
-    } catch (er) {
-      console.log(er);
+    } catch (error) {
+      console.log(error);
       return 0;
     }
   };
 
-  // const locations = [{label:myuser.output.Location,value:myuser.output.Location}];
- 
+   const [Location, setLocation] = useState(null);
+    const onchangeLocation = (e) => {
+    setLocation(e);
+    const LocationName = {
+      OrganizationId: user && user.OrganizationId,
+      LocationName: e.value,
+    };
+    getPropertyReport(LocationName);
+  };
+
+
+
+//pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(8);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    propertyReportList &&
+    propertyReportList.slice(indexOfFirstData, indexOfLastData);
+
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
+   let ActiveProperty =
+    propertyReportList &&
+    propertyReportList.filter((ele) => {
+      if (ele.shopStatus === "Active") {
+        return ele;
+      }
+    });
+  let DeactiveProperty =
+    propertyReportList &&
+    propertyReportList.filter((ele) => {
+      if (ele.shopStatus === "Deactive") {
+        return ele;
+      }
+    });
+
+  //   const [isPrinting, setIsPrinting] = useState(false);
+  // useEffect(() => {
+  
+  //   return () => {
+  //     setIsPrinting(false);
+  //   };
+  // }, []);
+ const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "Property Detail",
+
+    onAfterPrint: () => {
+      setTimeout(() => {
+        // setIsPrinting(false);
+        setShowPrint({
+          backgroundColor: "#095a4a",
+          color: "white",
+          fontWeight: "bold",
+        });
+      }, 200);
+    },
+  });
+  
+    const Refresh = () => {
+    getPropertyReport("");
+    setLocation(null);
+  };
+
 
 const locations = myuser.output.Location.map(item => ({ label: item ,value:item}));
 
@@ -82,7 +149,10 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
                   <Select
                 className="py-0"
                 name="Property name"
+                placeholder="Select Location"
                 options={locations}
+                value={Location}
+                onChange={(e)=>onchangeLocation(e)}
                 styles={{
                   control: (provided) => ({
                     ...provided,
@@ -131,15 +201,15 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
              
                    <button
                   style={{ border: "none" }}
-                  // onClick={async () => {
-                  //   await setShowPrint({
-                  //     backgroundColor: "#095a4a",
-                  //     color: "black",
-                  //     fontWeight: "bold",
-                  //   });
+                  onClick={async () => {
+                    await setShowPrint({
+                      backgroundColor: "#095a4a",
+                      color: "black",
+                      fontWeight: "bold",
+                    });
 
-                  //   handlePrint();
-                  // }}
+                    handlePrint();
+                  }}
                 >
                   <img
                     src={Print}
@@ -153,8 +223,8 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
                   className="iconSize"
                   // className=" float-right "
                   style={{ cursor: "pointer" }}
-                  // onClick={() => refresh()}
-                  src={Refresh}
+                  onClick={() => Refresh()}
+                  src={refresh}
                   alt="refresh"
                   title="Refresh"
                 />
@@ -166,7 +236,7 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
         <div className="container-fluid d-flex align-items-center justify-content-center mt-sm-1 ">
           <div
             className="col"
-            // ref={componentRef}
+            ref={componentRef}
           >
             <div className="row ">
               <div className="col-lg-1"></div>
@@ -191,19 +261,25 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {propertyReportList.map((property, idx) => {
+                    {currentDatas&&currentDatas.map((property, idx) => {
                       return (
                         <tr key={idx}>
-                          <td>{property.BuildingName}</td>
+                          {property.shopStatus === "Active" ?(<td>{property.BuildingName}</td>):( <td
+                                    style={{ backgroundColor: "#dda6a6" }}
+                                    className="headcolstatic secondlinebreak1"
+                                  >
+                                    {property.BuildingName}
+                                  </td>)}
+                          
                           <td>{property.Location}</td>
                           <td>{property.shopAddress}</td>
                           <td>{property.shopDoorNo.length}</td>
-                          <td>{property.teanants.length}</td>
+                          <td>{property.tenants.length}</td>
                           <td>
-                            {getTotal(property.teanants, "tenantRentAmount")}
+                            {getTotal(property.tenants, "tenantRentAmount")}
                           </td>
                           <td>
-                            {getTotal(property.teanants, "tenantDepositAmt")}
+                            {getTotal(property.tenants, "tenantDepositAmt")}
                           </td>
                           <td>
                             <img
@@ -214,6 +290,20 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
                                 onShowDoorClick(property);
                               }}
                             />
+                              {/* {isPrinting ? (
+                                    Val.shopDoorNo
+                                      .map((e) => e.doorNo)
+                                      .join(", ")
+                                  ) : (
+                                    <img
+                                      className="img_icon_size "
+                                      src={require("../../static/images/info.png")}
+                                      alt="shop no."
+                                      title={Val.shopDoorNo.map(
+                                        (e) => e.doorNo
+                                      )}
+                                    />
+                                  )} */}
                           </td>
                         </tr>
                       );
@@ -223,9 +313,42 @@ const locations = myuser.output.Location.map(item => ({ label: item ,value:item}
               </div>
               <div className="col-lg-1"></div>
             </div>
+              <div className="row">
+                <div className="col-lg-6  col-sm-12 col-md-12">
+                  {propertyReportList && propertyReportList.length !== 0 ? (
+                    <Pagination
+                      dataPerPage={dataPerPage}
+                      totalData={propertyReportList.length}
+                      paginate={paginate}
+                      currentPage={currentData}
+                    />
+                  ) : (
+                    <div />
+                  )}
+                </div>
+                <div className="col-lg-6  col-sm-12 col-md-12">
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
+                    Active Property:&nbsp;{ActiveProperty.length} &nbsp;&nbsp;&nbsp;
+                    <span style={{ color: "red" }}>
+                      Deactive Property:&nbsp;{DeactiveProperty.length}
+                    </span>
+                  </p>
+
+                  {/* <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
+                    No. of Property : {particular_org_data.length}
+                  </p> */}
+                </div>
+              </div>
           </div>
         </div>
       </div>
+     
       {/* SEE door NO  */}
       <Modal
         show={ShowDoors.status}
