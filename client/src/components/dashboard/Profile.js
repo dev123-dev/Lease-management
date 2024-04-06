@@ -478,10 +478,11 @@ const Profile = ({
                     <br></br>
                   </div>{" "}
                 </div>
-                <div
+                {myuser.usergroup==="Admin"?(<>  <div
                   className="col-lg-12 col-md-12 col-sm-12 col-12 Savebutton "
                   size="lg"
                 >
+
                   <button
                     variant="success"
                     id="savebtn"
@@ -491,7 +492,8 @@ const Profile = ({
                   >
                     <b>Update</b>
                   </button>
-                </div>
+                </div></>):(<></>)}
+              
               </div>
               <div className="row card-Profile col-lg-11 col-md-11 col-sm-12 col-12 py-3">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-12">

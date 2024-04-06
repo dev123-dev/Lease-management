@@ -170,16 +170,14 @@ const UnOccupiedUnits = ({
                   <img src={Back} alt="Back" title="Back" className="iconSize"/>
                 </button>
               </Link>
-              {myuser.usergroup === "Admin" ? (
+            
                 <CSVLink
                   data={csvUnOccupiedData}
                   filename={"Unoccupied-Units.csv"}
                 >
                   <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize" />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+             
 
               <button
                 style={{ border: "none" }}

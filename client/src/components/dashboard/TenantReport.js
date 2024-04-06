@@ -16,7 +16,7 @@ import RenewTenentAgreement from "./RenewTenentAgreement";
 import logo from "../../static/images/lraLogo_wh.png";
 import { CSVLink } from "react-csv";
 import Print from "../../static/images/Print.svg";
-import Loader from "../../static/images/loading.gif";
+import Loader from "../../static/images/loader.gif";
 import Receipt from "../../static/images/Receipts.svg";
 import Excel from "../../static/images/Microsoft Excel.svg";
 import Refresh from "../../static/images/Refresh.svg";
@@ -527,7 +527,7 @@ const TenantReport = ({
             </div> */}
                 <div className="col-lg-2 col-md-1 col-sm-1 col-1  text-end  mediaprint  pt-2 iconspace">
                   {load ? (
-                    <img src={Loader} alt="Loading..." width="26px" />
+                    <img src={Loader} alt="Loading..." height="50px" />
                   ) : (
                     <></>
                   )}
@@ -550,7 +550,7 @@ const TenantReport = ({
                       className="iconSize"
                     />
                   </button>
-                  {myuser.usergroup === "Admin" ? (
+                  
                     <CSVLink
                       data={csvTenantReportData}
                       filename={"Tenant-Report.csv"}
@@ -562,9 +562,7 @@ const TenantReport = ({
                         className="iconSize"
                       />
                     </CSVLink>
-                  ) : (
-                    <></>
-                  )}
+               
                 </div>
               </div>
 
@@ -636,7 +634,7 @@ const TenantReport = ({
                                     Val.AgreementStatus === "Expired" ? (
                                       <td>
                                         <center>
-                                          <button
+                                          {myuser.usergroup==="Admin"?(<> <button
                                             variant="success"
                                             className="rewbtn"
                                             style={{
@@ -646,7 +644,8 @@ const TenantReport = ({
                                             onClick={() => onRenewal(Val, idx)}
                                           >
                                             Renewal
-                                          </button>
+                                          </button></>):(<></>)}
+                                         
                                         </center>
                                       </td>
                                     ) : Val.AgreementStatus === "Renewed" ? (

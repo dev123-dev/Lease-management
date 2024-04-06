@@ -326,7 +326,7 @@ const TenantFilters = ({
       ) : (
         <>
           {/* TENANT FILTER */}
-          {logUser.usergroup === "Admin" ? (
+          {/* {logUser.usergroup === "Admin" ? ( */}
             <Fragment>
               <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 ">
                 {/* <div className="row pb-2 ml-2   "> */}
@@ -454,9 +454,9 @@ const TenantFilters = ({
                 {/* </div> */}
               </div>
             </Fragment>
-          ) : (
-            <></>
-          )}
+           {/* ) : (  */}
+            {/* <></> */}
+            {/* )}  */}
         </>
       )}
       <MainAdminPage year={startMonthDate} />

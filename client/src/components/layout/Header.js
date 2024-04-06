@@ -85,7 +85,7 @@ const Header = ({
           fixed="top"
           style={{ padding: "0px 1em" }}
         >
-          {!loading && isAuthenticated && user && user.usergroup === "Admin" ? (
+          {(!loading && isAuthenticated && user && user.usergroup === "Admin")||(!loading && isAuthenticated && user && user.usergroup === "Manager") ? (
             <Navbar.Brand>
               <NavLink to="/AdminProfile">
                 <div>
@@ -122,10 +122,10 @@ const Header = ({
           ) : (
             <Navbar.Brand></Navbar.Brand>
           )}
-          {!loading &&
+          {(!loading &&
           isAuthenticated &&
           user &&
-          user.usergroup === "IT Department" ? (
+          user.usergroup === "IT Department")? (
             <Navbar.Brand>
               <div className=" logostyle">
                 <img
@@ -237,10 +237,13 @@ const Header = ({
               </NavItem>
 
               <NavItem>
-                {!loading &&
+                {(!loading &&
                 isAuthenticated &&
                 user &&
-                user.usergroup === "Admin" ? (
+                user.usergroup === "Admin")||(!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Manager") ? (
                   <NavLink
                     to="/MainAdmin"
                     className="navlink  headinghover navbar-right"
@@ -268,7 +271,7 @@ const Header = ({
                 (!loading &&
                   isAuthenticated &&
                   user &&
-                  user.usergroup === "IT Department") ? (
+                  user.usergroup === "Manager") ? (
                   <NavLink
                     to="/PropertyDetail"
                     className="navlink   headinghover  navbar-right"
@@ -295,7 +298,7 @@ const Header = ({
                 (!loading &&
                   isAuthenticated &&
                   user &&
-                  user.usergroup === "IT Department") ? (
+                  user.usergroup === "Manager") ? (
                   <NavLink
                     to="/tenant-detail"
                     className="navlink  headinghover  navbar-right  "
@@ -315,10 +318,13 @@ const Header = ({
               </NavItem>
 
               <NavItem>
-                {!loading &&
+                {(!loading &&
                 isAuthenticated &&
                 user &&
-                user.usergroup === "Admin" ? (
+                user.usergroup === "Admin")||(!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Manager") ? (
                   <NavLink
                     to="/AdminUser"
                     className="navlink  headinghover navbar-right"
@@ -337,10 +343,13 @@ const Header = ({
               </NavItem>
 
               <NavItem>
-                {!loading &&
+                {(!loading &&
                 isAuthenticated &&
                 user &&
-                user.usergroup === "Admin" ? (
+                user.usergroup === "Admin")||(!loading &&
+                isAuthenticated &&
+                user &&
+                user.usergroup === "Manager") ? (
                   <NavLink
                     to="/Report"
                     className="navlink  headinghover navbar-right "
@@ -479,10 +488,13 @@ const Header = ({
                           </Link>
 
                           <ul className="dropdown-menu second-level-menu ">
-                            {!loading &&
+                            {(!loading &&
                             isAuthenticated &&
                             user &&
-                            user.usergroup === "Admin" ? (
+                            user.usergroup === "Admin")||(!loading &&
+                            isAuthenticated &&
+                            user &&
+                            user.usergroup === "Manager") ? (
                               <li className="hwhite">
                                 <Link
                                   to="/AdminProfile"

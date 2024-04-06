@@ -209,7 +209,7 @@ const RenewedTenantReport = ({
                 <img src={Back} alt="Back" title="Back" className=" iconSize" />
               </button>
 
-              {myuser.usergroup === "Admin" ? (
+         
                 <CSVLink
                   data={csvContactReportData}
                   filename={"Renewed-Tenant-Report.csv"}
@@ -222,9 +222,7 @@ const RenewedTenantReport = ({
                     title="Excel-Export"
                   />
                 </CSVLink>
-              ) : (
-                <></>
-              )}
+           
               <button
                 style={{ border: "none" }}
                 onClick={async () => {

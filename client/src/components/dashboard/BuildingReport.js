@@ -298,7 +298,7 @@ const BuildingReport = ({
                   <img src={Back} alt="Back" title="Back"  className=" iconSize" />
                 </button>
               </Link>
-              {myuser.usergroup === "Admin" ? (
+         
                 <>
                   <CSVLink
                     data={csvPropertyReportData}
@@ -321,9 +321,7 @@ const BuildingReport = ({
                     <img src={Print} alt="Print" title="Print"  className=" iconSize"/>
                   </button>
                 </>
-              ) : (
-                <></>
-              )}
+           
             </div>
             {/* <div className="col-lg-5 mt-3">
               <Select
