@@ -550,19 +550,18 @@ const TenantReport = ({
                       className="iconSize"
                     />
                   </button>
-                  
-                    <CSVLink
-                      data={csvTenantReportData}
-                      filename={"Tenant-Report.csv"}
-                    >
-                      <img
-                        src={Excel}
-                        alt="Excel-Export"
-                        title="Excel-Export"
-                        className="iconSize"
-                      />
-                    </CSVLink>
-               
+
+                  <CSVLink
+                    data={csvTenantReportData}
+                    filename={"Tenant-Report.csv"}
+                  >
+                    <img
+                      src={Excel}
+                      alt="Excel-Export"
+                      title="Excel-Export"
+                      className="iconSize"
+                    />
+                  </CSVLink>
                 </div>
               </div>
 
@@ -587,14 +586,13 @@ const TenantReport = ({
                           <tr>
                             <th style={showPrint}>Name</th>
                             <th style={showPrint}>Building Name</th>
-
                             <th style={showPrint}>File No</th>
                             <th style={showPrint}>Location</th>
                             <th style={showPrint}>Stamp Duty</th>
                             <th style={showPrint}>Expiry Date</th>
                             <th style={showPrint}>Next Rent Amount</th>
                             <th style={showPrint}>Agreement Status</th>
-                            <th style={showPrint}>Expired</th>
+                            <th style={showPrint}>Renewals</th>
                           </tr>
                         </thead>
                         <tbody className="text-center">
@@ -634,18 +632,26 @@ const TenantReport = ({
                                     Val.AgreementStatus === "Expired" ? (
                                       <td>
                                         <center>
-                                          {myuser.usergroup==="Admin"?(<> <button
-                                            variant="success"
-                                            className="rewbtn"
-                                            style={{
-                                              backgroudColor: "#e8a317",
-                                              cursor: "pointer",
-                                            }}
-                                            onClick={() => onRenewal(Val, idx)}
-                                          >
-                                            Renewal
-                                          </button></>):(<></>)}
-                                         
+                                          {myuser.usergroup === "Admin" ? (
+                                            <>
+                                              {" "}
+                                              <button
+                                                variant="success"
+                                                className="rewbtn"
+                                                style={{
+                                                  backgroudColor: "#e8a317",
+                                                  cursor: "pointer",
+                                                }}
+                                                onClick={() =>
+                                                  onRenewal(Val, idx)
+                                                }
+                                              >
+                                                Renewal
+                                              </button>
+                                            </>
+                                          ) : (
+                                            <></>
+                                          )}
                                         </center>
                                       </td>
                                     ) : Val.AgreementStatus === "Renewed" ? (
