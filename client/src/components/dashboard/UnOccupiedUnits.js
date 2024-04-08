@@ -77,7 +77,7 @@ const UnOccupiedUnits = ({
   const mappedStatus = ShopStatus.map((item) => ({
     doorNo: item.ele1.doorNo,
     status: item.ele1.status,
-    BuildingName: item.ele1.BuildingName,
+    BuildingName: item.ele1.buildingName,
   }));
 
   const fun = () => {
