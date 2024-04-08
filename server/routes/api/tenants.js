@@ -1399,7 +1399,7 @@ router.post("/get-previous-years-exp", auth, async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(OrganizationId),
-          tenantLeaseEndDate: { $lt: firstDay },
+          tenantLeaseEndDate: { $lte: firstDay },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
