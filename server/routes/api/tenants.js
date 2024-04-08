@@ -894,15 +894,17 @@ router.post("/get-tenant-renewedcount", auth, async (req, res) => {
       OrganizationId: userInfo.OrganizationId,
       tenantstatus: "Active",
       AgreementStatus: "Renewed",
-      $where: function () {
-        const currentYear = new Date().getFullYear();
-        return (
-          new Date(this.tenantLeaseStartDate).getFullYear() === currentYear
-        );
-      },
+      tenantLeaseStartDate: { $regex: new Date().getFullYear(), $options: "i" },
+      // $where: function () {
+      //   const currentYear = new Date().getFullYear();
+      //   return (
+      //     new Date(this.tenantLeaseStartDate).getFullYear() === currentYear
+      //   );
+      // },
     };
 
     const tenantrenewdata = await TenantDetails.find(query);
+
     res.json(tenantrenewdata);
   } catch (error) {
     console.log(error.message);
@@ -1397,7 +1399,7 @@ router.post("/get-previous-years-exp", auth, async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(OrganizationId),
-          tenantLeaseEndDate: { $lt: firstDay },
+          tenantLeaseEndDate: { $lte: firstDay },
           output: { $elemMatch: { tenantstatus: { $eq: "Active" } } },
         },
       },
@@ -1570,17 +1572,13 @@ router.post("/get-organization-expiry-report", auth, async (req, res) => {
 //flag
 router.post("/get-tenant-old-exp-report", auth, async (req, res) => {
   try {
-    const { yearSearch, OrganizationId } = req.body;
+    const { yearSearch, OrganizationId } = req.body; //year search only get year string
     var lastDate = new Date(yearSearch, 0, 1).toISOString().split("T")[0];
-    var year = new Date(lastDate).getFullYear(); // Extract the year value from lastDate
-
-    // Create the start and end dates for the year
-
-    var endDate = new Date(yearSearch, 11, 31).toISOString().split("T")[0];
 
     const tenantSettingsData = await OrganizationDetails.find({
       _id: OrganizationId,
     });
+
     const tenantExpReport = await TenantDetails.aggregate([
       {
         $lookup: {
@@ -1663,17 +1661,12 @@ router.post("/get-tenant-old-exp-report", auth, async (req, res) => {
       {
         $match: {
           OrganizationId: mongoose.Types.ObjectId(OrganizationId),
-          // tenantLeaseEndDate: {
-          //   $gte: lastDate,
-          //   $lt: endDate,
-          // },
           tenantLeaseEndDate: { $lte: lastDate },
-          // AgreementStatus: { $ne: "Renewed" },
           tenantstatus: { $eq: "Active" },
         },
       },
     ]);
-    // console.log("get-tenant-old-exp-report", tenantExpReport);
+
     res.json(tenantExpReport);
   } catch (err) {
     console.error(err.message);
@@ -2837,42 +2830,42 @@ router.post("/add-user-activity-details", auth, async (req, res) => {
 router.post("/get-user-activity", auth, async (req, res) => {
   try {
     let data = req.body;
-      const userActivityData = await UserActivity.aggregate([
+    const userActivityData = await UserActivity.aggregate([
       {
         $match: {
-          OrganizationId:mongoose.Types.ObjectId(data.OrganizationId),
-        }
+          OrganizationId: mongoose.Types.ObjectId(data.OrganizationId),
+        },
       },
       {
         $sort: {
           _id: -1,
-        }
+        },
       },
       {
         $lookup: {
           from: "userdetails",
           localField: "userId",
           foreignField: "_id",
-          as: "userDetails"
-        }
+          as: "userDetails",
+        },
       },
       {
-        $unwind: "$userDetails"
+        $unwind: "$userDetails",
       },
       {
         $project: {
-          _id: "$_id", 
-          userName:"$userName",
-          Menu:"$Menu",
-          Operation:"$Operation",
-          Name:"$Name",
-          OrganizationId:"$OrganizationId",
-          Dno:"$Dno",
-          DateTime:"$DateTime",
-          Remarks:"$Remarks",
+          _id: "$_id",
+          userName: "$userName",
+          Menu: "$Menu",
+          Operation: "$Operation",
+          Name: "$Name",
+          OrganizationId: "$OrganizationId",
+          Dno: "$Dno",
+          DateTime: "$DateTime",
+          Remarks: "$Remarks",
           usergroup: "$userDetails.usergroup",
-        }
-      }
+        },
+      },
     ]);
     res.json(userActivityData);
   } catch (err) {

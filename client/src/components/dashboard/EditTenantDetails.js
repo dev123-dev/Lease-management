@@ -772,6 +772,7 @@ const EditTenantDetails = ({
       return 0;
     }
   }
+
   const [endDateFin, setEndDateFin] = useState(null);
 
   useEffect(() => {
@@ -782,8 +783,22 @@ const EditTenantDetails = ({
           myuser.output.leaseTimePeriod
         )
       );
+
+      // inOldRange();
     }
   }, [entryDate]);
+
+  const inOldRange = () => {
+    try {
+      return (
+        new Date(entryDate) <
+        new Date(particular_tenant_EditData.tenantLeaseEndDate)
+      );
+    } catch (er) {
+      console.log(er);
+      return true;
+    }
+  };
 
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -1230,9 +1245,7 @@ const EditTenantDetails = ({
                 <p className={`output ${className}`}>{content}</p>
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-                <label>
-                  Lease End Date (DD-MM-YYYY)*:{" "}        
-                </label>
+                <label>Lease End Date (DD-MM-YYYY)*: </label>
                 <input
                   placeholder="DD-MM-YYYY"
                   className="form-control cpp-input datevalidation"
@@ -1361,7 +1374,10 @@ const EditTenantDetails = ({
                       Back
                     </button>
                   </div>
-                  <div className="col-lg-6 col-md-12 col-sm-12">
+                  <div
+                    className="col-lg-6 col-md-12 col-sm-12"
+                    // style={inOldRange() ? {} : { visibility: "hidden" }}
+                  >
                     {isNextButtonDisabled ? (
                       <button
                         variant="success"
