@@ -13,7 +13,7 @@ import {
   AddUserActivity,
   ParticularTenantFilterContactReport,
   TenantCount,
-  getTenantReceiptNo ,
+  getTenantReceiptNo,
   AddTenantReceiptDetails,
 } from "../../actions/tenants";
 import { Form, Button } from "react-bootstrap";
@@ -41,10 +41,9 @@ const Tenant_Details = ({
     tenantdetailscount,
     particular_org_loc,
     tenantreceiptno,
-    
   },
   ParticularTenant,
-  getTenantReceiptNo ,
+  getTenantReceiptNo,
   AddTenantReceiptDetails,
 
   AddUserActivity,
@@ -252,9 +251,9 @@ const Tenant_Details = ({
     handleClose();
     setFreshPage(!freshpage);
     setCheckData([]);
-  setFormData({ ...formData,deactive_reason:""});
-     ParticularTenantFilter("");
-         getParticularOrg({ OrganizationId: user && user.OrganizationId });
+    setFormData({ ...formData, deactive_reason: "" });
+    ParticularTenantFilter("");
+    getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
   };
   const [Error, setError] = useState("");
@@ -290,10 +289,10 @@ const Tenant_Details = ({
       handleClose();
       setFreshPage(!freshpage);
       setCheckData([]);
-        setFormData({ ...formData,deactive_reason:""});
-         ParticularTenantFilter("");
-             getParticularOrg({ OrganizationId: user && user.OrganizationId });
-    getParticularProperty({ OrganizationId: user && user.OrganizationId });
+      setFormData({ ...formData, deactive_reason: "" });
+      ParticularTenantFilter("");
+      getParticularOrg({ OrganizationId: user && user.OrganizationId });
+      getParticularProperty({ OrganizationId: user && user.OrganizationId });
     }
   };
 
@@ -318,7 +317,7 @@ const Tenant_Details = ({
     setCurrentData(nmbr);
   };
   const refresh = () => {
-       // ParticularTenant("");
+    // ParticularTenant("");
     ParticularTenantFilter("");
     getParticularOrg({ OrganizationId: user && user.OrganizationId });
     getParticularProperty({ OrganizationId: user && user.OrganizationId });
@@ -400,12 +399,14 @@ const Tenant_Details = ({
   //propertywise
   const propertyname = [];
   particular_org_data &&
-    particular_org_data.filter((ele)=>ele.shopStatus==="Active").map((ele) =>
-      propertyname.push({
-        label: ele.BuildingName,
-        value: ele.BuildingId,
-      })
-    );
+    particular_org_data
+      .filter((ele) => ele.shopStatus === "Active")
+      .map((ele) =>
+        propertyname.push({
+          label: ele.BuildingName,
+          value: ele.BuildingId,
+        })
+      );
   // let Dno = [];
   // particular_org_data &&
   //   particular_org_data.map(
@@ -466,30 +467,30 @@ const Tenant_Details = ({
     ],
   ];
 
- sortetenantdetails
-  .filter((tenant) => tenant.tenantstatus === "Active")
-  .map((tenant) => {
-    var doorNo = tenant.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
-    var ED = tenant.tenantLeaseEndDate.split(/\D/g);
-    var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
-    var ED2 = tenant.tenantLeaseStartDate.split(/\D/g);
-    var tenantLeaseStartDate = [ED2[2], ED2[1], ED2[0]].join("-");
-    return csvTenantData.push([
-      tenant.tenantName,
-      tenant.BuildingName,
-      tenant.Location,
-      doorNo,
-      tenant.tenantFileNo,
-      tenant.tenantRentAmount,
-      tenantLeaseStartDate,
-      tenantLeaseEndDate,
-      tenant.tenantFirmName,
-      tenant.tenantPhone,
-      // tenant.tenantPanNo,
-      // tenant.tenantAdharNo,
-      tenant.tenantstatus,
-    ]);
-  });
+  sortetenantdetails
+    .filter((tenant) => tenant.tenantstatus === "Active")
+    .map((tenant) => {
+      var doorNo = tenant.shopDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
+      var ED = tenant.tenantLeaseEndDate.split(/\D/g);
+      var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
+      var ED2 = tenant.tenantLeaseStartDate.split(/\D/g);
+      var tenantLeaseStartDate = [ED2[2], ED2[1], ED2[0]].join("-");
+      return csvTenantData.push([
+        tenant.tenantName,
+        tenant.BuildingName,
+        tenant.Location,
+        doorNo,
+        tenant.tenantFileNo,
+        tenant.tenantRentAmount,
+        tenantLeaseStartDate,
+        tenantLeaseEndDate,
+        tenant.tenantFirmName,
+        tenant.tenantPhone,
+        // tenant.tenantPanNo,
+        // tenant.tenantAdharNo,
+        tenant.tenantstatus,
+      ]);
+    });
   const [showPrint, setShowPrint] = useState({
     backgroundColor: "#095a4a",
     color: "white",
@@ -528,8 +529,8 @@ const Tenant_Details = ({
       clearTimeout(timer);
     };
   }, [handleDataFromLeaseTransfer]);
-// Modal for receipt generation
-var today = new Date();
+  // Modal for receipt generation
+  var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
   var yyyy = today.getFullYear();
@@ -541,12 +542,12 @@ var today = new Date();
   }
   var leaseMonth = myuser.output.leaseTimePeriod;
   var todayDateymd = dd + "-" + mm + "-" + yyyy;
- const [viewdata, setviewdata] = useState([]);
+  const [viewdata, setviewdata] = useState([]);
   const handlePrintReceipt = (Val) => {
     setShowReceipt(true);
     setviewdata(Val);
   };
-   // increment the receipt number  for string (ex :MOS0001)
+  // increment the receipt number  for string (ex :MOS0001)
   const tenantReceiptNo1 = tenantreceiptno.toString();
   const numericPart = tenantReceiptNo1.replace(/^\D+/g, "");
   const nextNumericValue = (parseInt(numericPart, 10) + 1)
@@ -555,7 +556,7 @@ var today = new Date();
   const nextTenantReceiptNo =
     tenantReceiptNo1.replace(/\d+/g, "") + nextNumericValue;
 
- const componentRef1 = useRef();
+  const componentRef1 = useRef();
   const [showOnPrint, setShowOnPrint] = useState({
     border: "1px solid black",
   });
@@ -569,9 +570,9 @@ var today = new Date();
         border: "1px solid black",
       }),
   });
-   var Doorlength =
+  var Doorlength =
     viewdata && viewdata.shopDoorNo && viewdata.shopDoorNo.length;
-// /////////////////// calculation////////////////////////////////
+  // /////////////////// calculation////////////////////////////////
   const [tenantDiscount, setTenantDiscount] = useState(0);
   const [tenantOtherCharges, setTenantOtherCharges] = useState(0);
   const [tenantSubTotalAfterAdjustments, SettenantSubTotalAfterAdjustments] =
@@ -600,7 +601,7 @@ var today = new Date();
       parseFloat(tenantSubTotalAfterAdjustments) + parseFloat(tenantGst)
     );
   }, [tenantGst]);
-     const [showReceipt, setShowReceipt] = useState(false);
+  const [showReceipt, setShowReceipt] = useState(false);
   const handleClosePrint = () => {
     settenantsubTotal(0);
     setTenantDiscount(0);
@@ -614,7 +615,7 @@ var today = new Date();
 
   //  useeffect to load receipt number
   useEffect(() => {
-    getTenantReceiptNo({ OrganizationId: user && user.OrganizationId });
+    // getTenantReceiptNo({ OrganizationId: user && user.OrganizationId });
   }, [showReceipt]);
 
   // validation for discount amt
@@ -632,29 +633,34 @@ var today = new Date();
     setTenantOtherCharges(inputValue);
   };
 
-
   const handleGSTChange = (e) => {
     const inputValue = e.target.value;
 
-
     setTenantGst(inputValue);
-  
   };
-    var ED =
+  var ED =
     viewdata &&
     viewdata.tenantchequeDate &&
     viewdata.tenantchequeDate.split(/\D/g);
   var chequeDate = [ED && ED[2], ED && ED[1], ED && ED[0]].join("-");
-      var leaseStart =
+  var leaseStart =
     viewdata &&
     viewdata.tenantLeaseStartDate &&
     viewdata.tenantLeaseStartDate.split(/\D/g);
-  var leaseStartDate = [leaseStart && leaseStart[2], leaseStart && leaseStart[1], leaseStart && leaseStart[0]].join("-");
-      var leaseEnd =
+  var leaseStartDate = [
+    leaseStart && leaseStart[2],
+    leaseStart && leaseStart[1],
+    leaseStart && leaseStart[0],
+  ].join("-");
+  var leaseEnd =
     viewdata &&
     viewdata.tenantLeaseEndDate &&
     viewdata.tenantLeaseEndDate.split(/\D/g);
-  var leaseEndDate = [leaseEnd && leaseEnd[2], leaseEnd && leaseEnd[1], leaseEnd && leaseEnd[0]].join("-");
+  var leaseEndDate = [
+    leaseEnd && leaseEnd[2],
+    leaseEnd && leaseEnd[1],
+    leaseEnd && leaseEnd[0],
+  ].join("-");
 
   // validation for notes
 
@@ -662,11 +668,10 @@ var today = new Date();
 
   const handleNotesChange = (e) => {
     const inputValue = e.target.value;
- 
 
     setTenantReceiptNotes(inputValue);
   };
-   const onPrint = () => {
+  const onPrint = () => {
     handleGenerateReceipt();
     const finalData = {
       OrganizationName: user.OrganizationName,
@@ -702,7 +707,6 @@ var today = new Date();
 
     AddTenantReceiptDetails(finalData);
     AddUserActivity(ActivityDetail);
-    
   };
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
@@ -854,36 +858,45 @@ var today = new Date();
                     />
                   </Link>
                 </button>
-            {myuser.usergroup==="Admin"||myuser.usergroup==="Manager"?(<> <CSVLink data={csvTenantData} filename={"Tenant-Details.csv"}>
-                    <img
-                      src={Excel}
-                      alt="Excel-Export"
-                      title="Excel-Export"
-                      className="iconSize"
-                    />
-                  </CSVLink>
-              
-                <button
-                  style={{ border: "none" }}
-                  onClick={async () => {
-                    await setShowPrint({
-                      backgroundColor: "#095a4a",
-                      color: "black",
-                      fontWeight: "bold",
-                    });
+                {myuser.usergroup === "Admin" ||
+                myuser.usergroup === "Manager" ? (
+                  <>
+                    {" "}
+                    <CSVLink
+                      data={csvTenantData}
+                      filename={"Tenant-Details.csv"}
+                    >
+                      <img
+                        src={Excel}
+                        alt="Excel-Export"
+                        title="Excel-Export"
+                        className="iconSize"
+                      />
+                    </CSVLink>
+                    <button
+                      style={{ border: "none" }}
+                      onClick={async () => {
+                        await setShowPrint({
+                          backgroundColor: "#095a4a",
+                          color: "black",
+                          fontWeight: "bold",
+                        });
 
-                    handlePrint();
-                  }}
-                >
-                  <img
-                    //  onClick={() => refresh()}
-                    src={Print}
-                    alt="Print"
-                    title="Print"
-                    className="iconSize"
-                  />
-                </button></>):(<></>)}
-                 
+                        handlePrint();
+                      }}
+                    >
+                      <img
+                        //  onClick={() => refresh()}
+                        src={Print}
+                        alt="Print"
+                        title="Print"
+                        className="iconSize"
+                      />
+                    </button>
+                  </>
+                ) : (
+                  <></>
+                )}
 
                 <img
                   style={{ cursor: "pointer" }}
@@ -1189,7 +1202,7 @@ var today = new Date();
                                           )}
                                           {/* //Receipt generation */}
 
-                                           {/* <button
+                                          {/* <button
                                           style={{ border: "none" }}
                                           onClick={() =>
                                             handlePrintReceipt(Val, idx)
@@ -1586,119 +1599,114 @@ var today = new Date();
           <p>Lease Transferred Successfully to {transferredTo}</p>
         </Modal.Body>
       </Modal>
-        {/* receipt generation start*/}
-          <Modal
-            show={showReceipt}
-            size="lg"
-            dialogClassName="my-modal1"
-            centered
-            contentClassName="custom-modal"
-            aria-labelledby="contained-modal-title-vcenter"
-            //style={{ width: '95vw', maxWidth: '100vw' }} // Adjust the width here
-          >
-            {/* <Modal.Title>Print Receipt</Modal.Title> */}
+      {/* receipt generation start*/}
+      <Modal
+        show={showReceipt}
+        size="lg"
+        dialogClassName="my-modal1"
+        centered
+        contentClassName="custom-modal"
+        aria-labelledby="contained-modal-title-vcenter"
+        //style={{ width: '95vw', maxWidth: '100vw' }} // Adjust the width here
+      >
+        {/* <Modal.Title>Print Receipt</Modal.Title> */}
 
-            <Modal.Body>
-              <div className="row col-lg-12 col-md-12 col-sm-12  pb-4">
-                <div className=" col-lg-12 col-md-12 col-sm-10 text-right">
-                  <button
-                    className=" text-right CloseBtn1"
-                    onClick={handleClosePrint}
-                    style={{
-                      backgroundColor: "transparent",
-                      border: "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    <img
-                      src={require("../../static/images/closemodal.png")}
-                      width="20px"
-                      Height="20px"
-                      title="Close"
-                    />
-                  </button>
-                </div>
-              </div>
-              <div 
-              ref={componentRef1}
+        <Modal.Body>
+          <div className="row col-lg-12 col-md-12 col-sm-12  pb-4">
+            <div className=" col-lg-12 col-md-12 col-sm-10 text-right">
+              <button
+                className=" text-right CloseBtn1"
+                onClick={handleClosePrint}
+                style={{
+                  backgroundColor: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                }}
               >
-                <div
-                  className="col-lg-12 "
-                  style={{ border: "1px solid black" }}
-                >
-                  {/* header */}
-                  <div className="col-lg-12 text-center ">
-                    <span className=" receiptHeader ">Rent Receipt</span>
-                  </div>
-                  <hr />
+                <img
+                  src={require("../../static/images/closemodal.png")}
+                  width="20px"
+                  Height="20px"
+                  title="Close"
+                />
+              </button>
+            </div>
+          </div>
+          <div ref={componentRef1}>
+            <div className="col-lg-12 " style={{ border: "1px solid black" }}>
+              {/* header */}
+              <div className="col-lg-12 text-center ">
+                <span className=" receiptHeader ">Rent Receipt</span>
+              </div>
+              <hr />
 
-                  <table className="receiptTable  w-100">
-                    <tr>
-                      <td></td>
-                      <td>Name</td>
-                      <td>Mother of Sorrows Church</td>
-                      <td></td>
-                      <td colSpan={2} rowSpan={5} className="text-center">
-                        <img
-                          src={require("../../static/images/MOSLogo.png")}
-                          alt=""
-                          className="img-fluid"
-                          height={140}
-                          width={140}
-                        />
-                      </td>
+              <table className="receiptTable  w-100">
+                <tr>
+                  <td></td>
+                  <td>Name</td>
+                  <td>Mother of Sorrows Church</td>
+                  <td></td>
+                  <td colSpan={2} rowSpan={5} className="text-center">
+                    <img
+                      src={require("../../static/images/MOSLogo.png")}
+                      alt=""
+                      className="img-fluid"
+                      height={140}
+                      width={140}
+                    />
+                  </td>
 
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Address</td>
-                      <td>KM Marg, Brahmagiri, Udupi, Karnataka 576101</td>
-                      <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Address</td>
+                  <td>KM Marg, Brahmagiri, Udupi, Karnataka 576101</td>
+                  <td></td>
 
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Phone</td>
-                      <td>0820 - 2520908</td>
-                      <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Phone</td>
+                  <td>0820 - 2520908</td>
+                  <td></td>
 
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Email</td>
-                      <td>motherofsorrowschurch@gmail.com</td>
-                      <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Email</td>
+                  <td>motherofsorrowschurch@gmail.com</td>
+                  <td></td>
 
-                      <td></td>
-                    </tr>
-                       
-                    <tr>
-                      <td></td>
-                      <td>Website</td>
-                      <td>https://udupichurch.com/</td>
-                      <td></td>
+                  <td></td>
+                </tr>
 
-                      <td></td>
-                    </tr>
-                    <br />
-                    <tr>
-                      <td colSpan={7}>
-                        <hr className="customHr" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <th>Billed To</th>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    {/* {viewdata &&
+                <tr>
+                  <td></td>
+                  <td>Website</td>
+                  <td>https://udupichurch.com/</td>
+                  <td></td>
+
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td colSpan={7}>
+                    <hr className="customHr" />
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <th>Billed To</th>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                {/* {viewdata &&
                       viewdata.map((Val, idx) => {
                         console.log("newwww", Val);
                         // var ED = Val.tenantLeaseEndDate.split(/\D/g);
@@ -1707,373 +1715,357 @@ var today = new Date();
                         // );
                         return (
                           <> */}
-                    <tr>
-                      <td></td>
-                      <td>Tenant Name</td>
-                      <td>
-                        {viewdata.tenantName}
-                        </td>
-                      <td></td>
-                      <td>Receipt No</td>
-                      {/* <td>
+                <tr>
+                  <td></td>
+                  <td>Tenant Name</td>
+                  <td>{viewdata.tenantName}</td>
+                  <td></td>
+                  <td>Receipt No</td>
+                  {/* <td>
                         {tenantreceiptno && tenantreceiptno.length === 0
                           ? "0001"
                           : nextTenantReceiptNo}
                       </td> */}
-                      <td>
-                        {tenantreceiptno.length === 0
-                          ? "R0001"
-                          : nextTenantReceiptNo}
-                      </td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Firm Name</td>
-                      <td>
-                        {viewdata.tenantFirmName}
-                        </td>
-                      <td></td>
-                      <td>Date</td>
-                      <td>
-                        {todayDateymd}
-                        </td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Address</td>
-                      <td>
-                        {viewdata.tenantAddr}
-                        </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Phone</td>
-                      <td>
-                        {
-                      viewdata.tenantPhone}
-                      </td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Email</td>
-                      <td>motherofsorrowschurch@gmail.com</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                     <tr>
-                      <td></td>
-                      <td>Agreement Date</td>
-                      <td>{leaseStartDate} to {leaseEndDate}</td>
-                     <td></td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <br />
-                    <tr>
-                      <td colSpan={7}>
-                        <hr className="customHr" />
-                      </td>
-                    </tr>
-                    {/* tables  */}
-                    <tr>
-                      <td></td>
-                      <th>Sl</th>
-                      <th>Property Details</th>
-                      <th></th>
-                      <th></th>
-                      <th>Amount</th>
-                      <td></td>
-                    </tr>
-                    {viewdata &&
-                      viewdata.shopDoorNo &&
-                      viewdata.shopDoorNo.map((ele, idx) => {
-                        return (
-                          <tr>
-                            <td></td>
+                  <td>
+                    {tenantreceiptno.length === 0
+                      ? "R0001"
+                      : nextTenantReceiptNo}
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Firm Name</td>
+                  <td>{viewdata.tenantFirmName}</td>
+                  <td></td>
+                  <td>Date</td>
+                  <td>{todayDateymd}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Address</td>
+                  <td>{viewdata.tenantAddr}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Phone</td>
+                  <td>{viewdata.tenantPhone}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Email</td>
+                  <td>motherofsorrowschurch@gmail.com</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Agreement Date</td>
+                  <td>
+                    {leaseStartDate} to {leaseEndDate}
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td colSpan={7}>
+                    <hr className="customHr" />
+                  </td>
+                </tr>
+                {/* tables  */}
+                <tr>
+                  <td></td>
+                  <th>Sl</th>
+                  <th>Property Details</th>
+                  <th></th>
+                  <th></th>
+                  <th>Amount</th>
+                  <td></td>
+                </tr>
+                {viewdata &&
+                  viewdata.shopDoorNo &&
+                  viewdata.shopDoorNo.map((ele, idx) => {
+                    return (
+                      <tr>
+                        <td></td>
 
-                            <td>{idx + 1}</td>
-                            <td>{ele.label}</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                          {Number(viewdata.tenantRentAmount).toFixed(2)}
-                            </td>
-                            <td></td>
-                          </tr>
-                        );
-                      })}
+                        <td>{idx + 1}</td>
+                        <td>{ele.label}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{Number(viewdata.tenantRentAmount).toFixed(2)}</td>
+                        <td></td>
+                      </tr>
+                    );
+                  })}
 
-                    <tr>
-                      <td colSpan={7}>
-                        <hr className="customHr" />
-                      </td>
-                    </tr>
-                    {/* subtable  */}
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <th>Sub-Total</th>
-                      <th></th>
-                      <th></th>
-                      <th>
-                        {(Number(tenantsubTotal)*leaseMonth).toFixed(2)}
-                        </th>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td>Less: Discounts</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        {" "}
-                        <input
-                          type="number"
-                          name="tenantDiscount"
-                          className="textBoxWidth"
-                          value={tenantDiscount}
-                          onChange={(e) => handletenantDiscountChange(e)}
-                          style={showOnPrint}
-                        />
-                      </td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td>Add: Other Charges</td>
-                      <td></td>
-                      <td></td>
-                      <td>
-                        <input
-                          type="number"
-                          name="tenantOtherCharges"
-                          className="textBoxWidth"
-                          value={tenantOtherCharges}
-                          onChange={(e) => handleotherChangesChange(e)}
-                          style={showOnPrint}
-                        />
-                      </td>
-                      <td></td>
-                    </tr>
-                    <br />
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <th>Sub-Total After Adjustments</th>
-                      <th></th>
-                      <th></th>
+                <tr>
+                  <td colSpan={7}>
+                    <hr className="customHr" />
+                  </td>
+                </tr>
+                {/* subtable  */}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <th>Sub-Total</th>
+                  <th></th>
+                  <th></th>
+                  <th>{(Number(tenantsubTotal) * leaseMonth).toFixed(2)}</th>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>Less: Discounts</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    {" "}
+                    <input
+                      type="number"
+                      name="tenantDiscount"
+                      className="textBoxWidth"
+                      value={tenantDiscount}
+                      onChange={(e) => handletenantDiscountChange(e)}
+                      style={showOnPrint}
+                    />
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>Add: Other Charges</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <input
+                      type="number"
+                      name="tenantOtherCharges"
+                      className="textBoxWidth"
+                      value={tenantOtherCharges}
+                      onChange={(e) => handleotherChangesChange(e)}
+                      style={showOnPrint}
+                    />
+                  </td>
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <th>Sub-Total After Adjustments</th>
+                  <th></th>
+                  <th></th>
 
-                      <th>
-                        {isNaN(parseFloat(tenantSubTotalAfterAdjustments)) ||
-                        parseFloat(tenantSubTotalAfterAdjustments) === 0
+                  <th>
+                    {isNaN(parseFloat(tenantSubTotalAfterAdjustments)) ||
+                    parseFloat(tenantSubTotalAfterAdjustments) === 0
+                      ? " "
+                      : (
+                          Number(tenantSubTotalAfterAdjustments) * leaseMonth
+                        ).toFixed(2)}
+                  </th>
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>GST (18%)</td>
+                  <td></td>
+                  <td></td>
+                  <td>
+                    <input
+                      type="number"
+                      name="tenantGST"
+                      className="textBoxWidth"
+                      value={
+                        isNaN(parseFloat(tenantGst)) ||
+                        parseFloat(tenantGst) === 0
                           ? " "
-                          : (Number(tenantSubTotalAfterAdjustments)*leaseMonth).toFixed(2)}
-                      </th>
+                          : (Number(tenantGst) * leaseMonth).toFixed(1)
+                      }
+                      onChange={(e) => handleGSTChange(e)}
+                      style={showOnPrint}
+                    />
+                  </td>
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <th>Grand Total</th>
+                  <td></td>
+                  <td></td>
+
+                  <th>
+                    {isNaN(parseFloat(tenantGrandTotal)) ||
+                    parseFloat(tenantGrandTotal) === 0
+                      ? " "
+                      : (Number(tenantGrandTotal) * leaseMonth).toFixed(2)}
+                  </th>
+
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td colSpan={7}>
+                    <hr className="customHr" />
+                  </td>
+                </tr>
+                {/* payment  */}
+                <tr>
+                  <td></td>
+                  <td>Payment Mode</td>
+                  {viewdata.tenantPaymentMode === "Cash" ? (
+                    <>
+                      <td>cash</td>
                       <td></td>
-                    </tr>
-                    <br />
-                    <tr>
                       <td></td>
                       <td></td>
-                      <td>GST (18%)</td>
+                    </>
+                  ) : viewdata.tenantPaymentMode === "Cheque" ? (
+                    <>
+                      <td>Cheque</td>
+                      <td>
+                        Bank
+                        <br />
+                        {viewdata.tenantBankName
+                          ? viewdata.tenantBankName
+                          : "--"}
+                      </td>
+                      <td>
+                        ChequeNo.
+                        <br />
+                        {viewdata.tenantChequenoOrDdno === "null"
+                          ? "--"
+                          : viewdata.tenantChequenoOrDdno}
+                      </td>
+                      <td>
+                        Date
+                        <br />
+                        {chequeDate}
+                      </td>
+                    </>
+                  ) : viewdata.tenantPaymentMode === "NEFT" ? (
+                    <>
+                      <td>NEFT</td>
+                      <td></td>
+                      <td>
+                        Bank Name
+                        <br />
+                        {viewdata.tenantBankName}
+                      </td>
+                      <td>
+                        Trans Id
+                        <br />
+                        {viewdata.tenantTransId}
+                      </td>
+                    </>
+                  ) : viewdata.tenantPaymentMode === "Card" ? (
+                    <>
+                      <td>{viewdata.tenantCardType}</td>
+                      <td></td>
+                      <td>
+                        Bank Name
+                        <br />
+                        {viewdata.tenantBankName}
+                      </td>
+                      <td>
+                        Trans Id
+                        <br />
+                        {viewdata.tenantTransId}
+                      </td>
+                    </>
+                  ) : viewdata.tenantPaymentMode === "UPI" ? (
+                    <>
+                      <td>UPI</td>
                       <td></td>
                       <td></td>
                       <td>
-                        <input
-                          type="number"
-                          name="tenantGST"
-                          className="textBoxWidth"
-                          value={
-                            isNaN(parseFloat(tenantGst)) ||
-                            parseFloat(tenantGst) === 0
-                              ? " "
-                              : (Number(tenantGst)*leaseMonth).toFixed(1)
-                          }
-                          onChange={(e) => handleGSTChange(e)}
-                          style={showOnPrint}
-                        />
+                        Trans Id
+                        <br />
+                        {viewdata.tenantTransId}
                       </td>
-                      <td></td>
-                    </tr>
-                    <br />
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <th>Grand Total</th>
-                      <td></td>
-                      <td></td>
-                      
-                      <th>
-                        {isNaN(parseFloat(tenantGrandTotal)) ||
-                        parseFloat(tenantGrandTotal) === 0
-                          ? " "
-                          : (Number(tenantGrandTotal)*leaseMonth).toFixed(2)}
-                      </th>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
-                      <td></td>
-                    </tr>
-                    <br />
-                    <tr>
-                      <td colSpan={7}>
-                        <hr className="customHr" />
-                      </td>
-                    </tr>
-                    {/* payment  */}
-                    <tr>
-                      <td></td>
-                      <td>Payment Mode</td>
-                      {viewdata.tenantPaymentMode === "Cash" ? (
-                        <>
-                          <td>cash</td>
-                          <td></td>
-                          <td></td>
-                          <td></td>
-                        </>
-                      ) : viewdata.tenantPaymentMode === "Cheque" ? (
-                        <>
-                          <td>Cheque</td>
-                          <td>
-                            Bank
-                            <br />
-                            {viewdata.tenantBankName
-                              ? viewdata.tenantBankName
-                              : "--"}
-                          </td>
-                          <td>
-                            ChequeNo.
-                            <br />
-                            {viewdata.tenantChequenoOrDdno === "null"
-                              ? "--"
-                              : viewdata.tenantChequenoOrDdno}
-                          </td>
-                          <td>
-                            Date
-                            <br />
-                            {chequeDate}
-                          </td>
-                        </>
-                      ) : viewdata.tenantPaymentMode === "NEFT" ? (
-                        <>
-                          <td>NEFT</td>
-                          <td></td>
-                          <td>
-                            Bank Name
-                            <br />
-                            {viewdata.tenantBankName}
-                          </td>
-                          <td>
-                            Trans Id
-                            <br />
-                            {viewdata.tenantTransId}
-                          </td>
-                        </>
-                      ) : viewdata.tenantPaymentMode === "Card" ? (
-                        <>
-                          <td>
-                            {viewdata.tenantCardType}
-                          </td>
-                          <td></td>
-                          <td>
-                            Bank Name
-                            <br />
-                            {viewdata.tenantBankName}
-                          </td>
-                          <td>
-                            Trans Id
-                            <br />
-                            {viewdata.tenantTransId}
-                          </td>
-                        </>
-                      ) : viewdata.tenantPaymentMode === "UPI" ? (
-                        <>
-                          <td>UPI</td>
-                          <td></td>
-                          <td></td>
-                          <td>
-                            Trans Id
-                            <br />
-                            {viewdata.tenantTransId}
-                          </td>
-                        </>
-                      ) : (
-                        <></>
-                      )}
+                  <td></td>
+                </tr>
+                <br />
+                <tr>
+                  <td colSpan={7}>
+                    <hr className="customHr" />
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Notes :</td>
+                  <td colSpan={3}>
+                    <textarea
+                      rows={2}
+                      type="text"
+                      name="tenantNotes"
+                      className="form-control"
+                      value={tenantReceiptNotes}
+                      onChange={(e) => handleNotesChange(e)}
+                      style={showOnPrint}
+                    />
+                  </td>
 
-                      <td></td>
-                    </tr>
-                    <br />
-                    <tr>
-                      <td colSpan={7}>
-                        <hr className="customHr" />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>Notes :</td>
-                      <td colSpan={3}>
-                        <textarea
-                          rows={2}
-                          type="text"
-                          name="tenantNotes"
-                          className="form-control"
-                          value={tenantReceiptNotes}
-                          onChange={(e) => handleNotesChange(e)}
-                          style={showOnPrint}
-                        />
-                      </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
 
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </table>
-
-                  {/* receipt generation  */}
-                  <div className="text-center mt-5">
-                    <span className="font-italic">
-                      This is computer generated receipt, signature is not
-                      required
-                    </span>
-                  </div>
-                </div>
+              {/* receipt generation  */}
+              <div className="text-center mt-5">
+                <span className="font-italic">
+                  This is computer generated receipt, signature is not required
+                </span>
               </div>
-            </Modal.Body>
-            <Modal.Footer>
-              <button
-                className="printBtn"
-                onClick={async () => {
-                  await setShowOnPrint({
-                    border: "none",
-                  });
+            </div>
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            className="printBtn"
+            onClick={async () => {
+              await setShowOnPrint({
+                border: "none",
+              });
 
-                  onPrint();
-                }}
-              >
-                Print
-              </button>
+              onPrint();
+            }}
+          >
+            Print
+          </button>
 
-              <button 
-              onClick={handleClosePrint}
-               className=" sub_form    ">
-                Close
-              </button>
-            </Modal.Footer>
-          </Modal>
+          <button onClick={handleClosePrint} className=" sub_form    ">
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
@@ -2093,5 +2085,6 @@ export default connect(mapStateToProps, {
   TenantCount,
   deactiveTenantsDetails,
   ParticularTenantFilterContactReport,
-    getTenantReceiptNo ,AddTenantReceiptDetails
+  getTenantReceiptNo,
+  AddTenantReceiptDetails,
 })(Tenant_Details);
