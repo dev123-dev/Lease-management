@@ -646,7 +646,7 @@ const TenantReport = ({
                                                   onRenewal(Val, idx)
                                                 }
                                               >
-                                                Renewal
+                                                Renew
                                               </button>
                                             </>
                                           ) : (
