@@ -55,7 +55,6 @@ const TenantReport = ({
     isSubmitted: false,
   });
   const { deactive_reason } = formData;
-
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -251,6 +250,7 @@ const TenantReport = ({
     [
       " Name",
       "Building Name",
+      "Door No's",
       "File No.",
       "Location",
       "Stamp Duty",
@@ -260,12 +260,13 @@ const TenantReport = ({
     ],
   ];
   expReport.map((expReport) => {
-    // var doorNo = expReport.shopDoorNo.map((e) => e.value).join(', '); // Join door numbers into a single string
+    var doorNo = expReport.tenantDoorNo.map((e) => e.value).join(", "); // Join door numbers into a single string
     var ED = expReport.tenantLeaseEndDate.split(/\D/g);
     var tenantLeaseEndDate = [ED[2], ED[1], ED[0]].join("-");
     return csvTenantReportData.push([
       expReport.tenantName,
       expReport.BuildingName,
+      doorNo,
       expReport.tenantFileNo,
 
       expReport.Location,
@@ -586,6 +587,7 @@ const TenantReport = ({
                           <tr>
                             <th style={showPrint}>Name</th>
                             <th style={showPrint}>Building Name</th>
+                            <th style={showPrint}>Door No's</th>
                             <th style={showPrint}>File No</th>
                             <th style={showPrint}>Location</th>
                             <th style={showPrint}>Stamp Duty</th>
@@ -610,6 +612,19 @@ const TenantReport = ({
                                 <tr key={idx}>
                                   <td>{Val.tenantName}</td>
                                   <td>{Val.BuildingName}</td>
+                                  <td>
+                                    {Val.tenantDoorNo.map((ele) => {
+                                      <p key={idx}></p>;
+                                      if (
+                                        ele.status === "Avaiable" ||
+                                        ele.status === "Acquired"
+                                      ) {
+                                        return <>{ele.label + ","}</>;
+                                      } else {
+                                        return <>{""}</>;
+                                      }
+                                    })}
+                                  </td>
                                   {/* <td>
                                 {Val.tenantDoorNo.map((ele) => {
                                   return ele.label;
