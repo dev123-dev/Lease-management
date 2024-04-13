@@ -676,6 +676,7 @@ export const UpdateTenantsDetails = (finalData) => async (dispatch) => {
       config
     );
     dispatch(ParticularTenantFilter());
+    dispatch(TenantCount());
     // dispatch(ParticularTenant({ OrganizationId: finalData.OrganizationId }));
     // dispatch(getAllTenants());
   } catch (err) {

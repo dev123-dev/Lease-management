@@ -1114,8 +1114,8 @@ router.post("/deactive-tenant", auth, async (req, res) => {
       let tenantHistories = new TenentHistories(HistrData);
       await tenantHistories.save();
 
-      data.Dno.map((ele) => {
-        TenantDetails.updateOne(
+      data.Dno.map(async (ele) => {
+        await TenantDetails.updateOne(
           {
             _id: data.tid,
           },
@@ -1124,10 +1124,11 @@ router.post("/deactive-tenant", auth, async (req, res) => {
               shopDoorNo: { label: ele.label },
             },
           }
-        ).then((data) => {});
+        );
       });
-      data.Dno.map((ele) => {
-        property
+
+      data.Dno.map(async (ele) => {
+        await property
           .updateOne(
             {
               _id: data.BiuldingID,
@@ -1143,7 +1144,7 @@ router.post("/deactive-tenant", auth, async (req, res) => {
               },
             }
           )
-          .then(data);
+          .then((data) => console.log("see", data));
       });
     } else {
       const tentHis = await TenantDetails.findById({ _id: data.tid });
@@ -1172,7 +1173,7 @@ router.post("/deactive-tenant", auth, async (req, res) => {
       let tenantHistories = new TenentHistories(HistrData1);
       await tenantHistories.save();
 
-      TenantDetails.updateOne(
+      await TenantDetails.updateOne(
         {
           _id: data.tid,
         },
@@ -1182,8 +1183,9 @@ router.post("/deactive-tenant", auth, async (req, res) => {
             deactive_reason: data.deactive_reason,
           },
         }
-      ).then(data);
+      );
     }
+
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(err.message);

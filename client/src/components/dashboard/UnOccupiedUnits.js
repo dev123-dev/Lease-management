@@ -77,7 +77,7 @@ const UnOccupiedUnits = ({
   const mappedStatus = ShopStatus.map((item) => ({
     doorNo: item.ele1.doorNo,
     status: item.ele1.status,
-    BuildingName: item.ele1.buildingName,
+    BuildingName: item.BuildingName,
   }));
 
   const fun = () => {
@@ -153,6 +153,23 @@ const UnOccupiedUnits = ({
     },
   });
 
+  /////////////////////
+  const getAvailableDoors = (allDoors) => {
+    try {
+      const finalDoors = allDoors.filter((e) => e.status !== "Acquired");
+
+      return finalDoors.map((uiData, idx) => {
+        if (idx == finalDoors.length - 1) {
+          return <span>{uiData.doorNo}&nbsp;</span>;
+        } else {
+          return <span>{uiData.doorNo},&nbsp;</span>;
+        }
+      });
+    } catch (err) {
+      console.log(err);
+      return "ERROR";
+    }
+  };
   return (
     <>
       <div className="col mt-sm-4 space ">
@@ -167,17 +184,26 @@ const UnOccupiedUnits = ({
             <div className="col-lg-8 mt-3 iconspace ">
               <Link to="/MainAdmin">
                 <button style={{ border: "none" }}>
-                  <img src={Back} alt="Back" title="Back" className="iconSize"/>
+                  <img
+                    src={Back}
+                    alt="Back"
+                    title="Back"
+                    className="iconSize"
+                  />
                 </button>
               </Link>
-            
-                <CSVLink
-                  data={csvUnOccupiedData}
-                  filename={"Unoccupied-Units.csv"}
-                >
-                  <img src={Excel} alt="Excel-Export" title="Excel-Export" className="iconSize" />
-                </CSVLink>
-             
+
+              <CSVLink
+                data={csvUnOccupiedData}
+                filename={"Unoccupied-Units.csv"}
+              >
+                <img
+                  src={Excel}
+                  alt="Excel-Export"
+                  title="Excel-Export"
+                  className="iconSize"
+                />
+              </CSVLink>
 
               <button
                 style={{ border: "none" }}
@@ -191,7 +217,12 @@ const UnOccupiedUnits = ({
                   OnPrint();
                 }}
               >
-                <img src={Print} alt="Print" title="Print" className="iconSize" />
+                <img
+                  src={Print}
+                  alt="Print"
+                  title="Print"
+                  className="iconSize"
+                />
               </button>
             </div>
           </div>
@@ -214,7 +245,17 @@ const UnOccupiedUnits = ({
                         </tr>
                       </thead>
                       <tbody className="text-center">
-                        {mappedStatus &&
+                        {particular_org_data &&
+                          particular_org_data.map((e, idx) => {
+                            return (
+                              <tr key={idx}>
+                                <td>{e.BuildingName}</td>
+                                <td>{getAvailableDoors(e.shopDoorNo)}</td>
+                                <td>Available</td>
+                              </tr>
+                            );
+                          })}
+                        {/* {mappedStatus &&
                           mappedStatus
                             .reduce((acc, currentValue) => {
                               const existingBuilding = acc.find(
@@ -240,7 +281,7 @@ const UnOccupiedUnits = ({
                                 <td>{Val.doorNo}</td>
                                 <td>Available</td>
                               </tr>
-                            ))}
+                            ))} */}
                       </tbody>
                     </table>
                   </div>
@@ -261,8 +302,10 @@ const UnOccupiedUnits = ({
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <p className="text-end h6 font-weight-bold"
-                      style={{ color: "#095a4a" }}>
+                  <p
+                    className="text-end h6 font-weight-bold"
+                    style={{ color: "#095a4a" }}
+                  >
                     No. of Units : {mappedStatus.length}
                   </p>
                 </div>

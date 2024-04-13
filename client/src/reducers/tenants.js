@@ -62,7 +62,7 @@ const initialState = {
   allsuperuser: [""],
   exp_org_detail: [""],
   updatedorg: [""],
-  particular_org_data: [""],
+  particular_org_data: [],
   particular_org_loc: [""],
   particular_user: [""],
   get_admin: [""],

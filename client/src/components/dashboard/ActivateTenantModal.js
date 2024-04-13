@@ -393,7 +393,7 @@ const ActivateTenantModal = ({
       const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
       isValidAdhar.test(inputValue)
         ? setValidationAdharMessage("")
-        : setValidationAdharMessage("Please enter valid Aadhar Number");
+        : setValidationAdharMessage("Please enter valid Aadhaar Number");
 
       setTenantAdharNo(inputValue);
     }

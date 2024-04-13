@@ -54,7 +54,7 @@ const ContactReport = ({
       "Firm Name",
       "Phone No",
       "Pan No",
-      "Aadhar No.",
+      "Aadhaar No.",
       // "Tenant Status",
       "Agreement Status",
     ],

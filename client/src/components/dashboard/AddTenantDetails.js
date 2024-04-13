@@ -623,7 +623,7 @@ const AddTenantDetails = ({
   // validation for adhar number
   const [tenantAdharNo, setTenantAdharNo] = useState("");
   const [validationAdharMessage, setValidationAdharMessage] = useState(
-    "Please enter valid Aadhar Number"
+    "Please enter valid Aadhaar Number"
   );
 
   const handleAdharChange = (e) => {
@@ -633,7 +633,7 @@ const AddTenantDetails = ({
       const isValidAdhar = /^(?!(\d)\1{11})\d{12}$/;
       isValidAdhar.test(inputValue)
         ? setValidationAdharMessage("")
-        : setValidationAdharMessage("Please enter valid Aadhar Number");
+        : setValidationAdharMessage("Please enter valid Aadhaar Number");
 
       setTenantAdharNo(inputValue);
     }
@@ -985,7 +985,7 @@ const AddTenantDetails = ({
                 <input
                   type="number"
                   name="tenantAdharNo"
-                  placeholder="Aadhar No"
+                  placeholder="Aadhaar No"
                   value={tenantAdharNo}
                   // pattern="\d{12}"
 
