@@ -199,7 +199,7 @@ const TenantFilters = ({
   // Enclose the month value in double quotes
 
   const [currentMonth123, setCurrentMonth123] = useState(formattedMonth);
-
+  const startDate = new Date(2020, 0, 1);
   return !isAuthenticated || !user || !users ? (
     <Fragment></Fragment>
   ) : (
@@ -327,136 +327,134 @@ const TenantFilters = ({
         <>
           {/* TENANT FILTER */}
           {/* {logUser.usergroup === "Admin" ? ( */}
-            <Fragment>
-              <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 ">
-                {/* <div className="row pb-2 ml-2   "> */}
-                <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter    ">
-                  <div>
-                    <Link
-                      to="/tenant-report"
-                      onClick={() => oldExpCountFetch()}
+          <Fragment>
+            <div className="container_align top_menu col-sm-12 responsiveDiv ml-3 ">
+              {/* <div className="row pb-2 ml-2   "> */}
+              <div className="col-lg-12 col-md-1 col-sm-1 col-1  text-center tenantfilter    ">
+                <div>
+                  <Link to="/tenant-report" onClick={() => oldExpCountFetch()}>
+                    <div
+                      className={`btn_before_filter text-center ${
+                        isActive && blnSearchOld ? "active" : ""
+                      }`}
                     >
-                      <div
-                        className={`btn_before_filter text-center ${
-                          isActive && blnSearchOld ? "active" : ""
-                        }`}
-                      >
-                        {yearExpCnt && yearExpCnt.length > 0
-                          ? yearExpCnt.length
-                          : 0}
-                      </div>
-                    </Link>
-
-                    <div className="yearpicker  ">
-                      <DatePicker
-                        className="form-control text-center  "
-                        placeholder="yyyy"
-                        onChange={(date) => monthYearChange(date)}
-                        dateFormat="yyyy"
-                        selected={startMonthDate}
-                        style={{ textAlign: "center" }}
-                        showYearPicker
-                      />
+                      {yearExpCnt && yearExpCnt.length > 0
+                        ? yearExpCnt.length
+                        : 0}
                     </div>
-                  </div>
+                  </Link>
 
-                  {optName &&
-                    optName.map((optFiltr, idx) => {
-                      let countVal = 0;
-                      monthExpCnt.map((monthExpCntVal) => {
-                        if (
-                          Number(monthExpCntVal._id.month) ===
-                          Number(optFiltr.value)
-                        ) {
-                          countVal = monthExpCntVal.count;
-                        }
-                        return <></>;
-                      });
-                      return (
+                  <div className="yearpicker  ">
+                    <DatePicker
+                      className="form-control text-center  "
+                      placeholder="yyyy"
+                      onChange={(date) => monthYearChange(date)}
+                      dateFormat="yyyy"
+                      selected={startMonthDate}
+                      style={{ textAlign: "center" }}
+                      showYearPicker
+                      minDate={startDate}
+                    />
+                  </div>
+                </div>
+
+                {optName &&
+                  optName.map((optFiltr, idx) => {
+                    let countVal = 0;
+                    monthExpCnt.map((monthExpCntVal) => {
+                      if (
+                        Number(monthExpCntVal._id.month) ===
+                        Number(optFiltr.value)
+                      ) {
+                        countVal = monthExpCntVal.count;
+                      }
+                      return <></>;
+                    });
+                    return (
+                      <div
+                        className=" filter_bg "
+                        key={idx}
+                        // style={{ border: "5px soild blue" }}
+                      >
                         <div
-                          className=" filter_bg "
-                          key={idx}
-                          // style={{ border: "5px soild blue" }}
+                          className="tenantfil   d-flex flex-row"
+                          id="month"
+                          style={{
+                            fontWeight: "bold",
+                            color: "#fff",
+                            padding: "0px 0px 0px 5px",
+                          }}
                         >
-                          <div
-                            className="tenantfil   d-flex flex-row"
-                            id="month"
-                            style={{
-                              fontWeight: "bold",
-                              color: "#fff",
-                              padding: "0px 0px 0px 5px",
-                            }}
-                          >
-                            {" "}
-                            <div className=" monthdiv">
-                              <Link
-                                to="/tenant-report"
-                                name="alphaSearch"
-                                onClick={() => onSelectChange(optFiltr.value)}
-                                style={
-                                  (SelectedYear === currentyear &&
-                                    currentMonth123 &&
-                                    Number(currentMonth123) ===
-                                      Number(optFiltr.value) &&
-                                    blnSearchOld) ||
-                                  (Number(monthSearch) ===
+                          {" "}
+                          <div className=" monthdiv">
+                            <Link
+                              to="/tenant-report"
+                              name="alphaSearch"
+                              onClick={() => onSelectChange(optFiltr.value)}
+                              style={
+                                (SelectedYear === currentyear &&
+                                  currentMonth123 &&
+                                  Number(currentMonth123) ===
                                     Number(optFiltr.value) &&
-                                    blnSearchCurr)
-                                    ? {
-                                        fontWeight: "bold",
-                                        color: "#e8a317",
-                                        fontSize: "115%",
-                                      }
-                                    : {
-                                        fontWeight: "",
-                                        fontSize: "115%",
-                                      }
-                                }
-                              >
-                                {optFiltr.label}
-                              </Link>
-                            </div>
-                            {/* &nbsp; */}
-                            <div>
-                              <label
-                                className="btn-roun  "
-                                style={
-                                  (SelectedYear === currentyear &&
-                                    currentMonth123 &&
-                                    Number(currentMonth123) ===
-                                      Number(optFiltr.value) &&
-                                    blnSearchOld) ||
-                                  (Number(monthSearch) ===
+                                  blnSearchOld) ||
+                                (Number(monthSearch) ===
+                                  Number(optFiltr.value) &&
+                                  blnSearchCurr)
+                                  ? {
+                                      fontWeight: "bold",
+                                      color: "#e8a317",
+                                      fontSize: "115%",
+                                    }
+                                  : {
+                                      fontWeight: "",
+                                      fontSize: "115%",
+                                    }
+                              }
+                            >
+                              {optFiltr.label}
+                            </Link>
+                          </div>
+                          {/* &nbsp; */}
+                          <div>
+                            <label
+                              className="btn-roun  "
+                              style={
+                                (SelectedYear === currentyear &&
+                                  currentMonth123 &&
+                                  Number(currentMonth123) ===
                                     Number(optFiltr.value) &&
-                                    blnSearchCurr)
-                                    ? {
-                                        padding: "2px",
-                                        fontSize: "80%",
-                                        color: "#fff",
-                                        background: "#e8a317",
-                                      }
-                                    : {
-                                        padding: "2px",
-                                        fontSize: "80%",
-                                        color: "#095A4A",
-                                        background: "#fff",
-                                      }
-                                }
-                              >
-                                {countVal}
-                              </label>
-                            </div>
+                                  blnSearchOld) ||
+                                (Number(monthSearch) ===
+                                  Number(optFiltr.value) &&
+                                  blnSearchCurr)
+                                  ? {
+                                      padding: "2px",
+                                      fontSize: "80%",
+                                      color: "#fff",
+                                      background: "#e8a317",
+                                    }
+                                  : {
+                                      padding: "2px",
+                                      fontSize: "80%",
+                                      color: "#095A4A",
+                                      background: "#fff",
+                                    }
+                              }
+                            >
+                              {countVal}
+                            </label>
                           </div>
                         </div>
-                      );
-                    })}
-                </div>
-                {/* </div> */}
+                      </div>
+                    );
+                  })}
               </div>
-            </Fragment>
-           {/* ) : (  */}
-            {/* <></> */}
-            {/* )}  */}
+              {/* </div> */}
+            </div>
+          </Fragment>
+          {/* ) : (  */}
+          {/* <></> */}
+          {/* )}  */}
         </>
       )}
       <MainAdminPage year={startMonthDate} />

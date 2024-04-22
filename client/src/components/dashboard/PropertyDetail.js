@@ -594,7 +594,20 @@ const PropertyDetail = ({
                                             title="Edit Property"
                                           />
                                           &nbsp;
-                                          {Val.shopDoorNo.some(
+                                          <img
+                                            className="iconSize"
+                                            onClick={() =>
+                                              onDelete(
+                                                Val._id,
+                                                Val.shopDoorNo,
+                                                Val
+                                              )
+                                            }
+                                            src={Deactivate}
+                                            alt="Deactivate"
+                                            title="Deactivate"
+                                          />
+                                          {/* {Val.shopDoorNo.some(
                                             (shop) => shop.status === "Avaiable"
                                           ) && (
                                             <img
@@ -610,7 +623,7 @@ const PropertyDetail = ({
                                               alt="Deactivate"
                                               title="Deactivate"
                                             />
-                                          )}
+                                          )} */}
                                         </>
                                       ) : (
                                         // <td></td>
