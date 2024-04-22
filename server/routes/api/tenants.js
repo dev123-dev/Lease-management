@@ -1681,19 +1681,33 @@ router.post("/get-tenant-year-report", async (req, res) => {
   const { yearSearch, OrganizationId } = req.body;
   var currentDate = new Date();
   if (yearSearch === new Date().getFullYear()) {
+    // var firstDayOfMonth = new Date(
+    //   currentDate.getFullYear(),
+    //   currentDate.getMonth(),
+    //   1
+    // );
+    // var lastDayOfMonth = new Date(
+    //   currentDate.getFullYear(),
+    //   currentDate.getMonth() + 1,
+    //   1
+    // );
+
+    // var firstDayOfMonth = new Date(
+    //   Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), 1)
+    // );
+    // var lastDayOfMonth = new Date(
+    //   Date.UTC(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    // );
+
     var firstDayOfMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth(),
-      1
+      Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), 0)
     );
     var lastDayOfMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1,
-      1
-    ); // Corrected
+      Date.UTC(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+    );
 
     var firstDayISOString = firstDayOfMonth.toISOString().split("T")[0];
-    var lastDayISOString = lastDayOfMonth.toISOString().split("T")[0];
+    var lastDayISOString = lastDayOfMonth.toISOString().split("T")[0]; 
 
     try {
       const tenantSettingsData = await OrganizationDetails.find({
