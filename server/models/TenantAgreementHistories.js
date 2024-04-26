@@ -30,6 +30,9 @@ const TenantAgreementHistory = new mongoose.Schema({
   tenantPhone: {
     type: Number,
   },
+   tenantLandLine:{
+   type: String,
+  },
   tenantFirmName: {
     type: String,
   },
