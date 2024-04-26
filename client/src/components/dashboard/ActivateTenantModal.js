@@ -63,7 +63,7 @@ const ActivateTenantModal = ({
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
   const allBuildingNames = [];
-  AvaiableRoomBuilding.map((buildingData) =>
+ AvaiableRoomBuilding.filter((ele)=>ele.shopStatus=="Active").map((buildingData)=>
     allBuildingNames.push({
       buildingId: buildingData._id,
       label: buildingData.BuildingName,
@@ -365,6 +365,15 @@ const ActivateTenantModal = ({
 
       setTenantPhone(cleanedValue);
     }
+  };
+
+
+   const [tenantLandLine, settenantLandLine] = useState(ActivateTenant.tenantLandLine);
+    const handleInputLandLineChange = (e) => {
+    const inputValue = e.target.value;
+      const cleanedValue = inputValue.replace(/[^\d-]/g, "");  
+      settenantLandLine(cleanedValue);
+ 
   };
 
   const [tenantRentAmount, setRentAmount] = useState();
@@ -669,6 +678,7 @@ const ActivateTenantModal = ({
         tenantRentAmount: tenantRentAmount,
         tenantName: tenantName,
         tenantPhone: tenantPhone,
+         tenantLandLine:tenantLandLine,
         tenantFirmName: tenantFirmName,
         tenantAddr: tenantAddr,
         tenantAdharNo: tenantAdharNo,
@@ -881,6 +891,19 @@ const ActivateTenantModal = ({
               />
               <h6 style={{ color: "red" }}>{validationPhoneMessage}</h6>
             </div>
+             <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Landline No :</label>
+                <input
+                  type="text"
+                  name="tenantlandline"
+                  placeholder="Landline"
+                  value={tenantLandLine}
+               
+                  className="form-control"
+                  onChange={(e) => handleInputLandLineChange(e)}
+          
+                />{" "}
+                </div>
             <div className="col-lg-3 col-md-12 col-sm-12 col-12">
               <label>Firm Name: </label>
               <input

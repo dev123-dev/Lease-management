@@ -587,6 +587,7 @@ const AddTenantDetails = ({
   };
 
   const [tenantPhone, setTenantPhone] = useState("");
+    const [tenantLandLine, settenantLandLine] = useState("");
   const [validationPhoneMessage, setValidationPhoneMessage] = useState("");
 
   const handleInputPhoneChange = (e) => {
@@ -602,6 +603,15 @@ const AddTenantDetails = ({
       setTenantPhone(cleanedValue);
     }
   };
+
+    const handleInputLandLineChange = (e) => {
+    const inputValue = e.target.value;
+ const cleanedValue = inputValue.replace(/[^\d-]/g, "");  
+      settenantLandLine(cleanedValue);
+ 
+  };
+
+
 
   // validation for rent amt
   const [tenantRentAmount, setRentAmount] = useState("");
@@ -754,6 +764,7 @@ const AddTenantDetails = ({
         tenantDoorNo: selectedDoorNumber,
         tenantName: tenantName,
         tenantPhone: tenantPhone,
+        tenantLandLine:tenantLandLine,
         tenantFirmName: tenantFirmName,
         tenantAddr: tenantAddr,
         tenantAdharNo: tenantAdharNo,
@@ -967,6 +978,20 @@ const AddTenantDetails = ({
                   onKeyDown={(e) => funcKeyDown(e)}
                 />{" "}
                 <h6 style={{ color: "red" }}>{validationPhoneMessage}</h6>
+              </div>
+               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+                <label>Landline No :</label>
+                <input
+                  type="text"
+                  name="tenantlandline"
+                  placeholder="Landline"
+                  value={tenantLandLine}
+                  // pattern="\d{10}"
+                  // title=" 10 Digits only"
+                  className="form-control"
+                  onChange={(e) => handleInputLandLineChange(e)}
+                  // onKeyDown={(e) => funcKeyDown(e)}
+                />{" "}
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Firm Name:</label>
