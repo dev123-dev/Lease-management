@@ -63,12 +63,13 @@ const ActivateTenantModal = ({
       !item.shopDoorNo.every((nameItem) => nameItem.status !== "Avaiable")
   );
   const allBuildingNames = [];
- AvaiableRoomBuilding.filter((ele)=>ele.shopStatus=="Active").map((buildingData)=>
-    allBuildingNames.push({
-      buildingId: buildingData._id,
-      label: buildingData.BuildingName,
-      value: buildingData._id,
-    })
+  AvaiableRoomBuilding.filter((ele) => ele.shopStatus == "Active").map(
+    (buildingData) =>
+      allBuildingNames.push({
+        buildingId: buildingData._id,
+        label: buildingData.BuildingName,
+        value: buildingData._id,
+      })
   );
   // for type of card
 
@@ -367,13 +368,13 @@ const ActivateTenantModal = ({
     }
   };
 
-
-   const [tenantLandLine, settenantLandLine] = useState(ActivateTenant.tenantLandLine);
-    const handleInputLandLineChange = (e) => {
+  const [tenantLandLine, settenantLandLine] = useState(
+    ActivateTenant.tenantLandLine
+  );
+  const handleInputLandLineChange = (e) => {
     const inputValue = e.target.value;
-      const cleanedValue = inputValue.replace(/[^\d-]/g, "");  
-      settenantLandLine(cleanedValue);
- 
+    const cleanedValue = inputValue.replace(/[^\d-]/g, "");
+    settenantLandLine(cleanedValue);
   };
 
   const [tenantRentAmount, setRentAmount] = useState();
@@ -678,7 +679,7 @@ const ActivateTenantModal = ({
         tenantRentAmount: tenantRentAmount,
         tenantName: tenantName,
         tenantPhone: tenantPhone,
-         tenantLandLine:tenantLandLine,
+        tenantLandLine: tenantLandLine,
         tenantFirmName: tenantFirmName,
         tenantAddr: tenantAddr,
         tenantAdharNo: tenantAdharNo,
@@ -697,12 +698,12 @@ const ActivateTenantModal = ({
           entryDate.split(delimiter)[0],
 
         // tenantLeaseEndDate: leaseEndDate,
-        tenantLeaseEndDate: endDateFin.split(delimiter)[2] +
+        tenantLeaseEndDate:
+          endDateFin.split(delimiter)[2] +
           delimiter +
           endDateFin.split(delimiter)[1] +
           delimiter +
           endDateFin.split(delimiter)[0],
-        
 
         generatordepoAmt: generatordepoAmt,
         tenantEnteredBy: user && user._id,
@@ -777,8 +778,6 @@ const ActivateTenantModal = ({
     setTenantChequenoOrDdno("");
   }, [paymentMode]);
 
-
-  
   // new Date Code Rakki
 
   function calculateMonthsFromDate(date, monthsToAdd) {
@@ -891,19 +890,17 @@ const ActivateTenantModal = ({
               />
               <h6 style={{ color: "red" }}>{validationPhoneMessage}</h6>
             </div>
-             <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-                <label>Landline No :</label>
-                <input
-                  type="text"
-                  name="tenantlandline"
-                  placeholder="Landline"
-                  value={tenantLandLine}
-               
-                  className="form-control"
-                  onChange={(e) => handleInputLandLineChange(e)}
-          
-                />{" "}
-                </div>
+            <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              <label>Landline No :</label>
+              <input
+                type="text"
+                name="tenantlandline"
+                placeholder="Landline"
+                value={tenantLandLine}
+                className="form-control"
+                onChange={(e) => handleInputLandLineChange(e)}
+              />{" "}
+            </div>
             <div className="col-lg-3 col-md-12 col-sm-12 col-12">
               <label>Firm Name: </label>
               <input
@@ -955,9 +952,9 @@ const ActivateTenantModal = ({
                 value={tenantPanNo}
                 className="form-control"
                 onChange={(e) => handlePanChange(e)}
-                onKeyDown={(e) =>
-                  (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
-                }
+                // onKeyDown={(e) =>
+                //   (e.keyCode === 69 || e.keyCode === 190) && e.preventDefault()
+                // }
               />{" "}
               <div
                 className="cstm-hint"
@@ -1248,13 +1245,12 @@ const ActivateTenantModal = ({
               <p className={`output ${className}`}>{content}</p>
             </div>
             <div className="col-lg-3 col-md-12 col-sm-12 col-12 ">
-              <label>Lease End Date (DD-MM-YYYY)*  : </label>
+              <label>Lease End Date (DD-MM-YYYY)* : </label>
               {/* endDate */}
               <input
                 placeholder="DD-MM-YYYY"
                 className="form-control cpp-input datevalidation"
                 value={endDateFin}
-
                 readOnly
               ></input>
               <br></br>
@@ -1386,7 +1382,7 @@ const ActivateTenantModal = ({
             </div>
             <div className="col-lg-3 col-md-3 col-md-3 ">
               <div className="row col-lg-12 col-md-12 col-sm-12">
-                <div className="col-lg-6 col-md-12 col-sm-12 " >
+                <div className="col-lg-6 col-md-12 col-sm-12 ">
                   <button
                     onClick={() => {
                       ModalClose();
@@ -1399,8 +1395,8 @@ const ActivateTenantModal = ({
                     Back
                   </button>
                 </div>
-              
-                <div className="col-lg-6 col-md-12 col-sm-12 " >
+
+                <div className="col-lg-6 col-md-12 col-sm-12 ">
                   {isNextButtonDisabled ? (
                     <button
                       variant="success"

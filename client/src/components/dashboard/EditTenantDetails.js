@@ -57,7 +57,7 @@ const EditTenantDetails = ({
       label: buildingData.BuildingName,
       value: buildingData._id,
     })
-  ); 
+  );
 
   let passwrdTooltip = {
     marginLeft: "-16em",
@@ -356,14 +356,14 @@ const EditTenantDetails = ({
       setTenantPhone(cleanedValue);
     }
   };
-  const [tenantLandLine, settenantLandLine] = useState(particular_tenant_EditData.tenantLandLine);
-    const handleInputLandLineChange = (e) => {
+  const [tenantLandLine, settenantLandLine] = useState(
+    particular_tenant_EditData.tenantLandLine
+  );
+  const handleInputLandLineChange = (e) => {
     const inputValue = e.target.value;
-   const cleanedValue = inputValue.replace(/[^\d-]/g, ""); 
-      settenantLandLine(cleanedValue);
- 
+    const cleanedValue = inputValue.replace(/[^\d-]/g, "");
+    settenantLandLine(cleanedValue);
   };
-
 
   const [tenantRentAmount, setRentAmount] = useState(
     particular_tenant_EditData.tenantRentAmount
@@ -716,7 +716,7 @@ const EditTenantDetails = ({
       tenantRentAmount: tenantRentAmount,
       tenantName: tenantName,
       tenantPhone: tenantPhone,
-       tenantLandLine:tenantLandLine,
+      tenantLandLine: tenantLandLine,
       tenantFirmName: tenantFirmName,
       tenantAddr: tenantAddr,
       tenantAdharNo: tenantAdharNo,
@@ -903,17 +903,15 @@ const EditTenantDetails = ({
                 />
                 <h6 style={{ color: "red" }}>{validationPhoneMessage}</h6>
               </div>
-               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
+              <div className="col-lg-3 col-md-12 col-sm-12 col-12">
                 <label>Landline No :</label>
                 <input
                   type="text"
                   name="tenantlandline"
                   placeholder="Landline"
                   value={tenantLandLine}
-               
                   className="form-control"
                   onChange={(e) => handleInputLandLineChange(e)}
-          
                 />{" "}
               </div>
               <div className="col-lg-3 col-md-12 col-sm-12 col-12">
@@ -968,10 +966,10 @@ const EditTenantDetails = ({
                   value={tenantPanNo}
                   className="form-control"
                   onChange={(e) => handlePanChange(e)}
-                  onKeyDown={(e) =>
-                    (e.keyCode === 69 || e.keyCode === 190) &&
-                    e.preventDefault()
-                  }
+                  // onKeyDown={(e) =>
+                  //   (e.keyCode === 69 || e.keyCode === 190) &&
+                  //   e.preventDefault()
+                  // }
                 />{" "}
                 <div
                   className="cstm-hint"
